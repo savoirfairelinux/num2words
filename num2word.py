@@ -1,7 +1,7 @@
 '''
 Module: num2word.py
 Requires: num2word_*.py
-Version: 0.1
+Version: 0.2
 
 Author:
    Taro Ogawa (tso@users.sourceforge.org)
@@ -23,6 +23,9 @@ Notes:
     The module is a wrapper for language-specific modules.  It imports the
     appropriate modules as defined by locale settings.  If unable to
     load an appropriate module, an ImportError is raised.
+
+History:
+    0.2: n2w, to_card, to_ord, to_ordnum now imported correctly
 '''
 import locale as _locale
 
@@ -43,13 +46,15 @@ for _loc in [_locale.getlocale(), _locale.getdefaultlocale()]:
 
 for _module in _modules:
     try:
-        n2w = __import__(_module)
+        n2wmod = __import__(_module)
         break
     except ImportError:
         pass
 
 try:
-    to_card, to_ord, to_ordnum = n2w.to_card, n2w.to_ord, n2w.to_ordnum
+    n2w, to_card, to_ord, to_ordnum, to_year = (n2wmod.n2w, n2wmod.to_card,
+                                                n2wmod.to_ord, n2wmod.to_ordnum,
+                                                n2wmod.to_year)
 except NameError:
     raise ImportError("Could not import any of these modules: %s"
                           % (", ".join(_modules)))

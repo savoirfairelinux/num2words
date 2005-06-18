@@ -1,10 +1,10 @@
 '''
 Module: num2word_ES.py
 Requires: num2word_EU.py
-Version: 0.2
+Version: 0.3
 
 Author:
-   Taro Ogawa (BLAHhydroxideBLAH@inorbit.removeBLAHtwice.com)
+   Taro Ogawa (tso@users.sourceforge.org)
    
 Copyright:
     Copyright (c) 2003, Taro Ogawa.  All Rights Reserved.
@@ -19,8 +19,13 @@ Data from:
 Usage:
     from num2word_ES import to_card, to_ord, to_ordnum
     to_card(1234567890)
-#    to_ord(1234567890)
-#    to_ordnum(12)
+    to_ord(1234567890)
+    to_ordnum(12)
+
+History:
+    0.3: Use high ascii characters instead of low ascii approximations
+         String interpolation where it makes things clearer
+         add to_currency()
 '''
 from num2word_EU import Num2Word_EU
 
@@ -34,7 +39,7 @@ class Num2Word_ES(Num2Word_EU):
         max = 3 + 6*len(high)
 
         for word, n in zip(high, range(max, 3, -6)):
-            self.cards[10**(n-3)] = word + "illo'n"
+            self.cards[10**(n-3)] = word + "ill\xf2n"
 
 
     def setup(self):
@@ -50,8 +55,8 @@ class Num2Word_ES(Num2Word_EU):
                              (80, "ochenta"), (70, "setenta"), (60, "sesenta"),
                              (50,"cincuenta"), (40,"cuarenta")]
         self.low_numwords = ["vientinueve", "vientiocho", "vientisiete",
-                             "vientise'is", "vienticinco", "vienticuatro",
-                             "vientitre's", "vientido's", "vientiuno",
+                             "vientis\xE8is", "vienticinco", "vienticuatro",
+                             "vientitr\xE8s", "vientid\xF2s", "vientiuno",
                              "viente", "diecinueve", "dieciocho", "diecisiete",
                              "dieciseis", "quince", "catorce", "trece", "doce",
                              "once", "diez", "nueve", "ocho", "siete", "seis",
@@ -62,10 +67,10 @@ class Num2Word_ES(Num2Word_EU):
                       4  : "cuart",
                       5  : "quint",
                       6  : "sext",
-                      7  : "se'ptim",
+                      7  : "s\xE8ptim",
                       8  : "octav",
                       9  : "noven",
-                      10 : "de'cim" }
+                      10 : "d\xE8cim" }
 
 
     def merge(self, curr, next):
@@ -80,8 +85,8 @@ class Num2Word_ES(Num2Word_EU):
 
         if nnum < cnum:
             if cnum < 100:
-                return (ctext + " y " + ntext, cnum + nnum)
-            return (ctext + " " + ntext, cnum + nnum)
+                return ("%s y %s"%(ctext, ntext), cnum + nnum)
+            return ("%s %s"%(ctext, ntext), cnum + nnum)
         elif (not nnum % 1000000) and cnum > 1:
             ntext = ntext[:-3] + "ones"
 
@@ -110,8 +115,16 @@ class Num2Word_ES(Num2Word_EU):
     def to_ordinal_num(self, value):
         self.verify_ordinal(value)
         # Correct for fem?
-        return str(value) + "^o"
-    
+        return "%s\xB0"%value
+
+
+    def to_currency(self, val, longval=True, old=False):
+        if old:
+            return self.to_splitnum(val, hightxt="peso/s", lowtxt="peseta/s",
+                                    divisor=1000, jointxt="y", longval=longval)
+        return super(Num2Word_ES, self).to_currency(val, jointxt="y",
+                                                    longval=longval)
+
 
 n2w = Num2Word_ES()
 to_card = n2w.to_cardinal
@@ -126,7 +139,9 @@ def main():
         n2w.test(val)
 
     n2w.test(1325325436067876801768700107601001012212132143210473207540327057320957032975032975093275093275093270957329057320975093272950730)
-
+    print n2w.to_currency(1222)
+    print n2w.to_currency(1222, old=True)
+    print n2w.to_year(1222)
 
 if __name__ == "__main__":
     main()

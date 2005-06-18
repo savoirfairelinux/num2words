@@ -1,6 +1,6 @@
 '''
-Module: num2word_EN_old.py
-Requires: num2word_EN.py
+Module: num2word_EN_GB_old.py
+Requires: num2word_EN_GB_old.py
 Version: 0.3
 
 Author:
@@ -18,17 +18,23 @@ Usage:
     to_card(1234567890)
     to_ord(1234567890)
     to_ordnum(12)
-'''
-import num2word_EN
 
-class Num2Word_EN_old(num2word_EN.Num2Word_EN):
+History:
+        0.3: Rename from num2word_EN_old
+
+Todo:
+    Currency (pounds/shillings/pence)
+'''
+from num2word_EN_GB import Num2Word_EN_GB
+
+class Num2Word_EN_GB_old(Num2Word_EN_GB):
     def base_setup(self):
-        sclass = super(num2word_EN.Num2Word_EN, self)
+        sclass = super(Num2Word_EN_GB, self)
         self.set_high_numwords = sclass.set_high_numwords
         sclass.base_setup()
-        
 
-n2w = Num2Word_EN_old()
+
+n2w = Num2Word_EN_GB_old()
 to_card = n2w.to_cardinal
 to_ord = n2w.to_ordinal
 to_ordnum = n2w.to_ordinal_num
@@ -41,6 +47,9 @@ def main():
         n2w.test(val)
 
     n2w.test(1325325436067876801768700107601001012212132143210473207540327057320957032975032975093275093275093270957329057320975093272950730)
+    for val in [1,120,1000,1120,1800, 1976,2000,2010,2099,2171]:
+        print val, "is", n2w.to_currency(val)
+        print val, "is", n2w.to_year(val)
 
 if __name__ == "__main__":
     main()

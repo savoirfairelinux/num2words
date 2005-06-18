@@ -1,7 +1,7 @@
 '''
 Module: num2word_FR.py
 Requires: num2word_EU.py
-Version: 0.4
+Version: 0.5
 
 Author:
    Taro Ogawa (tso@users.sourceforge.org)
@@ -14,18 +14,23 @@ Licence:
     http://www.opensource.org/licenses/lgpl-license.php
 
 Data from:
-    http://www.ouc.bc.ca/mola/fr/handouts/numbers.doc.
+    http://www.ouc.bc.ca/mola/fr/handouts/numbers.doc
     http://www.realfrench.net/units/Interunit_63.html
-    
+    http://www.sover.net/~daxtell/france/Euro/euro.htm
+
 Usage:
     from num2word_FR import to_card, to_ord, to_ordnum
     to_card(1234567890)
-#    to_ord(1234567890)
-#    to_ordnum(12)
+    to_ord(1234567890)
+    to_ordnum(12)
+
+History:
+    0.5: Use high ascii characters instead of low ascii approximations
+         String interpolation where it makes things clearer
+         to_currency() added [to_year works by default]
 '''
 from num2word_EU import Num2Word_EU
 
-#//TODO: correct orthographics
 #//TODO: error messages in French
 #//TODO: ords
 class Num2Word_FR(Num2Word_EU):
@@ -42,7 +47,7 @@ class Num2Word_FR(Num2Word_EU):
         self.low_numwords = ["vingt", "dix-neuf", "dix-huit", "dix-sept",
                              "seize", "quinze", "quatorze", "treize", "douze",
                              "onze", "dix", "neuf", "huit", "sept", "six",
-                             "cinq", "quatre", "trois", "deux", "un", "ze'ro"]
+                             "cinq", "quatre", "trois", "deux", "un", "z\xE8ro"]
 
 
     def merge(self, curr, next):
@@ -60,12 +65,15 @@ class Num2Word_FR(Num2Word_EU):
 
         if nnum < cnum < 100:
             if nnum % 10 == 1 and cnum <> 80:
-                return (ctext + " et " + ntext, cnum + nnum)
-            return (ctext + "-" + ntext, cnum + nnum)
+                return ("%s et %s"%(ctext, ntext), cnum + nnum)
+            return ("%s-%s"%(ctext, ntext), cnum + nnum)
         elif nnum > cnum:
-            return (ctext + " " + ntext, cnum * nnum)
-        return (ctext + " " + ntext, cnum + nnum)
+            return ("%s %s"%(ctext, ntext), cnum * nnum)
+        return ("%s %s"%(ctext, ntext), cnum + nnum)
 
+
+    # Is this right for such things as 1001 - "mille unième" instead of
+    # "mille premier"??  "millième"??
 
     def to_ordinal(self,value):
         self.verify_ordinal(value)
@@ -74,7 +82,7 @@ class Num2Word_FR(Num2Word_EU):
         word = self.to_cardinal(value)
         if word[-1] == "e":
             word = word[:-1]
-        return word + "ie'me"
+        return word + "i\xE8me"
 
 
     def to_ordinal_num(self, value):
@@ -83,6 +91,12 @@ class Num2Word_FR(Num2Word_EU):
         out +=  {"1" : "er" }.get(out[-1], "me")
         return out
 
+    def to_currency(self, val, longval=True, old=False):
+        hightxt = "Euro/s"
+        if old:
+            hightxt="franc/s"
+        return self.to_splitnum(val, hightxt=hightxt, lowtxt="centime/s",
+                                jointxt="et",longval=longval)
 
 n2w = Num2Word_FR()
 to_card = n2w.to_cardinal
@@ -97,6 +111,8 @@ def main():
         n2w.test(val)
 
     n2w.test(1325325436067876801768700107601001012212132143210473207540327057320957032975032975093275093275093270957329057320975093272950730)
+    print n2w.to_currency(112121)
+    print n2w.to_year(1996)
 
 
 if __name__ == "__main__":

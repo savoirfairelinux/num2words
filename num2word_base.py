@@ -3,7 +3,7 @@ Module: num2word_base.py
 Version: 1.0
 
 Author:
-   Taro Ogawa (BLAHhydroxideBLAH_removetheBLAHs@inorbit.com)
+   Taro Ogawa (tso@users.sourceforge.org)
    
 Copyright:
     Copyright (c) 2003, Taro Ogawa.  All Rights Reserved.
@@ -12,27 +12,14 @@ Licence:
     This module is distributed under the Lesser General Public Licence.
     http://www.opensource.org/licenses/lgpl-license.php
 
-Data from:
-    http://www.uni-bonn.de/~manfear/large.php
+History:
+    1.1: add to_splitnum() and inflect()
+         add to_year() and to_currency() stubs
 '''
 
 
 from __future__ import generators
-
-class OrderedMapping(dict):
-    def __init__(self, *pairs):
-        self.order = []
-        for key, val in pairs:
-            self[key] = val
-            
-    def __setitem__(self, key, val):
-        if key not in self:
-            self.order.append(key)
-        super(OrderedMapping, self).__setitem__(key, val)
-
-    def __iter__(self):
-        for item in self.order:
-            yield item
+from orderedmapping import OrderedMapping
 
 
 class Num2Word_Base(object):
@@ -153,11 +140,11 @@ class Num2Word_Base(object):
 
     def clean(self, val):
         out = val
-        while len(val) <> 1:
+        while len(val) != 1:
             out = []
-            curr, next = val[:2]
-            if isinstance(curr, tuple) and isinstance(next, tuple):
-                out.append(self.merge(curr, next))
+            left, right = val[:2]
+            if isinstance(left, tuple) and isinstance(right, tuple):
+                out.append(self.merge(left, right))
                 if val[2:]:
                     out.append(val[2:])
             else:
@@ -207,6 +194,48 @@ class Num2Word_Base(object):
 
     def to_ordinal_num(self, value):
         return value
+
+
+    # Trivial version
+    def inflect(self, value, text):
+        text = text.split("/")
+        if value == 1:
+            return text[0]
+        return "".join(text)
+
+
+    #//CHECK: generalise? Any others like pounds/shillings/pence?
+    def to_splitnum(self, val, hightxt="", lowtxt="", jointxt="",
+                    divisor=100, longval=True):
+        out = []
+        try:
+            high, low = val
+        except TypeError:
+            high, low = divmod(val, divisor)
+        if high:
+            hightxt = self.title(self.inflect(high, hightxt))
+            out.append(self.to_cardinal(high))
+            if low:
+                if longval:
+                    if hightxt:
+                        out.append(hightxt)
+                    if jointxt:
+                        out.append(self.title(jointxt))
+            elif hightxt:
+                out.append(hightxt)
+        if low:
+            out.append(self.to_cardinal(low))
+            if lowtxt and longval:
+                out.append(self.title(self.inflect(low, lowtxt)))
+        return " ".join(out)
+
+
+    def to_year(self, value, **kwargs):
+        return self.to_cardinal(value)
+
+
+    def to_currency(self, value, **kwargs):
+        return self.to_cardinal(value)
 
 
     def base_setup(self):

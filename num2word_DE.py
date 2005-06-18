@@ -4,7 +4,7 @@ Requires: num2word_base.py
 Version: 0.4
 
 Author:
-   Taro Ogawa (BLAHhydroxideBLAH_removetheBLAHs@inorbit.com)
+   Taro Ogawa (tso@users.sourceforge.org)
 
 Copyright:
     Copyright (c) 2003, Taro Ogawa.  All Rights Reserved.
@@ -22,12 +22,16 @@ Usage:
     to_card(1234567890)
     to_ord(1234567890)
     to_ordnum(12)
-'''
-from num2word_base import Num2Word_Base
 
-#//TODO: Use orthographics
+History
+    0.4: Use high ascii characters instead of low ascii approximations
+         add to_currency() and to_year()
+
+'''
+from num2word_EU import Num2Word_EU
+
 #//TODO: Use German error messages
-class Num2Word_DE(Num2Word_Base):
+class Num2Word_DE(Num2Word_EU):
     def set_high_numwords(self, high):
         max = 3 + 6*len(high)
 
@@ -51,12 +55,12 @@ class Num2Word_DE(Num2Word_Base):
         self.high_numwords = ["zent"]+self.gen_high_numwords(units, tens, lows)
         self.mid_numwords = [(1000, "tausand"), (100, "hundert"),
                              (90, "neunzig"), (80, "achtzig"), (70, "siebzig"),
-                             (60, "sechzig"), (50, "fuenfzig"), (40, "vierzig"),
-                             (30, "dreissig")]
+                             (60, "sechzig"), (50, "f\xFCnfzig"), (40, "vierzig"),
+                             (30, "drei\xDFig")]
         self.low_numwords = ["zwanzig", "neunzehn", "achtzen", "siebzehn",
-                             "sechzehn", "fuenfzehn", "vierzehn", "dreizehn",
-                             "zwoelf", "elf", "zehn", "neun", "acht", "sieben",
-                             "sechs", "fuenf", "vier", "drei", "zwei", "eins",
+                             "sechzehn", "f\xFCnfzehn", "vierzehn", "dreizehn",
+                             "zw\xF6lf", "elf", "zehn", "neun", "acht", "sieben",
+                             "sechs", "f\xFCnf", "vier", "drei", "zwei", "eins",
                              "null"]
         self.ords = { "eins"    : "ers",
                       "drei"    : "drit",
@@ -113,6 +117,20 @@ class Num2Word_DE(Num2Word_Base):
         self.verify_ordinal(value)
         return str(value) + "te"
 
+
+    def to_currency(self, val, longval=True, old=False):
+        if old:
+            return self.to_splitnum(val, hightxt="mark/s", lowtxt="pfennig/e",
+                                    jointxt="und",longval=longval)
+        return super(Num2Word_DE, self).to_currency(val, jointxt="und",
+                                                    longval=longval)
+
+    def to_year(self, val, longval=True):
+        if not (val//100)%10:
+            return self.to_cardinal(val)
+        return self.to_splitnum(val, hightxt="hundert", longval=longval)
+
+
             
 n2w = Num2Word_DE()
 to_card = n2w.to_cardinal
@@ -128,6 +146,8 @@ def main():
         n2w.test(val)
 
     n2w.test(1325325436067876801768700107601001012212132143210473207540327057320957032975032975093275093275093270957329057320975093272950730)
+    print n2w.to_currency(112121)
+    print n2w.to_year(2000)
 
 if __name__ == "__main__":
     main()
