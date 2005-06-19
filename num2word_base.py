@@ -251,10 +251,12 @@ class Num2Word_Base(object):
             _card = self.to_cardinal(value)
         except:
             _card = "invalid"
+
         try:
             _ord = self.to_ordinal(value)
         except:
             _ord = "invalid"
+
         try:
             _ordnum = self.to_ordinal_num(value)
         except:
