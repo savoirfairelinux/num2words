@@ -14,7 +14,7 @@ nulis vienas du trys keturi penki šeši septyni aštuoni devyni
 
 >>> print(fill(' '.join([n2w(i+10) for i in range(10)])))
 dešimt vienuolika dvylika trylika keturiolika penkiolika šešiolika
-septiniolika aštuoniolika devyniolika
+septyniolika aštuoniolika devyniolika
 
 >>> print(fill(' '.join([n2w(i*10) for i in range(10)])))
 nulis dešimt dvidešimt trisdešimt keturiasdešimt penkiasdešimt
@@ -89,7 +89,7 @@ TENS = {
     4: (u'keturiolika',),
     5: (u'penkiolika',),
     6: (u'šešiolika',),
-    7: (u'septiniolika',),
+    7: (u'septyniolika',),
     8: (u'aštuoniolika',),
     9: (u'devyniolika',),
 }
