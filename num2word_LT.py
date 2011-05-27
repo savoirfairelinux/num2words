@@ -1,5 +1,8 @@
 # -*- encoding: utf-8 -*-
-"""
+u"""
+
+>>> from textwrap import fill
+
 >>> ' '.join([str(i) for i in splitby3('1')])
 '1'
 >>> ' '.join([str(i) for i in splitby3('1123')])
@@ -7,33 +10,61 @@
 >>> ' '.join([str(i) for i in splitby3('1234567890')])
 '1 234 567 890'
 
->>> ' '.join([n2w(i) for i in range(10)])
-u'nulis vienas du trys keturi penki \u0161e\u0161i septyni a\u0161tuoni devyni'
->>> ' '.join([n2w(i+10) for i in range(10)])
-u'de\u0161imt vienuolika dvylika trylika keturiolika penkiolika \u0161e\u0161iolika septiniolika a\u0161tuoniolika devyniolika'
->>> ' '.join([n2w(i*10) for i in range(10)])
-u'nulis de\u0161imt dvide\u0161imt trisde\u0161imt keturiasde\u0161imt penkiasde\u0161imt \u0161e\u0161iasde\u0161imt septyniasde\u0161imt a\u0161tuoniasde\u0161imt devyniasde\u0161imt'
+>>> print(' '.join([n2w(i) for i in range(10)]))
+nulis vienas du trys keturi penki šeši septyni aštuoni devyni
 
->>> n2w(123)
-u'\u0161imtas dvide\u0161imt trys'
->>> n2w(100)
-u'\u0161imtas'
->>> n2w(101)
-u'\u0161imtas vienas'
->>> n2w(110)
-u'\u0161imtas de\u0161imt'
->>> n2w(115)
-u'\u0161imtas penkiolika'
->>> n2w(1000)
-u't\u016bkstantis'
->>> n2w(1001)
-u't\u016bkstantis vienas'
->>> n2w(2012)
-u'du t\u016bkstan\u010diai dvylika'
->>> n2w(1234567890)
-u'milijardas du \u0161imtai trisde\u0161imt keturi milijonai penki \u0161imtai \u0161e\u0161iasde\u0161imt septyni t\u016bkstan\u010diai a\u0161tuoni \u0161imtai devyniasde\u0161imt'
+>>> print(fill(' '.join([n2w(i+10) for i in range(10)])))
+dešimt vienuolika dvylika trylika keturiolika penkiolika šešiolika
+septiniolika aštuoniolika devyniolika
 
-#>>> to_currency(1234.56, 'LTL')
+>>> print(fill(' '.join([n2w(i*10) for i in range(10)])))
+nulis dešimt dvidešimt trisdešimt keturiasdešimt penkiasdešimt
+šešiasdešimt septyniasdešimt aštuoniasdešimt devyniasdešimt
+
+>>> print(n2w(100))
+šimtas
+>>> print(n2w(101))
+šimtas vienas
+>>> print(n2w(110))
+šimtas dešimt
+>>> print(n2w(115))
+šimtas penkiolika
+>>> print(n2w(123))
+šimtas dvidešimt trys
+>>> print(n2w(1000))
+tūkstantis
+>>> print(n2w(1001))
+tūkstantis vienas
+>>> print(n2w(2012))
+du tūkstančiai dvylika
+
+>>> print(fill(n2w(1234567890)))
+milijardas du šimtai trisdešimt keturi milijonai penki šimtai
+šešiasdešimt septyni tūkstančiai aštuoni šimtai devyniasdešimt
+
+>>> print(fill(n2w(215461407892039002157189883901676)))
+du šimtai penkiolika naintilijonų keturi šimtai šešiasdešimt vienas
+oktilijonas keturi šimtai septyni septilijonai aštuoni šimtai
+devyniasdešimt du sikstilijonai trisdešimt devyni kvintilijonai du
+kvadrilijonai šimtas penkiasdešimt septyni trilijonai šimtas
+aštuoniasdešimt devyni milijardai aštuoni šimtai aštuoniasdešimt trys
+milijonai devyni šimtai vienas tūkstantis šeši šimtai septyniasdešimt
+šeši
+
+>>> print(fill(n2w(719094234693663034822824384220291)))
+septyni šimtai devyniolika naintilijonų devyniasdešimt keturi
+oktilijonai du šimtai trisdešimt keturi septilijonai šeši šimtai
+devyniasdešimt trys sikstilijonai šeši šimtai šešiasdešimt trys
+kvintilijonai trisdešimt keturi kvadrilijonai aštuoni šimtai dvidešimt
+du trilijonai aštuoni šimtai dvidešimt keturi milijardai trys šimtai
+aštuoniasdešimt keturi milijonai du šimtai dvidešimt tūkstančių du
+šimtai devyniasdešimt vienas
+
+>>> print(to_currency(1, 'LTL'))
+tūkstantis du šimtai trisdešimt keturi litai, penkiasdešimt šeši centai
+
+>>> print(to_currency(1234.56, 'LTL'))
+tūkstantis du šimtai trisdešimt keturi litai, penkiasdešimt šeši centai
 
 """
 
@@ -107,14 +138,19 @@ def splitby3(n):
 
 
 def get_digits(n):
-    n1 = n2 = n3 = 0
-    if n > 99:
-        n3 = (n % 1000)//100
-    if n > 9:
-        n2 = (n % 100)//10
-    n1 = n % 10
-    return (n1, n2, n3)
+    if n == 0:
+        return [0, 0, 0]
+    else:
+        return [int(x) for x in reversed(list(('%03d' % n)[-3:]))]
 
+def pluralize(n, forms):
+    n1, n2, n3 = get_digits(n)
+    if n2 == 1 or n1 == 0 or n == 0:
+        return forms[2]
+    elif n1 == 1:
+        return forms[0]
+    else:
+        return forms[1]
 
 def int2word(n):
     if n == 0:
@@ -139,16 +175,11 @@ def int2word(n):
 
         if n2 == 1:
             words.append(TENS[n1][0])
-        elif n1 > 0 and not (i > 0 and n1 == 1):
+        elif n1 > 0 and not (i > 0 and x == 1):
             words.append(ONES[n1][0])
 
         if i > 0:
-            if n1 == 1 and n2 != 1:
-                words.append(THOUSANDS[i][0])
-            elif n1 > 1:
-                words.append(THOUSANDS[i][1])
-            else:
-                words.append(THOUSANDS[i][2])
+            words.append(pluralize(x, THOUSANDS[i]))
 
     return ' '.join(words)
 
@@ -167,7 +198,9 @@ def to_currency(n, currency='LTL'):
     else:
         left, right = n, 0
     left, right = int(left), int(right)
-    return u'%s kablelis %s' % (int2word(left), int2word(right))
+    cr1, cr2 = CURRENCIES[currency]
+    return u'%s %s, %s %s' % (int2word(left), pluralize(left, cr1),
+                              int2word(right), pluralize(right, cr2))
 
 
 if __name__ == '__main__':
