@@ -1,6 +1,5 @@
 # -*- encoding: utf-8 -*-
 u"""
-
 >>> from textwrap import fill
 
 >>> ' '.join([str(i) for i in splitby3('1')])
@@ -61,7 +60,7 @@ aštuoniasdešimt keturi milijonai du šimtai dvidešimt tūkstančių du
 šimtai devyniasdešimt vienas
 
 >>> print(to_currency(1, 'LTL'))
-tūkstantis du šimtai trisdešimt keturi litai, penkiasdešimt šeši centai
+vienas litas, nulis centų
 
 >>> print(to_currency(1234.56, 'LTL'))
 tūkstantis du šimtai trisdešimt keturi litai, penkiasdešimt šeši centai
@@ -122,7 +121,7 @@ THOUSANDS = {
 }
 
 CURRENCIES = {
-    'LTL': (('litas', 'litai', 'litų'), ('centas', 'centai', 'centų')),
+    'LTL': ((u'litas', u'litai', u'litų'), (u'centas', u'centai', u'centų')),
 }
 
 def splitby3(n):
@@ -138,10 +137,7 @@ def splitby3(n):
 
 
 def get_digits(n):
-    if n == 0:
-        return [0, 0, 0]
-    else:
-        return [int(x) for x in reversed(list(('%03d' % n)[-3:]))]
+    return [int(x) for x in reversed(list(('%03d' % n)[-3:]))]
 
 def pluralize(n, forms):
     n1, n2, n3 = get_digits(n)
