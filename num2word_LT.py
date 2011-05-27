@@ -59,6 +59,10 @@ du trilijonai aštuoni šimtai dvidešimt keturi milijardai trys šimtai
 aštuoniasdešimt keturi milijonai du šimtai dvidešimt tūkstančių du
 šimtai devyniasdešimt vienas
 
+# TODO: fix this:
+>>> print(fill(n2w(1000000000000000000000000000000)))
+naintilijonas
+
 >>> print(to_currency(1, 'LTL'))
 vienas litas, nulis centų
 
