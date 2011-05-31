@@ -71,7 +71,7 @@ class Num2Word_EN(num2word_EU.Num2Word_EU):
 
     def merge(self, (ltext, lnum), (rtext, rnum)):
         if lnum == 1 and rnum < 100:
-            return next
+            return (rtext, rnum + lnum)
         elif 100 > lnum > rnum :
             return ("%s-%s"%(ltext, rtext), lnum + rnum)
         elif lnum >= 100 > rnum:
