@@ -192,16 +192,21 @@ def n2w(n):
         return int2word(int(n))
 
 def to_currency(n, currency='LTL'):
-    n = str(n).replace(',', '.')
-    if '.' in n:
-        left, right = n.split('.')
+    if type(n) == int:
+        left = n / 100
+        right = n % 100
     else:
-        left, right = n, 0
-    left, right = int(left), int(right)
+        n = str(n).replace(',', '.')
+        if '.' in n:
+            left, right = n.split('.')
+        else:
+            left, right = n, 0
+        left, right = int(left), int(right)
     cr1, cr2 = CURRENCIES[currency]
     return u'%s %s, %s %s' % (int2word(left), pluralize(left, cr1),
                               int2word(right), pluralize(right, cr2))
 
+to_card = n2w
 
 if __name__ == '__main__':
     import doctest
