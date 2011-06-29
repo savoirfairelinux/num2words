@@ -193,8 +193,12 @@ def n2w(n):
 
 def to_currency(n, currency='LTL'):
     if type(n) == int:
-        left = n / 100
-        right = n % 100
+        left = abs(n / 100)
+        right = abs(n % 100)
+        if n < 0:
+            minus = True
+        else:
+            minus = False
     else:
         n = str(n).replace(',', '.')
         if '.' in n:
@@ -202,8 +206,15 @@ def to_currency(n, currency='LTL'):
         else:
             left, right = n, 0
         left, right = int(left), int(right)
+        minus = False
     cr1, cr2 = CURRENCIES[currency]
-    return u'%s %s, %s %s' % (int2word(left), pluralize(left, cr1),
+
+    if minus:
+        minus_str = "minus "
+    else:
+        minus_str = ""
+
+    return u'%s%s %s, %s %s' % (minus_str, int2word(left), pluralize(left, cr1),
                               int2word(right), pluralize(right, cr2))
 
 to_card = n2w
