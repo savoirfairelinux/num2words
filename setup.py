@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='pynum2word',
-      version=0.41,
+      version=0.42,
       description='Modules to convert numbers to words. Easily extensible.',
       author='Taro Ogawa <tso at users sourceforge net>',
       author_email='tos@users.sourceforge.net',

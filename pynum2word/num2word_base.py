@@ -206,7 +206,7 @@ class Num2Word_Base(object):
 
     #//CHECK: generalise? Any others like pounds/shillings/pence?
     def to_splitnum(self, val, hightxt="", lowtxt="", jointxt="",
-                    divisor=100, longval=True):
+                    divisor=100, longval=True, cents = True):
         out = []
         try:
             high, low = val
@@ -224,7 +224,10 @@ class Num2Word_Base(object):
             elif hightxt:
                 out.append(hightxt)
         if low:
-            out.append(self.to_cardinal(low))
+            if cents:
+                out.append(self.to_cardinal(low))
+            else:
+                out.append("%02d" % low)
             if lowtxt and longval:
                 out.append(self.title(self.inflect(low, lowtxt)))
         return " ".join(out)

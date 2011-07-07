@@ -191,7 +191,7 @@ def n2w(n):
     else:
         return int2word(int(n))
 
-def to_currency(n, currency='LTL'):
+def to_currency(n, currency='LTL', cents = True):
     if type(n) == int:
         left = abs(n / 100)
         right = abs(n % 100)
@@ -214,8 +214,13 @@ def to_currency(n, currency='LTL'):
     else:
         minus_str = ""
 
+    if cents:
+        cents_str = int2word(right)
+    else:
+        cents_str = "%02d" % right
+
     return u'%s%s %s, %s %s' % (minus_str, int2word(left), pluralize(left, cr1),
-                              int2word(right), pluralize(right, cr2))
+                              cents_str, pluralize(right, cr2))
 
 to_card = n2w
 

@@ -34,9 +34,9 @@ from num2word_EN import Num2Word_EN
 
     
 class Num2Word_EN_EUR(Num2Word_EN):
-    def to_currency(self, val, longval=True):
+    def to_currency(self, val, longval=True, cents=True, jointxt="and"):
         return self.to_splitnum(val, hightxt="euro/s", lowtxt="cents",
-                                jointxt="and", longval=longval)
+                                jointxt=jointxt, longval=longval, cents = cents)
 
 
 n2w = Num2Word_EN_EUR()
