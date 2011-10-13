@@ -63,12 +63,14 @@ aštuoniasdešimt keturi milijonai du šimtai dvidešimt tūkstančių du
 >>> print(fill(n2w(1000000000000000000000000000000)))
 naintilijonas
 
->>> print(to_currency(1, 'LTL'))
+>>> print(to_currency(1.0, 'LTL'))
 vienas litas, nulis centų
 
 >>> print(to_currency(1234.56, 'LTL'))
 tūkstantis du šimtai trisdešimt keturi litai, penkiasdešimt šeši centai
 
+>>> print(to_currency(-1251985, cents = False))
+minus dvylika tūkstančių penki šimtai devyniolika litų, 85 centai
 """
 
 ZERO = (u'nulis',)
@@ -193,12 +195,14 @@ def n2w(n):
 
 def to_currency(n, currency='LTL', cents = True):
     if type(n) == int:
-        left = abs(n / 100)
-        right = abs(n % 100)
         if n < 0:
             minus = True
         else:
             minus = False
+
+        n = abs(n)
+        left = n / 100
+        right = n % 100
     else:
         n = str(n).replace(',', '.')
         if '.' in n:
