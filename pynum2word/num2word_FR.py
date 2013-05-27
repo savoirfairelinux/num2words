@@ -60,12 +60,12 @@ class Num2Word_FR(Num2Word_EU):
         else:
             if (not (cnum - 80)%100 or not cnum%100) and ctext[-1] == "s":
                 ctext = ctext[:-1]
-            if (cnum<1000 and nnum <> 1000 and ntext[-1] <> "s"
+            if (cnum<1000 and nnum != 1000 and ntext[-1] != "s"
             and not nnum%100):
                 ntext += "s"
 
         if nnum < cnum < 100:
-            if nnum % 10 == 1 and cnum <> 80:
+            if nnum % 10 == 1 and cnum != 80:
                 return ("%s et %s"%(ctext, ntext), cnum + nnum)
             return ("%s-%s"%(ctext, ntext), cnum + nnum)
         elif nnum > cnum:
