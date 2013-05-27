@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 '''
 Module: num2word_FR.py
 Requires: num2word_EU.py
@@ -72,8 +73,8 @@ class Num2Word_FR(Num2Word_EU):
         return ("%s %s"%(ctext, ntext), cnum + nnum)
 
 
-    # Is this right for such things as 1001 - "mille unième" instead of
-    # "mille premier"??  "millième"??
+    # Is this right for such things as 1001 - "mille uniÃ¨me" instead of
+    # "mille premier"??  "milliÃ¨me"??
 
     def to_ordinal(self,value):
         self.verify_ordinal(value)
