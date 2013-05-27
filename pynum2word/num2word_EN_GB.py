@@ -31,7 +31,7 @@ Usage:
 History:
     1.0: Split from num2word_EN with the addition of to_currency()
 '''
-
+from __future__ import unicode_literals
 from num2word_EN import Num2Word_EN
 
     

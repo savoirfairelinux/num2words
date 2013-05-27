@@ -72,6 +72,7 @@ tūkstantis du šimtai trisdešimt keturi litai, penkiasdešimt šeši centai
 >>> print(to_currency(-1251985, cents = False))
 minus dvylika tūkstančių penki šimtai devyniolika litų, 85 centai
 """
+from __future__ import unicode_literals
 
 ZERO = (u'nulis',)
 

@@ -19,6 +19,7 @@ Data from:
 History:
     1.1: add to_currency()
 '''
+from __future__ import unicode_literals
 from num2word_base import Num2Word_Base
 
 class Num2Word_EU(Num2Word_Base):

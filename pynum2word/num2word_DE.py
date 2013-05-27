@@ -28,6 +28,7 @@ History
          add to_currency() and to_year()
 
 '''
+from __future__ import unicode_literals
 from num2word_EU import Num2Word_EU
 
 #//TODO: Use German error messages

@@ -35,7 +35,7 @@ History:
          
     1.1: to_ordinal_num() fixed for 11,12,13   
 '''
-from __future__ import division 
+from __future__ import division, unicode_literals
 import num2word_EU
 
     

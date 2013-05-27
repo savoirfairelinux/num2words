@@ -27,6 +27,7 @@ Notes:
 History:
     0.2: n2w, to_card, to_ord, to_ordnum now imported correctly
 '''
+from __future__ import unicode_literals
 import locale as _locale
 
 # Correct omissions in locale:

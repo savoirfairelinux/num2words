@@ -30,6 +30,7 @@ History:
          String interpolation where it makes things clearer
          to_currency() added [to_year works by default]
 '''
+from __future__ import unicode_literals
 from num2word_EU import Num2Word_EU
 
 #//TODO: error messages in French

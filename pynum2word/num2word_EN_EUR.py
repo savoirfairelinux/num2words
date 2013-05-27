@@ -29,7 +29,7 @@ Usage:
     
 
 '''
-
+from __future__ import unicode_literals
 from num2word_EN import Num2Word_EN
 
     

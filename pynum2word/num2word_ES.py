@@ -27,6 +27,7 @@ History:
          String interpolation where it makes things clearer
          add to_currency()
 '''
+from __future__ import unicode_literals
 from num2word_EU import Num2Word_EU
 
 #//TODO: correct orthographics

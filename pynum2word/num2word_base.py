@@ -17,8 +17,7 @@ History:
          add to_year() and to_currency() stubs
 '''
 
-
-from __future__ import generators
+from __future__ import unicode_literals
 from orderedmapping import OrderedMapping
 
 
