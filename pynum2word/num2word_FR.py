@@ -49,7 +49,7 @@ class Num2Word_FR(Num2Word_EU):
         self.low_numwords = ["vingt", "dix-neuf", "dix-huit", "dix-sept",
                              "seize", "quinze", "quatorze", "treize", "douze",
                              "onze", "dix", "neuf", "huit", "sept", "six",
-                             "cinq", "quatre", "trois", "deux", "un", "z\xE8ro"]
+                             "cinq", "quatre", "trois", "deux", "un", "zéro"]
 
 
     def merge(self, curr, next):
@@ -84,7 +84,7 @@ class Num2Word_FR(Num2Word_EU):
         word = self.to_cardinal(value)
         if word[-1] == "e":
             word = word[:-1]
-        return word + "i\xE8me"
+        return word + "ième"
 
 
     def to_ordinal_num(self, value):
