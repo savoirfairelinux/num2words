@@ -1,10 +1,29 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
-setup(name='pynum2word',
-      version=0.43,
-      description='Modules to convert numbers to words. Easily extensible.',
-      author='Taro Ogawa <tso at users sourceforge net>',
-      author_email='tos@users.sourceforge.net',
-      url='http://pypi.python.org/pypi/PyNum2Word/',
-      packages=['pynum2word'],
-     )
+
+CLASSIFIERS = [
+    'Development Status :: 5 - Production/Stable',
+    'Intended Audience :: Developers',
+    'License :: OSI Approved :: GNU Library or Lesser General Public License (LGPL)',
+    'Programming Language :: Python :: 2.7',
+    'Topic :: Software Development :: Internationalization',
+    'Topic :: Software Development :: Libraries :: Python Modules',
+    'Topic :: Software Development :: Localization',
+    'Topic :: Text Processing :: Linguistic',
+]
+
+LONG_DESC = open('README.rst', 'rt').read() + '\n\n' + open('CHANGES.rst', 'rt').read()
+
+setup(
+    name='num2words',
+    version='0.5.0',
+    description='Modules to convert numbers to words. Easily extensible.',
+    license='LGPL',
+    author='Taro Ogawa <tso at users sourceforge net>',
+    author_email='tos@users.sourceforge.net',
+    maintainer='Savoir-faire Linux inc.',
+    maintainer_email='virgil.dupras@savoirfairelinux.com',
+    keywords=' number word numbers words convert conversion i18n localisation localization internationalisation internationalization',
+    url='https://github.com/savoirfairelinux/num2words',
+    packages=find_packages(),
+)
