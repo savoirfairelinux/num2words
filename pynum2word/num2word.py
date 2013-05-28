@@ -29,34 +29,32 @@ History:
     0.2: n2w, to_card, to_ord, to_ordnum now imported correctly
 '''
 from __future__ import unicode_literals
-import locale as _locale
 
-# Correct omissions in locale:
-# Bugrep these...
-_locdict = { "English_Australia" : "en_AU", }
+import num2word_EN
+import num2word_EN_GB
+import num2word_FR
+import num2word_DE
+import num2word_ES
+import num2word_LT
 
+CONVERTER_CLASSES = {
+    'en': num2word_EN.Num2Word_EN(),
+    'en_GB': num2word_EN_GB.Num2Word_EN_GB(),
+    'fr': num2word_FR.Num2Word_FR(),
+    'de': num2word_DE.Num2Word_DE(),
+    'es': num2word_ES.Num2Word_ES(),
+    'lt': num2word_LT.Num2Word_LT(),
+}
 
-_modules = []
-for _loc in [_locale.getlocale(), _locale.getdefaultlocale()]:
-    _lang = _loc[0]
-    if _lang:
-        _lang = _locdict.get(_lang, _lang)
-        _lang = _lang.upper()
-    
-        _modules.append("num2word_" + _lang)
-        _modules.append("num2word_" + _lang.split("_")[0])
-
-for _module in _modules:
-    try:
-        n2wmod = __import__(_module)
-        break
-    except ImportError:
-        pass
-
-try:
-    n2w, to_card, to_ord, to_ordnum, to_year = (n2wmod.n2w, n2wmod.to_card,
-                                                n2wmod.to_ord, n2wmod.to_ordnum,
-                                                n2wmod.to_year)
-except NameError:
-    raise ImportError("Could not import any of these modules: %s"
-                          % (", ".join(_modules)))
+def num2words(number, ordinal=False, lang='en'):
+    # We try the full language first
+    if lang not in CONVERTER_CLASSES:
+        # ... and then try only the first 2 letters
+        lang = lang[:2]
+    if lang not in CONVERTER_CLASSES:
+        raise NotImplementedError()
+    converter = CONVERTER_CLASSES[lang]
+    if ordinal:
+        return converter.to_ordinal(number)
+    else:
+        return converter.to_cardinal(number)

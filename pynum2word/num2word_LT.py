@@ -227,7 +227,12 @@ def to_currency(n, currency='LTL', cents = True):
     return u'%s%s %s, %s %s' % (minus_str, int2word(left), pluralize(left, cr1),
                               cents_str, pluralize(right, cr2))
 
-to_card = n2w
+class Num2Word_LT(object):
+    def to_cardinal(self, number):
+        return n2w(number)
+
+    def to_ordinal(self, number):
+        raise NotImplementedError()
 
 if __name__ == '__main__':
     import doctest
