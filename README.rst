@@ -7,6 +7,17 @@ ordinal numbers like ``forty-second`` (altough this last feature is a bit buggy 
 
 The project is hosted on https://github.com/savoirfairelinux/num2words
 
+Installation
+------------
+
+The easiest way to install ``num2words`` is to use pip::
+
+    pip install num2words
+
+Otherwise, you can download the source package and then execute::
+
+    python setup.py install
+
 Usage
 -----
 
