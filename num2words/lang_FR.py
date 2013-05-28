@@ -1,38 +1,22 @@
 # -*- encoding: utf-8 -*-
-'''
-Module: num2word_FR.py
-Requires: num2word_EU.py
-Version: 0.5
+# Copyright (c) 2003, Taro Ogawa.  All Rights Reserved.
+# Copyright (c) 2013, Savoir-faire Linux inc.  All Rights Reserved.
 
-Author:
-   Taro Ogawa (tso@users.sourceforge.org)
-   
-Copyright:
-    Copyright (c) 2003, Taro Ogawa.  All Rights Reserved.
-    Copyright (c) 2013, Savoir-faire Linux inc.  All Rights Reserved.
+# This library is free software; you can redistribute it and/or
+# modify it under the terms of the GNU Lesser General Public
+# License as published by the Free Software Foundation; either
+# version 2.1 of the License, or (at your option) any later version.
+# This library is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+# Lesser General Public License for more details.
+# You should have received a copy of the GNU Lesser General Public
+# License along with this library; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+# MA 02110-1301 USA
 
-Licence:
-    This module is distributed under the Lesser General Public Licence.
-    http://www.opensource.org/licenses/lgpl-license.php
-
-Data from:
-    http://www.ouc.bc.ca/mola/fr/handouts/numbers.doc
-    http://www.realfrench.net/units/Interunit_63.html
-    http://www.sover.net/~daxtell/france/Euro/euro.htm
-
-Usage:
-    from num2word_FR import to_card, to_ord, to_ordnum
-    to_card(1234567890)
-    to_ord(1234567890)
-    to_ordnum(12)
-
-History:
-    0.5: Use high ascii characters instead of low ascii approximations
-         String interpolation where it makes things clearer
-         to_currency() added [to_year works by default]
-'''
 from __future__ import unicode_literals
-from num2word_EU import Num2Word_EU
+from .lang_EU import Num2Word_EU
 
 #//TODO: error messages in French
 #//TODO: ords

@@ -1,25 +1,21 @@
-'''
-Module: num2word_base.py
-Version: 1.0
+# Copyright (c) 2003, Taro Ogawa.  All Rights Reserved.
+# Copyright (c) 2013, Savoir-faire Linux inc.  All Rights Reserved.
 
-Author:
-   Taro Ogawa (tso@users.sourceforge.org)
-   
-Copyright:
-    Copyright (c) 2003, Taro Ogawa.  All Rights Reserved.
-    Copyright (c) 2013, Savoir-faire Linux inc.  All Rights Reserved.
-
-Licence:
-    This module is distributed under the Lesser General Public Licence.
-    http://www.opensource.org/licenses/lgpl-license.php
-
-History:
-    1.1: add to_splitnum() and inflect()
-         add to_year() and to_currency() stubs
-'''
+# This library is free software; you can redistribute it and/or
+# modify it under the terms of the GNU Lesser General Public
+# License as published by the Free Software Foundation; either
+# version 2.1 of the License, or (at your option) any later version.
+# This library is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+# Lesser General Public License for more details.
+# You should have received a copy of the GNU Lesser General Public
+# License along with this library; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+# MA 02110-1301 USA
 
 from __future__ import unicode_literals
-from orderedmapping import OrderedMapping
+from .orderedmapping import OrderedMapping
 
 
 class Num2Word_Base(object):

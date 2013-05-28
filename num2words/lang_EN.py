@@ -1,46 +1,23 @@
-'''
-Module: num2word_EN.py
-Requires: num2word_EU.py
-Version: 1.2
+# Copyright (c) 2003, Taro Ogawa.  All Rights Reserved.
+# Copyright (c) 2013, Savoir-faire Linux inc.  All Rights Reserved.
 
-Author:
-   Taro Ogawa (tso@users.sourceforge.org)
-   
-Copyright:
-    Copyright (c) 2003, Taro Ogawa.  All Rights Reserved.
-    Copyright (c) 2013, Savoir-faire Linux inc.  All Rights Reserved.
+# This library is free software; you can redistribute it and/or
+# modify it under the terms of the GNU Lesser General Public
+# License as published by the Free Software Foundation; either
+# version 2.1 of the License, or (at your option) any later version.
+# This library is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+# Lesser General Public License for more details.
+# You should have received a copy of the GNU Lesser General Public
+# License along with this library; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+# MA 02110-1301 USA
 
-Licence:
-    This module is distributed under the Lesser General Public Licence.
-    http://www.opensource.org/licenses/lgpl-license.php
-
-Data from:
-    http://www.uni-bonn.de/~manfear/large.php
-    
-Usage:
-    from num2word_EN import n2w, to_card, to_ord, to_ordnum
-    to_card(1234567890)
-    n2w.is_title = True
-    to_card(1234567890)
-    to_ord(1234567890)
-    to_ordnum(1234567890)
-    to_year(1976)
-    to_currency(dollars*100 + cents, longval=False)
-    to_currency((dollars, cents))
-    
-
-History:
-    1.2: to_ordinal_num() made shorter and simpler (but slower)
-         strings in merge() now interpolated
-         to_year() and to_currency() added
-         
-    1.1: to_ordinal_num() fixed for 11,12,13   
-'''
 from __future__ import division, unicode_literals
-import num2word_EU
+from . import lang_EU
 
-    
-class Num2Word_EN(num2word_EU.Num2Word_EU):
+class Num2Word_EN(lang_EU.Num2Word_EU):
     def set_high_numwords(self, high):
         max = 3 + 3*len(high)
         for word, n in zip(high, range(max, 3, -3)):

@@ -1,36 +1,21 @@
-'''
-Module: num2word_DE.py
-Requires: num2word_base.py
-Version: 0.4
+# Copyright (c) 2003, Taro Ogawa.  All Rights Reserved.
+# Copyright (c) 2013, Savoir-faire Linux inc.  All Rights Reserved.
 
-Author:
-   Taro Ogawa (tso@users.sourceforge.org)
+# This library is free software; you can redistribute it and/or
+# modify it under the terms of the GNU Lesser General Public
+# License as published by the Free Software Foundation; either
+# version 2.1 of the License, or (at your option) any later version.
+# This library is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+# Lesser General Public License for more details.
+# You should have received a copy of the GNU Lesser General Public
+# License along with this library; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+# MA 02110-1301 USA
 
-Copyright:
-    Copyright (c) 2003, Taro Ogawa.  All Rights Reserved.
-    Copyright (c) 2013, Savoir-faire Linux inc.  All Rights Reserved.
-
-Licence:
-    This module is distributed under the Lesser General Public Licence.
-    http://www.opensource.org/licenses/lgpl-license.php
-
-Data from:
-   - http://german4u2know.tripod.com/nouns/10.html
-   - http://www.uni-bonn.de/~manfear/large.php
-
-Usage:
-    from num2word_DE import to_card, to_ord, to_ordnum
-    to_card(1234567890)
-    to_ord(1234567890)
-    to_ordnum(12)
-
-History
-    0.4: Use high ascii characters instead of low ascii approximations
-         add to_currency() and to_year()
-
-'''
 from __future__ import unicode_literals
-from num2word_EU import Num2Word_EU
+from .lang_EU import Num2Word_EU
 
 #//TODO: Use German error messages
 class Num2Word_DE(Num2Word_EU):
