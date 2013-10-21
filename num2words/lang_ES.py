@@ -76,7 +76,7 @@ class Num2Word_ES(Num2Word_EU):
                 return ("%s y %s"%(ctext, ntext), cnum + nnum)
             return ("%s %s"%(ctext, ntext), cnum + nnum)
         elif (not nnum % 1000000) and cnum > 1:
-            ntext = ntext[:-3] + "ones"
+            ntext = ntext[:-3] + "lones"
 
         if nnum == 100:
             if cnum == 5:
