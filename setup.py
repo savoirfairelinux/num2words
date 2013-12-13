@@ -26,4 +26,5 @@ setup(
     keywords=' number word numbers words convert conversion i18n localisation localization internationalisation internationalization',
     url='https://github.com/savoirfairelinux/num2words',
     packages=find_packages(),
+    use_2to3=True,
 )
