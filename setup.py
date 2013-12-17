@@ -6,6 +6,7 @@ CLASSIFIERS = [
     'Intended Audience :: Developers',
     'License :: OSI Approved :: GNU Library or Lesser General Public License (LGPL)',
     'Programming Language :: Python :: 2.7',
+    'Programming Language :: Python :: 3',
     'Topic :: Software Development :: Internationalization',
     'Topic :: Software Development :: Libraries :: Python Modules',
     'Topic :: Software Development :: Localization',
