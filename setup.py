@@ -19,6 +19,7 @@ setup(
     name='num2words',
     version='0.5.1',
     description='Modules to convert numbers to words. Easily extensible.',
+    long_description=LONG_DESC,
     license='LGPL',
     author='Taro Ogawa <tso at users sourceforge net>',
     author_email='tos@users.sourceforge.net',
