@@ -41,7 +41,7 @@ class Num2Word_ES(Num2Word_EU):
         self.exclude_title = ["y", "menos", "punto"]
         self.mid_numwords = [(1000, "mil"), (100, "cien"), (90, "noventa"),
                              (80, "ochenta"), (70, "setenta"), (60, "sesenta"),
-                             (50,"cincuenta"), (40,"cuarenta")]
+                             (50,"cincuenta"), (40,"cuarenta"), (30,"treinta")]
         self.low_numwords = ["vientinueve", "vientiocho", "vientisiete",
                              "vientis\xE8is", "vienticinco", "vienticuatro",
                              "vientitr\xE8s", "vientid\xF2s", "vientiuno",
