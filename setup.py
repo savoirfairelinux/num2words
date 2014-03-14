@@ -17,7 +17,7 @@ LONG_DESC = open('README.rst', 'rt').read() + '\n\n' + open('CHANGES.rst', 'rt')
 
 setup(
     name='num2words',
-    version='0.5.0',
+    version='0.5.1',
     description='Modules to convert numbers to words. Easily extensible.',
     license='LGPL',
     author='Taro Ogawa <tso at users sourceforge net>',
