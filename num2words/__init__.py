@@ -22,6 +22,7 @@ from . import lang_FR
 from . import lang_DE
 from . import lang_ES
 from . import lang_LT
+from . import lang_LV
 
 CONVERTER_CLASSES = {
     'en': lang_EN.Num2Word_EN(),
@@ -30,6 +31,7 @@ CONVERTER_CLASSES = {
     'de': lang_DE.Num2Word_DE(),
     'es': lang_ES.Num2Word_ES(),
     'lt': lang_LT.Num2Word_LT(),
+    'lv': lang_LV.Num2Word_LV(),
 }
 
 def num2words(number, ordinal=False, lang='en'):
