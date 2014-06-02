@@ -36,7 +36,7 @@ Besides the numerical argument, there's two optional arguments.
 **ordinal:** A boolean flag indicating to return an ordinal number instead of a cardinal one.
 
 **lang:** The language in which to convert the number. Supported languages are ``en``, ``fr``,
-``de``, ``es``, ``lt`` and ``en_GB``. You can supply values like ``fr_FR``, the code will be
+``de``, ``es``, ``lt``, ``lv`` and ``en_GB``. You can supply values like ``fr_FR``, the code will be
 correctly interpreted. If you supply an unsupported language, ``NotImplementedError`` is raised.
 Therefore, if you want to call ``num2words`` with a fallback, you can do::
 
