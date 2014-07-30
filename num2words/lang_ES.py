@@ -68,7 +68,7 @@ class Num2Word_ES(Num2Word_EU):
             if nnum < 1000000:
                 return next
             ctext = "un"
-        elif cnum == 100:
+        elif cnum == 100 and not nnum == 1000:
             ctext += "t" + self.gender_stem
 
         if nnum < cnum:
