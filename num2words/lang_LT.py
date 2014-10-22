@@ -17,12 +17,12 @@
 u"""
 >>> from textwrap import fill
 
->>> ' '.join([str(i) for i in splitby3('1')])
-'1'
->>> ' '.join([str(i) for i in splitby3('1123')])
-'1 123'
->>> ' '.join([str(i) for i in splitby3('1234567890')])
-'1 234 567 890'
+>>> print(' '.join([str(i) for i in splitby3('1')]))
+1
+>>> print(' '.join([str(i) for i in splitby3('1123')]))
+1 123
+>>> print(' '.join([str(i) for i in splitby3('1234567890')]))
+1 234 567 890
 
 >>> print(' '.join([n2w(i) for i in range(10)]))
 nulis vienas du trys keturi penki šeši septyni aštuoni devyni
@@ -36,34 +36,34 @@ nulis dešimt dvidešimt trisdešimt keturiasdešimt penkiasdešimt
 šešiasdešimt septyniasdešimt aštuoniasdešimt devyniasdešimt
 
 >>> print(n2w(100))
-šimtas
+vienas šimtas
 >>> print(n2w(101))
-šimtas vienas
+vienas šimtas vienas
 >>> print(n2w(110))
-šimtas dešimt
+vienas šimtas dešimt
 >>> print(n2w(115))
-šimtas penkiolika
+vienas šimtas penkiolika
 >>> print(n2w(123))
-šimtas dvidešimt trys
+vienas šimtas dvidešimt trys
 >>> print(n2w(1000))
-tūkstantis
+vienas tūkstantis
 >>> print(n2w(1001))
-tūkstantis vienas
+vienas tūkstantis vienas
 >>> print(n2w(2012))
 du tūkstančiai dvylika
 
 >>> print(fill(n2w(1234567890)))
-milijardas du šimtai trisdešimt keturi milijonai penki šimtai
+vienas milijardas du šimtai trisdešimt keturi milijonai penki šimtai
 šešiasdešimt septyni tūkstančiai aštuoni šimtai devyniasdešimt
 
 >>> print(fill(n2w(215461407892039002157189883901676)))
 du šimtai penkiolika naintilijonų keturi šimtai šešiasdešimt vienas
 oktilijonas keturi šimtai septyni septilijonai aštuoni šimtai
 devyniasdešimt du sikstilijonai trisdešimt devyni kvintilijonai du
-kvadrilijonai šimtas penkiasdešimt septyni trilijonai šimtas
-aštuoniasdešimt devyni milijardai aštuoni šimtai aštuoniasdešimt trys
-milijonai devyni šimtai vienas tūkstantis šeši šimtai septyniasdešimt
-šeši
+kvadrilijonai vienas šimtas penkiasdešimt septyni trilijonai vienas
+šimtas aštuoniasdešimt devyni milijardai aštuoni šimtai
+aštuoniasdešimt trys milijonai devyni šimtai vienas tūkstantis šeši
+šimtai septyniasdešimt šeši
 
 >>> print(fill(n2w(719094234693663034822824384220291)))
 septyni šimtai devyniolika naintilijonų devyniasdešimt keturi
@@ -82,7 +82,7 @@ naintilijonas
 vienas litas, nulis centų
 
 >>> print(to_currency(1234.56, 'LTL'))
-tūkstantis du šimtai trisdešimt keturi litai, penkiasdešimt šeši centai
+vienas tūkstantis du šimtai trisdešimt keturi litai, penkiasdešimt šeši centai
 
 >>> print(to_currency(-1251985, cents = False))
 minus dvylika tūkstančių penki šimtai devyniolika litų, 85 centai
@@ -177,13 +177,14 @@ def int2word(n):
     words = []
     chunks = list(splitby3(str(n)))
     i = len(chunks)
+
     for x in chunks:
         i -= 1
         n1, n2, n3 = get_digits(x)
 
         if n3 > 0:
+            words.append(ONES[n3][0])
             if n3 > 1:
-                words.append(ONES[n3][0])
                 words.append(HUNDRED[1])
             else:
                 words.append(HUNDRED[0])
@@ -193,7 +194,7 @@ def int2word(n):
 
         if n2 == 1:
             words.append(TENS[n1][0])
-        elif n1 > 0 and not (i > 0 and x == 1):
+        elif n1 > 0:
             words.append(ONES[n1][0])
 
         if i > 0:
