@@ -17,11 +17,11 @@
 u"""
 >>> from textwrap import fill
 
->>> print ' '.join([str(i) for i in splitby3('1')])
+>>> print(' '.join([str(i) for i in splitby3('1')]))
 1
->>> print ' '.join([str(i) for i in splitby3('1123')])
+>>> print(' '.join([str(i) for i in splitby3('1123')]))
 1 123
->>> print ' '.join([str(i) for i in splitby3('1234567890')])
+>>> print(' '.join([str(i) for i in splitby3('1234567890')]))
 1 234 567 890
 
 >>> print(' '.join([n2w(i) for i in range(10)]))
