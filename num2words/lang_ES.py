@@ -43,9 +43,9 @@ class Num2Word_ES(Num2Word_EU):
                              (80, "ochenta"), (70, "setenta"), (60, "sesenta"),
                              (50,"cincuenta"), (40,"cuarenta"), (30,"treinta")]
         self.low_numwords = ["vientinueve", "vientiocho", "vientisiete",
-                             "vientis\xE8is", "vienticinco", "vienticuatro",
-                             "vientitr\xE8s", "vientid\xF2s", "vientiuno",
-                             "viente", "diecinueve", "dieciocho", "diecisiete",
+                             "vientis\xE9is", "vienticinco", "vienticuatro",
+                             "vientitr\xE9s", "vientid\xF3s", "vientiuno",
+                             "veinte", "diecinueve", "dieciocho", "diecisiete",
                              "dieciseis", "quince", "catorce", "trece", "doce",
                              "once", "diez", "nueve", "ocho", "siete", "seis",
                              "cinco", "cuatro", "tres", "dos", "uno", "cero"]
@@ -55,10 +55,10 @@ class Num2Word_ES(Num2Word_EU):
                       4  : "cuart",
                       5  : "quint",
                       6  : "sext",
-                      7  : "s\xE8ptim",
+                      7  : "s\xE9ptim",
                       8  : "octav",
                       9  : "noven",
-                      10 : "d\xE8cim" }
+                      10 : "d\xE9cim" }
 
 
     def merge(self, curr, next):
