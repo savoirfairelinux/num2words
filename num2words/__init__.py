@@ -18,6 +18,7 @@ from __future__ import unicode_literals
 
 from . import lang_EN
 from . import lang_EN_GB
+from . import lang_EN_IN
 from . import lang_FR
 from . import lang_DE
 from . import lang_ES
@@ -27,6 +28,7 @@ from . import lang_LV
 CONVERTER_CLASSES = {
     'en': lang_EN.Num2Word_EN(),
     'en_GB': lang_EN_GB.Num2Word_EN_GB(),
+    'en_IN': lang_EN_IN.Num2Word_EN_IN(),
     'fr': lang_FR.Num2Word_FR(),
     'de': lang_DE.Num2Word_DE(),
     'es': lang_ES.Num2Word_ES(),
