@@ -1,6 +1,13 @@
 Changelog
 =========
 
+Version 0.5.2 -- 2015/01/23
+---------------------------
+
+* Added Latvian localization. (#9)
+* Improved Spanish localization. (#10, #13, #14)
+* Improved Lithuanian localization. (#12)
+
 Version 0.5.1 -- 2014/03/14
 ---------------------------
 
