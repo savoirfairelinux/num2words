@@ -40,7 +40,7 @@ class Num2Word_DE(Num2Word_EU):
         tens = ["dez", "vigint", "trigint", "quadragint", "quinquagint",
                 "sexagint", "septuagint", "oktogint", "nonagint"]
         self.high_numwords = ["zent"]+self.gen_high_numwords(units, tens, lows)
-        self.mid_numwords = [(1000, "tausand"), (100, "hundert"),
+        self.mid_numwords = [(1000, "tausend"), (100, "hundert"),
                              (90, "neunzig"), (80, "achtzig"), (70, "siebzig"),
                              (60, "sechzig"), (50, "f\xFCnfzig"), (40, "vierzig"),
                              (30, "drei\xDFig")]
