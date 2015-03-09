@@ -65,10 +65,7 @@ class Num2Word_RO(num2words.lang_EU.Num2Word_EU):
 
 
     def to_year(self, val, longval=True):
-        if not (val//100)%10:
-            return self.to_cardinal(val)
-        return self.to_splitnum(val, hightxt="suta", jointxt="si",
-                                longval=longval)
+	return self.to_cardinal(val)
 
     def to_currency(self, val, longval=True, hightxt="le/u/i", lowtxt="ban/i", divisor=100,
                     high_feminine=False, low_feminine=False):
