@@ -19,7 +19,6 @@ from __future__ import unicode_literals
 from .lang_EU import Num2Word_EU
 
 #//TODO: error messages in French
-#//TODO: ords
 class Num2Word_FR(Num2Word_EU):
     def setup(self):
         self.negword = "moins "
@@ -35,6 +34,10 @@ class Num2Word_FR(Num2Word_EU):
                              "seize", "quinze", "quatorze", "treize", "douze",
                              "onze", "dix", "neuf", "huit", "sept", "six",
                              "cinq", "quatre", "trois", "deux", "un", "zéro"]
+        self.ords = {
+            "cinq": "cinquième",
+            "neuf": "neuvième",
+        }
 
 
     def merge(self, curr, next):
@@ -67,10 +70,15 @@ class Num2Word_FR(Num2Word_EU):
         if value == 1:
             return "premier"
         word = self.to_cardinal(value)
-        if word[-1] == "e":
-            word = word[:-1]
-        return word + "ième"
-
+        for src, repl in self.ords.items():
+            if word.endswith(src):
+                word = word[:-len(src)] + repl
+                break
+        else:
+            if word[-1] == "e":
+                word = word[:-1]
+            word = word + "ième"
+        return word
 
     def to_ordinal_num(self, value):
         self.verify_ordinal(value)
