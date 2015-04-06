@@ -18,6 +18,10 @@ Otherwise, you can download the source package and then execute::
 
     python setup.py install
 
+The test suite in this library new, so it's rather thin, but it can be ran with::
+
+    python setup.py test
+
 Usage
 -----
 
