@@ -27,7 +27,7 @@ setup(
     maintainer_email='virgil.dupras@savoirfairelinux.com',
     keywords=' number word numbers words convert conversion i18n localisation localization internationalisation internationalization',
     url='https://github.com/savoirfairelinux/num2words',
-    packages=find_packages(),
+    packages=find_packages(exclude=['tests']),
     test_suite='tests',
     use_2to3=True,
 )
