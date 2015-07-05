@@ -34,6 +34,7 @@ CONVERTER_CLASSES = {
     'es': lang_ES.Num2Word_ES(),
     'lt': lang_LT.Num2Word_LT(),
     'lv': lang_LV.Num2Word_LV(),
+    'pl': lang_PL.Num2Word_PL(),
 }
 
 def num2words(number, ordinal=False, lang='en'):
