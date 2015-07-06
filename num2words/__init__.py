@@ -24,6 +24,7 @@ from . import lang_DE
 from . import lang_ES
 from . import lang_LT
 from . import lang_LV
+from . import lang_PL
 
 CONVERTER_CLASSES = {
     'en': lang_EN.Num2Word_EN(),
