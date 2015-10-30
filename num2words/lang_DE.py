@@ -44,7 +44,7 @@ class Num2Word_DE(Num2Word_EU):
                              (90, "neunzig"), (80, "achtzig"), (70, "siebzig"),
                              (60, "sechzig"), (50, "f\xFCnfzig"), (40, "vierzig"),
                              (30, "drei\xDFig")]
-        self.low_numwords = ["zwanzig", "neunzehn", "achtzen", "siebzehn",
+        self.low_numwords = ["zwanzig", "neunzehn", "achtzehn", "siebzehn",
                              "sechzehn", "f\xFCnfzehn", "vierzehn", "dreizehn",
                              "zw\xF6lf", "elf", "zehn", "neun", "acht", "sieben",
                              "sechs", "f\xFCnf", "vier", "drei", "zwei", "eins",
