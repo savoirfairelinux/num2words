@@ -59,20 +59,19 @@ class Num2Word_DE(Num2Word_EU):
                      "nen": "nens",
                      "rde": "rdes",
                      "rden": "rdens"}
-        self.ordflag = False
 
     def merge(self, curr, next):
         ctext, cnum, ntext, nnum = curr + next
 
         if cnum == 1:
-            if nnum < 10**6 or self.ordflag:
+            if nnum < 10**6:
                 return next
             ctext = "eine"
 
         if nnum > cnum:
             if nnum >= 10**6:
                 if cnum > 1:
-                    if ntext.endswith("e") or self.ordflag:
+                    if ntext.endswith("e"):
                         ntext += "n"
                     else:
                         ntext += "en"
