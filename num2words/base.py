@@ -116,16 +116,15 @@ class Num2Word_Base(object):
 
         pre = int(value)
         post = abs(value - pre)
+        post *= 10**self.precision
 
         out = [self.to_cardinal(pre)]
         if self.precision:
             out.append(self.title(self.pointword))
 
         for i in range(self.precision):
-            post *= 10
-            curr = int(post)
-            out.append(str(self.to_cardinal(curr)))
-            post -= curr
+            curr = str(post)[i]
+            out.append(str(self.to_cardinal(int(curr))))
 
         return " ".join(out)
 
