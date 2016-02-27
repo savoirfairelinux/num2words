@@ -50,6 +50,7 @@ Besides the numerical argument, there's two optional arguments.
 * ``en_GB`` (British English)
 * ``en_IN`` (Indian English)
 * ``pl`` (Polish)
+* ``pt_BR`` (Brazilian Portuguese)
 
 You can supply values like ``fr_FR``, the code will be
 correctly interpreted. If you supply an unsupported language, ``NotImplementedError`` is raised.
