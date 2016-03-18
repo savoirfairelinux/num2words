@@ -18,16 +18,15 @@
 from __future__ import unicode_literals
 from .lang_EU import Num2Word_EU
 
-
-class Num2Word_FR(Num2Word_EU):
+class Num2Word_FR_CH(Num2Word_EU):
     def setup(self):
         self.negword = "moins "
         self.pointword = "virgule"
         self.errmsg_nonnum = u"Seulement des nombres peuvent être convertis en mots."
         self.errmsg_toobig = u"Nombre trop grand pour être converti en mots."
         self.exclude_title = ["et", "virgule", "moins"]
-        self.mid_numwords = [(1000, "mille"), (100, "cent"),
-                             (80, "quatre-vingts"), (60, "soixante"),
+        self.mid_numwords = [(1000, "mille"), (100, "cent"), (90, "nonante"),
+                             (80, "huitante"),  (70, "septante"), (60, "soixante"),
                              (50, "cinquante"), (40, "quarante"),
                              (30, "trente")]
         self.low_numwords = ["vingt", "dix-neuf", "dix-huit", "dix-sept",
@@ -46,15 +45,11 @@ class Num2Word_FR(Num2Word_EU):
         if cnum == 1:
             if nnum < 1000000:
                 return next
-        else:
-            if (not (cnum - 80)%100 or not cnum%100) and ctext[-1] == "s":
-                ctext = ctext[:-1]
-            if (cnum<1000 and nnum != 1000 and ntext[-1] != "s"
-            and not nnum%100):
+        if cnum < 1000 and nnum != 1000 and ntext[-1] != "s" and not nnum % 100:
                 ntext += "s"
 
         if nnum < cnum < 100:
-            if nnum % 10 == 1 and cnum != 80:
+            if nnum % 10 == 1:
                 return ("%s et %s"%(ctext, ntext), cnum + nnum)
             return ("%s-%s"%(ctext, ntext), cnum + nnum)
         elif nnum > cnum:
@@ -93,7 +88,7 @@ class Num2Word_FR(Num2Word_EU):
         return self.to_splitnum(val, hightxt=hightxt, lowtxt="centime/s",
                                 jointxt="et",longval=longval)
 
-n2w = Num2Word_FR()
+n2w = Num2Word_FR_CH()
 to_card = n2w.to_cardinal
 to_ord = n2w.to_ordinal
 to_ordnum = n2w.to_ordinal_num
