@@ -63,7 +63,7 @@ Therefore, if you want to call ``num2words`` with a fallback, you can do::
 History
 -------
 
-``num2words`` is based on an old library , ``pynum2word`` created by Taro Ogawa in 2003.
+``num2words`` is based on an old library, ``pynum2word`` created by Taro Ogawa in 2003.
 Unfortunately, the library stopped being maintained and the author can't be reached. There was
 another developer, Marius Grigaitis, who in 2011 added Lithuanian support, but didn't take over
 maintenance of the project.
