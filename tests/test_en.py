@@ -21,3 +21,10 @@ class Num2WordsENTest(TestCase):
     def test_and_join_199(self):
         # ref https://github.com/savoirfairelinux/num2words/issues/8
         self.assertEqual(num2words(199), "one hundred and ninety-nine")
+
+    def test_cardinal_for_float_number(self):
+        # issue 24
+        self.assertEqual(num2words(12.50), "twelve point five zero")
+        self.assertEqual(num2words(12.51), "twelve point five one")
+        self.assertEqual(num2words(12.53), "twelve point five three")
+        self.assertEqual(num2words(12.59), "twelve point five nine")
