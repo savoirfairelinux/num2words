@@ -31,12 +31,12 @@ class Num2Word_DK(lang_EU.Num2Word_EU):
         self.exclude_title = ["og", "komma", "minus"]
 
         self.mid_numwords = [(1000, "tusind"), (100, "hundrede"),
-                             (90, "nitten"), (80, "firs"), (70, "halvfjerds"),
+                             (90, "halvfems"), (80, "firs"), (70, "halvfjerds"),
                              (60, "treds"), (50, "halvtreds"), (40, "fyrre"),
                              (30, "tredive")]
         self.low_numwords = ["tyve", "nitten", "atten", "sytten",
                              "seksten", "femten", "fjorten", "tretten",
-                             "tolv", "elleve", "ti", "ni", "\xe5tte",
+                             "tolv", "elleve", "ti", "ni", "otte",
                              "syv", "seks", "fem", "fire", "tre", "to",
                              "et", "nul"]
         self.ords = { "en"    : "f\xf8rste",
@@ -55,17 +55,22 @@ class Num2Word_DK(lang_EU.Num2Word_EU):
 
     def merge(self, curr, next):
         ctext, cnum, ntext, nnum = curr + next
+        if next[1] == 100 or next[1] == 1000:
+            lst = list(next)
+            lst[0] = 'et' + lst[0]
+            next = tuple(lst)
 
         if cnum == 1:
             if nnum < 10**6 or self.ordflag:
                 return next
             ctext = "en"
-
         if nnum > cnum:
             if nnum >= 10**6:
                 ctext += " "
             val = cnum * nnum
         else:
+            if cnum >= 100 and cnum < 10000:
+                ctext += "og"
             if nnum < 10 < cnum < 100:
                 if nnum == 1:
                     ntext = "en"
@@ -73,7 +78,6 @@ class Num2Word_DK(lang_EU.Num2Word_EU):
             elif cnum >= 10**6:
                 ctext += " "
             val = cnum + nnum
-
         word = ctext + ntext
         return (word, val)
 
@@ -87,13 +91,11 @@ class Num2Word_DK(lang_EU.Num2Word_EU):
             if outword.endswith(key):
                 outword = outword[:len(outword) - len(key)] + self.ords[key]
                 break
-        return outword + "te"
+        return outword + "ende"
 
-
-    # Is this correct??
     def to_ordinal_num(self, value):
         self.verify_ordinal(value)
-        return str(value) + "te"
+        return str(value) + "ende"
 
 
     def to_currency(self, val, longval=True):
@@ -103,7 +105,7 @@ class Num2Word_DK(lang_EU.Num2Word_EU):
     def to_year(self, val, longval=True):
         if not (val//100)%10:
             return self.to_cardinal(val)
-        return self.to_splitnum(val, hightxt="hundrede og", longval=longval)
+        return self.to_splitnum(val, hightxt="hundrede", longval=longval)
 
 n2w = Num2Word_DK()
 to_card = n2w.to_cardinal
@@ -112,6 +114,7 @@ to_ordnum = n2w.to_ordinal_num
 to_year = n2w.to_year
 
 def main():
+    #print to_card(308)
     for val in [ 1, 11, 12, 21, 31, 33, 71, 80, 81, 91, 99, 100, 101, 102, 155,
              180, 300, 308, 832, 1000, 1001, 1061, 1100, 1500, 1701, 3000,
              8280, 8291, 150000, 500000, 1000000, 2000000, 2000001,
