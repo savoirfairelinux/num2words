@@ -29,6 +29,7 @@ from . import lang_PL
 from . import lang_RU
 from . import lang_ID
 from . import lang_NO
+from . import lang_DK
 
 CONVERTER_CLASSES = {
     'en': lang_EN.Num2Word_EN(),
@@ -44,6 +45,7 @@ CONVERTER_CLASSES = {
     'pl': lang_PL.Num2Word_PL(),
     'ru': lang_RU.Num2Word_RU(),
     'no': lang_NO.Num2Word_NO(),
+    'dk': lang_DK.Num2Word_DK(),
 }
 
 def num2words(number, ordinal=False, lang='en'):
