@@ -116,6 +116,7 @@ class Num2Word_Base(object):
 
         pre = int(value)
         post = str(abs(value - pre) * 10**self.precision)
+        post = '0' * (self.precision - len(post.split('.')[0])) + post
 
         out = [self.to_cardinal(pre)]
         if self.precision:
@@ -123,7 +124,7 @@ class Num2Word_Base(object):
 
         for i in range(self.precision):
             curr = int(post[i])
-            out.append(str(self.to_cardinal(curr)))
+            out.append(unicode(self.to_cardinal(curr)))
 
         return " ".join(out)
 
