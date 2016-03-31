@@ -36,7 +36,7 @@ class Num2Word_Base(object):
         self.set_numwords()
 
         self.MAXVAL = 1000 * self.cards.order[0]
-        
+
 
     def set_numwords(self):
         self.set_high_numwords(self.high_numwords)
@@ -64,7 +64,7 @@ class Num2Word_Base(object):
         for elem in self.cards:
             if elem > value:
                 continue
-            
+
             out = []
             if value == 0:
                 div, mod = 1, 0
@@ -75,7 +75,7 @@ class Num2Word_Base(object):
                 out.append((self.cards[1], 1))
             else:
                 if div == value:  # The system tallies, eg Roman Numerals
-                    return [(div * self.cards[elem], div*elem)]                    
+                    return [(div * self.cards[elem], div*elem)]
                 out.append(self.splitnum(div))
 
             out.append((self.cards[elem], elem))
@@ -259,6 +259,6 @@ class Num2Word_Base(object):
             _ordnum = self.to_ordinal_num(value)
         except:
             _ordnum = "invalid"
-            
+
         print ("For %s, card is %s;\n\tord is %s; and\n\tordnum is %s." %
                     (value, _card, _ord, _ordnum))

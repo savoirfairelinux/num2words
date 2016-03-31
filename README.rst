@@ -53,6 +53,7 @@ Besides the numerical argument, there's two optional arguments.
 * ``pl`` (Polish)
 * ``ru`` (Russian)
 * ``dk`` (Danish)
+* ``pt_BR`` (Brazilian Portuguese)
 
 You can supply values like ``fr_FR``, the code will be
 correctly interpreted. If you supply an unsupported language, ``NotImplementedError`` is raised.
