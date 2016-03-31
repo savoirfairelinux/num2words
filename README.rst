@@ -49,6 +49,7 @@ Besides the numerical argument, there's two optional arguments.
 * ``lv`` (Latvian)
 * ``en_GB`` (British English)
 * ``en_IN`` (Indian English)
+* ``no`` (Norwegian)
 * ``pl`` (Polish)
 * ``ru`` (Russian)
 
