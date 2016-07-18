@@ -35,6 +35,7 @@ class Num2WordsITTest(TestCase):
             (20,'venti'),
             (21,'ventuno'),
             (26,'ventisei'),
+            (28,'ventotto'),
             (30,'trenta'),
             (31,'trentuno'),
             (40,'quaranta'),
@@ -80,3 +81,16 @@ class Num2WordsITTest(TestCase):
         for test in test_cases:
             self.assertEqual(num2words(test[0], lang='it'), test[1])
 
+    def test_ordinal(self):
+
+        test_cases = (
+            (1,'primo'),
+            (8,'ottavo'),
+            (12,'dodicesimo'),
+            (14,'quattordicesimo'),
+            (28,'ventottesimo'),
+            (100,'centesimo'),
+        )
+
+        for test in test_cases:
+            self.assertEqual(num2words(test[0], lang='it', ordinal=True), test[1])

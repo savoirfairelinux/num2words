@@ -196,9 +196,22 @@ class Num2Word_IT(object):
         pass
 
     def to_ordinal(self,value):
-        raise NotImplementedError()
+        if 0 <= value <= 10:
+            return ["primo", "secondo", "terzo", "quarto", "quinto", "sesto", "settimo", "ottavo", "nono", "decimo"][value - 1]
+        else:
+            as_word = self._toWords(value)
+            if as_word.endswith("dici"):
+                return re.sub("dici$", "dicesimo", as_word)
+            elif as_word.endswith("to"):
+                return re.sub("to$", "tesimo", as_word)
+            elif as_word.endswith("ta"):
+                return re.sub("ta$", "tesimo", as_word)
+            else:
+                return as_word + "simo"
+
 
 n2w = Num2Word_IT()
 to_card = n2w.to_cardinal
 to_ord = n2w.to_ordinal
 to_ordnum = n2w.to_ordinal_num
+
