@@ -17,7 +17,7 @@
 from __future__ import unicode_literals
 from .lang_EU import Num2Word_EU
 
-#//TODO: Use German error messages
+
 class Num2Word_DE(Num2Word_EU):
     def set_high_numwords(self, high):
         max = 3 + 6*len(high)
@@ -30,8 +30,8 @@ class Num2Word_DE(Num2Word_EU):
     def setup(self):
         self.negword = "minus "
         self.pointword = "Komma"
-        self.errmsg_nonnum = "Only numbers may be converted to words."
-        self.errmsg_toobig = "Number is too large to convert to words."
+        self.errmsg_nonnum = "Only numbers may be converted to words. - Nur Zahlen können ausgeschrieben werden."
+        self.errmsg_toobig = "Number is too large to convert to words. - Die Zahl kann nicht ausgeschrieben werden. Sie ist zu gro\xDF."
         self.exclude_title = []
 
         lows = ["non", "okt", "sept", "sext", "quint", "quadr", "tr", "b", "m"]
