@@ -25,3 +25,7 @@ class Num2WordsRUTest(TestCase):
         self.assertEqual(num2words(15, lang='ru'), u"пятнадцать")
         self.assertEqual(num2words(154, lang='ru'), u"сто пятьдесят четыре")
         self.assertEqual(num2words(418531, lang='ru'), u"четыреста восемнадцать тысяч пятьсот тридцать один")
+
+    def test_floating_point(self):
+        self.assertEqual(num2words(5.2, lang='ru'), u"пять запятая два")
+        self.assertEqual(num2words(561.42, lang='ru'), u"пятьсот шестьдесят один запятая сорок два")
