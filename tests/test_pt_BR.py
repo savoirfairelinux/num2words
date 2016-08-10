@@ -81,18 +81,18 @@ class Num2WordsPTBRTest(TestCase):
 
     def test_cardinal_float(self):
         self.assertEquals(num2words(Decimal('1.00'), lang='pt_BR'), 'um')
-        self.assertEquals(num2words(Decimal('1.01'), lang='pt_BR'), 'um ponto zero um')
-        self.assertEquals(num2words(Decimal('1.035'), lang='pt_BR'), 'um ponto zero três')
-        self.assertEquals(num2words(Decimal('1.35'), lang='pt_BR'), 'um ponto três cinco')
-        self.assertEquals(num2words(Decimal('3.14159'), lang='pt_BR'), 'três ponto um quatro')
-        self.assertEquals(num2words(Decimal('101.22'), lang='pt_BR'), 'cento e um ponto dois dois')
-        self.assertEquals(num2words(Decimal('2345.75'), lang='pt_BR'), 'dois mil, trezentos e quarenta e cinco ponto sete cinco')
+        self.assertEquals(num2words(Decimal('1.01'), lang='pt_BR'), 'um vírgula zero um')
+        self.assertEquals(num2words(Decimal('1.035'), lang='pt_BR'), 'um vírgula zero três')
+        self.assertEquals(num2words(Decimal('1.35'), lang='pt_BR'), 'um vírgula três cinco')
+        self.assertEquals(num2words(Decimal('3.14159'), lang='pt_BR'), 'três vírgula um quatro')
+        self.assertEquals(num2words(Decimal('101.22'), lang='pt_BR'), 'cento e um vírgula dois dois')
+        self.assertEquals(num2words(Decimal('2345.75'), lang='pt_BR'), 'dois mil, trezentos e quarenta e cinco vírgula sete cinco')
 
     def test_cardinal_float_negative(self):
-        self.assertEquals(num2words(Decimal('-2.34'), lang='pt_BR'), 'menos dois ponto três quatro')
-        self.assertEquals(num2words(Decimal('-9.99'), lang='pt_BR'), 'menos nove ponto nove nove')
-        self.assertEquals(num2words(Decimal('-7.01'), lang='pt_BR'), 'menos sete ponto zero um')
-        self.assertEquals(num2words(Decimal('-222.22'), lang='pt_BR'), 'menos duzentos e vinte e dois ponto dois dois')
+        self.assertEquals(num2words(Decimal('-2.34'), lang='pt_BR'), 'menos dois vírgula três quatro')
+        self.assertEquals(num2words(Decimal('-9.99'), lang='pt_BR'), 'menos nove vírgula nove nove')
+        self.assertEquals(num2words(Decimal('-7.01'), lang='pt_BR'), 'menos sete vírgula zero um')
+        self.assertEquals(num2words(Decimal('-222.22'), lang='pt_BR'), 'menos duzentos e vinte e dois vírgula dois dois')
 
     def test_ordinal(self):
         self.assertEquals(num2words(1, lang='pt_BR', ordinal=True), 'primeiro')
