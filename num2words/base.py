@@ -101,7 +101,6 @@ class Num2Word_Base(object):
 
         if value >= self.MAXVAL:
             raise OverflowError(self.errmsg_toobig % (value, self.MAXVAL))
-        
 
         val = self.splitnum(value)
         words, num = self.clean(val)

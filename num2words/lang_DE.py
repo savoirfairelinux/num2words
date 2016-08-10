@@ -26,7 +26,6 @@ class Num2Word_DE(Num2Word_EU):
             self.cards[10**n] = word + "illiarde"
             self.cards[10**(n-3)] = word + "illion"
 
-
     def setup(self):
         self.negword = "minus "
         self.pointword = "Komma"
@@ -49,61 +48,59 @@ class Num2Word_DE(Num2Word_EU):
                              "zw\xF6lf", "elf", "zehn", "neun", "acht", "sieben",
                              "sechs", "f\xFCnf", "vier", "drei", "zwei", "eins",
                              "null"]
-        self.ords = { "eins"    : "ers",
-                      "drei"    : "drit",
-                      "acht"    : "ach",
-                      "sieben"  : "sieb",
-                      "ig"      : "igs" }
-        self.ordflag = False
-
+        self.ords = {"eins": "ers",
+                     "drei": "drit",
+                     "acht": "ach",
+                     "sieben": "sieb",
+                     "ig": "igs",
+                     "ert": "erts",
+                     "end": "ends",
+                     "ion": "ions",
+                     "nen": "nens",
+                     "rde": "rdes",
+                     "rden": "rdens"}
 
     def merge(self, curr, next):
         ctext, cnum, ntext, nnum = curr + next
 
         if cnum == 1:
-            if nnum < 10**6 or self.ordflag:
+            if nnum < 10**6:
                 return next
             ctext = "eine"
 
         if nnum > cnum:
             if nnum >= 10**6:
                 if cnum > 1:
-                    if ntext.endswith("e") or self.ordflag:
-                        ntext += "s"
+                    if ntext.endswith("e"):
+                        ntext += "n"
                     else:
-                        ntext += "es"
+                        ntext += "en"
                 ctext += " "
             val = cnum * nnum
         else:
             if nnum < 10 < cnum < 100:
                 if nnum == 1:
                     ntext = "ein"
-                ntext, ctext =  ctext, ntext + "und"
+                ntext, ctext = ctext, ntext + "und"
             elif cnum >= 10**6:
                 ctext += " "
             val = cnum + nnum
 
         word = ctext + ntext
         return (word, val)
-            
 
     def to_ordinal(self, value):
         self.verify_ordinal(value)
-        self.ordflag = True
         outword = self.to_cardinal(value)
-        self.ordflag = False
         for key in self.ords:
             if outword.endswith(key):
                 outword = outword[:len(outword) - len(key)] + self.ords[key]
                 break
         return outword + "te"
 
-
-    # Is this correct??
     def to_ordinal_num(self, value):
         self.verify_ordinal(value)
-        return str(value) + "te"
-
+        return str(value) + "."
 
     def to_currency(self, val, longval=True, old=False):
         if old:
@@ -117,8 +114,6 @@ class Num2Word_DE(Num2Word_EU):
             return self.to_cardinal(val)
         return self.to_splitnum(val, hightxt="hundert", longval=longval)
 
-
-            
 n2w = Num2Word_DE()
 to_card = n2w.to_cardinal
 to_ord = n2w.to_ordinal
@@ -126,15 +121,20 @@ to_ordnum = n2w.to_ordinal_num
 
 
 def main():
-    for val in [ 1, 11, 12, 21, 31, 33, 71, 80, 81, 91, 99, 100, 101, 102, 155,
+    for val in [1, 7, 8, 12, 17, 81, 91, 99, 100, 101, 102, 155,
              180, 300, 308, 832, 1000, 1001, 1061, 1100, 1500, 1701, 3000,
-             8280, 8291, 150000, 500000, 1000000, 2000000, 2000001,
+             8280, 8291, 150000, 500000, 3000000, 1000000, 2000001, 1000000000, 2000000000,
              -21212121211221211111, -2.121212, -1.0000100]:
         n2w.test(val)
 
-    n2w.test(1325325436067876801768700107601001012212132143210473207540327057320957032975032975093275093275093270957329057320975093272950730)
+    # n2w.test(1325325436067876801768700107601001012212132143210473207540327057320957032975032975093275093275093270957329057320975093272950730)
+    n2w.test(3000000)
+    n2w.test(3000000000001)
+    n2w.test(3000000324566)
     print n2w.to_currency(112121)
     print n2w.to_year(2000)
+    print n2w.to_year(1820)
+    print n2w.to_year(2001)
 
 if __name__ == "__main__":
     main()
