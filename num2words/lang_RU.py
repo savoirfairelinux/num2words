@@ -218,6 +218,9 @@ def pluralize(n, forms):
 
 
 def int2word(n, feminine=False):
+    if n < 0:
+        return ' '.join([u'минус', int2word(abs(n))])
+
     if n == 0:
         return ZERO[0]
 
