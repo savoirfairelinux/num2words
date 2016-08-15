@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright (c) 2003, Taro Ogawa.  All Rights Reserved.
 # Copyright (c) 2013, Savoir-faire Linux inc.  All Rights Reserved.
 
@@ -17,7 +18,6 @@
 from __future__ import unicode_literals
 from .lang_EU import Num2Word_EU
 
-#//TODO: Use German error messages
 class Num2Word_DE(Num2Word_EU):
     def set_high_numwords(self, high):
         max = 3 + 6*len(high)
@@ -29,8 +29,10 @@ class Num2Word_DE(Num2Word_EU):
     def setup(self):
         self.negword = "minus "
         self.pointword = "Komma"
-        self.errmsg_nonnum = "Only numbers may be converted to words."
-        self.errmsg_toobig = "Number is too large to convert to words."
+        self.errmsg_floatord = "Die Gleitkommazahl %s kann nicht in eine Ordnungszahl konvertiert werden." # "Cannot treat float %s as ordinal."
+        self.errmsg_nonnum = "Nur Zahlen (type(%s)) können in Wörter konvertiert werden." # "type(((type(%s)) ) not in [long, int, float]"
+        self.errmsg_negord = "Die negative Zahl %s kann nicht in eine Ordnungszahl konvertiert werden." # "Cannot treat negative num %s as ordinal."
+        self.errmsg_toobig = "Die Zahl %s muss kleiner als %s sein." # "abs(%s) must be less than %s."
         self.exclude_title = []
 
         lows = ["non", "okt", "sept", "sext", "quint", "quadr", "tr", "b", "m"]
