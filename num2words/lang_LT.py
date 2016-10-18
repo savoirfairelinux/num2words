@@ -85,7 +85,13 @@ vienas litas, nulis centų
 vienas tūkstantis du šimtai trisdešimt keturi litai, penkiasdešimt šeši centai
 
 >>> print(to_currency(-1251985, cents = False))
-minus dvylika tūkstančių penki šimtai devyniolika litų, 85 centai
+minus dvylika tūkstančių penki šimtai devyniolika eurų, 85 centai
+
+>>> print(to_currency(1.0, 'EUR'))
+vienas euras, nulis centų
+
+>>> print(to_currency(1234.56, 'EUR'))
+vienas tūkstantis du šimtai trisdešimt keturi eurai, penkiasdešimt šeši centai
 """
 from __future__ import unicode_literals
 
@@ -144,6 +150,7 @@ THOUSANDS = {
 
 CURRENCIES = {
     'LTL': ((u'litas', u'litai', u'litų'), (u'centas', u'centai', u'centų')),
+    'EUR': ((u'euras', u'eurai', u'eurų'), (u'centas', u'centai', u'centų')),
 }
 
 def splitby3(n):
@@ -210,7 +217,7 @@ def n2w(n):
     else:
         return int2word(int(n))
 
-def to_currency(n, currency='LTL', cents = True):
+def to_currency(n, currency='EUR', cents = True):
     if type(n) == int:
         if n < 0:
             minus = True
