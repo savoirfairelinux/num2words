@@ -14,7 +14,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301 USA
 
-from __future__ import division, unicode_literals
+from __future__ import division, unicode_literals, print_function
 from . import lang_EU
 
 class Num2Word_NO(lang_EU.Num2Word_EU):
@@ -54,7 +54,9 @@ class Num2Word_NO(lang_EU.Num2Word_EU):
                       "tjue" : "tjuende" }
 
 
-    def merge(self, (ltext, lnum), (rtext, rnum)):
+    def merge(self, lpair, rpair):
+        ltext, lnum = lpair
+        rtext, rnum = rpair
         if lnum == 1 and rnum < 100:
             return (rtext, rnum)
         elif 100 > lnum > rnum :
@@ -75,10 +77,10 @@ class Num2Word_NO(lang_EU.Num2Word_EU):
             lastword = self.ords[lastword]
         except KeyError:
             if lastword[-2:] == "ti":
-                lastword = lastword + "ende" 
+                lastword = lastword + "ende"
             else:
                 lastword += "de"
-        lastwords[-1] = self.title(lastword) 
+        lastwords[-1] = self.title(lastword)
         outwords[-1] = "".join(lastwords)
         return " ".join(outwords)
 
@@ -113,9 +115,9 @@ def main():
         n2w.test(val)
     n2w.test(1325325436067876801768700107601001012212132143210473207540327057320957032975032975093275093275093270957329057320975093272950730)
     for val in [1,120,1000,1120,1800, 1976,2000,2010,2099,2171]:
-        print val, "er", n2w.to_currency(val)
-        print val, "er", n2w.to_year(val)
-    
+        print(val, "er", n2w.to_currency(val))
+        print(val, "er", n2w.to_year(val))
+
 
 if __name__ == "__main__":
     main()

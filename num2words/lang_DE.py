@@ -15,7 +15,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301 USA
 
-from __future__ import unicode_literals
+from __future__ import unicode_literals, print_function
 from .lang_EU import Num2Word_EU
 
 class Num2Word_DE(Num2Word_EU):
@@ -133,10 +133,10 @@ def main():
     n2w.test(3000000)
     n2w.test(3000000000001)
     n2w.test(3000000324566)
-    print n2w.to_currency(112121)
-    print n2w.to_year(2000)
-    print n2w.to_year(1820)
-    print n2w.to_year(2001)
+    print(n2w.to_currency(112121))
+    print(n2w.to_year(2000))
+    print(n2w.to_year(1820))
+    print(n2w.to_year(2001))
 
 if __name__ == "__main__":
     main()

@@ -14,6 +14,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301 USA
 
+from __future__ import unicode_literals, print_function
+
 class Num2Word_ID():
 
     BASE = {0: [],
@@ -188,7 +190,7 @@ class Num2Word_ID():
         return self.to_cardinal(value)
 
     def verify_ordinal(self, value):
-        if not value == long(value):
-            raise TypeError, self.errmsg_floatord %(value)
+        if not value == int(value):
+            raise TypeError(self.errmsg_floatord % value)
         if not abs(value) == value:
-            raise TypeError, self.errmsg_negord %(value)
+            raise TypeError(self.errmsg_negord % value)
