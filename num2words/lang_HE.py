@@ -16,7 +16,7 @@
 # MA 02110-1301 USA
 
 
-from __future__ import unicode_literals
+from __future__ import unicode_literals, print_function
 
 ZERO = (u'אפס',)
 
@@ -158,5 +158,5 @@ if __name__ == '__main__':
     yo = Num2Word_HE()
     nums = [1, 11, 21, 24, 99, 100, 101, 200, 211, 345, 1000, 1011]
     for num in nums:
-        print num, yo.to_cardinal(num)
+        print(num, yo.to_cardinal(num))
 
