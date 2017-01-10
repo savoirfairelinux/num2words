@@ -1,17 +1,17 @@
 # -*- encoding: utf-8 -*-
-# The PHP License, version 3.01
-# Copyright (c) 1999 - 2010 The PHP Group. All rights reserved.
 #
-# This source file is subject to version 3.01 of the PHP license,
-# that is available at http://www.php.net/license/3_01.txt
-# If you did not receive a copy of the PHP license and are unable to
-# obtain it through the world-wide-web, please send a note to
-# license@php.net so we can mail you a copy immediately.
-#
-# This code is a direct port to Python of the PHP code of the
-# Number_Words package that can be found on pear at the URL :
-# http://pear.php.net/package/Numbers_Words
-#
+# This library is free software; you can redistribute it and/or
+# modify it under the terms of the GNU Lesser General Public
+# License as published by the Free Software Foundation; either
+# version 2.1 of the License, or (at your option) any later version.
+# This library is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+# Lesser General Public License for more details.
+# You should have received a copy of the GNU Lesser General Public
+# License along with this library; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+# MA 02110-1301 USA
 
 from __future__ import unicode_literals
 from .lang_EU import Num2Word_EU
