@@ -47,7 +47,7 @@ class Num2Word_IT(object):
         if len(str_num) > 6:
             current_power = 6
             # check for highest power
-            if self._exponent.has_key(power):
+            if power in self._exponent:
                 # convert the number above the first 6 digits
                 # with it's corresponding $power.
                 snum = str_num[0:-6]
@@ -171,7 +171,7 @@ class Num2Word_IT(object):
                     ret = ret + self._sep + self._digits[d]
 
         if power > 0:
-            if self._exponent.has_key(power):
+            if power in self._exponent:
                 lev = self._exponent[power]
 
             if lev is None:
