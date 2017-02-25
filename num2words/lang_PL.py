@@ -55,6 +55,9 @@ dwa tysiące dwanaście
 >>> print(n2w(12519.85))
 dwanaście tysięcy pięćset dziewiętnaście przecinek osiemdziesiąt pięć
 
+>>> print(n2w(123.50))
+sto dwadzieścia trzy przecinek pięć
+
 >>> print(fill(n2w(1234567890)))
 miliard dwieście trzydzieści cztery miliony pięćset sześćdziesiąt
 siedem tysięcy osiemset dziewięćdzisiąt
@@ -95,6 +98,9 @@ sto jeden złotych i dwadzieścia jeden groszy
 
 >>> print(to_currency(-1251985, cents = False))
 minus dwanaście tysięcy pięćset dziewiętnaście euro, 85 centów
+
+>>> print(to_currency(123.50, 'PLN', seperator=' i'))
+sto dwadzieścia trzy złote i pięćdziesiąt groszy
 """
 from __future__ import unicode_literals
 
@@ -207,7 +213,7 @@ def int2word(n):
 
         if n3 > 0:
             words.append(HUNDREDS[n3][0])
-            
+
         if n2 > 1:
             words.append(TWENTIES[n2][0])
 
@@ -245,6 +251,8 @@ def to_currency(n, currency='EUR', cents=True, seperator=','):
         n = str(n).replace(',', '.')
         if '.' in n:
             left, right = n.split('.')
+            if len(right)==1:
+                right = right+'0'
         else:
             left, right = n, 0
         left, right = int(left), int(right)
