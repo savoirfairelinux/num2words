@@ -245,7 +245,7 @@ def to_currency(n, currency='EUR', cents=True, seperator=','):
             minus = False
 
         n = abs(n)
-        left = n / 100
+        left = n // 100
         right = n % 100
     else:
         n = str(n).replace(',', '.')
