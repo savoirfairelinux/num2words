@@ -184,7 +184,7 @@ def splitby3(n):
         if start > 0:
             yield int(n[:start])
         for i in range(start, length, 3):
-            yield int(n[i:i+3])
+            yield int(n[i:i + 3])
     else:
         yield int(n)
 
@@ -194,7 +194,7 @@ def get_digits(n):
 
 
 def pluralize(n, forms):
-    form = 0 if n==1 else 1 if (n % 10 > 1 and n % 10 < 5 and (n % 100 < 10 or n % 100 > 20)) else 2
+    form = 0 if n == 1 else 1 if (n % 10 > 1 and n % 10 < 5 and (n % 100 < 10 or n % 100 > 20)) else 2
     return forms[form]
 
 
@@ -208,8 +208,6 @@ def int2word(n):
     for x in chunks:
         i -= 1
         n1, n2, n3 = get_digits(x)
-
-        # print str(n3) + str(n2) + str(n1)
 
         if n3 > 0:
             words.append(HUNDREDS[n3][0])
@@ -237,7 +235,7 @@ def n2w(n):
         return int2word(int(n))
 
 
-def to_currency(n, currency='EUR', cents=True, seperator=','):
+def to_currency(n, currency = 'EUR', cents = True, seperator = ','):
     if type(n) == int:
         if n < 0:
             minus = True
@@ -251,8 +249,8 @@ def to_currency(n, currency='EUR', cents=True, seperator=','):
         n = str(n).replace(',', '.')
         if '.' in n:
             left, right = n.split('.')
-            if len(right)==1:
-                right = right+'0'
+            if len(right) == 1:
+                right = right + '0'
         else:
             left, right = n, 0
         left, right = int(left), int(right)
