@@ -1,6 +1,21 @@
 Changelog
 =========
 
+Version 0.5.4 -- 2016/10/18
+---------------------------
+
+* Tons of new languages!
+* Add Polish localization. (#23)
+* Add Swiss-French localization. (#38)
+* Add Russian localization. (#28, #46, #48)
+* Add Indonesian localization. (#29)
+* Add Norwegian localization. (#33)
+* Add Danish localization. (#40)
+* Add Brazilian localization. (#37, #47)
+* Improve German localization. (#25, #27, #49)
+* Improve Lithuanian localization. (#52)
+* Improve floating point spelling. (#24)
+
 Version 0.5.3 -- 2015/06/09
 ---------------------------
 

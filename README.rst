@@ -1,6 +1,8 @@
 num2words - Convert numbers to words in multiple languages
 ==========================================================
 
+.. image:: https://travis-ci.org/savoirfairelinux/num2words.svg?branch=master :target: https://travis-ci.org/savoirfairelinux/num2words
+
 ``num2words`` is a library that converts numbers like ``42`` to words like ``forty-two``. It
 supports multiple languages (English, French, Spanish, German and Lithuanian) and can even generate
 ordinal numbers like ``forty-second`` (altough this last feature is a bit buggy at the moment).
@@ -49,6 +51,13 @@ Besides the numerical argument, there's two optional arguments.
 * ``lv`` (Latvian)
 * ``en_GB`` (British English)
 * ``en_IN`` (Indian English)
+* ``no`` (Norwegian)
+* ``pl`` (Polish)
+* ``ru`` (Russian)
+* ``dk`` (Danish)
+* ``pt_BR`` (Brazilian Portuguese)
+* ``he`` (Hebrew)
+* ``it`` (Italian)
 
 You can supply values like ``fr_FR``, the code will be
 correctly interpreted. If you supply an unsupported language, ``NotImplementedError`` is raised.
@@ -62,7 +71,7 @@ Therefore, if you want to call ``num2words`` with a fallback, you can do::
 History
 -------
 
-``num2words`` is based on an old library , ``pynum2word`` created by Taro Ogawa in 2003.
+``num2words`` is based on an old library, ``pynum2word`` created by Taro Ogawa in 2003.
 Unfortunately, the library stopped being maintained and the author can't be reached. There was
 another developer, Marius Grigaitis, who in 2011 added Lithuanian support, but didn't take over
 maintenance of the project.
