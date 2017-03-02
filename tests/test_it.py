@@ -87,7 +87,25 @@ class Num2WordsITTest(TestCase):
         100: "centesimo"
     }
 
-    def test_ordinal(self):
-        for key in Num2WordsITTest.ORDINAL_TEST_CASES:
-            word = Num2WordsITTest.ORDINAL_TEST_CASES[key]
-            self.assertEqual(num2words(key, lang="it", ordinal=True), word)
+    def test_nth_0_to_99(self):
+        self.assertEqual(num2words(0, lang="it", ordinal=True), "zero")
+        self.assertEqual(num2words(1, lang="it", ordinal=True), "primo")
+        self.assertEqual(num2words(8, lang="it", ordinal=True), "ottavo")
+        self.assertEqual(num2words(23, lang="it", ordinal=True), "ventitreesimo")
+        self.assertEqual(num2words(47, lang="it", ordinal=True), "quarantasettesimo")
+        self.assertEqual(num2words(99, lang="it", ordinal=True), "novantanovesimo")
+
+    def test_nth_100_to_999(self):
+        self.assertEqual(num2words(100, lang="it", ordinal=True), "centesimo")
+        self.assertEqual(num2words(112, lang="it", ordinal=True), "centododicesimo")
+        self.assertEqual(num2words(120, lang="it", ordinal=True), "centoventesimo")
+        self.assertEqual(num2words(316, lang="it", ordinal=True), "trecentosedicesimo")
+        self.assertEqual(num2words(700, lang="it", ordinal=True), "settecentesimo")
+        self.assertEqual(num2words(803, lang="it", ordinal=True), "ottocentotreesimo")
+        self.assertEqual(num2words(923, lang="it", ordinal=True), "novecentoventitreesimo")
+
+    def test_nth_1000_to_1000000(self):
+        self.assertEqual(num2words(1000, lang="it", ordinal=True), "millesimo")
+        self.assertEqual(num2words(1200, lang="it", ordinal=True), "milleduecentesimo")
+        self.assertEqual(num2words(123456, lang="it", ordinal=True), "centoventitremilaquattrocentocinquantaseiesimo")
+        self.assertEqual(num2words(987654, lang="it", ordinal=True), "novecentoottantasettemilaseicentocinquantaquattresimo")

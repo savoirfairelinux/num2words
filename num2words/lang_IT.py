@@ -130,18 +130,25 @@ class Num2Word_IT(Num2Word_EU):
         else:
             return self.big_exponent_to_cardinal(number)
 
-    def to_ordinal(self, n):
-        if n < 0:
-            return "meno " + self.to_ordinal(n)
-        if n == 0:
+    def to_ordinal(self, number):
+        # Italian grammar is not very clearly defined here ¯\_(ツ)_/¯
+        mod = number % 100
+        is_outside_teens = 0 <= mod <= 10 or mod >= 20
+        if number < 0:
+            return "meno " + self.to_ordinal(-n)
+        if number == 0:
             return ZERO
-        if n < 20:
+        if number < 20:
             return [
                 "primo", "secondo", "terzo", "quarto", "quinto", "sesto",
                 "settimo", "ottavo", "nono", "decimo", "undicesimo",
                 "dodicesimo", "tredicesimo", "quattordicesimo", "quindicesimo",
-                "sedicesimo", "diciassettesimo", "diciassettesimo",
+                "sedicesimo", "diciassettesimo", "diciottesimo",
                 "diciannovesimo"
-            ][n-1]
+            ][number-1]
+        elif is_outside_teens and number % 10 == 3:
+            return self.to_cardinal(number)[:-1] + "eesimo"
+        elif is_outside_teens and number % 10 == 6:
+            return self.to_cardinal(number) + "esimo"
         else:
-            return self.to_cardinal(n)[:-1] + "esimo"
+            return self.to_cardinal(number)[:-1] + "esimo"
