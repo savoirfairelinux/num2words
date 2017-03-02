@@ -62,6 +62,7 @@ class Num2Word_IT(Num2Word_EU):
         pass
 
     def decimal_part_to_cardinal(self, float_number):
+        # Drops the trailing zero and comma
         chars = str(float_number % 1)[2:]
         digits_to_string = [self.to_cardinal(int(d)) for d in chars]
         return " virgola " + " ".join(digits_to_string)
@@ -135,7 +136,6 @@ class Num2Word_IT(Num2Word_EU):
             return self.big_exponent_to_cardinal(number)
 
     def float_to_ordinal(self, float_number):
-        # Drops the trailing zero and comma
         decimal_part_to_string = self.decimal_part_to_cardinal(float_number)
         whole_part_to_string = self.to_ordinal(int(float_number))
         return whole_part_to_string + decimal_part_to_string
