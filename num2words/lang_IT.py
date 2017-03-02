@@ -68,7 +68,7 @@ class Num2Word_IT(Num2Word_EU):
         return whole_part_to_string + " virgola " + decimal_part_to_string
 
     def two_digits_to_cardinal(self, number):
-        tens = number / 10
+        tens = number // 10
         units = number % 10
         if tens in STR_TENS:
             tens_to_string = STR_TENS[tens]
@@ -80,7 +80,7 @@ class Num2Word_IT(Num2Word_EU):
         return tens_to_string + units_to_string
 
     def hundreds_to_cardinal(self, number):
-        hundreds = number / 100
+        hundreds = number // 100
         hundreds_to_string = "cento"
         if hundreds != 1:
             hundreds_to_string = STR_0_to_19[hundreds] + hundreds_to_string
@@ -88,7 +88,7 @@ class Num2Word_IT(Num2Word_EU):
         return hundreds_to_string + remainder_to_string
 
     def thousands_to_cardinal(self, number):
-        thousands = number / 1000
+        thousands = number // 1000
         if thousands == 1:
             thousands_to_string = "mille"
         else:
