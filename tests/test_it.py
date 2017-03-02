@@ -20,6 +20,15 @@ from num2words import num2words
 
 class Num2WordsITTest(TestCase):
 
+    def test_negative(self):
+        number = 648972145
+        pos_crd = num2words(+number, lang="it")
+        neg_crd = num2words(-number, lang="it")
+        pos_ord = num2words(+number, lang="it", ordinal=True)
+        neg_ord = num2words(-number, lang="it", ordinal=True)
+        self.assertEqual("meno " + pos_crd, neg_crd)
+        self.assertEqual("meno " + pos_ord, neg_ord)
+
     def test_0(self):
         self.assertEqual(num2words(0, lang="it"), "zero")
 

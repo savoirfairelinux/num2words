@@ -135,7 +135,7 @@ class Num2Word_IT(Num2Word_EU):
         mod = number % 100
         is_outside_teens = 0 <= mod <= 10 or mod >= 20
         if number < 0:
-            return "meno " + self.to_ordinal(-n)
+            return "meno " + self.to_ordinal(-number)
         if number == 0:
             return ZERO
         if number < 20:
