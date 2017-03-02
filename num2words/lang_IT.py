@@ -61,11 +61,15 @@ class Num2Word_IT(Num2Word_EU):
     def __init__(self):
         pass
 
+    def decimal_part_to_cardinal(self, float_number):
+        chars = str(float_number % 1)[2:]
+        digits_to_string = [self.to_cardinal(int(d)) for d in chars]
+        return " virgola " + " ".join(digits_to_string)
+
     def float_to_cardinal(self, float_number):
-        decimal_part_as_int = int(str(float_number % 1)[1:])
+        decimal_part_to_string = self.decimal_part_to_cardinal(float_number)
         whole_part_to_string = self.to_cardinal(int(float_number))
-        decimal_part_to_string = self.to_cardinal(decimal_part_as_int)
-        return whole_part_to_string + " virgola " + decimal_part_to_string
+        return whole_part_to_string + decimal_part_to_string
 
     def two_digits_to_cardinal(self, number):
         tens = number // 10
@@ -115,11 +119,11 @@ class Num2Word_IT(Num2Word_EU):
             pass # TODO *BIG* numbers (> 10^30) support
 
     def to_cardinal(self, number):
-        if number % 1 != 0:
-            return self.float_to_cardinal(number)
         if number < 0:
             return "meno " + self.to_cardinal(-number)
-        if number < 20:
+        elif number % 1 != 0:
+            return self.float_to_cardinal(number)
+        elif number < 20:
             return STR_0_to_19[number]
         elif number < 100:
             return self.two_digits_to_cardinal(number)
@@ -130,15 +134,24 @@ class Num2Word_IT(Num2Word_EU):
         else:
             return self.big_exponent_to_cardinal(number)
 
+    def float_to_ordinal(self, float_number):
+        # Drops the trailing zero and comma
+        decimal_part_to_string = self.decimal_part_to_cardinal(float_number)
+        whole_part_to_string = self.to_ordinal(int(float_number))
+        return whole_part_to_string + decimal_part_to_string
+
     def to_ordinal(self, number):
-        # Italian grammar is not very clearly defined here ¯\_(ツ)_/¯
         mod = number % 100
+        # Italian grammar is poorly defined here ¯\_(ツ)_/¯:
+        #   centodecimo VS centodieciesimo VS centesimo decimo?
         is_outside_teens = 0 <= mod <= 10 or mod >= 20
         if number < 0:
             return "meno " + self.to_ordinal(-number)
-        if number == 0:
+        elif number % 1 != 0:
+            return self.float_to_ordinal(number)
+        elif number == 0:
             return ZERO
-        if number < 20:
+        elif number < 20:
             return [
                 "primo", "secondo", "terzo", "quarto", "quinto", "sesto",
                 "settimo", "ottavo", "nono", "decimo", "undicesimo",

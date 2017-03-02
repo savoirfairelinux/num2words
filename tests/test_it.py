@@ -15,6 +15,7 @@
 # MA 02110-1301 USA
 
 from __future__ import unicode_literals
+from decimal import Decimal
 from unittest import TestCase
 from num2words import num2words
 
@@ -28,6 +29,23 @@ class Num2WordsITTest(TestCase):
         neg_ord = num2words(-number, lang="it", ordinal=True)
         self.assertEqual("meno " + pos_crd, neg_crd)
         self.assertEqual("meno " + pos_ord, neg_ord)
+
+
+    # We cannot test for equality because of floating point imprecisions.
+    def test_float_to_cardinal(self):
+        number = Decimal(3.1415)
+        s = "tre virgola uno quattro uno "
+        crd_s = num2words(number, lang="it")
+        almost_eq_crd = s + "quattro" in crd_s or s + "cinque" in crd_s
+        self.assertTrue(almost_eq_crd)
+
+    # See above.
+    def test_float_to_ordinal(self):
+        number = Decimal(3.1415)
+        s = "terzo virgola uno quattro uno "
+        ord_s = num2words(number, lang="it", ordinal=True)
+        almost_eq_ord = s + "quattro" in ord_s or s + "cinque" in ord_s
+        self.assertTrue(almost_eq_ord)
 
     def test_0(self):
         self.assertEqual(num2words(0, lang="it"), "zero")
@@ -86,15 +104,6 @@ class Num2WordsITTest(TestCase):
         self.assertEqual(num2words(2000001000, lang="it"), "due miliardi e mille")
         self.assertEqual(num2words(1234567890, lang="it"), "un miliardo e duecentotrentaquattro milioni e cinquecentosessantasettemilaottocentonovanta")
         self.assertEqual(num2words(1000000000000, lang="it"), "un bilione")
-
-    ORDINAL_TEST_CASES = {
-        1: "primo",
-        8: "ottavo",
-        12: "dodicesimo",
-        14: "quattordicesimo",
-        28: "ventottesimo",
-        100: "centesimo"
-    }
 
     def test_nth_0_to_99(self):
         self.assertEqual(num2words(0, lang="it", ordinal=True), "zero")
