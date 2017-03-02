@@ -15,7 +15,6 @@
 # MA 02110-1301 USA
 
 from __future__ import unicode_literals
-from decimal import Decimal
 from unittest import TestCase
 from num2words import num2words
 
@@ -33,7 +32,7 @@ class Num2WordsITTest(TestCase):
 
     # We cannot test for equality because of floating point imprecisions.
     def test_float_to_cardinal(self):
-        number = Decimal(3.1415)
+        number = 3.1415
         s = "tre virgola uno quattro uno "
         crd_s = num2words(number, lang="it")
         almost_eq_crd = s + "quattro" in crd_s or s + "cinque" in crd_s
@@ -41,7 +40,7 @@ class Num2WordsITTest(TestCase):
 
     # See above.
     def test_float_to_ordinal(self):
-        number = Decimal(3.1415)
+        number = 3.1415
         s = "terzo virgola uno quattro uno "
         ord_s = num2words(number, lang="it", ordinal=True)
         almost_eq_ord = s + "quattro" in ord_s or s + "cinque" in ord_s
