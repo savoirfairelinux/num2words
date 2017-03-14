@@ -20,6 +20,8 @@ from num2words import num2words
 
 class Num2WordsITTest(TestCase):
 
+    maxDiff = None
+
     def test_negative(self):
         number = 648972145
         pos_crd = num2words(+number, lang="it")
@@ -29,25 +31,19 @@ class Num2WordsITTest(TestCase):
         self.assertEqual("meno " + pos_crd, neg_crd)
         self.assertEqual("meno " + pos_ord, neg_ord)
 
-
-    # We cannot test for equality because of floating point imprecisions.
     def test_float_to_cardinal(self):
-        number = 3.1415
-        s = "tre virgola uno quattro uno "
-        crd_s = num2words(number, lang="it")
-        almost_eq_crd = s + "quattro" in crd_s or s + "cinque" in crd_s
-        self.assertTrue(almost_eq_crd)
+        self.assertTrue("tre virgola uno quattro uno" in num2words(3.1415, lang="it"))
+        self.assertTrue("meno cinque virgola uno" in num2words(-5.15, lang="it"))
+        self.assertTrue("meno zero virgola uno" in num2words(-0.15, lang="it"))
 
-    # See above.
     def test_float_to_ordinal(self):
-        number = 3.1415
-        s = "terzo virgola uno quattro uno "
-        ord_s = num2words(number, lang="it", ordinal=True)
-        almost_eq_ord = s + "quattro" in ord_s or s + "cinque" in ord_s
-        self.assertTrue(almost_eq_ord)
+        self.assertTrue("terzo virgola uno quattro uno" in num2words(3.1415, lang="it", ordinal=True))
+        self.assertTrue("meno quinto virgola uno" in num2words(-5.15, lang="it", ordinal=True))
+        self.assertTrue("meno zero virgola uno" in num2words(-0.15, lang="it", ordinal=True))
 
     def test_0(self):
         self.assertEqual(num2words(0, lang="it"), "zero")
+        self.assertEqual(num2words(0, lang="it", ordinal=True), "zero")
 
     def test_1_to_10(self):
         self.assertEqual(num2words(1, lang="it"), "uno")
@@ -64,6 +60,7 @@ class Num2WordsITTest(TestCase):
 
     def test_20_to_99(self):
         self.assertEqual(num2words(20, lang="it"), "venti")
+        self.assertEqual(num2words(23, lang="it"), "ventitré")
         self.assertEqual(num2words(28, lang="it"), "ventotto")
         self.assertEqual(num2words(31, lang="it"), "trentuno")
         self.assertEqual(num2words(40, lang="it"), "quaranta")
@@ -87,10 +84,12 @@ class Num2WordsITTest(TestCase):
         self.assertEqual(num2words(2000, lang="it"), "duemila")
         self.assertEqual(num2words(2100, lang="it"), "duemilacento")
         self.assertEqual(num2words(6870, lang="it"), "seimilaottocentosettanta")
+        self.assertEqual(num2words(10000, lang="it"), "diecimila")
         self.assertEqual(num2words(98765, lang="it"), "novantottomilasettecentosessantacinque")
-        self.assertEqual(num2words(123456, lang="it"), "centoventitremilaquattrocentocinquantasei")
+        self.assertEqual(num2words(100000, lang="it"), "centomila")
+        self.assertEqual(num2words(523456, lang="it"), "cinquecentoventitremilaquattrocentocinquantasei")
 
-    def test_big_numbers(self):
+    def test_big(self):
         self.assertEqual(num2words(1000000, lang="it"), "un milione")
         self.assertEqual(num2words(1000007, lang="it"), "un milione e sette")
         self.assertEqual(num2words(1200000, lang="it"), "un milione e duecentomila")
@@ -101,11 +100,11 @@ class Num2WordsITTest(TestCase):
         self.assertEqual(num2words(1000000017, lang="it"), "un miliardo e diciassette")
         self.assertEqual(num2words(2000000000, lang="it"), "due miliardi")
         self.assertEqual(num2words(2000001000, lang="it"), "due miliardi e mille")
-        self.assertEqual(num2words(1234567890, lang="it"), "un miliardo e duecentotrentaquattro milioni e cinquecentosessantasettemilaottocentonovanta")
+        self.assertEqual(num2words(1234567890, lang="it"), "un miliardo, duecentotrentaquattro milioni e cinquecentosessantasettemilaottocentonovanta")
         self.assertEqual(num2words(1000000000000, lang="it"), "un bilione")
+        self.assertEqual(num2words(123456789012345678901234567890, lang="it"), "centoventitré quadriliardi, quattrocentocinquantasei quadrilioni, settecentottantanove triliardi, dodici trilioni, trecentoquarantacinque biliardi, seicentosettantotto bilioni, novecentouno miliardi, duecentotrentaquattro milioni e cinquecentosessantasettemilaottocentonovanta")
 
-    def test_nth_0_to_99(self):
-        self.assertEqual(num2words(0, lang="it", ordinal=True), "zero")
+    def test_nth_1_to_99(self):
         self.assertEqual(num2words(1, lang="it", ordinal=True), "primo")
         self.assertEqual(num2words(8, lang="it", ordinal=True), "ottavo")
         self.assertEqual(num2words(23, lang="it", ordinal=True), "ventitreesimo")
@@ -121,8 +120,16 @@ class Num2WordsITTest(TestCase):
         self.assertEqual(num2words(803, lang="it", ordinal=True), "ottocentotreesimo")
         self.assertEqual(num2words(923, lang="it", ordinal=True), "novecentoventitreesimo")
 
-    def test_nth_1000_to_1000000(self):
+    def test_nth_1000_to_999999(self):
         self.assertEqual(num2words(1000, lang="it", ordinal=True), "millesimo")
+        self.assertEqual(num2words(1001, lang="it", ordinal=True), "milleunesimo")
+        self.assertEqual(num2words(1003, lang="it", ordinal=True), "milletreesimo")
         self.assertEqual(num2words(1200, lang="it", ordinal=True), "milleduecentesimo")
+        self.assertEqual(num2words(8640, lang="it", ordinal=True), "ottomilaseicentoquarantesimo")
+        self.assertEqual(num2words(14000, lang="it", ordinal=True), "quattordicimillesimo")
         self.assertEqual(num2words(123456, lang="it", ordinal=True), "centoventitremilaquattrocentocinquantaseiesimo")
-        self.assertEqual(num2words(987654, lang="it", ordinal=True), "novecentoottantasettemilaseicentocinquantaquattresimo")
+        self.assertEqual(num2words(987654, lang="it", ordinal=True), "novecentottantasettemilaseicentocinquantaquattresimo")
+
+    def test_nth_big(self):
+        self.assertEqual(num2words(1000000001, lang="it", ordinal=True), "un miliardo e unesimo")
+        self.assertEqual(num2words(123456789012345678901234567890, lang="it", ordinal=True), "centoventitré quadriliardi, quattrocentocinquantasei quadrilioni, settecentottantanove triliardi, dodici trilioni, trecentoquarantacinque biliardi, seicentosettantotto bilioni, novecentouno miliardi, duecentotrentaquattro milioni e cinquecentosessantasettemilaottocentonovantesimo")

@@ -13,155 +13,187 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301 USA
 
-# TODO: Implement commas for long numbers
-# TODO: Accents on "tre"
-
 from __future__ import unicode_literals
 from .lang_EU import Num2Word_EU
 
+# Globals
+# -------
+
 ZERO = "zero"
 
-STR_0_to_19 = [
+CARDINAL_WORDS = [
     ZERO, "uno", "due", "tre", "quattro", "cinque", "sei", "sette", "otto",
     "nove", "dieci", "undici", "dodici", "tredici", "quattordici", "quindici",
     "sedici", "diciassette", "diciotto", "diciannove"
 ]
 
+ORDINAL_WORDS = [
+    ZERO, "primo", "secondo", "terzo", "quarto", "quinto", "sesto", "settimo",
+    "ottavo", "nono", "decimo", "undicesimo", "dodicesimo", "tredicesimo",
+    "quattordicesimo", "quindicesimo", "sedicesimo", "diciassettesimo",
+    "diciottesimo", "diciannovesimo"
+]
+
+# The script can extrapolate the missing numbers from the base forms.
 STR_TENS = {2: "venti", 3: "trenta", 4: "quaranta", 6: "sessanta"}
+
+# These prefixes are used for extremely big numbers.
+EXPONENT_PREFIXES = [
+    ZERO, "m", "b", "tr", "quadr", "quint", "sest", "sett", "ott", "nov", "dec"
+]
 
 # Utils
 # =====
 
-def as_number(digits):
-    return int("".join(map(str, digits)) or "0")
+def phonetic_contraction(string):
+    return (string
+        .replace("oo", "o") # ex. "centootto"
+        .replace("ao", "o") # ex. "settantaotto"
+        .replace("io", "o") # ex. "ventiotto"
+        .replace("au", "u") # ex. "trentauno"
+    )
 
-def stringify_exponent(exponent):
-    mod = exponent % 6
-    prefix = {6: "m", 12: "b", 18: "tr", 24: "quadr"}[exponent - mod]
-    return prefix + ("ilione" if mod == 0 else "iliardo")
+def exponent_length_to_string(exponent_length):
+    # We always assume `exponent` to be a multiple of 3. If it's not true, then
+    # Num2Word_IT.big_number_to_cardinal did something wrong.
+    prefix = EXPONENT_PREFIXES[exponent_length // 6]
+    if exponent_length % 6 == 0:
+        return prefix + "ilione"
+    else:
+        return prefix + "iliardo"
+
+def accentuate(string):
+    # This is inefficient: it may do several rewritings when deleting
+    # half-sentence accents. However, it is the easiest method and speed is
+    # not crucial (duh), so...
+    return " ".join(
+        # Deletes half-sentence accents and accentuates the last "tre"
+        [w.replace("tré", "tre")[:-3] + "tré"
+            # We shouldn't accentuate a single "tre": is has to be a composite
+            # word.                ~~~~~~~~~~
+            if w[-3:] == "tre" and len(w) > 3
+            # Deletes half-sentence accents anyway
+            #     ~~~~~~~~~~~~~~~~~~~~~~
+            else w.replace("tré", "tre")
+            for w in string.split()
+        ])
 
 def omitt_if_zero(number_to_string):
     return "" if number_to_string == ZERO else number_to_string
 
-# Big numbers helpers
-# ===================
-
-def break_into_blocks(digits, length):
-    if length < 4:
-        return digits
-    elif length <= 30:
-        mod = length % 3 or 3
-        return [digits[:mod], digits[mod:]]
-    else:
-        mod = length % 27 # We use "quadriliardi" for very big numbers
-        return break_into_blocks(digits[:mod], mod) + digits[mod:]
+# Main class
+# ==========
 
 class Num2Word_IT(Num2Word_EU):
 
     def __init__(self):
         pass
 
-    def decimal_part_to_cardinal(self, float_number):
-        # Drops the trailing zero and comma
-        chars = str(float_number % 1)[2:]
-        digits_to_string = [self.to_cardinal(int(d)) for d in chars]
-        return " virgola " + " ".join(digits_to_string)
+    def float_to_words(self, float_number, ordinal=False):
+        if ordinal:
+            prefix = self.to_ordinal(int(float_number))
+        else:
+            prefix = self.to_cardinal(int(float_number))
+        postfix = " ".join(
+            # Drops the trailing zero and comma                     ~~~~
+            [self.to_cardinal(int(c)) for c in str(float_number % 1)[2:]]
+        )
+        return prefix + " virgola " + postfix
 
-    def float_to_cardinal(self, float_number):
-        decimal_part_to_string = self.decimal_part_to_cardinal(float_number)
-        whole_part_to_string = self.to_cardinal(int(float_number))
-        return whole_part_to_string + decimal_part_to_string
-
-    def two_digits_to_cardinal(self, number):
+    def tens_to_cardinal(self, number):
         tens = number // 10
         units = number % 10
         if tens in STR_TENS:
-            tens_to_string = STR_TENS[tens]
+            prefix = STR_TENS[tens]
         else:
-            tens_to_string = STR_0_to_19[tens][:-1] + "anta"
-        if units in [1, 8]: # Ottant(a)otto, sessant(a)uno
-            tens_to_string = tens_to_string[:-1] # Drop last
-        units_to_string = omitt_if_zero(STR_0_to_19[units])
-        return tens_to_string + units_to_string
+            prefix = CARDINAL_WORDS[tens][:-1] + "anta"
+        postfix = omitt_if_zero(CARDINAL_WORDS[units])
+        return phonetic_contraction(prefix + postfix)
 
     def hundreds_to_cardinal(self, number):
         hundreds = number // 100
-        hundreds_to_string = "cento"
+        prefix = "cento"
         if hundreds != 1:
-            hundreds_to_string = STR_0_to_19[hundreds] + hundreds_to_string
-        remainder_to_string = omitt_if_zero(self.to_cardinal(number % 100))
-        return hundreds_to_string + remainder_to_string
+            prefix = CARDINAL_WORDS[hundreds] + prefix
+        postfix = omitt_if_zero(self.to_cardinal(number % 100))
+        return phonetic_contraction(prefix + postfix)
 
     def thousands_to_cardinal(self, number):
         thousands = number // 1000
         if thousands == 1:
-            thousands_to_string = "mille"
+            prefix = "mille"
         else:
-            thousands_to_string = self.to_cardinal(thousands) + "mila"
-        remainder_to_string = omitt_if_zero(self.to_cardinal(number % 1000))
-        return thousands_to_string + remainder_to_string
+            prefix = self.to_cardinal(thousands) + "mila"
+        postfix = omitt_if_zero(self.to_cardinal(number % 1000))
+        # "mille" and "mila" don't need any phonetic contractions
+        return prefix + postfix
 
-    def big_exponent_to_cardinal(self, number):
-        digits = [int(c) for c in str(number)]
-        blocks = break_into_blocks(digits, len(digits))
-        length = len(blocks)
-        if length == 2:
-            num_1, num_2 = [as_number(x) for x in blocks]
-            exponent_to_string = stringify_exponent(len(blocks[1]))
-            if num_1 == 1:
-                string = "un {}".format(exponent_to_string)
-            else:
-                multiplier = self.to_cardinal(num_1)
-                string = multiplier + " " + exponent_to_string[:-1] + "i"
-            if num_2 != 0:
-                string += " e " + self.to_cardinal(num_2)
-            return string
+    def big_number_to_cardinal(self, number):
+        digits = [c for c in str(number)]
+        length = len(digits)
+        if length >= 66:
+            raise NotImplementedError("The given number is too large.")
+        # This is how many digits come before the "illion" term.
+        #   cento miliardi => 3
+        #   dieci milioni => 2
+        #   un miliardo => 1
+        predigits = length % 3 or 3
+        multiplier = digits[:predigits]
+        exponent = digits[predigits:]
+        # Default infix string: "milione", "biliardo", "sestilione", ecc.
+        infix = exponent_length_to_string(len(exponent))
+        if multiplier == ["1"]:
+            prefix = "un "
         else:
-            pass # TODO *BIG* numbers (> 10^30) support
+            prefix = self.to_cardinal(int("".join(multiplier)))
+            # Plural form      ~~~~~~~~~~~
+            infix = " " + infix[:-1] + "i"
+        # Read as: Does the value of exponent equal 0?
+        if set(exponent) != set("0"):
+            postfix = self.to_cardinal(int("".join(exponent)))
+            if " e " in postfix:
+                infix += ", "
+            else:
+                infix += " e "
+        else:
+            postfix = ""
+        return prefix + infix + postfix
 
     def to_cardinal(self, number):
         if number < 0:
-            return "meno " + self.to_cardinal(-number)
+            string = "meno " + self.to_cardinal(-number)
         elif number % 1 != 0:
-            return self.float_to_cardinal(number)
+            string = self.float_to_words(number)
         elif number < 20:
-            return STR_0_to_19[number]
+            string = CARDINAL_WORDS[number]
         elif number < 100:
-            return self.two_digits_to_cardinal(number)
+            string = self.tens_to_cardinal(number)
         elif number < 1000:
-            return self.hundreds_to_cardinal(number)
+            string = self.hundreds_to_cardinal(number)
         elif number < 1000000:
-            return self.thousands_to_cardinal(number)
+            string = self.thousands_to_cardinal(number)
         else:
-            return self.big_exponent_to_cardinal(number)
-
-    def float_to_ordinal(self, float_number):
-        decimal_part_to_string = self.decimal_part_to_cardinal(float_number)
-        whole_part_to_string = self.to_ordinal(int(float_number))
-        return whole_part_to_string + decimal_part_to_string
+            string = self.big_number_to_cardinal(number)
+        return accentuate(string)
 
     def to_ordinal(self, number):
-        mod = number % 100
+        tens = number % 100
         # Italian grammar is poorly defined here ¯\_(ツ)_/¯:
         #   centodecimo VS centodieciesimo VS centesimo decimo?
-        is_outside_teens = 0 <= mod <= 10 or mod >= 20
+        is_outside_teens = not 10 < tens < 20
         if number < 0:
             return "meno " + self.to_ordinal(-number)
         elif number % 1 != 0:
-            return self.float_to_ordinal(number)
-        elif number == 0:
-            return ZERO
+            return self.float_to_words(number, ordinal=True)
         elif number < 20:
-            return [
-                "primo", "secondo", "terzo", "quarto", "quinto", "sesto",
-                "settimo", "ottavo", "nono", "decimo", "undicesimo",
-                "dodicesimo", "tredicesimo", "quattordicesimo", "quindicesimo",
-                "sedicesimo", "diciassettesimo", "diciottesimo",
-                "diciannovesimo"
-            ][number-1]
-        elif is_outside_teens and number % 10 == 3:
+            return ORDINAL_WORDS[number]
+        elif is_outside_teens and tens % 10 == 3:
+            # Gets ride of the accent      ~~~~~~~~~~
             return self.to_cardinal(number)[:-1] + "eesimo"
-        elif is_outside_teens and number % 10 == 6:
+        elif is_outside_teens and tens % 10 == 6:
             return self.to_cardinal(number) + "esimo"
         else:
-            return self.to_cardinal(number)[:-1] + "esimo"
+            string = self.to_cardinal(number)[:-1]
+            if string[-3:] == "mil":
+                string += "l"
+            return string + "esimo"
