@@ -84,7 +84,7 @@ def omitt_if_zero(number_to_string):
 # Main class
 # ==========
 
-class Num2Word_IT(Num2Word_EU):
+class Num2Word_IT:
 
     MINUS_PREFIX_WORD = "meno "
     FLOAT_INFIX_WORD = " virgola "
