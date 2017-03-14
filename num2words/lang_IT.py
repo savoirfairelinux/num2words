@@ -86,6 +86,9 @@ def omitt_if_zero(number_to_string):
 
 class Num2Word_IT(Num2Word_EU):
 
+    MINUS_PREFIX_WORD = "meno "
+    FLOAT_INFIX_WORD = " virgola "
+
     def __init__(self):
         pass
 
@@ -98,7 +101,7 @@ class Num2Word_IT(Num2Word_EU):
             # Drops the trailing zero and comma                     ~~~~
             [self.to_cardinal(int(c)) for c in str(float_number % 1)[2:]]
         )
-        return prefix + " virgola " + postfix
+        return prefix + Num2Word_IT.FLOAT_INFIX_WORD + postfix
 
     def tens_to_cardinal(self, number):
         tens = number // 10
@@ -161,7 +164,7 @@ class Num2Word_IT(Num2Word_EU):
 
     def to_cardinal(self, number):
         if number < 0:
-            string = "meno " + self.to_cardinal(-number)
+            string = Num2Word_IT.MINUS_PREFIX_WORD + self.to_cardinal(-number)
         elif number % 1 != 0:
             string = self.float_to_words(number)
         elif number < 20:
@@ -182,7 +185,7 @@ class Num2Word_IT(Num2Word_EU):
         #   centodecimo VS centodieciesimo VS centesimo decimo?
         is_outside_teens = not 10 < tens < 20
         if number < 0:
-            return "meno " + self.to_ordinal(-number)
+            return Num2Word_IT.MINUS_PREFIX_WORD + self.to_ordinal(-number)
         elif number % 1 != 0:
             return self.float_to_words(number, ordinal=True)
         elif number < 20:
