@@ -20,7 +20,7 @@ from __future__ import unicode_literals, print_function
 from .lang_EU import Num2Word_EU
 
 
-class Num2Word_ES(Num2Word_EU):
+class Num2Word_ES_CO(Num2Word_EU):
     # //CHECK: Is this sufficient??
     def set_high_numwords(self, high):
         max = 3 + 6*len(high)
