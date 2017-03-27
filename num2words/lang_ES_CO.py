@@ -23,11 +23,8 @@ from .lang_ES import Num2Word_ES
 class Num2Word_ES_CO(Num2Word_ES):
 
     def to_currency(self, val, longval=True, old=False):
-        if old:
             return self.to_splitnum(val, hightxt="peso/s", lowtxt="peso/s",
                                     divisor=1000, jointxt="y", longval=longval)
-        return super(Num2Word_ES, self).to_currency(val, jointxt="y",
-                                                    longval=longval)
 
 
 n2w = Num2Word_ES_CO()
