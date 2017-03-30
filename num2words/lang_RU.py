@@ -243,7 +243,7 @@ def int2word(n, feminine=False):
             ones = ONES_FEMININE if i == 1 or feminine and i == 0 else ONES
             words.append(ones[n1][0])
 
-        if i > 0:
+        if i > 0 and x != 0:
             words.append(pluralize(x, THOUSANDS[i]))
 
     return ' '.join(words)
