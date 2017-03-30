@@ -239,7 +239,7 @@ def int2word(n, feminine=False):
 
         if n2 == 1:
             words.append(TENS[n1][0])
-        elif n1 > 0 and not (i > 0 and x == 1):
+        elif n1 > 0:
             ones = ONES_FEMININE if i == 1 or feminine and i == 0 else ONES
             words.append(ones[n1][0])
 
