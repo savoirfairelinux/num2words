@@ -13,18 +13,96 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301 USA
 
+from __future__ import unicode_literals
+
 from unittest import TestCase
 
 from num2words import num2words
 
-class Num2WordsENTest(TestCase):
-    def test_and_join_199(self):
-        # ref https://github.com/savoirfairelinux/num2words/issues/8
-        self.assertEqual(num2words(199), "ciento noventa y nueve")
 
-    def test_cardinal_for_float_number(self):
-        # issue 24
-        self.assertEqual(num2words(12.50), "doce punto cincuenta")
-        self.assertEqual(num2words(12.51), "doce punto cincuenta y uno")
-        self.assertEqual(num2words(12.53), "doce punto cincuenta y tres")
-        self.assertEqual(num2words(12.59), "doce punto cincuenta y nueve")
+class Num2WordsESVETest(TestCase):
+
+    def test_number(self):
+
+        test_cases = (
+            (1,'uno'),
+            (2,'dos'),
+            (3,'tres'),
+            (11,'once'),
+            (12,'doce'),
+            (16,'dieciseis'),
+            (19,'diecinueve'),
+            (20,'veinte'),
+            (21,'veintiuno'),
+            (26,'veintiseis'),
+            (28,'vientiocho'),
+            (30,'treinta'),
+            (31,'treinta y uno'),
+            (40,'treinta y dos'),
+            (43,'treinta y tres'),
+            (50,'cincuenta'),
+            (55,'cincuenta y cinco'),
+            (60,'secenta'),
+            (67,'secenta y siete'),
+            (70,'setenta'),
+            (79,'setenta y nueve'),
+            (100,'cien'),
+            (101,'ciento uno'),
+            (199,'ciento noventa y nueve'),
+            (203,'docientos tres'),
+            (287,'docientos ochenta y siete'),
+            (300,'trecientos'),
+            (356,'trecientos cincuenta y seis'),
+            (410,'cuatrocientos'),
+            (434,'cuatrocientos treinta y cuatro'),
+            (578,'quinientos setenta y ocho'),
+            (689,'seiciento ochenta y nueve'),
+            (729,'setencientos veintinueve'),
+            (894,'ochocientos noventa y cuatro'),
+            (999,'novecientos noventa y nueve'),
+            (1000,'mil'),
+            (1001,'mil uno'),
+            (1097,'mil noventa y siete'),
+            (1104,'mil ciento cuatro'),
+            (1243,'mil docientos cuarenta y tres'),
+            (2385,'dos mil trecientos ochenta y cinco'),
+            (3766,'tresmil setencientos sesenta y seis'),
+            (4196,'cuatromil ciento noventa y seis'),
+            (5846,'cinco mil ochocientos cuarenta y seis'),
+            (6459,'seis mil cuatrocientos cincuenta y nueve'),
+            (7232,'siete mil docientos treinta y dos'),
+            (8569,'ocho mil quinientos sesenta y nueve'),
+            (9539,'nueve mil quinientos treinta y nueve'),
+            (1000000,'un millon'),
+            (1000001,'un millon uno'),
+            # (1000000100,'un miliardocento'), # DOES NOT WORK TODO: FIX
+        )
+
+        for test in test_cases:
+            self.assertEqual(num2words(test[0], lang='es_VE'), test[1])
+
+    def test_ordinal(self):
+
+        test_cases = (
+            (1,'primero'),
+            (8,'octavo'),
+            (12,'decimo segundo'),
+            (14,'decimo cuarto'),
+            (28,'vigesimo octavo'),
+            (100,'centesimo'),
+        )
+
+        for test in test_cases:
+            self.assertEqual(num2words(test[0], lang='es_VE', ordinal=True), test[1])
+
+    def test_currency(self):
+        test_case = (
+            (1, 'un bolivar fuerte'),
+            (5, 'cinco bolivares fuertes'),
+            (18, 'dieciocho bolivares fuertes'),
+            (100, 'cien bolivares fuertes'),
+            (1000, 'mil bolivares fuertes'),
+        )
+
+        for test in test_case:
+            self.assertAlmostEqual(num2words.to_currency(test, lang='es_VE'))
