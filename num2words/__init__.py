@@ -33,6 +33,8 @@ from . import lang_DK
 from . import lang_PT_BR
 from . import lang_HE
 from . import lang_IT
+from . import lang_ES_VE
+from . import lang_ES_CO
 
 CONVERTER_CLASSES = {
     'en': lang_EN.Num2Word_EN(),
@@ -42,6 +44,8 @@ CONVERTER_CLASSES = {
     'fr_CH': lang_FR_CH.Num2Word_FR_CH(),
     'de': lang_DE.Num2Word_DE(),
     'es': lang_ES.Num2Word_ES(),
+    'es_CO': lang_ES_CO.Num2Word_ES_CO,
+    'es_VE': lang_ES_VE.Num2Word_ES_VE,
     'id': lang_ID.Num2Word_ID(),
     'lt': lang_LT.Num2Word_LT(),
     'lv': lang_LV.Num2Word_LV(),
