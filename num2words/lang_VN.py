@@ -34,7 +34,6 @@ denom = ('',
 
 class Num2Word_VN(object):
 
-    # convert a value < 100 to English.
     def _convert_nn(self, val):
         if val < 20:
             return to_19[val]
@@ -46,6 +45,8 @@ class Num2Word_VN(object):
                         a = u'mốt'
                     else:
                         a = to_19[val % 10]
+                    if to_19[val % 10] == u'năm':
+                        a = u'lăm'
                     return dcap + ' ' + a
                 return dcap
 
@@ -56,7 +57,13 @@ class Num2Word_VN(object):
             word = to_19[rem] + u' trăm'
             if mod > 0:
                 word = word + ' '
-        if mod > 0:
+        if mod > 0 and mod < 10:
+            if mod == 5:
+                word = word != '' and word + u'lẻ năm' or word + u'năm'
+            else:
+                word = word != '' and word + u'lẻ ' \
+                    + self._convert_nn(mod) or word + self._convert_nn(mod)
+        if mod >= 10:
             word = word + self._convert_nn(mod)
         return word
 
@@ -70,7 +77,10 @@ class Num2Word_VN(object):
                 mod = 1000 ** didx
                 l = val // mod
                 r = val - (l * mod)
-                ret = self._convert_nnn(l) + ' ' + denom[didx]
+
+                ret = self._convert_nnn(l) + u' ' + denom[didx]
+                if r > 0 and r <= 99:
+                    ret = self._convert_nnn(l) + u' ' + denom[didx] + u' lẻ'
                 if r > 0:
                     ret = ret + ' ' + self.vietnam_number(r)
                 return ret
