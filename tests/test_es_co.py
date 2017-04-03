@@ -80,17 +80,3 @@ class Num2WordsESCOTest(TestCase):
 
         for test in test_cases:
             self.assertEqual(num2words(test[0], lang='es_CO'), test[1])
-
-    def test_ordinal(self):
-
-        test_cases = (
-            (1, 'primero'),
-            (8, 'octavo'),
-            (12, 'décimo segundo'),
-            (14, 'décimo cuarto'),
-            (28, 'vigésimo octavo'),
-            (100, 'centésimo'),
-        )
-
-        for test in test_cases:
-            self.assertEqual(num2words(test[0], lang='es_CO', ordinal=True), test[1])
