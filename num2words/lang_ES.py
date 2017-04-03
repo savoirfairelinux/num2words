@@ -1,4 +1,4 @@
-#encoding: UTF-8
+# encoding: UTF-8
 
 # Copyright (c) 2003, Taro Ogawa.  All Rights Reserved.
 # Copyright (c) 2013, Savoir-faire Linux inc.  All Rights Reserved.
@@ -19,15 +19,15 @@
 from __future__ import unicode_literals, print_function
 from .lang_EU import Num2Word_EU
 
+
 class Num2Word_ES(Num2Word_EU):
 
-    #//CHECK: Is this sufficient??
+    # //CHECK: Is this sufficient??
     def set_high_numwords(self, high):
         max = 3 + 6*len(high)
 
         for word, n in zip(high, range(max, 3, -6)):
             self.cards[10**(n-3)] = word + "illón"
-
 
     def setup(self):
         lows = ["cuatr", "tr", "b", "m"]
@@ -81,7 +81,6 @@ class Num2Word_ES(Num2Word_EU):
                    1e12 : "trillonésim",
                    1e15 : "cuadrillonésim" }
 
-
     def merge(self, curr, next):
         ctext, cnum, ntext, nnum = curr + next
 
@@ -112,7 +111,6 @@ class Num2Word_ES(Num2Word_EU):
             ntext = " " + ntext
 
         return (ctext + ntext, cnum * nnum)
-
 
     def to_ordinal(self, value):
         self.verify_ordinal(value)
@@ -150,7 +148,6 @@ class Num2Word_ES(Num2Word_EU):
     def to_ordinal_num(self, value):
         self.verify_ordinal(value)
         return "%s%s" % (value, "º" if self.gender_stem == 'o' else "ª")
-
 
     def to_currency(self, val, longval=True, old=False):
         if old:
