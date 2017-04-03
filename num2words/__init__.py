@@ -33,6 +33,7 @@ from . import lang_DK
 from . import lang_PT_BR
 from . import lang_HE
 from . import lang_IT
+from . import lang_VN
 
 CONVERTER_CLASSES = {
     'en': lang_EN.Num2Word_EN(),
@@ -51,7 +52,8 @@ CONVERTER_CLASSES = {
     'dk': lang_DK.Num2Word_DK(),
     'pt_BR': lang_PT_BR.Num2Word_PT_BR(),
     'he': lang_HE.Num2Word_HE(),
-    'it': lang_IT.Num2Word_IT()
+    'it': lang_IT.Num2Word_IT(),
+    'vi_VN': lang_VN.Num2Word_VN()
 }
 
 def num2words(number, ordinal=False, lang='en'):
