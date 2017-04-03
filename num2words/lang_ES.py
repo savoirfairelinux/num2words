@@ -93,8 +93,8 @@ class Num2Word_ES(Num2Word_EU):
 
         if nnum < cnum:
             if cnum < 100:
-                return ("%s y %s"%(ctext, ntext), cnum + nnum)
-            return ("%s %s"%(ctext, ntext), cnum + nnum)
+                return "%s y %s"%(ctext, ntext), cnum + nnum
+            return "%s %s"%(ctext, ntext), cnum + nnum
         elif (not nnum % 1000000) and cnum > 1:
             ntext = ntext[:-3] + "lones"
 
@@ -123,10 +123,10 @@ class Num2Word_ES(Num2Word_EU):
             elif value <= 12:
                 text = "%s%s%s" % (self.ords[10], self.gender_stem, self.to_ordinal(value - 10))
             elif value <= 100:
-                dec = (value / 10) * 10
+                dec = (value // 10) * 10
                 text = "%s%s %s" % (self.ords[dec], self.gender_stem, self.to_ordinal(value - dec))
             elif value <= 1e3:
-                cen = (value / 100) * 100
+                cen = (value // 100) * 100
                 text = "%s%s %s" % (self.ords[cen], self.gender_stem, self.to_ordinal(value - cen))
             elif value < 1e18:
                 # dec contains the following:
