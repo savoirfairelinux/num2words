@@ -16,202 +16,187 @@
 from __future__ import unicode_literals
 from .lang_EU import Num2Word_EU
 
-import re
-import math
+# Globals
+# -------
 
-class Num2Word_IT(object):
+ZERO = "zero"
+
+CARDINAL_WORDS = [
+    ZERO, "uno", "due", "tre", "quattro", "cinque", "sei", "sette", "otto",
+    "nove", "dieci", "undici", "dodici", "tredici", "quattordici", "quindici",
+    "sedici", "diciassette", "diciotto", "diciannove"
+]
+
+ORDINAL_WORDS = [
+    ZERO, "primo", "secondo", "terzo", "quarto", "quinto", "sesto", "settimo",
+    "ottavo", "nono", "decimo", "undicesimo", "dodicesimo", "tredicesimo",
+    "quattordicesimo", "quindicesimo", "sedicesimo", "diciassettesimo",
+    "diciottesimo", "diciannovesimo"
+]
+
+# The script can extrapolate the missing numbers from the base forms.
+STR_TENS = {2: "venti", 3: "trenta", 4: "quaranta", 6: "sessanta"}
+
+# These prefixes are used for extremely big numbers.
+EXPONENT_PREFIXES = [
+    ZERO, "m", "b", "tr", "quadr", "quint", "sest", "sett", "ott", "nov", "dec"
+]
+
+# Utils
+# =====
+
+def phonetic_contraction(string):
+    return (string
+        .replace("oo", "o") # ex. "centootto"
+        .replace("ao", "o") # ex. "settantaotto"
+        .replace("io", "o") # ex. "ventiotto"
+        .replace("au", "u") # ex. "trentauno"
+    )
+
+def exponent_length_to_string(exponent_length):
+    # We always assume `exponent` to be a multiple of 3. If it's not true, then
+    # Num2Word_IT.big_number_to_cardinal did something wrong.
+    prefix = EXPONENT_PREFIXES[exponent_length // 6]
+    if exponent_length % 6 == 0:
+        return prefix + "ilione"
+    else:
+        return prefix + "iliardo"
+
+def accentuate(string):
+    # This is inefficient: it may do several rewritings when deleting
+    # half-sentence accents. However, it is the easiest method and speed is
+    # not crucial (duh), so...
+    return " ".join(
+        # Deletes half-sentence accents and accentuates the last "tre"
+        [w.replace("tré", "tre")[:-3] + "tré"
+            # We shouldn't accentuate a single "tre": is has to be a composite
+            # word.                ~~~~~~~~~~
+            if w[-3:] == "tre" and len(w) > 3
+            # Deletes half-sentence accents anyway
+            #     ~~~~~~~~~~~~~~~~~~~~~~
+            else w.replace("tré", "tre")
+            for w in string.split()
+        ])
+
+def omitt_if_zero(number_to_string):
+    return "" if number_to_string == ZERO else number_to_string
+
+# Main class
+# ==========
+
+class Num2Word_IT:
+
+    MINUS_PREFIX_WORD = "meno "
+    FLOAT_INFIX_WORD = " virgola "
+
     def __init__(self):
-        self._minus = "meno "
-
-        self._exponent = {
-            0 : ('',''),
-            3 : ('mille','mila'),
-            6 : ('milione','miloni'),
-            12 : ('miliardo','miliardi'),
-            18 : ('trillone','trilloni'),
-            24 : ('quadrilione','quadrilioni')}
-
-        self._digits = ['zero', 'uno', 'due', 'tre', 'quattro', 'cinque', 'sei', 'sette', 'otto', 'nove']
-
-        self._sep = ''
-
-    def _toWords(self, num, power=0):
-        str_num = str(num)
-        # The return string;
-        ret = ''
-
-        # add a the word for the minus sign if necessary
-        if num < 0:
-            ret = self._sep + self._minus
-
-        if len(str_num) > 6:
-            current_power = 6
-            # check for highest power
-            if power in self._exponent:
-                # convert the number above the first 6 digits
-                # with it's corresponding $power.
-                snum = str_num[0:-6]
-                if snum != '':
-                    ret = ret + self._toWords(int(snum), power + 6)
-
-            num = int(str_num[-6:])
-            if num == 0:
-                return ret
-
-        elif num == 0 or str_num == '':
-            return ' ' + self._digits[0] + ' '
-        else:
-            current_power = len(str_num)
-
-        # See if we need "thousands"
-        thousands = math.floor(num / 1000)
-        if thousands == 1:
-            ret = ret + self._sep + 'mille' + self._sep
-        elif thousands > 1:
-            ret = ret + self._toWords(int(thousands), 3) + self._sep
-
-        # values for digits, tens and hundreds
-        h = int(math.floor((num / 100) % 10))
-        t = int(math.floor((num / 10) % 10))
-        d = int(math.floor(num % 10))
-
-        # centinaia: duecento, trecento, etc...
-        if h == 1:
-            if ((d==0) and (t == 0)):# is it's '100' use 'cien'
-                ret = ret + self._sep + 'cento'
-            else:
-                ret = ret + self._sep + 'cento'
-        elif h == 2 or h == 3 or h == 4 or h == 6 or h == 8:
-            ret = ret + self._sep + self._digits[h] + 'cento'
-        elif h == 5:
-            ret = ret + self._sep + 'cinquecento'
-        elif h == 7:
-            ret = ret + self._sep + 'settecento'
-        elif h == 9:
-            ret = ret + self._sep + 'novecento'
-
-        # decine: venti trenta, etc...
-        if t == 9:
-            if d == 1 or d == 8:
-                ret = ret + self._sep + 'novant'
-            else:
-                ret = ret + self._sep + 'novanta'
-        if t == 8:
-            if d == 1 or d == 8:
-                ret = ret + self._sep + 'ottant'
-            else:
-                ret = ret + self._sep + 'ottanta'
-        if t == 7:
-            if d == 1 or d == 8:
-                ret = ret + self._sep + 'settant'
-            else:
-                ret = ret + self._sep + 'settanta'
-        if t == 6:
-            if d == 1 or d == 8:
-                ret = ret + self._sep + 'sessant'
-            else:
-                ret = ret + self._sep + 'sessanta'
-        if t == 5:
-            if d == 1 or d == 8:
-                ret = ret + self._sep + 'cinquant'
-            else:
-                ret = ret + self._sep + 'cinquanta'
-        if t == 4:
-            if d == 1 or d == 8:
-                ret = ret + self._sep + 'quarant'
-            else:
-                ret = ret + self._sep + 'quaranta'
-        if t == 3:
-            if d == 1 or d == 8:
-                ret = ret + self._sep + 'trent'
-            else:
-                ret = ret + self._sep + 'trenta'
-        if t == 2:
-            if d == 0:
-                ret = ret + self._sep + 'venti'
-            elif (d == 1 or d == 8):
-                ret = ret + self._sep + 'vent' + self._digits[d]
-            else:
-                ret = ret + self._sep + 'venti' + self._digits[d]
-        if t == 1:
-            if d == 0:
-                ret = ret + self._sep + 'dieci'
-            elif d == 1:
-                ret = ret + self._sep + 'undici'
-            elif d == 2:
-                ret = ret + self._sep + 'dodici'
-            elif d == 3:
-                ret = ret + self._sep + 'tredici'
-            elif d == 4:
-                ret = ret + self._sep + 'quattordici'
-            elif d == 5:
-                ret = ret + self._sep + 'quindici'
-            elif d == 6:
-                ret = ret + self._sep + 'sedici'
-            elif d == 7:
-                ret = ret + self._sep + 'diciassette'
-            elif d == 8:
-                ret = ret + self._sep + 'diciotto'
-            elif d == 9:
-                ret = ret + self._sep + 'diciannove'
-
-        # add digits only if it is a multiple of 10 and not 1x or 2x
-        if t != 1 and t != 2 and d > 0:
-            # don't add 'e' for numbers below 10
-            if t != 0:
-                # use 'un' instead of 'uno' when there is a suffix ('mila', 'milloni', etc...)
-                if (power > 0) and ( d == 1):
-                    ret = ret + self._sep + 'e un'
-                else:
-                    ret = ret + self._sep + '' + self._digits[d]
-            else:
-                if power > 0 and d == 1:
-                    ret = ret + self._sep + 'un '
-                else:
-                    ret = ret + self._sep + self._digits[d]
-
-        if power > 0:
-            if power in self._exponent:
-                lev = self._exponent[power]
-
-            if lev is None:
-                return None
-
-            # if it's only one use the singular suffix
-            if d == 1 and t == 0 and h == 0:
-                suffix = lev[0]
-            else:
-                suffix = lev[1]
-
-            if num != 0:
-                ret = ret + self._sep + suffix
-
-        return ret
-
-
-    def to_cardinal(self, number):
-        return self._toWords(number)
-
-    def to_ordinal_num(self, number):
         pass
 
-    def to_ordinal(self,value):
-        if 0 <= value <= 10:
-            return ["primo", "secondo", "terzo", "quarto", "quinto", "sesto", "settimo", "ottavo", "nono", "decimo"][value - 1]
+    def float_to_words(self, float_number, ordinal=False):
+        if ordinal:
+            prefix = self.to_ordinal(int(float_number))
         else:
-            as_word = self._toWords(value)
-            if as_word.endswith("dici"):
-                return re.sub("dici$", "dicesimo", as_word)
-            elif as_word.endswith("to"):
-                return re.sub("to$", "tesimo", as_word)
-            elif as_word.endswith("ta"):
-                return re.sub("ta$", "tesimo", as_word)
+            prefix = self.to_cardinal(int(float_number))
+        postfix = " ".join(
+            # Drops the trailing zero and comma                     ~~~~
+            [self.to_cardinal(int(c)) for c in str(float_number % 1)[2:]]
+        )
+        return prefix + Num2Word_IT.FLOAT_INFIX_WORD + postfix
+
+    def tens_to_cardinal(self, number):
+        tens = number // 10
+        units = number % 10
+        if tens in STR_TENS:
+            prefix = STR_TENS[tens]
+        else:
+            prefix = CARDINAL_WORDS[tens][:-1] + "anta"
+        postfix = omitt_if_zero(CARDINAL_WORDS[units])
+        return phonetic_contraction(prefix + postfix)
+
+    def hundreds_to_cardinal(self, number):
+        hundreds = number // 100
+        prefix = "cento"
+        if hundreds != 1:
+            prefix = CARDINAL_WORDS[hundreds] + prefix
+        postfix = omitt_if_zero(self.to_cardinal(number % 100))
+        return phonetic_contraction(prefix + postfix)
+
+    def thousands_to_cardinal(self, number):
+        thousands = number // 1000
+        if thousands == 1:
+            prefix = "mille"
+        else:
+            prefix = self.to_cardinal(thousands) + "mila"
+        postfix = omitt_if_zero(self.to_cardinal(number % 1000))
+        # "mille" and "mila" don't need any phonetic contractions
+        return prefix + postfix
+
+    def big_number_to_cardinal(self, number):
+        digits = [c for c in str(number)]
+        length = len(digits)
+        if length >= 66:
+            raise NotImplementedError("The given number is too large.")
+        # This is how many digits come before the "illion" term.
+        #   cento miliardi => 3
+        #   dieci milioni => 2
+        #   un miliardo => 1
+        predigits = length % 3 or 3
+        multiplier = digits[:predigits]
+        exponent = digits[predigits:]
+        # Default infix string: "milione", "biliardo", "sestilione", ecc.
+        infix = exponent_length_to_string(len(exponent))
+        if multiplier == ["1"]:
+            prefix = "un "
+        else:
+            prefix = self.to_cardinal(int("".join(multiplier)))
+            # Plural form      ~~~~~~~~~~~
+            infix = " " + infix[:-1] + "i"
+        # Read as: Does the value of exponent equal 0?
+        if set(exponent) != set("0"):
+            postfix = self.to_cardinal(int("".join(exponent)))
+            if " e " in postfix:
+                infix += ", "
             else:
-                return as_word + "simo"
+                infix += " e "
+        else:
+            postfix = ""
+        return prefix + infix + postfix
 
+    def to_cardinal(self, number):
+        if number < 0:
+            string = Num2Word_IT.MINUS_PREFIX_WORD + self.to_cardinal(-number)
+        elif number % 1 != 0:
+            string = self.float_to_words(number)
+        elif number < 20:
+            string = CARDINAL_WORDS[number]
+        elif number < 100:
+            string = self.tens_to_cardinal(number)
+        elif number < 1000:
+            string = self.hundreds_to_cardinal(number)
+        elif number < 1000000:
+            string = self.thousands_to_cardinal(number)
+        else:
+            string = self.big_number_to_cardinal(number)
+        return accentuate(string)
 
-n2w = Num2Word_IT()
-to_card = n2w.to_cardinal
-to_ord = n2w.to_ordinal
-to_ordnum = n2w.to_ordinal_num
-
+    def to_ordinal(self, number):
+        tens = number % 100
+        # Italian grammar is poorly defined here ¯\_(ツ)_/¯:
+        #   centodecimo VS centodieciesimo VS centesimo decimo?
+        is_outside_teens = not 10 < tens < 20
+        if number < 0:
+            return Num2Word_IT.MINUS_PREFIX_WORD + self.to_ordinal(-number)
+        elif number % 1 != 0:
+            return self.float_to_words(number, ordinal=True)
+        elif number < 20:
+            return ORDINAL_WORDS[number]
+        elif is_outside_teens and tens % 10 == 3:
+            # Gets ride of the accent      ~~~~~~~~~~
+            return self.to_cardinal(number)[:-1] + "eesimo"
+        elif is_outside_teens and tens % 10 == 6:
+            return self.to_cardinal(number) + "esimo"
+        else:
+            string = self.to_cardinal(number)[:-1]
+            if string[-3:] == "mil":
+                string += "l"
+            return string + "esimo"
