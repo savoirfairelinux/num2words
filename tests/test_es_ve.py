@@ -23,6 +23,7 @@ from . import test_es
 class Num2WordsESVETest(test_es.Num2WordsESTest):
 
     def test_number(self):
+
         for test in test_es.TEST_CASES_CARDINAL:
             self.assertEqual(num2words(test[0], lang='es_VE'), test[1])
 

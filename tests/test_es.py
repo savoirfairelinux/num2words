@@ -84,6 +84,7 @@ TEST_CASES_ORDINAL = (
 class Num2WordsESTest(TestCase):
 
     def test_number(self):
+
         for test in TEST_CASES_CARDINAL:
             self.assertEqual(num2words(test[0], lang='es'), test[1])
 
