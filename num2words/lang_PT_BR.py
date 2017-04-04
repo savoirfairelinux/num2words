@@ -30,9 +30,9 @@ class Num2Word_PT_BR(lang_EU.Num2Word_EU):
 
     def setup(self):
         self.negword = "menos "
-        self.pointword = "ponto"
+        self.pointword = "vírgula"
         self.errmsg_nornum = "Somente números podem ser convertidos para palavras"
-        self.exclude_title = ["e", "ponto", "menos"]
+        self.exclude_title = ["e", "vírgula", "menos"]
 
         self.mid_numwords = [
             (1000, "mil"), (100, "cem"), (90, "noventa"),

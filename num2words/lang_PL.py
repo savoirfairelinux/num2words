@@ -55,6 +55,9 @@ dwa tysiące dwanaście
 >>> print(n2w(12519.85))
 dwanaście tysięcy pięćset dziewiętnaście przecinek osiemdziesiąt pięć
 
+>>> print(n2w(123.50))
+sto dwadzieścia trzy przecinek pięć
+
 >>> print(fill(n2w(1234567890)))
 miliard dwieście trzydzieści cztery miliony pięćset sześćdziesiąt
 siedem tysięcy osiemset dziewięćdzisiąt
@@ -95,6 +98,9 @@ sto jeden złotych i dwadzieścia jeden groszy
 
 >>> print(to_currency(-1251985, cents = False))
 minus dwanaście tysięcy pięćset dziewiętnaście euro, 85 centów
+
+>>> print(to_currency(123.50, 'PLN', seperator=' i'))
+sto dwadzieścia trzy złote i pięćdziesiąt groszy
 """
 from __future__ import unicode_literals
 
@@ -178,7 +184,7 @@ def splitby3(n):
         if start > 0:
             yield int(n[:start])
         for i in range(start, length, 3):
-            yield int(n[i:i+3])
+            yield int(n[i:i + 3])
     else:
         yield int(n)
 
@@ -188,7 +194,7 @@ def get_digits(n):
 
 
 def pluralize(n, forms):
-    form = 0 if n==1 else 1 if (n % 10 > 1 and n % 10 < 5 and (n % 100 < 10 or n % 100 > 20)) else 2
+    form = 0 if n == 1 else 1 if (n % 10 > 1 and n % 10 < 5 and (n % 100 < 10 or n % 100 > 20)) else 2
     return forms[form]
 
 
@@ -203,11 +209,9 @@ def int2word(n):
         i -= 1
         n1, n2, n3 = get_digits(x)
 
-        # print str(n3) + str(n2) + str(n1)
-
         if n3 > 0:
             words.append(HUNDREDS[n3][0])
-            
+
         if n2 > 1:
             words.append(TWENTIES[n2][0])
 
@@ -231,7 +235,7 @@ def n2w(n):
         return int2word(int(n))
 
 
-def to_currency(n, currency='EUR', cents=True, seperator=','):
+def to_currency(n, currency = 'EUR', cents = True, seperator = ','):
     if type(n) == int:
         if n < 0:
             minus = True
@@ -239,12 +243,14 @@ def to_currency(n, currency='EUR', cents=True, seperator=','):
             minus = False
 
         n = abs(n)
-        left = n / 100
+        left = n // 100
         right = n % 100
     else:
         n = str(n).replace(',', '.')
         if '.' in n:
             left, right = n.split('.')
+            if len(right) == 1:
+                right = right + '0'
         else:
             left, right = n, 0
         left, right = int(left), int(right)

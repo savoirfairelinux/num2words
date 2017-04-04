@@ -15,7 +15,11 @@
 # MA 02110-1301 USA
 
 from __future__ import unicode_literals
+
+import math
+
 from .orderedmapping import OrderedMapping
+from .compat import to_s
 
 
 class Num2Word_Base(object):
@@ -88,7 +92,7 @@ class Num2Word_Base(object):
 
     def to_cardinal(self, value):
         try:
-            assert long(value) == value
+            assert int(value) == value
         except (ValueError, TypeError, AssertionError):
             return self.to_cardinal_float(value)
 
@@ -101,7 +105,6 @@ class Num2Word_Base(object):
 
         if value >= self.MAXVAL:
             raise OverflowError(self.errmsg_toobig % (value, self.MAXVAL))
-        
 
         val = self.splitnum(value)
         words, num = self.clean(val)
@@ -114,9 +117,18 @@ class Num2Word_Base(object):
         except (ValueError, TypeError, AssertionError):
             raise TypeError(self.errmsg_nonnum % value)
 
+        value = float(value)
         pre = int(value)
-        post = str(abs(value - pre) * 10**self.precision)
-        post = '0' * (self.precision - len(post.split('.')[0])) + post
+        post = abs(value - pre) * 10**self.precision
+        if abs(round(post) - post) < 0.01:
+            # We generally floor all values beyond our precision (rather than rounding), but in
+            # cases where we have something like 1.239999999, which is probably due to python's
+            # handling of floats, we actually want to consider it as 1.24 instead of 1.23
+            post = int(round(post))
+        else:
+            post = int(math.floor(post))
+        post = str(post)
+        post = '0' * (self.precision - len(post)) + post
 
         out = [self.to_cardinal(pre)]
         if self.precision:
@@ -124,7 +136,7 @@ class Num2Word_Base(object):
 
         for i in range(self.precision):
             curr = int(post[i])
-            out.append(unicode(self.to_cardinal(curr)))
+            out.append(to_s(self.to_cardinal(curr)))
 
         return " ".join(out)
 
@@ -169,10 +181,10 @@ class Num2Word_Base(object):
 
 
     def verify_ordinal(self, value):
-        if not value == long(value):
-            raise TypeError, self.errmsg_floatord %(value)
+        if not value == int(value):
+            raise TypeError(self.errmsg_floatord % value)
         if not abs(value) == value:
-            raise TypeError, self.errmsg_negord %(value)
+            raise TypeError(self.errmsg_negord % value)
 
 
     def verify_num(self, value):
@@ -182,7 +194,7 @@ class Num2Word_Base(object):
     def set_wordnums(self):
         pass
 
-            
+
     def to_ordinal(self, value):
         return self.to_cardinal(value)
 
