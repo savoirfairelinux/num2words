@@ -29,4 +29,5 @@ setup(
     url='https://github.com/savoirfairelinux/num2words',
     packages=find_packages(exclude=['tests']),
     test_suite='tests',
+    classifiers=CLASSIFIERS,
 )
