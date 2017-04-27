@@ -1,4 +1,4 @@
-#encoding: UTF-8
+# encoding: UTF-8
 
 # Copyright (c) 2003, Taro Ogawa.  All Rights Reserved.
 # Copyright (c) 2013, Savoir-faire Linux inc.  All Rights Reserved.
@@ -19,15 +19,15 @@
 from __future__ import unicode_literals, print_function
 from .lang_EU import Num2Word_EU
 
+
 class Num2Word_ES(Num2Word_EU):
 
-    #//CHECK: Is this sufficient??
+    # //CHECK: Is this sufficient??
     def set_high_numwords(self, high):
         max = 3 + 6*len(high)
 
         for word, n in zip(high, range(max, 3, -6)):
             self.cards[10**(n-3)] = word + "illón"
-
 
     def setup(self):
         lows = ["cuatr", "tr", "b", "m"]
@@ -81,7 +81,6 @@ class Num2Word_ES(Num2Word_EU):
                    1e12 : "trillonésim",
                    1e15 : "cuadrillonésim" }
 
-
     def merge(self, curr, next):
         ctext, cnum, ntext, nnum = curr + next
 
@@ -94,8 +93,8 @@ class Num2Word_ES(Num2Word_EU):
 
         if nnum < cnum:
             if cnum < 100:
-                return ("%s y %s"%(ctext, ntext), cnum + nnum)
-            return ("%s %s"%(ctext, ntext), cnum + nnum)
+                return "%s y %s"%(ctext, ntext), cnum + nnum
+            return "%s %s"%(ctext, ntext), cnum + nnum
         elif (not nnum % 1000000) and cnum > 1:
             ntext = ntext[:-3] + "lones"
 
@@ -113,7 +112,6 @@ class Num2Word_ES(Num2Word_EU):
 
         return (ctext + ntext, cnum * nnum)
 
-
     def to_ordinal(self, value):
         self.verify_ordinal(value)
         text = ""
@@ -125,10 +123,10 @@ class Num2Word_ES(Num2Word_EU):
             elif value <= 12:
                 text = "%s%s%s" % (self.ords[10], self.gender_stem, self.to_ordinal(value - 10))
             elif value <= 100:
-                dec = (value / 10) * 10
+                dec = (value // 10) * 10
                 text = "%s%s %s" % (self.ords[dec], self.gender_stem, self.to_ordinal(value - dec))
             elif value <= 1e3:
-                cen = (value / 100) * 100
+                cen = (value // 100) * 100
                 text = "%s%s %s" % (self.ords[cen], self.gender_stem, self.to_ordinal(value - cen))
             elif value < 1e18:
                 # dec contains the following:
@@ -151,7 +149,6 @@ class Num2Word_ES(Num2Word_EU):
         self.verify_ordinal(value)
         return "%s%s" % (value, "º" if self.gender_stem == 'o' else "ª")
 
-
     def to_currency(self, val, longval=True, old=False):
         if old:
             return self.to_splitnum(val, hightxt="peso/s", lowtxt="peseta/s",
@@ -165,11 +162,12 @@ to_card = n2w.to_cardinal
 to_ord = n2w.to_ordinal
 to_ordnum = n2w.to_ordinal_num
 
+
 def main():
-    for val in [ 1, 11, 12, 21, 31, 33, 71, 80, 81, 91, 99, 100, 101, 102, 155,
-             180, 300, 308, 832, 1000, 1001, 1061, 1100, 1500, 1701, 3000,
-             8280, 8291, 150000, 500000, 1000000, 2000000, 2000001,
-             -21212121211221211111, -2.121212, -1.0000100]:
+    for val in [1, 11, 12, 21, 31, 33, 71, 80, 81, 91, 99, 100, 101, 102, 155,
+                180, 300, 308, 832, 1000, 1001, 1061, 1100, 1500, 1701, 3000,
+                8280, 8291, 150000, 500000, 1000000, 2000000, 2000001,
+                -21212121211221211111, -2.121212, -1.0000100]:
         n2w.test(val)
 
     n2w.test(1325325436067876801768700107601001012212132143210473207540327057320957032975032975093275093275093270957329057320975093272950730)
