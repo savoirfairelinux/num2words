@@ -67,7 +67,7 @@ def num2words(number, ordinal=False, lang='en'):
         # ... and then try only the first 2 letters
         lang = lang[:2]
     if lang not in CONVERTER_CLASSES:
-        raise NotImplementedError()
+        return 'Your language is not supported.'
     converter = CONVERTER_CLASSES[lang]
     if ordinal:
         return converter.to_ordinal(number)
