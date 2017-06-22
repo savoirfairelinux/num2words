@@ -25,27 +25,28 @@ class Num2Word_AR(lang_EU.Num2Word_EU):
             self.cards[10**n] = word + "illion"
 
     def setup(self):
-        self.negword = "minus "
-        self.pointword = "point"
+        self.negword = "سالب "
+        self.pointword = "فاصلة"
         self.errmsg_nornum = "Only numbers may be converted to words."
-        self.exclude_title = ["and", "point", "minus"]
+        self.exclude_title = ["و", "فاصلة", "سالب"]
 
         self.mid_numwords = [(1000000, "مليون"),(1000, "ألف"), (100, "مئة"),
                              (90, "تسعين"), (80, "ثمانين"), (70, "سبعين"),
                              (60, "ستين"), (50, "خمسين"), (40, "أربعين"),
                              (30, "ثلاثين")]
         self.low_numwords = ["عشرين", "تسعة عشر", "ثمانية عشر", "سبعة عشر",
-                             "sixteen", "خمسة عشر", "fourteen", "thirteen",
-                             "twelve", "أحد عشر", "ten", "nine", "ثمانية",
-                             "seven", "six", "خمسة", "أربعة", "three", "اثنين",
+                             "ستة عشر", "خمسة عشر", "أربعة عشر", "ثلاثة عشر",
+                             "اثناعشر", "أحد عشر", "عشرة", "تسعة", "ثمانية",
+                             "سبعة", "ستة", "خمسة", "أربعة", "ثلاثة", "اثنين",
                              "واحد", "صفر"]
-        self.ords = { "one"    : "first",
-                      "two"    : "second",
-                      "three"  : "third",
-                      "five"   : "fifth",
-                      "eight"  : "eighth",
-                      "nine"   : "ninth",
-                      "twelve" : "twelfth" }
+        self.ords = { "واحد"    : "أول",
+                      "اثنين"    : "ثاني",
+                      "ثلاثة"  : "ثالث",
+                      "أربعة": "رابع",
+                      "خمسة"   : "خامس",
+                      "ثمانية"  : "ثامن",
+                      "تسعة"   : "تاسع",
+                      "اثناعشر" : "ثاني عشر" }
 
 
     def merge(self, lpair, rpair):
@@ -58,7 +59,7 @@ class Num2Word_AR(lang_EU.Num2Word_EU):
         elif lnum >= 100 > rnum:
             return ("%s و %s"%(ltext, rtext), lnum + rnum)
         elif rnum > lnum:
-            if lnum == 1 and rnum in [100, 1000]:
+            if lnum == 1 and rnum in [100, 1000, 1000000]:
                 return ("%s"%(rtext), rnum * lnum)
             if lnum == 2 and rnum == 100:
                 return ("مئتين", rnum * lnum)
@@ -76,9 +77,7 @@ class Num2Word_AR(lang_EU.Num2Word_EU):
         try:
             lastword = self.ords[lastword]
         except KeyError:
-            if lastword[-1] == "y":
-                lastword = lastword[:-1] + "ie"
-            lastword += "th"
+            lastword += ""
         lastwords[-1] = self.title(lastword)
         outwords[-1] = "،".join(lastwords)
         return " ".join(outwords)
