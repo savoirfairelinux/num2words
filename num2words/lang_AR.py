@@ -91,12 +91,12 @@ class Num2Word_AR(lang_EU.Num2Word_EU):
     def to_year(self, val, longval=True):
         if not (val//100)%10:
             return self.to_cardinal(val)
-        return self.to_splitnum(val, hightxt="hundred", jointxt="and",
+        return self.to_splitnum(val, hightxt="مئة", jointxt="و",
                                 longval=longval)
 
     def to_currency(self, val, longval=True):
-        return self.to_splitnum(val, hightxt="dollar/s", lowtxt="cent/s",
-                                jointxt="and", longval=longval, cents = True)
+        return self.to_splitnum(val, hightxt="ريال", lowtxt="هللة",
+                                jointxt="و", longval=longval, cents = True)
 
 
 n2w = Num2Word_AR()
