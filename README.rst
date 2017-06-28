@@ -45,6 +45,7 @@ Besides the numerical argument, there's two optional arguments.
 **lang:** The language in which to convert the number. Supported values are:
 
 * ``en`` (English, default)
+* ``ar`` (Arabic)
 * ``fr`` (French)
 * ``de`` (German)
 * ``es`` (Spanish)
