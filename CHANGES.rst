@@ -1,6 +1,16 @@
 Changelog
 =========
 
+Version 0.5.5 -- 2017/07/02
+---------------------------
+
+* Add Arabic localization (#72)
+* Add Spanish-Colombian and Spanish-Venezuelan localization (#67)
+* Add VietNam localization (#61)
+* Add Italian localization (#56, #59)
+* Improve Russian localization (#62)
+* Improve Polish localization (#58)
+
 Version 0.5.4 -- 2016/10/18
 ---------------------------
 
