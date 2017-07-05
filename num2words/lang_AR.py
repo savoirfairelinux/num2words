@@ -30,7 +30,7 @@ class Num2Word_AR(lang_EU.Num2Word_EU):
         self.errmsg_nornum = "Only numbers may be converted to words."
         self.exclude_title = ["و", "فاصلة", "سالب"]
 
-        self.mid_numwords = [(1000000, "مليون"),(1000, "ألف"), (100, "مئة"),
+        self.mid_numwords = [(1000000000,"مليار"),(1000000, "مليون"),(1000, "ألف"), (100, "مئة"),
                              (90, "تسعين"), (80, "ثمانين"), (70, "سبعين"),
                              (60, "ستين"), (50, "خمسين"), (40, "أربعين"),
                              (30, "ثلاثين")]
