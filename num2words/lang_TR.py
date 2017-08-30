@@ -22,35 +22,35 @@ from __future__ import unicode_literals
 class Num2Word_TR(object):
     def __init__(self):
         self.precision = 2
-        self.negword = "eksi "
-        self.pointword = "virgül"
-        self.CURRENCY_UNIT = ("lira",)
-        self.CURRENCY_SUBUNIT = ("kuruş",)
+        self.negword = u"eksi "
+        self.pointword = u"virgül"
+        self.CURRENCY_UNIT = (u"lira",)
+        self.CURRENCY_SUBUNIT = (u"kuruş",)
         # type(%s) not in [long, int, float]
-        self.errmsg_nonnum = "Sadece sayılar yazıya çevrilebilir."
+        self.errmsg_nonnum = u"Sadece sayılar yazıya çevrilebilir."
         # Cannot treat float %s as ordinal.
-        self.errmsg_floatord = "Tam sayı olmayan {} sıralamada kullanılamaz."
+        self.errmsg_floatord = u"Tam sayı olmayan {} sıralamada kullanılamaz."
         # Cannot treat negative num %s as ordinal.
-        self.errmsg_negord = "Pozitif olmayan {} sıralamada kullanılamaz."
+        self.errmsg_negord = u"Pozitif olmayan {} sıralamada kullanılamaz."
         # abs(%s) must be less than %s.
-        self.errmsg_toobig = "abs({}) sayı yazıya çevirmek için çok büyük. Yazıya çevrilebilecek en büyük rakam {}."
+        self.errmsg_toobig = u"abs({}) sayı yazıya çevirmek için çok büyük. Yazıya çevrilebilecek en büyük rakam {}."
         self.exclude_title = ["et", "virgule", "moins"]
         # ordered number tuples in Turkish
         self.ORDINAL_SIGN = (",",)
         self.CARDINAL_BIRLER = (
-            "sıfır", "bir", "iki", "üç", "dört", "beş", "altı", "yedi", "sekiz", "dokuz",)
+            u"sıfır", u"bir", u"iki", u"üç", u"dört", u"beş", u"altı", u"yedi", u"sekiz", u"dokuz",)
         self.ORDINAL_BIRLER = (
-            "", "birinci", "ikinci", "üçüncü", "dördüncü", "beşinci", "altıncı", "yedinci", "sekizinci", "dokuzuncu",)
+            u"", u"birinci", u"ikinci", u"üçüncü", u"dördüncü", u"beşinci", u"altıncı", u"yedinci", u"sekizinci", u"dokuzuncu",)
         self.CARDINAL_ONLAR = (
-            "", "on", "yirmi", "otuz", "kırk", "elli", "altmış", "yetmiş", "seksen", "doksan",)
+            u"", u"on", u"yirmi", u"otuz", u"kırk", u"elli", u"altmış", u"yetmiş", u"seksen", u"doksan",)
         self.ORDINAL_ONLAR = (
-            "", "onuncu", "yirminci", "otuzuncu", "kırkıncı", "ellinci", "altmışıncı", "yetmişinci", "sekseninci",
-            "doksanıncı",)
-        self.CARDINAL_YUZLER = ("yüz",)
-        self.ORDINAL_YUZLER = ("yüzüncü",)
-        self.CARDINAL_UCLU_GRUPLAR = ("", "bin", "milyon", "milyar", "trilyon", "katrilyon", "kentilyon",)
+            u"", u"onuncu", u"yirminci", u"otuzuncu", u"kırkıncı", u"ellinci", u"altmışıncı", u"yetmişinci", u"sekseninci",
+            u"doksanıncı",)
+        self.CARDINAL_YUZLER = (u"yüz",)
+        self.ORDINAL_YUZLER = (u"yüzüncü",)
+        self.CARDINAL_UCLU_GRUPLAR = (u"", u"bin", u"milyon", u"milyar", u"trilyon", u"katrilyon", u"kentilyon",)
         self.ORDINAL_UCLU_GRUPLAR = (
-            "", "bininci", "milyonuncu", "milyarıncı", "trilyonuncu", "katrilyonuncu", "kentilyon",)
+            u"", u"bininci", u"milyonuncu", u"milyarıncı", u"trilyonuncu", u"katrilyonuncu", u"kentilyon",)
         self.MAXVAL = (10 ** (len(self.CARDINAL_UCLU_GRUPLAR) * 3)) - 1
 
         self.okunacak_ham_sayi = []
