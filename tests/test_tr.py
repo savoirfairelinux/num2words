@@ -1,4 +1,6 @@
+# -*- encoding: utf-8 -*-
 # Copyright (c) 2013, Savoir-faire Linux inc.  All Rights Reserved.
+# Copyright (c) 2017, Tufan Kaynak, Framras.  All Rights Reserved.
 
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
