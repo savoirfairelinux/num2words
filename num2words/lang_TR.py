@@ -48,8 +48,8 @@ class Num2Word_TR(object):
             "doksanıncı",)
         self.CARDINAL_YUZLER = ("yüz",)
         self.ORDINAL_YUZLER = ("yüzüncü",)
-        self.CARDINAL_UCLU_GRUPLAR = ("", "bin", "milyon", "milyar", "trilyon", "katrilyon",)
-        self.ORDINAL_UCLU_GRUPLAR = ("", "bininci", "milyonuncu", "milyarıncı", "trilyonuncu", "katrilyonuncu",)
+        self.CARDINAL_UCLU_GRUPLAR = ("", "bin", "milyon", "milyar", "trilyon", "katrilyon", "kentilyon", )
+        self.ORDINAL_UCLU_GRUPLAR = ("", "bininci", "milyonuncu", "milyarıncı", "trilyonuncu", "katrilyonuncu", "kentilyon", )
         self.MAXVAL = (10 ** (len(self.CARDINAL_UCLU_GRUPLAR) * 3)) - 1
 
         self.okunacak_ham_sayi = []
