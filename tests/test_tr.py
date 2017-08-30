@@ -95,6 +95,8 @@ class Num2WordsTRTest(TestCase):
         self.assertEqual(num2words(1101011010, False, "tr"), "birmilyaryüzbirmilyononbirbinon")
         self.assertEqual(num2words(101101011010, False, "tr"), "yüzbirmilyaryüzbirmilyononbirbinon")
         self.assertEqual(num2words(1000000000001, False, "tr"), "birtrilyonbir")
+        self.assertEqual(num2words(0.1, False, "tr"), "sıfırvirgülon")
+        self.assertEqual(num2words(0.21, False, "tr"), "sıfırvirgülyirmibir")
         self.assertEqual(num2words(1.1, False, "tr"), "birvirgülon")
         self.assertEqual(num2words(1.21, False, "tr"), "birvirgülyirmibir")
         self.assertEqual(num2words(101101011010.02, False, "tr"), "yüzbirmilyaryüzbirmilyononbirbinonvirgüliki")
