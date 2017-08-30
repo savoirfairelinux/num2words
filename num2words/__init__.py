@@ -62,7 +62,7 @@ CONVERTER_CLASSES = {
     'he': lang_HE.Num2Word_HE(),
     'it': lang_IT.Num2Word_IT(),
     'vi_VN': lang_VN.Num2Word_VN(),
-    'tr': lang_TR.Num2WordTR()
+    'tr': lang_TR.Num2Word_TR()
 }
 
 def num2words(number, ordinal=False, lang='en'):
