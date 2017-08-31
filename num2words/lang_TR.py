@@ -22,7 +22,7 @@ from __future__ import unicode_literals
 class Num2Word_TR(object):
     def __init__(self):
         self.precision = 2
-        self.negword = u"eksi "
+        self.negword = u"eksi"
         self.pointword = u"virgül"
         self.CURRENCY_UNIT = (u"lira",)
         self.CURRENCY_SUBUNIT = (u"kuruş",)
@@ -37,26 +37,27 @@ class Num2Word_TR(object):
         self.exclude_title = ["et", "virgule", "moins"]
         # ordered number tuples in Turkish
         self.ORDINAL_SIGN = (",",)
-        self.CARDINAL_BIRLER = (
+        self.CARDINAL_ONES = (
             u"sıfır", u"bir", u"iki", u"üç", u"dört", u"beş", u"altı", u"yedi", u"sekiz", u"dokuz",)
-        self.ORDINAL_BIRLER = (
-            u"", u"birinci", u"ikinci", u"üçüncü", u"dördüncü", u"beşinci", u"altıncı", u"yedinci", u"sekizinci", u"dokuzuncu",)
-        self.CARDINAL_ONLAR = (
+        self.ORDINAL_ONES = (
+            u"", u"birinci", u"ikinci", u"üçüncü", u"dördüncü", u"beşinci", u"altıncı", u"yedinci", u"sekizinci",
+            u"dokuzuncu",)
+        self.CARDINAL_TEN = (
             u"", u"on", u"yirmi", u"otuz", u"kırk", u"elli", u"altmış", u"yetmiş", u"seksen", u"doksan",)
-        self.ORDINAL_ONLAR = (
-            u"", u"onuncu", u"yirminci", u"otuzuncu", u"kırkıncı", u"ellinci", u"altmışıncı", u"yetmişinci", u"sekseninci",
-            u"doksanıncı",)
-        self.CARDINAL_YUZLER = (u"yüz",)
-        self.ORDINAL_YUZLER = (u"yüzüncü",)
-        self.CARDINAL_UCLU_GRUPLAR = (u"", u"bin", u"milyon", u"milyar", u"trilyon", u"katrilyon", u"kentilyon",)
-        self.ORDINAL_UCLU_GRUPLAR = (
+        self.ORDINAL_TENS = (
+            u"", u"onuncu", u"yirminci", u"otuzuncu", u"kırkıncı", u"ellinci", u"altmışıncı", u"yetmişinci",
+            u"sekseninci", u"doksanıncı",)
+        self.CARDINAL_HUNDREDS = (u"yüz",)
+        self.ORDINAL_HUNDREDS = (u"yüzüncü",)
+        self.CARDINAL_TRIPLETS = (u"", u"bin", u"milyon", u"milyar", u"trilyon", u"katrilyon", u"kentilyon",)
+        self.ORDINAL_TRIPLETS = (
             u"", u"bininci", u"milyonuncu", u"milyarıncı", u"trilyonuncu", u"katrilyonuncu", u"kentilyon",)
-        self.MAXVAL = (10 ** (len(self.CARDINAL_UCLU_GRUPLAR) * 3)) - 1
+        self.MAXVAL = (10 ** (len(self.CARDINAL_TRIPLETS) * 3)) - 1
 
-        self.okunacak_tam_sayi = []
-        self.okunacak_uclu_grup_sayisi = 0
-        self.okunacak_artik_basamak_sayisi = 0
-        self.son_sifir_basamagi = 0
+        self.integers_to_read = []
+        self.total_triplets_to_read = 0
+        self.total_digits_outside_triplets = 0
+        self.order_of_last_zero_digit = 0
 
     # def set_numwords(self):
 
@@ -77,202 +78,202 @@ class Num2Word_TR(object):
                 return self.to_cardinal_float(value)
             self.splitnum(value)
 
-            if self.son_sifir_basamagi >= len(self.okunacak_tam_sayi[0]):
+            if self.order_of_last_zero_digit >= len(self.integers_to_read[0]):
                 # number like 00 and all 0s and even more, raise error
                 return oku
 
-            if self.okunacak_uclu_grup_sayisi == 1:
-                if self.okunacak_artik_basamak_sayisi == 2:
-                    if self.son_sifir_basamagi == 1:
+            if self.total_triplets_to_read == 1:
+                if self.total_digits_outside_triplets == 2:
+                    if self.order_of_last_zero_digit == 1:
                         # number like x0, read cardinal x0 and return
-                        oku += self.CARDINAL_ONLAR[int(self.okunacak_tam_sayi[0][0])]
+                        oku += self.CARDINAL_TEN[int(self.integers_to_read[0][0])]
                         return oku
-                    if self.son_sifir_basamagi == 0:
+                    if self.order_of_last_zero_digit == 0:
                         # number like xy, read cardinal xy and return
-                        oku += self.CARDINAL_ONLAR[int(self.okunacak_tam_sayi[0][0])]
-                    if not self.okunacak_tam_sayi[0][0] == "0":
-                        oku += self.CARDINAL_BIRLER[int(self.okunacak_tam_sayi[0][1])]
+                        oku += self.CARDINAL_TEN[int(self.integers_to_read[0][0])]
+                    if not self.integers_to_read[0][0] == "0":
+                        oku += self.CARDINAL_ONES[int(self.integers_to_read[0][1])]
                     return oku
 
-                if self.okunacak_artik_basamak_sayisi == 1:
-                    if self.son_sifir_basamagi == 0:
+                if self.total_digits_outside_triplets == 1:
+                    if self.order_of_last_zero_digit == 0:
                         # number like x, read ordinal x and return
-                        oku += self.CARDINAL_BIRLER[int(self.okunacak_tam_sayi[0][0])]
+                        oku += self.CARDINAL_ONES[int(self.integers_to_read[0][0])]
                         return oku
 
-                if self.okunacak_artik_basamak_sayisi == 0:
-                    if self.son_sifir_basamagi == 2:
+                if self.total_digits_outside_triplets == 0:
+                    if self.order_of_last_zero_digit == 2:
                         # number like x00, read cardinal x00 and return
-                        if not self.okunacak_tam_sayi[0][0] == "1":
-                            oku += self.CARDINAL_BIRLER[int(self.okunacak_tam_sayi[0][0])]
-                        oku += self.CARDINAL_YUZLER[0]
+                        if not self.integers_to_read[0][0] == "1":
+                            oku += self.CARDINAL_ONES[int(self.integers_to_read[0][0])]
+                        oku += self.CARDINAL_HUNDREDS[0]
                         return oku
-                    if self.son_sifir_basamagi == 1:
+                    if self.order_of_last_zero_digit == 1:
                         # number like xy0, read cardinal xy0 and return
-                        if not self.okunacak_tam_sayi[0][0] == "1":
-                            oku += self.CARDINAL_BIRLER[int(self.okunacak_tam_sayi[0][0])]
-                        oku += self.CARDINAL_YUZLER[0]
-                        oku += self.CARDINAL_ONLAR[int(self.okunacak_tam_sayi[0][1])]
+                        if not self.integers_to_read[0][0] == "1":
+                            oku += self.CARDINAL_ONES[int(self.integers_to_read[0][0])]
+                        oku += self.CARDINAL_HUNDREDS[0]
+                        oku += self.CARDINAL_TEN[int(self.integers_to_read[0][1])]
                         return oku
-                    if self.son_sifir_basamagi == 0:
+                    if self.order_of_last_zero_digit == 0:
                         # number like xyz, read cardinal xyz and return
-                        if not self.okunacak_tam_sayi[0][0] == "1":
-                            oku += self.CARDINAL_BIRLER[int(self.okunacak_tam_sayi[0][0])]
-                        oku += self.CARDINAL_YUZLER[0]
-                        oku += self.CARDINAL_ONLAR[int(self.okunacak_tam_sayi[0][1])]
-                        if not self.okunacak_tam_sayi[0][2] == "0":
-                            oku += self.CARDINAL_BIRLER[int(self.okunacak_tam_sayi[0][2])]
+                        if not self.integers_to_read[0][0] == "1":
+                            oku += self.CARDINAL_ONES[int(self.integers_to_read[0][0])]
+                        oku += self.CARDINAL_HUNDREDS[0]
+                        oku += self.CARDINAL_TEN[int(self.integers_to_read[0][1])]
+                        if not self.integers_to_read[0][2] == "0":
+                            oku += self.CARDINAL_ONES[int(self.integers_to_read[0][2])]
                         return oku
 
-            if self.okunacak_uclu_grup_sayisi >= 2:
-                if self.okunacak_artik_basamak_sayisi == 2:
-                    if self.son_sifir_basamagi == len(self.okunacak_tam_sayi[0]) - 1:
+            if self.total_triplets_to_read >= 2:
+                if self.total_digits_outside_triplets == 2:
+                    if self.order_of_last_zero_digit == len(self.integers_to_read[0]) - 1:
                         # number like x0 and all 0s, read cardinal x0 0..0 and return
-                        oku += self.CARDINAL_ONLAR[int(self.okunacak_tam_sayi[0][0])]
-                        oku += self.CARDINAL_UCLU_GRUPLAR[self.okunacak_uclu_grup_sayisi - 1]
+                        oku += self.CARDINAL_TEN[int(self.integers_to_read[0][0])]
+                        oku += self.CARDINAL_TRIPLETS[self.total_triplets_to_read - 1]
                         return oku
-                    if self.son_sifir_basamagi == len(self.okunacak_tam_sayi[0]) - 2:
+                    if self.order_of_last_zero_digit == len(self.integers_to_read[0]) - 2:
                         # number like xy and all 0s, read cardinal xy 0..0 and return
-                        oku += self.CARDINAL_ONLAR[int(self.okunacak_tam_sayi[0][0])]
-                        if not self.okunacak_tam_sayi[0][1] == "0":
-                            oku += self.CARDINAL_BIRLER[int(self.okunacak_tam_sayi[0][1])]
-                        oku += self.CARDINAL_UCLU_GRUPLAR[self.okunacak_uclu_grup_sayisi - 1]
+                        oku += self.CARDINAL_TEN[int(self.integers_to_read[0][0])]
+                        if not self.integers_to_read[0][1] == "0":
+                            oku += self.CARDINAL_ONES[int(self.integers_to_read[0][1])]
+                        oku += self.CARDINAL_TRIPLETS[self.total_triplets_to_read - 1]
                         return oku
-                    if self.son_sifir_basamagi < len(self.okunacak_tam_sayi[0]) - 2:
+                    if self.order_of_last_zero_digit < len(self.integers_to_read[0]) - 2:
                         # number like xy and others, read cardinal xy n..n and return
-                        oku += self.CARDINAL_ONLAR[int(self.okunacak_tam_sayi[0][0])]
-                        if not self.okunacak_tam_sayi[0][1] == "0":
-                            oku += self.CARDINAL_BIRLER[int(self.okunacak_tam_sayi[0][1])]
-                        oku += self.CARDINAL_UCLU_GRUPLAR[self.okunacak_uclu_grup_sayisi - 1]
+                        oku += self.CARDINAL_TEN[int(self.integers_to_read[0][0])]
+                        if not self.integers_to_read[0][1] == "0":
+                            oku += self.CARDINAL_ONES[int(self.integers_to_read[0][1])]
+                        oku += self.CARDINAL_TRIPLETS[self.total_triplets_to_read - 1]
 
-                if self.okunacak_artik_basamak_sayisi == 1:
-                    if self.son_sifir_basamagi == len(self.okunacak_tam_sayi[0]) - 1:
+                if self.total_digits_outside_triplets == 1:
+                    if self.order_of_last_zero_digit == len(self.integers_to_read[0]) - 1:
                         # number like x and all 0s, read cardinal x 0..0 and return
-                        if not (self.okunacak_uclu_grup_sayisi == 2 and self.okunacak_tam_sayi[0][0] == "1"):
-                            oku += self.CARDINAL_BIRLER[int(self.okunacak_tam_sayi[0][0])]
-                        oku += self.CARDINAL_UCLU_GRUPLAR[self.okunacak_uclu_grup_sayisi - 1]
+                        if not (self.total_triplets_to_read == 2 and self.integers_to_read[0][0] == "1"):
+                            oku += self.CARDINAL_ONES[int(self.integers_to_read[0][0])]
+                        oku += self.CARDINAL_TRIPLETS[self.total_triplets_to_read - 1]
                         return oku
-                    if self.son_sifir_basamagi < len(self.okunacak_tam_sayi[0]) - 1:
+                    if self.order_of_last_zero_digit < len(self.integers_to_read[0]) - 1:
                         # number like x and others, read cardinal x n..n and return
-                        if not (self.okunacak_uclu_grup_sayisi == 2 and self.okunacak_tam_sayi[0][0] == "1"):
-                            oku += self.CARDINAL_BIRLER[int(self.okunacak_tam_sayi[0][0])]
-                        oku += self.CARDINAL_UCLU_GRUPLAR[self.okunacak_uclu_grup_sayisi - 1]
+                        if not (self.total_triplets_to_read == 2 and self.integers_to_read[0][0] == "1"):
+                            oku += self.CARDINAL_ONES[int(self.integers_to_read[0][0])]
+                        oku += self.CARDINAL_TRIPLETS[self.total_triplets_to_read - 1]
 
-                if self.okunacak_artik_basamak_sayisi == 0:
-                    if self.son_sifir_basamagi == len(self.okunacak_tam_sayi[0]) - 1:
+                if self.total_digits_outside_triplets == 0:
+                    if self.order_of_last_zero_digit == len(self.integers_to_read[0]) - 1:
                         # number like x00 and all 0s, read cardinal x00 0..0 and return
-                        if not self.okunacak_tam_sayi[0][0] == "1":
-                            oku += self.CARDINAL_BIRLER[int(self.okunacak_tam_sayi[0][0])]
-                        oku += self.CARDINAL_YUZLER[0]
-                        oku += self.CARDINAL_UCLU_GRUPLAR[self.okunacak_uclu_grup_sayisi - 1]
+                        if not self.integers_to_read[0][0] == "1":
+                            oku += self.CARDINAL_ONES[int(self.integers_to_read[0][0])]
+                        oku += self.CARDINAL_HUNDREDS[0]
+                        oku += self.CARDINAL_TRIPLETS[self.total_triplets_to_read - 1]
                         return oku
-                    if self.son_sifir_basamagi == len(self.okunacak_tam_sayi[0]) - 2:
+                    if self.order_of_last_zero_digit == len(self.integers_to_read[0]) - 2:
                         # number like xy0 and all 0s, read cardinal xy0 0..0 and return
-                        if not self.okunacak_tam_sayi[0][0] == "1":
-                            oku += self.CARDINAL_BIRLER[int(self.okunacak_tam_sayi[0][0])]
-                        oku += self.CARDINAL_YUZLER[0]
-                        oku += self.CARDINAL_ONLAR[int(self.okunacak_tam_sayi[0][1])]
-                        oku += self.CARDINAL_UCLU_GRUPLAR[self.okunacak_uclu_grup_sayisi - 1]
+                        if not self.integers_to_read[0][0] == "1":
+                            oku += self.CARDINAL_ONES[int(self.integers_to_read[0][0])]
+                        oku += self.CARDINAL_HUNDREDS[0]
+                        oku += self.CARDINAL_TEN[int(self.integers_to_read[0][1])]
+                        oku += self.CARDINAL_TRIPLETS[self.total_triplets_to_read - 1]
                         return oku
-                    if self.son_sifir_basamagi == len(self.okunacak_tam_sayi[0]) - 3:
+                    if self.order_of_last_zero_digit == len(self.integers_to_read[0]) - 3:
                         # number like xyz and all 0s, read cardinal xyz 0..0 and return
-                        if not self.okunacak_tam_sayi[0][0] == "1":
-                            oku += self.CARDINAL_BIRLER[int(self.okunacak_tam_sayi[0][0])]
-                        oku += self.CARDINAL_YUZLER[0]
-                        oku += self.CARDINAL_ONLAR[int(self.okunacak_tam_sayi[0][1])]
-                        if not self.okunacak_tam_sayi[0][2] == "0":
-                            oku += self.CARDINAL_BIRLER[int(self.okunacak_tam_sayi[0][2])]
-                        oku += self.CARDINAL_UCLU_GRUPLAR[self.okunacak_uclu_grup_sayisi - 1]
+                        if not self.integers_to_read[0][0] == "1":
+                            oku += self.CARDINAL_ONES[int(self.integers_to_read[0][0])]
+                        oku += self.CARDINAL_HUNDREDS[0]
+                        oku += self.CARDINAL_TEN[int(self.integers_to_read[0][1])]
+                        if not self.integers_to_read[0][2] == "0":
+                            oku += self.CARDINAL_ONES[int(self.integers_to_read[0][2])]
+                        oku += self.CARDINAL_TRIPLETS[self.total_triplets_to_read - 1]
                         return oku
-                    if self.son_sifir_basamagi < len(self.okunacak_tam_sayi[0]) - 3:
+                    if self.order_of_last_zero_digit < len(self.integers_to_read[0]) - 3:
                         # number like xyz and all others, read cardinal xyz n..n
-                        if not self.okunacak_tam_sayi[0][0] == "1":
-                            oku += self.CARDINAL_BIRLER[int(self.okunacak_tam_sayi[0][0])]
-                        oku += self.CARDINAL_YUZLER[0]
-                        oku += self.CARDINAL_ONLAR[int(self.okunacak_tam_sayi[0][1])]
-                        if not self.okunacak_tam_sayi[0][2] == "0":
-                            if not (self.okunacak_uclu_grup_sayisi == 2 and self.okunacak_tam_sayi[0][2] == "1"):
-                                oku += self.CARDINAL_BIRLER[int(self.okunacak_tam_sayi[0][2])]
-                        oku += self.CARDINAL_UCLU_GRUPLAR[self.okunacak_uclu_grup_sayisi - 1]
+                        if not self.integers_to_read[0][0] == "1":
+                            oku += self.CARDINAL_ONES[int(self.integers_to_read[0][0])]
+                        oku += self.CARDINAL_HUNDREDS[0]
+                        oku += self.CARDINAL_TEN[int(self.integers_to_read[0][1])]
+                        if not self.integers_to_read[0][2] == "0":
+                            if not (self.total_triplets_to_read == 2 and self.integers_to_read[0][2] == "1"):
+                                oku += self.CARDINAL_ONES[int(self.integers_to_read[0][2])]
+                        oku += self.CARDINAL_TRIPLETS[self.total_triplets_to_read - 1]
 
-                for i in list(range(self.okunacak_uclu_grup_sayisi - 1, 0, -1)):
-                    okunan_grup_sirasi = self.okunacak_uclu_grup_sayisi - i
-                    if self.okunacak_artik_basamak_sayisi == 0:
+                for i in list(range(self.total_triplets_to_read - 1, 0, -1)):
+                    okunan_grup_sirasi = self.total_triplets_to_read - i
+                    if self.total_digits_outside_triplets == 0:
                         son_okunan_basamak_sirasi = okunan_grup_sirasi * 3
                     else:
-                        son_okunan_basamak_sirasi = (okunan_grup_sirasi - 1) * 3 + self.okunacak_artik_basamak_sayisi
+                        son_okunan_basamak_sirasi = (okunan_grup_sirasi - 1) * 3 + self.total_digits_outside_triplets
 
-                    if not self.okunacak_tam_sayi[0][son_okunan_basamak_sirasi: son_okunan_basamak_sirasi + 3] == "000":
-                        if not self.okunacak_tam_sayi[0][son_okunan_basamak_sirasi] == "0":
-                            if not self.okunacak_tam_sayi[0][son_okunan_basamak_sirasi] == "1":
-                                oku += self.CARDINAL_BIRLER[
-                                    int(self.okunacak_tam_sayi[0][son_okunan_basamak_sirasi])]
-                            if self.son_sifir_basamagi == len(self.okunacak_tam_sayi[0]) - (
+                    if not self.integers_to_read[0][son_okunan_basamak_sirasi: son_okunan_basamak_sirasi + 3] == "000":
+                        if not self.integers_to_read[0][son_okunan_basamak_sirasi] == "0":
+                            if not self.integers_to_read[0][son_okunan_basamak_sirasi] == "1":
+                                oku += self.CARDINAL_ONES[
+                                    int(self.integers_to_read[0][son_okunan_basamak_sirasi])]
+                            if self.order_of_last_zero_digit == len(self.integers_to_read[0]) - (
                                     son_okunan_basamak_sirasi) - 1:
                                 if i == 1:
-                                    oku += self.CARDINAL_YUZLER[0]
+                                    oku += self.CARDINAL_HUNDREDS[0]
                                     return oku
                                 elif i > 1:
-                                    oku += self.CARDINAL_YUZLER[0]
-                                    oku += self.CARDINAL_UCLU_GRUPLAR[i - 1]
+                                    oku += self.CARDINAL_HUNDREDS[0]
+                                    oku += self.CARDINAL_TRIPLETS[i - 1]
                                     return oku
                             else:
-                                oku += self.CARDINAL_YUZLER[0]
+                                oku += self.CARDINAL_HUNDREDS[0]
 
-                        if not self.okunacak_tam_sayi[0][son_okunan_basamak_sirasi + 1] == "0":
-                            if self.son_sifir_basamagi == len(self.okunacak_tam_sayi[0]) - (
+                        if not self.integers_to_read[0][son_okunan_basamak_sirasi + 1] == "0":
+                            if self.order_of_last_zero_digit == len(self.integers_to_read[0]) - (
                                     son_okunan_basamak_sirasi) - 2:
                                 if i == 1:
-                                    oku += self.CARDINAL_ONLAR[
-                                        int(self.okunacak_tam_sayi[0][son_okunan_basamak_sirasi + 1])]
+                                    oku += self.CARDINAL_TEN[
+                                        int(self.integers_to_read[0][son_okunan_basamak_sirasi + 1])]
                                     return oku
                                 elif i > 1:
-                                    oku += self.CARDINAL_ONLAR[
-                                        int(self.okunacak_tam_sayi[0][son_okunan_basamak_sirasi + 1])]
-                                    oku += self.CARDINAL_UCLU_GRUPLAR[i - 1]
+                                    oku += self.CARDINAL_TEN[
+                                        int(self.integers_to_read[0][son_okunan_basamak_sirasi + 1])]
+                                    oku += self.CARDINAL_TRIPLETS[i - 1]
                                     return oku
                             else:
-                                oku += self.CARDINAL_ONLAR[
-                                    int(self.okunacak_tam_sayi[0][son_okunan_basamak_sirasi + 1])]
+                                oku += self.CARDINAL_TEN[
+                                    int(self.integers_to_read[0][son_okunan_basamak_sirasi + 1])]
 
-                        if not self.okunacak_tam_sayi[0][son_okunan_basamak_sirasi + 2] == "0":
-                            if self.son_sifir_basamagi == len(self.okunacak_tam_sayi[0]) - (
+                        if not self.integers_to_read[0][son_okunan_basamak_sirasi + 2] == "0":
+                            if self.order_of_last_zero_digit == len(self.integers_to_read[0]) - (
                                     son_okunan_basamak_sirasi) - 3:
                                 if i == 1:
-                                    oku += self.CARDINAL_BIRLER[
-                                        int(self.okunacak_tam_sayi[0][son_okunan_basamak_sirasi + 2])]
+                                    oku += self.CARDINAL_ONES[
+                                        int(self.integers_to_read[0][son_okunan_basamak_sirasi + 2])]
                                     return oku
                                 if i == 2:
-                                    if not self.okunacak_tam_sayi[0][
+                                    if not self.integers_to_read[0][
                                            son_okunan_basamak_sirasi: son_okunan_basamak_sirasi + 2] == "00":
-                                        oku += self.CARDINAL_BIRLER[
-                                            int(self.okunacak_tam_sayi[0][son_okunan_basamak_sirasi + 2])]
-                                    elif not self.okunacak_tam_sayi[0][son_okunan_basamak_sirasi + 2] == "1":
-                                        oku += self.CARDINAL_BIRLER[
-                                            int(self.okunacak_tam_sayi[0][son_okunan_basamak_sirasi + 2])]
-                                    oku += self.CARDINAL_UCLU_GRUPLAR[i - 1]
+                                        oku += self.CARDINAL_ONES[
+                                            int(self.integers_to_read[0][son_okunan_basamak_sirasi + 2])]
+                                    elif not self.integers_to_read[0][son_okunan_basamak_sirasi + 2] == "1":
+                                        oku += self.CARDINAL_ONES[
+                                            int(self.integers_to_read[0][son_okunan_basamak_sirasi + 2])]
+                                    oku += self.CARDINAL_TRIPLETS[i - 1]
                                     return oku
                                 if i > 2:
-                                    oku += self.CARDINAL_BIRLER[
-                                        int(self.okunacak_tam_sayi[0][son_okunan_basamak_sirasi + 2])]
-                                    oku += self.CARDINAL_UCLU_GRUPLAR[i - 1]
+                                    oku += self.CARDINAL_ONES[
+                                        int(self.integers_to_read[0][son_okunan_basamak_sirasi + 2])]
+                                    oku += self.CARDINAL_TRIPLETS[i - 1]
                                     return oku
                             else:
-                                if not self.okunacak_tam_sayi[0][
+                                if not self.integers_to_read[0][
                                        son_okunan_basamak_sirasi: son_okunan_basamak_sirasi + 2] == "00":
-                                    oku += self.CARDINAL_BIRLER[
-                                        int(self.okunacak_tam_sayi[0][son_okunan_basamak_sirasi + 2])]
+                                    oku += self.CARDINAL_ONES[
+                                        int(self.integers_to_read[0][son_okunan_basamak_sirasi + 2])]
                                 else:
                                     if i == 2:
-                                        if not self.okunacak_tam_sayi[0][
+                                        if not self.integers_to_read[0][
                                                son_okunan_basamak_sirasi: son_okunan_basamak_sirasi + 2] == "00":
-                                            oku += self.CARDINAL_BIRLER[
-                                                int(self.okunacak_tam_sayi[0][son_okunan_basamak_sirasi + 2])]
-                                        elif not self.okunacak_tam_sayi[0][son_okunan_basamak_sirasi + 2] == "1":
-                                            oku += self.CARDINAL_BIRLER[
-                                                int(self.okunacak_tam_sayi[0][son_okunan_basamak_sirasi + 2])]
+                                            oku += self.CARDINAL_ONES[
+                                                int(self.integers_to_read[0][son_okunan_basamak_sirasi + 2])]
+                                        elif not self.integers_to_read[0][son_okunan_basamak_sirasi + 2] == "1":
+                                            oku += self.CARDINAL_ONES[
+                                                int(self.integers_to_read[0][son_okunan_basamak_sirasi + 2])]
 
-                        oku += self.CARDINAL_UCLU_GRUPLAR[i - 1]
+                        oku += self.CARDINAL_TRIPLETS[i - 1]
 
         return oku
 
@@ -280,13 +281,13 @@ class Num2Word_TR(object):
         self.splitnum(value)
         oku = ""
         oku += self.pointword
-        if len(self.okunacak_tam_sayi[1]) >= 1:
-            if not self.okunacak_tam_sayi[1][0] == "0":
-                oku += self.CARDINAL_ONLAR[int(self.okunacak_tam_sayi[1][0])]
-        if len(self.okunacak_tam_sayi[1]) == 2:
-            if not self.okunacak_tam_sayi[1][1] == "0":
-                oku += self.CARDINAL_BIRLER[int(self.okunacak_tam_sayi[1][1])]
-        oku = self.to_cardinal(int(self.okunacak_tam_sayi[0])) + oku
+        if len(self.integers_to_read[1]) >= 1:
+            if not self.integers_to_read[1][0] == "0":
+                oku += self.CARDINAL_TEN[int(self.integers_to_read[1][0])]
+        if len(self.integers_to_read[1]) == 2:
+            if not self.integers_to_read[1][1] == "0":
+                oku += self.CARDINAL_ONES[int(self.integers_to_read[1][1])]
+        oku = self.to_cardinal(int(self.integers_to_read[0])) + oku
         return oku
 
     # def merge(self, curr, next):
@@ -301,10 +302,8 @@ class Num2Word_TR(object):
             if not float(value) == value:
                 iscardinal = False
         except (ValueError, TypeError):
-            iscardinal = False
             raise TypeError(self.errmsg_nonnum)
         if abs(value) >= self.MAXVAL:
-            iscardinal = False
             raise OverflowError(self.errmsg_toobig.format(value, self.MAXVAL))
         return iscardinal
 
@@ -314,13 +313,10 @@ class Num2Word_TR(object):
             if not int(value) == value:
                 isordinal = False
             if not abs(value) == value:
-                isordinal = False
                 raise TypeError(self.errmsg_negord.format(value))
         except (ValueError, TypeError):
-            isordinal = False
             raise TypeError(self.errmsg_nonnum)
         if abs(value) >= self.MAXVAL:
-            isordinal = False
             raise OverflowError(self.errmsg_toobig.format(value, self.MAXVAL))
         return isordinal
 
@@ -334,202 +330,202 @@ class Num2Word_TR(object):
         if isordinal:
             self.splitnum(value)
 
-            if self.son_sifir_basamagi >= len(self.okunacak_tam_sayi[0]):
+            if self.order_of_last_zero_digit >= len(self.integers_to_read[0]):
                 # number like 00 and all 0s and even more, raise error
                 return oku
 
-            if self.okunacak_uclu_grup_sayisi == 1:
-                if self.okunacak_artik_basamak_sayisi == 2:
-                    if self.son_sifir_basamagi == 1:
+            if self.total_triplets_to_read == 1:
+                if self.total_digits_outside_triplets == 2:
+                    if self.order_of_last_zero_digit == 1:
                         # number like x0, read ordinal x0 and return
-                        oku += self.ORDINAL_ONLAR[int(self.okunacak_tam_sayi[0][0])]
+                        oku += self.ORDINAL_TENS[int(self.integers_to_read[0][0])]
                         return oku
-                    if self.son_sifir_basamagi == 0:
+                    if self.order_of_last_zero_digit == 0:
                         # number like xy, read ordinal xy and return
-                        oku += self.CARDINAL_ONLAR[int(self.okunacak_tam_sayi[0][0])]
-                    if not self.okunacak_tam_sayi[0][0] == "0":
-                        oku += self.ORDINAL_BIRLER[int(self.okunacak_tam_sayi[0][1])]
+                        oku += self.CARDINAL_TEN[int(self.integers_to_read[0][0])]
+                    if not self.integers_to_read[0][0] == "0":
+                        oku += self.ORDINAL_ONES[int(self.integers_to_read[0][1])]
                     return oku
 
-                if self.okunacak_artik_basamak_sayisi == 1:
-                    if self.son_sifir_basamagi == 0:
+                if self.total_digits_outside_triplets == 1:
+                    if self.order_of_last_zero_digit == 0:
                         # number like x, read ordinal x and return
-                        oku += self.ORDINAL_BIRLER[int(self.okunacak_tam_sayi[0][0])]
+                        oku += self.ORDINAL_ONES[int(self.integers_to_read[0][0])]
                         return oku
 
-                if self.okunacak_artik_basamak_sayisi == 0:
-                    if self.son_sifir_basamagi == 2:
+                if self.total_digits_outside_triplets == 0:
+                    if self.order_of_last_zero_digit == 2:
                         # number like x00, read ordinal x00 and return
-                        if not self.okunacak_tam_sayi[0][0] == "1":
-                            oku += self.CARDINAL_BIRLER[int(self.okunacak_tam_sayi[0][0])]
-                        oku += self.ORDINAL_YUZLER[0]
+                        if not self.integers_to_read[0][0] == "1":
+                            oku += self.CARDINAL_ONES[int(self.integers_to_read[0][0])]
+                        oku += self.ORDINAL_HUNDREDS[0]
                         return oku
-                    if self.son_sifir_basamagi == 1:
+                    if self.order_of_last_zero_digit == 1:
                         # number like xy0, read ordinal xy0 and return
-                        if not self.okunacak_tam_sayi[0][0] == "1":
-                            oku += self.CARDINAL_BIRLER[int(self.okunacak_tam_sayi[0][0])]
-                        oku += self.CARDINAL_YUZLER[0]
-                        oku += self.ORDINAL_ONLAR[int(self.okunacak_tam_sayi[0][1])]
+                        if not self.integers_to_read[0][0] == "1":
+                            oku += self.CARDINAL_ONES[int(self.integers_to_read[0][0])]
+                        oku += self.CARDINAL_HUNDREDS[0]
+                        oku += self.ORDINAL_TENS[int(self.integers_to_read[0][1])]
                         return oku
-                    if self.son_sifir_basamagi == 0:
+                    if self.order_of_last_zero_digit == 0:
                         # number like xyz, read ordinal xyz and return
-                        if not self.okunacak_tam_sayi[0][0] == "1":
-                            oku += self.CARDINAL_BIRLER[int(self.okunacak_tam_sayi[0][0])]
-                        oku += self.CARDINAL_YUZLER[0]
-                        oku += self.CARDINAL_ONLAR[int(self.okunacak_tam_sayi[0][1])]
-                        if not self.okunacak_tam_sayi[0][2] == "0":
-                            oku += self.ORDINAL_BIRLER[int(self.okunacak_tam_sayi[0][2])]
+                        if not self.integers_to_read[0][0] == "1":
+                            oku += self.CARDINAL_ONES[int(self.integers_to_read[0][0])]
+                        oku += self.CARDINAL_HUNDREDS[0]
+                        oku += self.CARDINAL_TEN[int(self.integers_to_read[0][1])]
+                        if not self.integers_to_read[0][2] == "0":
+                            oku += self.ORDINAL_ONES[int(self.integers_to_read[0][2])]
                         return oku
 
-            if self.okunacak_uclu_grup_sayisi >= 2:
-                if self.okunacak_artik_basamak_sayisi == 2:
-                    if self.son_sifir_basamagi == len(self.okunacak_tam_sayi[0]) - 1:
+            if self.total_triplets_to_read >= 2:
+                if self.total_digits_outside_triplets == 2:
+                    if self.order_of_last_zero_digit == len(self.integers_to_read[0]) - 1:
                         # number like x0 and all 0s, read ordinal x0 0..0 and return
-                        oku += self.CARDINAL_ONLAR[int(self.okunacak_tam_sayi[0][0])]
-                        oku += self.ORDINAL_UCLU_GRUPLAR[self.okunacak_uclu_grup_sayisi - 1]
+                        oku += self.CARDINAL_TEN[int(self.integers_to_read[0][0])]
+                        oku += self.ORDINAL_TRIPLETS[self.total_triplets_to_read - 1]
                         return oku
-                    if self.son_sifir_basamagi == len(self.okunacak_tam_sayi[0]) - 2:
+                    if self.order_of_last_zero_digit == len(self.integers_to_read[0]) - 2:
                         # number like xy and all 0s, read ordinal xy 0..0 and return
-                        oku += self.CARDINAL_ONLAR[int(self.okunacak_tam_sayi[0][0])]
-                        if not self.okunacak_tam_sayi[0][1] == "0":
-                            oku += self.CARDINAL_BIRLER[int(self.okunacak_tam_sayi[0][1])]
-                        oku += self.ORDINAL_UCLU_GRUPLAR[self.okunacak_uclu_grup_sayisi - 1]
+                        oku += self.CARDINAL_TEN[int(self.integers_to_read[0][0])]
+                        if not self.integers_to_read[0][1] == "0":
+                            oku += self.CARDINAL_ONES[int(self.integers_to_read[0][1])]
+                        oku += self.ORDINAL_TRIPLETS[self.total_triplets_to_read - 1]
                         return oku
-                    if self.son_sifir_basamagi < len(self.okunacak_tam_sayi[0]) - 2:
+                    if self.order_of_last_zero_digit < len(self.integers_to_read[0]) - 2:
                         # number like xy and others, read cardinal xy n..n and return
-                        oku += self.CARDINAL_ONLAR[int(self.okunacak_tam_sayi[0][0])]
-                        if not self.okunacak_tam_sayi[0][1] == "0":
-                            oku += self.CARDINAL_BIRLER[int(self.okunacak_tam_sayi[0][1])]
+                        oku += self.CARDINAL_TEN[int(self.integers_to_read[0][0])]
+                        if not self.integers_to_read[0][1] == "0":
+                            oku += self.CARDINAL_ONES[int(self.integers_to_read[0][1])]
 
-                        oku += self.CARDINAL_UCLU_GRUPLAR[self.okunacak_uclu_grup_sayisi - 1]
+                        oku += self.CARDINAL_TRIPLETS[self.total_triplets_to_read - 1]
 
-                if self.okunacak_artik_basamak_sayisi == 1:
-                    if self.son_sifir_basamagi == len(self.okunacak_tam_sayi[0]) - 1:
+                if self.total_digits_outside_triplets == 1:
+                    if self.order_of_last_zero_digit == len(self.integers_to_read[0]) - 1:
                         # number like x and all 0s, read ordinal x 0..0 and return
-                        if not (self.okunacak_uclu_grup_sayisi == 2 and self.okunacak_tam_sayi[0][0] == "1"):
-                            oku += self.CARDINAL_BIRLER[int(self.okunacak_tam_sayi[0][0])]
-                        oku += self.ORDINAL_UCLU_GRUPLAR[self.okunacak_uclu_grup_sayisi - 1]
+                        if not (self.total_triplets_to_read == 2 and self.integers_to_read[0][0] == "1"):
+                            oku += self.CARDINAL_ONES[int(self.integers_to_read[0][0])]
+                        oku += self.ORDINAL_TRIPLETS[self.total_triplets_to_read - 1]
                         return oku
-                    if self.son_sifir_basamagi < len(self.okunacak_tam_sayi[0]) - 1:
+                    if self.order_of_last_zero_digit < len(self.integers_to_read[0]) - 1:
                         # number like x and others, read cardinal x n..n and return
-                        if not (self.okunacak_uclu_grup_sayisi == 2 and self.okunacak_tam_sayi[0][0] == "1"):
-                            oku += self.CARDINAL_BIRLER[int(self.okunacak_tam_sayi[0][0])]
-                        oku += self.CARDINAL_UCLU_GRUPLAR[self.okunacak_uclu_grup_sayisi - 1]
+                        if not (self.total_triplets_to_read == 2 and self.integers_to_read[0][0] == "1"):
+                            oku += self.CARDINAL_ONES[int(self.integers_to_read[0][0])]
+                        oku += self.CARDINAL_TRIPLETS[self.total_triplets_to_read - 1]
 
-                if self.okunacak_artik_basamak_sayisi == 0:
-                    if self.son_sifir_basamagi == len(self.okunacak_tam_sayi[0]) - 1:
+                if self.total_digits_outside_triplets == 0:
+                    if self.order_of_last_zero_digit == len(self.integers_to_read[0]) - 1:
                         # number like x00 and all 0s, read ordinal x00 0..0 and return
-                        if not self.okunacak_tam_sayi[0][0] == "1":
-                            oku += self.CARDINAL_BIRLER[int(self.okunacak_tam_sayi[0][0])]
-                        oku += self.CARDINAL_YUZLER[0]
-                        oku += self.ORDINAL_UCLU_GRUPLAR[self.okunacak_uclu_grup_sayisi - 1]
+                        if not self.integers_to_read[0][0] == "1":
+                            oku += self.CARDINAL_ONES[int(self.integers_to_read[0][0])]
+                        oku += self.CARDINAL_HUNDREDS[0]
+                        oku += self.ORDINAL_TRIPLETS[self.total_triplets_to_read - 1]
                         return oku
-                    if self.son_sifir_basamagi == len(self.okunacak_tam_sayi[0]) - 2:
+                    if self.order_of_last_zero_digit == len(self.integers_to_read[0]) - 2:
                         # number like xy0 and all 0s, read ordinal xy0 0..0 and return
-                        if not self.okunacak_tam_sayi[0][0] == "1":
-                            oku += self.CARDINAL_BIRLER[int(self.okunacak_tam_sayi[0][0])]
-                        oku += self.CARDINAL_YUZLER[0]
-                        oku += self.CARDINAL_ONLAR[int(self.okunacak_tam_sayi[0][1])]
-                        oku += self.ORDINAL_UCLU_GRUPLAR[self.okunacak_uclu_grup_sayisi - 1]
+                        if not self.integers_to_read[0][0] == "1":
+                            oku += self.CARDINAL_ONES[int(self.integers_to_read[0][0])]
+                        oku += self.CARDINAL_HUNDREDS[0]
+                        oku += self.CARDINAL_TEN[int(self.integers_to_read[0][1])]
+                        oku += self.ORDINAL_TRIPLETS[self.total_triplets_to_read - 1]
                         return oku
-                    if self.son_sifir_basamagi == len(self.okunacak_tam_sayi[0]) - 3:
+                    if self.order_of_last_zero_digit == len(self.integers_to_read[0]) - 3:
                         # number like xyz and all 0s, read ordinal xyz 0..0 and return
-                        if not self.okunacak_tam_sayi[0][0] == "1":
-                            oku += self.CARDINAL_BIRLER[int(self.okunacak_tam_sayi[0][0])]
-                        oku += self.CARDINAL_YUZLER[0]
-                        oku += self.CARDINAL_ONLAR[int(self.okunacak_tam_sayi[0][1])]
-                        if not self.okunacak_tam_sayi[0][2] == "0":
-                            oku += self.CARDINAL_BIRLER[int(self.okunacak_tam_sayi[0][2])]
-                        oku += self.ORDINAL_UCLU_GRUPLAR[self.okunacak_uclu_grup_sayisi - 1]
+                        if not self.integers_to_read[0][0] == "1":
+                            oku += self.CARDINAL_ONES[int(self.integers_to_read[0][0])]
+                        oku += self.CARDINAL_HUNDREDS[0]
+                        oku += self.CARDINAL_TEN[int(self.integers_to_read[0][1])]
+                        if not self.integers_to_read[0][2] == "0":
+                            oku += self.CARDINAL_ONES[int(self.integers_to_read[0][2])]
+                        oku += self.ORDINAL_TRIPLETS[self.total_triplets_to_read - 1]
                         return oku
-                    if self.son_sifir_basamagi < len(self.okunacak_tam_sayi[0]) - 3:
+                    if self.order_of_last_zero_digit < len(self.integers_to_read[0]) - 3:
                         # number like xyz and all others, read cardinal xyz n..n
-                        if not self.okunacak_tam_sayi[0][0] == "1":
-                            oku += self.CARDINAL_BIRLER[int(self.okunacak_tam_sayi[0][0])]
-                        oku += self.CARDINAL_YUZLER[0]
-                        oku += self.CARDINAL_ONLAR[int(self.okunacak_tam_sayi[0][1])]
-                        if not self.okunacak_tam_sayi[0][2] == "0":
-                            if not (self.okunacak_uclu_grup_sayisi == 2 and self.okunacak_tam_sayi[0][2] == "1"):
-                                oku += self.CARDINAL_BIRLER[int(self.okunacak_tam_sayi[0][2])]
-                        oku += self.CARDINAL_UCLU_GRUPLAR[self.okunacak_uclu_grup_sayisi - 1]
+                        if not self.integers_to_read[0][0] == "1":
+                            oku += self.CARDINAL_ONES[int(self.integers_to_read[0][0])]
+                        oku += self.CARDINAL_HUNDREDS[0]
+                        oku += self.CARDINAL_TEN[int(self.integers_to_read[0][1])]
+                        if not self.integers_to_read[0][2] == "0":
+                            if not (self.total_triplets_to_read == 2 and self.integers_to_read[0][2] == "1"):
+                                oku += self.CARDINAL_ONES[int(self.integers_to_read[0][2])]
+                        oku += self.CARDINAL_TRIPLETS[self.total_triplets_to_read - 1]
 
-                for i in list(range(self.okunacak_uclu_grup_sayisi - 1, 0, -1)):
-                    okunan_grup_sirasi = self.okunacak_uclu_grup_sayisi - i
-                    if self.okunacak_artik_basamak_sayisi == 0:
+                for i in list(range(self.total_triplets_to_read - 1, 0, -1)):
+                    okunan_grup_sirasi = self.total_triplets_to_read - i
+                    if self.total_digits_outside_triplets == 0:
                         son_okunan_basamak_sirasi = okunan_grup_sirasi * 3
                     else:
-                        son_okunan_basamak_sirasi = (okunan_grup_sirasi - 1) * 3 + self.okunacak_artik_basamak_sayisi
+                        son_okunan_basamak_sirasi = (okunan_grup_sirasi - 1) * 3 + self.total_digits_outside_triplets
 
-                    if not self.okunacak_tam_sayi[0][son_okunan_basamak_sirasi: son_okunan_basamak_sirasi + 3] == "000":
-                        if not self.okunacak_tam_sayi[0][son_okunan_basamak_sirasi] == "0":
-                            if not self.okunacak_tam_sayi[0][son_okunan_basamak_sirasi] == "1":
-                                oku += self.CARDINAL_BIRLER[
-                                    int(self.okunacak_tam_sayi[0][son_okunan_basamak_sirasi])]
-                            if self.son_sifir_basamagi == len(self.okunacak_tam_sayi[0]) - (
+                    if not self.integers_to_read[0][son_okunan_basamak_sirasi: son_okunan_basamak_sirasi + 3] == "000":
+                        if not self.integers_to_read[0][son_okunan_basamak_sirasi] == "0":
+                            if not self.integers_to_read[0][son_okunan_basamak_sirasi] == "1":
+                                oku += self.CARDINAL_ONES[
+                                    int(self.integers_to_read[0][son_okunan_basamak_sirasi])]
+                            if self.order_of_last_zero_digit == len(self.integers_to_read[0]) - (
                                     son_okunan_basamak_sirasi) - 1:
                                 if i == 1:
-                                    oku += self.ORDINAL_YUZLER[0]
+                                    oku += self.ORDINAL_HUNDREDS[0]
                                     return oku
                                 elif i > 1:
-                                    oku += self.CARDINAL_YUZLER[0]
-                                    oku += self.ORDINAL_UCLU_GRUPLAR[i - 1]
+                                    oku += self.CARDINAL_HUNDREDS[0]
+                                    oku += self.ORDINAL_TRIPLETS[i - 1]
                                     return oku
                             else:
-                                oku += self.CARDINAL_YUZLER[0]
+                                oku += self.CARDINAL_HUNDREDS[0]
 
-                        if not self.okunacak_tam_sayi[0][son_okunan_basamak_sirasi + 1] == "0":
-                            if self.son_sifir_basamagi == len(self.okunacak_tam_sayi[0]) - (
+                        if not self.integers_to_read[0][son_okunan_basamak_sirasi + 1] == "0":
+                            if self.order_of_last_zero_digit == len(self.integers_to_read[0]) - (
                                     son_okunan_basamak_sirasi) - 2:
                                 if i == 1:
-                                    oku += self.ORDINAL_ONLAR[
-                                        int(self.okunacak_tam_sayi[0][son_okunan_basamak_sirasi + 1])]
+                                    oku += self.ORDINAL_TENS[
+                                        int(self.integers_to_read[0][son_okunan_basamak_sirasi + 1])]
                                     return oku
                                 elif i > 1:
-                                    oku += self.CARDINAL_ONLAR[
-                                        int(self.okunacak_tam_sayi[0][son_okunan_basamak_sirasi + 1])]
-                                    oku += self.ORDINAL_UCLU_GRUPLAR[i - 1]
+                                    oku += self.CARDINAL_TEN[
+                                        int(self.integers_to_read[0][son_okunan_basamak_sirasi + 1])]
+                                    oku += self.ORDINAL_TRIPLETS[i - 1]
                                     return oku
                             else:
-                                oku += self.CARDINAL_ONLAR[
-                                    int(self.okunacak_tam_sayi[0][son_okunan_basamak_sirasi + 1])]
+                                oku += self.CARDINAL_TEN[
+                                    int(self.integers_to_read[0][son_okunan_basamak_sirasi + 1])]
 
-                        if not self.okunacak_tam_sayi[0][son_okunan_basamak_sirasi + 2] == "0":
-                            if self.son_sifir_basamagi == len(self.okunacak_tam_sayi[0]) - (
+                        if not self.integers_to_read[0][son_okunan_basamak_sirasi + 2] == "0":
+                            if self.order_of_last_zero_digit == len(self.integers_to_read[0]) - (
                                     son_okunan_basamak_sirasi) - 3:
                                 if i == 1:
-                                    oku += self.ORDINAL_BIRLER[
-                                        int(self.okunacak_tam_sayi[0][son_okunan_basamak_sirasi + 2])]
+                                    oku += self.ORDINAL_ONES[
+                                        int(self.integers_to_read[0][son_okunan_basamak_sirasi + 2])]
                                     return oku
                                 if i == 2:
-                                    if not self.okunacak_tam_sayi[0][
+                                    if not self.integers_to_read[0][
                                            son_okunan_basamak_sirasi: son_okunan_basamak_sirasi + 2] == "00":
-                                        oku += self.CARDINAL_BIRLER[
-                                            int(self.okunacak_tam_sayi[0][son_okunan_basamak_sirasi + 2])]
-                                    elif not self.okunacak_tam_sayi[0][son_okunan_basamak_sirasi + 2] == "1":
-                                        oku += self.CARDINAL_BIRLER[
-                                            int(self.okunacak_tam_sayi[0][son_okunan_basamak_sirasi + 2])]
-                                    oku += self.ORDINAL_UCLU_GRUPLAR[i - 1]
+                                        oku += self.CARDINAL_ONES[
+                                            int(self.integers_to_read[0][son_okunan_basamak_sirasi + 2])]
+                                    elif not self.integers_to_read[0][son_okunan_basamak_sirasi + 2] == "1":
+                                        oku += self.CARDINAL_ONES[
+                                            int(self.integers_to_read[0][son_okunan_basamak_sirasi + 2])]
+                                    oku += self.ORDINAL_TRIPLETS[i - 1]
                                     return oku
                                 if i > 2:
-                                    oku += self.CARDINAL_BIRLER[
-                                        int(self.okunacak_tam_sayi[0][son_okunan_basamak_sirasi + 2])]
-                                    oku += self.ORDINAL_UCLU_GRUPLAR[i - 1]
+                                    oku += self.CARDINAL_ONES[
+                                        int(self.integers_to_read[0][son_okunan_basamak_sirasi + 2])]
+                                    oku += self.ORDINAL_TRIPLETS[i - 1]
                                     return oku
                             else:
-                                if not self.okunacak_tam_sayi[0][
+                                if not self.integers_to_read[0][
                                        son_okunan_basamak_sirasi: son_okunan_basamak_sirasi + 2] == "00":
-                                    oku += self.CARDINAL_BIRLER[
-                                        int(self.okunacak_tam_sayi[0][son_okunan_basamak_sirasi + 2])]
+                                    oku += self.CARDINAL_ONES[
+                                        int(self.integers_to_read[0][son_okunan_basamak_sirasi + 2])]
                                 else:
-                                    if not self.okunacak_tam_sayi[0][
+                                    if not self.integers_to_read[0][
                                            son_okunan_basamak_sirasi: son_okunan_basamak_sirasi + 2] == "00":
-                                        oku += self.CARDINAL_BIRLER[
-                                            int(self.okunacak_tam_sayi[0][son_okunan_basamak_sirasi + 2])]
-                                    elif not self.okunacak_tam_sayi[0][son_okunan_basamak_sirasi + 2] == "1":
-                                        oku += self.CARDINAL_BIRLER[
-                                            int(self.okunacak_tam_sayi[0][son_okunan_basamak_sirasi + 2])]
+                                        oku += self.CARDINAL_ONES[
+                                            int(self.integers_to_read[0][son_okunan_basamak_sirasi + 2])]
+                                    elif not self.integers_to_read[0][son_okunan_basamak_sirasi + 2] == "1":
+                                        oku += self.CARDINAL_ONES[
+                                            int(self.integers_to_read[0][son_okunan_basamak_sirasi + 2])]
 
-                        oku += self.CARDINAL_UCLU_GRUPLAR[i - 1]
+                        oku += self.CARDINAL_TRIPLETS[i - 1]
 
         return oku
 
@@ -538,27 +534,27 @@ class Num2Word_TR(object):
         isordinal = self.verify_ordinal(value)
         if isordinal:
             self.splitnum(value)
-            oku = self.okunacak_tam_sayi[0] + self.ORDINAL_SIGN[0]
+            oku = self.integers_to_read[0] + self.ORDINAL_SIGN[0]
 
         return oku
 
     # def inflect(self, value, text):
 
     def to_splitnum(self, val, hightxt="", lowtxt="", jointxt="", divisor=100, longval=True, cents=True):
-        kesirlibolum = str(int(val * 10**self.precision))
-        self.okunacak_tam_sayi = [str(int(val)), kesirlibolum[len(kesirlibolum)-self.precision:]]
-        if len(self.okunacak_tam_sayi[0]) % 3 > 0:
-            self.okunacak_uclu_grup_sayisi = (len(self.okunacak_tam_sayi[0]) // 3) + 1
-        elif len(self.okunacak_tam_sayi[0]) % 3 == 0:
-            self.okunacak_uclu_grup_sayisi = len(self.okunacak_tam_sayi[0]) // 3
-        self.okunacak_artik_basamak_sayisi = len(self.okunacak_tam_sayi[0]) % 3
+        kesirlibolum = str(int(val * 10 ** self.precision))
+        self.integers_to_read = [str(int(val)), kesirlibolum[len(kesirlibolum) - self.precision:]]
+        if len(self.integers_to_read[0]) % 3 > 0:
+            self.total_triplets_to_read = (len(self.integers_to_read[0]) // 3) + 1
+        elif len(self.integers_to_read[0]) % 3 == 0:
+            self.total_triplets_to_read = len(self.integers_to_read[0]) // 3
+        self.total_digits_outside_triplets = len(self.integers_to_read[0]) % 3
 
-        okunacak = list(self.okunacak_tam_sayi[0][::-1])
-        self.son_sifir_basamagi = 0
+        okunacak = list(self.integers_to_read[0][::-1])
+        self.order_of_last_zero_digit = 0
         found = 0
         for i in range(len(okunacak) - 1):
             if int(okunacak[i]) == 0 and found == 0:
-                self.son_sifir_basamagi = i + 1
+                self.order_of_last_zero_digit = i + 1
             else:
                 found = 1
 
@@ -566,10 +562,14 @@ class Num2Word_TR(object):
         return self.to_cardinal(value)
 
     def to_currency(self, value, **kwargs):
-        return self.to_cardinal(value)
+        valueparts = self.to_cardinal(value).split(self.pointword)
+        if len(valueparts) == 1:
+            return valueparts[0] + self.CURRENCY_UNIT[0]
+        if len(valueparts) == 2:
+            return self.CURRENCY_UNIT[0].join(valueparts) + self.CURRENCY_SUBUNIT[0]
 
-        # def base_setup(self):
+            # def base_setup(self):
 
-        # def setup(self):
+            # def setup(self):
 
-        # def test(self, value):
+            # def test(self, value):
