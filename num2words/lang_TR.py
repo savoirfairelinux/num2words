@@ -34,25 +34,84 @@ class Num2Word_TR(object):
         self.errmsg_negord = u"Pozitif olmayan {} sıralamada kullanılamaz."
         # abs(%s) must be less than %s.
         self.errmsg_toobig = u"abs({}) sayı yazıya çevirmek için çok büyük. Yazıya çevrilebilecek en büyük rakam {}."
-        self.exclude_title = ["et", "virgule", "moins"]
+        self.exclude_title = []
         # ordered number tuples in Turkish
-        self.ORDINAL_SIGN = (",",)
-        self.CARDINAL_ONES = (
-            u"sıfır", u"bir", u"iki", u"üç", u"dört", u"beş", u"altı", u"yedi", u"sekiz", u"dokuz",)
-        self.ORDINAL_ONES = (
-            u"", u"birinci", u"ikinci", u"üçüncü", u"dördüncü", u"beşinci", u"altıncı", u"yedinci", u"sekizinci",
-            u"dokuzuncu",)
-        self.CARDINAL_TEN = (
-            u"", u"on", u"yirmi", u"otuz", u"kırk", u"elli", u"altmış", u"yetmiş", u"seksen", u"doksan",)
-        self.ORDINAL_TENS = (
-            u"", u"onuncu", u"yirminci", u"otuzuncu", u"kırkıncı", u"ellinci", u"altmışıncı", u"yetmişinci",
-            u"sekseninci", u"doksanıncı",)
-        self.CARDINAL_HUNDREDS = (u"yüz",)
-        self.ORDINAL_HUNDREDS = (u"yüzüncü",)
-        self.CARDINAL_TRIPLETS = (u"", u"bin", u"milyon", u"milyar", u"trilyon", u"katrilyon", u"kentilyon",)
-        self.ORDINAL_TRIPLETS = (
-            u"", u"bininci", u"milyonuncu", u"milyarıncı", u"trilyonuncu", u"katrilyonuncu", u"kentilyon",)
-        self.MAXVAL = (10 ** (len(self.CARDINAL_TRIPLETS) * 3)) - 1
+        self.DECIMAL_SIGN = (",",)
+        self.ORDINAL_SIGN = (".",)
+        self.ZERO = (u"sıfır",)
+        self.CARDINAL_ONES = {
+            "1": u"bir",
+            "2": u"iki",
+            "3": u"üç",
+            "4": u"dört",
+            "5": u"beş",
+            "6": u"altı",
+            "7": u"yedi",
+            "8": u"sekiz",
+            "9": u"dokuz"
+        }
+        self.ORDINAL_ONES = {
+            "1": u"birinci",
+            "2": u"ikinci",
+            "3": u"üçüncü",
+            "4": u"dördüncü",
+            "5": u"beşinci",
+            "6": u"altıncı",
+            "7": u"yedinci",
+            "8": u"sekizinci",
+            "9": u"dokuzuncu",
+        }
+        self.CARDINAL_TENS = {
+            "1": u"on",
+            "2": u"yirmi",
+            "3": u"otuz",
+            "4": u"kırk",
+            "5": u"elli",
+            "6": u"altmış",
+            "7": u"yetmiş",
+            "8": u"seksen",
+            "9": u"doksan"
+        }
+        self.ORDINAL_TENS = {
+            "1": u"onuncu",
+            "2": u"yirminci",
+            "3": u"otuzuncu",
+            "4": u"kırkıncı",
+            "5": u"ellinci",
+            "6": u"altmışıncı",
+            "7": u"yetmişinci",
+            "8": u"sekseninci",
+            "9": u"doksanıncı"
+        }
+        self.HUNDREDS = {
+            "2": u"iki",
+            "3": u"üç",
+            "4": u"dört",
+            "5": u"beş",
+            "6": u"altı",
+            "7": u"yedi",
+            "8": u"sekiz",
+            "9": u"dokuz"
+        }
+        self.CARDINAL_HUNDRED = (u"yüz",)
+        self.ORDINAL_HUNDRED = (u"yüzüncü",)
+        self.CARDINAL_TRIPLETS = {
+            1: u"bin",
+            2: u"milyon",
+            3: u"milyar",
+            4: u"trilyon",
+            5: u"katrilyon",
+            6: u"kentilyon"
+        }
+        self.ORDINAL_TRIPLETS = {
+            1: u"bininci",
+            2: u"milyonuncu",
+            3: u"milyarıncı",
+            4: u"trilyonuncu",
+            5: u"katrilyonuncu",
+            6: u"kentilyon"
+        }
+        self.MAXVAL = (10 ** ((len(self.CARDINAL_TRIPLETS) + 1) * 3)) - 1
 
         self.integers_to_read = []
         self.total_triplets_to_read = 0
@@ -71,7 +130,7 @@ class Num2Word_TR(object):
         return self.to_splitnum(value)
 
     def to_cardinal(self, value):
-        oku = ""
+        wrd = ""
         is_cardinal = self.verify_cardinal(value)
         if is_cardinal:
             if not int(value) == value:
@@ -80,215 +139,203 @@ class Num2Word_TR(object):
 
             if self.order_of_last_zero_digit >= len(self.integers_to_read[0]):
                 # number like 00 and all 0s and even more, raise error
-                return oku
+                return wrd
 
             if self.total_triplets_to_read == 1:
                 if self.total_digits_outside_triplets == 2:
                     if self.order_of_last_zero_digit == 1:
                         # number like x0, read cardinal x0 and return
-                        oku += self.CARDINAL_TEN[int(self.integers_to_read[0][0])]
-                        return oku
+                        wrd += self.CARDINAL_TENS.get(self.integers_to_read[0][0], "")
+                        return wrd
                     if self.order_of_last_zero_digit == 0:
                         # number like xy, read cardinal xy and return
-                        oku += self.CARDINAL_TEN[int(self.integers_to_read[0][0])]
-                    if not self.integers_to_read[0][0] == "0":
-                        oku += self.CARDINAL_ONES[int(self.integers_to_read[0][1])]
-                    return oku
+                        wrd += self.CARDINAL_TENS.get(self.integers_to_read[0][0], "")
+                        wrd += self.CARDINAL_ONES.get(self.integers_to_read[0][1], "")
+                    return wrd
 
                 if self.total_digits_outside_triplets == 1:
                     if self.order_of_last_zero_digit == 0:
                         # number like x, read ordinal x and return
-                        oku += self.CARDINAL_ONES[int(self.integers_to_read[0][0])]
-                        return oku
+                        wrd += self.CARDINAL_ONES.get(self.integers_to_read[0][0], "")
+                        return wrd
 
                 if self.total_digits_outside_triplets == 0:
                     if self.order_of_last_zero_digit == 2:
                         # number like x00, read cardinal x00 and return
-                        if not self.integers_to_read[0][0] == "1":
-                            oku += self.CARDINAL_ONES[int(self.integers_to_read[0][0])]
-                        oku += self.CARDINAL_HUNDREDS[0]
-                        return oku
+                        wrd += self.HUNDREDS.get(self.integers_to_read[0][0], "")
+                        wrd += self.CARDINAL_HUNDRED[0]
+                        return wrd
                     if self.order_of_last_zero_digit == 1:
                         # number like xy0, read cardinal xy0 and return
-                        if not self.integers_to_read[0][0] == "1":
-                            oku += self.CARDINAL_ONES[int(self.integers_to_read[0][0])]
-                        oku += self.CARDINAL_HUNDREDS[0]
-                        oku += self.CARDINAL_TEN[int(self.integers_to_read[0][1])]
-                        return oku
+                        wrd += self.HUNDREDS.get(self.integers_to_read[0][0], "")
+                        wrd += self.CARDINAL_HUNDRED[0]
+                        wrd += self.CARDINAL_TENS.get(self.integers_to_read[0][1], "")
+                        return wrd
                     if self.order_of_last_zero_digit == 0:
                         # number like xyz, read cardinal xyz and return
-                        if not self.integers_to_read[0][0] == "1":
-                            oku += self.CARDINAL_ONES[int(self.integers_to_read[0][0])]
-                        oku += self.CARDINAL_HUNDREDS[0]
-                        oku += self.CARDINAL_TEN[int(self.integers_to_read[0][1])]
-                        if not self.integers_to_read[0][2] == "0":
-                            oku += self.CARDINAL_ONES[int(self.integers_to_read[0][2])]
-                        return oku
+                        wrd += self.HUNDREDS.get(self.integers_to_read[0][0], "")
+                        wrd += self.CARDINAL_HUNDRED[0]
+                        wrd += self.CARDINAL_TENS.get(self.integers_to_read[0][1], "")
+                        wrd += self.CARDINAL_ONES.get(self.integers_to_read[0][2], "")
+                        return wrd
 
             if self.total_triplets_to_read >= 2:
                 if self.total_digits_outside_triplets == 2:
                     if self.order_of_last_zero_digit == len(self.integers_to_read[0]) - 1:
                         # number like x0 and all 0s, read cardinal x0 0..0 and return
-                        oku += self.CARDINAL_TEN[int(self.integers_to_read[0][0])]
-                        oku += self.CARDINAL_TRIPLETS[self.total_triplets_to_read - 1]
-                        return oku
+                        wrd += self.CARDINAL_TENS.get(self.integers_to_read[0][0], "")
+                        wrd += self.CARDINAL_TRIPLETS[self.total_triplets_to_read - 1]
+                        return wrd
                     if self.order_of_last_zero_digit == len(self.integers_to_read[0]) - 2:
                         # number like xy and all 0s, read cardinal xy 0..0 and return
-                        oku += self.CARDINAL_TEN[int(self.integers_to_read[0][0])]
-                        if not self.integers_to_read[0][1] == "0":
-                            oku += self.CARDINAL_ONES[int(self.integers_to_read[0][1])]
-                        oku += self.CARDINAL_TRIPLETS[self.total_triplets_to_read - 1]
-                        return oku
+                        wrd += self.CARDINAL_TENS.get(self.integers_to_read[0][0], "")
+                        wrd += self.CARDINAL_ONES.get(self.integers_to_read[0][1], "")
+                        wrd += self.CARDINAL_TRIPLETS[self.total_triplets_to_read - 1]
+                        return wrd
                     if self.order_of_last_zero_digit < len(self.integers_to_read[0]) - 2:
                         # number like xy and others, read cardinal xy n..n and return
-                        oku += self.CARDINAL_TEN[int(self.integers_to_read[0][0])]
-                        if not self.integers_to_read[0][1] == "0":
-                            oku += self.CARDINAL_ONES[int(self.integers_to_read[0][1])]
-                        oku += self.CARDINAL_TRIPLETS[self.total_triplets_to_read - 1]
+                        wrd += self.CARDINAL_TENS.get(self.integers_to_read[0][0], "")
+                        wrd += self.CARDINAL_ONES.get(self.integers_to_read[0][1], "")
+                        wrd += self.CARDINAL_TRIPLETS[self.total_triplets_to_read - 1]
 
                 if self.total_digits_outside_triplets == 1:
                     if self.order_of_last_zero_digit == len(self.integers_to_read[0]) - 1:
                         # number like x and all 0s, read cardinal x 0..0 and return
                         if not (self.total_triplets_to_read == 2 and self.integers_to_read[0][0] == "1"):
-                            oku += self.CARDINAL_ONES[int(self.integers_to_read[0][0])]
-                        oku += self.CARDINAL_TRIPLETS[self.total_triplets_to_read - 1]
-                        return oku
+                            wrd += self.CARDINAL_ONES.get(self.integers_to_read[0][0], "")
+                        wrd += self.CARDINAL_TRIPLETS[self.total_triplets_to_read - 1]
+                        return wrd
                     if self.order_of_last_zero_digit < len(self.integers_to_read[0]) - 1:
                         # number like x and others, read cardinal x n..n and return
                         if not (self.total_triplets_to_read == 2 and self.integers_to_read[0][0] == "1"):
-                            oku += self.CARDINAL_ONES[int(self.integers_to_read[0][0])]
-                        oku += self.CARDINAL_TRIPLETS[self.total_triplets_to_read - 1]
+                            wrd += self.CARDINAL_ONES.get(self.integers_to_read[0][0], "")
+                        wrd += self.CARDINAL_TRIPLETS[self.total_triplets_to_read - 1]
 
                 if self.total_digits_outside_triplets == 0:
                     if self.order_of_last_zero_digit == len(self.integers_to_read[0]) - 1:
                         # number like x00 and all 0s, read cardinal x00 0..0 and return
-                        if not self.integers_to_read[0][0] == "1":
-                            oku += self.CARDINAL_ONES[int(self.integers_to_read[0][0])]
-                        oku += self.CARDINAL_HUNDREDS[0]
-                        oku += self.CARDINAL_TRIPLETS[self.total_triplets_to_read - 1]
-                        return oku
+                        wrd += self.HUNDREDS.get(self.integers_to_read[0][0], "")
+                        wrd += self.CARDINAL_HUNDRED[0]
+                        wrd += self.CARDINAL_TRIPLETS[self.total_triplets_to_read - 1]
+                        return wrd
                     if self.order_of_last_zero_digit == len(self.integers_to_read[0]) - 2:
                         # number like xy0 and all 0s, read cardinal xy0 0..0 and return
-                        if not self.integers_to_read[0][0] == "1":
-                            oku += self.CARDINAL_ONES[int(self.integers_to_read[0][0])]
-                        oku += self.CARDINAL_HUNDREDS[0]
-                        oku += self.CARDINAL_TEN[int(self.integers_to_read[0][1])]
-                        oku += self.CARDINAL_TRIPLETS[self.total_triplets_to_read - 1]
-                        return oku
+                        wrd += self.HUNDREDS.get(self.integers_to_read[0][0], "")
+                        wrd += self.CARDINAL_HUNDRED[0]
+                        wrd += self.CARDINAL_TENS.get(self.integers_to_read[0][1], "")
+                        wrd += self.CARDINAL_TRIPLETS[self.total_triplets_to_read - 1]
+                        return wrd
                     if self.order_of_last_zero_digit == len(self.integers_to_read[0]) - 3:
                         # number like xyz and all 0s, read cardinal xyz 0..0 and return
-                        if not self.integers_to_read[0][0] == "1":
-                            oku += self.CARDINAL_ONES[int(self.integers_to_read[0][0])]
-                        oku += self.CARDINAL_HUNDREDS[0]
-                        oku += self.CARDINAL_TEN[int(self.integers_to_read[0][1])]
-                        if not self.integers_to_read[0][2] == "0":
-                            oku += self.CARDINAL_ONES[int(self.integers_to_read[0][2])]
-                        oku += self.CARDINAL_TRIPLETS[self.total_triplets_to_read - 1]
-                        return oku
+                        wrd += self.HUNDREDS.get(self.integers_to_read[0][0], "")
+                        wrd += self.CARDINAL_HUNDRED[0]
+                        wrd += self.CARDINAL_TENS.get(self.integers_to_read[0][1], "")
+                        wrd += self.CARDINAL_ONES.get(self.integers_to_read[0][2], "")
+                        wrd += self.CARDINAL_TRIPLETS[self.total_triplets_to_read - 1]
+                        return wrd
                     if self.order_of_last_zero_digit < len(self.integers_to_read[0]) - 3:
                         # number like xyz and all others, read cardinal xyz n..n
-                        if not self.integers_to_read[0][0] == "1":
-                            oku += self.CARDINAL_ONES[int(self.integers_to_read[0][0])]
-                        oku += self.CARDINAL_HUNDREDS[0]
-                        oku += self.CARDINAL_TEN[int(self.integers_to_read[0][1])]
-                        if not self.integers_to_read[0][2] == "0":
-                            if not (self.total_triplets_to_read == 2 and self.integers_to_read[0][2] == "1"):
-                                oku += self.CARDINAL_ONES[int(self.integers_to_read[0][2])]
-                        oku += self.CARDINAL_TRIPLETS[self.total_triplets_to_read - 1]
+                        wrd += self.HUNDREDS.get(self.integers_to_read[0][0], "")
+                        wrd += self.CARDINAL_HUNDRED[0]
+                        wrd += self.CARDINAL_TENS.get(self.integers_to_read[0][1], "")
+                        if not (self.total_triplets_to_read == 2 and self.integers_to_read[0][2] == "1"):
+                            wrd += self.CARDINAL_ONES.get(self.integers_to_read[0][2], "")
+                        wrd += self.CARDINAL_TRIPLETS[self.total_triplets_to_read - 1]
 
                 for i in list(range(self.total_triplets_to_read - 1, 0, -1)):
-                    okunan_grup_sirasi = self.total_triplets_to_read - i
+                    reading_triplet_order = self.total_triplets_to_read - i
                     if self.total_digits_outside_triplets == 0:
-                        son_okunan_basamak_sirasi = okunan_grup_sirasi * 3
+                        last_read_digit_order = reading_triplet_order * 3
                     else:
-                        son_okunan_basamak_sirasi = (okunan_grup_sirasi - 1) * 3 + self.total_digits_outside_triplets
+                        last_read_digit_order = (reading_triplet_order - 1) * 3 + self.total_digits_outside_triplets
 
-                    if not self.integers_to_read[0][son_okunan_basamak_sirasi: son_okunan_basamak_sirasi + 3] == "000":
-                        if not self.integers_to_read[0][son_okunan_basamak_sirasi] == "0":
-                            if not self.integers_to_read[0][son_okunan_basamak_sirasi] == "1":
-                                oku += self.CARDINAL_ONES[
-                                    int(self.integers_to_read[0][son_okunan_basamak_sirasi])]
+                    if not self.integers_to_read[0][last_read_digit_order: last_read_digit_order + 3] == "000":
+                        if not self.integers_to_read[0][last_read_digit_order] == "0":
+                            wrd += self.HUNDREDS.get(self.integers_to_read[0][last_read_digit_order], "")
                             if self.order_of_last_zero_digit == len(self.integers_to_read[0]) - (
-                                    son_okunan_basamak_sirasi) - 1:
+                                    last_read_digit_order) - 1:
                                 if i == 1:
-                                    oku += self.CARDINAL_HUNDREDS[0]
-                                    return oku
+                                    wrd += self.CARDINAL_HUNDRED[0]
+                                    return wrd
                                 elif i > 1:
-                                    oku += self.CARDINAL_HUNDREDS[0]
-                                    oku += self.CARDINAL_TRIPLETS[i - 1]
-                                    return oku
+                                    wrd += self.CARDINAL_HUNDRED[0]
+                                    wrd += self.CARDINAL_TRIPLETS[i - 1]
+                                    return wrd
                             else:
-                                oku += self.CARDINAL_HUNDREDS[0]
+                                wrd += self.CARDINAL_HUNDRED[0]
 
-                        if not self.integers_to_read[0][son_okunan_basamak_sirasi + 1] == "0":
+                        if not self.integers_to_read[0][last_read_digit_order + 1] == "0":
                             if self.order_of_last_zero_digit == len(self.integers_to_read[0]) - (
-                                    son_okunan_basamak_sirasi) - 2:
+                                    last_read_digit_order) - 2:
                                 if i == 1:
-                                    oku += self.CARDINAL_TEN[
-                                        int(self.integers_to_read[0][son_okunan_basamak_sirasi + 1])]
-                                    return oku
+                                    wrd += self.CARDINAL_TENS.get(
+                                        self.integers_to_read[0][last_read_digit_order + 1], "")
+                                    return wrd
                                 elif i > 1:
-                                    oku += self.CARDINAL_TEN[
-                                        int(self.integers_to_read[0][son_okunan_basamak_sirasi + 1])]
-                                    oku += self.CARDINAL_TRIPLETS[i - 1]
-                                    return oku
+                                    wrd += self.CARDINAL_TENS.get(
+                                        self.integers_to_read[0][last_read_digit_order + 1], "")
+                                    wrd += self.CARDINAL_TRIPLETS[i - 1]
+                                    return wrd
                             else:
-                                oku += self.CARDINAL_TEN[
-                                    int(self.integers_to_read[0][son_okunan_basamak_sirasi + 1])]
+                                wrd += self.CARDINAL_TENS.get(self.integers_to_read[0][last_read_digit_order + 1],
+                                                              "")
 
-                        if not self.integers_to_read[0][son_okunan_basamak_sirasi + 2] == "0":
+                        if not self.integers_to_read[0][last_read_digit_order + 2] == "0":
                             if self.order_of_last_zero_digit == len(self.integers_to_read[0]) - (
-                                    son_okunan_basamak_sirasi) - 3:
+                                    last_read_digit_order) - 3:
                                 if i == 1:
-                                    oku += self.CARDINAL_ONES[
-                                        int(self.integers_to_read[0][son_okunan_basamak_sirasi + 2])]
-                                    return oku
+                                    wrd += self.CARDINAL_ONES.get(
+                                        self.integers_to_read[0][last_read_digit_order + 2], "")
+                                    return wrd
                                 if i == 2:
                                     if not self.integers_to_read[0][
-                                           son_okunan_basamak_sirasi: son_okunan_basamak_sirasi + 2] == "00":
-                                        oku += self.CARDINAL_ONES[
-                                            int(self.integers_to_read[0][son_okunan_basamak_sirasi + 2])]
-                                    elif not self.integers_to_read[0][son_okunan_basamak_sirasi + 2] == "1":
-                                        oku += self.CARDINAL_ONES[
-                                            int(self.integers_to_read[0][son_okunan_basamak_sirasi + 2])]
-                                    oku += self.CARDINAL_TRIPLETS[i - 1]
-                                    return oku
+                                           last_read_digit_order: last_read_digit_order + 2] == "00":
+                                        wrd += self.CARDINAL_ONES.get(
+                                            self.integers_to_read[0][last_read_digit_order + 2], "")
+                                    elif not self.integers_to_read[0][last_read_digit_order + 2] == "1":
+                                        wrd += self.CARDINAL_ONES.get(
+                                            self.integers_to_read[0][last_read_digit_order + 2], "")
+                                    wrd += self.CARDINAL_TRIPLETS[i - 1]
+                                    return wrd
                                 if i > 2:
-                                    oku += self.CARDINAL_ONES[
-                                        int(self.integers_to_read[0][son_okunan_basamak_sirasi + 2])]
-                                    oku += self.CARDINAL_TRIPLETS[i - 1]
-                                    return oku
+                                    wrd += self.CARDINAL_ONES.get(
+                                        self.integers_to_read[0][last_read_digit_order + 2], "")
+                                    wrd += self.CARDINAL_TRIPLETS[i - 1]
+                                    return wrd
                             else:
                                 if not self.integers_to_read[0][
-                                       son_okunan_basamak_sirasi: son_okunan_basamak_sirasi + 2] == "00":
-                                    oku += self.CARDINAL_ONES[
-                                        int(self.integers_to_read[0][son_okunan_basamak_sirasi + 2])]
+                                       last_read_digit_order: last_read_digit_order + 2] == "00":
+                                    wrd += self.CARDINAL_ONES.get(
+                                        self.integers_to_read[0][last_read_digit_order + 2], "")
                                 else:
                                     if i == 2:
                                         if not self.integers_to_read[0][
-                                               son_okunan_basamak_sirasi: son_okunan_basamak_sirasi + 2] == "00":
-                                            oku += self.CARDINAL_ONES[
-                                                int(self.integers_to_read[0][son_okunan_basamak_sirasi + 2])]
-                                        elif not self.integers_to_read[0][son_okunan_basamak_sirasi + 2] == "1":
-                                            oku += self.CARDINAL_ONES[
-                                                int(self.integers_to_read[0][son_okunan_basamak_sirasi + 2])]
+                                               last_read_digit_order: last_read_digit_order + 2] == "00":
+                                            wrd += self.CARDINAL_ONES.get(
+                                                self.integers_to_read[0][last_read_digit_order + 2], "")
+                                        elif not self.integers_to_read[0][last_read_digit_order + 2] == "1":
+                                            wrd += self.CARDINAL_ONES.get(
+                                                self.integers_to_read[0][last_read_digit_order + 2], "")
 
-                        oku += self.CARDINAL_TRIPLETS[i - 1]
+                        wrd += self.CARDINAL_TRIPLETS[i - 1]
 
-        return oku
+        return wrd
 
     def to_cardinal_float(self, value):
         self.splitnum(value)
-        oku = ""
-        oku += self.pointword
+        wrd = ""
+        wrd += self.pointword
         if len(self.integers_to_read[1]) >= 1:
-            if not self.integers_to_read[1][0] == "0":
-                oku += self.CARDINAL_TEN[int(self.integers_to_read[1][0])]
+            wrd += self.CARDINAL_TENS.get(self.integers_to_read[1][0], "")
+
         if len(self.integers_to_read[1]) == 2:
-            if not self.integers_to_read[1][1] == "0":
-                oku += self.CARDINAL_ONES[int(self.integers_to_read[1][1])]
-        oku = self.to_cardinal(int(self.integers_to_read[0])) + oku
-        return oku
+            wrd += self.CARDINAL_ONES.get(self.integers_to_read[1][1], "")
+
+        if self.integers_to_read[0] == "0":
+            wrd = self.ZERO[0] + wrd
+        else:
+            wrd = self.to_cardinal(int(self.integers_to_read[0])) + wrd
+        return wrd
 
     # def merge(self, curr, next):
 
@@ -325,218 +372,204 @@ class Num2Word_TR(object):
     # def set_wordnums(self):
 
     def to_ordinal(self, value):
-        oku = ""
+        wrd = ""
         isordinal = self.verify_ordinal(value)
         if isordinal:
             self.splitnum(value)
 
             if self.order_of_last_zero_digit >= len(self.integers_to_read[0]):
                 # number like 00 and all 0s and even more, raise error
-                return oku
+                return wrd
 
             if self.total_triplets_to_read == 1:
                 if self.total_digits_outside_triplets == 2:
                     if self.order_of_last_zero_digit == 1:
                         # number like x0, read ordinal x0 and return
-                        oku += self.ORDINAL_TENS[int(self.integers_to_read[0][0])]
-                        return oku
+                        wrd += self.ORDINAL_TENS.get(self.integers_to_read[0][0], "")
+                        return wrd
                     if self.order_of_last_zero_digit == 0:
                         # number like xy, read ordinal xy and return
-                        oku += self.CARDINAL_TEN[int(self.integers_to_read[0][0])]
-                    if not self.integers_to_read[0][0] == "0":
-                        oku += self.ORDINAL_ONES[int(self.integers_to_read[0][1])]
-                    return oku
+                        wrd += self.CARDINAL_TENS.get(self.integers_to_read[0][0], "")
+                        wrd += self.ORDINAL_ONES.get(self.integers_to_read[0][1], "")
+                        return wrd
 
                 if self.total_digits_outside_triplets == 1:
                     if self.order_of_last_zero_digit == 0:
                         # number like x, read ordinal x and return
-                        oku += self.ORDINAL_ONES[int(self.integers_to_read[0][0])]
-                        return oku
+                        wrd += self.ORDINAL_ONES.get(self.integers_to_read[0][0], "")
+                        return wrd
 
                 if self.total_digits_outside_triplets == 0:
                     if self.order_of_last_zero_digit == 2:
                         # number like x00, read ordinal x00 and return
-                        if not self.integers_to_read[0][0] == "1":
-                            oku += self.CARDINAL_ONES[int(self.integers_to_read[0][0])]
-                        oku += self.ORDINAL_HUNDREDS[0]
-                        return oku
+                        wrd += self.HUNDREDS.get(self.integers_to_read[0][0], "")
+                        wrd += self.ORDINAL_HUNDRED[0]
+                        return wrd
                     if self.order_of_last_zero_digit == 1:
                         # number like xy0, read ordinal xy0 and return
-                        if not self.integers_to_read[0][0] == "1":
-                            oku += self.CARDINAL_ONES[int(self.integers_to_read[0][0])]
-                        oku += self.CARDINAL_HUNDREDS[0]
-                        oku += self.ORDINAL_TENS[int(self.integers_to_read[0][1])]
-                        return oku
+                        wrd += self.HUNDREDS.get(self.integers_to_read[0][0], "")
+                        wrd += self.CARDINAL_HUNDRED[0]
+                        wrd += self.ORDINAL_TENS.get(self.integers_to_read[0][1], "")
+                        return wrd
                     if self.order_of_last_zero_digit == 0:
                         # number like xyz, read ordinal xyz and return
-                        if not self.integers_to_read[0][0] == "1":
-                            oku += self.CARDINAL_ONES[int(self.integers_to_read[0][0])]
-                        oku += self.CARDINAL_HUNDREDS[0]
-                        oku += self.CARDINAL_TEN[int(self.integers_to_read[0][1])]
+                        wrd += self.HUNDREDS.get(self.integers_to_read[0][0], "")
+                        wrd += self.CARDINAL_HUNDRED[0]
+                        wrd += self.CARDINAL_TENS.get(self.integers_to_read[0][1], "")
                         if not self.integers_to_read[0][2] == "0":
-                            oku += self.ORDINAL_ONES[int(self.integers_to_read[0][2])]
-                        return oku
+                            wrd += self.ORDINAL_ONES.get(self.integers_to_read[0][2], "")
+                        return wrd
 
             if self.total_triplets_to_read >= 2:
                 if self.total_digits_outside_triplets == 2:
                     if self.order_of_last_zero_digit == len(self.integers_to_read[0]) - 1:
                         # number like x0 and all 0s, read ordinal x0 0..0 and return
-                        oku += self.CARDINAL_TEN[int(self.integers_to_read[0][0])]
-                        oku += self.ORDINAL_TRIPLETS[self.total_triplets_to_read - 1]
-                        return oku
+                        wrd += self.CARDINAL_TENS.get(self.integers_to_read[0][0], "")
+                        wrd += self.ORDINAL_TRIPLETS[self.total_triplets_to_read - 1]
+                        return wrd
                     if self.order_of_last_zero_digit == len(self.integers_to_read[0]) - 2:
                         # number like xy and all 0s, read ordinal xy 0..0 and return
-                        oku += self.CARDINAL_TEN[int(self.integers_to_read[0][0])]
-                        if not self.integers_to_read[0][1] == "0":
-                            oku += self.CARDINAL_ONES[int(self.integers_to_read[0][1])]
-                        oku += self.ORDINAL_TRIPLETS[self.total_triplets_to_read - 1]
-                        return oku
+                        wrd += self.CARDINAL_TENS.get(self.integers_to_read[0][0], "")
+                        wrd += self.CARDINAL_ONES.get(self.integers_to_read[0][1], "")
+                        wrd += self.ORDINAL_TRIPLETS[self.total_triplets_to_read - 1]
+                        return wrd
                     if self.order_of_last_zero_digit < len(self.integers_to_read[0]) - 2:
                         # number like xy and others, read cardinal xy n..n and return
-                        oku += self.CARDINAL_TEN[int(self.integers_to_read[0][0])]
-                        if not self.integers_to_read[0][1] == "0":
-                            oku += self.CARDINAL_ONES[int(self.integers_to_read[0][1])]
-
-                        oku += self.CARDINAL_TRIPLETS[self.total_triplets_to_read - 1]
+                        wrd += self.CARDINAL_TENS.get(self.integers_to_read[0][0], "")
+                        wrd += self.CARDINAL_ONES.get(self.integers_to_read[0][1], "")
+                        wrd += self.CARDINAL_TRIPLETS[self.total_triplets_to_read - 1]
 
                 if self.total_digits_outside_triplets == 1:
                     if self.order_of_last_zero_digit == len(self.integers_to_read[0]) - 1:
                         # number like x and all 0s, read ordinal x 0..0 and return
                         if not (self.total_triplets_to_read == 2 and self.integers_to_read[0][0] == "1"):
-                            oku += self.CARDINAL_ONES[int(self.integers_to_read[0][0])]
-                        oku += self.ORDINAL_TRIPLETS[self.total_triplets_to_read - 1]
-                        return oku
+                            wrd += self.CARDINAL_ONES.get(self.integers_to_read[0][0], "")
+                        wrd += self.ORDINAL_TRIPLETS[self.total_triplets_to_read - 1]
+                        return wrd
                     if self.order_of_last_zero_digit < len(self.integers_to_read[0]) - 1:
                         # number like x and others, read cardinal x n..n and return
                         if not (self.total_triplets_to_read == 2 and self.integers_to_read[0][0] == "1"):
-                            oku += self.CARDINAL_ONES[int(self.integers_to_read[0][0])]
-                        oku += self.CARDINAL_TRIPLETS[self.total_triplets_to_read - 1]
+                            wrd += self.CARDINAL_ONES.get(self.integers_to_read[0][0], "")
+                        wrd += self.CARDINAL_TRIPLETS[self.total_triplets_to_read - 1]
 
                 if self.total_digits_outside_triplets == 0:
                     if self.order_of_last_zero_digit == len(self.integers_to_read[0]) - 1:
                         # number like x00 and all 0s, read ordinal x00 0..0 and return
-                        if not self.integers_to_read[0][0] == "1":
-                            oku += self.CARDINAL_ONES[int(self.integers_to_read[0][0])]
-                        oku += self.CARDINAL_HUNDREDS[0]
-                        oku += self.ORDINAL_TRIPLETS[self.total_triplets_to_read - 1]
-                        return oku
+                        wrd += self.HUNDREDS.get(self.integers_to_read[0][0], "")
+                        wrd += self.CARDINAL_HUNDRED[0]
+                        wrd += self.ORDINAL_TRIPLETS[self.total_triplets_to_read - 1]
+                        return wrd
                     if self.order_of_last_zero_digit == len(self.integers_to_read[0]) - 2:
                         # number like xy0 and all 0s, read ordinal xy0 0..0 and return
-                        if not self.integers_to_read[0][0] == "1":
-                            oku += self.CARDINAL_ONES[int(self.integers_to_read[0][0])]
-                        oku += self.CARDINAL_HUNDREDS[0]
-                        oku += self.CARDINAL_TEN[int(self.integers_to_read[0][1])]
-                        oku += self.ORDINAL_TRIPLETS[self.total_triplets_to_read - 1]
-                        return oku
+                        wrd += self.HUNDREDS.get(self.integers_to_read[0][0], "")
+                        wrd += self.CARDINAL_HUNDRED[0]
+                        wrd += self.CARDINAL_TENS.get(self.integers_to_read[0][1], "")
+                        wrd += self.ORDINAL_TRIPLETS[self.total_triplets_to_read - 1]
+                        return wrd
                     if self.order_of_last_zero_digit == len(self.integers_to_read[0]) - 3:
                         # number like xyz and all 0s, read ordinal xyz 0..0 and return
-                        if not self.integers_to_read[0][0] == "1":
-                            oku += self.CARDINAL_ONES[int(self.integers_to_read[0][0])]
-                        oku += self.CARDINAL_HUNDREDS[0]
-                        oku += self.CARDINAL_TEN[int(self.integers_to_read[0][1])]
-                        if not self.integers_to_read[0][2] == "0":
-                            oku += self.CARDINAL_ONES[int(self.integers_to_read[0][2])]
-                        oku += self.ORDINAL_TRIPLETS[self.total_triplets_to_read - 1]
-                        return oku
+                        wrd += self.HUNDREDS.get(self.integers_to_read[0][0], "")
+                        wrd += self.CARDINAL_HUNDRED[0]
+                        wrd += self.CARDINAL_TENS.get(self.integers_to_read[0][1], "")
+                        wrd += self.CARDINAL_ONES.get(self.integers_to_read[0][2], "")
+                        wrd += self.ORDINAL_TRIPLETS[self.total_triplets_to_read - 1]
+                        return wrd
                     if self.order_of_last_zero_digit < len(self.integers_to_read[0]) - 3:
                         # number like xyz and all others, read cardinal xyz n..n
-                        if not self.integers_to_read[0][0] == "1":
-                            oku += self.CARDINAL_ONES[int(self.integers_to_read[0][0])]
-                        oku += self.CARDINAL_HUNDREDS[0]
-                        oku += self.CARDINAL_TEN[int(self.integers_to_read[0][1])]
-                        if not self.integers_to_read[0][2] == "0":
-                            if not (self.total_triplets_to_read == 2 and self.integers_to_read[0][2] == "1"):
-                                oku += self.CARDINAL_ONES[int(self.integers_to_read[0][2])]
-                        oku += self.CARDINAL_TRIPLETS[self.total_triplets_to_read - 1]
+                        wrd += self.HUNDREDS.get(self.integers_to_read[0][0], "")
+                        wrd += self.CARDINAL_HUNDRED[0]
+                        wrd += self.CARDINAL_TENS.get(self.integers_to_read[0][1], "")
+                        if not (self.total_triplets_to_read == 2 and self.integers_to_read[0][2] == "1"):
+                            wrd += self.CARDINAL_ONES.get(self.integers_to_read[0][2], "")
+                        wrd += self.CARDINAL_TRIPLETS[self.total_triplets_to_read - 1]
 
                 for i in list(range(self.total_triplets_to_read - 1, 0, -1)):
-                    okunan_grup_sirasi = self.total_triplets_to_read - i
+                    reading_triplet_order = self.total_triplets_to_read - i
                     if self.total_digits_outside_triplets == 0:
-                        son_okunan_basamak_sirasi = okunan_grup_sirasi * 3
+                        last_read_digit_order = reading_triplet_order * 3
                     else:
-                        son_okunan_basamak_sirasi = (okunan_grup_sirasi - 1) * 3 + self.total_digits_outside_triplets
+                        last_read_digit_order = (reading_triplet_order - 1) * 3 + self.total_digits_outside_triplets
 
-                    if not self.integers_to_read[0][son_okunan_basamak_sirasi: son_okunan_basamak_sirasi + 3] == "000":
-                        if not self.integers_to_read[0][son_okunan_basamak_sirasi] == "0":
-                            if not self.integers_to_read[0][son_okunan_basamak_sirasi] == "1":
-                                oku += self.CARDINAL_ONES[
-                                    int(self.integers_to_read[0][son_okunan_basamak_sirasi])]
+                    if not self.integers_to_read[0][last_read_digit_order: last_read_digit_order + 3] == "000":
+                        if not self.integers_to_read[0][last_read_digit_order] == "0":
+                            if not self.integers_to_read[0][last_read_digit_order] == "1":
+                                wrd += self.CARDINAL_ONES.get(self.integers_to_read[0][last_read_digit_order], "")
                             if self.order_of_last_zero_digit == len(self.integers_to_read[0]) - (
-                                    son_okunan_basamak_sirasi) - 1:
+                                    last_read_digit_order) - 1:
                                 if i == 1:
-                                    oku += self.ORDINAL_HUNDREDS[0]
-                                    return oku
+                                    wrd += self.ORDINAL_HUNDRED[0]
+                                    return wrd
                                 elif i > 1:
-                                    oku += self.CARDINAL_HUNDREDS[0]
-                                    oku += self.ORDINAL_TRIPLETS[i - 1]
-                                    return oku
+                                    wrd += self.CARDINAL_HUNDRED[0]
+                                    wrd += self.ORDINAL_TRIPLETS[i - 1]
+                                    return wrd
                             else:
-                                oku += self.CARDINAL_HUNDREDS[0]
+                                wrd += self.CARDINAL_HUNDRED[0]
 
-                        if not self.integers_to_read[0][son_okunan_basamak_sirasi + 1] == "0":
+                        if not self.integers_to_read[0][last_read_digit_order + 1] == "0":
                             if self.order_of_last_zero_digit == len(self.integers_to_read[0]) - (
-                                    son_okunan_basamak_sirasi) - 2:
+                                    last_read_digit_order) - 2:
                                 if i == 1:
-                                    oku += self.ORDINAL_TENS[
-                                        int(self.integers_to_read[0][son_okunan_basamak_sirasi + 1])]
-                                    return oku
+                                    wrd += self.ORDINAL_TENS.get(
+                                        self.integers_to_read[0][last_read_digit_order + 1], "")
+                                    return wrd
                                 elif i > 1:
-                                    oku += self.CARDINAL_TEN[
-                                        int(self.integers_to_read[0][son_okunan_basamak_sirasi + 1])]
-                                    oku += self.ORDINAL_TRIPLETS[i - 1]
-                                    return oku
+                                    wrd += self.CARDINAL_TENS.get(
+                                        self.integers_to_read[0][last_read_digit_order + 1], "")
+                                    wrd += self.ORDINAL_TRIPLETS[i - 1]
+                                    return wrd
                             else:
-                                oku += self.CARDINAL_TEN[
-                                    int(self.integers_to_read[0][son_okunan_basamak_sirasi + 1])]
+                                wrd += self.CARDINAL_TENS.get(self.integers_to_read[0][last_read_digit_order + 1],
+                                                              "")
 
-                        if not self.integers_to_read[0][son_okunan_basamak_sirasi + 2] == "0":
+                        if not self.integers_to_read[0][last_read_digit_order + 2] == "0":
                             if self.order_of_last_zero_digit == len(self.integers_to_read[0]) - (
-                                    son_okunan_basamak_sirasi) - 3:
+                                    last_read_digit_order) - 3:
                                 if i == 1:
-                                    oku += self.ORDINAL_ONES[
-                                        int(self.integers_to_read[0][son_okunan_basamak_sirasi + 2])]
-                                    return oku
+                                    wrd += self.ORDINAL_ONES.get(
+                                        self.integers_to_read[0][last_read_digit_order + 2], "")
+                                    return wrd
                                 if i == 2:
                                     if not self.integers_to_read[0][
-                                           son_okunan_basamak_sirasi: son_okunan_basamak_sirasi + 2] == "00":
-                                        oku += self.CARDINAL_ONES[
-                                            int(self.integers_to_read[0][son_okunan_basamak_sirasi + 2])]
-                                    elif not self.integers_to_read[0][son_okunan_basamak_sirasi + 2] == "1":
-                                        oku += self.CARDINAL_ONES[
-                                            int(self.integers_to_read[0][son_okunan_basamak_sirasi + 2])]
-                                    oku += self.ORDINAL_TRIPLETS[i - 1]
-                                    return oku
+                                           last_read_digit_order: last_read_digit_order + 2] == "00":
+                                        wrd += self.CARDINAL_ONES.get(
+                                            self.integers_to_read[0][last_read_digit_order + 2], "")
+                                    elif not self.integers_to_read[0][last_read_digit_order + 2] == "1":
+                                        wrd += self.CARDINAL_ONES.get(
+                                            self.integers_to_read[0][last_read_digit_order + 2], "")
+                                    wrd += self.ORDINAL_TRIPLETS[i - 1]
+                                    return wrd
                                 if i > 2:
-                                    oku += self.CARDINAL_ONES[
-                                        int(self.integers_to_read[0][son_okunan_basamak_sirasi + 2])]
-                                    oku += self.ORDINAL_TRIPLETS[i - 1]
-                                    return oku
+                                    wrd += self.CARDINAL_ONES.get(
+                                        self.integers_to_read[0][last_read_digit_order + 2], "")
+                                    wrd += self.ORDINAL_TRIPLETS[i - 1]
+                                    return wrd
                             else:
                                 if not self.integers_to_read[0][
-                                       son_okunan_basamak_sirasi: son_okunan_basamak_sirasi + 2] == "00":
-                                    oku += self.CARDINAL_ONES[
-                                        int(self.integers_to_read[0][son_okunan_basamak_sirasi + 2])]
+                                       last_read_digit_order: last_read_digit_order + 2] == "00":
+                                    wrd += self.CARDINAL_ONES.get(
+                                        self.integers_to_read[0][last_read_digit_order + 2], "")
                                 else:
                                     if not self.integers_to_read[0][
-                                           son_okunan_basamak_sirasi: son_okunan_basamak_sirasi + 2] == "00":
-                                        oku += self.CARDINAL_ONES[
-                                            int(self.integers_to_read[0][son_okunan_basamak_sirasi + 2])]
-                                    elif not self.integers_to_read[0][son_okunan_basamak_sirasi + 2] == "1":
-                                        oku += self.CARDINAL_ONES[
-                                            int(self.integers_to_read[0][son_okunan_basamak_sirasi + 2])]
+                                           last_read_digit_order: last_read_digit_order + 2] == "00":
+                                        wrd += self.CARDINAL_ONES.get(
+                                            self.integers_to_read[0][last_read_digit_order + 2], "")
+                                    elif not self.integers_to_read[0][last_read_digit_order + 2] == "1":
+                                        wrd += self.CARDINAL_ONES.get(
+                                            self.integers_to_read[0][last_read_digit_order + 2], "")
 
-                        oku += self.CARDINAL_TRIPLETS[i - 1]
+                        wrd += self.CARDINAL_TRIPLETS[i - 1]
 
-        return oku
+        return wrd
 
     def to_ordinal_num(self, value):
-        oku = ""
+        wrd = ""
         isordinal = self.verify_ordinal(value)
         if isordinal:
             self.splitnum(value)
-            oku = self.integers_to_read[0] + self.ORDINAL_SIGN[0]
+            wrd = self.integers_to_read[0] + self.ORDINAL_SIGN[0]
 
-        return oku
+        return wrd
 
     # def inflect(self, value, text):
 
