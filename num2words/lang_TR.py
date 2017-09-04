@@ -59,7 +59,7 @@ class Num2Word_TR(object):
             "6": u"altıncı",
             "7": u"yedinci",
             "8": u"sekizinci",
-            "9": u"dokuzuncu",
+            "9": u"dokuzuncu"
         }
         self.CARDINAL_TENS = {
             "1": u"on",
