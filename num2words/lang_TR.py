@@ -26,16 +26,11 @@ class Num2Word_TR(object):
         self.pointword = u"virgül"
         self.CURRENCY_UNIT = (u"lira",)
         self.CURRENCY_SUBUNIT = (u"kuruş",)
-        # type(%s) not in [long, int, float]
         self.errmsg_nonnum = u"Sadece sayılar yazıya çevrilebilir."
-        # Cannot treat float %s as ordinal.
         self.errmsg_floatord = u"Tam sayı olmayan {} sıralamada kullanılamaz."
-        # Cannot treat negative num %s as ordinal.
         self.errmsg_negord = u"Pozitif olmayan {} sıralamada kullanılamaz."
-        # abs(%s) must be less than %s.
         self.errmsg_toobig = u"abs({}) sayı yazıya çevirmek için çok büyük. Yazıya çevrilebilecek en büyük rakam {}."
         self.exclude_title = []
-        # ordered number tuples in Turkish
         self.DECIMAL_SIGN = (",",)
         self.ORDINAL_SIGN = (".",)
         self.ZERO = (u"sıfır",)
@@ -118,14 +113,6 @@ class Num2Word_TR(object):
         self.total_digits_outside_triplets = 0
         self.order_of_last_zero_digit = 0
 
-    # def set_numwords(self):
-
-    # def gen_high_numwords(self, units, tens, lows):
-
-    # def set_mid_numwords(self, mid):
-
-    # def set_low_numwords(self, numwords):
-
     def splitnum(self, value):
         return self.to_splitnum(value)
 
@@ -155,7 +142,7 @@ class Num2Word_TR(object):
 
                 if self.total_digits_outside_triplets == 1:
                     if self.order_of_last_zero_digit == 0:
-                        # number like x, read ordinal x and return
+                        # number like x, read cardinal x and return
                         wrd += self.CARDINAL_ONES.get(self.integers_to_read[0][0], "")
                         return wrd
 
@@ -337,12 +324,6 @@ class Num2Word_TR(object):
             wrd = self.to_cardinal(int(self.integers_to_read[0])) + wrd
         return wrd
 
-    # def merge(self, curr, next):
-
-    # def clean(self, val):
-
-    # def title(self, value):
-
     def verify_cardinal(self, value):
         iscardinal = True
         try:
@@ -366,10 +347,6 @@ class Num2Word_TR(object):
         if abs(value) >= self.MAXVAL:
             raise OverflowError(self.errmsg_toobig.format(value, self.MAXVAL))
         return isordinal
-
-    # def verify_num(self, value):
-
-    # def set_wordnums(self):
 
     def to_ordinal(self, value):
         wrd = ""
@@ -562,20 +539,9 @@ class Num2Word_TR(object):
 
         return wrd
 
-    def to_ordinal_num(self, value):
-        wrd = ""
-        isordinal = self.verify_ordinal(value)
-        if isordinal:
-            self.splitnum(value)
-            wrd = self.integers_to_read[0] + self.ORDINAL_SIGN[0]
-
-        return wrd
-
-    # def inflect(self, value, text):
-
-    def to_splitnum(self, val, hightxt="", lowtxt="", jointxt="", divisor=100, longval=True, cents=True):
-        kesirlibolum = str(int(val * 10 ** self.precision))
-        self.integers_to_read = [str(int(val)), kesirlibolum[len(kesirlibolum) - self.precision:]]
+    def to_splitnum(self, val):
+        float_digits = str(int(val * 10 ** self.precision))
+        self.integers_to_read = [str(int(val)), float_digits[len(float_digits) - self.precision:]]
         if len(self.integers_to_read[0]) % 3 > 0:
             self.total_triplets_to_read = (len(self.integers_to_read[0]) // 3) + 1
         elif len(self.integers_to_read[0]) % 3 == 0:
@@ -591,18 +557,9 @@ class Num2Word_TR(object):
             else:
                 found = 1
 
-    def to_year(self, value, **kwargs):
-        return self.to_cardinal(value)
-
     def to_currency(self, value, **kwargs):
         valueparts = self.to_cardinal(value).split(self.pointword)
         if len(valueparts) == 1:
             return valueparts[0] + self.CURRENCY_UNIT[0]
         if len(valueparts) == 2:
             return self.CURRENCY_UNIT[0].join(valueparts) + self.CURRENCY_SUBUNIT[0]
-
-            # def base_setup(self):
-
-            # def setup(self):
-
-            # def test(self, value):
