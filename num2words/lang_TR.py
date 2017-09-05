@@ -113,16 +113,13 @@ class Num2Word_TR(object):
         self.total_digits_outside_triplets = 0
         self.order_of_last_zero_digit = 0
 
-    def splitnum(self, value):
-        return self.to_splitnum(value)
-
     def to_cardinal(self, value):
         wrd = ""
         is_cardinal = self.verify_cardinal(value)
         if is_cardinal:
             if not int(value) == value:
                 return self.to_cardinal_float(value)
-            self.splitnum(value)
+            self.to_splitnum(value)
 
             if self.order_of_last_zero_digit >= len(self.integers_to_read[0]):
                 # number like 00 and all 0s and even more, raise error
@@ -309,7 +306,7 @@ class Num2Word_TR(object):
         return wrd
 
     def to_cardinal_float(self, value):
-        self.splitnum(value)
+        self.to_splitnum(value)
         wrd = ""
         wrd += self.pointword
         if len(self.integers_to_read[1]) >= 1:
@@ -352,7 +349,7 @@ class Num2Word_TR(object):
         wrd = ""
         isordinal = self.verify_ordinal(value)
         if isordinal:
-            self.splitnum(value)
+            self.to_splitnum(value)
 
             if self.order_of_last_zero_digit >= len(self.integers_to_read[0]):
                 # number like 00 and all 0s and even more, raise error
