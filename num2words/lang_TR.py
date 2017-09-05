@@ -541,7 +541,10 @@ class Num2Word_TR(object):
 
     def to_splitnum(self, val):
         float_digits = str(int(val * 10 ** self.precision))
-        self.integers_to_read = [str(int(val)), float_digits[len(float_digits) - self.precision:]]
+        if not int(val) == 0:
+            self.integers_to_read = [str(int(val)), float_digits[len(float_digits) - self.precision:]]
+        else:
+            self.integers_to_read = ["0", "0" * (self.precision - len(float_digits)) + float_digits[len(float_digits) - self.precision:]]
         if len(self.integers_to_read[0]) % 3 > 0:
             self.total_triplets_to_read = (len(self.integers_to_read[0]) // 3) + 1
         elif len(self.integers_to_read[0]) % 3 == 0:
