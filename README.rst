@@ -60,6 +60,7 @@ Besides the numerical argument, there's two optional arguments.
 * ``pt_BR`` (Brazilian Portuguese)
 * ``he`` (Hebrew)
 * ``it`` (Italian)
+* ``tr`` (Turkish)
 
 You can supply values like ``fr_FR``, the code will be
 correctly interpreted. If you supply an unsupported language, ``NotImplementedError`` is raised.
