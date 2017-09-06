@@ -40,8 +40,8 @@ def main():
 
     n2w.test(1325325436067876801768700107601001012212132143210473207540327057320957032975032975093275093275093270957329057320975093272950730)
     for val in [1, 120, 1000, 1120, 1800, 1976, 2000, 2010, 2099, 2171]:
-        print val, "is", n2w.to_currency(val)
-        print val, "is", n2w.to_year(val)
+        print(val, "is", n2w.to_currency(val))
+        print(val, "is", n2w.to_year(val))
 
 
 if __name__ == "__main__":
