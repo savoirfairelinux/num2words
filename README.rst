@@ -56,7 +56,7 @@ cardinal one.
 * ``es`` (Spanish)
 * ``fr`` (French)
 * ``fr_CH`` (Swiss French)
-* ``fr_DZ`` (Argelia French)
+* ``fr_DZ`` (Algeria French)
 * ``he`` (Hebrew)
 * ``it`` (Italian)
 * ``lt`` (Lithuanian)
