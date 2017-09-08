@@ -65,8 +65,8 @@ class Num2Word_NL(Num2Word_EU):
                      "acht": "achtst",
                      "negen": "negend",
                      "tien":"tiend",
-                     "elf":"elfde",
-                     "twaalf":"twaalfde",
+                     "elf":"elfd",
+                     "twaalf":"twaalfd",
 
                      "ig": "igst",
                      "erd": "erdst",

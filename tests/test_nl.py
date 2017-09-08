@@ -38,6 +38,7 @@ class Num2WordsNLTest(TestCase):
         self.assertEqual(num2words(5000000000, ordinal=True, lang='nl'), "vijf miljardste")
 
     def test_cardinal_at_some_numbers(self):
+        self.assertEqual(num2words(82, lang='nl'), u'twee\xebntachtig')        
         self.assertEqual(num2words(1013, lang='nl'), "duizenddertien")
         self.assertEqual(num2words(2000000, lang='nl'), "twee miljoen")
         self.assertEqual(num2words(4000000000, lang='nl'), "vier miljard")
