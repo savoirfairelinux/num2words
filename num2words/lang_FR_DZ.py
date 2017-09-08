@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 # Copyright (c) 2003, Taro Ogawa.  All Rights Reserved.
 # Copyright (c) 2013, Savoir-faire Linux inc.  All Rights Reserved.
 
@@ -15,43 +14,22 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301 USA
 
-from __future__ import unicode_literals, print_function
+from __future__ import unicode_literals
 from .lang_FR import Num2Word_FR
 
 
-class Num2Word_FR_CH(Num2Word_FR):
-    def setup(self):
-        Num2Word_FR.setup(self)
-
-        self.mid_numwords = [(1000, "mille"), (100, "cent"), (90, "nonante"),
-                             (80, "huitante"), (70, "septante"), (60, "soixante"),
-                             (50, "cinquante"), (40, "quarante"),
-                             (30, "trente")]
+class Num2Word_FR_DZ(Num2Word_FR):
+    def to_currency(self, val, longval=True, cents=True, jointxt="virgule"):
+        return self.to_splitnum(val, hightxt="dinard/s", lowtxt="centime/s",
+                                jointxt=jointxt, longval=longval, cents=cents)
 
 
-    def merge(self, curr, next):
-        ctext, cnum, ntext, nnum = curr + next
-
-        if cnum == 1:
-            if nnum < 1000000:
-                return next
-
-        if cnum < 1000 and nnum != 1000 and ntext[-1] != "s" and not nnum % 100:
-            ntext += "s"
-
-        if nnum < cnum < 100:
-            if nnum % 10 == 1:
-                return ("%s et %s"%(ctext, ntext), cnum + nnum)
-            return ("%s-%s"%(ctext, ntext), cnum + nnum)
-        if nnum > cnum:
-            return ("%s %s"%(ctext, ntext), cnum * nnum)
-        return ("%s %s"%(ctext, ntext), cnum + nnum)
-
-
-n2w = Num2Word_FR_CH()
+n2w = Num2Word_FR_DZ()
 to_card = n2w.to_cardinal
 to_ord = n2w.to_ordinal
 to_ordnum = n2w.to_ordinal_num
+to_year = n2w.to_year
+to_currency = n2w.to_currency
 
 def main():
     for val in [1, 11, 12, 21, 31, 33, 71, 80, 81, 91, 99, 100, 101, 102, 155,
@@ -61,8 +39,9 @@ def main():
         n2w.test(val)
 
     n2w.test(1325325436067876801768700107601001012212132143210473207540327057320957032975032975093275093275093270957329057320975093272950730)
-    print(n2w.to_currency(112121))
-    print(n2w.to_year(1996))
+    for val in [1, 120, 1000, 1120, 1800, 1976, 2000, 2010, 2099, 2171]:
+        print(val, "is", n2w.to_currency(val))
+        print(val, "is", n2w.to_year(val))
 
 
 if __name__ == "__main__":

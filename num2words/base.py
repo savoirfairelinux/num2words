@@ -111,13 +111,7 @@ class Num2Word_Base(object):
         return self.title(out + words)
 
 
-    def to_cardinal_float(self, value):
-        try:
-            float(value) == value
-        except (ValueError, TypeError, AssertionError):
-            raise TypeError(self.errmsg_nonnum % value)
-
-        value = float(value)
+    def float2tuple(self, value):
         pre = int(value)
         post = abs(value - pre) * 10**self.precision
         if abs(round(post) - post) < 0.01:
@@ -127,6 +121,18 @@ class Num2Word_Base(object):
             post = int(round(post))
         else:
             post = int(math.floor(post))
+
+        return pre, post
+
+
+    def to_cardinal_float(self, value):
+        try:
+            float(value) == value
+        except (ValueError, TypeError, AssertionError):
+            raise TypeError(self.errmsg_nonnum % value)
+
+        pre, post = self.float2tuple(float(value))
+
         post = str(post)
         post = '0' * (self.precision - len(post)) + post
 
@@ -213,12 +219,17 @@ class Num2Word_Base(object):
 
     #//CHECK: generalise? Any others like pounds/shillings/pence?
     def to_splitnum(self, val, hightxt="", lowtxt="", jointxt="",
-                    divisor=100, longval=True, cents = True):
+                    divisor=100, longval=True, cents=True):
         out = []
-        try:
-            high, low = val
-        except TypeError:
-            high, low = divmod(val, divisor)
+
+        if isinstance(val, float):
+            high, low = self.float2tuple(val)
+        else:
+            try:
+                high, low = val
+            except TypeError:
+                high, low = divmod(val, divisor)
+
         if high:
             hightxt = self.title(self.inflect(high, hightxt))
             out.append(self.to_cardinal(high))
@@ -230,6 +241,7 @@ class Num2Word_Base(object):
                         out.append(self.title(jointxt))
             elif hightxt:
                 out.append(hightxt)
+
         if low:
             if cents:
                 out.append(self.to_cardinal(low))
@@ -237,6 +249,7 @@ class Num2Word_Base(object):
                 out.append("%02d" % low)
             if lowtxt and longval:
                 out.append(self.title(self.inflect(low, lowtxt)))
+
         return " ".join(out)
 
 
