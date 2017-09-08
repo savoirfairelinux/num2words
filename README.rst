@@ -6,7 +6,7 @@ num2words - Convert numbers to words in multiple languages
 
 ``num2words`` is a library that converts numbers like ``42`` to words like
 ``forty-two``. It supports multiple languages (English, Arabic, Danish, French,
-German, Hebrew, Italian, Latvian, Norwegian, Polish, Portuguese, Russian,
+German, Dutch, Hebrew, Italian, Latvian, Norwegian, Polish, Portuguese, Russian,
 Spanish and Lithuanian) and can even generate ordinal numbers like
 ``forty-second`` (altough this last feature is a bit buggy at the moment).
 
@@ -65,6 +65,8 @@ cardinal one.
 * ``pl`` (Polish)
 * ``pt_BR`` (Brazilian Portuguese)
 * ``ru`` (Russian)
+* ``nl`` (Dutch)
+
 
 You can supply values like ``fr_FR``, the code will be correctly interpreted. If
 you supply an unsupported language, ``NotImplementedError`` is raised.
