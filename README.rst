@@ -55,6 +55,7 @@ cardinal one.
 * ``es`` (Spanish)
 * ``es_CO`` (Spanish - Colombia)
 * ``es_VE`` (Spanish - Venezuela)
+* ``es_MX`` (Spanish - Mexico)
 * ``eu`` (EURO)
 * ``fr`` (French)
 * ``fr_CH`` (French - Switzerland)
@@ -70,6 +71,7 @@ cardinal one.
 * ``ru`` (Russian)
 * ``tr`` (Turkish)
 * ``vn`` (Vietnamese)
+
 
 You can supply values like ``fr_FR``, the code will be correctly interpreted. If
 you supply an unsupported language, ``NotImplementedError`` is raised.
