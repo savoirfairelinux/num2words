@@ -20,10 +20,10 @@ from num2words import num2words
 
 class Num2WordsUKTest(TestCase):
     def test_and_join_199(self):
-        self.assertEqual(num2words(187,lang='uk'), "сто вiсiмдесят сiм")
+        self.assertEqual(num2words(187,lang='uk'), u"сто вiсiмдесят сiм")
 
     def test_cardinal_for_float_number(self):
-        self.assertEqual(num2words(12.40,lang='uk'), "дванадцять кома чотири")
-        self.assertEqual(num2words(17.31,lang='uk'), "сiмнадцять кома тридцять одна")
-        self.assertEqual(num2words(14.13,lang='uk'), "чотирнадцять кома тринадцять")
-        self.assertEqual(num2words(12.31,lang='uk'), "дванадцять кома тридцять одна")
+        self.assertEqual(num2words(12.40,lang='uk'), u"дванадцять кома чотири")
+        self.assertEqual(num2words(17.31,lang='uk'), u"сiмнадцять кома тридцять одна")
+        self.assertEqual(num2words(14.13,lang='uk'), u"чотирнадцять кома тринадцять")
+        self.assertEqual(num2words(12.31,lang='uk'), u"дванадцять кома тридцять одна")
