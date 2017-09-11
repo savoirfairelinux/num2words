@@ -17,7 +17,7 @@ from unittest import TestCase
 
 from num2words import num2words
 
-class Num2WordsENTest(TestCase):
+class Num2WordsUKTest(TestCase):
     def test_and_join_199(self):
         self.assertEqual(num2words(187,lang='uk'), "сто вiсiмдесят сiм")
 
