@@ -4,11 +4,10 @@ num2words - Convert numbers to words in multiple languages
 .. image:: https://travis-ci.org/savoirfairelinux/num2words.svg?branch=master
     :target: https://travis-ci.org/savoirfairelinux/num2words
 
-``num2words`` is a library that converts numbers like ``42`` to words like
-``forty-two``. It supports multiple languages (English, Arabic, Danish, French,
-German, Dutch, Hebrew, Italian, Latvian, Norwegian, Polish, Portuguese, Russian,
-Spanish and Lithuanian) and can even generate ordinal numbers like
-``forty-second`` (altough this last feature is a bit buggy at the moment).
+``num2words`` is a library that converts numbers like ``42`` to words like ``forty-two``. 
+It supports multiple languages (see the list below for full list
+of languages) and can even generate ordinal numbers like ``forty-second``
+(although this last feature is a bit buggy for some languages at the moment).
 
 The project is hosted on https://github.com/savoirfairelinux/num2words
 
@@ -47,17 +46,21 @@ cardinal one.
 
 **lang:** The language in which to convert the number. Supported values are:
 
+* ``en`` (English, default)
 * ``ar`` (Arabic)
 * ``de`` (German)
 * ``dk`` (Danish)
-* ``en`` (English, default)
-* ``en_GB`` (British English)
-* ``en_IN`` (Indian English)
+* ``en_GB`` (English - Great Britain)
+* ``en_IN`` (English - India)
 * ``es`` (Spanish)
+* ``es_CO`` (Spanish - Colombia)
+* ``es_VE`` (Spanish - Venezuela)
+* ``eu`` (EURO)
 * ``fr`` (French)
-* ``fr_CH`` (Swiss French)
-* ``fr_DZ`` (Argelia French)
+* ``fr_CH`` (French - Switzerland)
+* ``fr_DZ`` (French - Algeria)
 * ``he`` (Hebrew)
+* ``id`` (Indonesian)
 * ``it`` (Italian)
 * ``lt`` (Lithuanian)
 * ``lv`` (Latvian)
@@ -65,8 +68,9 @@ cardinal one.
 * ``pl`` (Polish)
 * ``pt_BR`` (Brazilian Portuguese)
 * ``ru`` (Russian)
+* ``tr`` (Turkish)
+* ``vn`` (Vietnamese)
 * ``nl`` (Dutch)
-
 
 You can supply values like ``fr_FR``, the code will be correctly interpreted. If
 you supply an unsupported language, ``NotImplementedError`` is raised.
