@@ -23,6 +23,6 @@ class Num2WordsENTest(TestCase):
 
     def test_cardinal_for_float_number(self):
         self.assertEqual(num2words(12.40,lang='uk'), "дванадцять кома чотири")
-        self.assertEqual(num2words(17.31,lang='uk'), "сiмнадцять кома тридцять один")
+        self.assertEqual(num2words(17.31,lang='uk'), "сiмнадцять кома тридцять одна")
         self.assertEqual(num2words(14.13,lang='uk'), "чотирнадцять кома тринадцять")
-        self.assertEqual(num2words(12.31,lang='uk'), "дванадцять кома тридцять один")
+        self.assertEqual(num2words(12.31,lang='uk'), "дванадцять кома тридцять одна")
