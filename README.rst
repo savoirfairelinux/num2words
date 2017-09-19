@@ -70,6 +70,7 @@ cardinal one.
 * ``ru`` (Russian)
 * ``tr`` (Turkish)
 * ``vn`` (Vietnamese)
+* ``uk`` (Ukrainian)
 
 You can supply values like ``fr_FR``, the code will be correctly interpreted. If
 you supply an unsupported language, ``NotImplementedError`` is raised.

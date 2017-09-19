@@ -39,6 +39,7 @@ from . import lang_ES_VE
 from . import lang_ES_CO
 from . import lang_VN
 from . import lang_TR
+from . import lang_UK
 
 
 CONVERTER_CLASSES = {
@@ -64,7 +65,8 @@ CONVERTER_CLASSES = {
     'he': lang_HE.Num2Word_HE(),
     'it': lang_IT.Num2Word_IT(),
     'vi_VN': lang_VN.Num2Word_VN(),
-    'tr': lang_TR.Num2Word_TR()
+    'tr': lang_TR.Num2Word_TR(),
+    'uk': lang_UK.Num2Word_UK()
 }
 
 def num2words(number, ordinal=False, lang='en'):
