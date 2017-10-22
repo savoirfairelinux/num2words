@@ -4,7 +4,7 @@ num2words - Convert numbers to words in multiple languages
 .. image:: https://travis-ci.org/savoirfairelinux/num2words.svg?branch=master
     :target: https://travis-ci.org/savoirfairelinux/num2words
 
-``num2words`` is a library that converts numbers like ``42`` to words like ``forty-two``. 
+``num2words`` is a library that converts numbers like ``42`` to words like ``forty-two``.
 It supports multiple languages (see the list below for full list
 of languages) and can even generate ordinal numbers like ``forty-second``
 (although this last feature is a bit buggy for some languages at the moment).
@@ -67,6 +67,7 @@ cardinal one.
 * ``no`` (Norwegian)
 * ``pl`` (Polish)
 * ``pt_BR`` (Brazilian Portuguese)
+* ``sl`` (Slovene)
 * ``ru`` (Russian)
 * ``tr`` (Turkish)
 * ``vn`` (Vietnamese)

@@ -37,14 +37,8 @@ class Num2Word_SL(Num2Word_EU):
         self.errmsg_toobig = "Number is too large to convert to words."
         self.exclude_title = []
 
-        lows = ["non", "okt", "sept", "sext", "quint", "quadr", "tr", "b", "m"]
-        units = ["", "un", "duo", "tre", "quattuor", "quin", "sex", "sept",
-                 "okto", "novem"]
-        tens = ["dez", "vigint", "trigint", "quadragint", "quinquagint",
-                "sexagint", "septuagint", "oktogint", "nonagint"]
-        self.high_numwords = ["zent"]+self.gen_high_numwords(units, tens, lows)
-        self.mid_numwords = [(1000, "tisoč "), (900, "devetsto"), (800, "osemsto"), 
-                             (700, "sedemsto"), (600, "šesto"), (500, "petsto"), (400, "štiristo"), (300, "tristo"), 
+        self.mid_numwords = [(1000, "tisoč"), (900, "devetsto"), (800, "osemsto"),
+                             (700, "sedemsto"), (600, "šesto"), (500, "petsto"), (400, "štiristo"), (300, "tristo"),
                              (200, "dvesto"), (100, "sto"),
                              (90, "devetdeset"), (80, "osemdeset"), (70, "sedemdeset"),
                              (60, "šestdeset"), (50, "petdeset"), (40, "štirideset"),
@@ -52,18 +46,26 @@ class Num2Word_SL(Num2Word_EU):
         self.low_numwords = ["dvajset", "devetnajst", "osemnajst", "sedemnajst",
                              "šestnajst", "petnajst", "štirinajst", "trinajst",
                              "dvanajst", "enajst", "deset", "devet", "osem", "sedem",
-                             "šest", "pet", "štiri", "tri", "dva", "ena",
+                             "šest", "pet", "štiri", "tri", "dve", "ena",
                              "nič"]
-        self.ords = { "ena"    : "prvi",
-                      "dve"    : "drugi",
-                      "acht"    : "ach",
-                      "sieben"  : "sieb",
-                      "ig"      : "igs" }
+        self.ords = { "ena"     : "prv",
+                      "dve"     : "drug",
+                      "tri"     : "tretj",
+                      "štiri"   : "četrt",
+                      "sedem"   : "sedm",
+                      "osem"    : "osm",
+                      "sto"     : "stot",
+                      "tisoč"   : "tisoč",
+                      "miljon"  : "miljont"
+                     }
         self.ordflag = False
 
 
     def merge(self, curr, next):
         ctext, cnum, ntext, nnum = curr + next
+
+        if ctext == "dve" and not self.ordflag:
+            ctext = "dva"
 
         if cnum == 1:
             if nnum < 10**6 or self.ordflag:
@@ -72,25 +74,43 @@ class Num2Word_SL(Num2Word_EU):
 
         if nnum > cnum:
             if nnum >= 10**6:
-                if cnum > 1:
-                    if ntext.endswith("d") or self.ordflag:
+                if self.ordflag:
+                    ntext += "t"
+
+                elif cnum == 2:
+                    if ntext.endswith("d"):
+                        ntext += "i"
+                    else:
+                        ntext += "a"
+
+                elif 2 < cnum < 5:
+                    if ntext.endswith("d"):
+                        ntext += "e"
+                    elif not ntext.endswith("d"):
+                        ntext += "i"
+
+                else:
+                    if ntext.endswith("d"):
                         ntext += ""
+                    elif ntext.endswith("d"):
+                        ntext += "e"
                     else:
                         ntext += "ov"
+
+            if nnum >= 10**2 and self.ordflag == False:
                 ctext += " "
+
             val = cnum * nnum
         else:
             if nnum < 10 < cnum < 100:
-                if nnum == 1:
-                    ntext = "ena"
                 ntext, ctext =  ctext, ntext + "in"
-            elif cnum >= 10**6:
+            elif cnum >= 10**2 and self.ordflag == False:
                 ctext += " "
             val = cnum + nnum
 
         word = ctext + ntext
         return (word, val)
-            
+
 
     def to_ordinal(self, value):
         self.verify_ordinal(value)
@@ -101,13 +121,13 @@ class Num2Word_SL(Num2Word_EU):
             if outword.endswith(key):
                 outword = outword[:len(outword) - len(key)] + self.ords[key]
                 break
-        return outword + "te"
+        return outword + "i"
 
 
     # Is this correct??
     def to_ordinal_num(self, value):
         self.verify_ordinal(value)
-        return str(value) + "te"
+        return str(value) + "."
 
 
     def to_currency(self, val, longval=True, old=False):
@@ -123,7 +143,7 @@ class Num2Word_SL(Num2Word_EU):
         return self.to_splitnum(val, hightxt="hundert", longval=longval)
 
 
-            
+
 n2w = Num2Word_SL()
 to_card = n2w.to_cardinal
 to_ord = n2w.to_ordinal
@@ -138,9 +158,8 @@ def main():
         n2w.test(val)
 
     n2w.test(1325325436067876801768700107601001012212132143210473207540327057320957032975032975093275093275093270957329057320975093272950730)
-    print n2w.to_currency(112121)
-    print n2w.to_year(2000)
+    print(n2w.to_currency(112121))
+    print(n2w.to_year(2000))
 
 if __name__ == "__main__":
     main()
-
