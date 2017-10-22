@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # Copyright (c) 2013, Savoir-faire Linux inc.  All Rights Reserved.
 
 # This library is free software; you can redistribute it and/or
@@ -13,18 +14,21 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301 USA
 
-from unittest import TestCase
+from __future__ import unicode_literals
 
 from num2words import num2words
+from . import test_es
 
-class Num2WordsENTest(TestCase):
-    def test_and_join_199(self):
-        # ref https://github.com/savoirfairelinux/num2words/issues/8
-        self.assertEqual(num2words(199), "one hundred and ninety-nine")
 
-    def test_cardinal_for_float_number(self):
-        # issue 24
-        self.assertEqual(num2words(12.50), "twelve point five zero")
-        self.assertEqual(num2words(12.51), "twelve point five one")
-        self.assertEqual(num2words(12.53), "twelve point five three")
-        self.assertEqual(num2words(12.59), "twelve point five nine")
+class Num2WordsESVETest(test_es.Num2WordsESTest):
+
+    def test_number(self):
+        for test in test_es.TEST_CASES_CARDINAL:
+            self.assertEqual(num2words(test[0], lang='es_VE'), test[1])
+
+    def test_ordinal(self):
+        for test in test_es.TEST_CASES_ORDINAL:
+            self.assertEqual(
+                num2words(test[0], lang='es_VE', ordinal=True),
+                test[1]
+            )

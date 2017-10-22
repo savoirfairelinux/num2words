@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 # Copyright (c) 2013, Savoir-faire Linux inc.  All Rights Reserved.
 
 # This library is free software; you can redistribute it and/or
@@ -17,14 +18,12 @@ from unittest import TestCase
 
 from num2words import num2words
 
-class Num2WordsENTest(TestCase):
+class Num2WordsUKTest(TestCase):
     def test_and_join_199(self):
-        # ref https://github.com/savoirfairelinux/num2words/issues/8
-        self.assertEqual(num2words(199), "one hundred and ninety-nine")
+        self.assertEqual(num2words(187,lang='uk'), u"сто вiсiмдесят сiм")
 
     def test_cardinal_for_float_number(self):
-        # issue 24
-        self.assertEqual(num2words(12.50), "twelve point five zero")
-        self.assertEqual(num2words(12.51), "twelve point five one")
-        self.assertEqual(num2words(12.53), "twelve point five three")
-        self.assertEqual(num2words(12.59), "twelve point five nine")
+        self.assertEqual(num2words(12.40,lang='uk'), u"дванадцять кома чотири")
+        self.assertEqual(num2words(17.31,lang='uk'), u"сiмнадцять кома тридцять одна")
+        self.assertEqual(num2words(14.13,lang='uk'), u"чотирнадцять кома тринадцять")
+        self.assertEqual(num2words(12.31,lang='uk'), u"дванадцять кома тридцять одна")

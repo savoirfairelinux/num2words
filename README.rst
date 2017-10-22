@@ -1,9 +1,13 @@
 num2words - Convert numbers to words in multiple languages
 ==========================================================
 
-``num2words`` is a library that converts numbers like ``42`` to words like ``forty-two``. It
-supports multiple languages (English, French, Spanish, German and Lithuanian) and can even generate
-ordinal numbers like ``forty-second`` (altough this last feature is a bit buggy at the moment).
+.. image:: https://travis-ci.org/savoirfairelinux/num2words.svg?branch=master
+    :target: https://travis-ci.org/savoirfairelinux/num2words
+
+``num2words`` is a library that converts numbers like ``42`` to words like ``forty-two``. 
+It supports multiple languages (see the list below for full list
+of languages) and can even generate ordinal numbers like ``forty-second``
+(although this last feature is a bit buggy for some languages at the moment).
 
 The project is hosted on https://github.com/savoirfairelinux/num2words
 
@@ -37,21 +41,40 @@ There's only one function to use::
 
 Besides the numerical argument, there's two optional arguments.
 
-**ordinal:** A boolean flag indicating to return an ordinal number instead of a cardinal one.
+**ordinal:** A boolean flag indicating to return an ordinal number instead of a
+cardinal one.
 
 **lang:** The language in which to convert the number. Supported values are:
 
 * ``en`` (English, default)
-* ``fr`` (French)
+* ``ar`` (Arabic)
 * ``de`` (German)
+* ``dk`` (Danish)
+* ``en_GB`` (English - Great Britain)
+* ``en_IN`` (English - India)
 * ``es`` (Spanish)
+* ``es_CO`` (Spanish - Colombia)
+* ``es_VE`` (Spanish - Venezuela)
+* ``eu`` (EURO)
+* ``fr`` (French)
+* ``fr_CH`` (French - Switzerland)
+* ``fr_DZ`` (French - Algeria)
+* ``he`` (Hebrew)
+* ``id`` (Indonesian)
+* ``it`` (Italian)
 * ``lt`` (Lithuanian)
 * ``lv`` (Latvian)
-* ``en_GB`` (British English)
-* ``en_IN`` (Indian English)
+* ``no`` (Norwegian)
+* ``pl`` (Polish)
+* ``pt_BR`` (Brazilian Portuguese)
+* ``ru`` (Russian)
+* ``tr`` (Turkish)
+* ``vn`` (Vietnamese)
+* ``nl`` (Dutch)
+* ``uk`` (Ukrainian)
 
-You can supply values like ``fr_FR``, the code will be
-correctly interpreted. If you supply an unsupported language, ``NotImplementedError`` is raised.
+You can supply values like ``fr_FR``, the code will be correctly interpreted. If
+you supply an unsupported language, ``NotImplementedError`` is raised.
 Therefore, if you want to call ``num2words`` with a fallback, you can do::
 
     try:
@@ -62,12 +85,12 @@ Therefore, if you want to call ``num2words`` with a fallback, you can do::
 History
 -------
 
-``num2words`` is based on an old library , ``pynum2word`` created by Taro Ogawa in 2003.
-Unfortunately, the library stopped being maintained and the author can't be reached. There was
-another developer, Marius Grigaitis, who in 2011 added Lithuanian support, but didn't take over
-maintenance of the project.
+``num2words`` is based on an old library, ``pynum2word`` created by Taro Ogawa
+in 2003. Unfortunately, the library stopped being maintained and the author
+can't be reached. There was another developer, Marius Grigaitis, who in 2011
+added Lithuanian support, but didn't take over maintenance of the project.
 
-I am thus basing myself on Marius Grigaitis' improvements and re-publishing ``pynum2word`` as
-``num2words``.
+I am thus basing myself on Marius Grigaitis' improvements and re-publishing
+``pynum2word`` as ``num2words``.
 
 Virgil Dupras, Savoir-faire Linux
