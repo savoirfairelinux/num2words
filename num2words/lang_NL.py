@@ -61,7 +61,7 @@ class Num2Word_NL(Num2Word_EU):
                      "vier": "vierd",
                      "vijf": "vijfd",
                      "zes": "zesd",
-                     "zeven": "zevend",                     
+                     "zeven": "zevend",
                      "acht": "achtst",
                      "negen": "negend",
                      "tien":"tiend",
@@ -94,7 +94,7 @@ class Num2Word_NL(Num2Word_EU):
                 if ntext.endswith("e"):
                         ntext += "ën"#"n"
                 else:
-                        ntext += "en"     
+                        ntext += "en"
                 ntext, ctext = ctext, ntext #+ "en"
             elif cnum >= 10**6:
                 ctext += " "
