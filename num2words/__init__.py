@@ -70,7 +70,10 @@ CONVERTER_CLASSES = {
     'uk': lang_UK.Num2Word_UK()
 }
 
-def num2words(number, ordinal=False, lang='en'):
+CONVERTES_TYPES = ['cardinal', 'ordinal', 'year', 'currency']
+
+
+def num2words(number, ordinal=False, lang='en', to='cardinal'):
     # We try the full language first
     if lang not in CONVERTER_CLASSES:
         # ... and then try only the first 2 letters
@@ -78,7 +81,11 @@ def num2words(number, ordinal=False, lang='en'):
     if lang not in CONVERTER_CLASSES:
         raise NotImplementedError()
     converter = CONVERTER_CLASSES[lang]
+    # backwards compatible
     if ordinal:
         return converter.to_ordinal(number)
-    else:
-        return converter.to_cardinal(number)
+
+    if to not in CONVERTES_TYPES:
+        raise NotImplementedError()
+
+    return getattr(converter, 'to_{}'.format(to))(number)
