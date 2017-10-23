@@ -14,7 +14,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301 USA
 
-from __future__ import unicode_literals
+from __future__ import unicode_literals, print_function
 from .lang_EN_GB import Num2Word_EN_GB
 
 class Num2Word_EN_GB_old(Num2Word_EN_GB):
@@ -38,8 +38,8 @@ def main():
 
     n2w.test(1325325436067876801768700107601001012212132143210473207540327057320957032975032975093275093275093270957329057320975093272950730)
     for val in [1,120,1000,1120,1800, 1976,2000,2010,2099,2171]:
-        print val, "is", n2w.to_currency(val)
-        print val, "is", n2w.to_year(val)
+        print (val, "is", n2w.to_currency(val))
+        print (val, "is", n2w.to_year(val))
 
 if __name__ == "__main__":
     main()
