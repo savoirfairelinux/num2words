@@ -70,6 +70,7 @@ CONVERTER_CLASSES = {
     'uk': lang_UK.Num2Word_UK()
 }
 
+
 def num2words(number, ordinal=False, lang='en'):
     # We try the full language first
     if lang not in CONVERTER_CLASSES:

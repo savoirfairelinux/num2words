@@ -163,7 +163,7 @@ THOUSANDS = {
     6: (u'trylion', u'tryliony', u'trylionów'), # 10^18
     7: (u'tryliard', u'tryliardy', u'tryliardów'), # 10^21
     8: (u'kwadrylion', u'kwadryliony', u'kwadrylionów'), # 10^24
-    9: (u'kwaryliard', u'kwadryliardy', u'kwadryliardów'), #10^27
+    9: (u'kwaryliard', u'kwadryliardy', u'kwadryliardów'), # 10^27
     10: (u'kwintylion', u'kwintyliony', u'kwintylionów'), # 10^30
 }
 

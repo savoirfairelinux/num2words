@@ -95,7 +95,7 @@ def pluralize(n, forms):
 
 
 def int2word(n):
-    if n > 9999: #doesn't yet work for numbers this big
+    if n > 9999: # doesn't yet work for numbers this big
         raise NotImplementedError()
 
     if n == 0:

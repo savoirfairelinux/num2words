@@ -18,6 +18,7 @@
 from __future__ import unicode_literals, print_function
 from .lang_EU import Num2Word_EU
 
+
 class Num2Word_NL(Num2Word_EU):
     def set_high_numwords(self, high):
         max = 3 + 6*len(high)
@@ -92,10 +93,10 @@ class Num2Word_NL(Num2Word_EU):
                     ntext = "een"
 
                 if ntext.endswith("e"):
-                        ntext += "ën"#"n"
+                        ntext += "ën" # "n"
                 else:
                         ntext += "en"
-                ntext, ctext = ctext, ntext #+ "en"
+                ntext, ctext = ctext, ntext # + "en"
             elif cnum >= 10**6:
                 ctext += " "
             val = cnum + nnum

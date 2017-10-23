@@ -41,28 +41,23 @@ class Num2Word_Base(object):
 
         self.MAXVAL = 1000 * self.cards.order[0]
 
-
     def set_numwords(self):
         self.set_high_numwords(self.high_numwords)
         self.set_mid_numwords(self.mid_numwords)
         self.set_low_numwords(self.low_numwords)
-
 
     def gen_high_numwords(self, units, tens, lows):
         out = [u + t for t in tens for u in units]
         out.reverse()
         return out + lows
 
-
     def set_mid_numwords(self, mid):
         for key, val in mid:
             self.cards[key] = val
 
-
     def set_low_numwords(self, numwords):
         for word, n in zip(numwords, range(len(numwords) - 1, -1, -1)):
             self.cards[n] = word
-
 
     def splitnum(self, value):
         for elem in self.cards:
@@ -89,7 +84,6 @@ class Num2Word_Base(object):
 
             return out
 
-
     def to_cardinal(self, value):
         try:
             assert int(value) == value
@@ -110,20 +104,19 @@ class Num2Word_Base(object):
         words, num = self.clean(val)
         return self.title(out + words)
 
-
     def float2tuple(self, value):
         pre = int(value)
         post = abs(value - pre) * 10**self.precision
         if abs(round(post) - post) < 0.01:
-            # We generally floor all values beyond our precision (rather than rounding), but in
-            # cases where we have something like 1.239999999, which is probably due to python's
-            # handling of floats, we actually want to consider it as 1.24 instead of 1.23
+            # We generally floor all values beyond our precision (rather than
+            # rounding), but in cases where we have something like 1.239999999,
+            # which is probably due to python's handling of floats, we actually
+            # want to consider it as 1.24 instead of 1.23
             post = int(round(post))
         else:
             post = int(math.floor(post))
 
         return pre, post
-
 
     def to_cardinal_float(self, value):
         try:
@@ -146,10 +139,8 @@ class Num2Word_Base(object):
 
         return " ".join(out)
 
-
     def merge(self, curr, next):
         raise NotImplementedError
-
 
     def clean(self, val):
         out = val
@@ -172,7 +163,6 @@ class Num2Word_Base(object):
             val = out
         return out[0]
 
-
     def title(self, value):
         if self.is_title:
             out = []
@@ -185,29 +175,23 @@ class Num2Word_Base(object):
             value = " ".join(out)
         return value
 
-
     def verify_ordinal(self, value):
         if not value == int(value):
             raise TypeError(self.errmsg_floatord % value)
         if not abs(value) == value:
             raise TypeError(self.errmsg_negord % value)
 
-
     def verify_num(self, value):
         return 1
-
 
     def set_wordnums(self):
         pass
 
-
     def to_ordinal(self, value):
         return self.to_cardinal(value)
 
-
     def to_ordinal_num(self, value):
         return value
-
 
     # Trivial version
     def inflect(self, value, text):
@@ -216,8 +200,7 @@ class Num2Word_Base(object):
             return text[0]
         return "".join(text)
 
-
-    #//CHECK: generalise? Any others like pounds/shillings/pence?
+    # //CHECK: generalise? Any others like pounds/shillings/pence?
     def to_splitnum(self, val, hightxt="", lowtxt="", jointxt="",
                     divisor=100, longval=True, cents=True):
         out = []
@@ -252,22 +235,17 @@ class Num2Word_Base(object):
 
         return " ".join(out)
 
-
     def to_year(self, value, **kwargs):
         return self.to_cardinal(value)
-
 
     def to_currency(self, value, **kwargs):
         return self.to_cardinal(value)
 
-
     def base_setup(self):
         pass
 
-
     def setup(self):
         pass
-
 
     def test(self, value):
         try:
@@ -285,5 +263,5 @@ class Num2Word_Base(object):
         except:
             _ordnum = "invalid"
 
-        print ("For %s, card is %s;\n\tord is %s; and\n\tordnum is %s." %
-                    (value, _card, _ord, _ordnum))
+        print("For %s, card is %s;\n\tord is %s; and\n\tordnum is %s."
+              % (value, _card, _ord, _ordnum))

@@ -17,6 +17,7 @@
 from __future__ import division, unicode_literals, print_function
 from num2words import lang_EU
 
+
 class Num2Word_DK(lang_EU.Num2Word_EU):
     def set_high_numwords(self, high):
         max = 3 + 6*len(high)
@@ -137,6 +138,7 @@ to_card = n2w.to_cardinal
 to_ord = n2w.to_ordinal
 to_ordnum = n2w.to_ordinal_num
 to_year = n2w.to_year
+
 
 def main():
     for val in [ 1, 11, 12, 21, 31, 33, 71, 80, 81, 91, 99, 100, 101, 102, 155,

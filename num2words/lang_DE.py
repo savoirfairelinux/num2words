@@ -18,6 +18,7 @@
 from __future__ import unicode_literals, print_function
 from .lang_EU import Num2Word_EU
 
+
 class Num2Word_DE(Num2Word_EU):
     def set_high_numwords(self, high):
         max = 3 + 6*len(high)
