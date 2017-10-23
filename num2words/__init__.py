@@ -16,26 +16,58 @@
 
 from __future__ import unicode_literals
 
+from . import lang_AR
 from . import lang_EN
 from . import lang_EN_GB
 from . import lang_EN_IN
 from . import lang_FR
+from . import lang_FR_CH
+from . import lang_FR_DZ
 from . import lang_DE
 from . import lang_ES
 from . import lang_LT
 from . import lang_LV
 from . import lang_PL
+from . import lang_RU
+from . import lang_ID
+from . import lang_NO
+from . import lang_DK
+from . import lang_PT_BR
+from . import lang_HE
+from . import lang_IT
+from . import lang_ES_VE
+from . import lang_ES_CO
+from . import lang_VN
+from . import lang_TR
+from . import lang_NL
+from . import lang_UK
 
 CONVERTER_CLASSES = {
+    'ar': lang_AR.Num2Word_AR(),
     'en': lang_EN.Num2Word_EN(),
     'en_GB': lang_EN_GB.Num2Word_EN_GB(),
     'en_IN': lang_EN_IN.Num2Word_EN_IN(),
     'fr': lang_FR.Num2Word_FR(),
+    'fr_CH': lang_FR_CH.Num2Word_FR_CH(),
+    'fr_DZ': lang_FR_DZ.Num2Word_FR_DZ(),
     'de': lang_DE.Num2Word_DE(),
     'es': lang_ES.Num2Word_ES(),
+    'es_CO': lang_ES_CO.Num2Word_ES_CO(),
+    'es_VE': lang_ES_VE.Num2Word_ES_VE(),
+    'id': lang_ID.Num2Word_ID(),
     'lt': lang_LT.Num2Word_LT(),
     'lv': lang_LV.Num2Word_LV(),
     'pl': lang_PL.Num2Word_PL(),
+    'ru': lang_RU.Num2Word_RU(),
+    'no': lang_NO.Num2Word_NO(),
+    'dk': lang_DK.Num2Word_DK(),
+    'pt_BR': lang_PT_BR.Num2Word_PT_BR(),
+    'he': lang_HE.Num2Word_HE(),
+    'it': lang_IT.Num2Word_IT(),
+    'vi_VN': lang_VN.Num2Word_VN(),
+    'tr': lang_TR.Num2Word_TR(),
+    'nl': lang_NL.Num2Word_NL(),
+    'uk': lang_UK.Num2Word_UK()
 }
 
 def num2words(number, ordinal=False, lang='en'):

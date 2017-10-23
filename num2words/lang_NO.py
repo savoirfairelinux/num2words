@@ -17,34 +17,41 @@
 from __future__ import division, unicode_literals, print_function
 from . import lang_EU
 
-class Num2Word_EN(lang_EU.Num2Word_EU):
+class Num2Word_NO(lang_EU.Num2Word_EU):
     def set_high_numwords(self, high):
-        max = 3 + 3*len(high)
-        for word, n in zip(high, range(max, 3, -3)):
-            self.cards[10**n] = word + "illion"
+        max = 3 + 6*len(high)
+        for word, n in zip(high, range(max, 3, -6)):
+            self.cards[10**n] = word + "illard"
+            self.cards[10**(n-3)] = word + "illion"
 
     def setup(self):
         self.negword = "minus "
-        self.pointword = "point"
-        self.errmsg_nornum = "Only numbers may be converted to words."
-        self.exclude_title = ["and", "point", "minus"]
+        self.pointword = "komma"
+        self.errmsg_nornum = "Bare tall kan bli konvertert til ord."
+        self.exclude_title = ["og", "komma", "minus"]
 
-        self.mid_numwords = [(1000, "thousand"), (100, "hundred"),
-                             (90, "ninety"), (80, "eighty"), (70, "seventy"),
-                             (60, "sixty"), (50, "fifty"), (40, "forty"),
-                             (30, "thirty")]
-        self.low_numwords = ["twenty", "nineteen", "eighteen", "seventeen",
-                             "sixteen", "fifteen", "fourteen", "thirteen",
-                             "twelve", "eleven", "ten", "nine", "eight",
-                             "seven", "six", "five", "four", "three", "two",
-                             "one", "zero"]
-        self.ords = { "one"    : "first",
-                      "two"    : "second",
-                      "three"  : "third",
-                      "five"   : "fifth",
-                      "eight"  : "eighth",
-                      "nine"   : "ninth",
-                      "twelve" : "twelfth" }
+        self.mid_numwords = [(1000, "tusen"), (100, "hundre"),
+                             (90, "nitti"), (80, "\xe5tti"), (70, "sytti"),
+                             (60, "seksti"), (50, "femti"), (40, "f\xf8rti"),
+                             (30, "tretti")]
+        self.low_numwords = ["tjue", "nitten", "atten", "sytten",
+                             "seksten", "femten", "fjorten", "tretten",
+                             "tolv", "elleve", "ti", "ni", "\xe5tte",
+                             "syv", "seks", "fem", "fire", "tre", "to",
+                             "en", "null"]
+        self.ords = { "en"    : "f\xf8rste",
+                      "to"    : "andre",
+                      "tre"  : "tredje",
+                      "fire" : "fjerde",
+                      "fem"   : "femte",
+                      "seks" : "sjette",
+                      "syv" : "syvende",
+                      "\xe5tte" : "\xe5ttende",
+                      "ni" : "niende",
+                      "ti" : "tiende",
+                      "elleve" : "ellevte",
+                      "tolv" : "tolvte",
+                      "tjue" : "tjuende" }
 
 
     def merge(self, lpair, rpair):
@@ -55,7 +62,7 @@ class Num2Word_EN(lang_EU.Num2Word_EU):
         elif 100 > lnum > rnum :
             return ("%s-%s"%(ltext, rtext), lnum + rnum)
         elif lnum >= 100 > rnum:
-            return ("%s and %s"%(ltext, rtext), lnum + rnum)
+            return ("%s og %s"%(ltext, rtext), lnum + rnum)
         elif rnum > lnum:
             return ("%s %s"%(ltext, rtext), lnum * rnum)
         return ("%s, %s"%(ltext, rtext), lnum + rnum)
@@ -69,11 +76,12 @@ class Num2Word_EN(lang_EU.Num2Word_EU):
         try:
             lastword = self.ords[lastword]
         except KeyError:
-            if lastword[-1] == "y":
-                lastword = lastword[:-1] + "ie"
-            lastword += "th"
+            if lastword[-2:] == "ti":
+                lastword = lastword + "ende"
+            else:
+                lastword += "de"
         lastwords[-1] = self.title(lastword)
-        outwords[-1] = "-".join(lastwords)
+        outwords[-1] = "".join(lastwords)
         return " ".join(outwords)
 
 
@@ -85,15 +93,15 @@ class Num2Word_EN(lang_EU.Num2Word_EU):
     def to_year(self, val, longval=True):
         if not (val//100)%10:
             return self.to_cardinal(val)
-        return self.to_splitnum(val, hightxt="hundred", jointxt="and",
+        return self.to_splitnum(val, hightxt="hundre", jointxt="og",
                                 longval=longval)
 
     def to_currency(self, val, longval=True):
-        return self.to_splitnum(val, hightxt="dollar/s", lowtxt="cent/s",
-                                jointxt="and", longval=longval, cents = True)
+        return self.to_splitnum(val, hightxt="krone/r", lowtxt="\xf8re/r",
+                                jointxt="og", longval=longval, cents = True)
 
 
-n2w = Num2Word_EN()
+n2w = Num2Word_NO()
 to_card = n2w.to_cardinal
 to_ord = n2w.to_ordinal
 to_ordnum = n2w.to_ordinal_num
@@ -107,8 +115,8 @@ def main():
         n2w.test(val)
     n2w.test(1325325436067876801768700107601001012212132143210473207540327057320957032975032975093275093275093270957329057320975093272950730)
     for val in [1,120,1000,1120,1800, 1976,2000,2010,2099,2171]:
-        print(val, "is", n2w.to_currency(val))
-        print(val, "is", n2w.to_year(val))
+        print(val, "er", n2w.to_currency(val))
+        print(val, "er", n2w.to_year(val))
 
 
 if __name__ == "__main__":

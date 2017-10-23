@@ -15,7 +15,11 @@
 # MA 02110-1301 USA
 
 from __future__ import unicode_literals
+
+import math
+
 from .orderedmapping import OrderedMapping
+from .compat import to_s
 
 
 class Num2Word_Base(object):
@@ -36,7 +40,7 @@ class Num2Word_Base(object):
         self.set_numwords()
 
         self.MAXVAL = 1000 * self.cards.order[0]
-        
+
 
     def set_numwords(self):
         self.set_high_numwords(self.high_numwords)
@@ -64,7 +68,7 @@ class Num2Word_Base(object):
         for elem in self.cards:
             if elem > value:
                 continue
-            
+
             out = []
             if value == 0:
                 div, mod = 1, 0
@@ -75,7 +79,7 @@ class Num2Word_Base(object):
                 out.append((self.cards[1], 1))
             else:
                 if div == value:  # The system tallies, eg Roman Numerals
-                    return [(div * self.cards[elem], div*elem)]                    
+                    return [(div * self.cards[elem], div*elem)]
                 out.append(self.splitnum(div))
 
             out.append((self.cards[elem], elem))
@@ -88,7 +92,7 @@ class Num2Word_Base(object):
 
     def to_cardinal(self, value):
         try:
-            assert long(value) == value
+            assert int(value) == value
         except (ValueError, TypeError, AssertionError):
             return self.to_cardinal_float(value)
 
@@ -101,11 +105,24 @@ class Num2Word_Base(object):
 
         if value >= self.MAXVAL:
             raise OverflowError(self.errmsg_toobig % (value, self.MAXVAL))
-        
 
         val = self.splitnum(value)
         words, num = self.clean(val)
         return self.title(out + words)
+
+
+    def float2tuple(self, value):
+        pre = int(value)
+        post = abs(value - pre) * 10**self.precision
+        if abs(round(post) - post) < 0.01:
+            # We generally floor all values beyond our precision (rather than rounding), but in
+            # cases where we have something like 1.239999999, which is probably due to python's
+            # handling of floats, we actually want to consider it as 1.24 instead of 1.23
+            post = int(round(post))
+        else:
+            post = int(math.floor(post))
+
+        return pre, post
 
 
     def to_cardinal_float(self, value):
@@ -114,18 +131,18 @@ class Num2Word_Base(object):
         except (ValueError, TypeError, AssertionError):
             raise TypeError(self.errmsg_nonnum % value)
 
-        pre = int(value)
-        post = abs(value - pre)
+        pre, post = self.float2tuple(float(value))
+
+        post = str(post)
+        post = '0' * (self.precision - len(post)) + post
 
         out = [self.to_cardinal(pre)]
         if self.precision:
             out.append(self.title(self.pointword))
 
         for i in range(self.precision):
-            post *= 10
-            curr = int(post)
-            out.append(str(self.to_cardinal(curr)))
-            post -= curr
+            curr = int(post[i])
+            out.append(to_s(self.to_cardinal(curr)))
 
         return " ".join(out)
 
@@ -170,10 +187,10 @@ class Num2Word_Base(object):
 
 
     def verify_ordinal(self, value):
-        if not value == long(value):
-            raise TypeError, self.errmsg_floatord %(value)
+        if not value == int(value):
+            raise TypeError(self.errmsg_floatord % value)
         if not abs(value) == value:
-            raise TypeError, self.errmsg_negord %(value)
+            raise TypeError(self.errmsg_negord % value)
 
 
     def verify_num(self, value):
@@ -183,8 +200,8 @@ class Num2Word_Base(object):
     def set_wordnums(self):
         pass
 
-            
-    def to_ordinal(value):
+
+    def to_ordinal(self, value):
         return self.to_cardinal(value)
 
 
@@ -202,12 +219,17 @@ class Num2Word_Base(object):
 
     #//CHECK: generalise? Any others like pounds/shillings/pence?
     def to_splitnum(self, val, hightxt="", lowtxt="", jointxt="",
-                    divisor=100, longval=True, cents = True):
+                    divisor=100, longval=True, cents=True):
         out = []
-        try:
-            high, low = val
-        except TypeError:
-            high, low = divmod(val, divisor)
+
+        if isinstance(val, float):
+            high, low = self.float2tuple(val)
+        else:
+            try:
+                high, low = val
+            except TypeError:
+                high, low = divmod(val, divisor)
+
         if high:
             hightxt = self.title(self.inflect(high, hightxt))
             out.append(self.to_cardinal(high))
@@ -219,6 +241,7 @@ class Num2Word_Base(object):
                         out.append(self.title(jointxt))
             elif hightxt:
                 out.append(hightxt)
+
         if low:
             if cents:
                 out.append(self.to_cardinal(low))
@@ -226,6 +249,7 @@ class Num2Word_Base(object):
                 out.append("%02d" % low)
             if lowtxt and longval:
                 out.append(self.title(self.inflect(low, lowtxt)))
+
         return " ".join(out)
 
 
@@ -260,6 +284,6 @@ class Num2Word_Base(object):
             _ordnum = self.to_ordinal_num(value)
         except:
             _ordnum = "invalid"
-            
+
         print ("For %s, card is %s;\n\tord is %s; and\n\tordnum is %s." %
                     (value, _card, _ord, _ordnum))
