@@ -16,7 +16,7 @@
 
 from __future__ import unicode_literals
 from .lang_EN import Num2Word_EN
-    
+
 class Num2Word_EN_EUR(Num2Word_EN):
     def to_currency(self, val, longval=True, cents=True, jointxt="and"):
         return self.to_splitnum(val, hightxt="euro/s", lowtxt="cents",
@@ -40,7 +40,7 @@ def main():
     for val in [1,120,1000,1120,1800, 1976,2000,2010,2099,2171]:
         print val, "is", n2w.to_currency(val)
         print val, "is", n2w.to_year(val)
-    
+
 
 if __name__ == "__main__":
     main()

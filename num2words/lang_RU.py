@@ -233,7 +233,7 @@ def int2word(n, feminine=False):
 
         if n3 > 0:
             words.append(HUNDREDS[n3][0])
-            
+
         if n2 > 1:
             words.append(TWENTIES[n2][0])
 

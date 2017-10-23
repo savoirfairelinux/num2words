@@ -215,7 +215,7 @@ def pluralize(n, forms):
             form = 2
     else:
         form = 2
-    
+
     return forms[form]
 
 
@@ -235,7 +235,7 @@ def int2word(n, feminine=True):
 
         if n3 > 0:
             words.append(HUNDREDS[n3][0])
-            
+
         if n2 > 1:
             words.append(TWENTIES[n2][0])
 
@@ -245,7 +245,7 @@ def int2word(n, feminine=True):
         elif n1 > 0:
             ones = ONES_FEMININE if i == 1 or feminine and i == 0 else ONES
             words.append(ones[n1][0])
-            
+
 
         if i > 0 and ((n1+n2+n3) > 0):
             words.append(pluralize(x, THOUSANDS[i]))

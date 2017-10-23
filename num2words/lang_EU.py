@@ -25,7 +25,7 @@ class Num2Word_EU(Num2Word_Base):
             self.cards[10**n] = word + "illiard"
             self.cards[10**(n-3)] = word + "illion"
 
-        
+
     def base_setup(self):
         lows = ["non","oct","sept","sext","quint","quadr","tr","b","m"]
         units = ["", "un", "duo", "tre", "quattuor", "quin", "sex", "sept",

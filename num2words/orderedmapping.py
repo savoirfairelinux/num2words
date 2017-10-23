@@ -19,7 +19,7 @@ class OrderedMapping(dict):
         self.order = []
         for key, val in pairs:
             self[key] = val
-            
+
     def __setitem__(self, key, val):
         if key not in self:
             self.order.append(key)
