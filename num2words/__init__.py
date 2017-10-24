@@ -73,6 +73,9 @@ CONVERTER_CLASSES = {
 }
 
 
+CONVERTES_TYPES = ['cardinal', 'ordinal', 'year', 'currency']
+
+
 def num2words(number, ordinal=False, lang='en', to='cardinal'):
     # We try the full language first
     if lang not in CONVERTER_CLASSES:
