@@ -23,8 +23,10 @@ from .lang_ES import Num2Word_ES
 class Num2Word_ES_VE(Num2Word_ES):
 
     def to_currency(self, val, longval=True, old=False):
-            return self.to_splitnum(val, hightxt="bolívar/es Fuerte/s", lowtxt="bolívar/es fuerte/s",
+            return self.to_splitnum(val, hightxt="bolívar/es Fuerte/s",
+                                    lowtxt="bolívar/es fuerte/s",
                                     divisor=1000, jointxt="y", longval=longval)
+
 
 n2w = Num2Word_ES_VE()
 to_card = n2w.to_cardinal

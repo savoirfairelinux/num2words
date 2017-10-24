@@ -34,12 +34,15 @@ class Num2Word_ES(Num2Word_EU):
         self.negword = "menos "
         self.pointword = "punto"
         self.errmsg_nonnum = "Solo números pueden ser convertidos a palabras."
-        self.errmsg_toobig = "Numero muy grande para ser convertido a palabras."
+        self.errmsg_toobig = (
+            "Numero muy grande para ser convertido a palabras."
+            )
         self.gender_stem = "o"
         self.exclude_title = ["y", "menos", "punto"]
         self.mid_numwords = [(1000, "mil"), (100, "cien"), (90, "noventa"),
                              (80, "ochenta"), (70, "setenta"), (60, "sesenta"),
-                             (50, "cincuenta"), (40, "cuarenta"), (30, "treinta")]
+                             (50, "cincuenta"), (40, "cuarenta"),
+                             (30, "treinta")]
         self.low_numwords = ["veintinueve", "veintiocho", "veintisiete",
                              "veintiséis", "veinticinco", "veinticuatro",
                              "veintitrés", "veintidós", "veintiuno",
@@ -120,13 +123,22 @@ class Num2Word_ES(Num2Word_EU):
             elif value <= 10:
                 text = "%s%s" % (self.ords[value], self.gender_stem)
             elif value <= 12:
-                text = "%s%s%s" % (self.ords[10], self.gender_stem, self.to_ordinal(value - 10))
+                text = (
+                    "%s%s%s" % (self.ords[10], self.gender_stem,
+                                self.to_ordinal(value - 10))
+                        )
             elif value <= 100:
                 dec = (value // 10) * 10
-                text = "%s%s %s" % (self.ords[dec], self.gender_stem, self.to_ordinal(value - dec))
+                text = (
+                    "%s%s %s" % (self.ords[dec], self.gender_stem,
+                                 self.to_ordinal(value - dec))
+                        )
             elif value <= 1e3:
                 cen = (value // 100) * 100
-                text = "%s%s %s" % (self.ords[cen], self.gender_stem, self.to_ordinal(value - cen))
+                text = (
+                    "%s%s %s" % (self.ords[cen], self.gender_stem,
+                                 self.to_ordinal(value - cen))
+                        )
             elif value < 1e18:
                 # dec contains the following:
                 # [ 1e3,  1e6): 1e3
@@ -136,8 +148,13 @@ class Num2Word_ES(Num2Word_EU):
                 # [1e15, 1e18): 1e15
                 dec = 10 ** ((((len(str(int(value))) - 1) / 3 - 1) + 1) * 3)
                 part = int(float(value / dec) * dec)
-                cardinal = self.to_cardinal(part / dec) if part / dec != 1 else ""
-                text = "%s%s%s %s" % (cardinal, self.ords[dec], self.gender_stem, self.to_ordinal(value - part))
+                cardinal = (
+                    self.to_cardinal(part / dec) if part / dec != 1 else ""
+                    )
+                text = (
+                    "%s%s%s %s" % (cardinal, self.ords[dec], self.gender_stem,
+                                   self.to_ordinal(value - part))
+                        )
             else:
                 text = self.to_cardinal(value)
         except KeyError:

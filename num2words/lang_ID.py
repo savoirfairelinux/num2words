@@ -77,7 +77,9 @@ class Num2Word_ID():
     def spell(self, blocks):
         """
         it adds the list of spelling to the blocks
-        (('1',),('034',)) -> (('1',['satu']),('234',['tiga', 'puluh', 'empat']))
+        (
+        ('1',),('034',)) -> (('1',['satu']),('234',['tiga', 'puluh', 'empat'])
+        )
         :param blocks: tuple
         :rtype: tuple
         """
@@ -91,7 +93,9 @@ class Num2Word_ID():
         elif len(first_block[0]) == 2:
             spelling = self.puluh(first_block[0])
         else:
-            spelling = self.ratus(first_block[0][0]) + self.puluh(first_block[0][1:3])
+            spelling = (
+                self.ratus(first_block[0][0]) + self.puluh(first_block[0][1:3])
+                )
 
         word_blocks += (first_block[0], spelling),
 
@@ -123,7 +127,9 @@ class Num2Word_ID():
         elif number[0] == '0':
             return self.BASE[int(number[1])]
         else:
-            return self.BASE[int(number[0])] + ['puluh'] + self.BASE[int(number[1])]
+            return (
+                self.BASE[int(number[0])] + ['puluh'] + self.BASE[int(number[1])]
+                )
 
     def spell_float(self, float_part):
         # spell the float number

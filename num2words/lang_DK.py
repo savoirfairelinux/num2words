@@ -32,9 +32,9 @@ class Num2Word_DK(lang_EU.Num2Word_EU):
         self.exclude_title = ["og", "komma", "minus"]
 
         self.mid_numwords = [(1000, "tusind"), (100, "hundrede"),
-                             (90, "halvfems"), (80, "firs"), (70, "halvfjerds"),
-                             (60, "treds"), (50, "halvtreds"), (40, "fyrre"),
-                             (30, "tredive")]
+                             (90, "halvfems"), (80, "firs"),
+                             (70, "halvfjerds"), (60, "treds"),
+                             (50, "halvtreds"), (40, "fyrre"), (30, "tredive")]
         self.low_numwords = ["tyve", "nitten", "atten", "sytten",
                              "seksten", "femten", "fjorten", "tretten",
                              "tolv", "elleve", "ti", "ni", "otte",

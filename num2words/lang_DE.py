@@ -30,13 +30,22 @@ class Num2Word_DE(Num2Word_EU):
     def setup(self):
         self.negword = "minus "
         self.pointword = "Komma"
-        self.errmsg_floatord = "Die Gleitkommazahl %s kann nicht in eine Ordnungszahl konvertiert werden."
         # "Cannot treat float %s as ordinal."
-        self.errmsg_nonnum = "Nur Zahlen (type(%s)) können in Wörter konvertiert werden."
+        self.errmsg_floatord = (
+            "Die Gleitkommazahl %s kann nicht in eine Ordnungszahl " +
+            "konvertiert werden."
+            )
         # "type(((type(%s)) ) not in [long, int, float]"
-        self.errmsg_negord = "Die negative Zahl %s kann nicht in eine Ordnungszahl konvertiert werden."
+        self.errmsg_nonnum = (
+            "Nur Zahlen (type(%s)) können in Wörter konvertiert werden."
+            )
         # "Cannot treat negative num %s as ordinal."
-        self.errmsg_toobig = "Die Zahl %s muss kleiner als %s sein."  # "abs(%s) must be less than %s."
+        self.errmsg_negord = (
+            "Die negative Zahl %s kann nicht in eine Ordnungszahl " +
+            "konvertiert werden."
+            )
+        # "abs(%s) must be less than %s."
+        self.errmsg_toobig = "Die Zahl %s muss kleiner als %s sein."
         self.exclude_title = []
 
         lows = ["non", "okt", "sept", "sext", "quint", "quadr", "tr", "b", "m"]
@@ -44,16 +53,18 @@ class Num2Word_DE(Num2Word_EU):
                  "okto", "novem"]
         tens = ["dez", "vigint", "trigint", "quadragint", "quinquagint",
                 "sexagint", "septuagint", "oktogint", "nonagint"]
-        self.high_numwords = ["zent"] + self.gen_high_numwords(units, tens, lows)
+        self.high_numwords = (
+            ["zent"] + self.gen_high_numwords(units, tens, lows)
+            )
         self.mid_numwords = [(1000, "tausend"), (100, "hundert"),
                              (90, "neunzig"), (80, "achtzig"), (70, "siebzig"),
-                             (60, "sechzig"), (50, "f\xFCnfzig"), (40, "vierzig"),
-                             (30, "drei\xDFig")]
+                             (60, "sechzig"), (50, "f\xFCnfzig"),
+                             (40, "vierzig"), (30, "drei\xDFig")]
         self.low_numwords = ["zwanzig", "neunzehn", "achtzehn", "siebzehn",
                              "sechzehn", "f\xFCnfzehn", "vierzehn", "dreizehn",
-                             "zw\xF6lf", "elf", "zehn", "neun", "acht", "sieben",
-                             "sechs", "f\xFCnf", "vier", "drei", "zwei", "eins",
-                             "null"]
+                             "zw\xF6lf", "elf", "zehn", "neun", "acht",
+                             "sieben", "sechs", "f\xFCnf", "vier", "drei",
+                             "zwei", "eins", "null"]
         self.ords = {"eins": "ers",
                      "drei": "drit",
                      "acht": "ach",

@@ -180,7 +180,8 @@ THOUSANDS = {
 
 CURRENCIES = {
     'UAH': (
-        (u'гривня', u'гривнi', u'гривень'), (u'копiйка', u'копiйки', u'копiйок')
+        (u'гривня', u'гривнi', u'гривень'),
+        (u'копiйка', u'копiйки', u'копiйок')
     ),
     'EUR': (
         (u'евро', u'евро', u'евро'), (u'цент', u'центи', u'центiв')
@@ -205,8 +206,8 @@ def get_digits(n):
 
 
 def pluralize(n, forms):
-    # form = 0 if n==1 else 1 if (n % 10 > 1 and n % 10 < 5 and (n % 100 < 10 or
-    # n % 100 > 20)) else 2
+    # form = 0 if n==1 else 1 if (n % 10 > 1 and n % 10 < 5 and (n % 100 < 10
+    # or n % 100 > 20)) else 2
     if (n % 100 < 10 or n % 100 > 20):
         if n % 10 == 1:
             form = 0

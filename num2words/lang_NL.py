@@ -31,12 +31,22 @@ class Num2Word_NL(Num2Word_EU):
         self.negword = "min "
         self.pointword = "komma"
         # "Cannot treat float %s as ordinal."
-        self.errmsg_floatord = "Het zwevende puntnummer %s kan niet omgezet worden naar een ordernummer."
+        self.errmsg_floatord = (
+            "Het zwevende puntnummer %s kan niet omgezet worden " +
+            "naar een ordernummer."
+             )
         # "type(((type(%s)) ) not in [long, int, float]"
-        self.errmsg_nonnum = "Alleen nummers (type (%s)) kunnen naar woorden omgezet worden."
+        self.errmsg_nonnum = (
+            "Alleen nummers (type (%s)) kunnen naar " +
+            "woorden omgezet worden."
+            )
         # "Cannot treat negative num %s as ordinal."
-        self.errmsg_negord = "Het negatieve getal %s kan niet omgezet worden naar een ordernummer."
-        self.errmsg_toobig = "Het getal %s moet minder zijn dan %s."  # "abs(%s) must be less than %s."
+        self.errmsg_negord = (
+            "Het negatieve getal %s kan niet omgezet " +
+            "worden naar een ordernummer."
+            )
+        # "abs(%s) must be less than %s."
+        self.errmsg_toobig = "Het getal %s moet minder zijn dan %s."
         self.exclude_title = []
 
         lows = ["non", "okt", "sept", "sext", "quint", "quadr", "tr", "b", "m"]
@@ -45,10 +55,13 @@ class Num2Word_NL(Num2Word_EU):
         tens = ["dez", "vigint", "trigint", "quadragint", "quinquagint",
                 "sexagint", "septuagint", "oktogint", "nonagint"]
 
-        self.high_numwords = ["zend"] + self.gen_high_numwords(units, tens, lows)
+        self.high_numwords = (
+            ["zend"] + self.gen_high_numwords(units, tens, lows)
+            )
         self.mid_numwords = [(1000, "duizend"), (100, "honderd"),
-                             (90, "negentig"), (80, "tachtig"), (70, "zeventig"),
-                             (60, "zestig"), (50, "vijftig"), (40, "veertig"),
+                             (90, "negentig"), (80, "tachtig"),
+                             (70, "zeventig"), (60, "zestig"),
+                             (50, "vijftig"), (40, "veertig"),
                              (30, "dertig")]
         self.low_numwords = ["twintig", "negentien", "achttien", "zeventien",
                              "zestien", "vijftien", "veertien", "dertien",
@@ -138,9 +151,10 @@ to_ordnum = n2w.to_ordinal_num
 
 def main():
     for val in [1, 7, 8, 12, 17, 62, 81, 91, 99, 100, 101, 102, 155,
-                180, 300, 308, 832, 1000, 1001, 1061, 1062, 1100, 1500, 1701, 3000,
-                8280, 8291, 150000, 500000, 3000000, 1000000, 2000001, 1000000000, 2000000000,
-                -21212121211221211111, -2.121212, -1.0000100]:
+                180, 300, 308, 832, 1000, 1001, 1061, 1062, 1100, 1500, 1701,
+                3000, 8280, 8291, 150000, 500000, 3000000, 1000000, 2000001,
+                1000000000, 2000000000, -21212121211221211111, -2.121212,
+                -1.0000100]:
         n2w.test(val)
 
     n2w.test(3000000)

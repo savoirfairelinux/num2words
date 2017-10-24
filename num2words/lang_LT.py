@@ -252,7 +252,8 @@ def to_currency(n, currency='EUR', cents=True):
     else:
         cents_str = "%02d" % right
 
-    return u'%s%s %s, %s %s' % (minus_str, int2word(left), pluralize(left, cr1),
+    return u'%s%s %s, %s %s' % (minus_str, int2word(left),
+                                pluralize(left, cr1),
                                 cents_str, pluralize(right, cr2))
 
 
