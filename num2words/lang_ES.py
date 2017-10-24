@@ -21,13 +21,12 @@ from .lang_EU import Num2Word_EU
 
 
 class Num2Word_ES(Num2Word_EU):
-
     # //CHECK: Is this sufficient??
     def set_high_numwords(self, high):
-        max = 3 + 6*len(high)
+        max = 3 + 6 * len(high)
 
         for word, n in zip(high, range(max, 3, -6)):
-            self.cards[10**(n-3)] = word + "illón"
+            self.cards[10 ** (n - 3)] = word + "illón"
 
     def setup(self):
         lows = ["cuatr", "tr", "b", "m"]
@@ -48,38 +47,38 @@ class Num2Word_ES(Num2Word_EU):
                              "dieciseis", "quince", "catorce", "trece", "doce",
                              "once", "diez", "nueve", "ocho", "siete", "seis",
                              "cinco", "cuatro", "tres", "dos", "uno", "cero"]
-        self.ords = { 1 : "primer",
-                      2 : "segund",
-                      3 : "tercer",
-                      4 : "cuart",
-                      5 : "quint",
-                      6 : "sext",
-                      7 : "séptim",
-                      8 : "octav",
-                      9 : "noven",
-                     10 : "décim",
-                     20 : "vigésim",
-                     30 : "trigésim",
-                     40 : "quadragésim",
-                     50 : "quincuagésim",
-                     60 : "sexagésim",
-                     70 : "septuagésim",
-                     80 : "octogésim",
-                     90 : "nonagésim",
-                    100 : "centésim",
-                    200 : "ducentésim",
-                    300 : "tricentésim",
-                    400 : "cuadrigentésim",
-                    500 : "quingentésim",
-                    600 : "sexcentésim",
-                    700 : "septigentésim",
-                    800 : "octigentésim",
-                    900 : "noningentésim",
-                    1e3 : "milésim",
-                    1e6 : "millonésim",
-                    1e9 : "billonésim",
-                   1e12 : "trillonésim",
-                   1e15 : "cuadrillonésim" }
+        self.ords = {1: "primer",
+                     2: "segund",
+                     3: "tercer",
+                     4: "cuart",
+                     5: "quint",
+                     6: "sext",
+                     7: "séptim",
+                     8: "octav",
+                     9: "noven",
+                     10: "décim",
+                     20: "vigésim",
+                     30: "trigésim",
+                     40: "quadragésim",
+                     50: "quincuagésim",
+                     60: "sexagésim",
+                     70: "septuagésim",
+                     80: "octogésim",
+                     90: "nonagésim",
+                     100: "centésim",
+                     200: "ducentésim",
+                     300: "tricentésim",
+                     400: "cuadrigentésim",
+                     500: "quingentésim",
+                     600: "sexcentésim",
+                     700: "septigentésim",
+                     800: "octigentésim",
+                     900: "noningentésim",
+                     1e3: "milésim",
+                     1e6: "millonésim",
+                     1e9: "billonésim",
+                     1e12: "trillonésim",
+                     1e15: "cuadrillonésim"}
 
     def merge(self, curr, next):
         ctext, cnum, ntext, nnum = curr + next
@@ -93,8 +92,8 @@ class Num2Word_ES(Num2Word_EU):
 
         if nnum < cnum:
             if cnum < 100:
-                return "%s y %s"%(ctext, ntext), cnum + nnum
-            return "%s %s"%(ctext, ntext), cnum + nnum
+                return "%s y %s" % (ctext, ntext), cnum + nnum
+            return "%s %s" % (ctext, ntext), cnum + nnum
         elif (not nnum % 1000000) and cnum > 1:
             ntext = ntext[:-3] + "lones"
 
@@ -170,10 +169,12 @@ def main():
                 -21212121211221211111, -2.121212, -1.0000100]:
         n2w.test(val)
 
-    n2w.test(1325325436067876801768700107601001012212132143210473207540327057320957032975032975093275093275093270957329057320975093272950730)
+    n2w.test(
+        1325325436067876801768700107601001012212132143210473207540327057320957032975032975093275093275093270957329057320975093272950730)
     print(n2w.to_currency(1222))
     print(n2w.to_currency(1222, old=True))
     print(n2w.to_year(1222))
+
 
 if __name__ == "__main__":
     main()

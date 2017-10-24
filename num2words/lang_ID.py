@@ -16,8 +16,8 @@
 
 from __future__ import unicode_literals, print_function
 
-class Num2Word_ID():
 
+class Num2Word_ID():
     BASE = {0: [],
             1: ["satu"],
             2: ["dua"],
@@ -44,7 +44,7 @@ class Num2Word_ID():
     errmsg_floatord = "Cannot treat float number as ordinal"
     errmsg_negord = "Cannot treat negative number as ordinal"
     errmsg_toobig = "Too large"
-    max_num = 10**36
+    max_num = 10 ** 36
 
     def split_by_koma(self, number):
         return str(number).split('.')
@@ -69,7 +69,7 @@ class Num2Word_ID():
                 blocks += first_block,
 
             for i in range(len_of_first_block, length, 3):
-                next_block = (number[i:i+3],),
+                next_block = (number[i:i + 3],),
                 blocks += next_block
 
         return blocks
@@ -109,21 +109,21 @@ class Num2Word_ID():
         elif number == '0':
             return []
         else:
-            return self.BASE[int(number)]+['ratus']
+            return self.BASE[int(number)] + ['ratus']
 
     def puluh(self, number):
         # it is used to spell
         if number[0] == '1':
-            if number[1]== '0':
+            if number[1] == '0':
                 return ['sepuluh']
             elif number[1] == '1':
                 return ['sebelas']
             else:
-                return self.BASE[int(number[1])]+['belas']
+                return self.BASE[int(number[1])] + ['belas']
         elif number[0] == '0':
             return self.BASE[int(number[1])]
         else:
-            return self.BASE[int(number[0])]+['puluh']+ self.BASE[int(number[1])]
+            return self.BASE[int(number[0])] + ['puluh'] + self.BASE[int(number[1])]
 
     def spell_float(self, float_part):
         # spell the float number
@@ -133,7 +133,7 @@ class Num2Word_ID():
                 word_list += ['nol']
                 continue
             word_list += self.BASE[int(n)]
-        return ' '.join(['','koma']+word_list)
+        return ' '.join(['', 'koma'] + word_list)
 
     def join(self, word_blocks, float_part):
         """
@@ -142,7 +142,7 @@ class Num2Word_ID():
         :rtype: str
         """
         word_list = []
-        length = len(word_blocks)-1
+        length = len(word_blocks) - 1
         first_block = word_blocks[0],
         start = 0
 
@@ -150,15 +150,15 @@ class Num2Word_ID():
             word_list += ['seribu']
             start = 1
 
-        for i in range(start, length+1, 1):
+        for i in range(start, length + 1, 1):
             word_list += word_blocks[i][1]
             if not word_blocks[i][1]:
                 continue
             if i == length:
                 break
-            word_list += [self.TENS_TO[(length-i)*3]]
+            word_list += [self.TENS_TO[(length - i) * 3]]
 
-        return ' '.join(word_list)+float_part
+        return ' '.join(word_list) + float_part
 
     def to_cardinal(self, number):
         if number >= self.max_num:
@@ -168,7 +168,7 @@ class Num2Word_ID():
             minus = 'min '
         float_word = ''
         n = self.split_by_koma(abs(number))
-        if len(n)==2:
+        if len(n) == 2:
             float_word = self.spell_float(n[1])
         return minus + self.join(self.spell(self.split_by_3(n[0])), float_word)
 
@@ -184,7 +184,7 @@ class Num2Word_ID():
         return "ke-" + str(number)
 
     def to_currency(self, value):
-        return self.to_cardinal(value)+" rupiah"
+        return self.to_cardinal(value) + " rupiah"
 
     def to_year(self, value):
         return self.to_cardinal(value)

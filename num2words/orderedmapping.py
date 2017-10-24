@@ -30,6 +30,6 @@ class OrderedMapping(dict):
             yield item
 
     def __repr__(self):
-        out = ["%s: %s"%(repr(item), repr(self[item])) for item in self]
+        out = ["%s: %s" % (repr(item), repr(self[item])) for item in self]
         out = ", ".join(out)
-        return "{%s}"%out
+        return "{%s}" % out

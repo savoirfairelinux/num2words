@@ -21,19 +21,22 @@ from .lang_EU import Num2Word_EU
 
 class Num2Word_NL(Num2Word_EU):
     def set_high_numwords(self, high):
-        max = 3 + 6*len(high)
+        max = 3 + 6 * len(high)
 
         for word, n in zip(high, range(max, 3, -6)):
-            self.cards[10**n] = word + "iljard"
-            self.cards[10**(n-3)] = word + "iljoen"
+            self.cards[10 ** n] = word + "iljard"
+            self.cards[10 ** (n - 3)] = word + "iljoen"
 
     def setup(self):
         self.negword = "min "
         self.pointword = "komma"
-        self.errmsg_floatord = "Het zwevende puntnummer %s kan niet omgezet worden naar een ordernummer." # "Cannot treat float %s as ordinal."
-        self.errmsg_nonnum = "Alleen nummers (type (%s)) kunnen naar woorden omgezet worden." # "type(((type(%s)) ) not in [long, int, float]"
-        self.errmsg_negord = "Het negatieve getal %s kan niet omgezet worden naar een ordernummer." # "Cannot treat negative num %s as ordinal."
-        self.errmsg_toobig = "Het getal %s moet minder zijn dan %s." # "abs(%s) must be less than %s."
+        # "Cannot treat float %s as ordinal."
+        self.errmsg_floatord = "Het zwevende puntnummer %s kan niet omgezet worden naar een ordernummer."
+        # "type(((type(%s)) ) not in [long, int, float]"
+        self.errmsg_nonnum = "Alleen nummers (type (%s)) kunnen naar woorden omgezet worden."
+        # "Cannot treat negative num %s as ordinal."
+        self.errmsg_negord = "Het negatieve getal %s kan niet omgezet worden naar een ordernummer."
+        self.errmsg_toobig = "Het getal %s moet minder zijn dan %s."  # "abs(%s) must be less than %s."
         self.exclude_title = []
 
         lows = ["non", "okt", "sept", "sext", "quint", "quadr", "tr", "b", "m"]
@@ -42,10 +45,7 @@ class Num2Word_NL(Num2Word_EU):
         tens = ["dez", "vigint", "trigint", "quadragint", "quinquagint",
                 "sexagint", "septuagint", "oktogint", "nonagint"]
 
-
-
-
-        self.high_numwords = ["zend"]+self.gen_high_numwords(units, tens, lows)
+        self.high_numwords = ["zend"] + self.gen_high_numwords(units, tens, lows)
         self.mid_numwords = [(1000, "duizend"), (100, "honderd"),
                              (90, "negentig"), (80, "tachtig"), (70, "zeventig"),
                              (60, "zestig"), (50, "vijftig"), (40, "veertig"),
@@ -57,7 +57,7 @@ class Num2Word_NL(Num2Word_EU):
                              "nul"]
 
         self.ords = {"één": "eerst",
-                    "twee": "tweed",
+                     "twee": "tweed",
                      "drie": "derd",
                      "vier": "vierd",
                      "vijf": "vijfd",
@@ -65,9 +65,9 @@ class Num2Word_NL(Num2Word_EU):
                      "zeven": "zevend",
                      "acht": "achtst",
                      "negen": "negend",
-                     "tien":"tiend",
-                     "elf":"elfd",
-                     "twaalf":"twaalfd",
+                     "tien": "tiend",
+                     "elf": "elfd",
+                     "twaalf": "twaalfd",
 
                      "ig": "igst",
                      "erd": "erdst",
@@ -79,12 +79,12 @@ class Num2Word_NL(Num2Word_EU):
         ctext, cnum, ntext, nnum = curr + next
 
         if cnum == 1:
-            if nnum < 10**6:
+            if nnum < 10 ** 6:
                 return next
             ctext = "een"
 
         if nnum > cnum:
-            if nnum >= 10**6:
+            if nnum >= 10 ** 6:
                 ctext += " "
             val = cnum * nnum
         else:
@@ -93,11 +93,11 @@ class Num2Word_NL(Num2Word_EU):
                     ntext = "een"
 
                 if ntext.endswith("e"):
-                        ntext += "ën" # "n"
+                    ntext += "ën"  # "n"
                 else:
-                        ntext += "en"
-                ntext, ctext = ctext, ntext # + "en"
-            elif cnum >= 10**6:
+                    ntext += "en"
+                ntext, ctext = ctext, ntext  # + "en"
+            elif cnum >= 10 ** 6:
                 ctext += " "
             val = cnum + nnum
 
@@ -120,14 +120,15 @@ class Num2Word_NL(Num2Word_EU):
     def to_currency(self, val, longval=True, old=False):
         if old:
             return self.to_splitnum(val, hightxt="euro/s", lowtxt="cent/s",
-                                    jointxt="en",longval=longval)
+                                    jointxt="en", longval=longval)
         return super(Num2Word_NL, self).to_currency(val, jointxt="en",
                                                     longval=longval)
 
     def to_year(self, val, longval=True):
-        if not (val//100)%10:
+        if not (val // 100) % 10:
             return self.to_cardinal(val)
         return self.to_splitnum(val, hightxt="honderd", longval=longval)
+
 
 n2w = Num2Word_NL()
 to_card = n2w.to_cardinal
@@ -136,10 +137,10 @@ to_ordnum = n2w.to_ordinal_num
 
 
 def main():
-    for val in [1, 7, 8, 12, 17, 62,81, 91, 99, 100, 101, 102, 155,
-             180, 300, 308, 832, 1000, 1001, 1061,1062, 1100, 1500, 1701, 3000,
-             8280, 8291, 150000, 500000, 3000000, 1000000, 2000001, 1000000000, 2000000000,
-             -21212121211221211111, -2.121212, -1.0000100]:
+    for val in [1, 7, 8, 12, 17, 62, 81, 91, 99, 100, 101, 102, 155,
+                180, 300, 308, 832, 1000, 1001, 1061, 1062, 1100, 1500, 1701, 3000,
+                8280, 8291, 150000, 500000, 3000000, 1000000, 2000001, 1000000000, 2000000000,
+                -21212121211221211111, -2.121212, -1.0000100]:
         n2w.test(val)
 
     n2w.test(3000000)
@@ -150,6 +151,6 @@ def main():
     print(n2w.to_year(1820))
     print(n2w.to_year(2001))
 
+
 if __name__ == "__main__":
     main()
-

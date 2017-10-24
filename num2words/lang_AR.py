@@ -21,9 +21,9 @@ from . import lang_EU
 
 class Num2Word_AR(lang_EU.Num2Word_EU):
     def set_high_numwords(self, high):
-        max = 3 + 3*len(high)
+        max = 3 + 3 * len(high)
         for word, n in zip(high, range(max, 3, -3)):
-            self.cards[10**n] = word + "illion"
+            self.cards[10 ** n] = word + "illion"
 
     def setup(self):
         self.negword = "سالب "
@@ -41,32 +41,32 @@ class Num2Word_AR(lang_EU.Num2Word_EU):
                              "سبعة", "ستة", "خمسة", "أربعة", "ثلاثة", "اثنين",
                              "واحد", "صفر"]
         self.ords = {"واحد": "أول",
-                      "اثنين": "ثاني",
-                      "ثلاثة": "ثالث",
-                      "أربعة": "رابع",
-                      "خمسة": "خامس",
-                      "ثمانية": "ثامن",
-                      "تسعة": "تاسع",
-                      "اثناعشر": "ثاني عشر" }
+                     "اثنين": "ثاني",
+                     "ثلاثة": "ثالث",
+                     "أربعة": "رابع",
+                     "خمسة": "خامس",
+                     "ثمانية": "ثامن",
+                     "تسعة": "تاسع",
+                     "اثناعشر": "ثاني عشر"}
 
     def merge(self, lpair, rpair):
         ltext, lnum = lpair
         rtext, rnum = rpair
         if lnum == 1 and rnum < 100:
             return (rtext, rnum)
-        elif 100 > lnum > rnum :
-            return ("%s و%s"%(rtext, ltext), rnum + lnum)
+        elif 100 > lnum > rnum:
+            return ("%s و%s" % (rtext, ltext), rnum + lnum)
         elif lnum >= 100 > rnum:
-            return ("%s و %s"%(ltext, rtext), lnum + rnum)
+            return ("%s و %s" % (ltext, rtext), lnum + rnum)
         elif rnum > lnum:
             if lnum == 1 and rnum in [100, 1000, 1000000]:
-                return ("%s"%(rtext), rnum * lnum)
+                return ("%s" % (rtext), rnum * lnum)
             if lnum == 2 and rnum == 100:
                 return ("مئتين", rnum * lnum)
             if lnum == 2 and rnum in [100, 1000]:
-                return ("%sين"%(rtext), rnum * lnum)
-            return ("%s %s"%(ltext, rtext), lnum * rnum)
-        return ("%s، %s"%(ltext, rtext), lnum + rnum)
+                return ("%sين" % (rtext), rnum * lnum)
+            return ("%s %s" % (ltext, rtext), lnum * rnum)
+        return ("%s، %s" % (ltext, rtext), lnum + rnum)
 
     def to_ordinal(self, value):
         self.verify_ordinal(value)
@@ -83,17 +83,17 @@ class Num2Word_AR(lang_EU.Num2Word_EU):
 
     def to_ordinal_num(self, value):
         self.verify_ordinal(value)
-        return "%s%s"%(value, self.to_ordinal(value)[-2:])
+        return "%s%s" % (value, self.to_ordinal(value)[-2:])
 
     def to_year(self, val, longval=True):
-        if not (val//100)%10:
+        if not (val // 100) % 10:
             return self.to_cardinal(val)
         return self.to_splitnum(val, hightxt="مئة", jointxt="و",
                                 longval=longval)
 
     def to_currency(self, val, longval=True):
         return self.to_splitnum(val, hightxt="ريال", lowtxt="هللة",
-                                jointxt="و", longval=longval, cents = True)
+                                jointxt="و", longval=longval, cents=True)
 
 
 n2w = Num2Word_AR()
@@ -104,12 +104,13 @@ to_year = n2w.to_year
 
 
 def main():
-    for val in [ 1, 11, 12, 21, 31, 33, 71, 80, 81, 91, 99, 100, 101, 102, 155,
-             180, 300, 308, 832, 1000, 1001, 1061, 1100, 1500, 1701, 3000,
-             8280, 8291, 150000, 500000, 1000000, 2000000, 2000001,
-             -21212121211221211111, -2.121212, -1.0000100]:
+    for val in [1, 11, 12, 21, 31, 33, 71, 80, 81, 91, 99, 100, 101, 102, 155,
+                180, 300, 308, 832, 1000, 1001, 1061, 1100, 1500, 1701, 3000,
+                8280, 8291, 150000, 500000, 1000000, 2000000, 2000001,
+                -21212121211221211111, -2.121212, -1.0000100]:
         n2w.test(val)
-    n2w.test(1325325436067876801768700107601001012212132143210473207540327057320957032975032975093275093275093270957329057320975093272950730)
+    n2w.test(
+        1325325436067876801768700107601001012212132143210473207540327057320957032975032975093275093275093270957329057320975093272950730)
     for val in [1, 120, 1000, 1120, 1800, 1976, 2000, 2010, 2099, 2171]:
         print(val, "is", n2w.to_currency(val))
         print(val, "is", n2w.to_year(val))
