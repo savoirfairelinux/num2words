@@ -41,6 +41,7 @@ from . import lang_VN
 from . import lang_TR
 from . import lang_NL
 from . import lang_UK
+from . import lang_SL
 
 CONVERTER_CLASSES = {
     'ar': lang_AR.Num2Word_AR(),
@@ -59,6 +60,7 @@ CONVERTER_CLASSES = {
     'lv': lang_LV.Num2Word_LV(),
     'pl': lang_PL.Num2Word_PL(),
     'ru': lang_RU.Num2Word_RU(),
+    'sl': lang_SL.Num2Word_SL(),
     'no': lang_NO.Num2Word_NO(),
     'dk': lang_DK.Num2Word_DK(),
     'pt_BR': lang_PT_BR.Num2Word_PT_BR(),
@@ -71,7 +73,7 @@ CONVERTER_CLASSES = {
 }
 
 
-def num2words(number, ordinal=False, lang='en'):
+def num2words(number, ordinal=False, lang='en', to='cardinal'):
     # We try the full language first
     if lang not in CONVERTER_CLASSES:
         # ... and then try only the first 2 letters
@@ -79,7 +81,11 @@ def num2words(number, ordinal=False, lang='en'):
     if lang not in CONVERTER_CLASSES:
         raise NotImplementedError()
     converter = CONVERTER_CLASSES[lang]
+    # backwards compatible
     if ordinal:
         return converter.to_ordinal(number)
-    else:
-        return converter.to_cardinal(number)
+
+    if to not in CONVERTES_TYPES:
+        raise NotImplementedError()
+
+    return getattr(converter, 'to_{}'.format(to))(number)
