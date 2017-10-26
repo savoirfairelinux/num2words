@@ -153,6 +153,7 @@ CURRENCIES = {
     'EUR': ((u'euras', u'eurai', u'eurų'), (u'centas', u'centai', u'centų')),
 }
 
+
 def splitby3(n):
     length = len(n)
     if length > 3:
@@ -160,13 +161,14 @@ def splitby3(n):
         if start > 0:
             yield int(n[:start])
         for i in range(start, length, 3):
-            yield int(n[i:i+3])
+            yield int(n[i:i + 3])
     else:
         yield int(n)
 
 
 def get_digits(n):
     return [int(x) for x in reversed(list(('%03d' % n)[-3:]))]
+
 
 def pluralize(n, forms):
     n1, n2, n3 = get_digits(n)
@@ -176,6 +178,7 @@ def pluralize(n, forms):
         return forms[0]
     else:
         return forms[1]
+
 
 def int2word(n):
     if n == 0:
@@ -209,6 +212,7 @@ def int2word(n):
 
     return ' '.join(words)
 
+
 def n2w(n):
     n = str(n).replace(',', '.')
     if '.' in n:
@@ -217,7 +221,8 @@ def n2w(n):
     else:
         return int2word(int(n))
 
-def to_currency(n, currency='EUR', cents = True):
+
+def to_currency(n, currency='EUR', cents=True):
     if type(n) == int:
         if n < 0:
             minus = True
@@ -247,8 +252,10 @@ def to_currency(n, currency='EUR', cents = True):
     else:
         cents_str = "%02d" % right
 
-    return u'%s%s %s, %s %s' % (minus_str, int2word(left), pluralize(left, cr1),
-                              cents_str, pluralize(right, cr2))
+    return u'%s%s %s, %s %s' % (minus_str, int2word(left),
+                                pluralize(left, cr1),
+                                cents_str, pluralize(right, cr2))
+
 
 class Num2Word_LT(object):
     def to_cardinal(self, number):
@@ -257,6 +264,8 @@ class Num2Word_LT(object):
     def to_ordinal(self, number):
         raise NotImplementedError()
 
+
 if __name__ == '__main__':
     import doctest
+
     doctest.testmod()

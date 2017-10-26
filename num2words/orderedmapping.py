@@ -14,12 +14,13 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301 USA
 
+
 class OrderedMapping(dict):
     def __init__(self, *pairs):
         self.order = []
         for key, val in pairs:
             self[key] = val
-            
+
     def __setitem__(self, key, val):
         if key not in self:
             self.order.append(key)
@@ -30,6 +31,6 @@ class OrderedMapping(dict):
             yield item
 
     def __repr__(self):
-        out = ["%s: %s"%(repr(item), repr(self[item])) for item in self]
+        out = ["%s: %s" % (repr(item), repr(self[item])) for item in self]
         out = ", ".join(out)
-        return "{%s}"%out
+        return "{%s}" % out

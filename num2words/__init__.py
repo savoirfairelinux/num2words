@@ -72,6 +72,7 @@ CONVERTER_CLASSES = {
     'uk': lang_UK.Num2Word_UK()
 }
 
+
 CONVERTES_TYPES = ['cardinal', 'ordinal', 'year', 'currency']
 
 

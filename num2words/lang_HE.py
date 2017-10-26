@@ -69,6 +69,7 @@ THOUSANDS = {
 
 AND = u'ו'
 
+
 def splitby3(n):
     length = len(n)
     if length > 3:
@@ -76,7 +77,7 @@ def splitby3(n):
         if start > 0:
             yield int(n[:start])
         for i in range(start, length, 3):
-            yield int(n[i:i+3])
+            yield int(n[i:i + 3])
     else:
         yield int(n)
 
@@ -95,7 +96,7 @@ def pluralize(n, forms):
 
 
 def int2word(n):
-    if n > 9999: #doesn't yet work for numbers this big
+    if n > 9999:  # doesn't yet work for numbers this big
         raise NotImplementedError()
 
     if n == 0:
@@ -159,4 +160,3 @@ if __name__ == '__main__':
     nums = [1, 11, 21, 24, 99, 100, 101, 200, 211, 345, 1000, 1011]
     for num in nums:
         print(num, yo.to_cardinal(num))
-

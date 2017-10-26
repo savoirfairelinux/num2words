@@ -166,21 +166,22 @@ HUNDREDS = {
 }
 
 THOUSANDS = {
-    1: (u'тисяча', u'тисячi', u'тисяч'), # 10^3
-    2: (u'мiльйон', u'мiльйони', u'мiльйонiв'), # 10^6
-    3: (u'мiльярд', u'мiльярди', u'мiльярдiв'), # 10^9
-    4: (u'трильйон', u'трильйони', u'трильйонiв'), # 10^12
-    5: (u'квадрильйон', u'квадрильйони', u'квадрильйонiв'), # 10^15
-    6: (u'квiнтильйон', u'квiнтильйони', u'квiнтильйонiв'), # 10^18
-    7: (u'секстильйон', u'секстильйони', u'секстильйонiв'), # 10^21
-    8: (u'септильйон', u'септильйони', u'септильйонiв'), # 10^24
-    9: (u'октильйон', u'октильйони', u'октильйонiв'), #10^27
-    10: (u'нонiльйон', u'нонiльйони', u'нонiльйонiв'), # 10^30
+    1: (u'тисяча', u'тисячi', u'тисяч'),  # 10^3
+    2: (u'мiльйон', u'мiльйони', u'мiльйонiв'),  # 10^6
+    3: (u'мiльярд', u'мiльярди', u'мiльярдiв'),  # 10^9
+    4: (u'трильйон', u'трильйони', u'трильйонiв'),  # 10^12
+    5: (u'квадрильйон', u'квадрильйони', u'квадрильйонiв'),  # 10^15
+    6: (u'квiнтильйон', u'квiнтильйони', u'квiнтильйонiв'),  # 10^18
+    7: (u'секстильйон', u'секстильйони', u'секстильйонiв'),  # 10^21
+    8: (u'септильйон', u'септильйони', u'септильйонiв'),  # 10^24
+    9: (u'октильйон', u'октильйони', u'октильйонiв'),  # 10^27
+    10: (u'нонiльйон', u'нонiльйони', u'нонiльйонiв'),  # 10^30
 }
 
 CURRENCIES = {
     'UAH': (
-        (u'гривня', u'гривнi', u'гривень'), (u'копiйка', u'копiйки', u'копiйок')
+        (u'гривня', u'гривнi', u'гривень'),
+        (u'копiйка', u'копiйки', u'копiйок')
     ),
     'EUR': (
         (u'евро', u'евро', u'евро'), (u'цент', u'центи', u'центiв')
@@ -195,7 +196,7 @@ def splitby3(n):
         if start > 0:
             yield int(n[:start])
         for i in range(start, length, 3):
-            yield int(n[i:i+3])
+            yield int(n[i:i + 3])
     else:
         yield int(n)
 
@@ -205,7 +206,8 @@ def get_digits(n):
 
 
 def pluralize(n, forms):
-    #form = 0 if n==1 else 1 if (n % 10 > 1 and n % 10 < 5 and (n % 100 < 10 or n % 100 > 20)) else 2
+    # form = 0 if n==1 else 1 if (n % 10 > 1 and n % 10 < 5 and (n % 100 < 10
+    # or n % 100 > 20)) else 2
     if (n % 100 < 10 or n % 100 > 20):
         if n % 10 == 1:
             form = 0
@@ -215,7 +217,7 @@ def pluralize(n, forms):
             form = 2
     else:
         form = 2
-    
+
     return forms[form]
 
 
@@ -235,19 +237,18 @@ def int2word(n, feminine=True):
 
         if n3 > 0:
             words.append(HUNDREDS[n3][0])
-            
+
         if n2 > 1:
             words.append(TWENTIES[n2][0])
 
         if n2 == 1:
             words.append(TENS[n1][0])
-        #elif n1 > 0 and not (i > 0 and x == 1):
+        # elif n1 > 0 and not (i > 0 and x == 1):
         elif n1 > 0:
             ones = ONES_FEMININE if i == 1 or feminine and i == 0 else ONES
             words.append(ones[n1][0])
-            
 
-        if i > 0 and ((n1+n2+n3) > 0):
+        if i > 0 and ((n1 + n2 + n3) > 0):
             words.append(pluralize(x, THOUSANDS[i]))
 
     return ' '.join(words)
@@ -313,4 +314,5 @@ class Num2Word_UK(object):
 
 if __name__ == '__main__':
     import doctest
+
     doctest.testmod()

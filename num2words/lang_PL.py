@@ -155,16 +155,16 @@ HUNDREDS = {
 }
 
 THOUSANDS = {
-    1: (u'tysiąc', u'tysiące', u'tysięcy'), # 10^3
-    2: (u'milion', u'miliony', u'milionów'), # 10^6
-    3: (u'miliard', u'miliardy', u'miliardów'), # 10^9
-    4: (u'bilion', u'biliony', u'bilionów'), # 10^12
-    5: (u'biliard', u'biliardy', u'biliardów'), # 10^15
-    6: (u'trylion', u'tryliony', u'trylionów'), # 10^18
-    7: (u'tryliard', u'tryliardy', u'tryliardów'), # 10^21
-    8: (u'kwadrylion', u'kwadryliony', u'kwadrylionów'), # 10^24
-    9: (u'kwaryliard', u'kwadryliardy', u'kwadryliardów'), #10^27
-    10: (u'kwintylion', u'kwintyliony', u'kwintylionów'), # 10^30
+    1: (u'tysiąc', u'tysiące', u'tysięcy'),  # 10^3
+    2: (u'milion', u'miliony', u'milionów'),  # 10^6
+    3: (u'miliard', u'miliardy', u'miliardów'),  # 10^9
+    4: (u'bilion', u'biliony', u'bilionów'),  # 10^12
+    5: (u'biliard', u'biliardy', u'biliardów'),  # 10^15
+    6: (u'trylion', u'tryliony', u'trylionów'),  # 10^18
+    7: (u'tryliard', u'tryliardy', u'tryliardów'),  # 10^21
+    8: (u'kwadrylion', u'kwadryliony', u'kwadrylionów'),  # 10^24
+    9: (u'kwaryliard', u'kwadryliardy', u'kwadryliardów'),  # 10^27
+    10: (u'kwintylion', u'kwintyliony', u'kwintylionów'),  # 10^30
 }
 
 CURRENCIES = {
@@ -235,7 +235,7 @@ def n2w(n):
         return int2word(int(n))
 
 
-def to_currency(n, currency = 'EUR', cents = True, seperator = ','):
+def to_currency(n, currency='EUR', cents=True, seperator=','):
     if type(n) == int:
         if n < 0:
             minus = True
@@ -287,4 +287,5 @@ class Num2Word_PL(object):
 
 if __name__ == '__main__':
     import doctest
+
     doctest.testmod()

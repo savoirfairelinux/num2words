@@ -1,2 +1,3 @@
 include CHANGES.rst
 include COPYING
+include tests/*
