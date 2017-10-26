@@ -306,6 +306,9 @@ class Num2Word_RU(object):
     def to_ordinal(self, number):
         raise NotImplementedError()
 
+    def to_currency(self, n, currency='EUR', cents=True, seperator=','):
+        return to_currency(n, currency, cents, seperator)
+
 
 if __name__ == '__main__':
     import doctest
