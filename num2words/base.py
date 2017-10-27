@@ -18,8 +18,8 @@ from __future__ import unicode_literals
 
 import math
 
-from .orderedmapping import OrderedMapping
 from .compat import to_s
+from .orderedmapping import OrderedMapping
 
 
 class Num2Word_Base(object):
@@ -250,17 +250,17 @@ class Num2Word_Base(object):
     def test(self, value):
         try:
             _card = self.to_cardinal(value)
-        except:
+        except Exception:
             _card = "invalid"
 
         try:
             _ord = self.to_ordinal(value)
-        except:
+        except Exception:
             _ord = "invalid"
 
         try:
             _ordnum = self.to_ordinal_num(value)
-        except:
+        except Exception:
             _ordnum = "invalid"
 
         print("For %s, card is %s;\n\tord is %s; and\n\tordnum is %s."

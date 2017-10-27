@@ -48,6 +48,7 @@ TEST_CASES_ORDINAL = (
     (100, 'مئة'),
 )
 
+
 class Num2WordsARTest(TestCase):
 
     def test_number(self):

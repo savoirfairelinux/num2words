@@ -14,7 +14,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301 USA
 
-from __future__ import unicode_literals, print_function
+from __future__ import print_function, unicode_literals
 
 
 class Num2Word_ID():
@@ -128,8 +128,9 @@ class Num2Word_ID():
             return self.BASE[int(number[1])]
         else:
             return (
-                self.BASE[int(number[0])] + ['puluh'] + self.BASE[int(number[1])]
-                )
+                self.BASE[int(number[0])] + ['puluh']
+                + self.BASE[int(number[1])]
+            )
 
     def spell_float(self, float_part):
         # spell the float number
@@ -168,7 +169,7 @@ class Num2Word_ID():
 
     def to_cardinal(self, number):
         if number >= self.max_num:
-            raise OverflowError(self.errmsg_toobig % (number, self.maxnum))
+            raise OverflowError(self.errmsg_toobig % (number, self.max_num))
         minus = ''
         if number < 0:
             minus = 'min '

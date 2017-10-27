@@ -18,11 +18,11 @@ u"""
 >>> from textwrap import fill
 
 >>> ' '.join([str(i) for i in splitby3('1')])
-u'1'
+'1'
 >>> ' '.join([str(i) for i in splitby3('1123')])
-u'1 123'
+'1 123'
 >>> ' '.join([str(i) for i in splitby3('1234567890')])
-u'1 234 567 890'
+'1 234 567 890'
 
 >>> print(' '.join([n2w(i) for i in range(10)]))
 нуль один два три чотири п'ять шiсть сiмь вiсiм дев'ять
@@ -208,10 +208,10 @@ def get_digits(n):
 def pluralize(n, forms):
     # form = 0 if n==1 else 1 if (n % 10 > 1 and n % 10 < 5 and (n % 100 < 10
     # or n % 100 > 20)) else 2
-    if (n % 100 < 10 or n % 100 > 20):
+    if n % 100 < 10 or n % 100 > 20:
         if n % 10 == 1:
             form = 0
-        elif (n % 10 > 1 and n % 10 < 5):
+        elif 5 > n % 10 > 1:
             form = 1
         else:
             form = 2

@@ -17,6 +17,7 @@
 # MA 02110-1301 USA
 
 from __future__ import division, unicode_literals
+
 import re
 
 from . import lang_EU
@@ -31,13 +32,14 @@ class Num2Word_PT_BR(lang_EU.Num2Word_EU):
     def setup(self):
         self.negword = "menos "
         self.pointword = "vírgula"
-        self.errmsg_nornum = "Somente números podem ser convertidos para palavras"
+        self.errmsg_nornum = "Somente números podem ser convertidos para " \
+                             "palavras"
         self.exclude_title = ["e", "vírgula", "menos"]
 
         self.mid_numwords = [
             (1000, "mil"), (100, "cem"), (90, "noventa"),
-            (80, "oitenta"), (70, "setenta"), (60, "sessenta"), (50, "cinquenta"),
-            (40, "quarenta"), (30, "trinta")
+            (80, "oitenta"), (70, "setenta"), (60, "sessenta"),
+            (50, "cinquenta"), (40, "quarenta"), (30, "trinta")
         ]
         self.low_numwords = [
             "vinte", "dezenove", "dezoito", "dezessete", "dezesseis",
@@ -132,12 +134,15 @@ class Num2Word_PT_BR(lang_EU.Num2Word_EU):
     def to_cardinal(self, value):
         result = super(Num2Word_PT_BR, self).to_cardinal(value)
 
-        # Transforms "mil E cento e catorze reais" into "mil, cento e catorze reais"
+        # Transforms "mil E cento e catorze reais" into "mil, cento e catorze
+        # reais"
         for ext in (
                 'mil', 'milhão', 'milhões', 'bilhão', 'bilhões',
                 'trilhão', 'trilhões', 'quatrilhão', 'quatrilhões'):
             if re.match('.*{} e \w*ento'.format(ext), result):
-                result = result.replace('{} e'.format(ext), '{},'.format(ext), 1)
+                result = result.replace(
+                    '{} e'.format(ext), '{},'.format(ext), 1
+                )
 
         return result
 
@@ -153,7 +158,8 @@ class Num2Word_PT_BR(lang_EU.Num2Word_EU):
                 thousand_separator = self.thousand_separators[idx]
 
             if char != '0' and thousand_separator:
-                # avoiding "segundo milionésimo milésimo" for 6000000, for instance
+                # avoiding "segundo milionésimo milésimo" for 6000000,
+                # for instance
                 result.append(thousand_separator)
                 thousand_separator = ''
 

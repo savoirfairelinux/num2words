@@ -20,17 +20,27 @@ from unittest import TestCase
 
 from num2words import num2words
 
+
 class Num2WordsENTest(TestCase):
     def test_ordinal_special_joins(self):
-        self.assertEqual(num2words(5, ordinal=True, lang='fr_CH'), "cinquième")
-        self.assertEqual(num2words(6, ordinal=True, lang='fr_CH'), "sixième")
-        self.assertEqual(num2words(35, ordinal=True, lang='fr_CH'), "trente-cinquième")
+        self.assertEqual(
+            num2words(5, ordinal=True, lang='fr_CH'), "cinquième"
+        )
+        self.assertEqual(
+            num2words(6, ordinal=True, lang='fr_CH'), "sixième"
+        )
+        self.assertEqual(
+            num2words(35, ordinal=True, lang='fr_CH'), "trente-cinquième"
+        )
         self.assertEqual(num2words(9, ordinal=True, lang='fr_CH'), "neuvième")
-        self.assertEqual(num2words(49, ordinal=True, lang='fr_CH'), "quarante-neuvième")
+        self.assertEqual(
+            num2words(49, ordinal=True, lang='fr_CH'), "quarante-neuvième"
+        )
         self.assertEqual(num2words(71, lang='fr_CH'), "septante et un")
         self.assertEqual(num2words(81, lang='fr_CH'), "huitante et un")
         self.assertEqual(num2words(80, lang='fr_CH'), "huitante")
         self.assertEqual(num2words(880, lang='fr_CH'), "huit cents huitante")
-        self.assertEqual(num2words(91, ordinal=True, lang='fr_CH'), "nonante et unième")
+        self.assertEqual(
+            num2words(91, ordinal=True, lang='fr_CH'), "nonante et unième"
+        )
         self.assertEqual(num2words(53, lang='fr_CH'), "cinquante-trois")
-

@@ -15,6 +15,7 @@
 # MA 02110-1301 USA
 
 from __future__ import unicode_literals
+
 from .base import Num2Word_Base
 
 
@@ -32,7 +33,8 @@ class Num2Word_EU(Num2Word_Base):
                  "octo", "novem"]
         tens = ["dec", "vigint", "trigint", "quadragint", "quinquagint",
                 "sexagint", "septuagint", "octogint", "nonagint"]
-        self.high_numwords = ["cent"] + self.gen_high_numwords(units, tens, lows)
+        self.high_numwords = ["cent"] + self.gen_high_numwords(units, tens,
+                                                               lows)
 
     def to_currency(self, val, longval=True, jointxt=""):
         return self.to_splitnum(val, hightxt="Euro/s", lowtxt="Euro cent/s",

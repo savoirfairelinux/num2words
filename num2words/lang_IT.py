@@ -14,7 +14,6 @@
 # MA 02110-1301 USA
 
 from __future__ import unicode_literals
-from .lang_EU import Num2Word_EU
 
 # Globals
 # -------

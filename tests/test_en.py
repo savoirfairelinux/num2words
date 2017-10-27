@@ -17,6 +17,7 @@ from unittest import TestCase
 
 from num2words import num2words
 
+
 class Num2WordsENTest(TestCase):
     def test_and_join_199(self):
         # ref https://github.com/savoirfairelinux/num2words/issues/8

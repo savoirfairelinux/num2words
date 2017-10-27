@@ -20,6 +20,7 @@ from unittest import TestCase
 
 from num2words import num2words
 
+
 class Num2WordsDETest(TestCase):
     def test_ordinal_less_than_twenty(self):
         self.assertEqual(num2words(2, ordinal=True, lang='sl'), "drugi")
@@ -30,14 +31,22 @@ class Num2WordsDETest(TestCase):
         self.assertEqual(num2words(17, ordinal=True, lang='sl'), "sedemnajsti")
 
     def test_ordinal_more_than_twenty(self):
-        self.assertEqual(num2words(81, ordinal=True, lang='sl'), "enainosemdeseti")
+        self.assertEqual(
+            num2words(81, ordinal=True, lang='sl'), "enainosemdeseti"
+        )
 
     def test_ordinal_at_crucial_number(self):
         self.assertEqual(num2words(100, ordinal=True, lang='sl'), "stoti")
         self.assertEqual(num2words(1000, ordinal=True, lang='sl'), "tisoči")
-        self.assertEqual(num2words(4000, ordinal=True, lang='sl'), "štiritisoči")
-        self.assertEqual(num2words(2000000, ordinal=True, lang='sl'), "dvemiljonti")
-        self.assertEqual(num2words(5000000000, ordinal=True, lang='sl'), "petmiljardti")
+        self.assertEqual(
+            num2words(4000, ordinal=True, lang='sl'), "štiritisoči"
+        )
+        self.assertEqual(
+            num2words(2000000, ordinal=True, lang='sl'), "dvemiljonti"
+        )
+        self.assertEqual(
+            num2words(5000000000, ordinal=True, lang='sl'), "petmiljardti"
+        )
 
     def test_cardinal_at_some_numbers(self):
         self.assertEqual(num2words(2, lang='sl'), "dve")

@@ -81,6 +81,7 @@ TEST_CASES_ORDINAL = (
     (100, 'centésimo'),
 )
 
+
 class Num2WordsESTest(TestCase):
 
     def test_number(self):
