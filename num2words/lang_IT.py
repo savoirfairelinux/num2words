@@ -100,9 +100,10 @@ class Num2Word_IT:
             prefix = self.to_ordinal(int(float_number))
         else:
             prefix = self.to_cardinal(int(float_number))
+        float_part = str(float_number).split('.')[1]
         postfix = " ".join(
-            # Drops the trailing zero and comma                     ~~~~
-            [self.to_cardinal(int(c)) for c in str(float_number % 1)[2:]]
+            # Drops the trailing zero and comma
+            [self.to_cardinal(int(c)) for c in float_part]
         )
         return prefix + Num2Word_IT.FLOAT_INFIX_WORD + postfix
 
