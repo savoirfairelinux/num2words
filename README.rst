@@ -5,7 +5,7 @@ num2words - Convert numbers to words in multiple languages
     :target: https://travis-ci.org/savoirfairelinux/num2words
 
 .. image:: https://coveralls.io/repos/github/savoirfairelinux/num2words/badge.svg?branch=master
-:target: https://coveralls.io/github/savoirfairelinux/num2words?branch=master
+    :target: https://coveralls.io/github/savoirfairelinux/num2words?branch=master
 
 
 ``num2words`` is a library that converts numbers like ``42`` to words like ``forty-two``.
