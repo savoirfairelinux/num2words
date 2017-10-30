@@ -20,6 +20,7 @@ from unittest import TestCase
 
 from num2words import num2words
 
+
 class Num2WordsNLTest(TestCase):
     def test_ordinal_less_than_twenty(self):
         self.assertEqual(num2words(7, ordinal=True, lang='nl'), "zevende")
@@ -28,17 +29,27 @@ class Num2WordsNLTest(TestCase):
         self.assertEqual(num2words(17, ordinal=True, lang='nl'), "zeventiende")
 
     def test_ordinal_more_than_twenty(self):
-        self.assertEqual(num2words(81, ordinal=True, lang='nl'), "eenentachtigste")
+        self.assertEqual(
+            num2words(81, ordinal=True, lang='nl'), "eenentachtigste"
+        )
 
     def test_ordinal_at_crucial_number(self):
         self.assertEqual(num2words(100, ordinal=True, lang='nl'), "honderdste")
-        self.assertEqual(num2words(1000, ordinal=True, lang='nl'), "duizendste")
-        self.assertEqual(num2words(4000, ordinal=True, lang='nl'), "vierduizendste")
-        self.assertEqual(num2words(2000000, ordinal=True, lang='nl'), "twee miljoenste")
-        self.assertEqual(num2words(5000000000, ordinal=True, lang='nl'), "vijf miljardste")
+        self.assertEqual(
+            num2words(1000, ordinal=True, lang='nl'), "duizendste"
+        )
+        self.assertEqual(
+            num2words(4000, ordinal=True, lang='nl'), "vierduizendste"
+        )
+        self.assertEqual(
+            num2words(2000000, ordinal=True, lang='nl'), "twee miljoenste"
+        )
+        self.assertEqual(
+            num2words(5000000000, ordinal=True, lang='nl'), "vijf miljardste"
+        )
 
     def test_cardinal_at_some_numbers(self):
-        self.assertEqual(num2words(82, lang='nl'), u'twee\xebntachtig')        
+        self.assertEqual(num2words(82, lang='nl'), u'twee\xebntachtig')
         self.assertEqual(num2words(1013, lang='nl'), "duizenddertien")
         self.assertEqual(num2words(2000000, lang='nl'), "twee miljoen")
         self.assertEqual(num2words(4000000000, lang='nl'), "vier miljard")

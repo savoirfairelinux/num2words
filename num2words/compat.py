@@ -14,13 +14,9 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301 USA
 
-import sys
-
-PY3 = sys.version_info[0] == 3
-
 
 def to_s(val):
-    if PY3:
-        return str(val)
-    else:
+    try:
         return unicode(val)
+    except NameError:
+        return str(val)

@@ -18,10 +18,17 @@ from __future__ import unicode_literals
 
 from unittest import TestCase
 
-from num2words import num2words
 from num2words.lang_FR_DZ import to_currency
+
 
 class Num2WordsPLTest(TestCase):
     def test_currency(self):
-        self.assertEqual(to_currency(1234.12), "mille deux cent trente-quatre dinards virgule douze centimes")
-        self.assertEqual(to_currency(45689.89), "quarante-cinq mille six cent quatre-vingt-neuf dinards virgule quatre-vingt-neuf centimes")
+        self.assertEqual(
+            to_currency(1234.12),
+            "mille deux cent trente-quatre dinards virgule douze centimes"
+        )
+        self.assertEqual(
+            to_currency(45689.89),
+            "quarante-cinq mille six cent quatre-vingt-neuf dinards virgule "
+            "quatre-vingt-neuf centimes"
+        )

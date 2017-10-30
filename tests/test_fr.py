@@ -20,11 +20,19 @@ from unittest import TestCase
 
 from num2words import num2words
 
+
 class Num2WordsENTest(TestCase):
     def test_ordinal_special_joins(self):
         # ref https://github.com/savoirfairelinux/num2words/issues/18
-        self.assertEqual(num2words(5, ordinal=True, lang='fr'), "cinquième")
-        self.assertEqual(num2words(35, ordinal=True, lang='fr'), "trente-cinquième")
-        self.assertEqual(num2words(9, ordinal=True, lang='fr'), "neuvième")
-        self.assertEqual(num2words(49, ordinal=True, lang='fr'), "quarante-neuvième")
-
+        self.assertEqual(
+            num2words(5, ordinal=True, lang='fr'), "cinquième"
+        )
+        self.assertEqual(
+            num2words(35, ordinal=True, lang='fr'), "trente-cinquième"
+        )
+        self.assertEqual(
+            num2words(9, ordinal=True, lang='fr'), "neuvième"
+        )
+        self.assertEqual(
+            num2words(49, ordinal=True, lang='fr'), "quarante-neuvième"
+        )

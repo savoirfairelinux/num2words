@@ -14,7 +14,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301 USA
 
-from __future__ import division, unicode_literals, print_function
+from __future__ import division, print_function, unicode_literals
+
 from . import lang_EU
 
 
@@ -111,7 +112,7 @@ def main():
                 8280, 8291, 150000, 500000, 1000000, 2000000, 2000001,
                 -21212121211221211111, -2.121212, -1.0000100]:
         n2w.test(val)
-    n2w.test(1325325436067876801768700107601001012212132143210473207540327057320957032975032975093275093275093270957329057320975093272950730)
+    n2w.test(13253254360678768017687001076010010122121321432104732075403270573)
     for val in [1, 120, 1000, 1120, 1800, 1976, 2000, 2010, 2099, 2171]:
         print(val, "er", n2w.to_currency(val))
         print(val, "er", n2w.to_year(val))

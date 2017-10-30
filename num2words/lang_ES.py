@@ -16,7 +16,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301 USA
 
-from __future__ import unicode_literals, print_function
+from __future__ import print_function, unicode_literals
+
 from .lang_EU import Num2Word_EU
 
 
@@ -186,8 +187,7 @@ def main():
                 -21212121211221211111, -2.121212, -1.0000100]:
         n2w.test(val)
 
-    n2w.test(
-        1325325436067876801768700107601001012212132143210473207540327057320957032975032975093275093275093270957329057320975093272950730)
+    n2w.test(13253254360678768017687001076010010122121321432104732075403270573)
     print(n2w.to_currency(1222))
     print(n2w.to_currency(1222, old=True))
     print(n2w.to_year(1222))

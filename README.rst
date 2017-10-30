@@ -4,6 +4,10 @@ num2words - Convert numbers to words in multiple languages
 .. image:: https://travis-ci.org/savoirfairelinux/num2words.svg?branch=master
     :target: https://travis-ci.org/savoirfairelinux/num2words
 
+.. image:: https://coveralls.io/repos/github/savoirfairelinux/num2words/badge.svg?branch=master
+:target: https://coveralls.io/github/savoirfairelinux/num2words?branch=master
+
+
 ``num2words`` is a library that converts numbers like ``42`` to words like ``forty-two``.
 It supports multiple languages (see the list below for full list
 of languages) and can even generate ordinal numbers like ``forty-second``
@@ -34,15 +38,18 @@ There's only one function to use::
     >>> from num2words import num2words
     >>> num2words(42)
     forty-two
-    >>> num2words(42, ordinal=True)
+    >>> num2words(42, to='cardinal')
     forty-second
     >>> num2words(42, lang='fr')
     quarante-deux
 
 Besides the numerical argument, there's two optional arguments.
 
-**ordinal:** A boolean flag indicating to return an ordinal number instead of a
-cardinal one.
+**to:** The converter to use. Supperted values are
+* ``cardinal`` (default)
+* ``ordinal``
+* ``year``
+* ``currency``
 
 **lang:** The language in which to convert the number. Supported values are:
 

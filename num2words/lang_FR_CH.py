@@ -15,7 +15,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301 USA
 
-from __future__ import unicode_literals, print_function
+from __future__ import print_function, unicode_literals
+
 from .lang_FR import Num2Word_FR
 
 
@@ -35,7 +36,8 @@ class Num2Word_FR_CH(Num2Word_FR):
             if nnum < 1000000:
                 return next
 
-        if cnum < 1000 and nnum != 1000 and ntext[-1] != "s" and not nnum % 100:
+        if cnum < 1000 and nnum != 1000 and\
+                ntext[-1] != "s" and not nnum % 100:
             ntext += "s"
 
         if nnum < cnum < 100:
@@ -61,7 +63,7 @@ def main():
         n2w.test(val)
 
     n2w.test(
-        1325325436067876801768700107601001012212132143210473207540327057320957032975032975093275093275093270957329057320975093272950730)
+        1325325436067876801768700107601001012212132143210473207540327057320950)
     print(n2w.to_currency(112121))
     print(n2w.to_year(1996))
 

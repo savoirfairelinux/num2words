@@ -18,16 +18,27 @@ from unittest import TestCase
 
 from num2words import num2words
 
+
 class Num2WordsRUTest(TestCase):
 
     def test_cardinal(self):
         self.assertEqual(num2words(5, lang='ru'), u"пять")
         self.assertEqual(num2words(15, lang='ru'), u"пятнадцать")
         self.assertEqual(num2words(154, lang='ru'), u"сто пятьдесят четыре")
-        self.assertEqual(num2words(1135, lang='ru'), u"одна тысяча сто тридцать пять")
-        self.assertEqual(num2words(418531, lang='ru'), u"четыреста восемнадцать тысяч пятьсот тридцать один")
-        self.assertEqual(num2words(1000139, lang='ru'), u"один миллион сто тридцать девять")
+        self.assertEqual(
+            num2words(1135, lang='ru'), u"одна тысяча сто тридцать пять"
+        )
+        self.assertEqual(
+            num2words(418531, lang='ru'),
+            u"четыреста восемнадцать тысяч пятьсот тридцать один"
+        )
+        self.assertEqual(
+            num2words(1000139, lang='ru'), u"один миллион сто тридцать девять"
+        )
 
     def test_floating_point(self):
         self.assertEqual(num2words(5.2, lang='ru'), u"пять запятая два")
-        self.assertEqual(num2words(561.42, lang='ru'), u"пятьсот шестьдесят один запятая сорок два")
+        self.assertEqual(
+            num2words(561.42, lang='ru'),
+            u"пятьсот шестьдесят один запятая сорок два"
+        )
