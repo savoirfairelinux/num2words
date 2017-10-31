@@ -103,6 +103,8 @@ u"""
 """
 from __future__ import unicode_literals
 
+from .currency import parse_currency_parts
+
 ZERO = (u'нуль',)
 
 ONES_FEMININE = {
@@ -264,29 +266,10 @@ def n2w(n):
 
 
 def to_currency(n, currency='EUR', cents=True, seperator=','):
-    if type(n) == int:
-        if n < 0:
-            minus = True
-        else:
-            minus = False
-
-        n = abs(n)
-        left = n / 100
-        right = n % 100
-    else:
-        n = str(n).replace(',', '.')
-        if '.' in n:
-            left, right = n.split('.')
-        else:
-            left, right = n, 0
-        left, right = int(left), int(right)
-        minus = False
+    left, right, is_negative = parse_currency_parts(n)
     cr1, cr2 = CURRENCIES[currency]
 
-    if minus:
-        minus_str = "мiнус "
-    else:
-        minus_str = ""
+    minus_str = "мiнус " if is_negative else ""
 
     if cents:
         cents_feminine = currency == 'UAH'

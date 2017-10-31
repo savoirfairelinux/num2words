@@ -36,3 +36,10 @@ class Num2WordsUKTest(TestCase):
         self.assertEqual(
             num2words(12.31, lang='uk'), u"дванадцять кома тридцять одна"
         )
+
+    def test_to_currency(self):
+        self.assertEqual(
+            num2words('38.4', lang='uk', to='currency', seperator=' и',
+                      cents=False, currency='EUR'),
+            "тридцять вiсiм евро и 40 центiв"
+        )

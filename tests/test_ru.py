@@ -13,6 +13,7 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301 USA
+from __future__ import unicode_literals
 
 from unittest import TestCase
 
@@ -22,23 +23,30 @@ from num2words import num2words
 class Num2WordsRUTest(TestCase):
 
     def test_cardinal(self):
-        self.assertEqual(num2words(5, lang='ru'), u"пять")
-        self.assertEqual(num2words(15, lang='ru'), u"пятнадцать")
-        self.assertEqual(num2words(154, lang='ru'), u"сто пятьдесят четыре")
+        self.assertEqual(num2words(5, lang='ru'), "пять")
+        self.assertEqual(num2words(15, lang='ru'), "пятнадцать")
+        self.assertEqual(num2words(154, lang='ru'), "сто пятьдесят четыре")
         self.assertEqual(
-            num2words(1135, lang='ru'), u"одна тысяча сто тридцать пять"
+            num2words(1135, lang='ru'), "одна тысяча сто тридцать пять"
         )
         self.assertEqual(
             num2words(418531, lang='ru'),
-            u"четыреста восемнадцать тысяч пятьсот тридцать один"
+            "четыреста восемнадцать тысяч пятьсот тридцать один"
         )
         self.assertEqual(
-            num2words(1000139, lang='ru'), u"один миллион сто тридцать девять"
+            num2words(1000139, lang='ru'), "один миллион сто тридцать девять"
         )
 
     def test_floating_point(self):
-        self.assertEqual(num2words(5.2, lang='ru'), u"пять запятая два")
+        self.assertEqual(num2words(5.2, lang='ru'), "пять запятая два")
         self.assertEqual(
             num2words(561.42, lang='ru'),
-            u"пятьсот шестьдесят один запятая сорок два"
+            "пятьсот шестьдесят один запятая сорок два"
+        )
+
+    def test_to_currency(self):
+        self.assertEqual(
+            num2words('38.4', lang='ru', to='currency', seperator=' и',
+                      cents=False, currency='EUR'),
+            "тридцать восемь евро и 40 центов"
         )

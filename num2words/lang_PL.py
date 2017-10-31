@@ -104,6 +104,8 @@ sto dwadzieścia trzy złote i pięćdziesiąt groszy
 """
 from __future__ import unicode_literals
 
+from .currency import parse_currency_parts
+
 ZERO = (u'zero',)
 
 ONES = {
@@ -241,36 +243,11 @@ def n2w(n):
 
 
 def to_currency(n, currency='EUR', cents=True, seperator=','):
-    if type(n) == int:
-        if n < 0:
-            minus = True
-        else:
-            minus = False
-
-        n = abs(n)
-        left = n // 100
-        right = n % 100
-    else:
-        n = str(n).replace(',', '.')
-        if '.' in n:
-            left, right = n.split('.')
-            if len(right) == 1:
-                right = right + '0'
-        else:
-            left, right = n, 0
-        left, right = int(left), int(right)
-        minus = False
+    left, right, is_negative = parse_currency_parts(n)
     cr1, cr2 = CURRENCIES[currency]
 
-    if minus:
-        minus_str = "minus "
-    else:
-        minus_str = ""
-
-    if cents:
-        cents_str = int2word(right)
-    else:
-        cents_str = "%02d" % right
+    minus_str = "minus " if is_negative else ""
+    cents_str = int2word(right) if cents else "%02d" % right
 
     return u'%s%s %s%s %s %s' % (
         minus_str,
