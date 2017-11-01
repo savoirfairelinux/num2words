@@ -189,11 +189,11 @@ CURRENCIES = {
     # replaced by EUR
     'LVL': (('lats', 'lati', 'latu'), ('santīms', 'santīmi', 'santīmu')),
     'USD': (prefix_currency('ASV', GENERIC_DOLLARS), GENERIC_CENTS),
-    'RUB': (prefix_currency('Krievijas', ('rublis', 'rubļi', 'rubli')),
+    'RUB': (prefix_currency('Krievijas', ('rublis', 'rubļi', 'rubļu')),
             ('kapeika', 'kapeikas', 'kapeiku')),
     'SEK': (prefix_currency('Zviedrijas', GENERIC_KRONA), GENERIC_ERA),
     'NOK': (prefix_currency('Norvēģijas', GENERIC_KRONA), GENERIC_ERA),
-    'PLN': (('zlots', 'zloti', 'zlotu'), ('grasis', 'graši', 'grasi')),
+    'PLN': (('zlots', 'zloti', 'zlotu'), ('grasis', 'graši', 'grašu')),
 }
 
 
