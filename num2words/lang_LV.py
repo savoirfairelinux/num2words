@@ -216,7 +216,7 @@ def int2word(n):
         elif n1 > 0 and not (i > 0 and x == 1):
             words.append(ONES[n1][0])
 
-        if i > 0:
+        if i > 0 and x != 0:
             words.append(pluralize(x, THOUSANDS[i]))
 
     return ' '.join(words)
