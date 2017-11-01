@@ -154,16 +154,43 @@ THOUSANDS = {
     10: ('nontiljons', 'nontiljoni', 'nontiljonu'),
 }
 
+GENERIC_DOLLARS = ('dolārs', 'dolāri', 'dolāru')
+GENERIC_CENTS = ('cents', 'centi', 'centu')
+
+GENERIC_POUND = ('mārciņa', 'mārciņas', 'mārciņu')
+GENERIC_PENCE = ('penss', 'pensi', 'pensu')
+
+GENERIC_KRONA = ('krona', 'kronas', 'kronu')
+GENERIC_ERA = ('ēre', 'ēras', 'ēru')
+
+
+def prefix_currency(prefix, base):
+    return tuple("%s %s" % (prefix, i) for i in base)
+
+
 """
 Sadly we have a legal form (used in legal and finance documents):
 http://www.eiro.lv/files/upload/files/Eiro_rakstiba-1.pdf
 https://likumi.lv/doc.php?id=254741
 http://eur-lex.europa.eu/legal-content/LV/TXT/HTML/?uri=CELEX:31998R0974&from=LV
+
+Source: http://publications.europa.eu/code/lv/lv-5000500.htm
 """
 CURRENCIES = {
-    'LVL': (('lats', 'lati', 'latu'), ('santīms', 'santīmi', 'santīmu')),
-    'EUR': (('eiro', 'eiro', 'eiro'), ('cents', 'centi', 'centu')),
-    'EUR_LEGAL': (('euro', 'euro', 'euro'), ('cents', 'centi', 'centu')),
+    'AUD': (prefix_currency('Austrālijas', GENERIC_DOLLARS), GENERIC_CENTS),
+    'CAD': (prefix_currency('Kanādas', GENERIC_DOLLARS), GENERIC_CENTS),
+    'EEK': (prefix_currency('Igaunijas', GENERIC_KRONA), GENERIC_CENTS),  # repalced by EUR
+    'EUR': (('eiro', 'eiro', 'eiro'), GENERIC_CENTS),
+    'EUR_LEGAL': (('euro', 'euro', 'euro'), GENERIC_CENTS),
+    'GBP': (prefix_currency('sterliņu', GENERIC_POUND), GENERIC_PENCE),
+    'LTL': ('lits', 'liti', 'litu', GENERIC_CENTS),  # replaced by EUR
+    'LVL': (('lats', 'lati', 'latu'), ('santīms', 'santīmi', 'santīmu')),  # replaced by EUR
+    'USD': (prefix_currency('ASV', GENERIC_DOLLARS), GENERIC_CENTS),
+    'RUB': (prefix_currency('Krievijas', ('rublis', 'rubļi', 'rubli')),
+            ('kapeika', 'kapeikas', 'kapeiku')),
+    'SEK': (prefix_currency('Zviedrijas', GENERIC_KRONA), GENERIC_ERA),
+    'NOK': (prefix_currency('Norvēģijas', GENERIC_KRONA), GENERIC_ERA),
+    'PLN': (('zlots', 'zloti', 'zlotu'), ('grasis', 'graši', 'grasi')),
 }
 
 
