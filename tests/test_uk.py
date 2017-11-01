@@ -13,6 +13,7 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301 USA
+from __future__ import unicode_literals
 
 from unittest import TestCase
 
@@ -21,18 +22,25 @@ from num2words import num2words
 
 class Num2WordsUKTest(TestCase):
     def test_and_join_199(self):
-        self.assertEqual(num2words(187, lang='uk'), u"сто вiсiмдесят сiм")
+        self.assertEqual(num2words(187, lang='uk'), "сто вiсiмдесят сiм")
 
     def test_cardinal_for_float_number(self):
         self.assertEqual(
-            num2words(12.40, lang='uk'), u"дванадцять кома чотири"
+            num2words(12.40, lang='uk'), "дванадцять кома чотири"
         )
         self.assertEqual(
-            num2words(17.31, lang='uk'), u"сiмнадцять кома тридцять одна"
+            num2words(17.31, lang='uk'), "сiмнадцять кома тридцять одна"
         )
         self.assertEqual(
-            num2words(14.13, lang='uk'), u"чотирнадцять кома тринадцять"
+            num2words(14.13, lang='uk'), "чотирнадцять кома тринадцять"
         )
         self.assertEqual(
-            num2words(12.31, lang='uk'), u"дванадцять кома тридцять одна"
+            num2words(12.31, lang='uk'), "дванадцять кома тридцять одна"
+        )
+
+    def test_to_currency(self):
+        self.assertEqual(
+            num2words('38.4', lang='uk', to='currency', seperator=' и',
+                      cents=False, currency='EUR'),
+            "тридцять вiсiм евро и 40 центiв"
         )
