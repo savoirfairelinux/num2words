@@ -101,66 +101,99 @@ from __future__ import unicode_literals
 
 from .currency import parse_currency_parts
 
-ZERO = (u'nulle',)
+ZERO = ('nulle',)
 
 ONES = {
-    1: (u'viens',),
-    2: (u'divi',),
-    3: (u'trīs',),
-    4: (u'četri',),
-    5: (u'pieci',),
-    6: (u'seši',),
-    7: (u'septiņi',),
-    8: (u'astoņi',),
-    9: (u'deviņi',),
+    1: ('viens',),
+    2: ('divi',),
+    3: ('trīs',),
+    4: ('četri',),
+    5: ('pieci',),
+    6: ('seši',),
+    7: ('septiņi',),
+    8: ('astoņi',),
+    9: ('deviņi',),
 }
 
 TENS = {
-    0: (u'desmit',),
-    1: (u'vienpadsmit',),
-    2: (u'divpadsmit',),
-    3: (u'trīspadsmit',),
-    4: (u'četrpadsmit',),
-    5: (u'piecpadsmit',),
-    6: (u'sešpadsmit',),
-    7: (u'septiņpadsmit',),
-    8: (u'astoņpadsmit',),
-    9: (u'deviņpadsmit',),
+    0: ('desmit',),
+    1: ('vienpadsmit',),
+    2: ('divpadsmit',),
+    3: ('trīspadsmit',),
+    4: ('četrpadsmit',),
+    5: ('piecpadsmit',),
+    6: ('sešpadsmit',),
+    7: ('septiņpadsmit',),
+    8: ('astoņpadsmit',),
+    9: ('deviņpadsmit',),
 }
 
 TWENTIES = {
-    2: (u'divdesmit',),
-    3: (u'trīsdesmit',),
-    4: (u'četrdesmit',),
-    5: (u'piecdesmit',),
-    6: (u'sešdesmit',),
-    7: (u'septiņdesmit',),
-    8: (u'astoņdesmit',),
-    9: (u'deviņdesmit',),
+    2: ('divdesmit',),
+    3: ('trīsdesmit',),
+    4: ('četrdesmit',),
+    5: ('piecdesmit',),
+    6: ('sešdesmit',),
+    7: ('septiņdesmit',),
+    8: ('astoņdesmit',),
+    9: ('deviņdesmit',),
 }
 
-HUNDRED = (u'simts', u'simti', u'simtu')
+HUNDRED = ('simts', 'simti', 'simtu')
 
 THOUSANDS = {
-    1: (u'tūkstotis', u'tūkstoši', u'tūkstošu'),
-    2: (u'miljons', u'miljoni', u'miljonu'),
-    3: (u'miljards', u'miljardi', u'miljardu'),
-    4: (u'triljons', u'triljoni', u'triljonu'),
-    5: (u'kvadriljons', u'kvadriljoni', u'kvadriljonu'),
-    6: (u'kvintiljons', u'kvintiljoni', u'kvintiljonu'),
-    7: (u'sikstiljons', u'sikstiljoni', u'sikstiljonu'),
-    8: (u'septiljons', u'septiljoni', u'septiljonu'),
-    9: (u'oktiljons', u'oktiljoni', u'oktiljonu'),
-    10: (u'nontiljons', u'nontiljoni', u'nontiljonu'),
+    1: ('tūkstotis', 'tūkstoši', 'tūkstošu'),
+    2: ('miljons', 'miljoni', 'miljonu'),
+    3: ('miljards', 'miljardi', 'miljardu'),
+    4: ('triljons', 'triljoni', 'triljonu'),
+    5: ('kvadriljons', 'kvadriljoni', 'kvadriljonu'),
+    6: ('kvintiljons', 'kvintiljoni', 'kvintiljonu'),
+    7: ('sikstiljons', 'sikstiljoni', 'sikstiljonu'),
+    8: ('septiljons', 'septiljoni', 'septiljonu'),
+    9: ('oktiljons', 'oktiljoni', 'oktiljonu'),
+    10: ('nontiljons', 'nontiljoni', 'nontiljonu'),
 }
 
+GENERIC_DOLLARS = ('dolārs', 'dolāri', 'dolāru')
+GENERIC_CENTS = ('cents', 'centi', 'centu')
+
+GENERIC_POUND = ('mārciņa', 'mārciņas', 'mārciņu')
+GENERIC_PENCE = ('penss', 'pensi', 'pensu')
+
+GENERIC_KRONA = ('krona', 'kronas', 'kronu')
+GENERIC_ERA = ('ēre', 'ēras', 'ēru')
+
+
+def prefix_currency(prefix, base):
+    return tuple("%s %s" % (prefix, i) for i in base)
+
+
+"""
+Sadly we have a legal form (used in legal and finance documents):
+http://www.eiro.lv/files/upload/files/Eiro_rakstiba-1.pdf
+https://likumi.lv/doc.php?id=254741
+http://eur-lex.europa.eu/legal-content/LV/TXT/HTML/?uri=CELEX:31998R0974&from=LV
+
+Source: http://publications.europa.eu/code/lv/lv-5000500.htm
+"""
 CURRENCIES = {
-    'LVL': (
-        (u'lats', u'lati', u'latu'), (u'santīms', u'santīmi', u'santīmu')
-    ),
-    'EUR': (
-        (u'eiro', u'eiro', u'eiro'), (u'cents', u'centi', u'centu')
-    ),
+    'AUD': (prefix_currency('Austrālijas', GENERIC_DOLLARS), GENERIC_CENTS),
+    'CAD': (prefix_currency('Kanādas', GENERIC_DOLLARS), GENERIC_CENTS),
+    # repalced by EUR
+    'EEK': (prefix_currency('Igaunijas', GENERIC_KRONA), GENERIC_CENTS),
+    'EUR': (('eiro', 'eiro', 'eiro'), GENERIC_CENTS),
+    'EUR_LEGAL': (('euro', 'euro', 'euro'), GENERIC_CENTS),
+    'GBP': (prefix_currency('sterliņu', GENERIC_POUND), GENERIC_PENCE),
+    # replaced by EUR
+    'LTL': ('lits', 'liti', 'litu', GENERIC_CENTS),
+    # replaced by EUR
+    'LVL': (('lats', 'lati', 'latu'), ('santīms', 'santīmi', 'santīmu')),
+    'USD': (prefix_currency('ASV', GENERIC_DOLLARS), GENERIC_CENTS),
+    'RUB': (prefix_currency('Krievijas', ('rublis', 'rubļi', 'rubļu')),
+            ('kapeika', 'kapeikas', 'kapeiku')),
+    'SEK': (prefix_currency('Zviedrijas', GENERIC_KRONA), GENERIC_ERA),
+    'NOK': (prefix_currency('Norvēģijas', GENERIC_KRONA), GENERIC_ERA),
+    'PLN': (('zlots', 'zloti', 'zlotu'), ('grasis', 'graši', 'grašu')),
 }
 
 
@@ -181,11 +214,7 @@ def get_digits(n):
 
 
 def pluralize(n, forms):
-    # gettext implementation:
-    # (n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2)
-
     form = 0 if (n % 10 == 1 and n % 100 != 11) else 1 if n != 0 else 2
-
     return forms[form]
 
 
@@ -199,8 +228,6 @@ def int2word(n):
     for x in chunks:
         i -= 1
         n1, n2, n3 = get_digits(x)
-
-        # print str(n3) + str(n2) + str(n1)
 
         if n3 > 0:
             if n3 == 1 and n2 == 0 and n1 > 0:
@@ -219,7 +246,7 @@ def int2word(n):
         elif n1 > 0 and not (i > 0 and x == 1):
             words.append(ONES[n1][0])
 
-        if i > 0:
+        if i > 0 and x != 0:
             words.append(pluralize(x, THOUSANDS[i]))
 
     return ' '.join(words)
@@ -229,7 +256,7 @@ def n2w(n):
     n = str(n).replace(',', '.')
     if '.' in n:
         left, right = n.split('.')
-        return u'%s kablelis %s' % (int2word(int(left)), int2word(int(right)))
+        return u'%s komats %s' % (int2word(int(left)), int2word(int(right)))
     else:
         return int2word(int(n))
 
