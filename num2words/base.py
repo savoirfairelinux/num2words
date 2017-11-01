@@ -17,14 +17,14 @@
 from __future__ import unicode_literals
 
 import math
+from collections import OrderedDict
 
 from .compat import to_s
-from .orderedmapping import OrderedMapping
 
 
 class Num2Word_Base(object):
     def __init__(self):
-        self.cards = OrderedMapping()
+        self.cards = OrderedDict()
         self.is_title = False
         self.precision = 2
         self.exclude_title = []
@@ -39,7 +39,7 @@ class Num2Word_Base(object):
         self.setup()
         self.set_numwords()
 
-        self.MAXVAL = 1000 * self.cards.order[0]
+        self.MAXVAL = 1000 * list(self.cards.keys())[0]
 
     def set_numwords(self):
         self.set_high_numwords(self.high_numwords)
