@@ -179,12 +179,15 @@ Source: http://publications.europa.eu/code/lv/lv-5000500.htm
 CURRENCIES = {
     'AUD': (prefix_currency('Austrālijas', GENERIC_DOLLARS), GENERIC_CENTS),
     'CAD': (prefix_currency('Kanādas', GENERIC_DOLLARS), GENERIC_CENTS),
-    'EEK': (prefix_currency('Igaunijas', GENERIC_KRONA), GENERIC_CENTS),  # repalced by EUR
+    # repalced by EUR
+    'EEK': (prefix_currency('Igaunijas', GENERIC_KRONA), GENERIC_CENTS),
     'EUR': (('eiro', 'eiro', 'eiro'), GENERIC_CENTS),
     'EUR_LEGAL': (('euro', 'euro', 'euro'), GENERIC_CENTS),
     'GBP': (prefix_currency('sterliņu', GENERIC_POUND), GENERIC_PENCE),
-    'LTL': ('lits', 'liti', 'litu', GENERIC_CENTS),  # replaced by EUR
-    'LVL': (('lats', 'lati', 'latu'), ('santīms', 'santīmi', 'santīmu')),  # replaced by EUR
+    # replaced by EUR
+    'LTL': ('lits', 'liti', 'litu', GENERIC_CENTS),
+    # replaced by EUR
+    'LVL': (('lats', 'lati', 'latu'), ('santīms', 'santīmi', 'santīmu')),
     'USD': (prefix_currency('ASV', GENERIC_DOLLARS), GENERIC_CENTS),
     'RUB': (prefix_currency('Krievijas', ('rublis', 'rubļi', 'rubli')),
             ('kapeika', 'kapeikas', 'kapeiku')),
