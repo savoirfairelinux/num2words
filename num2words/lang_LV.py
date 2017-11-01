@@ -184,11 +184,7 @@ def get_digits(n):
 
 
 def pluralize(n, forms):
-    # gettext implementation:
-    # (n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2)
-
     form = 0 if (n % 10 == 1 and n % 100 != 11) else 1 if n != 0 else 2
-
     return forms[form]
 
 
@@ -202,8 +198,6 @@ def int2word(n):
     for x in chunks:
         i -= 1
         n1, n2, n3 = get_digits(x)
-
-        # print str(n3) + str(n2) + str(n1)
 
         if n3 > 0:
             if n3 == 1 and n2 == 0 and n1 > 0:
@@ -232,7 +226,7 @@ def n2w(n):
     n = str(n).replace(',', '.')
     if '.' in n:
         left, right = n.split('.')
-        return u'%s kablelis %s' % (int2word(int(left)), int2word(int(right)))
+        return u'%s komats %s' % (int2word(int(left)), int2word(int(right)))
     else:
         return int2word(int(n))
 

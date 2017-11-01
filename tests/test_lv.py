@@ -20,3 +20,10 @@ class Num2WordsLVTest(TestCase):
                       cents=False, currency='EUR_LEGAL'),
             "trīsdesmit astoņi euro un 40 centi"
         )
+
+    def test_fractions(self):
+        self.assertEqual(num2words(5.2, lang='lv'), "pieci komats divi")
+        self.assertEqual(
+            num2words(561.42, lang='lv'),
+            "pieci simti sešdesmit viens komats četrdesmit divi"
+        )
