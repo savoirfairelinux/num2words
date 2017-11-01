@@ -101,66 +101,69 @@ from __future__ import unicode_literals
 
 from .currency import parse_currency_parts
 
-ZERO = (u'nulle',)
+ZERO = ('nulle',)
 
 ONES = {
-    1: (u'viens',),
-    2: (u'divi',),
-    3: (u'trīs',),
-    4: (u'četri',),
-    5: (u'pieci',),
-    6: (u'seši',),
-    7: (u'septiņi',),
-    8: (u'astoņi',),
-    9: (u'deviņi',),
+    1: ('viens',),
+    2: ('divi',),
+    3: ('trīs',),
+    4: ('četri',),
+    5: ('pieci',),
+    6: ('seši',),
+    7: ('septiņi',),
+    8: ('astoņi',),
+    9: ('deviņi',),
 }
 
 TENS = {
-    0: (u'desmit',),
-    1: (u'vienpadsmit',),
-    2: (u'divpadsmit',),
-    3: (u'trīspadsmit',),
-    4: (u'četrpadsmit',),
-    5: (u'piecpadsmit',),
-    6: (u'sešpadsmit',),
-    7: (u'septiņpadsmit',),
-    8: (u'astoņpadsmit',),
-    9: (u'deviņpadsmit',),
+    0: ('desmit',),
+    1: ('vienpadsmit',),
+    2: ('divpadsmit',),
+    3: ('trīspadsmit',),
+    4: ('četrpadsmit',),
+    5: ('piecpadsmit',),
+    6: ('sešpadsmit',),
+    7: ('septiņpadsmit',),
+    8: ('astoņpadsmit',),
+    9: ('deviņpadsmit',),
 }
 
 TWENTIES = {
-    2: (u'divdesmit',),
-    3: (u'trīsdesmit',),
-    4: (u'četrdesmit',),
-    5: (u'piecdesmit',),
-    6: (u'sešdesmit',),
-    7: (u'septiņdesmit',),
-    8: (u'astoņdesmit',),
-    9: (u'deviņdesmit',),
+    2: ('divdesmit',),
+    3: ('trīsdesmit',),
+    4: ('četrdesmit',),
+    5: ('piecdesmit',),
+    6: ('sešdesmit',),
+    7: ('septiņdesmit',),
+    8: ('astoņdesmit',),
+    9: ('deviņdesmit',),
 }
 
-HUNDRED = (u'simts', u'simti', u'simtu')
+HUNDRED = ('simts', 'simti', 'simtu')
 
 THOUSANDS = {
-    1: (u'tūkstotis', u'tūkstoši', u'tūkstošu'),
-    2: (u'miljons', u'miljoni', u'miljonu'),
-    3: (u'miljards', u'miljardi', u'miljardu'),
-    4: (u'triljons', u'triljoni', u'triljonu'),
-    5: (u'kvadriljons', u'kvadriljoni', u'kvadriljonu'),
-    6: (u'kvintiljons', u'kvintiljoni', u'kvintiljonu'),
-    7: (u'sikstiljons', u'sikstiljoni', u'sikstiljonu'),
-    8: (u'septiljons', u'septiljoni', u'septiljonu'),
-    9: (u'oktiljons', u'oktiljoni', u'oktiljonu'),
-    10: (u'nontiljons', u'nontiljoni', u'nontiljonu'),
+    1: ('tūkstotis', 'tūkstoši', 'tūkstošu'),
+    2: ('miljons', 'miljoni', 'miljonu'),
+    3: ('miljards', 'miljardi', 'miljardu'),
+    4: ('triljons', 'triljoni', 'triljonu'),
+    5: ('kvadriljons', 'kvadriljoni', 'kvadriljonu'),
+    6: ('kvintiljons', 'kvintiljoni', 'kvintiljonu'),
+    7: ('sikstiljons', 'sikstiljoni', 'sikstiljonu'),
+    8: ('septiljons', 'septiljoni', 'septiljonu'),
+    9: ('oktiljons', 'oktiljoni', 'oktiljonu'),
+    10: ('nontiljons', 'nontiljoni', 'nontiljonu'),
 }
 
+"""
+Sadly we have a legal form (used in legal and finance documents):
+http://www.eiro.lv/files/upload/files/Eiro_rakstiba-1.pdf
+https://likumi.lv/doc.php?id=254741
+http://eur-lex.europa.eu/legal-content/LV/TXT/HTML/?uri=CELEX:31998R0974&from=LV
+"""
 CURRENCIES = {
-    'LVL': (
-        (u'lats', u'lati', u'latu'), (u'santīms', u'santīmi', u'santīmu')
-    ),
-    'EUR': (
-        (u'eiro', u'eiro', u'eiro'), (u'cents', u'centi', u'centu')
-    ),
+    'LVL': (('lats', 'lati', 'latu'), ('santīms', 'santīmi', 'santīmu')),
+    'EUR': (('eiro', 'eiro', 'eiro'), ('cents', 'centi', 'centu')),
+    'EUR_LEGAL': (('euro', 'euro', 'euro'), ('cents', 'centi', 'centu')),
 }
 
 
