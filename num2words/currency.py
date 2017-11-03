@@ -35,3 +35,7 @@ def parse_currency_parts(value):
         cents = int(fraction)
 
     return integer, cents, negative
+
+
+def prefix_currency(prefix, base):
+    return tuple("%s %s" % (prefix, i) for i in base)

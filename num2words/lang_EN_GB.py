@@ -20,7 +20,10 @@ from .lang_EN import Num2Word_EN
 
 
 class Num2Word_EN_GB(Num2Word_EN):
-    def to_currency(self, val, longval=True):
+    def to_currency(self, val, longval=True, **kwargs):
+        if 'currency' in kwargs:
+            return self._to_currency(val, **kwargs)
+
         return self.to_splitnum(val, hightxt="pound/s", lowtxt="pence",
                                 jointxt="and", longval=longval)
 

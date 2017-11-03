@@ -86,7 +86,10 @@ class Num2Word_EN(lang_EU.Num2Word_EU):
         return self.to_splitnum(val, hightxt="hundred", jointxt="and",
                                 longval=longval)
 
-    def to_currency(self, val, longval=True):
+    def to_currency(self, val, longval=True, **kwargs):
+        if 'currency' in kwargs:
+            return self._to_currency(val, **kwargs)
+
         return self.to_splitnum(val, hightxt="dollar/s", lowtxt="cent/s",
                                 jointxt="and", longval=longval, cents=True)
 
