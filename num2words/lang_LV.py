@@ -99,7 +99,7 @@ mīnus divpadsmit tūkstoši pieci simti deviņpadsmit eiro, 85 centi
 """
 from __future__ import unicode_literals
 
-from .currency import parse_currency_parts
+from .currency import parse_currency_parts, prefix_currency
 
 ZERO = ('nulle',)
 
@@ -157,15 +157,8 @@ THOUSANDS = {
 GENERIC_DOLLARS = ('dolārs', 'dolāri', 'dolāru')
 GENERIC_CENTS = ('cents', 'centi', 'centu')
 
-GENERIC_POUND = ('mārciņa', 'mārciņas', 'mārciņu')
-GENERIC_PENCE = ('penss', 'pensi', 'pensu')
-
 GENERIC_KRONA = ('krona', 'kronas', 'kronu')
 GENERIC_ERA = ('ēre', 'ēras', 'ēru')
-
-
-def prefix_currency(prefix, base):
-    return tuple("%s %s" % (prefix, i) for i in base)
 
 
 """
@@ -177,23 +170,34 @@ http://eur-lex.europa.eu/legal-content/LV/TXT/HTML/?uri=CELEX:31998R0974&from=LV
 Source: http://publications.europa.eu/code/lv/lv-5000500.htm
 """
 CURRENCIES = {
-    'AUD': (prefix_currency('Austrālijas', GENERIC_DOLLARS), GENERIC_CENTS),
-    'CAD': (prefix_currency('Kanādas', GENERIC_DOLLARS), GENERIC_CENTS),
+    'AUD': (GENERIC_DOLLARS, GENERIC_CENTS),
+    'CAD': (GENERIC_DOLLARS, GENERIC_CENTS),
     # repalced by EUR
-    'EEK': (prefix_currency('Igaunijas', GENERIC_KRONA), GENERIC_CENTS),
+    'EEK': (GENERIC_KRONA, GENERIC_CENTS),
     'EUR': (('eiro', 'eiro', 'eiro'), GENERIC_CENTS),
     'EUR_LEGAL': (('euro', 'euro', 'euro'), GENERIC_CENTS),
-    'GBP': (prefix_currency('sterliņu', GENERIC_POUND), GENERIC_PENCE),
+    'GBP': (
+        ('sterliņu mārciņa', 'sterliņu mārciņas', 'sterliņu mārciņu'),
+        ('penss', 'pensi', 'pensu')),
     # replaced by EUR
     'LTL': ('lits', 'liti', 'litu', GENERIC_CENTS),
     # replaced by EUR
     'LVL': (('lats', 'lati', 'latu'), ('santīms', 'santīmi', 'santīmu')),
-    'USD': (prefix_currency('ASV', GENERIC_DOLLARS), GENERIC_CENTS),
-    'RUB': (prefix_currency('Krievijas', ('rublis', 'rubļi', 'rubļu')),
-            ('kapeika', 'kapeikas', 'kapeiku')),
-    'SEK': (prefix_currency('Zviedrijas', GENERIC_KRONA), GENERIC_ERA),
-    'NOK': (prefix_currency('Norvēģijas', GENERIC_KRONA), GENERIC_ERA),
+    'USD': (GENERIC_DOLLARS, GENERIC_CENTS),
+    'RUB': (('rublis', 'rubļi', 'rubļu'), ('kapeika', 'kapeikas', 'kapeiku')),
+    'SEK': (GENERIC_KRONA, GENERIC_ERA),
+    'NOK': (GENERIC_KRONA, GENERIC_ERA),
     'PLN': (('zlots', 'zloti', 'zlotu'), ('grasis', 'graši', 'grašu')),
+}
+
+PREFIXES = {
+    'AUD': 'Austrālijas',
+    'CAD': 'Kanādas',
+    'EEK': 'Igaunijas',
+    'USD': 'ASV',
+    'RUB': 'Kreivijas',
+    'SEK': 'Zviedrijas',
+    'NOK': 'Norvēģijas',
 }
 
 
@@ -261,9 +265,12 @@ def n2w(n):
         return int2word(int(n))
 
 
-def to_currency(n, currency='EUR', cents=True, seperator=','):
+def to_currency(n, currency='EUR', cents=True, seperator=',', prefix=False):
     left, right, is_negative = parse_currency_parts(n)
     cr1, cr2 = CURRENCIES[currency]
+
+    if prefix and currency in PREFIXES:
+        cr1 = prefix_currency(PREFIXES[currency], cr1)
 
     minus_str = "mīnus " if is_negative else ""
     cents_str = int2word(right) if cents else "%02d" % right
@@ -285,8 +292,9 @@ class Num2Word_LV(object):
     def to_ordinal(self, number):
         raise NotImplementedError()
 
-    def to_currency(self, n, currency='EUR', cents=True, seperator=','):
-        return to_currency(n, currency, cents, seperator)
+    def to_currency(self, n,  currency='EUR', cents=True, seperator=',',
+                    prefix=False):
+        return to_currency(n, currency, cents, seperator, prefix)
 
 
 if __name__ == '__main__':
