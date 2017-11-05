@@ -91,7 +91,7 @@ class Num2Word_ES(Num2Word_EU):
             if nnum < 1000000:
                 return next
             ctext = "un"
-        elif cnum == 100 and not nnum == 1000:
+        elif cnum == 100 and not nnum % 1000 == 0:
             ctext += "t" + self.gender_stem
 
         if nnum < cnum:
@@ -117,7 +117,6 @@ class Num2Word_ES(Num2Word_EU):
 
     def to_ordinal(self, value):
         self.verify_ordinal(value)
-        text = ""
         try:
             if value == 0:
                 text = ""
@@ -167,31 +166,10 @@ class Num2Word_ES(Num2Word_EU):
         return "%s%s" % (value, "º" if self.gender_stem == 'o' else "ª")
 
     def to_currency(self, val, longval=True, old=False):
+        hightxt, lowtxt = "euro/s", "centavo/s"
         if old:
-            return self.to_splitnum(val, hightxt="peso/s", lowtxt="peseta/s",
-                                    divisor=1000, jointxt="y", longval=longval)
-        return super(Num2Word_ES, self).to_currency(val, jointxt="y",
-                                                    longval=longval)
-
-
-n2w = Num2Word_ES()
-to_card = n2w.to_cardinal
-to_ord = n2w.to_ordinal
-to_ordnum = n2w.to_ordinal_num
-
-
-def main():
-    for val in [1, 11, 12, 21, 31, 33, 71, 80, 81, 91, 99, 100, 101, 102, 155,
-                180, 300, 308, 832, 1000, 1001, 1061, 1100, 1500, 1701, 3000,
-                8280, 8291, 150000, 500000, 1000000, 2000000, 2000001,
-                -21212121211221211111, -2.121212, -1.0000100]:
-        n2w.test(val)
-
-    n2w.test(13253254360678768017687001076010010122121321432104732075403270573)
-    print(n2w.to_currency(1222))
-    print(n2w.to_currency(1222, old=True))
-    print(n2w.to_year(1222))
-
-
-if __name__ == "__main__":
-    main()
+            hightxt, lowtxt = "peso/s", "peseta/s"
+        result = self.to_splitnum(val, hightxt=hightxt, lowtxt=lowtxt,
+                                  divisor=1, jointxt="y", longval=longval)
+        # Handle exception, in spanish is "un euro" and not "uno euro"
+        return result.replace("uno", "un")

@@ -18,6 +18,7 @@ from __future__ import unicode_literals
 
 import math
 from collections import OrderedDict
+from decimal import Decimal
 
 from .compat import to_s
 
@@ -106,6 +107,10 @@ class Num2Word_Base(object):
 
     def float2tuple(self, value):
         pre = int(value)
+
+        # Simple way of finding decimal places to update the precision
+        self.precision = abs(Decimal(str(value)).as_tuple().exponent)
+
         post = abs(value - pre) * 10**self.precision
         if abs(round(post) - post) < 0.01:
             # We generally floor all values beyond our precision (rather than

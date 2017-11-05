@@ -105,14 +105,14 @@ class Num2WordsPTBRTest(TestCase):
         self.assertEqual(num2words(
             Decimal('1.01'), lang='pt_BR'), 'um vírgula zero um')
         self.assertEqual(num2words(
-            Decimal('1.035'), lang='pt_BR'), 'um vírgula zero três'
+            Decimal('1.035'), lang='pt_BR'), 'um vírgula zero três cinco'
         )
         self.assertEqual(num2words(
             Decimal('1.35'), lang='pt_BR'), 'um vírgula três cinco'
         )
         self.assertEqual(
             num2words(Decimal('3.14159'), lang='pt_BR'),
-            'três vírgula um quatro'
+            'três vírgula um quatro um cinco nove'
         )
         self.assertEqual(
             num2words(Decimal('101.22'), lang='pt_BR'),
@@ -332,14 +332,14 @@ class Num2WordsPTBRTest(TestCase):
             self.n2w.to_currency(Decimal('1.01')), 'um real e um centavo'
         )
         self.assertEqual(
-            self.n2w.to_currency(Decimal('1.035')), 'um real e três centavos'
+            self.n2w.to_currency(Decimal('1.03')), 'um real e três centavos'
         )
         self.assertEqual(
             self.n2w.to_currency(Decimal('1.35')),
             'um real e trinta e cinco centavos'
         )
         self.assertEqual(
-            self.n2w.to_currency(Decimal('3.14159')),
+            self.n2w.to_currency(Decimal('3.14')),
             'três reais e catorze centavos'
         )
         self.assertEqual(

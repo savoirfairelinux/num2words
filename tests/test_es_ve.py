@@ -20,6 +20,16 @@ from num2words import num2words
 
 from . import test_es
 
+TEST_CASES_TO_CURRENCY = (
+    (1, 'un bolívar'),
+    (2, 'dos bolívares'),
+    (8, 'ocho bolívares'),
+    (12, 'doce bolívares'),
+    (21, 'veintiun bolívares'),
+    (81.25, 'ochenta y un bolívares y veinticinco centavos'),
+    (100, 'cien bolívares'),
+)
+
 
 class Num2WordsESVETest(test_es.Num2WordsESTest):
 
@@ -31,5 +41,19 @@ class Num2WordsESVETest(test_es.Num2WordsESTest):
         for test in test_es.TEST_CASES_ORDINAL:
             self.assertEqual(
                 num2words(test[0], lang='es_VE', ordinal=True),
+                test[1]
+            )
+
+    def test_ordinal_num(self):
+        for test in test_es.TEST_CASES_ORDINAL_NUM:
+            self.assertEqual(
+                num2words(test[0], lang='es', to='ordinal_num'),
+                test[1]
+            )
+
+    def test_currency(self):
+        for test in TEST_CASES_TO_CURRENCY:
+            self.assertEqual(
+                num2words(test[0], lang='es_VE', to='currency', old=True),
                 test[1]
             )
