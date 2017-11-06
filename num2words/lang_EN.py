@@ -26,6 +26,8 @@ class Num2Word_EN(lang_EU.Num2Word_EU):
             self.cards[10 ** n] = word + "illion"
 
     def setup(self):
+        super(Num2Word_EN, self).setup()
+
         self.negword = "minus "
         self.pointword = "point"
         self.errmsg_nornum = "Only numbers may be converted to words."
@@ -86,32 +88,9 @@ class Num2Word_EN(lang_EU.Num2Word_EU):
         return self.to_splitnum(val, hightxt="hundred", jointxt="and",
                                 longval=longval)
 
-    def to_currency(self, val, longval=True, **kwargs):
-        if 'currency' in kwargs:
-            return self._to_currency(val, **kwargs)
-
-        return self.to_splitnum(val, hightxt="dollar/s", lowtxt="cent/s",
-                                jointxt="and", longval=longval, cents=True)
-
 
 n2w = Num2Word_EN()
 to_card = n2w.to_cardinal
 to_ord = n2w.to_ordinal
 to_ordnum = n2w.to_ordinal_num
 to_year = n2w.to_year
-
-
-def main():
-    for val in [1, 11, 12, 21, 31, 33, 71, 80, 81, 91, 99, 100, 101, 102, 155,
-                180, 300, 308, 832, 1000, 1001, 1061, 1100, 1500, 1701, 3000,
-                8280, 8291, 150000, 500000, 1000000, 2000000, 2000001,
-                -21212121211221211111, -2.121212, -1.0000100]:
-        n2w.test(val)
-    n2w.test(13253254360678768017687001076010010122121321432104732075403270573)
-    for val in [1, 120, 1000, 1120, 1800, 1976, 2000, 2010, 2099, 2171]:
-        print(val, "is", n2w.to_currency(val))
-        print(val, "is", n2w.to_year(val))
-
-
-if __name__ == "__main__":
-    main()

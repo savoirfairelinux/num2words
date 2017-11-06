@@ -99,7 +99,7 @@ mīnus divpadsmit tūkstoši pieci simti deviņpadsmit eiro, 85 centi
 """
 from __future__ import unicode_literals
 
-from .currency import parse_currency_parts, prefix_currency
+from .base import Num2Word_Base
 
 ZERO = ('nulle',)
 
@@ -161,46 +161,6 @@ GENERIC_KRONA = ('krona', 'kronas', 'kronu')
 GENERIC_ERA = ('ēre', 'ēras', 'ēru')
 
 
-"""
-Sadly we have a legal form (used in legal and finance documents):
-http://www.eiro.lv/files/upload/files/Eiro_rakstiba-1.pdf
-https://likumi.lv/doc.php?id=254741
-http://eur-lex.europa.eu/legal-content/LV/TXT/HTML/?uri=CELEX:31998R0974&from=LV
-
-Source: http://publications.europa.eu/code/lv/lv-5000500.htm
-"""
-CURRENCIES = {
-    'AUD': (GENERIC_DOLLARS, GENERIC_CENTS),
-    'CAD': (GENERIC_DOLLARS, GENERIC_CENTS),
-    # repalced by EUR
-    'EEK': (GENERIC_KRONA, GENERIC_CENTS),
-    'EUR': (('eiro', 'eiro', 'eiro'), GENERIC_CENTS),
-    'EUR_LEGAL': (('euro', 'euro', 'euro'), GENERIC_CENTS),
-    'GBP': (
-        ('sterliņu mārciņa', 'sterliņu mārciņas', 'sterliņu mārciņu'),
-        ('penss', 'pensi', 'pensu')),
-    # replaced by EUR
-    'LTL': ('lits', 'liti', 'litu', GENERIC_CENTS),
-    # replaced by EUR
-    'LVL': (('lats', 'lati', 'latu'), ('santīms', 'santīmi', 'santīmu')),
-    'USD': (GENERIC_DOLLARS, GENERIC_CENTS),
-    'RUB': (('rublis', 'rubļi', 'rubļu'), ('kapeika', 'kapeikas', 'kapeiku')),
-    'SEK': (GENERIC_KRONA, GENERIC_ERA),
-    'NOK': (GENERIC_KRONA, GENERIC_ERA),
-    'PLN': (('zlots', 'zloti', 'zlotu'), ('grasis', 'graši', 'grašu')),
-}
-
-PREFIXES = {
-    'AUD': 'Austrālijas',
-    'CAD': 'Kanādas',
-    'EEK': 'Igaunijas',
-    'USD': 'ASV',
-    'RUB': 'Kreivijas',
-    'SEK': 'Zviedrijas',
-    'NOK': 'Norvēģijas',
-}
-
-
 def splitby3(n):
     length = len(n)
     if length > 3:
@@ -217,86 +177,105 @@ def get_digits(n):
     return [int(x) for x in reversed(list(('%03d' % n)[-3:]))]
 
 
-def pluralize(n, forms):
-    form = 0 if (n % 10 == 1 and n % 100 != 11) else 1 if n != 0 else 2
-    return forms[form]
+class Num2Word_LV(Num2Word_Base):
+    def setup(self):
+        self.negword = "mīnus"
+        self.pointword = "komats"
 
+        """
+        Sadly we have a legal form (used in legal and finance documents):
+        http://www.eiro.lv/files/upload/files/Eiro_rakstiba-1.pdf
+        https://likumi.lv/doc.php?id=254741
+        http://eur-lex.europa.eu/legal-content/LV/TXT/HTML/?uri=CELEX:31998R0974&from=LV
 
-def int2word(n):
-    if n == 0:
-        return ZERO[0]
+        Source: http://publications.europa.eu/code/lv/lv-5000500.htm
+        """
+        self.CURRENCY_FORMS = {
+            'AUD': (GENERIC_DOLLARS, GENERIC_CENTS),
+            'CAD': (GENERIC_DOLLARS, GENERIC_CENTS),
+            # repalced by EUR
+            'EEK': (GENERIC_KRONA, GENERIC_CENTS),
+            'EUR': (('eiro', 'eiro', 'eiro'), GENERIC_CENTS),
+            'EUR_LEGAL': (('euro', 'euro', 'euro'), GENERIC_CENTS),
+            'GBP': (
+                ('sterliņu mārciņa', 'sterliņu mārciņas', 'sterliņu mārciņu'),
+                ('penss', 'pensi', 'pensu')),
+            # replaced by EUR
+            'LTL': (('lits', 'liti', 'litu'), GENERIC_CENTS),
+            # replaced by EUR
+            'LVL': (('lats', 'lati', 'latu'),
+                    ('santīms', 'santīmi', 'santīmu')),
+            'USD': (GENERIC_DOLLARS, GENERIC_CENTS),
+            'RUB': (('rublis', 'rubļi', 'rubļu'),
+                    ('kapeika', 'kapeikas', 'kapeiku')),
+            'SEK': (GENERIC_KRONA, GENERIC_ERA),
+            'NOK': (GENERIC_KRONA, GENERIC_ERA),
+            'PLN': (('zlots', 'zloti', 'zlotu'),
+                    ('grasis', 'graši', 'grašu')),
+        }
 
-    words = []
-    chunks = list(splitby3(str(n)))
-    i = len(chunks)
-    for x in chunks:
-        i -= 1
-        n1, n2, n3 = get_digits(x)
+        self.CURRENCY_ADJECTIVES = {
+            'AUD': 'Austrālijas',
+            'CAD': 'Kanādas',
+            'EEK': 'Igaunijas',
+            'USD': 'ASV',
+            'RUB': 'Kreivijas',
+            'SEK': 'Zviedrijas',
+            'NOK': 'Norvēģijas',
+        }
 
-        if n3 > 0:
-            if n3 == 1 and n2 == 0 and n1 > 0:
-                words.append(HUNDRED[2])
-            elif n3 > 1:
-                words.append(ONES[n3][0])
-                words.append(HUNDRED[1])
-            else:
-                words.append(HUNDRED[0])
+    def set_numwords(self):
+        # @FIXME
+        self.cards[0] = []
 
-        if n2 > 1:
-            words.append(TWENTIES[n2][0])
-
-        if n2 == 1:
-            words.append(TENS[n1][0])
-        elif n1 > 0 and not (i > 0 and x == 1):
-            words.append(ONES[n1][0])
-
-        if i > 0 and x != 0:
-            words.append(pluralize(x, THOUSANDS[i]))
-
-    return ' '.join(words)
-
-
-def n2w(n):
-    n = str(n).replace(',', '.')
-    if '.' in n:
-        left, right = n.split('.')
-        return u'%s komats %s' % (int2word(int(left)), int2word(int(right)))
-    else:
-        return int2word(int(n))
-
-
-def to_currency(n, currency='EUR', cents=True, seperator=',', prefix=False):
-    left, right, is_negative = parse_currency_parts(n)
-    cr1, cr2 = CURRENCIES[currency]
-
-    if prefix and currency in PREFIXES:
-        cr1 = prefix_currency(PREFIXES[currency], cr1)
-
-    minus_str = "mīnus " if is_negative else ""
-    cents_str = int2word(right) if cents else "%02d" % right
-
-    return u'%s%s %s%s %s %s' % (
-        minus_str,
-        int2word(left),
-        pluralize(left, cr1),
-        seperator,
-        cents_str,
-        pluralize(right, cr2)
-    )
-
-
-class Num2Word_LV(object):
     def to_cardinal(self, number):
-        return n2w(number)
+        n = str(number).replace(',', '.')
+        if '.' in n:
+            left, right = n.split('.')
+            return u'%s %s %s' % (
+                self._int2word(int(left)),
+                self.pointword,
+                self._int2word(int(right))
+            )
+        else:
+            return self._int2word(int(n))
+
+    def pluralize(self, n, forms):
+        form = 0 if (n % 10 == 1 and n % 100 != 11) else 1 if n != 0 else 2
+        return forms[form]
 
     def to_ordinal(self, number):
         raise NotImplementedError()
 
-    def to_currency(self, n,  currency='EUR', cents=True, seperator=',',
-                    prefix=False):
-        return to_currency(n, currency, cents, seperator, prefix)
+    def _int2word(self, n):
+        if n == 0:
+            return ZERO[0]
 
+        words = []
+        chunks = list(splitby3(str(n)))
+        i = len(chunks)
+        for x in chunks:
+            i -= 1
+            n1, n2, n3 = get_digits(x)
 
-if __name__ == '__main__':
-    import doctest
-    doctest.testmod()
+            if n3 > 0:
+                if n3 == 1 and n2 == 0 and n1 > 0:
+                    words.append(HUNDRED[2])
+                elif n3 > 1:
+                    words.append(ONES[n3][0])
+                    words.append(HUNDRED[1])
+                else:
+                    words.append(HUNDRED[0])
+
+            if n2 > 1:
+                words.append(TWENTIES[n2][0])
+
+            if n2 == 1:
+                words.append(TENS[n1][0])
+            elif n1 > 0 and not (i > 0 and x == 1):
+                words.append(ONES[n1][0])
+
+            if i > 0 and x != 0:
+                words.append(self.pluralize(x, THOUSANDS[i]))
+
+        return ' '.join(words)

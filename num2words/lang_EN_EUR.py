@@ -20,13 +20,7 @@ from .lang_EN import Num2Word_EN
 
 
 class Num2Word_EN_EUR(Num2Word_EN):
-    def to_currency(self, val, longval=True, cents=True, jointxt="and",
-                    **kwargs):
-        if 'currency' in kwargs:
-            return self._to_currency(val, **kwargs)
-
-        return self.to_splitnum(val, hightxt="euro/s", lowtxt="cents",
-                                jointxt=jointxt, longval=longval, cents=cents)
+    pass
 
 
 n2w = Num2Word_EN_EUR()

@@ -20,6 +20,7 @@ import math
 from collections import OrderedDict
 
 from .compat import to_s
+from .currency import parse_currency_parts, prefix_currency
 
 
 class Num2Word_Base(object):
@@ -34,6 +35,9 @@ class Num2Word_Base(object):
         self.errmsg_floatord = "Cannot treat float %s as ordinal."
         self.errmsg_negord = "Cannot treat negative num %s as ordinal."
         self.errmsg_toobig = "abs(%s) must be less than %s."
+
+        self.CURRENCY_FORMS = {}
+        self.CURRENCY_ADJECTIVES = {}
 
         self.base_setup()
         self.setup()
@@ -238,8 +242,50 @@ class Num2Word_Base(object):
     def to_year(self, value, **kwargs):
         return self.to_cardinal(value)
 
-    def to_currency(self, value, **kwargs):
-        return self.to_cardinal(value)
+    def pluralize(self, n, forms):
+        """
+        Shuld resolve gettext form:
+        http://docs.translatehouse.org/projects/localization-guide/en/latest/l10n/pluralforms.html
+        """
+        raise NotImplementedError
+
+    def to_currency(self, val, currency='EUR', cents=True, seperator=',',
+                    adjective=False):
+        """
+        Args:
+            val: Numeric value
+            currency (str): Currency code
+            cents (bool): Verbose cents
+            seperator (str): Cent seperator
+            adjective (bool): Prefix currency name with adjective
+        Returns:
+            str: Formatted string
+
+        """
+        left, right, is_negative = parse_currency_parts(val)
+
+        try:
+            cr1, cr2 = self.CURRENCY_FORMS[currency]
+
+        except KeyError:
+            raise NotImplementedError(
+                'Currency code "%s" not implemented for "%s"' %
+                (currency, self.__class__.__name__))
+
+        if adjective and currency in self.CURRENCY_ADJECTIVES:
+            cr1 = prefix_currency(self.CURRENCY_ADJECTIVES[currency], cr1)
+
+        minus_str = "%s " % self.negword if is_negative else ""
+        cents_str = self.to_cardinal(right) if cents else "%02d" % right
+
+        return u'%s%s %s%s %s %s' % (
+            minus_str,
+            self.to_cardinal(left),
+            self.pluralize(left, cr1),
+            seperator,
+            cents_str,
+            self.pluralize(right, cr2)
+        )
 
     def base_setup(self):
         pass

@@ -41,13 +41,13 @@ class Num2WordsLVTest(TestCase):
 
         self.assertEqual(
             num2words('38.4', lang='lv', to='currency', seperator=' un',
-                      cents=False, currency='USD', prefix=False),
+                      cents=False, currency='USD', adjective=False),
             "trīsdesmit astoņi dolāri un 40 centi"
         )
 
         self.assertEqual(
             num2words('38.4', lang='lv', to='currency', seperator=' un',
-                      cents=False, currency='USD', prefix=True),
+                      cents=False, currency='USD', adjective=True),
             "trīsdesmit astoņi ASV dolāri un 40 centi"
         )
 
