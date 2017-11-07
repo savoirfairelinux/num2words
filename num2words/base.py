@@ -249,6 +249,9 @@ class Num2Word_Base(object):
         """
         raise NotImplementedError
 
+    def _cents_verbose(self, number, currency):
+        return self.to_cardinal(number)
+
     def to_currency(self, val, currency='EUR', cents=True, seperator=',',
                     adjective=False):
         """
@@ -276,7 +279,8 @@ class Num2Word_Base(object):
             cr1 = prefix_currency(self.CURRENCY_ADJECTIVES[currency], cr1)
 
         minus_str = "%s " % self.negword if is_negative else ""
-        cents_str = self.to_cardinal(right) if cents else "%02d" % right
+        cents_str = self._cents_verbose(right, currency) \
+            if cents else "%02d" % right
 
         return u'%s%s %s%s %s %s' % (
             minus_str,

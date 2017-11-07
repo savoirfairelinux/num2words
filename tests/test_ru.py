@@ -75,6 +75,11 @@ class Num2WordsRUTest(TestCase):
             "пятьсот шестьдесят один запятая сорок два"
         )
 
+    def test_to_ordinal(self):
+        # @TODO: implement to_ordinal
+        with self.assertRaises(NotImplementedError):
+            num2words(1, lang='ru', to='ordinal')
+
     def test_to_currency(self):
         self.assertEqual(
             num2words(1.0, lang='ru', to='currency', currency='EUR'),
