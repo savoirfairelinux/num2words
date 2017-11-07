@@ -73,6 +73,11 @@ class Num2WordsUKTest(TestCase):
             num2words(12.31, lang='uk'), "дванадцять кома тридцять одна"
         )
 
+    def test_to_ordinal(self):
+        # @TODO: implement to_ordinal
+        with self.assertRaises(NotImplementedError):
+            num2words(1, lang='uk', to='ordinal')
+
     def test_to_currency(self):
         # self.assertEqual(
         #     num2words(1.0, lang='uk', to='currency', currency='EUR'),
