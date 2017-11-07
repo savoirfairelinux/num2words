@@ -45,9 +45,11 @@ There's only one function to use::
 
 Besides the numerical argument, there's two optional arguments.
 
-**to:** The converter to use. Supperted values are
+**to:** The converter to use. Supperted values are:
+
 * ``cardinal`` (default)
 * ``ordinal``
+* ``ordinal_num``
 * ``year``
 * ``currency``
 

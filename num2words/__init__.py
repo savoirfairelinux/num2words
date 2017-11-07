@@ -73,7 +73,7 @@ CONVERTER_CLASSES = {
 }
 
 
-CONVERTES_TYPES = ['cardinal', 'ordinal', 'year', 'currency']
+CONVERTES_TYPES = ['cardinal', 'ordinal', 'ordinal_num', 'year', 'currency']
 
 
 def num2words(number, ordinal=False, lang='en', to='cardinal', **kwargs):

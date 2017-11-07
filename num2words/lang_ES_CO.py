@@ -24,28 +24,7 @@ from .lang_ES import Num2Word_ES
 class Num2Word_ES_CO(Num2Word_ES):
 
     def to_currency(self, val, longval=True, old=False):
-            return self.to_splitnum(val, hightxt="peso/s", lowtxt="peso/s",
-                                    divisor=1000, jointxt="y", longval=longval)
-
-
-n2w = Num2Word_ES_CO()
-to_card = n2w.to_cardinal
-to_ord = n2w.to_ordinal
-to_ordnum = n2w.to_ordinal_num
-
-
-def main():
-    for val in [1, 11, 12, 21, 31, 33, 71, 80, 81, 91, 99, 100, 101, 102, 155,
-                180, 300, 308, 832, 1000, 1001, 1061, 1100, 1500, 1701, 3000,
-                8280, 8291, 150000, 500000, 1000000, 2000000, 2000001,
-                -21212121211221211111, -2.121212, -1.0000100]:
-        n2w.test(val)
-
-    n2w.test(13253254360678768017687001076010010122121321432104732075403270573)
-    print(n2w.to_currency(1222))
-    print(n2w.to_currency(1222, old=True))
-    print(n2w.to_year(1222))
-
-
-if __name__ == "__main__":
-    main()
+        result = self.to_splitnum(val, hightxt="peso/s", lowtxt="centavo/s",
+                                  divisor=1, jointxt="y", longval=longval)
+        # Handle exception, in spanish is "un euro" and not "uno euro"
+        return result.replace("uno", "un")

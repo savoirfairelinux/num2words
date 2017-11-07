@@ -56,7 +56,9 @@ class Num2WordsDETest(TestCase):
         self.assertEqual(num2words(4000000000, lang='de'), "vier milliarden")
 
     def test_cardinal_for_decimal_number(self):
-        self.assertEqual(num2words(3.486, lang='de'), "drei Komma vier acht")
+        self.assertEqual(
+            num2words(3.486, lang='de'), "drei Komma vier acht sechs"
+        )
 
     def test_ordinal_for_negative_numbers(self):
         self.assertRaises(TypeError, num2words, -12, ordinal=True, lang='de')
