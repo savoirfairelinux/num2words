@@ -178,51 +178,51 @@ def get_digits(n):
 
 
 class Num2Word_LV(Num2Word_Base):
+    """
+    Sadly we have a legal form (used in legal and finance documents):
+    http://www.eiro.lv/files/upload/files/Eiro_rakstiba-1.pdf
+    https://likumi.lv/doc.php?id=254741
+    http://eur-lex.europa.eu/legal-content/LV/TXT/HTML/?uri=CELEX:31998R0974&from=LV
+
+    Source: http://publications.europa.eu/code/lv/lv-5000500.htm
+    """
+    CURRENCY_FORMS = {
+        'AUD': (GENERIC_DOLLARS, GENERIC_CENTS),
+        'CAD': (GENERIC_DOLLARS, GENERIC_CENTS),
+        # repalced by EUR
+        'EEK': (GENERIC_KRONA, GENERIC_CENTS),
+        'EUR': (('eiro', 'eiro', 'eiro'), GENERIC_CENTS),
+        'EUR_LEGAL': (('euro', 'euro', 'euro'), GENERIC_CENTS),
+        'GBP': (
+            ('sterliņu mārciņa', 'sterliņu mārciņas', 'sterliņu mārciņu'),
+            ('penss', 'pensi', 'pensu')),
+        # replaced by EUR
+        'LTL': (('lits', 'liti', 'litu'), GENERIC_CENTS),
+        # replaced by EUR
+        'LVL': (('lats', 'lati', 'latu'),
+                ('santīms', 'santīmi', 'santīmu')),
+        'USD': (GENERIC_DOLLARS, GENERIC_CENTS),
+        'RUB': (('rublis', 'rubļi', 'rubļu'),
+                ('kapeika', 'kapeikas', 'kapeiku')),
+        'SEK': (GENERIC_KRONA, GENERIC_ERA),
+        'NOK': (GENERIC_KRONA, GENERIC_ERA),
+        'PLN': (('zlots', 'zloti', 'zlotu'),
+                ('grasis', 'graši', 'grašu')),
+    }
+
+    CURRENCY_ADJECTIVES = {
+        'AUD': 'Austrālijas',
+        'CAD': 'Kanādas',
+        'EEK': 'Igaunijas',
+        'USD': 'ASV',
+        'RUB': 'Kreivijas',
+        'SEK': 'Zviedrijas',
+        'NOK': 'Norvēģijas',
+    }
+
     def setup(self):
         self.negword = "mīnus"
         self.pointword = "komats"
-
-        """
-        Sadly we have a legal form (used in legal and finance documents):
-        http://www.eiro.lv/files/upload/files/Eiro_rakstiba-1.pdf
-        https://likumi.lv/doc.php?id=254741
-        http://eur-lex.europa.eu/legal-content/LV/TXT/HTML/?uri=CELEX:31998R0974&from=LV
-
-        Source: http://publications.europa.eu/code/lv/lv-5000500.htm
-        """
-        self.CURRENCY_FORMS = {
-            'AUD': (GENERIC_DOLLARS, GENERIC_CENTS),
-            'CAD': (GENERIC_DOLLARS, GENERIC_CENTS),
-            # repalced by EUR
-            'EEK': (GENERIC_KRONA, GENERIC_CENTS),
-            'EUR': (('eiro', 'eiro', 'eiro'), GENERIC_CENTS),
-            'EUR_LEGAL': (('euro', 'euro', 'euro'), GENERIC_CENTS),
-            'GBP': (
-                ('sterliņu mārciņa', 'sterliņu mārciņas', 'sterliņu mārciņu'),
-                ('penss', 'pensi', 'pensu')),
-            # replaced by EUR
-            'LTL': (('lits', 'liti', 'litu'), GENERIC_CENTS),
-            # replaced by EUR
-            'LVL': (('lats', 'lati', 'latu'),
-                    ('santīms', 'santīmi', 'santīmu')),
-            'USD': (GENERIC_DOLLARS, GENERIC_CENTS),
-            'RUB': (('rublis', 'rubļi', 'rubļu'),
-                    ('kapeika', 'kapeikas', 'kapeiku')),
-            'SEK': (GENERIC_KRONA, GENERIC_ERA),
-            'NOK': (GENERIC_KRONA, GENERIC_ERA),
-            'PLN': (('zlots', 'zloti', 'zlotu'),
-                    ('grasis', 'graši', 'grašu')),
-        }
-
-        self.CURRENCY_ADJECTIVES = {
-            'AUD': 'Austrālijas',
-            'CAD': 'Kanādas',
-            'EEK': 'Igaunijas',
-            'USD': 'ASV',
-            'RUB': 'Kreivijas',
-            'SEK': 'Zviedrijas',
-            'NOK': 'Norvēģijas',
-        }
 
     def set_numwords(self):
         # @FIXME

@@ -24,6 +24,33 @@ GENERIC_CENTS = ('cent', 'cents')
 
 
 class Num2Word_EU(Num2Word_Base):
+    CURRENCY_FORMS = {
+        'AUD': (GENERIC_DOLLARS, GENERIC_CENTS),
+        'CAD': (GENERIC_DOLLARS, GENERIC_CENTS),
+        # repalced by EUR
+        'EEK': (('kroon', 'kroons'), ('sent', 'senti')),
+        'EUR': (('euro', 'euro'), GENERIC_CENTS),
+        'GBP': (('pound sterling', 'pounds sterling'), ('penny', 'pence')),
+        # replaced by EUR
+        'LTL': (('litas', 'litas'), GENERIC_CENTS),
+        # replaced by EUR
+        'LVL': (('lat', 'lats'), ('santim', 'santims')),
+        'USD': (GENERIC_DOLLARS, GENERIC_CENTS),
+        'RUB': (('rouble', 'roubles'), ('kopek', 'kopeks')),
+        'SEK': (('krona', 'kronor'), ('öre', 'öre')),
+        'NOK': (('krone', 'kroner'), ('øre', 'øre')),
+        'PLN': (('zloty', 'zlotys', 'zlotu'), ('grosz', 'groszy')),
+    }
+
+    CURRENCY_ADJECTIVES = {
+        'AUD': 'Australian',
+        'CAD': 'Canadian',
+        'EEK': 'Estonian',
+        'USD': 'US',
+        'RUB': 'Russian',
+        'NOK': 'Norwegian',
+    }
+
     def set_high_numwords(self, high):
         max = 3 + 6 * len(high)
 
@@ -43,31 +70,3 @@ class Num2Word_EU(Num2Word_Base):
                 "sexagint", "septuagint", "octogint", "nonagint"]
         self.high_numwords = ["cent"] + self.gen_high_numwords(units, tens,
                                                                lows)
-
-    def setup(self):
-        self.CURRENCY_FORMS = {
-            'AUD': (GENERIC_DOLLARS, GENERIC_CENTS),
-            'CAD': (GENERIC_DOLLARS, GENERIC_CENTS),
-            # repalced by EUR
-            'EEK': (('kroon', 'kroons'), ('sent', 'senti')),
-            'EUR': (('euro', 'euro'), GENERIC_CENTS),
-            'GBP': (('pound sterling', 'pounds sterling'), ('penny', 'pence')),
-            # replaced by EUR
-            'LTL': (('litas', 'litas'), GENERIC_CENTS),
-            # replaced by EUR
-            'LVL': (('lat', 'lats'), ('santim', 'santims')),
-            'USD': (GENERIC_DOLLARS, GENERIC_CENTS),
-            'RUB': (('rouble', 'roubles'), ('kopek', 'kopeks')),
-            'SEK': (('krona', 'kronor'), ('öre', 'öre')),
-            'NOK': (('krone', 'kroner'), ('øre', 'øre')),
-            'PLN': (('zloty', 'zlotys', 'zlotu'), ('grosz', 'groszy')),
-        }
-
-        self.CURRENCY_ADJECTIVES = {
-            'AUD': 'Australian',
-            'CAD': 'Canadian',
-            'EEK': 'Estonian',
-            'USD': 'US',
-            'RUB': 'Russian',
-            'NOK': 'Norwegian',
-        }

@@ -24,6 +24,9 @@ from .currency import parse_currency_parts, prefix_currency
 
 
 class Num2Word_Base(object):
+    CURRENCY_FORMS = {}
+    CURRENCY_ADJECTIVES = {}
+
     def __init__(self):
         self.cards = OrderedDict()
         self.is_title = False
@@ -35,9 +38,6 @@ class Num2Word_Base(object):
         self.errmsg_floatord = "Cannot treat float %s as ordinal."
         self.errmsg_negord = "Cannot treat negative num %s as ordinal."
         self.errmsg_toobig = "abs(%s) must be less than %s."
-
-        self.CURRENCY_FORMS = {}
-        self.CURRENCY_ADJECTIVES = {}
 
         self.base_setup()
         self.setup()
