@@ -19,7 +19,6 @@ from __future__ import unicode_literals
 from unittest import TestCase
 
 from num2words import num2words
-from num2words.lang_PL import to_currency
 
 
 class Num2WordsPLTest(TestCase):
@@ -66,36 +65,48 @@ class Num2WordsPLTest(TestCase):
             "tysięcy dwieście dziewięćdzisiąt jeden"
         )
 
+    def test_to_ordinal(self):
+        # @TODO: implement to_ordinal
+        with self.assertRaises(NotImplementedError):
+            num2words(1, lang='pl', to='ordinal')
+
     def test_currency(self):
-        self.assertEqual(to_currency(1.0, 'EUR'), "jeden euro, zero centów")
-        self.assertEqual(to_currency(1.0, 'PLN'), "jeden złoty, zero groszy")
         self.assertEqual(
-            to_currency(1234.56, 'EUR'),
+            num2words(1.0, lang='pl', to='currency', currency='EUR'),
+            "jeden euro, zero centów")
+        self.assertEqual(
+            num2words(1.0, lang='pl', to='currency', currency='PLN'),
+            "jeden złoty, zero groszy")
+        self.assertEqual(
+            num2words(1234.56, lang='pl', to='currency', currency='EUR'),
             "tysiąc dwieście trzydzieści cztery euro, pięćdziesiąt sześć "
             "centów"
         )
         self.assertEqual(
-            to_currency(1234.56, 'PLN'),
+            num2words(1234.56, lang='pl', to='currency', currency='PLN'),
             "tysiąc dwieście trzydzieści cztery złote, pięćdziesiąt sześć "
             "groszy"
         )
         self.assertEqual(
-            to_currency(10111, 'EUR', seperator=' i'),
+            num2words(10111, lang='pl', to='currency', currency='EUR',
+                      seperator=' i'),
             "sto jeden euro i jedenaście centów"
         )
         self.assertEqual(
-            to_currency(10121, 'PLN', seperator=' i'),
+            num2words(10121, lang='pl', to='currency', currency='PLN',
+                      seperator=' i'),
             "sto jeden złotych i dwadzieścia jeden groszy"
         )
         self.assertEqual(
-            to_currency(-1251985, cents=False),
+            num2words(-1251985, lang='pl', to='currency', cents=False),
             "minus dwanaście tysięcy pięćset dziewiętnaście euro, 85 centów"
         )
         self.assertEqual(
-            to_currency(123.50, 'PLN', seperator=' i'),
+            num2words(123.50, lang='pl', to='currency', currency='PLN',
+                      seperator=' i'),
             "sto dwadzieścia trzy złote i pięćdziesiąt groszy"
         )
         self.assertEqual(
-            to_currency(1950, cents=False),
+            num2words(1950, lang='pl', to='currency', cents=False),
             "dziewiętnaście euro, 50 centów"
         )
