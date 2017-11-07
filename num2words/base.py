@@ -244,7 +244,7 @@ class Num2Word_Base(object):
 
     def pluralize(self, n, forms):
         """
-        Shuld resolve gettext form:
+        Should resolve gettext form:
         http://docs.translatehouse.org/projects/localization-guide/en/latest/l10n/pluralforms.html
         """
         raise NotImplementedError
