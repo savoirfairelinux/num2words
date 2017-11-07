@@ -87,10 +87,3 @@ class Num2Word_EN(lang_EU.Num2Word_EU):
             return self.to_cardinal(val)
         return self.to_splitnum(val, hightxt="hundred", jointxt="and",
                                 longval=longval)
-
-
-n2w = Num2Word_EN()
-to_card = n2w.to_cardinal
-to_ord = n2w.to_ordinal
-to_ordnum = n2w.to_ordinal_num
-to_year = n2w.to_year
