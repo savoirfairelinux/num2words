@@ -14,286 +14,162 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301 USA
-u"""
->>> from textwrap import fill
-
->>> ' '.join([str(i) for i in splitby3('1')])
-'1'
->>> ' '.join([str(i) for i in splitby3('1123')])
-'1 123'
->>> ' '.join([str(i) for i in splitby3('1234567890')])
-'1 234 567 890'
-
->>> print(' '.join([n2w(i) for i in range(10)]))
-ноль один два три четыре пять шесть семь восемь девять
-
->>> print(fill(' '.join([n2w(i+10) for i in range(10)])))
-десять одиннадцать двенадцать тринадцать четырнадцать пятнадцать
-шестнадцать семнадцать восемнадцать девятнадцать
-
->>> print(fill(' '.join([n2w(i*10) for i in range(10)])))
-ноль десять двадцать тридцать сорок пятьдесят шестьдесят семьдесят
-восемьдесят девяносто
-
->>> print(n2w(100))
-сто
->>> print(n2w(101))
-сто один
->>> print(n2w(110))
-сто десять
->>> print(n2w(115))
-сто пятнадцать
->>> print(n2w(123))
-сто двадцать три
->>> print(n2w(1000))
-тысяча
->>> print(n2w(1001))
-тысяча один
->>> print(n2w(2012))
-две тысячи двенадцать
-
->>> print(n2w(12519.85))
-двенадцать тысяч пятьсот девятнадцать запятая восемьдесят пять
-
->>> print(fill(n2w(1234567890)))
-миллиард двести тридцать четыре миллиона пятьсот шестьдесят семь тысяч
-восемьсот девяносто
-
->>> print(fill(n2w(215461407892039002157189883901676)))
-двести пятнадцать нониллионов четыреста шестьдесят один октиллион
-четыреста семь септиллионов восемьсот девяносто два секстиллиона
-тридцать девять квинтиллионов два квадриллиона сто пятьдесят семь
-триллионов сто восемьдесят девять миллиардов восемьсот восемьдесят три
-миллиона девятьсот одна тысяча шестьсот семьдесят шесть
-
->>> print(fill(n2w(719094234693663034822824384220291)))
-семьсот девятнадцать нониллионов девяносто четыре октиллиона двести
-тридцать четыре септиллиона шестьсот девяносто три секстиллиона
-шестьсот шестьдесят три квинтиллиона тридцать четыре квадриллиона
-восемьсот двадцать два триллиона восемьсот двадцать четыре миллиарда
-триста восемьдесят четыре миллиона двести двадцать тысяч двести
-девяносто один
-
->>> print(to_currency(1.0, 'EUR'))
-один евро, ноль центов
-
->>> print(to_currency(1.0, 'RUB'))
-один рубль, ноль копеек
-
->>> print(to_currency(1234.56, 'EUR'))
-тысяча двести тридцать четыре евро, пятьдесят шесть центов
-
->>> print(to_currency(1234.56, 'RUB'))
-тысяча двести тридцать четыре рубля, пятьдесят шесть копеек
-
->>> print(to_currency(10111, 'EUR', seperator=u' и'))
-сто один евро и одиннадцать центов
-
->>> print(to_currency(10121, 'RUB', seperator=u' и'))
-сто один рубль и двадцать одна копейка
-
->>> print(to_currency(10122, 'RUB', seperator=u' и'))
-сто один рубль и двадцать две копейки
-
->>> print(to_currency(10121, 'EUR', seperator=u' и'))
-сто один евро и двадцать один цент
-
->>> print(to_currency(-1251985, cents = False))
-минус двенадцать тысяч пятьсот девятнадцать евро, 85 центов
-"""
 from __future__ import unicode_literals
 
-from .currency import parse_currency_parts
+from .base import Num2Word_Base
+from .utils import get_digits, splitby3
 
-ZERO = (u'ноль',)
+ZERO = ('ноль',)
 
 ONES_FEMININE = {
-    1: (u'одна',),
-    2: (u'две',),
-    3: (u'три',),
-    4: (u'четыре',),
-    5: (u'пять',),
-    6: (u'шесть',),
-    7: (u'семь',),
-    8: (u'восемь',),
-    9: (u'девять',),
+    1: ('одна',),
+    2: ('две',),
+    3: ('три',),
+    4: ('четыре',),
+    5: ('пять',),
+    6: ('шесть',),
+    7: ('семь',),
+    8: ('восемь',),
+    9: ('девять',),
 }
 
 ONES = {
-    1: (u'один',),
-    2: (u'два',),
-    3: (u'три',),
-    4: (u'четыре',),
-    5: (u'пять',),
-    6: (u'шесть',),
-    7: (u'семь',),
-    8: (u'восемь',),
-    9: (u'девять',),
+    1: ('один',),
+    2: ('два',),
+    3: ('три',),
+    4: ('четыре',),
+    5: ('пять',),
+    6: ('шесть',),
+    7: ('семь',),
+    8: ('восемь',),
+    9: ('девять',),
 }
 
 TENS = {
-    0: (u'десять',),
-    1: (u'одиннадцать',),
-    2: (u'двенадцать',),
-    3: (u'тринадцать',),
-    4: (u'четырнадцать',),
-    5: (u'пятнадцать',),
-    6: (u'шестнадцать',),
-    7: (u'семнадцать',),
-    8: (u'восемнадцать',),
-    9: (u'девятнадцать',),
+    0: ('десять',),
+    1: ('одиннадцать',),
+    2: ('двенадцать',),
+    3: ('тринадцать',),
+    4: ('четырнадцать',),
+    5: ('пятнадцать',),
+    6: ('шестнадцать',),
+    7: ('семнадцать',),
+    8: ('восемнадцать',),
+    9: ('девятнадцать',),
 }
 
 TWENTIES = {
-    2: (u'двадцать',),
-    3: (u'тридцать',),
-    4: (u'сорок',),
-    5: (u'пятьдесят',),
-    6: (u'шестьдесят',),
-    7: (u'семьдесят',),
-    8: (u'восемьдесят',),
-    9: (u'девяносто',),
+    2: ('двадцать',),
+    3: ('тридцать',),
+    4: ('сорок',),
+    5: ('пятьдесят',),
+    6: ('шестьдесят',),
+    7: ('семьдесят',),
+    8: ('восемьдесят',),
+    9: ('девяносто',),
 }
 
 HUNDREDS = {
-    1: (u'сто',),
-    2: (u'двести',),
-    3: (u'триста',),
-    4: (u'четыреста',),
-    5: (u'пятьсот',),
-    6: (u'шестьсот',),
-    7: (u'семьсот',),
-    8: (u'восемьсот',),
-    9: (u'девятьсот',),
+    1: ('сто',),
+    2: ('двести',),
+    3: ('триста',),
+    4: ('четыреста',),
+    5: ('пятьсот',),
+    6: ('шестьсот',),
+    7: ('семьсот',),
+    8: ('восемьсот',),
+    9: ('девятьсот',),
 }
 
 THOUSANDS = {
-    1: (u'тысяча', u'тысячи', u'тысяч'),  # 10^3
-    2: (u'миллион', u'миллиона', u'миллионов'),  # 10^6
-    3: (u'миллиард', u'миллиарда', u'миллиардов'),  # 10^9
-    4: (u'триллион', u'триллиона', u'триллионов'),  # 10^12
-    5: (u'квадриллион', u'квадриллиона', u'квадриллионов'),  # 10^15
-    6: (u'квинтиллион', u'квинтиллиона', u'квинтиллионов'),  # 10^18
-    7: (u'секстиллион', u'секстиллиона', u'секстиллионов'),  # 10^21
-    8: (u'септиллион', u'септиллиона', u'септиллионов'),  # 10^24
-    9: (u'октиллион', u'октиллиона', u'октиллионов'),  # 10^27
-    10: (u'нониллион', u'нониллиона', u'нониллионов'),  # 10^30
-}
-
-CURRENCIES = {
-    'RUB': (
-        (u'рубль', u'рубля', u'рублей'), (u'копейка', u'копейки', u'копеек')
-    ),
-    'EUR': (
-        (u'евро', u'евро', u'евро'), (u'цент', u'цента', u'центов')
-    ),
+    1: ('тысяча', 'тысячи', 'тысяч'),  # 10^3
+    2: ('миллион', 'миллиона', 'миллионов'),  # 10^6
+    3: ('миллиард', 'миллиарда', 'миллиардов'),  # 10^9
+    4: ('триллион', 'триллиона', 'триллионов'),  # 10^12
+    5: ('квадриллион', 'квадриллиона', 'квадриллионов'),  # 10^15
+    6: ('квинтиллион', 'квинтиллиона', 'квинтиллионов'),  # 10^18
+    7: ('секстиллион', 'секстиллиона', 'секстиллионов'),  # 10^21
+    8: ('септиллион', 'септиллиона', 'септиллионов'),  # 10^24
+    9: ('октиллион', 'октиллиона', 'октиллионов'),  # 10^27
+    10: ('нониллион', 'нониллиона', 'нониллионов'),  # 10^30
 }
 
 
-def splitby3(n):
-    length = len(n)
-    if length > 3:
-        start = length % 3
-        if start > 0:
-            yield int(n[:start])
-        for i in range(start, length, 3):
-            yield int(n[i:i + 3])
-    else:
-        yield int(n)
+class Num2Word_RU(Num2Word_Base):
+    CURRENCY_FORMS = {
+        'RUB': (
+            ('рубль', 'рубля', 'рублей'), ('копейка', 'копейки', 'копеек')
+        ),
+        'EUR': (
+            ('евро', 'евро', 'евро'), ('цент', 'цента', 'центов')
+        ),
+    }
 
+    def setup(self):
+        self.negword = "минус"
+        self.pointword = "запятая"
 
-def get_digits(n):
-    return [int(x) for x in reversed(list(('%03d' % n)[-3:]))]
+    def set_numwords(self):
+        # @FIXME
+        self.cards[0] = []
 
+    def to_cardinal(self, number):
+        n = str(number).replace(',', '.')
+        if '.' in n:
+            left, right = n.split('.')
+            return u'%s %s %s' % (
+                self._int2word(int(left)),
+                self.pointword,
+                self._int2word(int(right))
+            )
+        else:
+            return self._int2word(int(n))
 
-def pluralize(n, forms):
-    if n % 100 < 10 or n % 100 > 20:
-        if n % 10 == 1:
-            form = 0
-        elif 5 > n % 10 > 1:
-            form = 1
+    def pluralize(self, n, forms):
+        if n % 100 < 10 or n % 100 > 20:
+            if n % 10 == 1:
+                form = 0
+            elif 5 > n % 10 > 1:
+                form = 1
+            else:
+                form = 2
         else:
             form = 2
-    else:
-        form = 2
-    return forms[form]
-
-
-def int2word(n, feminine=False):
-    if n < 0:
-        return ' '.join([u'минус', int2word(abs(n))])
-
-    if n == 0:
-        return ZERO[0]
-
-    words = []
-    chunks = list(splitby3(str(n)))
-    i = len(chunks)
-    for x in chunks:
-        i -= 1
-        n1, n2, n3 = get_digits(x)
-
-        if n3 > 0:
-            words.append(HUNDREDS[n3][0])
-
-        if n2 > 1:
-            words.append(TWENTIES[n2][0])
-
-        if n2 == 1:
-            words.append(TENS[n1][0])
-        elif n1 > 0:
-            ones = ONES_FEMININE if i == 1 or feminine and i == 0 else ONES
-            words.append(ones[n1][0])
-
-        if i > 0 and x != 0:
-            words.append(pluralize(x, THOUSANDS[i]))
-
-    return ' '.join(words)
-
-
-def n2w(n):
-    n = str(n).replace(',', '.')
-    if '.' in n:
-        left, right = n.split('.')
-        return u'%s запятая %s' % (int2word(int(left)), int2word(int(right)))
-    else:
-        return int2word(int(n))
-
-
-def to_currency(n, currency='EUR', cents=True, seperator=','):
-    left, right, is_negative = parse_currency_parts(n)
-    cr1, cr2 = CURRENCIES[currency]
-
-    minus_str = "минус " if is_negative else ""
-
-    if cents:
-        cents_feminine = currency == 'RUB'
-        cents_str = int2word(right, cents_feminine)
-    else:
-        cents_str = "%02d" % right
-
-    return u'%s%s %s%s %s %s' % (
-        minus_str,
-        int2word(left),
-        pluralize(left, cr1),
-        seperator,
-        cents_str,
-        pluralize(right, cr2)
-    )
-
-
-class Num2Word_RU(object):
-    def to_cardinal(self, number):
-        return n2w(number)
+        return forms[form]
 
     def to_ordinal(self, number):
         raise NotImplementedError()
 
-    def to_currency(self, n, currency='EUR', cents=True, seperator=','):
-        return to_currency(n, currency, cents, seperator)
+    def _cents_verbose(self, number, currency):
+        return self._int2word(number, currency == 'RUB')
 
+    def _int2word(self, n, feminine=False):
+        if n < 0:
+            return ' '.join([self.negword, self._int2word(abs(n))])
 
-if __name__ == '__main__':
-    import doctest
+        if n == 0:
+            return ZERO[0]
 
-    doctest.testmod()
+        words = []
+        chunks = list(splitby3(str(n)))
+        i = len(chunks)
+        for x in chunks:
+            i -= 1
+            n1, n2, n3 = get_digits(x)
+
+            if n3 > 0:
+                words.append(HUNDREDS[n3][0])
+
+            if n2 > 1:
+                words.append(TWENTIES[n2][0])
+
+            if n2 == 1:
+                words.append(TENS[n1][0])
+            elif n1 > 0:
+                ones = ONES_FEMININE if i == 1 or feminine and i == 0 else ONES
+                words.append(ones[n1][0])
+
+            if i > 0 and x != 0:
+                words.append(self.pluralize(x, THOUSANDS[i]))
+
+        return ' '.join(words)
