@@ -20,6 +20,60 @@ from unittest import TestCase
 
 from num2words import num2words
 
+TEST_CASES_CARDINAL = (
+    (70, 'septante'),
+    (79, 'septante-neuf'),
+    (89, 'huitante-neuf'),
+    (95, 'nonante-cinq'),
+    (729, 'sept cents vingt-neuf'),
+    (894, 'huit cents nonante-quatre'),
+    (999, 'neuf cents nonante-neuf'),
+    (7232, 'sept mille deux cents trente-deux'),
+    (8569, 'huit mille cinq cents soixante-neuf'),
+    (9539, 'neuf mille cinq cents trente-neuf'),
+    (1000000, 'un millions'),
+    (1000001, 'un millions un'),
+    (4000000, 'quatre millions'),
+    (10000000000000, 'dix billions'),
+    (100000000000000, 'cent billions'),
+    (1000000000000000000, 'un trillions'),
+    (1000000000000000000000, 'un trilliards'),
+    (10000000000000000000000000, 'dix quadrillions')
+)
+
+TEST_CASES_ORDINAL = (
+    (1, 'premier'),
+    (8, 'huitième'),
+    (12, 'douzième'),
+    (14, 'quatorzième'),
+    (28, 'vingt-huitième'),
+    (100, 'centième'),
+    (1000, 'millième'),
+    (1000000, 'un millionsième'),
+    (1000000000000000, 'un billiardsième'),
+    (1000000000000000000, 'un trillionsième')  # over 1e18 is not supported
+)
+
+TEST_CASES_TO_CURRENCY = (
+    (1, 'un euro'),
+    (2, 'deux euros'),
+    (8, 'huit euros'),
+    (12, 'douze euros'),
+    (21, 'vingt et un euros'),
+    (81.25, 'huitante et un euros et vingt-cinq centimes'),
+    (100, 'cent euros'),
+)
+
+TEST_CASES_TO_CURRENCY_OLD = (
+    (1, 'un franc'),
+    (2, 'deux francs'),
+    (8, 'huit francs'),
+    (12, 'douze francs'),
+    (21, 'vingt et un francs'),
+    (81.25, 'huitante et un francs et vingt-cinq centimes'),
+    (100, 'cent francs'),
+)
+
 
 class Num2WordsENTest(TestCase):
     def test_ordinal_special_joins(self):
@@ -44,3 +98,28 @@ class Num2WordsENTest(TestCase):
             num2words(91, ordinal=True, lang='fr_CH'), "nonante et unième"
         )
         self.assertEqual(num2words(53, lang='fr_CH'), "cinquante-trois")
+
+    def test_number(self):
+        for test in TEST_CASES_CARDINAL:
+            self.assertEqual(num2words(test[0], lang='fr_CH'), test[1])
+
+    def test_ordinal(self):
+        for test in TEST_CASES_ORDINAL:
+            self.assertEqual(
+                num2words(test[0], lang='fr_CH', ordinal=True),
+                test[1]
+            )
+
+    def test_currency(self):
+        for test in TEST_CASES_TO_CURRENCY:
+            self.assertEqual(
+                num2words(test[0], lang='fr_CH', to='currency'),
+                test[1]
+            )
+
+    def test_currency_old(self):
+        for test in TEST_CASES_TO_CURRENCY_OLD:
+            self.assertEqual(
+                num2words(test[0], lang='fr_CH', to='currency', old=True),
+                test[1]
+            )

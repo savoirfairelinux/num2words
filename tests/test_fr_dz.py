@@ -18,17 +18,47 @@ from __future__ import unicode_literals
 
 from unittest import TestCase
 
-from num2words.lang_FR_DZ import to_currency
+from num2words import num2words
+
+from . import test_fr
+
+TEST_CASES_TO_CURRENCY = (
+    (1, 'un dinard'),
+    (2, 'deux dinards'),
+    (8, 'huit dinards'),
+    (12, 'douze dinards'),
+    (21, 'vingt et un dinards'),
+    (81.25, 'quatre-vingt-un dinards virgule vingt-cinq centimes'),
+    (100, 'cent dinards'),
+)
 
 
 class Num2WordsPLTest(TestCase):
     def test_currency(self):
         self.assertEqual(
-            to_currency(1234.12),
+            num2words(1234.12, lang='fr_DZ', to='currency'),
             "mille deux cent trente-quatre dinards virgule douze centimes"
         )
         self.assertEqual(
-            to_currency(45689.89),
+            num2words(45689.89, lang='fr_DZ', to='currency'),
             "quarante-cinq mille six cent quatre-vingt-neuf dinards virgule "
             "quatre-vingt-neuf centimes"
         )
+
+    def test_number(self):
+        for test in test_fr.TEST_CASES_CARDINAL:
+            self.assertEqual(num2words(test[0], lang='fr_DZ'), test[1])
+
+    def test_ordinal(self):
+        for test in test_fr.TEST_CASES_ORDINAL:
+            self.assertEqual(
+                num2words(test[0], lang='fr_DZ', ordinal=True),
+                test[1]
+            )
+
+    def test_ordinal_num(self):
+        for test in test_fr.TEST_CASES_ORDINAL_NUM:
+            self.assertEqual(
+                num2words(test[0], lang='fr_DZ', to='ordinal_num'),
+                test[1]
+            )
