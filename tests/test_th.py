@@ -45,7 +45,9 @@ class TestNumWord(TestCase):
 
     def test_1000_to_9999(self):
         self.assertEqual(num2words(1000, lang='th'), "หนึ่งพัน")
-        self.assertEqual(num2words(2175, lang='th'), "สองพันหนึ่งร้อยเจ็ดสิบห้า")
+        self.assertEqual(
+            num2words(2175, lang='th'), "สองพันหนึ่งร้อยเจ็ดสิบห้า"
+        )
         self.assertEqual(num2words(4582, lang='th'), "สี่พันห้าร้อยแปดสิบสอง")
         self.assertEqual(num2words(9346, lang='th'), "เก้าพันสามร้อยสี่สิบหก")
 
@@ -94,10 +96,6 @@ class TestNumWord(TestCase):
         self.assertEqual(
             num2words(1000000000000000001, lang='th'),
             "หนึ่งล้านล้านล้านเอ็ด"
-        )
-        self.assertEqual(
-            num2words(123001998830750501, lang='th'),
-            "หนึ่งแสนสองหมื่นสามพันเอ็ดล้านเก้าแสนเก้าหมื่นแปดพันแปดร้อยสามสิบล้านเจ็ดแสนห้าหมื่นห้าร้อยเอ็ด"
         )
 
     def test_decimal(self):
