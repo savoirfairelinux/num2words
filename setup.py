@@ -18,7 +18,7 @@ LONG_DESC = open('README.rst', 'rt').read() + '\n\n' + \
 
 setup(
     name='num2words',
-    version='0.5.5',
+    version='0.5.6',
     description='Modules to convert numbers to words. Easily extensible.',
     long_description=LONG_DESC,
     license='LGPL',

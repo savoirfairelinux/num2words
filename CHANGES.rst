@@ -1,6 +1,18 @@
 Changelog
 =========
 
+Version 0.5.6 -- 2017/11/22
+---------------------------
+
+* Refactor to_currency (#135)
+* Allow the use of other convertes to_currency, to_year (#95)
+* Fix code to respect PEP8 (#98, #105)
+* Add Slovene localization (#97)
+* Add Ukrainian localization (#93)
+* Add Dutch localization (#91)
+* Add Algeria-French localization (#86)
+* Add Turkish localization (#85)
+
 Version 0.5.5 -- 2017/07/02
 ---------------------------
 
