@@ -5,7 +5,6 @@ from __future__ import unicode_literals
 from unittest import TestCase
 
 from num2words import num2words
-
 from num2words.lang_TH import round_2_decimal, split_six
 
 

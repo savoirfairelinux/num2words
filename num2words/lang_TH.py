@@ -19,7 +19,6 @@
 from __future__ import unicode_literals
 
 from num2words.currency import parse_currency_parts
-
 from num2words.utils import splitbyx
 
 thai_num = (
