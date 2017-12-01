@@ -144,7 +144,8 @@ class TestNumWord(TestCase):
         self.assertEqual(num2words(-10, lang='th'), "ติดลบสิบ")
         self.assertEqual(num2words(-10.50, lang='th'), "ติดลบสิบจุดห้า")
         self.assertEqual(
-            num2words(-100.00, lang='th', to='currency'), "ติดลบหนึ่งร้อยบาทถ้วน"
+            num2words(-100.00, lang='th', to='currency'),
+            "ติดลบหนึ่งร้อยบาทถ้วน"
         )
 
     def test_round_2_decimal(self):

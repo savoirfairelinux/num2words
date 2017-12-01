@@ -74,7 +74,9 @@ def add_text_million(word_num):
 
 
 def round_2_decimal(number):
-    integer, cents, negative = parse_currency_parts(number, is_int_with_cents=False)
+    integer, cents, negative = parse_currency_parts(
+        number, is_int_with_cents=False
+    )
     text_num = '{:0.2f}'.format(integer + (cents/100))
     return text_num, negative
 

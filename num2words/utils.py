@@ -1,4 +1,4 @@
-def splitbyx(n, x ,format_int=True):
+def splitbyx(n, x, format_int=True):
     length = len(n)
     if length > x:
         start = length % x
