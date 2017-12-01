@@ -18,7 +18,7 @@
 
 from __future__ import print_function, unicode_literals
 
-from .utils import get_digits, splitby3
+from .utils import get_digits, splitbyx
 
 ZERO = (u'אפס',)
 
@@ -90,7 +90,7 @@ def int2word(n):
 
     words = []
 
-    chunks = list(splitby3(str(n)))
+    chunks = list(splitbyx(str(n), 3))
     i = len(chunks)
     for x in chunks:
         i -= 1

@@ -1,14 +1,17 @@
-def splitby3(n):
+def splitbyx(n, x ,format_int=True):
     length = len(n)
-    if length > 3:
-        start = length % 3
+    if length > x:
+        start = length % x
         if start > 0:
-            yield int(n[:start])
-        for i in range(start, length, 3):
-            yield int(n[i:i+3])
+            result = n[:start]
+            yield int(result) if format_int else result
+        for i in range(start, length, x):
+            result = n[i:i+x]
+            yield int(result) if format_int else result
     else:
-        yield int(n)
+        yield int(n) if format_int else n
 
 
 def get_digits(n):
-    return [int(x) for x in reversed(list(('%03d' % n)[-3:]))]
+    a = [int(x) for x in reversed(list(('%03d' % n)[-3:]))]
+    return a

@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 from unittest import TestCase
 
 from num2words import num2words
-from num2words.lang_TH import round_2_decimal
+from num2words.lang_TH import round_2_decimal, split_six
 
 
 class TestNumWord(TestCase):
@@ -148,3 +148,8 @@ class TestNumWord(TestCase):
         # Expect 0.99 get 0.98
         # self.assertEqual(round_2_decimal(0.995), '1.00')
         # Expect 1.00 get 0.99
+
+    def test_split_six(self):
+        self.assertEqual(split_six(str(123456789)), ['987654', '321'])
+        self.assertEqual(split_six(str(12345)), ['54321'])
+        self.assertEqual(split_six(str(1234567)), ['765432', '1'])

@@ -18,6 +18,8 @@
 
 from __future__ import unicode_literals
 
+from num2words.utils import splitbyx
+
 import decimal
 
 thai_num = (
@@ -51,14 +53,12 @@ def six_num_to_text(six_num):
 
 
 def split_six(num_txt):
-    num_txt = num_txt[::-1]
-    list_six_num = range(0, len(num_txt), 6)
-
-    result = list(map(
-        lambda i: num_txt[i:i+6],  list_six_num
-    ))
-
-    return result
+    result = splitbyx(num_txt, 6, format_int=False)
+    result = list(result)[::-1]
+    a = []
+    for i in result:
+        a.append(i[::-1])
+    return a
 
 
 def add_text_million(word_num):
@@ -149,3 +149,8 @@ class Num2Word_TH(object):
 
     def to_currency(self, number):
         return num_to_currency(number)
+
+
+if __name__ == "__main__":
+    a = num_to_words(1000000)
+    print(a)
