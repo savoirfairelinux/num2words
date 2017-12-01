@@ -18,9 +18,9 @@
 
 from __future__ import unicode_literals
 
-from num2words.utils import splitbyx
+from num2words.currency import parse_currency_parts
 
-import decimal
+from num2words.utils import splitbyx
 
 thai_num = (
     'ศูนย์', 'หนึ่ง', 'สอง', 'สาม', 'สี่',
@@ -55,10 +55,10 @@ def six_num_to_text(six_num):
 def split_six(num_txt):
     result = splitbyx(num_txt, 6, format_int=False)
     result = list(result)[::-1]
-    a = []
+    number_list = []
     for i in result:
-        a.append(i[::-1])
-    return a
+        number_list.append(i[::-1])
+    return number_list
 
 
 def add_text_million(word_num):
@@ -74,14 +74,9 @@ def add_text_million(word_num):
 
 
 def round_2_decimal(number):
-    number = decimal.Decimal(number)
-    number = number.quantize(
-        decimal.Decimal('.01'),
-        rounding=decimal.ROUND_HALF_UP
-    )
-
-    text_num = '{:0.2f}'.format(number)
-    return text_num
+    integer, cents, negative = parse_currency_parts(number, is_int_with_cents=False)
+    text_num = '{:0.2f}'.format(integer + (cents/100))
+    return text_num, negative
 
 
 def left_num_to_text(number):
@@ -98,7 +93,12 @@ def left_num_to_text(number):
 
 def num_to_words(number):
 
+    negative = number < 0
+
     text_num = '{}'.format(number)
+
+    if negative:
+        text_num = text_num.lstrip('-')
 
     split_num = text_num.split('.')
 
@@ -114,12 +114,15 @@ def num_to_words(number):
                 right_text = right_text + thai_num[i]
             result = result + 'จุด' + right_text
 
+    if negative:
+        result = 'ติดลบ' + result
+
     return result
 
 
 def num_to_currency(number):
 
-    number = round_2_decimal(number)
+    number, negative = round_2_decimal(number)
 
     split_num = number.split('.')
 
@@ -137,10 +140,14 @@ def num_to_currency(number):
         else:
             result = left_text + 'บาท' + right_text + 'สตางค์'
 
+    if negative:
+        result = 'ติดลบ' + result
+
     return result
 
 
 class Num2Word_TH(object):
+
     def to_cardinal(self, number):
         return num_to_words(number)
 
@@ -149,8 +156,3 @@ class Num2Word_TH(object):
 
     def to_currency(self, number):
         return num_to_currency(number)
-
-
-if __name__ == "__main__":
-    a = num_to_words(1000000)
-    print(a)
