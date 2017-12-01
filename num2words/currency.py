@@ -1,7 +1,6 @@
 from __future__ import division
 
-from decimal import Decimal
-from decimal import ROUND_HALF_UP
+from decimal import ROUND_HALF_UP, Decimal
 
 
 def parse_currency_parts(value, is_int_with_cents=True):
