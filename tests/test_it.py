@@ -22,7 +22,6 @@ from num2words import num2words
 
 
 class Num2WordsITTest(TestCase):
-
     maxDiff = None
 
     def test_negative(self):
@@ -224,4 +223,12 @@ class Num2WordsITTest(TestCase):
             "trecentoquarantacinque biliardi, seicentosettantotto bilioni, "
             "novecentouno miliardi, duecentotrentaquattro milioni e "
             "cinquecentosessantasettemilaottocentonovantesimo"
+        )
+
+    def test_with_decimals(self):
+        self.assertAlmostEqual(
+            num2words(1.0, lang="it"), "uno virgola zero"
+        )
+        self.assertAlmostEqual(
+            num2words(1.1, lang="it"), "uno virgola uno"
         )

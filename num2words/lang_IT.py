@@ -169,7 +169,7 @@ class Num2Word_IT:
     def to_cardinal(self, number):
         if number < 0:
             string = Num2Word_IT.MINUS_PREFIX_WORD + self.to_cardinal(-number)
-        elif number % 1 != 0:
+        elif isinstance(number, float):
             string = self.float_to_words(number)
         elif number < 20:
             string = CARDINAL_WORDS[number]
