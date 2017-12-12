@@ -120,7 +120,8 @@ class TestNumWord(TestCase):
 
     def test_currency(self):
         self.assertEqual(
-            num2words(100, lang='th', to='currency', currency='THB'), "หนึ่งร้อยบาทถ้วน"
+            num2words(100, lang='th', to='currency', currency='THB'),
+            "หนึ่งร้อยบาทถ้วน"
         )
 
     def test_currency_decimal(self):
