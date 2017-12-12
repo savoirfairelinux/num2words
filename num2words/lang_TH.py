@@ -23,7 +23,6 @@ from num2words.currency import parse_currency_parts
 from num2words.utils import splitbyx
 
 
-
 class Num2Word_TH(Num2Word_Base):
 
     def setup(self):
