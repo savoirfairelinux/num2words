@@ -92,7 +92,15 @@ class Num2Word_TH(Num2Word_Base):
         integer, cents, negative = parse_currency_parts(
             number, is_int_with_cents=False
         )
-        text_num = '{:0.2f}'.format(integer + (cents / 100))
+        integer = '{}'.format(integer)
+        cents = '{}'.format(cents)
+
+        if len(cents) < 2:
+            add_zero = 2 - len(cents)
+            cents = ('0' * add_zero) + cents
+
+        text_num = integer + '.' + cents
+
         return text_num, negative
 
     def left_num_to_text(self, number):

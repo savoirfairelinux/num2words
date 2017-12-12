@@ -152,8 +152,7 @@ class TestNumWord(TestCase):
     def test_round_2_decimal(self):
         n2wTH = Num2Word_TH()
         self.assertEqual(n2wTH.round_2_decimal(0.004), ('0.00', False))
-        # self.assertEqual(n2wTH.round_2_decimal(0.005), ('0.01', False))
-        # Expect 0.01 get 0.00 in python 2.7 Env
+        self.assertEqual(n2wTH.round_2_decimal(0.005), ('0.01', False))
         self.assertEqual(n2wTH.round_2_decimal(0.006), ('0.01', False))
         self.assertEqual(n2wTH.round_2_decimal(0.0005),
                          ('0.00', False))
