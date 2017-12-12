@@ -109,7 +109,7 @@ class Num2Word_Base(object):
         words, num = self.clean(val)
         return self.title(out + words)
 
-    def float2tuple(self, value):
+    def float2tuple(self, value, precision_b=False):
         pre = int(value)
 
         # Simple way of finding decimal places to update the precision
@@ -125,7 +125,11 @@ class Num2Word_Base(object):
         else:
             post = int(math.floor(post))
 
-        return pre, post
+        if precision_b:
+            precision = self.precision
+            return pre, post, precision
+        else:
+            return pre, post
 
     def to_cardinal_float(self, value):
         try:

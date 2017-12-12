@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 from unittest import TestCase
 
 from num2words import num2words
-from num2words.lang_TH import round_2_decimal, split_six
+from num2words.lang_TH import Num2Word_TH
 
 
 class TestNumWord(TestCase):
@@ -120,7 +120,7 @@ class TestNumWord(TestCase):
 
     def test_currency(self):
         self.assertEqual(
-            num2words(100, lang='th', to='currency'), "หนึ่งร้อยบาทถ้วน"
+            num2words(100, lang='th', to='currency', currency='THB'), "หนึ่งร้อยบาทถ้วน"
         )
 
     def test_currency_decimal(self):
@@ -149,22 +149,24 @@ class TestNumWord(TestCase):
         )
 
     def test_round_2_decimal(self):
-        self.assertEqual(round_2_decimal(0.004), ('0.00', False))
-        self.assertEqual(round_2_decimal(0.005), ('0.01', False))
-        self.assertEqual(round_2_decimal(0.006), ('0.01', False))
-        self.assertEqual(round_2_decimal(0.0005), ('0.00', False))
-        self.assertEqual(round_2_decimal(0.984), ('0.98', False))
-        self.assertEqual(round_2_decimal(0.989), ('0.99', False))
-        self.assertEqual(round_2_decimal(0.994), ('0.99', False))
-        self.assertEqual(round_2_decimal(0.999), ('1.00', False))
-        self.assertEqual(round_2_decimal(-0.994), ('0.99', True))
-        self.assertEqual(round_2_decimal(-0.999), ('1.00', True))
-        # self.assertEqual(round_2_decimal(0.985), ('0.99', False))
+        Num2WordTH = Num2Word_TH()
+        self.assertEqual(Num2WordTH.round_2_decimal(0.004), ('0.00', False))
+        self.assertEqual(Num2WordTH.round_2_decimal(0.005), ('0.01', False))
+        self.assertEqual(Num2WordTH.round_2_decimal(0.006), ('0.01', False))
+        self.assertEqual(Num2WordTH.round_2_decimal(0.0005), ('0.00', False))
+        self.assertEqual(Num2WordTH.round_2_decimal(0.984), ('0.98', False))
+        self.assertEqual(Num2WordTH.round_2_decimal(0.989), ('0.99', False))
+        self.assertEqual(Num2WordTH.round_2_decimal(0.994), ('0.99', False))
+        self.assertEqual(Num2WordTH.round_2_decimal(0.999), ('1.00', False))
+        self.assertEqual(Num2WordTH.round_2_decimal(-0.994), ('0.99', True))
+        self.assertEqual(Num2WordTH.round_2_decimal(-0.999), ('1.00', True))
+        # self.assertEqual(Num2WordTH.round_2_decimal(0.985), ('0.99', False))
         # Expect 0.99 get 0.98
-        # self.assertEqual(round_2_decimal(0.995), ('1.00', False))
+        # self.assertEqual(Num2WordTH.round_2_decimal(0.995), ('1.00', False))
         # Expect 1.00 get 0.99
 
     def test_split_six(self):
-        self.assertEqual(split_six(str(123456789)), ['987654', '321'])
-        self.assertEqual(split_six(str(12345)), ['54321'])
-        self.assertEqual(split_six(str(1234567)), ['765432', '1'])
+        Num2WordTH = Num2Word_TH()
+        self.assertEqual(Num2WordTH.split_six(str(123456789)), ['987654', '321'])
+        self.assertEqual(Num2WordTH.split_six(str(12345)), ['54321'])
+        self.assertEqual(Num2WordTH.split_six(str(1234567)), ['765432', '1'])

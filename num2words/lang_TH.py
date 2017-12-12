@@ -20,140 +20,151 @@ from __future__ import unicode_literals
 
 from num2words.currency import parse_currency_parts
 from num2words.utils import splitbyx
-
-thai_num = (
-    'ศูนย์', 'หนึ่ง', 'สอง', 'สาม', 'สี่',
-    'ห้า', 'หก', 'เจ็ด', 'แปด', 'เก้า'
-)
-
-thai_multiplier = ('', 'สิบ', 'ร้อย', 'พัน', 'หมื่น', 'แสน', 'ล้าน')
+from num2words.base import Num2Word_Base
 
 
-def six_num_to_text(six_num):
-    length = len(six_num) > 1
-    word_num = ''
+class Num2Word_TH(Num2Word_Base):
 
-    for index, num in enumerate(map(int, six_num)):
-        if num:
-            if index:
-                word_num = thai_multiplier[index] + word_num
+    def setup(self):
+        self.negword = 'ติดลบ'
+        self.pointword = 'จุด'
 
-            if length and num == 1 and index == 0:
-                word_num += 'เอ็ด'
-            elif index == 1 and num == 2:
-                word_num = 'ยี่' + word_num
-            elif index != 1 or num != 1:
-                word_num = thai_num[num] + word_num
+        self.CURRENCY_FORMS = {
+            'THB': (('บาท', 'บาท'), ('สตางค์', 'สตางค์')),
+        }
 
-        elif num == 0 and index == 0 and length == 0:
-            word_num = 'ศูนย์'
+        self.high_numwords = []
 
-    return word_num
+        self.mid_numwords = ['', 'สิบ', 'ร้อย', 'พัน', 'หมื่น', 'แสน', 'ล้าน']
 
+        self.low_numwords = [
+            'ศูนย์', 'หนึ่ง', 'สอง', 'สาม', 'สี่',
+            'ห้า', 'หก', 'เจ็ด', 'แปด', 'เก้า'
+        ]
 
-def split_six(num_txt):
-    result = splitbyx(num_txt, 6, format_int=False)
-    result = list(result)[::-1]
-    number_list = []
-    for i in result:
-        number_list.append(i[::-1])
-    return number_list
+    def set_high_numwords(self, high_numwords):
+        pass
 
+    def set_mid_numwords(self, mid_numwords):
+        pass
 
-def add_text_million(word_num):
-    result = ''
+    def splitnum(self, six_num):
+        length = len(six_num) > 1
+        word_num = ''
 
-    for index, t in enumerate(reversed(word_num)):
-        if index == 0:
-            result = t
-        else:
-            result = result + 'ล้าน' + t
+        for index, num in enumerate(map(int, six_num)):
+            if num:
+                if index:
+                    word_num = self.mid_numwords[index] + word_num
 
-    return result
+                if length and num == 1 and index == 0:
+                    word_num += 'เอ็ด'
+                elif index == 1 and num == 2:
+                    word_num = 'ยี่' + word_num
+                elif index != 1 or num != 1:
+                    word_num = self.low_numwords[num] + word_num
 
+            elif num == 0 and index == 0 and length == 0:
+                word_num = self.low_numwords[0]
 
-def round_2_decimal(number):
-    integer, cents, negative = parse_currency_parts(
-        number, is_int_with_cents=False
-    )
-    text_num = '{:0.2f}'.format(integer + (cents/100))
-    return text_num, negative
+        return word_num
 
+    def split_six(self, num_txt):
+        result = splitbyx(num_txt, 6, format_int=False)
+        result = list(result)[::-1]
+        number_list = []
+        for i in result:
+            number_list.append(i[::-1])
+        return number_list
 
-def left_num_to_text(number):
+    def add_text_million(self, word_num):
+        result = ''
 
-    left_num_list = split_six(number)
+        for index, t in enumerate(reversed(word_num)):
+            if index == 0:
+                result = t
+            else:
+                result = result + 'ล้าน' + t
 
-    left_text_list = []
-    for i in left_num_list:
-        left_text_list.append(six_num_to_text(i))
+        return result
 
-    left_text = add_text_million(left_text_list)
-    return left_text
+    def round_2_decimal(self, number):
+        integer, cents, negative = parse_currency_parts(
+            number, is_int_with_cents=False
+        )
+        text_num = '{:0.2f}'.format(integer + (cents / 100))
+        return text_num, negative
 
+    def left_num_to_text(self, number):
 
-def num_to_words(number):
+        left_num_list = self.split_six(number)
 
-    negative = number < 0
+        left_text_list = []
+        for i in left_num_list:
+            left_text_list.append(self.splitnum(i))
 
-    text_num = '{}'.format(number)
-
-    if negative:
-        text_num = text_num.lstrip('-')
-
-    split_num = text_num.split('.')
-
-    left_num = split_num[0]
-
-    result = left_num_to_text(left_num)
-
-    if len(split_num) > 1:
-        right_num = split_num[1]
-        right_text = ''
-        if not right_num == '0':
-            for i in map(int, right_num):
-                right_text = right_text + thai_num[i]
-            result = result + 'จุด' + right_text
-
-    if negative:
-        result = 'ติดลบ' + result
-
-    return result
-
-
-def num_to_currency(number):
-
-    number, negative = round_2_decimal(number)
-
-    split_num = number.split('.')
-
-    left_num = split_num[0]
-    left_text = left_num_to_text(left_num)
-
-    right_num = split_num[1]
-    right_text = six_num_to_text(right_num[::-1].rstrip('0'))
-
-    if right_num == '00':
-        result = left_text + 'บาทถ้วน'
-    else:
-        if left_num == '0':
-            result = right_text + 'สตางค์'
-        else:
-            result = left_text + 'บาท' + right_text + 'สตางค์'
-
-    if negative:
-        result = 'ติดลบ' + result
-
-    return result
-
-
-class Num2Word_TH(object):
+        left_text = self.add_text_million(left_text_list)
+        return left_text
 
     def to_cardinal(self, number):
-        return num_to_words(number)
+        negative = number < 0
+
+        pre, post, precision = self.float2tuple(number, precision_b=True)
+        pre = '{}'.format(pre)
+        post = '{}'.format(post)
+
+        if negative:
+            pre = pre.lstrip('-')
+
+        if len(post) < precision:
+            add_zero = precision - len(post)
+            post = ('0' * add_zero) + post
+
+        result = self.left_num_to_text(pre)
+
+        right_text = ''
+        if not post == '0':
+            for i in map(int, post):
+                right_text = right_text + self.low_numwords[i]
+            result = result + 'จุด' + right_text
+
+        if negative:
+            result = 'ติดลบ' + result
+
+        return result
 
     def to_ordinal(self, number):
-        return num_to_words(number)
+        return self.to_cardinal(number)
 
-    def to_currency(self, number):
-        return num_to_currency(number)
+    def to_currency(self, number, currency='THB'):
+
+        number, negative = self.round_2_decimal(number)
+
+        split_num = number.split('.')
+
+        left_num = split_num[0]
+        left_text = self.left_num_to_text(left_num)
+
+        right_num = split_num[1]
+        right_text = self.splitnum(right_num[::-1].rstrip('0'))
+
+        try:
+            cr1, cr2 = self.CURRENCY_FORMS[currency]
+
+        except KeyError:
+            raise NotImplementedError(
+                'Currency code "%s" not implemented for "%s"' %
+                (currency, self.__class__.__name__))
+
+        if right_num == '00':
+            result = left_text + cr1[0] + 'ถ้วน'
+        else:
+            if left_num == '0':
+                result = right_text + cr2[0]
+            else:
+                result = left_text + cr1[0] + right_text + cr2[0]
+
+        if negative:
+            result = self.negword + result
+
+        return result
