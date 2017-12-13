@@ -157,7 +157,6 @@ class TestNumWord(TestCase):
             "หนึ่งร้อยยูโรยี่สิบสี่เซนต์"
         )
 
-
     def test_negative(self):
         self.assertEqual(num2words(-10, lang='th'), "ติดลบสิบ")
         self.assertEqual(num2words(-10.50, lang='th'), "ติดลบสิบจุดห้า")
