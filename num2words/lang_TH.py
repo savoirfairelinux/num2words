@@ -31,6 +31,8 @@ class Num2Word_TH(Num2Word_Base):
 
         self.CURRENCY_FORMS = {
             'THB': (('บาท', 'บาท'), ('สตางค์', 'สตางค์')),
+            'USD': (('ดอลลาร์', 'ดอลลาร์'), ('เซนต์', 'เซนต์')),
+            'EUR': (('ยูโร', 'ยูโร'), ('เซนต์', 'เซนต์')),
         }
 
         self.high_numwords = []
@@ -117,7 +119,8 @@ class Num2Word_TH(Num2Word_Base):
     def to_cardinal(self, number):
         negative = number < 0
 
-        pre, post, precision = self.float2tuple(number, precision_b=True)
+        pre, post = self.float2tuple(number)
+        precision = self.precision
         pre = '{}'.format(pre)
         post = '{}'.format(post)
 
@@ -165,7 +168,10 @@ class Num2Word_TH(Num2Word_Base):
                 (currency, self.__class__.__name__))
 
         if right_num == '00':
-            result = left_text + cr1[0] + 'ถ้วน'
+            if currency == 'THB':
+                result = left_text + cr1[0] + 'ถ้วน'
+            else:
+                result = left_text + cr1[0]
         else:
             if left_num == '0':
                 result = right_text + cr2[0]
