@@ -17,7 +17,7 @@
 from __future__ import unicode_literals
 
 from .base import Num2Word_Base
-from .utils import get_digits, splitby3
+from .utils import get_digits, splitbyx
 
 ZERO = ('nulis',)
 
@@ -116,7 +116,7 @@ class Num2Word_LT(Num2Word_Base):
             return ZERO[0]
 
         words = []
-        chunks = list(splitby3(str(n)))
+        chunks = list(splitbyx(str(n), 3))
         i = len(chunks)
 
         for x in chunks:
