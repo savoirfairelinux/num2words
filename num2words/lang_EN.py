@@ -83,7 +83,15 @@ class Num2Word_EN(lang_EU.Num2Word_EU):
         return "%s%s" % (value, self.to_ordinal(value)[-2:])
 
     def to_year(self, val, longval=True):
-        if not (val // 100) % 10:
+        high, low = (val // 100, val % 100)
+        # If year is beyond 9999 or is X00X, go cardinal.
+        if high >= 100 or (high % 10 == 0 and low < 10):
             return self.to_cardinal(val)
-        return self.to_splitnum(val, hightxt="hundred", jointxt="and",
-                                longval=longval)
+        hightext = self.to_cardinal(high)
+        if low == 0:
+            lowtext = "hundred"
+        elif low < 10:
+            lowtext = "oh-%s" % self.to_cardinal(low)
+        else:
+            lowtext = self.to_cardinal(low)
+        return "%s %s" % (hightext, lowtext)
