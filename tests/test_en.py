@@ -59,3 +59,51 @@ class Num2WordsENTest(TestCase):
                       cents=True, currency='USD'),
             'four thousand, seven hundred and seventy-eight dollars and'
             ' zero cents')
+
+    def test_to_year(self):
+        # issue 141
+        # "e2 e2"
+        self.assertEqual(num2words(1990, lang='en', to='year'),
+                         'nineteen ninety')
+        self.assertEqual(num2words(5555, lang='en', to='year'),
+                         'fifty-five fifty-five')
+        self.assertEqual(num2words(2017, lang='en', to='year'),
+                         'twenty seventeen')
+        self.assertEqual(num2words(1066, lang='en', to='year'),
+                         'ten sixty-six')
+        self.assertEqual(num2words(1865, lang='en', to='year'),
+                         'eighteen sixty-five')
+        # "e3 and e1"; "e2 oh-e1"; "e3"
+        self.assertEqual(num2words(3000, lang='en', to='year'),
+                         'three thousand')
+        self.assertEqual(num2words(2001, lang='en', to='year'),
+                         'two thousand and one')
+        self.assertEqual(num2words(1901, lang='en', to='year'),
+                         'nineteen oh-one')
+        self.assertEqual(num2words(2000, lang='en', to='year'),
+                         'two thousand')
+        self.assertEqual(num2words(905, lang='en', to='year'),
+                         'nine oh-five')
+        # "e2 hundred"; "e3"
+        self.assertEqual(num2words(6600, lang='en', to='year'),
+                         'sixty-six hundred')
+        self.assertEqual(num2words(1900, lang='en', to='year'),
+                         'nineteen hundred')
+        self.assertEqual(num2words(600, lang='en', to='year'),
+                         'six hundred')
+        self.assertEqual(num2words(50, lang='en', to='year'),
+                         'fifty')
+        self.assertEqual(num2words(0, lang='en', to='year'),
+                         'zero')
+        # suffixes
+        self.assertEqual(num2words(-44, lang='en', to='year'),
+                         'forty-four BC')
+        self.assertEqual(num2words(-44, lang='en', to='year', suffix='BCE'),
+                         'forty-four BCE')
+        self.assertEqual(num2words(1, lang='en', to='year', suffix='AD'),
+                         'one AD')
+        self.assertEqual(num2words(66, lang='en', to='year',
+                                   suffix='m.y.a.'),
+                         'sixty-six m.y.a.')
+        self.assertEqual(num2words(-66000000, lang='en', to='year'),
+                         'sixty-six million BC')
