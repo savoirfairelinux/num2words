@@ -1,6 +1,9 @@
 num2words - Convert numbers to words in multiple languages
 ==========================================================
 
+.. image:: https://img.shields.io/pypi/v/num2words.svg
+   :target: https://pypi.python.org/pypi/num2words
+
 .. image:: https://travis-ci.org/savoirfairelinux/num2words.svg?branch=master
     :target: https://travis-ci.org/savoirfairelinux/num2words
 
@@ -13,7 +16,9 @@ It supports multiple languages (see the list below for full list
 of languages) and can even generate ordinal numbers like ``forty-second``
 (although this last feature is a bit buggy for some languages at the moment).
 
-The project is hosted on https://github.com/savoirfairelinux/num2words
+The project is hosted on GitHub_. Contributions are welcome.
+
+.. _GitHub: https://github.com/savoirfairelinux/num2words
 
 Installation
 ------------
@@ -38,7 +43,7 @@ There's only one function to use::
     >>> from num2words import num2words
     >>> num2words(42)
     forty-two
-    >>> num2words(42, to='cardinal')
+    >>> num2words(42, to='ordinal')
     forty-second
     >>> num2words(42, lang='fr')
     quarante-deux
