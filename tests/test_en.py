@@ -91,6 +91,19 @@ class Num2WordsENTest(TestCase):
                          'nineteen hundred')
         self.assertEqual(num2words(600, lang='en', to='year'),
                          'six hundred')
+        self.assertEqual(num2words(50, lang='en', to='year'),
+                         'fifty')
         self.assertEqual(num2words(0, lang='en', to='year'),
                          'zero')
-        # COMBAK: Negative numbers: append BCE?
+        # suffixes
+        self.assertEqual(num2words(-44, lang='en', to='year'),
+                         'forty-four BC')
+        self.assertEqual(num2words(-44, lang='en', to='year', suffix='BCE'),
+                         'forty-four BCE')
+        self.assertEqual(num2words(1, lang='en', to='year', suffix='AD'),
+                         'one AD')
+        self.assertEqual(num2words(66, lang='en', to='year',
+                                   suffix='m.y.a.'),
+                         'sixty-six m.y.a.')
+        self.assertEqual(num2words(-66000000, lang='en', to='year'),
+                         'sixty-six million BC')

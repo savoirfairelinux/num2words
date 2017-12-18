@@ -82,16 +82,24 @@ class Num2Word_EN(lang_EU.Num2Word_EU):
         self.verify_ordinal(value)
         return "%s%s" % (value, self.to_ordinal(value)[-2:])
 
-    def to_year(self, val, longval=True):
+    def to_year(self, val, suffix=None, longval=True):
+        if val < 0:
+            val = abs(val)
+            suffix = 'BC' if not suffix else suffix
         high, low = (val // 100, val % 100)
-        # If year is beyond 9999 or is X00X, go cardinal.
-        if high >= 100 or (high % 10 == 0 and low < 10):
-            return self.to_cardinal(val)
-        hightext = self.to_cardinal(high)
-        if low == 0:
-            lowtext = "hundred"
-        elif low < 10:
-            lowtext = "oh-%s" % self.to_cardinal(low)
+        # If year is 00XX, X00X, or beyond 9999, go cardinal.
+        if (high == 0
+                or (high % 10 == 0 and low < 10)
+                or high >= 100):
+            valtext = self.to_cardinal(val)
         else:
-            lowtext = self.to_cardinal(low)
-        return "%s %s" % (hightext, lowtext)
+            hightext = self.to_cardinal(high)
+            if low == 0:
+                lowtext = "hundred"
+            elif low < 10:
+                lowtext = "oh-%s" % self.to_cardinal(low)
+            else:
+                lowtext = self.to_cardinal(low)
+            valtext = "%s %s" % (hightext, lowtext)
+        return (valtext if not suffix
+                else "%s %s" % (valtext, suffix))
