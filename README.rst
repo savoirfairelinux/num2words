@@ -31,7 +31,7 @@ Otherwise, you can download the source package and then execute::
 
     python setup.py install
 
-The test suite in this library new, so it's rather thin, but it can be ran with::
+The test suite in this library is new, so it's rather thin, but it can be run with::
 
     python setup.py test
 
@@ -89,7 +89,8 @@ Besides the numerical argument, there's two optional arguments.
 * ``nl`` (Dutch)
 * ``uk`` (Ukrainian)
 
-You can supply values like ``fr_FR``, the code will be correctly interpreted. If
+You can supply values like ``fr_FR``; if the country doesn't exist but the
+language does, the code will fall back to the base language (i.e. ``fr``). If
 you supply an unsupported language, ``NotImplementedError`` is raised.
 Therefore, if you want to call ``num2words`` with a fallback, you can do::
 
@@ -101,7 +102,7 @@ Therefore, if you want to call ``num2words`` with a fallback, you can do::
 History
 -------
 
-``num2words`` is based on an old library, ``pynum2word`` created by Taro Ogawa
+``num2words`` is based on an old library, ``pynum2word``, created by Taro Ogawa
 in 2003. Unfortunately, the library stopped being maintained and the author
 can't be reached. There was another developer, Marius Grigaitis, who in 2011
 added Lithuanian support, but didn't take over maintenance of the project.
