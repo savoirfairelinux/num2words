@@ -80,7 +80,7 @@ Besides the numerical argument, there's two optional arguments.
 * ``lv`` (Latvian)
 * ``no`` (Norwegian)
 * ``pl`` (Polish)
-* ``pt_BR`` (Brazilian Portuguese)
+* ``pt_BR`` (Portuguese - Brazilian)
 * ``sl`` (Slovene)
 * ``ru`` (Russian)
 * ``tr`` (Turkish)
