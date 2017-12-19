@@ -1,6 +1,9 @@
 num2words - Convert numbers to words in multiple languages
 ==========================================================
 
+.. image:: https://img.shields.io/pypi/v/num2words.svg
+   :target: https://pypi.python.org/pypi/num2words
+
 .. image:: https://travis-ci.org/savoirfairelinux/num2words.svg?branch=master
     :target: https://travis-ci.org/savoirfairelinux/num2words
 
@@ -13,7 +16,9 @@ It supports multiple languages (see the list below for full list
 of languages) and can even generate ordinal numbers like ``forty-second``
 (although this last feature is a bit buggy for some languages at the moment).
 
-The project is hosted on https://github.com/savoirfairelinux/num2words
+The project is hosted on GitHub_. Contributions are welcome.
+
+.. _GitHub: https://github.com/savoirfairelinux/num2words
 
 Installation
 ------------
@@ -26,7 +31,7 @@ Otherwise, you can download the source package and then execute::
 
     python setup.py install
 
-The test suite in this library new, so it's rather thin, but it can be ran with::
+The test suite in this library is new, so it's rather thin, but it can be run with::
 
     python setup.py test
 
@@ -38,7 +43,7 @@ There's only one function to use::
     >>> from num2words import num2words
     >>> num2words(42)
     forty-two
-    >>> num2words(42, to='cardinal')
+    >>> num2words(42, to='ordinal')
     forty-second
     >>> num2words(42, lang='fr')
     quarante-deux
@@ -75,7 +80,7 @@ Besides the numerical argument, there's two optional arguments.
 * ``lv`` (Latvian)
 * ``no`` (Norwegian)
 * ``pl`` (Polish)
-* ``pt_BR`` (Brazilian Portuguese)
+* ``pt_BR`` (Portuguese - Brazilian)
 * ``sl`` (Slovene)
 * ``ru`` (Russian)
 * ``tr`` (Turkish)
@@ -84,7 +89,8 @@ Besides the numerical argument, there's two optional arguments.
 * ``nl`` (Dutch)
 * ``uk`` (Ukrainian)
 
-You can supply values like ``fr_FR``, the code will be correctly interpreted. If
+You can supply values like ``fr_FR``; if the country doesn't exist but the
+language does, the code will fall back to the base language (i.e. ``fr``). If
 you supply an unsupported language, ``NotImplementedError`` is raised.
 Therefore, if you want to call ``num2words`` with a fallback, you can do::
 
@@ -96,7 +102,7 @@ Therefore, if you want to call ``num2words`` with a fallback, you can do::
 History
 -------
 
-``num2words`` is based on an old library, ``pynum2word`` created by Taro Ogawa
+``num2words`` is based on an old library, ``pynum2word``, created by Taro Ogawa
 in 2003. Unfortunately, the library stopped being maintained and the author
 can't be reached. There was another developer, Marius Grigaitis, who in 2011
 added Lithuanian support, but didn't take over maintenance of the project.
