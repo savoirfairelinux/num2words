@@ -32,30 +32,30 @@ class Num2WordsENTest(TestCase):
 
     def test_to_currency(self):
         self.assertEqual(
-            num2words('38.4', lang='en', to='currency', seperator=' and',
+            num2words('38.4', lang='en', to='currency', separator=' and',
                       cents=False, currency='USD'),
             "thirty-eight dollars and 40 cents"
         )
         self.assertEqual(
-            num2words('0', lang='en', to='currency', seperator=' and',
+            num2words('0', lang='en', to='currency', separator=' and',
                       cents=False, currency='USD'),
             "zero dollars and 00 cents"
         )
 
         self.assertEqual(
-            num2words('1.01', lang='en', to='currency', seperator=' and',
+            num2words('1.01', lang='en', to='currency', separator=' and',
                       cents=True, currency='USD'),
             "one dollar and one cent"
         )
 
         self.assertEqual(
-            num2words('4778.00', lang='en', to='currency', seperator=' and',
+            num2words('4778.00', lang='en', to='currency', separator=' and',
                       cents=True, currency='USD', adjective=True),
             'four thousand, seven hundred and seventy-eight US dollars'
             ' and zero cents')
 
         self.assertEqual(
-            num2words('4778.00', lang='en', to='currency', seperator=' and',
+            num2words('4778.00', lang='en', to='currency', separator=' and',
                       cents=True, currency='USD'),
             'four thousand, seven hundred and seventy-eight dollars and'
             ' zero cents')

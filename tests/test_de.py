@@ -65,3 +65,23 @@ class Num2WordsDETest(TestCase):
 
     def test_ordinal_for_floating_numbers(self):
         self.assertRaises(TypeError, num2words, 2.453, ordinal=True, lang='de')
+
+    def test_to_currency_for_some_numbers(self):
+        self.assertEqual(
+            num2words(190, lang='de', to='currency'),
+            "eins euro und neunzig cents"
+        )
+        self.assertEqual(
+            num2words(100.0, lang='de', to='currency'),
+            "hundert euro und null cents"
+        )
+
+    def test_to_currency_for_floating_numbers(self):
+        self.assertEqual(
+            num2words(3.4, lang='de', to='currency'),
+            "drei euro und vierzig cents"
+        )
+        self.assertEqual(
+            num2words(20.18, lang='de', to='currency'),
+            "zwanzig euro und achtzehn cents"
+        )

@@ -257,14 +257,14 @@ class Num2Word_Base(object):
     def _cents_verbose(self, number, currency):
         return self.to_cardinal(number)
 
-    def to_currency(self, val, currency='EUR', cents=True, seperator=',',
+    def to_currency(self, val, currency='EUR', cents=True, separator=',',
                     adjective=False):
         """
         Args:
             val: Numeric value
             currency (str): Currency code
             cents (bool): Verbose cents
-            seperator (str): Cent seperator
+            separator (str): Cent separator
             adjective (bool): Prefix currency name with adjective
         Returns:
             str: Formatted string
@@ -291,7 +291,7 @@ class Num2Word_Base(object):
             minus_str,
             self.to_cardinal(left),
             self.pluralize(left, cr1),
-            seperator,
+            separator,
             cents_str,
             self.pluralize(right, cr2)
         )

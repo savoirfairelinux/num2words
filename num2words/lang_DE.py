@@ -124,8 +124,7 @@ class Num2Word_DE(Num2Word_EU):
         if old:
             return self.to_splitnum(val, hightxt="mark/s", lowtxt="pfennig/e",
                                     jointxt="und", longval=longval)
-        return super(Num2Word_DE, self).to_currency(val, jointxt="und",
-                                                    longval=longval)
+        return super(Num2Word_DE, self).to_currency(val, separator=" und")
 
     def to_year(self, val, longval=True):
         if not (val // 100) % 10:

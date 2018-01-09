@@ -85,12 +85,12 @@ class Num2WordsLVTest(TestCase):
         )
 
         self.assertEqual(
-            num2words(10111, lang='lv', to='currency', seperator=' un',
+            num2words(10111, lang='lv', to='currency', separator=' un',
                       currency='EUR'),
             "simtu viens eiro un vienpadsmit centi"
         )
         self.assertEqual(
-            num2words(10121, lang='lv', to='currency', seperator=' un',
+            num2words(10121, lang='lv', to='currency', separator=' un',
                       currency='LVL'),
             "simtu viens lats un divdesmit viens santīms"
         )
@@ -101,26 +101,26 @@ class Num2WordsLVTest(TestCase):
             " 85 centi"
         )
         self.assertEqual(
-            num2words('38.4', lang='lv', to='currency', seperator=' un',
+            num2words('38.4', lang='lv', to='currency', separator=' un',
                       cents=False, currency='EUR'),
             "trīsdesmit astoņi eiro un 40 centi"
         )
 
         # EUR legal form
         self.assertEqual(
-            num2words('38.4', lang='lv', to='currency', seperator=' un',
+            num2words('38.4', lang='lv', to='currency', separator=' un',
                       cents=False, currency='EUR_LEGAL'),
             "trīsdesmit astoņi euro un 40 centi"
         )
 
         self.assertEqual(
-            num2words('38.4', lang='lv', to='currency', seperator=' un',
+            num2words('38.4', lang='lv', to='currency', separator=' un',
                       cents=False, currency='USD', adjective=False),
             "trīsdesmit astoņi dolāri un 40 centi"
         )
 
         self.assertEqual(
-            num2words('38.4', lang='lv', to='currency', seperator=' un',
+            num2words('38.4', lang='lv', to='currency', separator=' un',
                       cents=False, currency='USD', adjective=True),
             "trīsdesmit astoņi ASV dolāri un 40 centi"
         )

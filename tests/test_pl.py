@@ -89,12 +89,12 @@ class Num2WordsPLTest(TestCase):
         )
         self.assertEqual(
             num2words(10111, lang='pl', to='currency', currency='EUR',
-                      seperator=' i'),
+                      separator=' i'),
             "sto jeden euro i jedenaście centów"
         )
         self.assertEqual(
             num2words(10121, lang='pl', to='currency', currency='PLN',
-                      seperator=' i'),
+                      separator=' i'),
             "sto jeden złotych i dwadzieścia jeden groszy"
         )
         self.assertEqual(
@@ -103,7 +103,7 @@ class Num2WordsPLTest(TestCase):
         )
         self.assertEqual(
             num2words(123.50, lang='pl', to='currency', currency='PLN',
-                      seperator=' i'),
+                      separator=' i'),
             "sto dwadzieścia trzy złote i pięćdziesiąt groszy"
         )
         self.assertEqual(
