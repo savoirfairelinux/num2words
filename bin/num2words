@@ -1,0 +1,63 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""num2words: convert numbers into words.
+
+Usage:
+    num2words [options] <number>
+    num2words --list-languages
+
+Arguments:
+    <number>                Number you want to convert into words
+
+Options:
+    -L --list-languages     Show all languages.
+    -l --lang=<lang>        Output language [default: en].
+    -h --help               Show this message.
+    -v --version            Show version.
+    
+Examples:
+    $ num2words 10001
+    ten thousand and one
+    
+    $ num2words 10123123 --lang es
+    diez millones ciento veintitrés mil ciento veintitrés
+
+    $ num2words 24,120.10
+    twenty-four thousand, one hundred and twenty point one
+
+    $ num2words 24,120.10 -l es
+    veinticuatro mil ciento veinte punto uno
+
+"""
+import os
+import sys
+from docopt import docopt
+import num2words
+
+__version__ = "0.5.6"
+__license__ = "LGPL"
+
+def get_languages():
+    langs = sorted(list(num2words.CONVERTER_CLASSES.keys()))
+    return langs
+
+def main():
+    version = "{}=={}".format(os.path.basename(__file__), __version__)
+    args = docopt(__doc__, argv=None, help=True, version=version, options_first=False)
+    if args["--list-languages"]:
+        for lang in get_languages():
+            sys.stdout.write(lang)
+            sys.stdout.write(os.linesep)
+        sys.exit(0)
+    try:
+        num = float(''.join(ch for ch in args['<number>'] if ch.isdigit() or ch == '.'))
+        words = num2words.num2words(num, lang=args["--lang"])
+        sys.stdout.write(words+os.linesep)
+        sys.exit(0)
+    except Exception as err:
+        sys.stderr.write(str(err)+os.linesep)
+        sys.stderr.write(__doc__)
+        sys.exit(1)
+
+if __name__ == '__main__':
+    main()
