@@ -72,6 +72,7 @@ Besides the numerical argument, there's two optional arguments.
 * ``eu`` (EURO)
 * ``fr`` (French)
 * ``fr_CH`` (French - Switzerland)
+* ``fr_BE`` (French - Belgium)
 * ``fr_DZ`` (French - Algeria)
 * ``he`` (Hebrew)
 * ``id`` (Indonesian)
