@@ -29,6 +29,7 @@ Examples:
     veinticuatro mil ciento veinte punto uno
 
 """
+from __future__ import print_function, unicode_literals
 import os
 import sys
 from docopt import docopt
@@ -37,9 +38,11 @@ import num2words
 __version__ = "0.5.6"
 __license__ = "LGPL"
 
+
 def get_languages():
     langs = sorted(list(num2words.CONVERTER_CLASSES.keys()))
     return langs
+
 
 def main():
     version = "{}=={}".format(os.path.basename(__file__), __version__)
@@ -58,6 +61,7 @@ def main():
         sys.stderr.write(str(err)+os.linesep)
         sys.stderr.write(__doc__)
         sys.exit(1)
+
 
 if __name__ == '__main__':
     main()
