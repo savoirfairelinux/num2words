@@ -20,6 +20,7 @@ CLASSIFIERS = [
 LONG_DESC = open('README.rst', 'rt').read() + '\n\n' + \
             open('CHANGES.rst', 'rt').read()
 
+
 def find_version(fname):
     """Parse file & return version number matching 0.0.1 regex
     Returns str or raises RuntimeError
@@ -35,6 +36,7 @@ def find_version(fname):
     if not version:
         raise RuntimeError('Cannot find version information')
     return version
+
 
 setup(
     name=PACKAGE_NAME,
