@@ -5,6 +5,7 @@
 Usage:
     num2words [options] <number>
     num2words --list-languages
+    num2words --help
 
 Arguments:
     <number>                Number you want to convert into words
