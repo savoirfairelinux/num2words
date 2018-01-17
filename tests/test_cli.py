@@ -38,7 +38,7 @@ class CliTestCase(unittest.TestCase):
     def test_cli_default_lang(self):
         """default to english
         """
-        print(output.out)
+        output = self.cli.run_cmd(150)
         self.assertEqual(output.return_code, 0)
         self.assertEqual(output.out.strip(), 
                          "one hundred and fifty")
@@ -48,7 +48,6 @@ class CliTestCase(unittest.TestCase):
         """you should be able to specify a language
         """
         output = self.cli.run_cmd(150, '--lang', 'es')
-        print(output.out)
         self.assertEqual(output.return_code, 0)
         self.assertEqual(output.out.strip(), 
                          "ciento cincuenta")
