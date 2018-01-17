@@ -21,6 +21,7 @@ from . import lang_EN
 from . import lang_EN_IN
 from . import lang_FR
 from . import lang_FR_CH
+from . import lang_FR_BE
 from . import lang_FR_DZ
 from . import lang_DE
 from . import lang_ES
@@ -49,6 +50,7 @@ CONVERTER_CLASSES = {
     'en_IN': lang_EN_IN.Num2Word_EN_IN(),
     'fr': lang_FR.Num2Word_FR(),
     'fr_CH': lang_FR_CH.Num2Word_FR_CH(),
+    'fr_BE': lang_FR_BE.Num2Word_FR_BE(),
     'fr_DZ': lang_FR_DZ.Num2Word_FR_DZ(),
     'de': lang_DE.Num2Word_DE(),
     'es': lang_ES.Num2Word_ES(),
