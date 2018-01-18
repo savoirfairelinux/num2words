@@ -1,6 +1,6 @@
-from setuptools import find_packages
-from setuptools import setup
 import re
+
+from setuptools import find_packages, setup
 
 PACKAGE_NAME = "num2words"
 
