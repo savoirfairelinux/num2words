@@ -41,7 +41,7 @@ class CliTestCase(unittest.TestCase):
         output = self.cli.run_cmd(150)
         self.assertEqual(output.return_code, 0)
         self.assertEqual(output.out.strip(),
-                         "one hundred and fifty")
+                         "one hundred and fifty point zero")
 
     def test_cli_with_lang(self):
         """you should be able to specify a language
@@ -49,4 +49,4 @@ class CliTestCase(unittest.TestCase):
         output = self.cli.run_cmd(150, '--lang', 'es')
         self.assertEqual(output.return_code, 0)
         self.assertEqual(output.out.strip(),
-                         "ciento cincuenta")
+                         "ciento cincuenta punto cero")
