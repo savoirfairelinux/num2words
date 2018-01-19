@@ -54,11 +54,11 @@ def main():
             sys.stdout.write(os.linesep)
         sys.exit(0)
     try:
-        num = float(''.join(ch for ch in args['<number>'] if ch.isdigit() or ch == '.'))
-        words = num2words.num2words(num, lang=args["--lang"])
+        words = num2words.num2words(args['<number>'], lang=args["--lang"])
         sys.stdout.write(words+os.linesep)
         sys.exit(0)
     except Exception as err:
+        sys.stderr.write(str(args['<number>']))
         sys.stderr.write(str(err)+os.linesep)
         sys.stderr.write(__doc__)
         sys.exit(1)
