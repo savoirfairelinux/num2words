@@ -25,7 +25,9 @@ from .currency import parse_currency_parts
 class Num2Word_ES_MX(Num2Word_ES):
 
     def to_currency(self, val, longval=True, old=False):
-        left, right, is_negative = parse_currency_parts(val, is_int_with_cents=False)
+        left, right, is_negative = parse_currency_parts(
+            val, is_int_with_cents=False
+        )
         result = self.to_splitnum(left, hightxt="peso/s",
                                   divisor=1, longval=longval, cents=False)
         result = "%s, %02d/100 M. N." % (result, right)
