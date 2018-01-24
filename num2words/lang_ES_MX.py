@@ -18,8 +18,8 @@
 
 from __future__ import print_function, unicode_literals
 
-from .lang_ES import Num2Word_ES
 from .currency import parse_currency_parts
+from .lang_ES import Num2Word_ES
 
 
 class Num2Word_ES_MX(Num2Word_ES):
