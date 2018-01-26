@@ -70,7 +70,7 @@ HUNDREDS = {
 }
 
 THOUSANDS = {
-    1: ('tisíc', 'tisíce', 'tisíců'),  # 10^3
+    1: ('tisíc', 'tisíce', 'tisíc'),  # 10^3
     2: ('milion', 'miliony', 'milionů'),  # 10^6
     3: ('miliard', 'miliardy', 'miliard'),  # 10^9
     4: ('bilion', 'biliony', 'bilionů'),  # 10^12
