@@ -17,6 +17,7 @@
 from __future__ import unicode_literals
 
 from . import lang_AR
+form . import lang_CZ
 from . import lang_EN
 from . import lang_EN_IN
 from . import lang_FR
@@ -46,6 +47,7 @@ from . import lang_TH
 
 CONVERTER_CLASSES = {
     'ar': lang_AR.Num2Word_AR(),
+    'cz': lang_CZ.Num2Word_CZ(),
     'en': lang_EN.Num2Word_EN(),
     'en_IN': lang_EN_IN.Num2Word_EN_IN(),
     'fr': lang_FR.Num2Word_FR(),
