@@ -83,7 +83,7 @@ THOUSANDS = {
 }
 
 
-class Num2Word_PL(Num2Word_Base):
+class Num2Word_CZ(Num2Word_Base):
     CURRENCY_FORMS = {
         'PLN': (
             ('złoty', 'złote', 'złotych'), ('grosz', 'grosze', 'groszy')
