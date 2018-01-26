@@ -19,83 +19,83 @@ from __future__ import unicode_literals
 from .base import Num2Word_Base
 from .utils import get_digits, splitbyx
 
-ZERO = ('zero',)
+ZERO = ('nula',)
 
 ONES = {
-    1: ('jeden',),
-    2: ('dwa',),
-    3: ('trzy',),
-    4: ('cztery',),
-    5: ('pięć',),
-    6: ('sześć',),
-    7: ('siedem',),
-    8: ('osiem',),
-    9: ('dziewięć',),
+    1: ('jedna',),
+    2: ('dva',),
+    3: ('tři',),
+    4: ('čtyři',),
+    5: ('pět',),
+    6: ('šest',),
+    7: ('sedm',),
+    8: ('osm',),
+    9: ('devět',),
 }
 
 TENS = {
-    0: ('dziesięć',),
-    1: ('jedenaście',),
-    2: ('dwanaście',),
-    3: ('trzynaście',),
-    4: ('czternaście',),
-    5: ('piętnaście',),
-    6: ('szesnaście',),
-    7: ('siedemnaście',),
-    8: ('osiemnaście',),
-    9: ('dziewiętnaście',),
+    0: ('deset',),
+    1: ('jedenáct',),
+    2: ('dvanáct',),
+    3: ('třináct',),
+    4: ('čtrnáct',),
+    5: ('patnáct',),
+    6: ('šestnáct',),
+    7: ('sedmnáct',),
+    8: ('osmnáct',),
+    9: ('devatenáct',),
 }
 
 TWENTIES = {
-    2: ('dwadzieścia',),
-    3: ('trzydzieści',),
-    4: ('czterdzieści',),
-    5: ('pięćdziesiąt',),
-    6: ('sześćdziesiąt',),
-    7: ('siedemdziesiąt',),
-    8: ('osiemdziesiąt',),
-    9: ('dziewięćdzisiąt',),
+    2: ('dvacet',),
+    3: ('třicet',),
+    4: ('čtyřicet',),
+    5: ('padesát',),
+    6: ('šedesát',),
+    7: ('sedmdesát',),
+    8: ('osmdesát',),
+    9: ('devadesát',),
 }
 
 HUNDREDS = {
     1: ('sto',),
-    2: ('dwieście',),
-    3: ('trzysta',),
-    4: ('czterysta',),
-    5: ('pięćset',),
-    6: ('sześćset',),
-    7: ('siedemset',),
-    8: ('osiemset',),
-    9: ('dziewęćset',),
+    2: ('dvěstě',),
+    3: ('třista',),
+    4: ('čtyřista',),
+    5: ('pětset',),
+    6: ('šestset',),
+    7: ('sedmset',),
+    8: ('osmset',),
+    9: ('devětset',),
 }
 
 THOUSANDS = {
-    1: ('tysiąc', 'tysiące', 'tysięcy'),  # 10^3
-    2: ('milion', 'miliony', 'milionów'),  # 10^6
-    3: ('miliard', 'miliardy', 'miliardów'),  # 10^9
-    4: ('bilion', 'biliony', 'bilionów'),  # 10^12
-    5: ('biliard', 'biliardy', 'biliardów'),  # 10^15
-    6: ('trylion', 'tryliony', 'trylionów'),  # 10^18
-    7: ('tryliard', 'tryliardy', 'tryliardów'),  # 10^21
-    8: ('kwadrylion', 'kwadryliony', 'kwadrylionów'),  # 10^24
-    9: ('kwaryliard', 'kwadryliardy', 'kwadryliardów'),  # 10^27
-    10: ('kwintylion', 'kwintyliony', 'kwintylionów'),  # 10^30
+    1: ('tisíc', 'tisíce', 'tisíců'),  # 10^3
+    2: ('milion', 'miliony', 'milionů'),  # 10^6
+    3: ('miliard', 'miliardy', 'miliard'),  # 10^9
+    4: ('bilion', 'biliony', 'bilionů'),  # 10^12
+    5: ('biliard', 'biliardy', 'biliard'),  # 10^15
+    6: ('trilion', 'triliony', 'trilionů'),  # 10^18
+    7: ('triliard', 'triliardy', 'triliard'),  # 10^21
+    8: ('kvadrilion', 'kvadriliony', 'kvadrilionů'),  # 10^24
+    9: ('kvadriliarda', 'kvadriliardy', 'kvadriliard'),  # 10^27
+    10: ('quintillion', 'quintilliony', 'quintillionů'),  # 10^30
 }
 
 
 class Num2Word_CZ(Num2Word_Base):
     CURRENCY_FORMS = {
-        'PLN': (
-            ('złoty', 'złote', 'złotych'), ('grosz', 'grosze', 'groszy')
+        'CZK': (
+            ('koruna', 'koruny', 'korun'), ('halíř', 'halíře', 'halířů')
         ),
         'EUR': (
-            ('euro', 'euro', 'euro'), ('cent', 'centy', 'centów')
+            ('euro', 'euro', 'euro'), ('cent', 'centy', 'centů')
         ),
     }
 
     def setup(self):
-        self.negword = "minus"
-        self.pointword = "przecinek"
+        self.negword = "mínus"
+        self.pointword = "čárka"
 
     def set_numwords(self):
         # @FIXME
