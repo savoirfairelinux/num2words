@@ -17,7 +17,7 @@
 from __future__ import unicode_literals
 
 from . import lang_AR
-form . import lang_CZ
+from . import lang_CZ
 from . import lang_EN
 from . import lang_EN_IN
 from . import lang_FR
