@@ -95,7 +95,7 @@ class Num2Word_CZ(Num2Word_Base):
 
     def setup(self):
         self.negword = "mínus"
-        self.pointword = "čárka"
+        self.pointword = "celá"
 
     def set_numwords(self):
         # @FIXME
