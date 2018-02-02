@@ -37,6 +37,7 @@ from . import lang_HE
 from . import lang_IT
 from . import lang_ES_VE
 from . import lang_ES_CO
+from . import lang_ES_GT
 from . import lang_VN
 from . import lang_TR
 from . import lang_NL
@@ -56,6 +57,7 @@ CONVERTER_CLASSES = {
     'es': lang_ES.Num2Word_ES(),
     'es_CO': lang_ES_CO.Num2Word_ES_CO(),
     'es_VE': lang_ES_VE.Num2Word_ES_VE(),
+    'es_GT': lang_ES_GT.Num2Word_ES_GT(),
     'id': lang_ID.Num2Word_ID(),
     'lt': lang_LT.Num2Word_LT(),
     'lv': lang_LV.Num2Word_LV(),
