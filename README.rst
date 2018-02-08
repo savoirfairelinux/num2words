@@ -86,7 +86,7 @@ Besides the numerical argument, there's two optional arguments.
 * ``ru`` (Russian)
 * ``tr`` (Turkish)
 * ``th`` (Thai)
-* ``vn`` (Vietnamese)
+* ``vi_VN`` (Vietnamese)
 * ``nl`` (Dutch)
 * ``uk`` (Ukrainian)
 
