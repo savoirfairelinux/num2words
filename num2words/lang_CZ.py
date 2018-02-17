@@ -86,7 +86,7 @@ THOUSANDS = {
 class Num2Word_CZ(Num2Word_Base):
     CURRENCY_FORMS = {
         'CZK': (
-            ('koruna', 'koruny', 'korun'), ('halíř', 'halíře', 'halířů')
+            ('koruna', 'koruny', 'korun'), ('halíř', 'halíře', 'haléřů')
         ),
         'EUR': (
             ('euro', 'euro', 'euro'), ('cent', 'centy', 'centů')
