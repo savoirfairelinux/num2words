@@ -48,9 +48,9 @@ class Num2WordsPLTest(TestCase):
             num2words(215461407892039002157189883901676, lang='cz'),
             "dvěstě patnáct quintillionů čtyřista šedesát jedna kvadriliard "
             "čtyřista sedm kvadrilionů osmset devadesát dva triliardy třicet "
-            "devět trilionů dva biliardy sto padesát sedm bilionů sto osmdesát "
-            "devět miliard osmset osmdesát tři miliony devětset jedna tisíc "
-            "šestset sedmdesát šest"
+            "devět trilionů dva biliardy sto padesát sedm bilionů sto "
+            "osmdesát devět miliard osmset osmdesát tři miliony "
+            "devětset jedna tisíc šestset sedmdesát šest"
         )
         self.assertEqual(
             num2words(719094234693663034822824384220291, lang='cz'),
