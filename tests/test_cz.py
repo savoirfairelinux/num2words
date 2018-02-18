@@ -21,7 +21,7 @@ from unittest import TestCase
 from num2words import num2words
 
 
-class Num2WordsPLTest(TestCase):
+class Num2WordsCZTest(TestCase):
     def test_cardinal(self):
         self.assertEqual(num2words(100, lang='cz'), "sto")
         self.assertEqual(num2words(101, lang='cz'), "sto jedna")
