@@ -62,6 +62,7 @@ Besides the numerical argument, there's two optional arguments.
 
 * ``en`` (English, default)
 * ``ar`` (Arabic)
+* ``cz`` (Czech)
 * ``de`` (German)
 * ``dk`` (Danish)
 * ``en_GB`` (English - Great Britain)
