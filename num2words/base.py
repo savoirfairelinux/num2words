@@ -258,7 +258,7 @@ class Num2Word_Base(object):
         return self.to_cardinal(number)
 
     def to_currency(self, val, currency='EUR', cents=True, seperator=',',
-                    adjective=False):
+                    adjective=False, is_int_with_cents=True):
         """
         Args:
             val: Numeric value
@@ -270,7 +270,9 @@ class Num2Word_Base(object):
             str: Formatted string
 
         """
-        left, right, is_negative = parse_currency_parts(val)
+        left, right, is_negative = parse_currency_parts(
+            val, is_int_with_cents=is_int_with_cents,
+        )
 
         try:
             cr1, cr2 = self.CURRENCY_FORMS[currency]

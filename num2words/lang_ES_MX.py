@@ -1,7 +1,7 @@
 # encoding: UTF-8
 
-# Copyright (c) 2003, Taro Ogawa.  All Rights Reserved.
-# Copyright (c) 2013, Savoir-faire Linux inc.  All Rights Reserved.
+# Copyright (c) 2018, Agustín Cruz <agustin.cruz@openpyme.mx>.
+# All Rights Reserved.
 
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -16,20 +16,35 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301 USA
 
-from __future__ import print_function, unicode_literals
 
-from .currency import parse_currency_parts
 from .lang_ES import Num2Word_ES
 
 
 class Num2Word_ES_MX(Num2Word_ES):
+    CURRENCY_FORMS = {
+        'USD': (
+            ('dolar', 'dolares'), ('', '')
+        ),
+        'EUR': (
+            ('euro', 'euros'), ('', '')
+        ),
+        'MXN': (
+            ('peso', 'pesos'), ('', '')
+        ),
+    }
 
-    def to_currency(self, val, longval=True, old=False):
-        left, right, is_negative = parse_currency_parts(
-            val, is_int_with_cents=False
+    def _cents_verbose(self, number, currency):
+        return '%02d/100' % number
+
+    def to_currency(self, val, currency='MXN', cents=True, seperator=',',
+                    adjective=False, is_int_with_cents=False):
+        result = super(Num2Word_ES_MX, self).to_currency(
+            val, currency=currency, cents=cents, seperator=seperator,
+            adjective=adjective, is_int_with_cents=is_int_with_cents,
         )
-        result = self.to_splitnum(left, hightxt="peso/s",
-                                  divisor=1, longval=longval, cents=False)
-        result = "%s, %02d/100 M. N." % (result, right)
-        # Handle exception, in spanish is "un euro" and not "uno euro"
-        return result.replace("uno", "un")
+        if currency == 'MXN':
+            result += 'M. N.'
+        else:
+            result += currency
+
+        return result

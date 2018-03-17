@@ -110,23 +110,13 @@ TEST_CASES_ORDINAL_NUM = (
 )
 
 TEST_CASES_TO_CURRENCY = (
-    (1, 'un euro'),
-    (2, 'dos euros'),
-    (8, 'ocho euros'),
-    (12, 'doce euros'),
-    (21, 'veintiun euros'),
+    (1, 'un euro y cero centavos'),
+    (2, 'dos euros y cero centavos'),
+    (8, 'ocho euros y cero centavos'),
+    (12, 'doce euros y cero centavos'),
+    (21, 'veintiun euros y cero centavos'),
     (81.25, 'ochenta y un euros y veinticinco centavos'),
-    (100, 'cien euros'),
-)
-
-TEST_CASES_TO_CURRENCY_OLD = (
-    (1, 'un peso'),
-    (2, 'dos pesos'),
-    (8, 'ocho pesos'),
-    (12, 'doce pesos'),
-    (21, 'veintiun pesos'),
-    (81.25, 'ochenta y un pesos y veinticinco pesetas'),
-    (100, 'cien pesos'),
+    (100, 'cien euros y cero centavos'),
 )
 
 
@@ -154,12 +144,5 @@ class Num2WordsESTest(TestCase):
         for test in TEST_CASES_TO_CURRENCY:
             self.assertEqual(
                 num2words(test[0], lang='es', to='currency'),
-                test[1]
-            )
-
-    def test_currency_old(self):
-        for test in TEST_CASES_TO_CURRENCY_OLD:
-            self.assertEqual(
-                num2words(test[0], lang='es', to='currency', old=True),
                 test[1]
             )

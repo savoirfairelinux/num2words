@@ -20,8 +20,39 @@ from __future__ import print_function, unicode_literals
 
 from .lang_EU import Num2Word_EU
 
+GENERIC_DOLLARS = ('dolar', 'dolares')
+GENERIC_CENTS = ('centavo', 'centavos')
+
 
 class Num2Word_ES(Num2Word_EU):
+    CURRENCY_FORMS = {
+        'AUD': (GENERIC_DOLLARS, GENERIC_CENTS),
+        'CAD': (GENERIC_DOLLARS, GENERIC_CENTS),
+        # repalced by EUR
+        'EEK': (('corona', 'coronas'), ('céntimo', 'céntmos')),
+        'EUR': (('euro', 'euros'), GENERIC_CENTS),
+        'GBP': (('libra esterlina', 'libras esterlinas'), ('penique', 'peniques')),  # noqa
+        # replaced by EUR
+        'LTL': (('lita', 'litas'), GENERIC_CENTS),
+        # replaced by EUR
+        'LVL': (('lat', 'lats'), ('santims', 'santimu')),
+        'USD': (GENERIC_DOLLARS, GENERIC_CENTS),
+        'RUB': (('rublo', 'rublos'), ('kopek', 'kopeks')),
+        'SEK': (('corona', 'coronas'), ('öre', 'öre')),
+        'NOK': (('corona', 'coronas'), ('øre', 'øre')),
+        'PLN': (('zloty', 'zlotys'), ('grosz', 'groszy')),
+    }
+
+    CURRENCY_ADJECTIVES = {
+        'AUD': 'Australiano',
+        'CAD': 'Canadiense',
+        'EEK': 'Estonia',
+        'USD': 'Americano',
+        'RUB': 'Ruso',
+        'SEK': 'Sueca',
+        'NOK': 'Noruega',
+    }
+
     # //CHECK: Is this sufficient??
     def set_high_numwords(self, high):
         max = 3 + 6 * len(high)
@@ -165,11 +196,12 @@ class Num2Word_ES(Num2Word_EU):
         self.verify_ordinal(value)
         return "%s%s" % (value, "º" if self.gender_stem == 'o' else "ª")
 
-    def to_currency(self, val, longval=True, old=False):
-        hightxt, lowtxt = "euro/s", "centavo/s"
-        if old:
-            hightxt, lowtxt = "peso/s", "peseta/s"
-        result = self.to_splitnum(val, hightxt=hightxt, lowtxt=lowtxt,
-                                  divisor=1, jointxt="y", longval=longval)
+    def to_currency(self, val, currency='EUR', cents=True, seperator=' y',
+                    adjective=False, is_int_with_cents=False):
+        result = super(Num2Word_ES, self).to_currency(
+            val, currency=currency, cents=cents, seperator=seperator,
+            adjective=adjective, is_int_with_cents=is_int_with_cents,
+        )
         # Handle exception, in spanish is "un euro" and not "uno euro"
-        return result.replace("uno", "un")
+        result = result.replace("uno", "un")
+        return result
