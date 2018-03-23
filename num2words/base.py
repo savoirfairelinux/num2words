@@ -296,6 +296,16 @@ class Num2Word_Base(object):
             self.pluralize(right, cr2)
         )
 
+    def to_check(self, val):
+        """Formats for printing on a check that already has currency spelled out
+
+        Args:
+            val: Numeric value
+        Returns:
+            str: Formatted string
+        """
+        raise NotImplementedError("to_check not implemented for this language")
+
     def base_setup(self):
         pass
 

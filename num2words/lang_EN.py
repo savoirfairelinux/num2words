@@ -17,6 +17,7 @@
 from __future__ import division, print_function, unicode_literals
 
 from . import lang_EU
+from .currency import parse_currency_parts, prefix_currency
 
 
 class Num2Word_EN(lang_EU.Num2Word_EU):
@@ -103,3 +104,22 @@ class Num2Word_EN(lang_EU.Num2Word_EU):
             valtext = "%s %s" % (hightext, lowtext)
         return (valtext if not suffix
                 else "%s %s" % (valtext, suffix))
+
+    def to_check(self, val):
+        """Formats for printing on a check that already has currency spelled out
+
+        Args:
+            val: Numeric value
+        Returns:
+            str: Formatted string
+        """
+        left, right, is_negative = parse_currency_parts(val)
+        if is_negative:
+            raise ValueError("Amount cannot be negative on a check")
+
+        cents_str = "and %2d/100" % right if right > 0 else "and XX/100"
+
+        cardinal = self.to_cardinal(left).replace(' and','').replace(',','')
+        
+        return u'%s %s' % (cardinal, cents_str)
+    
