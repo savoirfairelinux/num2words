@@ -18,10 +18,17 @@
 
 from __future__ import print_function, unicode_literals
 
+from .currency import parse_currency_parts
+
 from .lang_EU import Num2Word_EU
 
 
 class Num2Word_ES(Num2Word_EU):
+    CURRENCY_FORMS = {
+        'EUR': (('euro', 'euros'), ('centimo', 'centimos')),
+        'ESP': (('peseta', 'pesetas'), ('centimo', 'centimos')),
+    }
+
     # //CHECK: Is this sufficient??
     def set_high_numwords(self, high):
         max = 3 + 6 * len(high)
@@ -165,11 +172,12 @@ class Num2Word_ES(Num2Word_EU):
         self.verify_ordinal(value)
         return "%s%s" % (value, "º" if self.gender_stem == 'o' else "ª")
 
-    def to_currency(self, val, longval=True, old=False):
-        hightxt, lowtxt = "euro/s", "centavo/s"
+    def to_currency(self, val, currency='EUR', cents=True, seperator=' con',
+                    adjective=False, old=False):
         if old:
-            hightxt, lowtxt = "peso/s", "peseta/s"
-        result = self.to_splitnum(val, hightxt=hightxt, lowtxt=lowtxt,
-                                  divisor=1, jointxt="y", longval=longval)
+            currency = 'ESP'
+        result = super(Num2Word_ES, self).to_currency(
+            val, currency=currency, cents=cents, seperator=seperator,
+            adjective=adjective)
         # Handle exception, in spanish is "un euro" and not "uno euro"
         return result.replace("uno", "un")
