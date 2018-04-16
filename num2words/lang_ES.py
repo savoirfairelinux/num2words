@@ -18,8 +18,6 @@
 
 from __future__ import print_function, unicode_literals
 
-from .currency import parse_currency_parts
-
 from .lang_EU import Num2Word_EU
 
 
