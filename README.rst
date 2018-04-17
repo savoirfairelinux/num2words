@@ -25,7 +25,7 @@ Installation
 
 The easiest way to install ``num2words`` is to use pip::
 
-    pip install num2words
+    pip install num2words //install pip
 
 Otherwise, you can download the source package and then execute::
 
