@@ -25,6 +25,7 @@ class Num2Word_ES(Num2Word_EU):
     CURRENCY_FORMS = {
         'EUR': (('euro', 'euros'), ('centimo', 'centimos')),
         'ESP': (('peseta', 'pesetas'), ('centimo', 'centimos')),
+        'USD': (('dolar', 'dolares'), ('centavo', 'centavos')),
     }
 
     # //CHECK: Is this sufficient??
@@ -171,9 +172,7 @@ class Num2Word_ES(Num2Word_EU):
         return "%s%s" % (value, "º" if self.gender_stem == 'o' else "ª")
 
     def to_currency(self, val, currency='EUR', cents=True, seperator=' con',
-                    adjective=False, old=False):
-        if old:
-            currency = 'ESP'
+                    adjective=False):
         result = super(Num2Word_ES, self).to_currency(
             val, currency=currency, cents=cents, seperator=seperator,
             adjective=adjective)

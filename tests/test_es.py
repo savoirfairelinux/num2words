@@ -120,7 +120,7 @@ TEST_CASES_TO_CURRENCY = (
     (100.00, 'cien euros con cero centimos'),
 )
 
-TEST_CASES_TO_CURRENCY_OLD = (
+TEST_CASES_TO_CURRENCY_ESP = (
     (1.00, 'un peseta con cero centimos'),
     (2.00, 'dos pesetas con cero centimos'),
     (8.00, 'ocho pesetas con cero centimos'),
@@ -129,6 +129,17 @@ TEST_CASES_TO_CURRENCY_OLD = (
     (81.25, 'ochenta y un pesetas con veinticinco centimos'),
     (350.90, 'trescientos cincuenta pesetas con noventa centimos'),
     (100.00, 'cien pesetas con cero centimos'),
+)
+
+TEST_CASES_TO_CURRENCY_USD = (
+    (1.00, 'un dolar con cero centavos'),
+    (2.00, 'dos dolares con cero centavos'),
+    (8.00, 'ocho dolares con cero centavos'),
+    (12.00, 'doce dolares con cero centavos'),
+    (21.00, 'veintiun dolares con cero centavos'),
+    (81.25, 'ochenta y un dolares con veinticinco centavos'),
+    (350.90, 'trescientos cincuenta dolares con noventa centavos'),
+    (100.00, 'cien dolares con cero centavos'),
 )
 
 
@@ -159,9 +170,16 @@ class Num2WordsESTest(TestCase):
                 test[1]
             )
 
-    def test_currency_old(self):
-        for test in TEST_CASES_TO_CURRENCY_OLD:
+    def test_currency_esp(self):
+        for test in TEST_CASES_TO_CURRENCY_ESP:
             self.assertEqual(
-                num2words(test[0], lang='es', to='currency', old=True),
+                num2words(test[0], lang='es', to='currency', currency='ESP'),
+                test[1]
+            )
+
+    def test_currency_usd(self):
+        for test in TEST_CASES_TO_CURRENCY_USD:
+            self.assertEqual(
+                num2words(test[0], lang='es', to='currency', currency='USD'),
                 test[1]
             )
