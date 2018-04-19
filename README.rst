@@ -37,8 +37,20 @@ The test suite in this library is new, so it's rather thin, but it can be run wi
 
 Usage
 -----
+Command line::
 
-There's only one function to use::
+    $ num2words 10001
+    ten thousand and one
+    $ num2words 10123123 --lang es
+    diez millones ciento veintitrés mil ciento veintitrés
+    $ num2words 24,120.10
+    twenty-four thousand, one hundred and twenty point one
+    $ num2words 24,120.10 -l es
+    veinticuatro mil ciento veinte punto uno
+    $num2words 2.14 -l es --to currency
+    dos euros con catorce centimos
+
+In code there's only one function to use::
 
     >>> from num2words import num2words
     >>> num2words(42)
