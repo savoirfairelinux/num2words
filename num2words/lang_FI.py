@@ -171,6 +171,7 @@ class Num2Word_FI(lang_EU.Num2Word_EU):
         ltext, lnum = lpair
         rtext, rnum = rpair
 
+        # http://www.kielitoimistonohjepankki.fi/ohje/49
         fmt = "%s%s"
         # ignore lpair if lnum is 1
         if lnum == 1:
@@ -183,12 +184,6 @@ class Num2Word_FI(lang_EU.Num2Word_EU):
             return (fmt % (ltext, rtext), lnum + rnum)
         # rnum is multiplied by lnum
         elif lnum < rnum:
-            # http://www.kielitoimistonohjepankki.fi/ohje/49
-            # > Tasaluvut miljoona, miljardi jne. kirjoitetaan tavallisesti
-            # > erilleen edellä olevasta luvusta, varsinkin kun miljoonia tai
-            # > miljardeja on yli kymmenen
-            if rnum >= 10 ** 9:
-                fmt = "%s %s"
             rtext = numword_inflect_partitive(rpair)
             return (fmt % (ltext, rtext), lnum * rnum)
 
