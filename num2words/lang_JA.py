@@ -405,17 +405,16 @@ class Num2Word_JA(Num2Word_Base):
             raise ValueError(
                 "Can't convert years less than %s to era" % min_year)
 
-        get_year = lambda i: ERA_START[i][0]
         first = 0
         last = last_era_idx
         era_idx = None
         while era_idx is None:
             mid = (first + last) // 2
-            if mid == last_era_idx or (get_year(mid) <= year and
-                                       get_year(mid + 1) > year):
+            if mid == last_era_idx or (ERA_START[mid][0] <= year and
+                                       ERA_START[mid + 1][0] > year):
                 era_idx = mid
 
-            if year < get_year(mid):
+            if year < ERA_START[mid][0]:
                 last = mid - 1
             else:
                 first = mid + 1
