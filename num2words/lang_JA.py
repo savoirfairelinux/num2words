@@ -19,15 +19,17 @@ from __future__ import division, print_function, unicode_literals
 
 from .base import Num2Word_Base
 
+
 def select_text(text, reading=False, prefer=None):
     """Select the correct text from the Japanese number, reading and
     alternatives"""
-    orig = text
+    # select kanji number or kana reading
     if reading:
         text = text[1]
     else:
         text = text[0]
 
+    # select the preferred one or the first one from multiple alternatives
     if not isinstance(text, str):
         if prefer:
             common = set(text) & set(prefer)
@@ -35,11 +37,56 @@ def select_text(text, reading=False, prefer=None):
                 text = common.pop()
         else:
             text = text[0]
+
     return text
+
+
+def rendaku_merge_pairs(lpair, rpair):
+    """Merge lpair < rpair while applying semi-irregular rendaku rules"""
+    ltext, lnum = lpair
+    rtext, rnum = rpair
+    if lnum > rnum:
+        raise ValueError
+
+    if rpair == ("ひゃく", 100):
+        if lpair == ("さん", 3):
+            ltext = "びゃく"
+        elif lpair == ("ろく", 6):
+            ltext = "ろっ"
+            rtext = "ぴゃく"
+        elif lpair == ("はち", 8):
+            ltext = "はっ"
+            rtext = "ぴゃく"
+    elif rpair == ("せん", 1000):
+        if lpair == ("さん", 3):
+            rtext = "ぜん"
+        elif lpair == ("はち", 8):
+            ltext = "はっ"
+    elif rpair == ("ちょう", 10**12):
+        if lpair == ("いち", 1):
+            ltext = "いっ"
+        elif lpair == ("はち", 8):
+            ltext = "はっ"
+        elif lpair == ("じゅう", 10):
+            ltext = "じゅっ"
+    elif rpair == ("けい", 10**16):
+        if lpair == ("いち", 1):
+            ltext = "いっ"
+        elif lpair == ("ろく", 6):
+            ltext = "ろっ"
+        elif lpair == ("はち", 8):
+            ltext = "はっ"
+        elif lpair == ("じゅう", 10):
+            ltext = "じゅっ"
+        elif lpair == ("ひゃく", 100):
+            ltext = "ひゃっ"
+
+    return ("%s%s" % (ltext, rtext), lnum * rnum)
+
 
 class Num2Word_JA(Num2Word_Base):
     CURRENCY_FORMS = {
-        'JPY': (('円', '円'), ('', '')),
+        'JPY': ('円', 'えん'),
     }
 
     def set_high_numwords(self, high):
@@ -58,18 +105,18 @@ class Num2Word_JA(Num2Word_Base):
         ]
 
         self.low_numwords = [
-            ("十", "じゅう"),                 # 10 jū
-            ("九", "きゅう"),                 # 9 kyū
-            ("八", "はち"),                   # 8 hachi
-            ("七", ("なな", "しち")),         # 7 nana, shichi
-            ("六", "ろく"),                   # 6 roku
-            ("五", "ご"),                     # 5 go
-            ("四", ("よん", "し")),           # 4 yon, shi
-            ("三", "さん"),                   # 3 san
-            ("二", "に"),                     # 2 ni
-            ("一", "いち"),                   # 1 ichi
-            # both are alternatives, 零 doesn't map to ゼロ or vice versa
-            (("零", "〇"), ("ゼロ", "れい")), # 0 ZERO, rei
+            ("十", "じゅう"),                  # 10 jū
+            ("九", "きゅう"),                  # 9 kyū
+            ("八", "はち"),                    # 8 hachi
+            ("七", ("なな", "しち")),          # 7 nana, shichi
+            ("六", "ろく"),                    # 6 roku
+            ("五", "ご"),                      # 5 go
+            ("四", ("よん", "し")),            # 4 yon, shi
+            ("三", "さん"),                    # 3 san
+            ("二", "に"),                      # 2 ni
+            ("一", "いち"),                    # 1 ichi
+            # both are alternatives, 零 doesn't map to ゼロ or 〇 to れい
+            (("零", "〇"), ("ゼロ", "れい")),  # 0 ZERO, rei
         ]
 
     def merge(self, lpair, rpair):
@@ -85,21 +132,7 @@ class Num2Word_JA(Num2Word_Base):
             return (fmt % (ltext, rtext), lnum + rnum)
         # rnum is multiplied by lnum
         elif lnum < rnum:
-            # these hundreds are pronounced differently
-            if lpair == ("さん", 3) and rpair == ("ひゃく", 100):
-                rtext = "びゃく"
-            elif lpair == ("ろく", 6) and rpair == ("ひゃく", 100):
-                ltext = "ろっ"
-                rtext = "ぴゃく"
-            elif lpair == ("はち", 8) and rpair == ("ひゃく", 100):
-                ltext = "はっ"
-                rtext = "ぴゃく"
-            # these thousands are pronounced differently
-            elif lpair == ("さん", 3) and rpair == ("せん", 1000):
-                rtext = "ぜん"
-            elif lpair == ("さん", 8) and rpair == ("せん", 1000):
-                ltext = "はっ"
-            return (fmt % (ltext, rtext), lnum * rnum)
+            return rendaku_merge_pairs(lpair, rpair)
 
     def to_ordinal(self, value, reading=False, prefer=None):
         self.verify_ordinal(value)
@@ -118,23 +151,24 @@ class Num2Word_JA(Num2Word_Base):
             suffix = suffix or " ennen ajanlaskun alkua"
         return self.to_cardinal(val).replace(" ", "") + suffix
 
-    def to_currency(self, val, currency="JPY", cents=False, seperator="", adjective=False):
+    def to_currency(self, val, currency="JPY", cents=False, seperator="",
+                    adjective=False):
         raise NotImplementedError
 
     def base_setup(self):
         self.high_numwords = [
-            ("万", "まん"),   # 10**4 man
-            ("億", "おく"),   # 10**8 oku
-            ("兆", "ちょう"), # 10**12 chō
-            ("京", "けい"),   # 10**16 kei
-            ("垓", "がい"),   # 10**20 gai
-            ("秭", "し"),     # 10**24 shi
-            ("穣", "じょう"), # 10**28 jō
-            ("溝", "こう"),   # 10**32 kō
-            ("澗", "かん"),   # 10**36 kan
-            ("正", "せい"),   # 10**40 sei
-            ("載", "さい"),   # 10**44 sai
-            ("極", "ごく"),   # 10**48 goku
+            ("万", "まん"),    # 10**4 man
+            ("億", "おく"),    # 10**8 oku
+            ("兆", "ちょう"),  # 10**12 chō
+            ("京", "けい"),    # 10**16 kei
+            ("垓", "がい"),    # 10**20 gai
+            ("秭", "し"),      # 10**24 shi
+            ("穣", "じょう"),  # 10**28 jō
+            ("溝", "こう"),    # 10**32 kō
+            ("澗", "かん"),    # 10**36 kan
+            ("正", "せい"),    # 10**40 sei
+            ("載", "さい"),    # 10**44 sai
+            ("極", "ごく"),    # 10**48 goku
         ]
         self.high_numwords.reverse()
 
@@ -153,8 +187,9 @@ class Num2Word_JA(Num2Word_Base):
                 out.append((select_text(self.cards[1], reading, prefer), 1))
             else:
                 if div == value:  # The system tallies, eg Roman Numerals
-                    return [(div * select_text(self.cards[elem], reading, prefer),
-                             div*elem)]
+                    return [(
+                        div * select_text(self.cards[elem], reading, prefer),
+                        div * elem)]
                 out.append(self.splitnum(div, reading, prefer))
 
             out.append((select_text(self.cards[elem], reading, prefer), elem))
@@ -185,4 +220,5 @@ class Num2Word_JA(Num2Word_Base):
         return self.title(out + words)
 
     def to_cardinal_float(self, value):
-        return super(Num2Word_JA, self).to_cardinal_float(value).replace(" ", "")
+        return super(Num2Word_JA, self).to_cardinal_float(
+            value).replace(" ", "")
