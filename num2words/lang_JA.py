@@ -32,10 +32,9 @@ def select_text(text, reading=False, prefer=None):
 
     # select the preferred one or the first one from multiple alternatives
     if not isinstance(text, str):
-        if prefer:
-            common = set(text) & set(prefer)
-            if len(common) == 1:
-                text = common.pop()
+        common = set(text) & set(prefer or set())
+        if len(common) == 1:
+            text = common.pop()
         else:
             text = text[0]
 
