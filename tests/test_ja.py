@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright (c) 2013, Savoir-faire Linux inc.  All Rights Reserved.
 
 # This library is free software; you can redistribute it and/or
