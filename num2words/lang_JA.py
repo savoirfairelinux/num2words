@@ -397,19 +397,23 @@ class Num2Word_JA(Num2Word_Base):
         ordinal_suffix = "ばんめ" if reading else "番目"
         return "%s%s" % (value, ordinal_suffix)
 
-    def to_year(self, val, suffix=None, longval=True, reading=False, era=True):
+    def to_year(self, val, suffix=None, longval=True, reading=False,
+                prefer=None, era=True):
+        year = val
         # Gregorian calendar
         if not era:
             prefix = ""
-            if val < 0:
-                val = abs(val)
+            if year < 0:
+                year = abs(year)
                 prefix = "きげんぜん" if reading else "紀元前"
 
-            return "%s%s%s" % (prefix, self.to_cardinal(val, reading=reading),
-                               "ねん" if reading else "年")
+            year_words = self.to_cardinal(year, reading=reading, prefer=prefer)
+            if reading and year % 10 == 9:
+                year_words = year_words[:-3] + "く"
+
+            return "%s%s%s" % (prefix, year_words, "ねん" if reading else "年")
 
         # Era calendar (default)
-        year = val
         min_year = ERA_START[0][0]
         last_era_idx = len(ERA_START) - 1
         if year < min_year:
@@ -438,11 +442,15 @@ class Num2Word_JA(Num2Word_Base):
             era_year_words = str(era_year)
         elif reading:
             era_name = era[1][1]
-            era_year_words = (self.to_cardinal(era_year, reading=True)
+            era_year_words = (self.to_cardinal(era_year, reading=True,
+                                               prefer=prefer)
                               if era_year != 1 else "がん")
+            if era_year % 10 == 9:
+                era_year_words = era_year_words[:-3] + "く"
             fmt = "%s%sねん"
         else:
-            era_year_words = (self.to_cardinal(era_year, reading=False)
+            era_year_words = (self.to_cardinal(era_year, reading=False,
+                                               prefer=prefer)
                               if era_year != 1 else "元")
 
         return fmt % (era_name, era_year_words)
