@@ -18,6 +18,7 @@
 from __future__ import division, print_function, unicode_literals
 
 from .base import Num2Word_Base
+from .currency import parse_currency_parts, prefix_currency
 
 
 def select_text(text, reading=False, prefer=None):
@@ -339,7 +340,7 @@ ERA_START = [
 
 class Num2Word_JA(Num2Word_Base):
     CURRENCY_FORMS = {
-        'JPY': ('円', 'えん'),
+        'JPY': (('円', 'えん'), ()),
     }
 
     def set_high_numwords(self, high):
@@ -435,8 +436,32 @@ class Num2Word_JA(Num2Word_Base):
         return fmt % (era_name, era_year_words)
 
     def to_currency(self, val, currency="JPY", cents=False, seperator="",
-                    adjective=False):
-        raise NotImplementedError
+                    adjective=False, reading=False, prefer=None):
+        left, right, is_negative = parse_currency_parts(
+            val, is_int_with_cents=cents)
+
+        try:
+            cr1, cr2 = self.CURRENCY_FORMS[currency]
+            if (cents or abs(val) != left) and not cr2:
+                raise ValueError('Decimals not supported for "%s"' % currency)
+        except KeyError:
+            raise NotImplementedError(
+                'Currency code "%s" not implemented for "%s"' %
+                (currency, self.__class__.__name__))
+
+        if adjective and currency in self.CURRENCY_ADJECTIVES:
+            cr1 = prefix_currency(self.CURRENCY_ADJECTIVES[currency], cr1)
+
+        minus_str = self.negword if is_negative else ""
+
+        return '%s%s%s%s%s' % (
+            minus_str,
+            self.to_cardinal(left, reading=reading, prefer=prefer),
+            cr1[1] if reading else cr1[0],
+            self.to_cardinal(right, reading=reading, prefer=prefer)
+            if cr2 else '',
+            (cr2[1] if reading else cr2[0]) if cr2 else '',
+        )
 
     def base_setup(self):
         self.high_numwords = [
