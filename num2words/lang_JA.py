@@ -18,6 +18,7 @@
 from __future__ import division, print_function, unicode_literals
 
 from .base import Num2Word_Base
+from .compat import to_s
 from .currency import parse_currency_parts, prefix_currency
 
 
@@ -349,7 +350,7 @@ class Num2Word_JA(Num2Word_Base):
 
     def setup(self):
         self.negword = "マイナス"
-        self.pointword = "点"
+        self.pointword = ("点", "てん")
         self.exclude_title = ["点", "マイナス"]
 
         self.mid_numwords = [
@@ -531,7 +532,8 @@ class Num2Word_JA(Num2Word_Base):
         try:
             assert int(value) == value
         except (ValueError, TypeError, AssertionError):
-            return self.to_cardinal_float(value)
+            return self.to_cardinal_float(value, reading=reading,
+                                          prefer=prefer)
 
         self.verify_num(value)
 
@@ -547,6 +549,25 @@ class Num2Word_JA(Num2Word_Base):
         words, _ = self.clean(val)
         return self.title(out + words)
 
-    def to_cardinal_float(self, value):
-        return super(Num2Word_JA, self).to_cardinal_float(
-            value).replace(" ", "")
+    def to_cardinal_float(self, value, reading=False, prefer=None):
+        prefer = prefer or ["れい"]
+        try:
+            float(value) == value
+        except (ValueError, TypeError, AssertionError):
+            raise TypeError(self.errmsg_nonnum % value)
+
+        pre, post = self.float2tuple(float(value))
+
+        post = str(post)
+        post = '0' * (self.precision - len(post)) + post
+
+        out = [self.to_cardinal(pre, reading=reading, prefer=prefer)]
+        if self.precision:
+            out.append(self.title(self.pointword[1 if reading else 0]))
+
+        for i in range(self.precision):
+            curr = int(post[i])
+            out.append(to_s(
+                self.to_cardinal(curr, reading=reading, prefer=prefer)))
+
+        return "".join(out)
