@@ -50,7 +50,7 @@ def rendaku_merge_pairs(lpair, rpair):
 
     if rpair == ("ひゃく", 100):
         if lpair == ("さん", 3):
-            ltext = "びゃく"
+            rtext = "びゃく"
         elif lpair == ("ろく", 6):
             ltext = "ろっ"
             rtext = "ぴゃく"
