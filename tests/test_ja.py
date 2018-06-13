@@ -80,8 +80,8 @@ class Num2WordsJATest(TestCase):
     def test_mid(self):
         self.assertEqual(n2j(100), "百")
         self.assertEqual(n2j(100, reading=True), "ひゃく")
-        self.assertEqual(n2j(123), "百二十一")
-        self.assertEqual(n2j(123, reading=True), "ひゃくにじゅういち")
+        self.assertEqual(n2j(123), "百二十三")
+        self.assertEqual(n2j(123, reading=True), "ひゃくにじゅうさん")
         self.assertEqual(n2j(300), "三百")
         self.assertEqual(n2j(300, reading=True), "さんびゃく")
         self.assertEqual(n2j(400), "四百")
