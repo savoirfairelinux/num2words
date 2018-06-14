@@ -105,10 +105,10 @@ Therefore, if you want to call ``num2words`` with a fallback, you can do::
 Additionally, some converters and languages support other optional arguments
 that are needed to make the converter useful in practice.
 
-**``ja`` (Japanese)**
+**ja (Japanese)**
 
 **reading:** whether or not to return the reading of the converted number.
-Also has the special value ``"arabic"`` when used with ``year``.::
+Also has the special value ``"arabic"`` when used with ``year``::
 
     >>> num2words(42, lang='ja', reading=True)
     よんじゅうに
@@ -116,7 +116,7 @@ Also has the special value ``"arabic"`` when used with ``year``.::
     平成29年
 
 **prefer:** when there are multiple readings or (kanji) words available,
-prefer those in the sequence ``prefer``.::
+prefer those in the sequence ``prefer``::
 
     >>> num2words(0, lang='ja')
     零
@@ -130,7 +130,7 @@ prefer those in the sequence ``prefer``.::
     しちじゅうし
 
 **era:** (``year`` only) whether or not to convert the year to the era
-calendar format. Defaults to ``True``.::
+calendar format. Defaults to ``True``::
 
     >>> num2words(2017, lang='ja', to='year', era=True)
     平成二十九年
@@ -141,7 +141,7 @@ calendar format. Defaults to ``True``.::
 
 **counter:** (``ordinal`` and ``ordinal_num`` only) which counter to use with
 the ordinal number. Defaults to ``番`` and only supports ``reading`` with
-it.::
+it::
 
     >>> num2words(0, lang='ja', to='ordinal')
     零番目
