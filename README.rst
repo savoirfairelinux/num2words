@@ -48,7 +48,7 @@ There's only one function to use::
     >>> num2words(42, lang='fr')
     quarante-deux
 
-Besides the numerical argument, there's two optional arguments.
+Besides the numerical argument, there are two main optional arguments.
 
 **to:** The converter to use. Supported values are:
 
@@ -78,6 +78,7 @@ Besides the numerical argument, there's two optional arguments.
 * ``he`` (Hebrew)
 * ``id`` (Indonesian)
 * ``it`` (Italian)
+* ``ja`` (Japanese)
 * ``lt`` (Lithuanian)
 * ``lv`` (Latvian)
 * ``no`` (Norwegian)
@@ -100,6 +101,54 @@ Therefore, if you want to call ``num2words`` with a fallback, you can do::
         return num2words(42, lang=mylang)
     except NotImplementedError:
         return num2words(42, lang='en')
+
+Additionally, some converters and languages support other optional arguments
+that are needed to make the converter useful in practice.
+
+**``ja`` (Japanese)**
+
+**reading:** whether or not to return the reading of the converted number.
+Also has the special value ``"arabic"`` when used with ``year``.::
+
+    >>> num2words(42, lang='ja', reading=True)
+    よんじゅうに
+    >>> num2words(2017, lang='ja', to='year', reading='arabic')
+    平成29年
+
+**prefer:** when there are multiple readings or (kanji) words available,
+prefer those in the sequence ``prefer``.::
+
+    >>> num2words(0, lang='ja')
+    零
+    >>> num2words(0, lang='ja', prefer=['〇'])
+    〇
+    >>> num2words(42, lang='ja', reading=True, prefer=['し'])
+    しじゅうに
+    >>> num2words(74, lang='ja', reading=True)
+    ななじゅうよん
+    >>> num2words(74, lang='ja', reading=True, prefer=['し', 'しち'])
+    しちじゅうし
+
+**era:** (``year`` only) whether or not to convert the year to the era
+calendar format. Defaults to ``True``.::
+
+    >>> num2words(2017, lang='ja', to='year', era=True)
+    平成二十九年
+    >>> num2words(2017, lang='ja', to='year', reading=True, era=True)
+    へいせいにじゅうくねん
+    >>> num2words(2017, lang='ja', to='year', era=False)
+    二千十七年
+
+**counter:** (``ordinal`` and ``ordinal_num`` only) which counter to use with
+the ordinal number. Defaults to ``番`` and only supports ``reading`` with
+it.::
+
+    >>> num2words(0, lang='ja', to='ordinal')
+    零番目
+    >>> num2words(1, lang='ja', to='ordinal', counter='人')
+    一人目
+    >>> num2words(1, lang='ja', to='ordinal', reading=True, counter='人')
+    NotImplementedError: Reading not implemented for 人
 
 History
 -------
