@@ -66,8 +66,6 @@ class Num2WordsJATest(TestCase):
         self.assertEqual(n2j(15, reading=True), "じゅうご")
         self.assertEqual(n2j(16), "十六")
         self.assertEqual(n2j(16, reading=True), "じゅうろく")
-        self.assertEqual(n2j(16), "十六")
-        self.assertEqual(n2j(16, reading=True), "じゅうろく")
         self.assertEqual(n2j(17), "十七")
         self.assertEqual(n2j(17, reading=True), "じゅうなな")
         self.assertEqual(n2j(17, reading=True, prefer=["しち"]), "じゅうしち")
@@ -139,6 +137,21 @@ class Num2WordsJATest(TestCase):
         self.assertEqual(n2j(10**8 + 0.01, reading=True),
                          "いちおくてんれいいち")
 
+    def test_ordinal(self):
+        self.assertEqual(n2j(0, to="ordinal"), "零番目")
+        self.assertEqual(n2j(0, to="ordinal", reading=True, prefer=["れい"]),
+                         "れいばんめ")
+        self.assertEqual(n2j(2, to="ordinal", counter="人"), "二人目")
+        self.assertEqual(n2j(3, to="ordinal", counter="つ"), "三つ目")
+        with self.assertRaises(NotImplementedError):
+            n2j(4, to="ordinal", reading=True, counter="人")
+
+    def test_ordinal_num(self):
+        self.assertEqual(n2j(0, to="ordinal_num"), "0番目")
+        self.assertEqual(n2j(0, to="ordinal_num", reading=True), "0ばんめ")
+        self.assertEqual(n2j(2, to="ordinal_num", counter="人"), "2人目")
+        self.assertEqual(n2j(3, to="ordinal_num", counter="つ"), "3つ目")
+
     def test_currency(self):
         self.assertEqual(n2j(123456789, to="currency"),
                          "一億二千三百四十五万六千七百八十九円")
@@ -148,7 +161,7 @@ class Num2WordsJATest(TestCase):
                          "ろくせんななひゃく"
                          "はちじゅうきゅうえん")
 
-    def test_to_year(self):
+    def test_year(self):
         self.assertEqual(n2j(2017, to="year"), "平成二十九年")
         self.assertEqual(n2j(2017, to="year", reading=True),
                          "へいせいにじゅうくねん")

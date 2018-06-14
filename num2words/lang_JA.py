@@ -388,15 +388,23 @@ class Num2Word_JA(Num2Word_Base):
         elif lnum < rnum:
             return rendaku_merge_pairs(lpair, rpair)
 
-    def to_ordinal(self, value, reading=False, prefer=None):
+    def _ordinal_suffix(self, reading, counter):
+        if reading:
+            if counter == "番":
+                return "ばんめ"
+            else:
+                raise NotImplementedError(
+                    "Reading not implemented for %s" % counter)
+        else:
+            return counter + "目"
+
+    def to_ordinal(self, value, reading=False, prefer=None, counter="番"):
         self.verify_ordinal(value)
         base = self.to_cardinal(value, reading=reading, prefer=prefer)
-        ordinal_suffix = "ばんめ" if reading else "番目"
-        return "%s%s" % (base, ordinal_suffix)
+        return "%s%s" % (base, self._ordinal_suffix(reading, counter))
 
-    def to_ordinal_num(self, value, reading=False):
-        ordinal_suffix = "ばんめ" if reading else "番目"
-        return "%s%s" % (value, ordinal_suffix)
+    def to_ordinal_num(self, value, reading=False, counter="番"):
+        return "%s%s" % (value, self._ordinal_suffix(reading, counter))
 
     def to_year(self, val, suffix=None, longval=True, reading=False,
                 prefer=None, era=True):
