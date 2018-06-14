@@ -18,7 +18,7 @@
 from __future__ import division, print_function, unicode_literals
 
 from .base import Num2Word_Base
-from .compat import to_s, strtype
+from .compat import strtype, to_s
 from .currency import parse_currency_parts, prefix_currency
 
 
