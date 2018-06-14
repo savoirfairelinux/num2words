@@ -18,7 +18,7 @@
 from __future__ import division, print_function, unicode_literals
 
 from .base import Num2Word_Base
-from .compat import to_s
+from .compat import to_s, strtype
 from .currency import parse_currency_parts, prefix_currency
 
 
@@ -32,7 +32,7 @@ def select_text(text, reading=False, prefer=None):
         text = text[0]
 
     # select the preferred one or the first one from multiple alternatives
-    if not isinstance(text, str):
+    if not isinstance(text, strtype):
         common = set(text) & set(prefer or set())
         if len(common) == 1:
             text = common.pop()
