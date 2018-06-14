@@ -135,9 +135,9 @@ class Num2WordsJATest(TestCase):
                          "よんご"
                          "ろくなな"
                          "はちきゅう")
-        self.assertEqual(n2j(10**12 + 0.01), "一兆点零一")
-        self.assertEqual(n2j(10**12 + 0.01, reading=True),
-                         "いっちょうてんれいいち")
+        self.assertEqual(n2j(10**8 + 0.01), "一億点零一")
+        self.assertEqual(n2j(10**8 + 0.01, reading=True),
+                         "いちおくてんれいいち")
 
     def test_currency(self):
         self.assertEqual(n2j(123456789, to="currency"),
