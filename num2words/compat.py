@@ -15,6 +15,12 @@
 # MA 02110-1301 USA
 
 
+try:
+    strtype = basestring
+except NameError:
+    strtype = str
+
+
 def to_s(val):
     try:
         return unicode(val)
