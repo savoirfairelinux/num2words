@@ -128,6 +128,10 @@ prefer those in the sequence ``prefer``::
     ななじゅうよん
     >>> num2words(74, lang='ja', reading=True, prefer=['し', 'しち'])
     しちじゅうし
+    >>> num2words(1375, lang='ja', to="year")
+    天授元年
+    >>> num2words(1375, lang='ja', to="year", prefer=['えいわ'])
+    永和元年
 
 **era:** (``year`` only) whether or not to convert the year to the era
 calendar format. Defaults to ``True``::

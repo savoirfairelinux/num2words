@@ -180,3 +180,5 @@ class Num2WordsJATest(TestCase):
         self.assertEqual(n2j(-99, to="year", era=False), "紀元前九十九年")
         self.assertEqual(n2j(-99, to="year", era=False, reading=True),
                          "きげんぜんきゅうじゅうくねん")
+        self.assertEqual(n2j(1375, to="year"), "天授元年")
+        self.assertEqual(n2j(1375, to="year", prefer=["えいわ"]), "永和元年")
