@@ -18,7 +18,6 @@
 from __future__ import division, print_function, unicode_literals
 
 from . import lang_EU
-from .currency import parse_currency_parts
 
 
 def numword_inflect_partitive(rpair):
@@ -44,21 +43,18 @@ def numword_inflect_partitive(rpair):
             "'%s' can't be inflected to the partitive case" % rtext)
 
 
-def pluralize_currency(value, unit):
-    """Inflect currency unit (euro or sentti) to partitive when value is
-    not 1"""
-    if value == 1:
-        return unit
-    else:
-        if unit == "euro":
-            return "euroa"
-        elif unit == "sentti":
-            return "senttiä"
-        else:
-            raise NotImplementedError
-
-
 class Num2Word_FI(lang_EU.Num2Word_EU):
+    CURRENCY_FORMS = {
+        'EUR': (('euro', 'euroa'), ('sentti', 'senttiä')),
+        'FIM': (('markka', 'markkaa'), ('penni', 'penniä')),  # historical
+        'USD': (('dollari', 'dollaria'), ('sentti', 'senttiä')),
+    }
+
+    CURRENCY_ADJECTIVES = {
+        'FIM': 'Suomen',  # historical
+        'USD': 'Yhdysvaltain',
+    }
+
     def set_high_numwords(self, high):
         # references:
         # https://fi.wikipedia.org/wiki/Suurten_lukujen_nimet
@@ -210,19 +206,6 @@ class Num2Word_FI(lang_EU.Num2Word_EU):
 
     def to_currency(self, val, currency="EUR", cents=True, seperator=" ja",
                     adjective=False):
-        if currency != "EUR":
-            raise NotImplementedError
-
-        left, right, is_negative = parse_currency_parts(val)
-        cr1, cr2 = ("euro", "sentti")
-        minus_str = self.negword if is_negative else ""
-        cents_str = self.to_cardinal(right)
-
-        return u'%s%s %s%s %s %s' % (
-            minus_str,
-            self.to_cardinal(left),
-            pluralize_currency(left, cr1),
-            seperator,
-            cents_str,
-            pluralize_currency(right, cr2)
-        )
+        return super(Num2Word_FI, self).to_currency(
+            val, currency=currency, cents=cents, seperator=seperator,
+            adjective=adjective)
