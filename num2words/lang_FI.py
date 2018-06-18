@@ -43,16 +43,62 @@ def numword_inflect_partitive(rpair):
             "'%s' can't be inflected to the partitive case" % rtext)
 
 
+GENERIC_CENTS = ('sentti', 'senttiä')
+GENERIC_CENTAVOS = ('centavo', 'centavoa')
+
+
 class Num2Word_FI(lang_EU.Num2Word_EU):
     CURRENCY_FORMS = {
-        'EUR': (('euro', 'euroa'), ('sentti', 'senttiä')),
+        'BRL': (('real', 'realia'), GENERIC_CENTAVOS),
+        'CHF': (('frangi', 'frangia'), ('rappen', 'rappenia')),
+        'CNY': (('juan', 'juania'), ('fen', 'feniä')),
+        'EUR': (('euro', 'euroa'), GENERIC_CENTS),
         'FIM': (('markka', 'markkaa'), ('penni', 'penniä')),  # historical
-        'USD': (('dollari', 'dollaria'), ('sentti', 'senttiä')),
+        'INR': (('rupia', 'rupiaa'), ('paisa', 'paisaa')),
+        'JPY': (('jeni', 'jeniä'), ('sen', 'seniä')),  # rare subunit
+        'KRW': (('won', 'wonia'), ('jeon', 'jeonia')),  # rare subunit
+        'KPW': (('won', 'wonia'), ('chon', 'chonia')),  # rare subunit
+        'MXN': (('peso', 'pesoa'), GENERIC_CENTAVOS),
+        'RUB': (('rupla', 'ruplaa'), ('kopeekka', 'kopeekkaa')),
+        'TRY': (('liira', 'liiraa'), ('kuruş', 'kuruşia')),
+        'ZAR': (('randi', 'randia'), GENERIC_CENTS),
     }
 
+    # crowns
+    for curr_code in 'DKK', 'ISK', 'NOK', 'SEK':
+        CURRENCY_FORMS[curr_code] = (('kruunu', 'kruunua'), ('äyri', 'äyriä'))
+
+    # dollars
+    for curr_code in 'AUD', 'CAD', 'HKD', 'NZD', 'SGD', 'USD':
+        CURRENCY_FORMS[curr_code] = (
+            ('dollari', 'dollaria'), GENERIC_CENTS)
+
+    # pounds
+    for curr_code in ('GBP',):
+        CURRENCY_FORMS[curr_code] = (('punta', 'puntaa'), ('penny', 'pennyä'))
+
     CURRENCY_ADJECTIVES = {
+        'AUD': 'Australian',
+        'BRL': 'Brasilian',
+        'CAD': 'Kanadan',
+        'CHF': 'Sveitsin',
+        'DKK': 'Tanskan',
         'FIM': 'Suomen',  # historical
+        'GBP': 'Englannin',
+        'HKD': 'Hongkongin',
+        'INR': 'Intian',
+        'ISK': 'Islannin',
+        'KRW': 'Etelä-Korean',
+        'KPW': 'Pohjois-Korean',
+        'MXN': 'Meksikon',
+        'NOK': 'Norjan',
+        'NZD': 'Uuden-Seelannin',
+        'RUB': 'Venäjän',
+        'SEK': 'Ruotsin',
+        'SGD': 'Singaporen',
+        'TRY': 'Turkin',
         'USD': 'Yhdysvaltain',
+        'ZAR': 'Etelä-Afrikan',
     }
 
     def set_high_numwords(self, high):
