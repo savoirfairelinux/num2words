@@ -99,7 +99,7 @@ KOTUS_TYPE = {
         # rare
         INSTRUC: ('ein', 'ein'),
         ABE: ('itta', 'eitta'),
-        COM: ('eineen', 'eineen'),
+        COM: ('eine', 'eine'),  # works better
     },
 
     # Kotus type 7/ovi, no gradation
@@ -122,7 +122,7 @@ KOTUS_TYPE = {
         # rare
         INSTRUC: ('in', 'in'),
         ABE: ('etta', 'itta'),
-        COM: ('ineen', 'ineen'),
+        COM: ('ine', 'ine'),  # works better
     },
 
     # Kotus type 8/nalle, no gradation
@@ -145,7 +145,7 @@ KOTUS_TYPE = {
         # rare
         INSTRUC: ('ein', 'ein'),
         ABE: ('etta', 'eitta'),
-        COM: ('eineen', 'eineen'),
+        COM: ('eine', 'eine'),  # works better
     },
 
     # Kotus type 9/kala, t-d gradation (sata)
@@ -168,7 +168,7 @@ KOTUS_TYPE = {
         # rare
         INSTRUC: ('doin', 'doin'),
         ABE: ('datta', 'doitta'),
-        COM: ('toine', 'toine'),
+        COM: ('toine', 'toine'),  # works better
     },
 
     # Kotus type 10/koira, no gradation
@@ -191,7 +191,7 @@ KOTUS_TYPE = {
         # rare
         INSTRUC: ('in', 'in'),
         ABE: ('atta', 'itta'),
-        COM: ('ineen', 'ineen'),
+        COM: ('ine', 'ine'),  # works better
     },
 
     # Kotus type 27/käsi, t-d gradation
@@ -214,7 +214,7 @@ KOTUS_TYPE = {
         # rare
         INSTRUC: ('sin', 'sin'),
         ABE: ('detta', 'sitta'),
-        COM: ('sineen', 'sineen'),
+        COM: ('sine', 'sine'),  # works better
     },
 
     # Kotus type 31/kaksi, t-d gradation
@@ -237,7 +237,7 @@ KOTUS_TYPE = {
         # rare
         INSTRUC: ('ksin', 'ksin'),
         ABE: ('hdetta', 'ksitta'),
-        COM: ('ksineen', 'ksineen'),
+        COM: ('ksine', 'ksine'),  # works better
     },
 
     # Kotus type 32/sisar, no gradation
@@ -260,7 +260,7 @@ KOTUS_TYPE = {
         # rare
         INSTRUC: ('in', 'in'),
         ABE: ('etta', 'itta'),
-        COM: ('ineen', 'ineen'),
+        COM: ('ine', 'ine'),  # works better
     },
 
     # Kotus type 38/nainen, no gradation
@@ -283,7 +283,7 @@ KOTUS_TYPE = {
         # rare
         INSTRUC: ('sin', 'sin'),
         ABE: ('setta', 'sitta'),
-        COM: ('sine', 'sine'),
+        COM: ('sine', 'sine'),  # works better
     },
 
     # Kotus type 45/kahdeksas, nt-nn gradation
@@ -306,7 +306,7 @@ KOTUS_TYPE = {
         # rare
         INSTRUC: ('nsin', 'nsin'),
         ABE: ('nnetta', 'nsitta'),
-        COM: ('nsine', 'nsine'),
+        COM: ('nsine', 'nsine'),  # works better
     },
 
     # Kotus type 46/tuhat, nt-nn gradation
@@ -329,7 +329,7 @@ KOTUS_TYPE = {
         # rare
         INSTRUC: ('nsin', 'nsin'),
         ABE: ('nnetta', 'nsitta'),
-        COM: ('nsineen', 'nsineen'),
+        COM: ('nsine', 'nsine'),  # works better
     },
 }
 
@@ -338,6 +338,9 @@ KOTUS_TYPE[108] = {
     c: (KOTUS_TYPE[8][c][0], KOTUS_TYPE[7][c][1])
     for c in KOTUS_TYPE[8]
 }
+KOTUS_TYPE[108][INSTRUC] = ('en', 'in')
+KOTUS_TYPE[108][ABE] = ('etta', 'itta')
+KOTUS_TYPE[108][COM] = ('ine', 'ine')
 
 # seitsemän, kahdeksan, yhdeksän
 KOTUS_TYPE[110] = KOTUS_TYPE[10].copy()
