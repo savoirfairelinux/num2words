@@ -516,6 +516,7 @@ class Num2Word_FI(lang_EU.Num2Word_EU):
 
         self.mid_ords = [
             (1000, ("tuhanne", 45)),
+            (200, [("kahde", 45), ("sada", 45)]),
             (100, ("sada", 45)),
             (90, [("yhdeksä", 45), ("kymmene", 45)]),
             (80, [("kahdeksa", 45), ("kymmene", 45)]),
