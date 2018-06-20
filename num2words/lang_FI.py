@@ -581,10 +581,6 @@ class Num2Word_FI(lang_EU.Num2Word_EU):
         ltext, lnum = lpair
         rtext, rnum = rpair
 
-        if ordinal and lnum == 2 and rnum == 100:
-            print(ltext)
-            ltext = ("kahde", 45)
-
         # http://www.kielitoimistonohjepankki.fi/ohje/49
         fmt = "%s%s"
         # ignore lpair if lnum is 1
@@ -601,11 +597,14 @@ class Num2Word_FI(lang_EU.Num2Word_EU):
             return (fmt % (ltext, rtext), lnum + rnum)
         # rnum is multiplied by lnum
         elif lnum < rnum:
-            ltext = inflect(ltext, case, plural)
-            if not ordinal and case == NOM:
-                rtext = inflect(rtext, PTV, plural)
-            else:
+            if ordinal:
+                # kahdessadas, not toinensadas
+                if lnum == 2 and rnum == 100:
+                    ltext = ("kahde", 45)
                 rtext = inflect(rtext, case, plural)
+            else:
+                rtext = inflect(rtext, PTV if case == NOM else case, plural)
+            ltext = inflect(ltext, case, plural)
             return (fmt % (ltext, rtext), lnum * rnum)
 
     def to_cardinal(self, value, case='nominative', plural=False):
