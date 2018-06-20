@@ -527,10 +527,10 @@ class Num2Word_FI(lang_EU.Num2Word_EU):
         ]
 
         self.low_numwords = [
-            (20, [("ka", 31), ("kymmen", 132)]), # 132: 32 & NOM += 'en'
-            (19, [("yhdeks", 110), "toista"]),   # 110: 10 & NOM += 'n'
-            (18, [("kahdeks", 110), "toista"]),  # ^
-            (17, [("seitsem", 110), "toista"]),  # ^^
+            (20, [("ka", 31), ("kymmen", 132)]),  # 132: 32 & NOM += 'en'
+            (19, [("yhdeks", 110), "toista"]),    # 110: 10 & NOM += 'n'
+            (18, [("kahdeks", 110), "toista"]),   # ^
+            (17, [("seitsem", 110), "toista"]),   # ^^
             (16, [("kuu", 27), "toista"]),
             (15, [("vii", 27), "toista"]),
             (14, [("nelj", 10), "toista"]),
@@ -574,7 +574,7 @@ class Num2Word_FI(lang_EU.Num2Word_EU):
             (0, ("nolla", 45)),
         ]
 
-    def merge(self, lpair, rpair, case, plural):
+    def merge(self, lpair, rpair, ordinal, case, plural):
         ltext, lnum = lpair
         rtext, rnum = rpair
 
@@ -595,13 +595,13 @@ class Num2Word_FI(lang_EU.Num2Word_EU):
         # rnum is multiplied by lnum
         elif lnum < rnum:
             ltext = inflect(ltext, case, plural)
-            if case == NOM:
+            if not ordinal and case == NOM:
                 rtext = inflect(rtext, PTV, plural)
             else:
                 rtext = inflect(rtext, case, plural)
             return (fmt % (ltext, rtext), lnum * rnum)
 
-    def to_cardinal(self, value, case='nominative'):
+    def to_cardinal(self, value, case='nominative', plural=False):
         case = NAME_TO_CASE[case]
         try:
             assert int(value) == value
@@ -619,7 +619,7 @@ class Num2Word_FI(lang_EU.Num2Word_EU):
             raise OverflowError(self.errmsg_toobig % (value, self.MAXVAL))
 
         val = self.splitnum(value)
-        words, num = self.clean(val, case)
+        words, num = self.clean(val, False, case, plural)
         return self.title(out + words)
 
     def to_ordinal(self, value, case='nominative', plural=False):
@@ -640,7 +640,7 @@ class Num2Word_FI(lang_EU.Num2Word_EU):
             raise OverflowError(self.errmsg_toobig % (value, self.MAXVAL))
 
         val = self.splitnum(value, ordinal=True)
-        words, num = self.clean(val, case, plural)
+        words, num = self.clean(val, True, case, plural)
         return self.title(out + words)
 
     def to_ordinal_num(self, value, case='nominative', plural=False):
@@ -686,13 +686,13 @@ class Num2Word_FI(lang_EU.Num2Word_EU):
 
             return out
 
-    def clean(self, val, case, plural):
+    def clean(self, val, ordinal, case, plural):
         out = val
         while len(val) != 1:
             out = []
             left, right = val[:2]
             if isinstance(left, tuple) and isinstance(right, tuple):
-                out.append(self.merge(left, right, case, plural))
+                out.append(self.merge(left, right, ordinal, case, plural))
                 if val[2:]:
                     out.append(val[2:])
             else:
@@ -701,7 +701,7 @@ class Num2Word_FI(lang_EU.Num2Word_EU):
                         if len(elem) == 1:
                             out.append(elem[0])
                         else:
-                            out.append(self.clean(elem, case, plural))
+                            out.append(self.clean(elem, ordinal, case, plural))
                     else:
                         out.append(elem)
             val = out
