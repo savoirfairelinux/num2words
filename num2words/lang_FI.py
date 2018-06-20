@@ -348,7 +348,7 @@ KOTUS_TYPE[110][NOM] = ('an', 'at')
 
 # kymmenen
 KOTUS_TYPE[132] = KOTUS_TYPE[32].copy()
-KOTUS_TYPE[132][NOM] += ('en', 'et')
+KOTUS_TYPE[132][NOM] = ('en', 'et')
 
 
 def inflect(parts, case, plural=False, prefer=None):
@@ -357,20 +357,32 @@ def inflect(parts, case, plural=False, prefer=None):
 
     out = ''
     for part in parts:
+        # part is plain text, concat and continue
         if not isinstance(part, tuple):
             out += part
             continue
+        # predefined case (kaksikymmentä, ...)
+        tmp_case = case
+        if len(part) == 3:
+            # override nominative only
+            if case == NOM:
+                tmp_case = part[2]
+            part = part[:2]
+        # stem and suffix
         stem, kotus_type = part
-        suffix = KOTUS_TYPE[kotus_type][case][plural]
+        suffix = KOTUS_TYPE[kotus_type][tmp_case][plural]
+        # many choices, choose preferred or first
         if isinstance(suffix, tuple):
             common = set(suffix) & set(prefer or set())
             if len(common) == 1:
                 suffix = common.pop()
             else:
                 suffix = suffix[0]
+        # apply vowel harmony
         if not set(BACK_TO_FRONT) & set(stem):
             for back, front in BACK_TO_FRONT.items():
                 suffix = suffix.replace(back, front)
+        # concat
         out += stem + suffix
 
     return out
@@ -507,14 +519,14 @@ class Num2Word_FI(lang_EU.Num2Word_EU):
 
         self.mid_numwords = [
             (1000, ("tuha", 46)),
-            (100, ("sa", 109)),  # 9 with t-d gradation
-            (90, [("yhdeks", 110), ("kymmen", 132)]),   # 110: 10 & NOM += 'n'
-            (80, [("kahdeks", 110), ("kymmen", 132)]),  # 132: 32 & NOM += 'en'
-            (70, [("seitsem", 110), ("kymmen", 132)]),  # ^^
-            (60, [("kuu", 27), ("kymmen", 132)]),
-            (50, [("vii", 27), ("kymmen", 132)]),
-            (40, [("nelj", 10), ("kymmen", 132)]),
-            (30, [("kolm", 108), ("kymmen", 132)]),  # 108: 8 & PL = 7
+            (100, ("sa", 109)),
+            (90, [("yhdeks", 110), ("kymmen", 132, PTV)]),
+            (80, [("kahdeks", 110), ("kymmen", 132, PTV)]),
+            (70, [("seitsem", 110), ("kymmen", 132, PTV)]),
+            (60, [("kuu", 27), ("kymmen", 132, PTV)]),
+            (50, [("vii", 27), ("kymmen", 132, PTV)]),
+            (40, [("nelj", 10), ("kymmen", 132, PTV)]),
+            (30, [("kolm", 108), ("kymmen", 132, PTV)]),
         ]
 
         self.mid_ords = [
@@ -530,24 +542,24 @@ class Num2Word_FI(lang_EU.Num2Word_EU):
         ]
 
         self.low_numwords = [
-            (20, [("ka", 31), ("kymmen", 132)]),  # 132: 32 & NOM += 'en'
-            (19, [("yhdeks", 110), "toista"]),    # 110: 10 & NOM += 'n'
-            (18, [("kahdeks", 110), "toista"]),   # ^
-            (17, [("seitsem", 110), "toista"]),   # ^^
+            (20, [("ka", 31), ("kymmen", 132, PTV)]),
+            (19, [("yhdeks", 110), "toista"]),
+            (18, [("kahdeks", 110), "toista"]),
+            (17, [("seitsem", 110), "toista"]),
             (16, [("kuu", 27), "toista"]),
             (15, [("vii", 27), "toista"]),
             (14, [("nelj", 10), "toista"]),
-            (13, [("kolm", 108), "toista"]),  # 108: 8 & PL = 7
+            (13, [("kolm", 108), "toista"]),
             (12, [("ka", 31), "toista"]),
             (11, [("y", 31), "toista"]),
-            (10, ("kymmen", 32)),
-            (9, ("yhdeks", 110)),   # 110 is 10 but NOM += 'n'
-            (8, ("kahdeks", 110)),  # ^
-            (7, ("seitsem", 110)),  # ^^
+            (10, ("kymmen", 132)),
+            (9, ("yhdeks", 110)),
+            (8, ("kahdeks", 110)),
+            (7, ("seitsem", 110)),
             (6, ("kuu", 27)),
             (5, ("vii", 27)),
             (4, ("nelj", 10)),
-            (3, ("kolm", 108)),  # 108: 8 & PL = 7
+            (3, ("kolm", 108)),
             (2, ("ka", 31)),
             (1, ("y", 31)),
             (0, ("noll", 10)),
