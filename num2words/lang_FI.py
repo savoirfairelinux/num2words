@@ -519,7 +519,6 @@ class Num2Word_FI(lang_EU.Num2Word_EU):
 
         self.mid_ords = [
             (1000, ("tuhanne", 45)),
-            (200, [("kahde", 45), ("sada", 45)]),
             (100, ("sada", 45)),
             (90, [("yhdeksä", 45), ("kymmene", 45)]),
             (80, [("kahdeksa", 45), ("kymmene", 45)]),
@@ -581,6 +580,10 @@ class Num2Word_FI(lang_EU.Num2Word_EU):
     def merge(self, lpair, rpair, ordinal, case, plural):
         ltext, lnum = lpair
         rtext, rnum = rpair
+
+        if ordinal and lnum == 2 and rnum == 100:
+            print(ltext)
+            ltext = ("kahde", 45)
 
         # http://www.kielitoimistonohjepankki.fi/ohje/49
         fmt = "%s%s"
