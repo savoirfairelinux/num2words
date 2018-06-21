@@ -347,7 +347,7 @@ KOTUS_TYPE[132] = KOTUS_TYPE[32].copy()
 KOTUS_TYPE[132][NOM] = ('en', 'et')
 
 
-def inflect(parts, case, plural=False, prefer=None):
+def inflect(parts, options):
     if not isinstance(parts, list):
         parts = [parts]
 
@@ -358,18 +358,18 @@ def inflect(parts, case, plural=False, prefer=None):
             out += part
             continue
         # predefined case (kaksikymmentä, ...)
-        tmp_case = case
+        tmp_case = options.case
         if len(part) == 3:
             # override singular nominative only
-            if case == NOM and not plural:
+            if options.case == NOM and not options.plural:
                 tmp_case = part[2]
             part = part[:2]
         # stem and suffix
         stem, kotus_type = part
-        suffix = KOTUS_TYPE[kotus_type][tmp_case][plural]
+        suffix = KOTUS_TYPE[kotus_type][tmp_case][options.plural]
         # many choices, choose preferred or first
         if isinstance(suffix, tuple):
-            common = set(suffix) & set(prefer or set())
+            common = set(suffix) & set(options.prefer or set())
             if len(common) == 1:
                 suffix = common.pop()
             else:
@@ -382,6 +382,22 @@ def inflect(parts, case, plural=False, prefer=None):
         out += stem + suffix
 
     return out
+
+
+class Options(object):
+    def __init__(self, ordinal, case, plural, prefer):
+        self.ordinal = ordinal
+        self.case = case
+        self.plural = plural
+        self.prefer = prefer
+
+    def variation(self, ordinal=None, case=None, plural=None, prefer=None):
+        return Options(
+            ordinal if ordinal is not None else self.ordinal,
+            case if case is not None else self.case,
+            plural if plural is not None else self.plural,
+            prefer if prefer is not None else self.prefer,
+        )
 
 
 class Num2Word_FI(lang_EU.Num2Word_EU):
@@ -585,7 +601,7 @@ class Num2Word_FI(lang_EU.Num2Word_EU):
             (0, ("nolla", 45)),
         ]
 
-    def merge(self, lpair, rpair, ordinal, case, plural):
+    def merge(self, lpair, rpair, options):
         ltext, lnum = lpair
         rtext, rnum = rpair
 
@@ -593,34 +609,35 @@ class Num2Word_FI(lang_EU.Num2Word_EU):
         fmt = "%s%s"
         # ignore lpair if lnum is 1
         if lnum == 1:
-            rtext = inflect(rtext, case, plural)
+            rtext = inflect(rtext, options)
             return (rtext, rnum)
         # rnum is added to lnum
         elif lnum > rnum:
-            ltext = inflect(ltext, case, plural)
-            rtext = inflect(rtext, case, plural)
+            ltext = inflect(ltext, options)
+            rtext = inflect(rtext, options)
             # separate groups with space
             if lnum >= 1000:
                 fmt = "%s %s"
             return (fmt % (ltext, rtext), lnum + rnum)
         # rnum is multiplied by lnum
         elif lnum < rnum:
-            if ordinal:
+            if options.ordinal:
                 # kahdessadas, not toinensadas
                 if lnum == 2:
                     ltext = ("kahde", 45)
-                rtext = inflect(rtext, case, plural)
+                rtext = inflect(rtext, options)
             else:
                 # kaksituhatta but kahdettuhannet
-                rcase = case
-                if case == NOM and not plural:
+                rcase = options.case
+                if options.case == NOM and not options.plural:
                     rcase = PTV
-                rtext = inflect(rtext, rcase, plural)
-            ltext = inflect(ltext, case, plural)
+                rtext = inflect(rtext, options.variation(case=rcase))
+            ltext = inflect(ltext, options)
             return (fmt % (ltext, rtext), lnum * rnum)
 
-    def to_cardinal(self, value, case='nominative', plural=False):
+    def to_cardinal(self, value, case='nominative', plural=False, prefer=None):
         case = NAME_TO_CASE[case]
+        options = Options(False, case, plural, prefer)
         try:
             assert int(value) == value
         except (ValueError, TypeError, AssertionError):
@@ -636,12 +653,13 @@ class Num2Word_FI(lang_EU.Num2Word_EU):
         if value >= self.MAXVAL:
             raise OverflowError(self.errmsg_toobig % (value, self.MAXVAL))
 
-        val = self.splitnum(value)
-        words, num = self.clean(val, False, case, plural)
+        val = self.splitnum(value, options)
+        words, num = self.clean(val, options)
         return self.title(out + words)
 
-    def to_ordinal(self, value, case='nominative', plural=False):
+    def to_ordinal(self, value, case='nominative', plural=False, prefer=None):
         case = NAME_TO_CASE[case]
+        options = Options(True, case, plural, prefer)
         try:
             assert int(value) == value
         except (ValueError, TypeError, AssertionError):
@@ -657,8 +675,8 @@ class Num2Word_FI(lang_EU.Num2Word_EU):
         if value >= self.MAXVAL:
             raise OverflowError(self.errmsg_toobig % (value, self.MAXVAL))
 
-        val = self.splitnum(value, ordinal=True)
-        words, num = self.clean(val, True, case, plural)
+        val = self.splitnum(value, options)
+        words, num = self.clean(val, options)
         return self.title(out + words)
 
     def to_ordinal_num(self, value, case='nominative', plural=False):
@@ -678,8 +696,8 @@ class Num2Word_FI(lang_EU.Num2Word_EU):
             val, currency=currency, cents=cents, seperator=seperator,
             adjective=adjective)
 
-    def splitnum(self, value, ordinal=False):
-        elems = self.ords if ordinal else self.cards
+    def splitnum(self, value, options):
+        elems = self.ords if options.ordinal else self.cards
         for elem in elems:
             if elem > value:
                 continue
@@ -695,22 +713,22 @@ class Num2Word_FI(lang_EU.Num2Word_EU):
             else:
                 if div == value:  # The system tallies, eg Roman Numerals
                     return [(div * elems[elem], div*elem)]
-                out.append(self.splitnum(div, ordinal=ordinal))
+                out.append(self.splitnum(div, options))
 
             out.append((elems[elem], elem))
 
             if mod:
-                out.append(self.splitnum(mod, ordinal=ordinal))
+                out.append(self.splitnum(mod, options))
 
             return out
 
-    def clean(self, val, ordinal, case, plural):
+    def clean(self, val, options):
         out = val
         while len(val) != 1:
             out = []
             left, right = val[:2]
             if isinstance(left, tuple) and isinstance(right, tuple):
-                out.append(self.merge(left, right, ordinal, case, plural))
+                out.append(self.merge(left, right, options))
                 if val[2:]:
                     out.append(val[2:])
             else:
@@ -719,7 +737,7 @@ class Num2Word_FI(lang_EU.Num2Word_EU):
                         if len(elem) == 1:
                             out.append(elem[0])
                         else:
-                            out.append(self.clean(elem, ordinal, case, plural))
+                            out.append(self.clean(elem, options))
                     else:
                         out.append(elem)
             val = out
