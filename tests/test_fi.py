@@ -1189,7 +1189,8 @@ class Num2WordsFITest(TestCase):
              "tuhansin", "tuhannetta", "tuhansine")
         )
         self.assertEqual(
-            tuple(n2f(1000, to="cardinal", case=c, plural=True) for c in CASES),
+            tuple(n2f(1000, to="cardinal", case=c, plural=True)
+                  for c in CASES),
             ("tuhannet", "tuhansien", "tuhansia",
              "tuhansissa", "tuhansista", "tuhansiin",
              "tuhansilla", "tuhansilta", "tuhansille",
@@ -1218,7 +1219,8 @@ class Num2WordsFITest(TestCase):
             )
         )
         self.assertEqual(
-            tuple(n2f(1234, to="cardinal", case=c, plural=True) for c in CASES),
+            tuple(n2f(1234, to="cardinal", case=c, plural=True)
+                  for c in CASES),
             (
                 "tuhannet kahdetsadatkolmetkymmenetneljät",
                 "tuhansien kaksiensatojenkolmienkymmenienneljien",
@@ -1683,7 +1685,8 @@ class Num2WordsFITest(TestCase):
             )
         )
         self.assertEqual(
-            tuple(n2f(10000, to="cardinal", case=c, plural=True) for c in CASES),
+            tuple(n2f(10000, to="cardinal", case=c, plural=True)
+                  for c in CASES),
             (
                 "kymmenettuhannet",
                 "kymmenientuhansien",
@@ -1781,7 +1784,8 @@ class Num2WordsFITest(TestCase):
              "sadointuhansin", "sadattatuhannetta", "satoinetuhansine")
         )
         self.assertEqual(
-            tuple(n2f(100000, to="cardinal", case=c, plural=True) for c in CASES),
+            tuple(n2f(100000, to="cardinal", case=c, plural=True)
+                  for c in CASES),
             ("sadattuhannet", "satojentuhansien", "satojatuhansia",
              "sadoissatuhansissa", "sadoistatuhansista", "satoihintuhansiin",
              "sadoillatuhansilla", "sadoiltatuhansilta", "sadoilletuhansille",
@@ -1824,7 +1828,8 @@ class Num2WordsFITest(TestCase):
             )
         )
         self.assertEqual(
-            tuple(n2f(123456, to="cardinal", case=c, plural=True) for c in CASES),
+            tuple(n2f(123456, to="cardinal", case=c, plural=True)
+                  for c in CASES),
             (
                 "sadatkahdetkymmenetkolmettuhannet "
                 "neljätsadatviidetkymmenetkuudet",
@@ -1867,7 +1872,8 @@ class Num2WordsFITest(TestCase):
              "miljoonin", "miljoonatta", "miljoonine")
         )
         self.assertEqual(
-            tuple(n2f(10**6, to="cardinal", case=c, plural=True) for c in CASES),
+            tuple(n2f(10**6, to="cardinal", case=c, plural=True)
+                  for c in CASES),
             ("miljoonat", "miljoonien", "miljoonia",
              "miljoonissa", "miljoonista", "miljooniin",
              "miljoonilla", "miljoonilta", "miljoonille",
@@ -1924,7 +1930,8 @@ class Num2WordsFITest(TestCase):
             )
         )
         self.assertEqual(
-            tuple(n2f(1234567, to="cardinal", case=c, plural=True) for c in CASES),
+            tuple(n2f(1234567, to="cardinal", case=c, plural=True)
+                  for c in CASES),
             (
                 "miljoonat "
                 "kahdetsadatkolmetkymmenetneljättuhannet "
@@ -1981,7 +1988,8 @@ class Num2WordsFITest(TestCase):
              "miljardein", "miljarditta", "miljardeine")
         )
         self.assertEqual(
-            tuple(n2f(10**9, to="cardinal", case=c, plural=True) for c in CASES),
+            tuple(n2f(10**9, to="cardinal", case=c, plural=True)
+                  for c in CASES),
             ("miljardit", "miljardien", "miljardeja",
              "miljardeissa", "miljardeista", "miljardeihin",
              "miljardeilla", "miljardeilta", "miljardeille",
@@ -2054,7 +2062,8 @@ class Num2WordsFITest(TestCase):
             )
         )
         self.assertEqual(
-            tuple(n2f(1234567890, to="cardinal", case=c, plural=True) for c in CASES),
+            tuple(n2f(1234567890, to="cardinal", case=c, plural=True)
+                  for c in CASES),
             (
                 "miljardit "
                 "kahdetsadatkolmetkymmenetneljätmiljoonat "
@@ -2125,7 +2134,8 @@ class Num2WordsFITest(TestCase):
              "biljoonin", "biljoonatta", "biljoonine")
         )
         self.assertEqual(
-            tuple(n2f((10**6)**2, to="cardinal", case=c, plural=True) for c in CASES),
+            tuple(n2f((10**6)**2, to="cardinal", case=c, plural=True)
+                  for c in CASES),
             ("biljoonat", "biljoonien", "biljoonia",
              "biljoonissa", "biljoonista", "biljooniin",
              "biljoonilla", "biljoonilta", "biljoonille",
@@ -2143,7 +2153,8 @@ class Num2WordsFITest(TestCase):
              "triljoonin", "triljoonatta", "triljoonine")
         )
         self.assertEqual(
-            tuple(n2f((10**6)**3, to="cardinal", case=c, plural=True) for c in CASES),
+            tuple(n2f((10**6)**3, to="cardinal", case=c, plural=True)
+                  for c in CASES),
             ("triljoonat", "triljoonien", "triljoonia",
              "triljoonissa", "triljoonista", "triljooniin",
              "triljoonilla", "triljoonilta", "triljoonille",
@@ -2228,7 +2239,8 @@ class Num2WordsFITest(TestCase):
             )
         )
         self.assertEqual(
-            tuple(n2f(12345, to="ordinal", case=c, plural=True) for c in CASES),
+            tuple(n2f(12345, to="ordinal", case=c, plural=True)
+                  for c in CASES),
             (
                 "kahdennettoistatuhannennet "
                 "kolmannetsadannetneljännetkymmenennetviidennet",
@@ -2282,7 +2294,8 @@ class Num2WordsFITest(TestCase):
             )
         )
         self.assertEqual(
-            tuple(n2f(100000, to="ordinal", case=c, plural=True) for c in CASES),
+            tuple(n2f(100000, to="ordinal", case=c, plural=True)
+                  for c in CASES),
             (
                 "sadannettuhannennet",
                 "sadansientuhannensien",
@@ -2336,7 +2349,8 @@ class Num2WordsFITest(TestCase):
             )
         )
         self.assertEqual(
-            tuple(n2f(123456, to="ordinal", case=c, plural=True) for c in CASES),
+            tuple(n2f(123456, to="ordinal", case=c, plural=True)
+                  for c in CASES),
             (
                 "sadannetkahdennetkymmenennetkolmannettuhannennet "
                 "neljännetsadannetviidennetkymmenennetkuudennet",
@@ -2379,7 +2393,8 @@ class Num2WordsFITest(TestCase):
              "miljoonansin", "miljoonannetta", "miljoonansine")
         )
         self.assertEqual(
-            tuple(n2f(10**6, to="ordinal", case=c, plural=True) for c in CASES),
+            tuple(n2f(10**6, to="ordinal", case=c, plural=True)
+                  for c in CASES),
             ("miljoonannet", "miljoonansien", "miljoonansia",
              "miljoonansissa", "miljoonansista", "miljoonansiin",
              "miljoonansilla", "miljoonansilta", "miljoonansille",
@@ -2450,7 +2465,8 @@ class Num2WordsFITest(TestCase):
             )
         )
         self.assertEqual(
-            tuple(n2f(1234567, to="ordinal", case=c, plural=True) for c in CASES),
+            tuple(n2f(1234567, to="ordinal", case=c, plural=True)
+                  for c in CASES),
             (
                 "miljoonannet "
                 "kahdennetsadannetkolmannetkymmenennetneljännet"
@@ -2521,7 +2537,8 @@ class Num2WordsFITest(TestCase):
              "miljardinsin", "miljardinnetta", "miljardinsine")
         )
         self.assertEqual(
-            tuple(n2f(10**9, to="ordinal", case=c, plural=True) for c in CASES),
+            tuple(n2f(10**9, to="ordinal", case=c, plural=True)
+                  for c in CASES),
             ("miljardinnet", "miljardinsien", "miljardinsia",
              "miljardinsissa", "miljardinsista", "miljardinsiin",
              "miljardinsilla", "miljardinsilta", "miljardinsille",
@@ -2622,7 +2639,8 @@ class Num2WordsFITest(TestCase):
             )
         )
         self.assertEqual(
-            tuple(n2f(1234567890, to="ordinal", case=c, plural=True) for c in CASES),
+            tuple(n2f(1234567890, to="ordinal", case=c, plural=True)
+                  for c in CASES),
             (
                 "miljardinnet "
                 "kahdennetsadannetkolmannetkymmenennetneljännet"
@@ -2721,7 +2739,8 @@ class Num2WordsFITest(TestCase):
              "biljoonansin", "biljoonannetta", "biljoonansine")
         )
         self.assertEqual(
-            tuple(n2f((10**6)**2, to="ordinal", case=c, plural=True) for c in CASES),
+            tuple(n2f((10**6)**2, to="ordinal", case=c, plural=True)
+                  for c in CASES),
             ("biljoonannet", "biljoonansien", "biljoonansia",
              "biljoonansissa", "biljoonansista", "biljoonansiin",
              "biljoonansilla", "biljoonansilta", "biljoonansille",
@@ -2739,7 +2758,8 @@ class Num2WordsFITest(TestCase):
              "triljoonansin", "triljoonannetta", "triljoonansine")
         )
         self.assertEqual(
-            tuple(n2f((10**6)**3, to="ordinal", case=c, plural=True) for c in CASES),
+            tuple(n2f((10**6)**3, to="ordinal", case=c, plural=True)
+                  for c in CASES),
             ("triljoonannet", "triljoonansien", "triljoonansia",
              "triljoonansissa", "triljoonansista", "triljoonansiin",
              "triljoonansilla", "triljoonansilta", "triljoonansille",
