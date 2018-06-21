@@ -21,7 +21,6 @@ from unittest import TestCase
 
 from num2words import num2words
 
-
 CASES = ["nominative", "genitive", "partitive",    # grammatical
          "inessive", "elative", "illative",        # internal locative
          "adessive", "ablative", "allative",       # external locative
