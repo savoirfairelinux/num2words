@@ -17,10 +17,9 @@
 
 from __future__ import division, print_function, unicode_literals
 
-from . import lang_EU
-
 from collections import OrderedDict
 
+from . import lang_EU
 
 GENERIC_CENTS = ('sentti', 'senttiä')
 GENERIC_CENTAVOS = ('centavo', 'centavoa')
