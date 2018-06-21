@@ -25,10 +25,6 @@ from . import lang_EU
 GENERIC_CENTS = ('sentti', 'senttiä')
 GENERIC_CENTAVOS = ('centavo', 'centavoa')
 
-# main modes
-CARD = 0  # cardinal
-ORD = 1   # ordinal
-
 # grammatical cases
 NOM = 10  # nominative: the dictionary form
 GEN = 11  # genitive: ~of/'s
@@ -611,7 +607,7 @@ class Num2Word_FI(lang_EU.Num2Word_EU):
         elif lnum < rnum:
             if ordinal:
                 # kahdessadas, not toinensadas
-                if lnum == 2 and rnum == 100:
+                if lnum == 2:
                     ltext = ("kahde", 45)
                 rtext = inflect(rtext, case, plural)
             else:
