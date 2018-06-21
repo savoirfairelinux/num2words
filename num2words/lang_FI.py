@@ -17,9 +17,9 @@
 
 from __future__ import division, print_function, unicode_literals
 
-from collections import OrderedDict  # NOQA
-
 from . import lang_EU
+
+from collections import OrderedDict
 
 
 GENERIC_CENTS = ('sentti', 'senttiä')
