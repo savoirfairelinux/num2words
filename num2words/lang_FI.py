@@ -364,8 +364,8 @@ def inflect(parts, case, plural=False, prefer=None):
         # predefined case (kaksikymmentä, ...)
         tmp_case = case
         if len(part) == 3:
-            # override nominative only
-            if case == NOM:
+            # override singular nominative only
+            if case == NOM and not plural:
                 tmp_case = part[2]
             part = part[:2]
         # stem and suffix
@@ -494,9 +494,9 @@ class Num2Word_FI(lang_EU.Num2Word_EU):
         for word, n in zip(translated, range(max, 0, -6)):
             if n == 6:
                 # irregularity considering short scale and long scale
-                self.cards[10 ** 9] = ("miljardi", 5)
+                self.cards[10 ** 9] = ("miljard", 5)
                 self.ords[10 ** 9] = ("miljardi", 45)
-            self.cards[10 ** n] = (word + "iljoona", 10)
+            self.cards[10 ** n] = (word + "iljoon", 10)
             self.ords[10 ** n] = (word + "iljoona", 45)
 
     def set_mid_numwords(self, cards, ords):
@@ -615,7 +615,11 @@ class Num2Word_FI(lang_EU.Num2Word_EU):
                     ltext = ("kahde", 45)
                 rtext = inflect(rtext, case, plural)
             else:
-                rtext = inflect(rtext, PTV if case == NOM else case, plural)
+                # kaksituhatta but kahdettuhannet
+                rcase = case
+                if case == NOM and not plural:
+                    rcase = PTV
+                rtext = inflect(rtext, rcase, plural)
             ltext = inflect(ltext, case, plural)
             return (fmt % (ltext, rtext), lnum * rnum)
 
