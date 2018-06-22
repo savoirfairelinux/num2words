@@ -71,6 +71,7 @@ Besides the numerical argument, there are two main optional arguments.
 * ``es_CO`` (Spanish - Colombia)
 * ``es_VE`` (Spanish - Venezuela)
 * ``eu`` (EURO)
+* ``fi`` (Finnish)
 * ``fr`` (French)
 * ``fr_CH`` (French - Switzerland)
 * ``fr_BE`` (French - Belgium)
@@ -104,6 +105,38 @@ Therefore, if you want to call ``num2words`` with a fallback, you can do::
 
 Additionally, some converters and languages support other optional arguments
 that are needed to make the converter useful in practice.
+
+**fi (Finnish)**
+
+**case:** one of the following: nominative, genitive, partitive, inessive,
+elative, illative, adessive, ablative, allative, essive, translative,
+instructive, abessive, comitative. Defaults to nominative::
+
+    >>> num2words(42, lang='fi')
+    neljäkymmentäkaksi
+    >>> num2words(42, lang='fi', case='genitive')
+    neljänkymmenenkahden
+    >>> num2words(42, lang='fi', case='comitative')
+    neljinekymmeninekaksine
+    >>> num2words(42, lang='fi', to='ordinal', case='comitative')
+    neljänsinekymmenensinetoisine
+
+**plural:** make the output words plural::
+
+    >>> num2words(42, lang='fi', plural=True)
+    neljätkymmenetkahdet
+    >>> num2words(42, lang='fi', case='essive', plural=True)
+    neljinäkymmeninäkaksina
+    >>> # same in plural
+    >>> num2words(42, lang='fi', case='comitative', plural=True)
+    neljinekymmeninekaksine
+
+**prefer:** which case marker to use when there are multiple options::
+
+    >>> num2words(8, lang='fi', case="genitive", plural=True)
+    kahdeksien
+    >>> num2words(8, lang='fi', case="genitive", plural=True, prefer=["ain"])
+    kahdeksain
 
 **ja (Japanese)**
 
