@@ -640,6 +640,10 @@ class Num2Word_FI(lang_EU.Num2Word_EU):
         try:
             assert int(value) == value
         except (ValueError, TypeError, AssertionError):
+            if case != NOM:
+                raise NotImplementedError(
+                    "Cases other than nominative are not implemented for "
+                    "cardinal floating point numbers.")
             return self.to_cardinal_float(value)
 
         self.verify_num(value)
@@ -659,24 +663,14 @@ class Num2Word_FI(lang_EU.Num2Word_EU):
     def to_ordinal(self, value, case='nominative', plural=False, prefer=None):
         case = NAME_TO_CASE[case]
         options = Options(True, case, plural, prefer)
-        try:
-            assert int(value) == value
-        except (ValueError, TypeError, AssertionError):
-            return self.to_cardinal_float(value)
 
-        self.verify_num(value)
-
-        out = ""
-        if value < 0:
-            value = abs(value)
-            out = self.negword
-
+        self.verify_ordinal(value)
         if value >= self.MAXVAL:
             raise OverflowError(self.errmsg_toobig % (value, self.MAXVAL))
 
         val = self.splitnum(value, options)
         words, num = self.clean(val, options)
-        return self.title(out + words)
+        return self.title(words)
 
     def to_ordinal_num(self, value, case='nominative', plural=False):
         case = NAME_TO_CASE[case]

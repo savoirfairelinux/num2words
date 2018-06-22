@@ -241,6 +241,11 @@ class Num2WordsFITest(TestCase):
              "kahdeksina", "kahdeksiksi",
              "kahdeksin", "kahdeksitta", "kahdeksine")
         )
+        self.assertEqual(
+            n2f(8, to="cardinal", case="genitive", plural=True,
+                prefer=["ain"]),
+            "kahdeksain"
+        )
 
         # nine
         self.assertEqual(
@@ -459,6 +464,10 @@ class Num2WordsFITest(TestCase):
         )
 
     def test_low_ord(self):
+
+        # minus one
+        with self.assertRaises(TypeError):
+            n2f(-1, to="ordinal")
 
         # zero
         self.assertEqual(
@@ -2768,6 +2777,20 @@ class Num2WordsFITest(TestCase):
              "triljoonansina", "triljoonansiksi",
              "triljoonansin", "triljoonansitta", "triljoonansine")
         )
+
+    def test_negative(self):
+        self.assertEqual(n2f(-1, to="cardinal"), "miinus yksi")
+        with self.assertRaises(TypeError):
+            n2f(-1, to="ordinal")
+
+    def test_cardinal_float(self):
+        self.assertEqual(n2f(1.5, to="cardinal"), "yksi pilkku viisi")
+        with self.assertRaises(NotImplementedError):
+            n2f(1.5, to="cardinal", case="inessive")
+
+    def test_ordinal_num(self):
+        with self.assertRaises(NotImplementedError):
+            n2f(1, to="ordinal_num")
 
     def test_year(self):
         self.assertEqual(n2f(2018, to="year"), "kaksituhattakahdeksantoista")
