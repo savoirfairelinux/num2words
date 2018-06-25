@@ -4,3 +4,4 @@ dist
 .idea/
 *.egg-info
 /.tox
+.coverage
