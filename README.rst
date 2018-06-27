@@ -106,86 +106,12 @@ Therefore, if you want to call ``num2words`` with a fallback, you can do::
 Additionally, some converters and languages support other optional arguments
 that are needed to make the converter useful in practice.
 
-**fi (Finnish)**
+Wiki
+----
+For additional information on some localization please check the Wiki_.
+And feel free to propose wiki enhancement.
 
-**case:** one of the following: nominative, genitive, partitive, inessive,
-elative, illative, adessive, ablative, allative, essive, translative,
-instructive, abessive, comitative. Defaults to nominative::
-
-    >>> num2words(42, lang='fi')
-    neljäkymmentäkaksi
-    >>> num2words(42, lang='fi', case='genitive')
-    neljänkymmenenkahden
-    >>> num2words(42, lang='fi', case='comitative')
-    neljinekymmeninekaksine
-    >>> num2words(42, lang='fi', to='ordinal', case='comitative')
-    neljänsinekymmenensinetoisine
-
-**plural:** make the output words plural::
-
-    >>> num2words(42, lang='fi', plural=True)
-    neljätkymmenetkahdet
-    >>> num2words(42, lang='fi', case='essive', plural=True)
-    neljinäkymmeninäkaksina
-    >>> # same in plural
-    >>> num2words(42, lang='fi', case='comitative', plural=True)
-    neljinekymmeninekaksine
-
-**prefer:** which case marker to use when there are multiple options::
-
-    >>> num2words(8, lang='fi', case="genitive", plural=True)
-    kahdeksien
-    >>> num2words(8, lang='fi', case="genitive", plural=True, prefer=["ain"])
-    kahdeksain
-
-**ja (Japanese)**
-
-**reading:** whether or not to return the reading of the converted number.
-Also has the special value ``"arabic"`` when used with ``year``::
-
-    >>> num2words(42, lang='ja', reading=True)
-    よんじゅうに
-    >>> num2words(2017, lang='ja', to='year', reading='arabic')
-    平成29年
-
-**prefer:** when there are multiple readings or (kanji) words available,
-prefer those in the sequence ``prefer``::
-
-    >>> num2words(0, lang='ja')
-    零
-    >>> num2words(0, lang='ja', prefer=['〇'])
-    〇
-    >>> num2words(42, lang='ja', reading=True, prefer=['し'])
-    しじゅうに
-    >>> num2words(74, lang='ja', reading=True)
-    ななじゅうよん
-    >>> num2words(74, lang='ja', reading=True, prefer=['し', 'しち'])
-    しちじゅうし
-    >>> num2words(1375, lang='ja', to="year")
-    天授元年
-    >>> num2words(1375, lang='ja', to="year", prefer=['えいわ'])
-    永和元年
-
-**era:** (``year`` only) whether or not to convert the year to the era
-calendar format. Defaults to ``True``::
-
-    >>> num2words(2017, lang='ja', to='year', era=True)
-    平成二十九年
-    >>> num2words(2017, lang='ja', to='year', reading=True, era=True)
-    へいせいにじゅうくねん
-    >>> num2words(2017, lang='ja', to='year', era=False)
-    二千十七年
-
-**counter:** (``ordinal`` and ``ordinal_num`` only) which counter to use with
-the ordinal number. Defaults to ``番`` and only supports ``reading`` with
-it::
-
-    >>> num2words(0, lang='ja', to='ordinal')
-    零番目
-    >>> num2words(1, lang='ja', to='ordinal', counter='人')
-    一人目
-    >>> num2words(1, lang='ja', to='ordinal', reading=True, counter='人')
-    NotImplementedError: Reading not implemented for 人
+.. _Wiki: https://github.com/savoirfairelinux/num2words/wiki
 
 History
 -------
