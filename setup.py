@@ -18,14 +18,14 @@ LONG_DESC = open('README.rst', 'rt').read() + '\n\n' + \
 
 setup(
     name='num2words',
-    version='0.5.6',
+    version='0.5.7',
     description='Modules to convert numbers to words. Easily extensible.',
     long_description=LONG_DESC,
     license='LGPL',
     author='Taro Ogawa <tso at users sourceforge net>',
     author_email='tos@users.sourceforge.net',
     maintainer='Savoir-faire Linux inc.',
-    maintainer_email='ernesto.rodriguezortiz@savoirfairelinux.com',
+    maintainer_email='istvan.szalai@savoirfairelinux.com',
     keywords=' number word numbers words convert conversion i18n '
              'localisation localization internationalisation '
              'internationalization',
