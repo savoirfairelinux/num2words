@@ -1,6 +1,19 @@
 Changelog
 =========
 
+Version 0.5.7 -- 2018/06/27
+---------------------------
+
+* Add Finnish localization. (#170)
+* Add Japanese localization. (#171)
+* Add belgian-french localization. (#151)
+* Add Czech localization. (#154) 
+* Add Thai localization. (#139)
+* Improve English localization. (#144) 
+* Improve Spanish localization. (#167)
+* Improve Italian localization. (#143)
+* Improve documentation. (#155, #145, #174)
+
 Version 0.5.6 -- 2017/11/22
 ---------------------------
 
