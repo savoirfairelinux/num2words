@@ -106,6 +106,13 @@ Therefore, if you want to call ``num2words`` with a fallback, you can do::
 Additionally, some converters and languages support other optional arguments
 that are needed to make the converter useful in practice.
 
+Wiki
+----
+For additional information on some localization please check the Wiki_.
+And feel free to propose wiki enhancement.
+
+.. _Wiki: https://github.com/savoirfairelinux/num2words/wiki
+
 History
 -------
 
