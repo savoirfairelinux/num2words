@@ -25,7 +25,7 @@ setup(
     author='Taro Ogawa <tso at users sourceforge net>',
     author_email='tos@users.sourceforge.net',
     maintainer='Savoir-faire Linux inc.',
-    maintainer_email='ernesto.rodriguezortiz@savoirfairelinux.com',
+    maintainer_email='istvan.szalai@savoirfairelinux.com',
     keywords=' number word numbers words convert conversion i18n '
              'localisation localization internationalisation '
              'internationalization',
