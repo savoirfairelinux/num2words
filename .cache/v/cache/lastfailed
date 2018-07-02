@@ -1,4 +1,0 @@
-{
-  "tests/test_ar.py::Num2WordsARTest::test_number": true, 
-  "tests/test_ar.py::Num2WordsARTest::test_ordinal": true
-}

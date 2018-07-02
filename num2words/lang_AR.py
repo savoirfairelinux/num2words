@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2003, Taro Ogawa.  All Rights Reserved.
 # Copyright (c) 2013, Savoir-faire Linux inc.  All Rights Reserved.
+# Copyright (c) 2018, Abdullah Alhazmy, Alhazmy13.  All Rights Reserved.
+
 
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -15,26 +17,9 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301 USA
 
-from __future__ import division, print_function, unicode_literals
 import re
-from decimal import Decimal, getcontext
+from decimal import Decimal
 from math import floor
-
-# class CurrencyInfo:
-#
-#     def __init__(self):
-#         self.isCurrencyNameFeminine = False
-#         self.arabic1CurrencyName = "ريال"
-#         self.arabic2CurrencyName = "ريالان"
-#         self.arabic310CurrencyName = "ريالات"
-#         self.arabic1199CurrencyName = "ريالاً"
-#         self.arabic1CurrencyPartName = "هللة"
-#         self.arabic2CurrencyPartName = "هللتان"
-#         self.arabic310CurrencyPartName = "هللات"
-#         self.arabic1199CurrencyPartName = "هللة"
-#         self.partPrecision = 2
-#
-#         self.isCurrencyPartNameFeminine = True
 
 CURRENCY_UNIT = ("ريال", "ريالان", "ريالات", "ريالاً")
 CURRENCY_SUBUNIT = ("هللة", "هللتان", "هللات", "هللة")
@@ -54,20 +39,23 @@ class Num2Word_AR(object):
         self.number = 0
         self.arabicPrefixText = ""
         self.arabicSuffixText = ""
-        self._intergerValue = 0
-        self._decimalValue = Decimal(0)
+        self.integer_value = 0
+        self._decimalValue = ""
         self.partPrecision = 2
         self.currency_unit = CURRENCY_UNIT
         self.currency_subunit = CURRENCY_SUBUNIT
         self.isCurrencyPartNameFeminine = True
         self.isCurrencyNameFeminine = False
-        self.spreated = 'و'
+        self.separator = 'و'
 
         self.arabicOnes = ARABIC_ONES
         self.arabicFeminineOnes = [
             "", "إحدى", "اثنتان", "ثلاث", "أربع", "خمس", "ست", "سبع", "ثمان", "تسع",
             "عشر", "إحدى عشرة", "اثنتا عشرة", "ثلاث عشرة", "أربع عشرة", "خمس عشرة", "ست عشرة", "سبع عشرة", "ثماني عشرة",
             "تسع عشرة"
+        ]
+        self.arabicOrdinal = [
+            "", "اول", "ثاني", "ثالث", "رابع", "خامس", "سادس", "سابع", "ثامن", "تاسع", "عاشر"
         ]
         self.arabicTens = [
             "عشرون", "ثلاثون", "أربعون", "خمسون", "ستون", "سبعون", "ثمانون", "تسعون"
@@ -94,222 +82,240 @@ class Num2Word_AR(object):
     def number_to_arabic(self, arabic_prefix_text, arabic_suffix_text):
         self.arabicPrefixText = arabic_prefix_text
         self.arabicSuffixText = arabic_suffix_text
-        self.extractIntegerAndDecimalParts()
+        self.extract_integer_and_decimal_parts()
 
-    def extractIntegerAndDecimalParts(self):
+    def extract_integer_and_decimal_parts(self):
         re.split('\\.', str(self.number))
         splits = re.split('\\.', str(self.number))
 
-        self._intergerValue = int(splits[0])
-
+        self.integer_value = int(splits[0])
         if len(splits) > 1:
-            self._decimalValue = int(self.getDecimalValue(splits[1]))
+            self._decimalValue = int(self.decimal_value(splits[1]))
         else:
             self._decimalValue = 0
 
-    def getDecimalValue(self, decimalPart):
+    def decimal_value(self, decimal_part):
 
-        if self.partPrecision is not len(decimalPart):
-            decimalPartLength = len(decimalPart)
+        if self.partPrecision is not len(decimal_part):
+            decimal_part_length = len(decimal_part)
 
-            decimalPartBuilder = decimalPart
-            for i in range(0, self.partPrecision - decimalPartLength):
-                decimalPartBuilder += '0'
-            decimalPart = decimalPartBuilder
+            decimal_part_builder = decimal_part
+            for i in range(0, self.partPrecision - decimal_part_length):
+                decimal_part_builder += '0'
+            decimal_part = decimal_part_builder
 
-            if len(decimalPart) <= self.partPrecision:
-                dec = len(decimalPart)
+            if len(decimal_part) <= self.partPrecision:
+                dec = len(decimal_part)
             else:
                 dec = self.partPrecision
-            result = decimalPart[0: dec]
+            result = decimal_part[0: dec]
         else:
-            result = decimalPart
+            result = decimal_part
 
         for i in range(len(result), self.partPrecision):
             result += '0'
         return result
 
-    def getDigitFeminineStatus(self, digit, groupLevel):
-        if groupLevel == -1:
+    def digit_feminine_status(self, digit, group_level):
+        if group_level == -1:
             if self.isCurrencyPartNameFeminine:
-                return self.arabicFeminineOnes[digit]
+                return self.arabicFeminineOnes[int(digit)]
             else:
-                return self.arabicOnes[digit]
-        elif groupLevel == 0:
+                return self.arabicOnes[int(digit)]
+        elif group_level == 0:
             if self.isCurrencyNameFeminine:
-                return self.arabicFeminineOnes[digit]
+                return self.arabicFeminineOnes[int(digit)]
             else:
-                return self.arabicOnes[digit]
+                return self.arabicOnes[int(digit)]
 
         else:
-            return self.arabicOnes[digit]
+            return self.arabicOnes[int(digit)]
 
-    def processArabicGroup(self, groupNumber, groupLevel, remainingNumber):
-        tens = groupNumber % 100
-        hundreds = groupNumber / 100
-        retVal = ""
+    def process_arabic_group(self, group_number, group_level, remaining_number):
+        tens = Decimal(group_number) % Decimal(100)
+        hundreds = Decimal(group_number) / Decimal(100)
+        ret_val = ""
 
         if hundreds > 0:
             if tens == 0 and hundreds == 2:
-                retVal = "{}".format(self.arabicAppendedTwos[0])
+                ret_val = "{}".format(self.arabicAppendedTwos[0])
             else:
-                retVal = "{}".format(self.arabicHundreds[int(hundreds)])
+                ret_val = "{}".format(self.arabicHundreds[int(hundreds)])
 
         if tens > 0:
             if tens < 20:
-                if tens == 2 and hundreds == 0 and groupLevel > 0:
-                    if self._intergerValue in [2000, 2000000, 2000000000, 2000000000000, 2000000000000000,
-                                               2000000000000000000]:
-                        retVal = "{}".format(self.arabicAppendedTwos[groupLevel])
+                if tens == 2 and hundreds == 0 and group_level > 0:
+                    if self.integer_value in [2000, 2000000, 2000000000, 2000000000000, 2000000000000000,
+                                              2000000000000000000]:
+                        ret_val = "{}".format(self.arabicAppendedTwos[int(group_level)])
                     else:
-                        retVal = "{}".format(self.arabicTwos[groupLevel])
+                        ret_val = "{}".format(self.arabicTwos[int(group_level)])
                 else:
-                    if retVal is not "":
-                        retVal += " و "
+                    if ret_val != "":
+                        ret_val += " و "
 
-                    if tens == 1 and groupLevel > 0 and hundreds == 0:
-                        retVal += " "
+                    if tens == 1 and group_level > 0 and hundreds == 0:
+                        ret_val += ""
                     elif (tens == 1 or tens == 2) and (
-                            groupLevel == 0 or groupLevel == -1) and hundreds == 0 and remainingNumber == 0:
-                        retVal += ""
+                            group_level == 0 or group_level == -1) and hundreds == 0 and remaining_number == 0:
+                        ret_val += ""
                     else:
-                        retVal += self.getDigitFeminineStatus(int(tens), groupLevel)
+                        ret_val += self.digit_feminine_status(int(tens), group_level)
             else:
                 ones = tens % 10
                 tens = (tens / 10) - 2
-
                 if ones > 0:
-                    if retVal is not "":
-                        retVal += " و "
+                    if ret_val is not "" and tens < 4:
+                        ret_val += " و "
 
-                    retVal += self.getDigitFeminineStatus(ones, groupLevel)
-                if retVal is not "":
-                    retVal += " و "
+                    ret_val += self.digit_feminine_status(ones, group_level)
+                if ret_val is not "" and ones != 0:
+                    ret_val += " و "
 
-                retVal += self.arabicTens[int(tens)]
+                ret_val += self.arabicTens[int(tens)]
 
-        return retVal
+        return ret_val
 
     def convert(self, value):
-        getcontext().prec = self.partPrecision
-        self.number = Decimal(value)
+        self.number = "{:.9f}".format(value)
         self.number_to_arabic(self.arabicPrefixText, self.arabicSuffixText)
+        return self.convert_to_arabic()
 
-        return self.convertToArabic()
+    def convert_to_arabic(self):
+        temp_number = self.number
 
-    def convertToArabic(self):
-        tempNumber = self.number
-
-        if tempNumber == Decimal(0):
+        if temp_number == Decimal(0):
             return "صفر"
 
-        decimalString = self.processArabicGroup(self._decimalValue, -1, Decimal(0))
-        retVal = ""
+        decimal_string = self.process_arabic_group(self._decimalValue, -1, Decimal(0))
+        ret_val = ""
         group = 0
-        while tempNumber > Decimal(0):
 
-            numberToProcess = int(int(tempNumber) % 1000)
+        while temp_number > Decimal(0):
 
-            tempNumber = int(tempNumber / 1000)
-            groupDescription = self.processArabicGroup(numberToProcess, group, Decimal(floor(tempNumber)))
-            if groupDescription is not '':
+            number_to_process = int(Decimal(str(temp_number)) % Decimal(str(1000)))
+            temp_number = int(Decimal(temp_number) / Decimal(1000))
+
+            group_description = self.process_arabic_group(number_to_process, group, Decimal(floor(temp_number)))
+            if group_description is not '':
                 if group > 0:
-                    if retVal is not "":
-                        retVal = "{} {}".format("و", retVal)
-                    if numberToProcess != 2:
-                        if numberToProcess % 100 != 1:
-                            if 3 <= numberToProcess <= 10:
-                                retVal = "{} {}".format(self.arabicPluralGroups[group], retVal)
+                    if ret_val is not "":
+                        ret_val = "{} و {}".format("", ret_val)
+                    if number_to_process != 2:
+                        if number_to_process % 100 != 1:
+                            if 3 <= number_to_process <= 10:
+                                ret_val = "{} {}".format(self.arabicPluralGroups[group], ret_val)
                             else:
-                                if retVal is not "":
-                                    retVal = "{} {}".format(self.arabicAppendedGroup[group], retVal)
+                                if ret_val is not "":
+                                    ret_val = "{} {}".format(self.arabicAppendedGroup[group], ret_val)
                                 else:
-                                    retVal = "{} {}".format(self.arabicGroup[group], retVal)
+                                    ret_val = "{} {}".format(self.arabicGroup[group], ret_val)
 
                         else:
-                            retVal = "{} {}".format(self.arabicGroup[group], retVal)
-                retVal = "{} {}".format(groupDescription, retVal)
+                            ret_val = "{} {}".format(self.arabicGroup[group], ret_val)
+                ret_val = "{} {}".format(group_description, ret_val)
             group += 1
-        formattedNumber = ""
+        formatted_number = ""
         if self.arabicPrefixText is not "":
-            formattedNumber += self.arabicPrefixText
-        formattedNumber += retVal
-        if self._intergerValue != 0:
-            remaining100 = int(self._intergerValue % 100)
+            formatted_number += self.arabicPrefixText
+        formatted_number += ret_val
+        if self.integer_value != 0:
+            remaining100 = int(self.integer_value % 100)
 
             if remaining100 == 0:
-                formattedNumber += self.currency_unit[0]
+                formatted_number += self.currency_unit[0]
             elif remaining100 == 1:
-                formattedNumber += self.currency_unit[0]
+                formatted_number += self.currency_unit[0]
             elif remaining100 == 2:
-                if self._intergerValue == 2:
-                    formattedNumber += self.currency_unit[1]
+                if self.integer_value == 2:
+                    formatted_number += self.currency_unit[1]
                 else:
-                    formattedNumber += self.currency_unit[0]
+                    formatted_number += self.currency_unit[0]
             elif 3 <= remaining100 <= 10:
-                formattedNumber += self.currency_unit[2]
+                formatted_number += self.currency_unit[2]
             elif 11 <= remaining100 <= 99:
-                formattedNumber += self.currency_unit[3]
+                formatted_number += self.currency_unit[3]
         if self._decimalValue != 0:
-            formattedNumber += " {} ".format(self.spreated)
-            formattedNumber += decimalString
+            formatted_number += " {} ".format(self.separator)
+            formatted_number += decimal_string
 
         if self._decimalValue != 0:
-            formattedNumber += " "
-            remaining100 = self._decimalValue % 100
+            formatted_number += " "
+            remaining100 = int(self._decimalValue % 100)
 
             if remaining100 == 0:
-                formattedNumber += self.currency_subunit[0]
+                formatted_number += self.currency_subunit[0]
             elif remaining100 == 1:
-                formattedNumber += self.currency_subunit[0]
+                formatted_number += self.currency_subunit[0]
             elif remaining100 == 2:
-                formattedNumber += self.currency_subunit[1]
+                formatted_number += self.currency_subunit[1]
             elif 3 <= remaining100 <= 10:
-                formattedNumber += self.currency_subunit[2]
+                formatted_number += self.currency_subunit[2]
             elif 11 <= remaining100 <= 99:
-                formattedNumber += self.currency_subunit[3]
+                formatted_number += self.currency_subunit[3]
 
         if self.arabicSuffixText is not "":
-            formattedNumber += self.arabicSuffixText
+            formatted_number += self.arabicSuffixText
 
-        return formattedNumber
+        return formatted_number
+
+    def validate_number(self, number):
+        if number >= self.max_num:
+            raise OverflowError(self.errmsg_toobig % (number, self.max_num))
+        return number
 
     def to_currency(self, value):
-        self.spreated = "و"
+        self.separator = "و"
         self.currency_subunit = CURRENCY_SUBUNIT
         self.currency_unit = CURRENCY_UNIT
         self.arabicOnes = ARABIC_ONES
         return self.convert(value=value)
 
-    # TODO: fix this
     def to_ordinal(self, number):
-        self.arabicOnes = [
-            "", "اول", "ثاني", "ثالث", "رابع", "خامس", "سادس", "سابع", "ثامن", "تاسع",
-            "عاشر", "حادي عشر", "ثاني عشر", "ثالث عشر", "رابع عشر", "خامس عشر", "سادس عشر", "سابع هشر",
-            "ثامن عشر",
-            "تاسع عشر"
-        ]
+        if number <= 10:
+            return "ال{}".format(self.arabicOrdinal[number])
         self.currency_subunit = ('', '', '', '')
         self.currency_unit = ('', '', '', '')
-        return "ال{}".format(self.convert(abs(number)))
+        return "ال{}".format(self.convert(abs(number)).strip())
 
     # TODO: fix this
-    def to_year(self, value):
-        return self.to_cardinal(value)
-
-    # TODO: fix this
-    def to_ordinal_num(self, value):
-        return self.to_cardinal(value)
-
-    def to_cardinal(self, number):
-        if number >= self.max_num:
-            raise OverflowError(self.errmsg_toobig % (number, self.max_num))
-        minus = ''
-        if number < 0:
-            minus = 'سالب '
-        self.spreated = ','
+    def to_year(self, number):
+        number = self.validate_number(number)
+        self.separator = ','
         self.currency_subunit = ('', '', '', '')
         self.currency_unit = ('', '', '', '')
         self.arabicOnes = ARABIC_ONES
-        return minus + self.convert(value=abs(number))
+        return self.convert(value=abs(number)).strip()
 
+    def to_ordinal_num(self, value):
+        return self.to_ordinal(value).strip()
+
+    def to_cardinal(self, number):
+        number = self.validate_number(number)
+        minus = ''
+        if number < 0:
+            minus = 'سالب '
+        self.separator = ','
+        self.currency_subunit = ('', '', '', '')
+        self.currency_unit = ('', '', '', '')
+        self.arabicOnes = ARABIC_ONES
+        return minus + self.convert(value=abs(number)).strip()
+
+
+if __name__ == "__main__":
+    n2 = Num2Word_AR()
+    print(n2.to_currency(1000000.99))
+#     print(n2.to_cardinal(20))
+#     print(n2.to_cardinal(2))
+#     print(n2.to_cardinal(11))
+#     print(n2.to_cardinal(12))
+#     print(n2.to_cardinal(20))
+#     print(n2.to_cardinal(21))
+#     print(n2.to_cardinal(26))
+#     print(n2.to_cardinal(30))
+#     print(n2.to_cardinal(67))
+#     print(n2.to_cardinal(70))
+#     print(n2.to_cardinal(100))
+#     print(n2.to_cardinal(101))
+#     print(n2.to_cardinal(1000000))
+#     print(n2.to_cardinal(1000001))

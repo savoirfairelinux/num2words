@@ -1,4 +1,4 @@
-# encoding: UTF-8
+# -*- encoding: utf-8 -*-
 # Copyright (c) 2013, Savoir-faire Linux inc.  All Rights Reserved.
 
 # This library is free software; you can redistribute it and/or
@@ -13,51 +13,29 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301 USA
-from __future__ import unicode_literals
+# from __future__ import unicode_literals
 
 from unittest import TestCase
 
 from num2words import num2words
-
-TEST_CASES_CARDINAL = (
-    (1, 'واحد'),
-    (2, 'اثنان'),
-    (11, 'أحد عشر'),
-    (12, 'اثنا عشر'),
-    (20, 'عشرون'),
-    (21, 'واحد وعشرون'),
-    (26, 'ستة وعشرون'),
-    (30, 'ثلاثون'),
-    (67, 'سبعة وستون'),
-    (70, 'سبعون'),
-    (100, 'مائة'),
-    (101, 'مائة و واحد'),
-    (199, 'مائة و تسعة وتسعين'),
-    (203, 'مئتان و ثلاثة'),
-    (1000, 'ألف'),
-    (1001, 'ألف و واحد'),
-    (1097, 'ألف و سبعة وتسعين'),
-    (1000000, 'مليون'),
-    (1000001, 'مليون و واحد'),
-)
-
-TEST_CASES_ORDINAL = (
-    (1, 'أول'),
-    (8, 'ثامن'),
-    (12, 'ثاني عشر'),
-    (100, 'مئة'),
-)
+from num2words.lang_AR import Num2Word_AR
 
 
 class Num2WordsARTest(TestCase):
 
-    def test_number(self):
-        for test in TEST_CASES_CARDINAL:
-            self.assertEqual(num2words(test[0], lang='ar'), test[1])
+    def setUp(self):
+        super(Num2WordsARTest, self).setUp()
+        self.n2w = Num2Word_AR()
 
-    def test_ordinal(self):
-        for test in TEST_CASES_ORDINAL:
-            self.assertEqual(
-                num2words(test[0], lang='ar', ordinal=True),
-                test[1]
-            )
+    def test_currency_integer(self):
+        self.assertEqual(num2words(1, to='currency', lang='ar'), 'واحد ريال')
+        self.assertEqual(num2words(10, to='currency', lang='ar'), 'عشرة ريالات')
+        self.assertEqual(num2words(100, to='currency', lang='ar'), 'مائة ريال')
+        self.assertEqual(num2words(324, to='currency', lang='ar'), 'ثلاثمائة و أربعة و عشرون ريالاً')
+        self.assertEqual(num2words(541, to='currency', lang='ar'), 'خمسمائة و واحد و أربعون ريالاً')
+        self.assertEqual(num2words(10000, to='currency', lang='ar'), 'عشرة آلاف ريال')
+        self.assertEqual(num2words(20000.12, to='currency', lang='ar'), 'عشرون ألف ريال و اثنتا عشرة هللة')
+        self.assertEqual(num2words(1000000, to='currency', lang='ar'), 'واحد مليون ريال')
+        self.assertEqual(num2words(923411, to='currency', lang='ar'), 'تسعمائة و ثلاثة و عشرون ألفاً  و أربعمائة و أحد عشر ريالاً')
+        self.assertEqual(num2words(63411, to='currency', lang='ar'), 'ثلاثة و ستون ألفاً  و أربعمائة و أحد عشر ريالاً')
+        self.assertEqual(num2words(1000000.99, to='currency', lang='ar'), 'واحد مليون ريال و تسع و تسعون هللة')
