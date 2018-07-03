@@ -137,15 +137,15 @@ class Num2Word_AR(object):
         hundreds = Decimal(group_number) / Decimal(100)
         ret_val = ""
 
-        if hundreds > 0:
-            if tens == 0 and hundreds == 2:
+        if int(hundreds) > 0:
+            if tens == 0 and int(hundreds) == 2:
                 ret_val = "{}".format(self.arabicAppendedTwos[0])
             else:
                 ret_val = "{}".format(self.arabicHundreds[int(hundreds)])
 
         if tens > 0:
             if tens < 20:
-                if tens == 2 and hundreds == 0 and group_level > 0:
+                if tens == 2 and int(hundreds) == 0 and group_level > 0:
                     if self.integer_value in [2000, 2000000, 2000000000, 2000000000000, 2000000000000000,
                                               2000000000000000000]:
                         ret_val = "{}".format(self.arabicAppendedTwos[int(group_level)])
@@ -278,6 +278,7 @@ class Num2Word_AR(object):
 
     def to_currency(self, value, currency='SR'):
         self.set_currency_prefer(currency)
+        self.isCurrencyNameFeminine = False
         self.separator = "و"
         self.arabicOnes = ARABIC_ONES
         return self.convert(value=value)
@@ -285,18 +286,17 @@ class Num2Word_AR(object):
     def to_ordinal(self, number):
         if number <= 10:
             return "ال{}".format(self.arabicOrdinal[number])
+        if number < 100:
+            self.isCurrencyNameFeminine = True
+        else:
+            self.isCurrencyNameFeminine = False
         self.currency_subunit = ('', '', '', '')
         self.currency_unit = ('', '', '', '')
         return "ال{}".format(self.convert(abs(number)).strip())
 
-    # TODO: fix this
     def to_year(self, value):
         value = self.validate_number(value)
-        self.separator = ','
-        self.currency_subunit = ('', '', '', '')
-        self.currency_unit = ('', '', '', '')
-        self.arabicOnes = ARABIC_ONES
-        return self.convert(value=abs(value)).strip()
+        return self.to_cardinal(value)
 
     def to_ordinal_num(self, value):
         return self.to_ordinal(value).strip()
@@ -315,7 +315,7 @@ class Num2Word_AR(object):
 
 if __name__ == "__main__":
     n2 = Num2Word_AR()
-    print(n2.to_currency(1000000.99, currency='KWD'))
+    print(n2.to_year(2000))
 #     print(n2.to_cardinal(20))
 #     print(n2.to_cardinal(2))
 #     print(n2.to_cardinal(11))

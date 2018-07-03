@@ -32,6 +32,7 @@ class Num2WordsARTest(TestCase):
         self.assertEqual(num2words(10, to='currency', lang='ar'), 'عشرة ريالات')
         self.assertEqual(num2words(100, to='currency', lang='ar'), 'مائة ريال')
         self.assertEqual(num2words(324, to='currency', lang='ar'), 'ثلاثمائة و أربعة و عشرون ريالاً')
+        self.assertEqual(num2words(2000, to='currency', lang='ar'), 'ألفا ريال')
         self.assertEqual(num2words(541, to='currency', lang='ar'), 'خمسمائة و واحد و أربعون ريالاً')
         self.assertEqual(num2words(10000, to='currency', lang='ar'), 'عشرة آلاف ريال')
         self.assertEqual(num2words(20000.12, to='currency', lang='ar'), 'عشرون ألف ريال و اثنتا عشرة هللة')
@@ -43,10 +44,38 @@ class Num2WordsARTest(TestCase):
 
     def test_currency_parm(self):
         self.assertEqual(num2words(1, to='currency', lang='ar', currency="KWD"), 'واحد دينار')
-        self.assertEqual(num2words(10, to='currency', lang='ar',currency="EGP"), 'عشرة جنيهات')
+        self.assertEqual(num2words(10, to='currency', lang='ar', currency="EGP"), 'عشرة جنيهات')
         self.assertEqual(num2words(20000.12, to='currency', lang='ar', currency="EGP"),
                          'عشرون ألف جنيه و اثنتا عشرة قرش')
         self.assertEqual(num2words(923411, to='currency', lang='ar', currency="SR"),
                          'تسعمائة و ثلاثة و عشرون ألفاً  و أربعمائة و أحد عشر ريالاً')
         self.assertEqual(num2words(1000000.99, to='currency', lang='ar', currency="KWD"),
                          'واحد مليون دينار و تسع و تسعون فلس')
+
+    def test_ordinal(self):
+        self.assertEqual(num2words(1, to='ordinal', lang='ar'), 'الاول')
+        self.assertEqual(num2words(2, to='ordinal', lang='ar'), 'الثاني')
+        self.assertEqual(num2words(3, to='ordinal', lang='ar'), 'الثالث')
+        self.assertEqual(num2words(4, to='ordinal', lang='ar'), 'الرابع')
+        self.assertEqual(num2words(5, to='ordinal', lang='ar'), 'الخامس')
+        self.assertEqual(num2words(6, to='ordinal', lang='ar'), 'السادس')
+        self.assertEqual(num2words(9, to='ordinal', lang='ar'), 'التاسع')
+        self.assertEqual(num2words(20, to='ordinal', lang='ar'), 'العشرون')
+        self.assertEqual(num2words(20, to='ordinal', lang='ar'), 'العشرون')
+        self.assertEqual(num2words(20, to='ordinal', lang='ar'), 'العشرون')
+        self.assertEqual(num2words(94, to='ordinal', lang='ar'), 'الأربع و تسعون')
+        self.assertEqual(num2words(102, to='ordinal', lang='ar'), 'المائة و اثنان')
+
+    def test_year(self):
+        self.assertEqual(num2words(1, to='ordinal', lang='ar'), 'الاول')
+        self.assertEqual(num2words(2, to='ordinal', lang='ar'), 'الثاني')
+        self.assertEqual(num2words(3, to='ordinal', lang='ar'), 'الثالث')
+        self.assertEqual(num2words(4, to='ordinal', lang='ar'), 'الرابع')
+        self.assertEqual(num2words(5, to='ordinal', lang='ar'), 'الخامس')
+        self.assertEqual(num2words(6, to='ordinal', lang='ar'), 'السادس')
+        self.assertEqual(num2words(9, to='ordinal', lang='ar'), 'التاسع')
+        self.assertEqual(num2words(20, to='ordinal', lang='ar'), 'العشرون')
+        self.assertEqual(num2words(20, to='ordinal', lang='ar'), 'العشرون')
+        self.assertEqual(num2words(20, to='ordinal', lang='ar'), 'العشرون')
+        self.assertEqual(num2words(94, to='ordinal', lang='ar'), 'الأربع و تسعون')
+        self.assertEqual(num2words(102, to='ordinal', lang='ar'), 'المائة و اثنان')
