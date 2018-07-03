@@ -21,19 +21,24 @@ import re
 from decimal import Decimal
 from math import floor
 
-CURRENCY_SR = [("ريال", "ريالان", "ريالات", "ريالاً"), ("هللة", "هللتان", "هللات", "هللة")]
-CURRENCY_EGP = [("جنيه", "جنيهان", "جنيهات", "جنيهاً"), ("قرش", "قرشان", "قروش", "قرش")]
-CURRENCY_KWD = [("دينار", "ديناران", "دينارات", "ديناراً"), ("فلس", "فلسان", "فلس", "فلس")]
+CURRENCY_SR = [("ريال", "ريالان", "ريالات", "ريالاً"),
+               ("هللة", "هللتان", "هللات", "هللة")]
+CURRENCY_EGP = [("جنيه", "جنيهان", "جنيهات", "جنيهاً"),
+                ("قرش", "قرشان", "قروش", "قرش")]
+CURRENCY_KWD = [("دينار", "ديناران", "دينارات", "ديناراً"),
+                ("فلس", "فلسان", "فلس", "فلس")]
 
 ARABIC_ONES = [
-    "", "واحد", "اثنان", "ثلاثة", "أربعة", "خمسة", "ستة", "سبعة", "ثمانية", "تسعة",
-    "عشرة", "أحد عشر", "اثنا عشر", "ثلاثة عشر", "أربعة عشر", "خمسة عشر", "ستة عشر", "سبعة عشر", "ثمانية عشر",
+    "", "واحد", "اثنان", "ثلاثة", "أربعة", "خمسة", "ستة", "سبعة", "ثمانية",
+    "تسعة",
+    "عشرة", "أحد عشر", "اثنا عشر", "ثلاثة عشر", "أربعة عشر", "خمسة عشر",
+    "ستة عشر", "سبعة عشر", "ثمانية عشر",
     "تسعة عشر"
 ]
 
 
 class Num2Word_AR(object):
-    errmsg_toobig = "Too large"
+    errmsg_too_big = "Too large"
     max_num = 10 ** 36
 
     def __init__(self):
@@ -51,33 +56,43 @@ class Num2Word_AR(object):
 
         self.arabicOnes = ARABIC_ONES
         self.arabicFeminineOnes = [
-            "", "إحدى", "اثنتان", "ثلاث", "أربع", "خمس", "ست", "سبع", "ثمان", "تسع",
-            "عشر", "إحدى عشرة", "اثنتا عشرة", "ثلاث عشرة", "أربع عشرة", "خمس عشرة", "ست عشرة", "سبع عشرة", "ثماني عشرة",
+            "", "إحدى", "اثنتان", "ثلاث", "أربع", "خمس", "ست", "سبع", "ثمان",
+            "تسع",
+            "عشر", "إحدى عشرة", "اثنتا عشرة", "ثلاث عشرة", "أربع عشرة",
+            "خمس عشرة", "ست عشرة", "سبع عشرة", "ثماني عشرة",
             "تسع عشرة"
         ]
         self.arabicOrdinal = [
-            "", "اول", "ثاني", "ثالث", "رابع", "خامس", "سادس", "سابع", "ثامن", "تاسع", "عاشر"
+            "", "اول", "ثاني", "ثالث", "رابع", "خامس", "سادس", "سابع", "ثامن",
+            "تاسع", "عاشر"
         ]
         self.arabicTens = [
-            "عشرون", "ثلاثون", "أربعون", "خمسون", "ستون", "سبعون", "ثمانون", "تسعون"
+            "عشرون", "ثلاثون", "أربعون", "خمسون", "ستون", "سبعون", "ثمانون",
+            "تسعون"
         ]
         self.arabicHundreds = [
-            "", "مائة", "مئتان", "ثلاثمائة", "أربعمائة", "خمسمائة", "ستمائة", "سبعمائة", "ثمانمائة", "تسعمائة"
+            "", "مائة", "مئتان", "ثلاثمائة", "أربعمائة", "خمسمائة", "ستمائة",
+            "سبعمائة", "ثمانمائة", "تسعمائة"
         ]
         self.arabicAppendedTwos = [
-            "مئتا", "ألفا", "مليونا", "مليارا", "تريليونا", "كوادريليونا", "كوينتليونا", "سكستيليونا"
+            "مئتا", "ألفا", "مليونا", "مليارا", "تريليونا", "كوادريليونا",
+            "كوينتليونا", "سكستيليونا"
         ]
         self.arabicTwos = [
-            "مئتان", "ألفان", "مليونان", "ملياران", "تريليونان", "كوادريليونان", "كوينتليونان", "سكستيليونان"
+            "مئتان", "ألفان", "مليونان", "ملياران", "تريليونان",
+            "كوادريليونان", "كوينتليونان", "سكستيليونان"
         ]
         self.arabicGroup = [
-            "مائة", "ألف", "مليون", "مليار", "تريليون", "كوادريليون", "كوينتليون", "سكستيليون"
+            "مائة", "ألف", "مليون", "مليار", "تريليون", "كوادريليون",
+            "كوينتليون", "سكستيليون"
         ]
         self.arabicAppendedGroup = [
-            "", "ألفاً", "مليوناً", "ملياراً", "تريليوناً", "كوادريليوناً", "كوينتليوناً", "سكستيليوناً"
+            "", "ألفاً", "مليوناً", "ملياراً", "تريليوناً", "كوادريليوناً",
+            "كوينتليوناً", "سكستيليوناً"
         ]
         self.arabicPluralGroups = [
-            "", "آلاف", "ملايين", "مليارات", "تريليونات", "كوادريليونات", "كوينتليونات", "سكستيليونات"
+            "", "آلاف", "ملايين", "مليارات", "تريليونات", "كوادريليونات",
+            "كوينتليونات", "سكستيليونات"
         ]
 
     def number_to_arabic(self, arabic_prefix_text, arabic_suffix_text):
@@ -132,7 +147,8 @@ class Num2Word_AR(object):
         else:
             return self.arabicOnes[int(digit)]
 
-    def process_arabic_group(self, group_number, group_level, remaining_number):
+    def process_arabic_group(self, group_number, group_level,
+                             remaining_number):
         tens = Decimal(group_number) % Decimal(100)
         hundreds = Decimal(group_number) / Decimal(100)
         ret_val = ""
@@ -146,11 +162,14 @@ class Num2Word_AR(object):
         if tens > 0:
             if tens < 20:
                 if tens == 2 and int(hundreds) == 0 and group_level > 0:
-                    if self.integer_value in [2000, 2000000, 2000000000, 2000000000000, 2000000000000000,
+                    if self.integer_value in [2000, 2000000, 2000000000,
+                                              2000000000000, 2000000000000000,
                                               2000000000000000000]:
-                        ret_val = "{}".format(self.arabicAppendedTwos[int(group_level)])
+                        ret_val = "{}".format(
+                            self.arabicAppendedTwos[int(group_level)])
                     else:
-                        ret_val = "{}".format(self.arabicTwos[int(group_level)])
+                        ret_val = "{}".format(
+                            self.arabicTwos[int(group_level)])
                 else:
                     if ret_val != "":
                         ret_val += " و "
@@ -158,10 +177,12 @@ class Num2Word_AR(object):
                     if tens == 1 and group_level > 0 and hundreds == 0:
                         ret_val += ""
                     elif (tens == 1 or tens == 2) and (
-                            group_level == 0 or group_level == -1) and hundreds == 0 and remaining_number == 0:
+                            group_level == 0 or group_level == -1) and \
+                            hundreds == 0 and remaining_number == 0:
                         ret_val += ""
                     else:
-                        ret_val += self.digit_feminine_status(int(tens), group_level)
+                        ret_val += self.digit_feminine_status(int(tens),
+                                                              group_level)
             else:
                 ones = tens % 10
                 tens = (tens / 10) - 2
@@ -188,16 +209,22 @@ class Num2Word_AR(object):
         if temp_number == Decimal(0):
             return "صفر"
 
-        decimal_string = self.process_arabic_group(self._decimalValue, -1, Decimal(0))
+        decimal_string = self.process_arabic_group(self._decimalValue,
+                                                   -1,
+                                                   Decimal(0))
         ret_val = ""
         group = 0
 
         while temp_number > Decimal(0):
 
-            number_to_process = int(Decimal(str(temp_number)) % Decimal(str(1000)))
+            number_to_process = int(
+                Decimal(str(temp_number)) % Decimal(str(1000)))
             temp_number = int(Decimal(temp_number) / Decimal(1000))
 
-            group_description = self.process_arabic_group(number_to_process, group, Decimal(floor(temp_number)))
+            group_description = \
+                self.process_arabic_group(number_to_process,
+                                          group,
+                                          Decimal(floor(temp_number)))
             if group_description is not '':
                 if group > 0:
                     if ret_val is not "":
@@ -205,15 +232,20 @@ class Num2Word_AR(object):
                     if number_to_process != 2:
                         if number_to_process % 100 != 1:
                             if 3 <= number_to_process <= 10:
-                                ret_val = "{} {}".format(self.arabicPluralGroups[group], ret_val)
+                                ret_val = "{} {}".format(
+                                    self.arabicPluralGroups[group], ret_val)
                             else:
                                 if ret_val is not "":
-                                    ret_val = "{} {}".format(self.arabicAppendedGroup[group], ret_val)
+                                    ret_val = "{} {}".format(
+                                        self.arabicAppendedGroup[group],
+                                        ret_val)
                                 else:
-                                    ret_val = "{} {}".format(self.arabicGroup[group], ret_val)
+                                    ret_val = "{} {}".format(
+                                        self.arabicGroup[group], ret_val)
 
                         else:
-                            ret_val = "{} {}".format(self.arabicGroup[group], ret_val)
+                            ret_val = "{} {}".format(self.arabicGroup[group],
+                                                     ret_val)
                 ret_val = "{} {}".format(group_description, ret_val)
             group += 1
         formatted_number = ""
@@ -262,7 +294,7 @@ class Num2Word_AR(object):
 
     def validate_number(self, number):
         if number >= self.max_num:
-            raise OverflowError(self.errmsg_toobig % (number, self.max_num))
+            raise OverflowError(self.errmsg_too_big % (number, self.max_num))
         return number
 
     def set_currency_prefer(self, currency):
