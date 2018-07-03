@@ -68,23 +68,21 @@ class Num2WordsARTest(TestCase):
             'واحد مليون دينار و تسع و تسعون فلس')
 
     def test_ordinal(self):
-        self.assertEqual(num2words(1, to='ordinal', lang='ar'), 'الاول')
-        self.assertEqual(num2words(2, to='ordinal', lang='ar'), 'الثاني')
-        self.assertEqual(num2words(3, to='ordinal', lang='ar'), 'الثالث')
-        self.assertEqual(num2words(4, to='ordinal', lang='ar'), 'الرابع')
-        self.assertEqual(num2words(5, to='ordinal', lang='ar'), 'الخامس')
-        self.assertEqual(num2words(6, to='ordinal', lang='ar'), 'السادس')
-        self.assertEqual(num2words(9, to='ordinal', lang='ar'), 'التاسع')
-        self.assertEqual(num2words(20, to='ordinal', lang='ar'), 'العشرون')
-        self.assertEqual(num2words(20, to='ordinal', lang='ar'), 'العشرون')
-        self.assertEqual(num2words(20, to='ordinal', lang='ar'), 'العشرون')
+        self.assertEqual(num2words(1, to='ordinal', lang='ar'), 'اول')
+        self.assertEqual(num2words(2, to='ordinal', lang='ar'), 'ثاني')
+        self.assertEqual(num2words(3, to='ordinal', lang='ar'), 'ثالث')
+        self.assertEqual(num2words(4, to='ordinal', lang='ar'), 'رابع')
+        self.assertEqual(num2words(5, to='ordinal', lang='ar'), 'خامس')
+        self.assertEqual(num2words(6, to='ordinal', lang='ar'), 'سادس')
+        self.assertEqual(num2words(9, to='ordinal', lang='ar'), 'تاسع')
+        self.assertEqual(num2words(20, to='ordinal', lang='ar'), 'عشرون')
         self.assertEqual(num2words(94, to='ordinal', lang='ar'),
-                         'الأربع و تسعون')
+                         'أربع و تسعون')
         self.assertEqual(num2words(102, to='ordinal', lang='ar'),
-                         'المائة و اثنان')
+                         'مائة و اثنان')
         self.assertEqual(
             num2words(923411, to='ordinal_num', lang='ar'),
-            'التسعمائة و ثلاثة و عشرون ألفاً  و أربعمائة و أحد عشر')
+            'تسعمائة و ثلاثة و عشرون ألفاً  و أربعمائة و أحد عشر')
 
     def test_cardinal(self):
         self.assertEqual(num2words(12, to='cardinal', lang='ar'), 'اثنا عشر')

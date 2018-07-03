@@ -64,7 +64,8 @@ class Num2Word_AR(object):
         ]
         self.arabicOrdinal = [
             "", "اول", "ثاني", "ثالث", "رابع", "خامس", "سادس", "سابع", "ثامن",
-            "تاسع", "عاشر"
+            "تاسع", "عاشر", "حادي عشر", "ثاني عشر", "ثالث عشر", "رابع عشر",
+            "خامس عشر", "سادس عشر", "سابع عشر", "ثامن عشر", "تاسع عشر"
         ]
         self.arabicTens = [
             "عشرون", "ثلاثون", "أربعون", "خمسون", "ستون", "سبعون", "ثمانون",
@@ -308,7 +309,7 @@ class Num2Word_AR(object):
             self.currency_unit = CURRENCY_SR[0]
             self.currency_subunit = CURRENCY_SR[1]
 
-    def to_currency(self, value, currency='SR', prefix="", suffix=""):
+    def to_currency(self, value, currency='SR', prefix='', suffix=''):
         self.set_currency_prefer(currency)
         self.isCurrencyNameFeminine = False
         self.separator = "و"
@@ -317,18 +318,18 @@ class Num2Word_AR(object):
         self.arabicSuffixText = suffix
         return self.convert(value=value)
 
-    def to_ordinal(self, number):
-        if number <= 10:
-            return "ال{}".format(self.arabicOrdinal[number])
+    def to_ordinal(self, number, prefix=''):
+        if number <= 19:
+            return "{}".format(self.arabicOrdinal[number])
         if number < 100:
             self.isCurrencyNameFeminine = True
         else:
             self.isCurrencyNameFeminine = False
         self.currency_subunit = ('', '', '', '')
         self.currency_unit = ('', '', '', '')
-        self.arabicPrefixText = ""
+        self.arabicPrefixText = prefix
         self.arabicSuffixText = ""
-        return "ال{}".format(self.convert(abs(number)).strip())
+        return "{}".format(self.convert(abs(number)).strip())
 
     def to_year(self, value):
         value = self.validate_number(value)
