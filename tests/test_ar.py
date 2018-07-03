@@ -27,7 +27,7 @@ class Num2WordsARTest(TestCase):
         super(Num2WordsARTest, self).setUp()
         self.n2w = Num2Word_AR()
 
-    def test_currency_integer(self):
+    def test_default_currency(self):
         self.assertEqual(num2words(1, to='currency', lang='ar'), 'واحد ريال')
         self.assertEqual(num2words(10, to='currency', lang='ar'), 'عشرة ريالات')
         self.assertEqual(num2words(100, to='currency', lang='ar'), 'مائة ريال')
@@ -36,6 +36,17 @@ class Num2WordsARTest(TestCase):
         self.assertEqual(num2words(10000, to='currency', lang='ar'), 'عشرة آلاف ريال')
         self.assertEqual(num2words(20000.12, to='currency', lang='ar'), 'عشرون ألف ريال و اثنتا عشرة هللة')
         self.assertEqual(num2words(1000000, to='currency', lang='ar'), 'واحد مليون ريال')
-        self.assertEqual(num2words(923411, to='currency', lang='ar'), 'تسعمائة و ثلاثة و عشرون ألفاً  و أربعمائة و أحد عشر ريالاً')
+        self.assertEqual(num2words(923411, to='currency', lang='ar'),
+                         'تسعمائة و ثلاثة و عشرون ألفاً  و أربعمائة و أحد عشر ريالاً')
         self.assertEqual(num2words(63411, to='currency', lang='ar'), 'ثلاثة و ستون ألفاً  و أربعمائة و أحد عشر ريالاً')
         self.assertEqual(num2words(1000000.99, to='currency', lang='ar'), 'واحد مليون ريال و تسع و تسعون هللة')
+
+    def test_currency_parm(self):
+        self.assertEqual(num2words(1, to='currency', lang='ar', currency="KWD"), 'واحد دينار')
+        self.assertEqual(num2words(10, to='currency', lang='ar',currency="EGP"), 'عشرة جنيهات')
+        self.assertEqual(num2words(20000.12, to='currency', lang='ar', currency="EGP"),
+                         'عشرون ألف جنيه و اثنتا عشرة قرش')
+        self.assertEqual(num2words(923411, to='currency', lang='ar', currency="SR"),
+                         'تسعمائة و ثلاثة و عشرون ألفاً  و أربعمائة و أحد عشر ريالاً')
+        self.assertEqual(num2words(1000000.99, to='currency', lang='ar', currency="KWD"),
+                         'واحد مليون دينار و تسع و تسعون فلس')

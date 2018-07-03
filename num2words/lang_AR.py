@@ -21,8 +21,9 @@ import re
 from decimal import Decimal
 from math import floor
 
-CURRENCY_UNIT = ("ريال", "ريالان", "ريالات", "ريالاً")
-CURRENCY_SUBUNIT = ("هللة", "هللتان", "هللات", "هللة")
+CURRENCY_SR = [("ريال", "ريالان", "ريالات", "ريالاً"), ("هللة", "هللتان", "هللات", "هللة")]
+CURRENCY_EGP = [("جنيه", "جنيهان", "جنيهات", "جنيهاً"), ("قرش", "قرشان", "قروش", "قرش")]
+CURRENCY_KWD = [("دينار", "ديناران", "دينارات", "ديناراً"), ("فلس", "فلسان", "فلس", "فلس")]
 
 ARABIC_ONES = [
     "", "واحد", "اثنان", "ثلاثة", "أربعة", "خمسة", "ستة", "سبعة", "ثمانية", "تسعة",
@@ -42,8 +43,8 @@ class Num2Word_AR(object):
         self.integer_value = 0
         self._decimalValue = ""
         self.partPrecision = 2
-        self.currency_unit = CURRENCY_UNIT
-        self.currency_subunit = CURRENCY_SUBUNIT
+        self.currency_unit = CURRENCY_SR[0]
+        self.currency_subunit = CURRENCY_SR[1]
         self.isCurrencyPartNameFeminine = True
         self.isCurrencyNameFeminine = False
         self.separator = 'و'
@@ -264,10 +265,20 @@ class Num2Word_AR(object):
             raise OverflowError(self.errmsg_toobig % (number, self.max_num))
         return number
 
-    def to_currency(self, value):
+    def set_currency_prefer(self, currency):
+        if currency is 'EGP':
+            self.currency_unit = CURRENCY_EGP[0]
+            self.currency_subunit = CURRENCY_EGP[1]
+        elif currency is 'KWD':
+            self.currency_unit = CURRENCY_KWD[0]
+            self.currency_subunit = CURRENCY_KWD[1]
+        else:
+            self.currency_unit = CURRENCY_SR[0]
+            self.currency_subunit = CURRENCY_SR[1]
+
+    def to_currency(self, value, currency='SR'):
+        self.set_currency_prefer(currency)
         self.separator = "و"
-        self.currency_subunit = CURRENCY_SUBUNIT
-        self.currency_unit = CURRENCY_UNIT
         self.arabicOnes = ARABIC_ONES
         return self.convert(value=value)
 
@@ -279,13 +290,13 @@ class Num2Word_AR(object):
         return "ال{}".format(self.convert(abs(number)).strip())
 
     # TODO: fix this
-    def to_year(self, number):
-        number = self.validate_number(number)
+    def to_year(self, value):
+        value = self.validate_number(value)
         self.separator = ','
         self.currency_subunit = ('', '', '', '')
         self.currency_unit = ('', '', '', '')
         self.arabicOnes = ARABIC_ONES
-        return self.convert(value=abs(number)).strip()
+        return self.convert(value=abs(value)).strip()
 
     def to_ordinal_num(self, value):
         return self.to_ordinal(value).strip()
@@ -304,7 +315,7 @@ class Num2Word_AR(object):
 
 if __name__ == "__main__":
     n2 = Num2Word_AR()
-    print(n2.to_currency(1000000.99))
+    print(n2.to_currency(1000000.99, currency='KWD'))
 #     print(n2.to_cardinal(20))
 #     print(n2.to_cardinal(2))
 #     print(n2.to_cardinal(11))
