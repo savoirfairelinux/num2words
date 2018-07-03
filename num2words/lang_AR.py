@@ -311,22 +311,3 @@ class Num2Word_AR(object):
         self.currency_unit = ('', '', '', '')
         self.arabicOnes = ARABIC_ONES
         return minus + self.convert(value=abs(number)).strip()
-
-
-if __name__ == "__main__":
-    n2 = Num2Word_AR()
-    print(n2.to_year(2000))
-#     print(n2.to_cardinal(20))
-#     print(n2.to_cardinal(2))
-#     print(n2.to_cardinal(11))
-#     print(n2.to_cardinal(12))
-#     print(n2.to_cardinal(20))
-#     print(n2.to_cardinal(21))
-#     print(n2.to_cardinal(26))
-#     print(n2.to_cardinal(30))
-#     print(n2.to_cardinal(67))
-#     print(n2.to_cardinal(70))
-#     print(n2.to_cardinal(100))
-#     print(n2.to_cardinal(101))
-#     print(n2.to_cardinal(1000000))
-#     print(n2.to_cardinal(1000001))

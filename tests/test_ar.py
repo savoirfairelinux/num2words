@@ -18,14 +18,10 @@
 from unittest import TestCase
 
 from num2words import num2words
-from num2words.lang_AR import Num2Word_AR
 
 
 class Num2WordsARTest(TestCase):
 
-    def setUp(self):
-        super(Num2WordsARTest, self).setUp()
-        self.n2w = Num2Word_AR()
 
     def test_default_currency(self):
         self.assertEqual(num2words(1, to='currency', lang='ar'), 'واحد ريال')
