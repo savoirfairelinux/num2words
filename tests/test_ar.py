@@ -24,9 +24,13 @@ class Num2WordsARTest(TestCase):
 
     def test_default_currency(self):
         self.assertEqual(num2words(1, to='currency', lang='ar'), 'واحد ريال')
+        self.assertEqual(num2words(2, to='currency', lang='ar'),
+                         'اثنان ريالان')
         self.assertEqual(num2words(10, to='currency', lang='ar'),
                          'عشرة ريالات')
         self.assertEqual(num2words(100, to='currency', lang='ar'), 'مائة ريال')
+        self.assertEqual(num2words(652.12, to='currency', lang='ar'),
+                         'ستمائة و اثنان و خمسون ريالاً و اثنتا عشرة هللة')
         self.assertEqual(num2words(324, to='currency', lang='ar'),
                          'ثلاثمائة و أربعة و عشرون ريالاً')
         self.assertEqual(num2words(2000, to='currency', lang='ar'),
@@ -79,18 +83,23 @@ class Num2WordsARTest(TestCase):
         self.assertEqual(num2words(102, to='ordinal', lang='ar'),
                          'المائة و اثنان')
 
+    def test_cardinal(self):
+        self.assertEqual(num2words(12, to='cardinal', lang='ar'), 'اثنا عشر')
+        self.assertEqual(
+            num2words(3431.12, to='cardinal', lang='ar'),
+            'ثلاثة آلاف  و أربعمائة و واحد و ثلاثون  , اثنتا عشرة')
+        self.assertEqual(num2words(431, to='cardinal', lang='ar'),
+                         'أربعمائة و واحد و ثلاثون')
+        self.assertEqual(num2words(94231, to='cardinal', lang='ar'),
+                         'أربعة و تسعون ألفاً  و مئتان و واحد و ثلاثون')
+        self.assertEqual(num2words(1431, to='cardinal', lang='ar'),
+                         'واحد ألف  و أربعمائة و واحد و ثلاثون')
+
     def test_year(self):
-        self.assertEqual(num2words(1, to='ordinal', lang='ar'), 'الاول')
-        self.assertEqual(num2words(2, to='ordinal', lang='ar'), 'الثاني')
-        self.assertEqual(num2words(3, to='ordinal', lang='ar'), 'الثالث')
-        self.assertEqual(num2words(4, to='ordinal', lang='ar'), 'الرابع')
-        self.assertEqual(num2words(5, to='ordinal', lang='ar'), 'الخامس')
-        self.assertEqual(num2words(6, to='ordinal', lang='ar'), 'السادس')
-        self.assertEqual(num2words(9, to='ordinal', lang='ar'), 'التاسع')
-        self.assertEqual(num2words(20, to='ordinal', lang='ar'), 'العشرون')
-        self.assertEqual(num2words(20, to='ordinal', lang='ar'), 'العشرون')
-        self.assertEqual(num2words(20, to='ordinal', lang='ar'), 'العشرون')
-        self.assertEqual(num2words(94, to='ordinal', lang='ar'),
-                         'الأربع و تسعون')
-        self.assertEqual(num2words(102, to='ordinal', lang='ar'),
-                         'المائة و اثنان')
+        self.assertEqual(num2words(2000, to='year', lang='ar'), 'ألفا')
+
+    def test_max_numbers(self):
+        with self.assertRaises(Exception) as context:
+            num2words(10 ** 36, to='year', lang='ar')
+
+        self.assertTrue('Too large' in str(context.exception))

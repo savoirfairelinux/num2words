@@ -294,7 +294,7 @@ class Num2Word_AR(object):
 
     def validate_number(self, number):
         if number >= self.max_num:
-            raise OverflowError(self.errmsg_too_big % (number, self.max_num))
+            raise OverflowError(self.errmsg_too_big)
         return number
 
     def set_currency_prefer(self, currency):
@@ -343,3 +343,8 @@ class Num2Word_AR(object):
         self.currency_unit = ('', '', '', '')
         self.arabicOnes = ARABIC_ONES
         return minus + self.convert(value=abs(number)).strip()
+
+
+if __name__ == "__main__":
+    n2 = Num2Word_AR()
+    print(n2.to_currency(2))
