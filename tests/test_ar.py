@@ -39,9 +39,8 @@ class Num2WordsARTest(TestCase):
                          'عشرون ألف ريال و اثنتا عشرة هللة')
         self.assertEqual(num2words(1000000, to='currency', lang='ar'),
                          'واحد مليون ريال')
-        self.assertEqual(num2words(923411, to='currency', lang='ar'),
-                         'تسعمائة و ثلاثة و عشرون ألفا'
-                         '  و أربعمائة و أحد عشر ريالاً')
+        value = "تسعمائة و ثلاثة و عشرون ألفاً  و أربعمائة و أحد عشر ريالاً"
+        self.assertEqual(num2words(923411, to='currency', lang='ar'), value)
         self.assertEqual(num2words(63411, to='currency', lang='ar'),
                          'ثلاثة و ستون ألفاً  و أربعمائة و أحد عشر ريالاً')
         self.assertEqual(num2words(1000000.99, to='currency', lang='ar'),

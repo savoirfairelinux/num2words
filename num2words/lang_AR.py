@@ -204,7 +204,7 @@ class Num2Word_AR(object):
         return self.convert_to_arabic()
 
     def convert_to_arabic(self):
-        temp_number = self.number
+        temp_number = Decimal(self.number)
 
         if temp_number == Decimal(0):
             return "صفر"
