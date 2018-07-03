@@ -43,8 +43,8 @@ class Num2WordsARTest(TestCase):
                          'عشرون ألف ريال و اثنتا عشرة هللة')
         self.assertEqual(num2words(1000000, to='currency', lang='ar'),
                          'واحد مليون ريال')
-        value = "تسعمائة و ثلاثة و عشرون ألفاً  و أربعمائة و أحد عشر ريالاً"
-        self.assertEqual(num2words(923411, to='currency', lang='ar'), value)
+        val = 'تسعمائة و ثلاثة و عشرون ألفاً  و أربعمائة و أحد عشر ريالاً'
+        self.assertEqual(num2words(923411, to='currency', lang='ar'), val)
         self.assertEqual(num2words(63411, to='currency', lang='ar'),
                          'ثلاثة و ستون ألفاً  و أربعمائة و أحد عشر ريالاً')
         self.assertEqual(num2words(1000000.99, to='currency', lang='ar'),
@@ -82,9 +82,14 @@ class Num2WordsARTest(TestCase):
                          'الأربع و تسعون')
         self.assertEqual(num2words(102, to='ordinal', lang='ar'),
                          'المائة و اثنان')
+        self.assertEqual(
+            num2words(923411, to='ordinal_num', lang='ar'),
+            'التسعمائة و ثلاثة و عشرون ألفاً  و أربعمائة و أحد عشر')
 
     def test_cardinal(self):
         self.assertEqual(num2words(12, to='cardinal', lang='ar'), 'اثنا عشر')
+        self.assertEqual(num2words(-8324, to='cardinal', lang='ar'),
+                         'سالب ثمانية آلاف  و ثلاثمائة و أربعة و عشرون')
         self.assertEqual(
             num2words(3431.12, to='cardinal', lang='ar'),
             'ثلاثة آلاف  و أربعمائة و واحد و ثلاثون  , اثنتا عشرة')
@@ -94,6 +99,11 @@ class Num2WordsARTest(TestCase):
                          'أربعة و تسعون ألفاً  و مئتان و واحد و ثلاثون')
         self.assertEqual(num2words(1431, to='cardinal', lang='ar'),
                          'واحد ألف  و أربعمائة و واحد و ثلاثون')
+
+    def test_prefix_and_suffix(self):
+        self.assertEqual(num2words(645, to='currency',
+                                   lang='ar', prefix="فقط", suffix="لاغير"),
+                         'فقط ستمائة و خمسة و أربعون ريالاً لاغير')
 
     def test_year(self):
         self.assertEqual(num2words(2000, to='year', lang='ar'), 'ألفا')

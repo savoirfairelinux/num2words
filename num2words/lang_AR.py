@@ -250,7 +250,7 @@ class Num2Word_AR(object):
             group += 1
         formatted_number = ""
         if self.arabicPrefixText is not "":
-            formatted_number += self.arabicPrefixText
+            formatted_number += "{} ".format(self.arabicPrefixText)
         formatted_number += ret_val
         if self.integer_value != 0:
             remaining100 = int(self.integer_value % 100)
@@ -288,7 +288,7 @@ class Num2Word_AR(object):
                 formatted_number += self.currency_subunit[3]
 
         if self.arabicSuffixText is not "":
-            formatted_number += self.arabicSuffixText
+            formatted_number += " {}".format(self.arabicSuffixText)
 
         return formatted_number
 
@@ -308,11 +308,13 @@ class Num2Word_AR(object):
             self.currency_unit = CURRENCY_SR[0]
             self.currency_subunit = CURRENCY_SR[1]
 
-    def to_currency(self, value, currency='SR'):
+    def to_currency(self, value, currency='SR', prefix="", suffix=""):
         self.set_currency_prefer(currency)
         self.isCurrencyNameFeminine = False
         self.separator = "و"
         self.arabicOnes = ARABIC_ONES
+        self.arabicPrefixText = prefix
+        self.arabicSuffixText = suffix
         return self.convert(value=value)
 
     def to_ordinal(self, number):
@@ -324,6 +326,8 @@ class Num2Word_AR(object):
             self.isCurrencyNameFeminine = False
         self.currency_subunit = ('', '', '', '')
         self.currency_unit = ('', '', '', '')
+        self.arabicPrefixText = ""
+        self.arabicSuffixText = ""
         return "ال{}".format(self.convert(abs(number)).strip())
 
     def to_year(self, value):
@@ -341,10 +345,7 @@ class Num2Word_AR(object):
         self.separator = ','
         self.currency_subunit = ('', '', '', '')
         self.currency_unit = ('', '', '', '')
+        self.arabicPrefixText = ""
+        self.arabicSuffixText = ""
         self.arabicOnes = ARABIC_ONES
         return minus + self.convert(value=abs(number)).strip()
-
-
-if __name__ == "__main__":
-    n2 = Num2Word_AR()
-    print(n2.to_currency(2))
