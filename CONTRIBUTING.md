@@ -34,7 +34,7 @@ For your pull request to be merged, the answer to the following questions must b
 * Is the code PEP8 compliant?
 * Is the code covered by tests?
 
-[TravisCI](https://travis-ci.org/) is configured to run those checks on every Pull-Request. It is recommanded you configure your fork to do the same.
+[TravisCI](https://travis-ci.org/) is configured to run those checks on every Pull-Request. It is recommended you configure your fork to do the same.
 
 ### Reporting bugs
 
