@@ -81,7 +81,7 @@ class Num2WordsUKTest(TestCase):
     def test_to_currency(self):
         # self.assertEqual(
         #     num2words(1.0, lang='uk', to='currency', currency='EUR'),
-        #     "один евро, нуль центiв"
+        #     "один євро, нуль центiв"
         # )
         self.assertEqual(
             num2words(1.0, lang='uk', to='currency', currency='UAH'),
@@ -89,7 +89,7 @@ class Num2WordsUKTest(TestCase):
         )
         self.assertEqual(
             num2words(1234.56, lang='uk', to='currency', currency='EUR'),
-            "одна тисяча двiстi тридцять чотири евро, п'ятдесят шiсть центiв"
+            "одна тисяча двiстi тридцять чотири євро, п'ятдесят шiсть центiв"
         )
         self.assertEqual(
             num2words(1234.56, lang='uk', to='currency', currency='UAH'),
@@ -99,7 +99,7 @@ class Num2WordsUKTest(TestCase):
         # self.assertEqual(
         #     num2words(10111, lang='uk', to='currency', currency='EUR',
         #               seperator=u' та'),
-        #     "сто один евро та одинадцять центiв"
+        #     "сто один євро та одинадцять центiв"
         # )
         self.assertEqual(
             num2words(10121, lang='uk', to='currency', currency='UAH',
@@ -119,15 +119,15 @@ class Num2WordsUKTest(TestCase):
         # self.assertEqual(
         #     num2words(10121, lang='uk', to='currency', currency='EUR',
         #               seperator=u' та'),
-        #     "сто один евро та двадцять один цент"
+        #     "сто один євро та двадцять один цент"
         # )
         self.assertEqual(
             num2words(-1251985, lang='uk', to='currency', currency='EUR',
                       cents=False),
-            "мiнус дванадцять тисяч п'ятсот дев'ятнадцять евро, 85 центiв"
+            "мiнус дванадцять тисяч п'ятсот дев'ятнадцять євро, 85 центiв"
         )
         self.assertEqual(
             num2words('38.4', lang='uk', to='currency', seperator=' и',
                       cents=False, currency='EUR'),
-            "тридцять вiсiм евро и 40 центiв"
+            "тридцять вiсiм євро и 40 центiв"
         )
