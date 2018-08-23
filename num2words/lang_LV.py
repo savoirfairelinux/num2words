@@ -14,6 +14,7 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301 USA
+# TODO: replace WINDOWS line endings to UNIX?
 from __future__ import unicode_literals
 
 from .base import Num2Word_Base
@@ -132,15 +133,17 @@ class Num2Word_LV(Num2Word_Base):
 
     def to_cardinal(self, number):
         n = str(number).replace(',', '.')
+        base_str, n = self.parse_minus(n)
         if '.' in n:
             left, right = n.split('.')
-            return u'%s %s %s' % (
+            return '%s%s %s %s' % (
+                base_str,
                 self._int2word(int(left)),
                 self.pointword,
                 self._int2word(int(right))
             )
         else:
-            return self._int2word(int(n))
+            return "%s%s" % (base_str, self._int2word(int(n)))
 
     def pluralize(self, n, forms):
         form = 0 if (n % 10 == 1 and n % 100 != 11) else 1 if n != 0 else 2

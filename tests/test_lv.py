@@ -39,6 +39,14 @@ class Num2WordsLVTest(TestCase):
             'divdesmit divi triljoni astoņi simti divdesmit četri '
             'miljardi trīs simti astoņdesmit četri miljoni divi simti '
             'divdesmit tūkstoši divi simti deviņdesmit viens')
+        self.assertEqual(
+            num2words(-5000, lang='lv'),
+            'mīnus pieci tūkstoši',
+        )
+        self.assertEqual(
+            num2words(-5000.22, lang='lv'),
+            'mīnus pieci tūkstoši komats divdesmit divi',
+        )
 
         # >>> print(fill(n2w(1000000000000000000000000000000)))
         # nontiljons
