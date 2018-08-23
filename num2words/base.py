@@ -89,6 +89,13 @@ class Num2Word_Base(object):
 
             return out
 
+    def parse_minus(self, num_str):
+        """Detach minus and return it as symbol with new num_str."""
+        if num_str.startswith('-'):
+            # Extra spacing to compensate if there is no minus.
+            return '%s ' % self.negword, num_str[1:]
+        return '', num_str
+
     def to_cardinal(self, value):
         try:
             assert int(value) == value

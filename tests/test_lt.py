@@ -44,6 +44,14 @@ class Num2WordsLTTest(TestCase):
             "aštuoni šimtai dvidešimt du trilijonai aštuoni šimtai dvidešimt "
             "keturi milijardai trys šimtai aštuoniasdešimt keturi milijonai "
             "du šimtai dvidešimt tūkstančių du šimtai devyniasdešimt vienas")
+        self.assertEqual(
+            num2words(-5000, lang='lt'),
+            'minus penki tūkstančiai',
+        )
+        self.assertEqual(
+            num2words(-5000.22, lang='lt'),
+            'minus penki tūkstančiai kablelis dvidešimt du',
+        )
 
         # print(fill(n2w(1000000000000000000000000000000)))
         # naintilijonas
