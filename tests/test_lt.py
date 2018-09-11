@@ -44,6 +44,14 @@ class Num2WordsLTTest(TestCase):
             "aštuoni šimtai dvidešimt du trilijonai aštuoni šimtai dvidešimt "
             "keturi milijardai trys šimtai aštuoniasdešimt keturi milijonai "
             "du šimtai dvidešimt tūkstančių du šimtai devyniasdešimt vienas")
+        self.assertEqual(
+            num2words(-5000, lang='lt'),
+            'minus penki tūkstančiai',
+        )
+        self.assertEqual(
+            num2words(-5000.22, lang='lt'),
+            'minus penki tūkstančiai kablelis dvidešimt du',
+        )
 
         # print(fill(n2w(1000000000000000000000000000000)))
         # naintilijonas
@@ -54,20 +62,27 @@ class Num2WordsLTTest(TestCase):
             num2words(1, lang='lt', to='ordinal')
 
     def test_to_currency(self):
+        # Test all available currency forms.
+        # LTL
         self.assertEqual(
             num2words(1.0, lang='lt', to='currency', currency='LTL'),
             'vienas litas, nulis centų'
+        )
+        self.assertEqual(
+            num2words(10.01, lang='lt', to='currency', currency='LTL'),
+            'dešimt litų, vienas centas'
         )
         self.assertEqual(
             num2words(1234.56, lang='lt', to='currency', currency='LTL'),
             'vienas tūkstantis du šimtai trisdešimt keturi litai, '
             'penkiasdešimt šeši centai'
         )
+        # EUR
         self.assertEqual(
-            num2words(-1251985, lang='lt', to='currency', currency='EUR',
+            num2words(-1251981, lang='lt', to='currency', currency='EUR',
                       cents=False),
             'minus dvylika tūkstančių penki šimtai devyniolika eurų, '
-            '85 centai'
+            '81 centas'
         )
         self.assertEqual(
             num2words(1.0, lang='lt', to='currency', currency='EUR'),
@@ -77,4 +92,74 @@ class Num2WordsLTTest(TestCase):
             num2words(1234.56, lang='lt', to='currency', currency='EUR'),
             'vienas tūkstantis du šimtai trisdešimt keturi eurai, '
             'penkiasdešimt šeši centai'
+        )
+        self.assertEqual(
+            num2words(1122.22, lang='lt', to='currency', currency='EUR'),
+            'vienas tūkstantis vienas šimtas dvidešimt du eurai, '
+            'dvidešimt du centai'
+        )
+        # USD
+        self.assertEqual(
+            num2words(-1281, lang='lt', to='currency', currency='USD',
+                      cents=False),
+            'minus dvylika dolerių, 81 centas'
+        )
+        self.assertEqual(
+            num2words(1.0, lang='lt', to='currency', currency='USD'),
+            'vienas doleris, nulis centų'
+        )
+        self.assertEqual(
+            num2words(5.06, lang='lt', to='currency', currency='USD'),
+            'penki doleriai, šeši centai'
+        )
+        # GBP
+        self.assertEqual(
+            num2words(-1281, lang='lt', to='currency', currency='GBP',
+                      cents=False),
+            'minus dvylika svarų sterlingų, 81 pensas'
+        )
+        self.assertEqual(
+            num2words(1.0, lang='lt', to='currency', currency='GBP'),
+            'vienas svaras sterlingų, nulis pensų'
+        )
+        self.assertEqual(
+            num2words(5.06, lang='lt', to='currency', currency='GBP'),
+            'penki svarai sterlingų, šeši pensai'
+        )
+        # PLN
+        self.assertEqual(
+            num2words(-1281, lang='lt', to='currency', currency='PLN',
+                      cents=False),
+            'minus dvylika zlotų, 81 grašis'
+        )
+        self.assertEqual(
+            num2words(1.0, lang='lt', to='currency', currency='PLN'),
+            'vienas zlotas, nulis grašių'
+        )
+        self.assertEqual(
+            num2words(5.06, lang='lt', to='currency', currency='PLN'),
+            'penki zlotai, šeši grašiai'
+        )
+        # RUB
+        self.assertEqual(
+            num2words(-1281, lang='lt', to='currency', currency='RUB',
+                      cents=False),
+            'minus dvylika rublių, 81 kapeika'
+        )
+        self.assertEqual(
+            num2words(1.0, lang='lt', to='currency', currency='RUB'),
+            'vienas rublis, nulis kapeikų'
+        )
+        self.assertEqual(
+            num2words(5.06, lang='lt', to='currency', currency='RUB'),
+            'penki rubliai, šešios kapeikos'
+        )
+        self.assertEqual(
+            num2words(-12.01, lang='lt', to='currency', currency='RUB'),
+            'minus dvylika rublių, viena kapeika'
+        )
+        self.assertEqual(
+            num2words(1122.22, lang='lt', to='currency', currency='RUB'),
+            'vienas tūkstantis vienas šimtas dvidešimt du rubliai, '
+            'dvidešimt dvi kapeikos'
         )

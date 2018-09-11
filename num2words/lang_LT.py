@@ -14,12 +14,25 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301 USA
+# TODO: replace WINDOWS line endings to UNIX?
 from __future__ import unicode_literals
 
 from .base import Num2Word_Base
 from .utils import get_digits, splitbyx
 
 ZERO = ('nulis',)
+
+ONES_FEMININE = {
+    1: ('viena',),
+    2: ('dvi',),
+    3: ('trys',),
+    4: ('keturios',),
+    5: ('penkios',),
+    6: ('šešios',),
+    7: ('septynios',),
+    8: ('aštuonios',),
+    9: ('devynios',),
+}
 
 ONES = {
     1: ('vienas',),
@@ -72,11 +85,25 @@ THOUSANDS = {
     10: ('naintilijonas', 'naintilijonai', 'naintilijonų'),
 }
 
+GENERIC_CENTS = ('centas', 'centai', 'centų')
+
 
 class Num2Word_LT(Num2Word_Base):
     CURRENCY_FORMS = {
-        'LTL': (('litas', 'litai', 'litų'), ('centas', 'centai', 'centų')),
-        'EUR': (('euras', 'eurai', 'eurų'), ('centas', 'centai', 'centų')),
+        'LTL': (('litas', 'litai', 'litų'), GENERIC_CENTS),
+        'EUR': (('euras', 'eurai', 'eurų'), GENERIC_CENTS),
+        'USD': (('doleris', 'doleriai', 'dolerių'), GENERIC_CENTS),
+        'GBP': (
+            ('svaras sterlingų', 'svarai sterlingų', 'svarų sterlingų'),
+            ('pensas', 'pensai', 'pensų')
+        ),
+        'PLN': (
+            ('zlotas', 'zlotai', 'zlotų'),
+            ('grašis', 'grašiai', 'grašių')),
+        'RUB': (
+            ('rublis', 'rubliai', 'rublių'),
+            ('kapeika', 'kapeikos', 'kapeikų')
+        ),
     }
 
     def setup(self):
@@ -98,20 +125,25 @@ class Num2Word_LT(Num2Word_Base):
 
     def to_cardinal(self, number):
         n = str(number).replace(',', '.')
+        base_str, n = self.parse_minus(n)
         if '.' in n:
             left, right = n.split('.')
-            return '%s %s %s' % (
+            return '%s%s %s %s' % (
+                base_str,
                 self._int2word(int(left)),
                 self.pointword,
                 self._int2word(int(right))
             )
         else:
-            return self._int2word(int(n))
+            return "%s%s" % (base_str, self._int2word(int(n)))
 
     def to_ordinal(self, number):
         raise NotImplementedError()
 
-    def _int2word(self, n):
+    def _cents_verbose(self, number, currency):
+        return self._int2word(number, currency == 'RUB')
+
+    def _int2word(self, n, feminine=False):
         if n == 0:
             return ZERO[0]
 
@@ -136,7 +168,10 @@ class Num2Word_LT(Num2Word_Base):
             if n2 == 1:
                 words.append(TENS[n1][0])
             elif n1 > 0:
-                words.append(ONES[n1][0])
+                if (i == 1 or feminine and i == 0) and n < 1000:
+                    words.append(ONES_FEMININE[n1][0])
+                else:
+                    words.append(ONES[n1][0])
 
             if i > 0:
                 words.append(self.pluralize(x, THOUSANDS[i]))
