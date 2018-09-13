@@ -51,7 +51,10 @@ class Num2Word_FR(Num2Word_EU):
             if nnum < 1000000:
                 return next
         else:
-            if (not (cnum - 80) % 100 or not cnum % 100) and ctext[-1] == "s":
+            if (not (cnum - 80) % 100
+                or (not cnum % 100 and cnum < 1000))\
+                    and nnum < 1000000 \
+                    and ctext[-1] == "s":
                 ctext = ctext[:-1]
             if cnum < 1000 and nnum != 1000 and \
                     ntext[-1] != "s" and not nnum % 100:
