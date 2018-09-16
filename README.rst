@@ -69,6 +69,7 @@ Besides the numerical argument, there are two main optional arguments.
 * ``en_IN`` (English - India)
 * ``es`` (Spanish)
 * ``es_CO`` (Spanish - Colombia)
+* ``es_PE`` (Spanish - Perú)
 * ``es_VE`` (Spanish - Venezuela)
 * ``eu`` (EURO)
 * ``fi`` (Finnish)
