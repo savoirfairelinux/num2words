@@ -51,12 +51,18 @@ class Num2Word_EU(Num2Word_Base):
         'NOK': 'Norwegian',
     }
 
-    def set_high_numwords(self, high):
-        max = 3 + 6 * len(high)
+    GIGA_SUFFIX = "illiard"
+    MEGA_SUFFIX = "illion"
 
-        for word, n in zip(high, range(max, 3, -6)):
-            self.cards[10 ** n] = word + "illiard"
-            self.cards[10 ** (n - 3)] = word + "illion"
+    def set_high_numwords(self, high):
+        cap = 3 + 6 * len(high)
+
+        for word, n in zip(high, range(cap, 3, -6)):
+            if self.GIGA_SUFFIX:
+                self.cards[10 ** n] = word + self.GIGA_SUFFIX
+
+            if self.MEGA_SUFFIX:
+                self.cards[10 ** (n - 3)] = word + self.MEGA_SUFFIX
 
     def gen_high_numwords(self, units, tens, lows):
         out = [u + t for t in tens for u in units]

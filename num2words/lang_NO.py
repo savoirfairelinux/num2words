@@ -20,11 +20,18 @@ from . import lang_EU
 
 
 class Num2Word_NO(lang_EU.Num2Word_EU):
+    GIGA_SUFFIX = "illard"
+    MEGA_SUFFIX = "illion"
+
     def set_high_numwords(self, high):
-        max = 3 + 6 * len(high)
-        for word, n in zip(high, range(max, 3, -6)):
-            self.cards[10 ** n] = word + "illard"
-            self.cards[10 ** (n - 3)] = word + "illion"
+        cap = 3 + 6 * len(high)
+
+        for word, n in zip(high, range(cap, 3, -6)):
+            if self.GIGA_SUFFIX:
+                self.cards[10 ** n] = word + self.GIGA_SUFFIX
+
+            if self.MEGA_SUFFIX:
+                self.cards[10 ** (n - 3)] = word + self.MEGA_SUFFIX
 
     def setup(self):
         super(Num2Word_NO, self).setup()

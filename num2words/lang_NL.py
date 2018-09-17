@@ -21,12 +21,8 @@ from .lang_EU import Num2Word_EU
 
 
 class Num2Word_NL(Num2Word_EU):
-    def set_high_numwords(self, high):
-        max = 3 + 6 * len(high)
-
-        for word, n in zip(high, range(max, 3, -6)):
-            self.cards[10 ** n] = word + "iljard"
-            self.cards[10 ** (n - 3)] = word + "iljoen"
+    GIGA_SUFFIX = "iljard"
+    MEGA_SUFFIX = "iljoen"
 
     def setup(self):
         super(Num2Word_NL, self).setup()
