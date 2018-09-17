@@ -58,6 +58,11 @@ class Num2Word_EU(Num2Word_Base):
             self.cards[10 ** n] = word + "illiard"
             self.cards[10 ** (n - 3)] = word + "illion"
 
+    def gen_high_numwords(self, units, tens, lows):
+        out = [u + t for t in tens for u in units]
+        out.reverse()
+        return out + lows
+
     def pluralize(self, n, forms):
         form = 0 if n == 1 else 1
         return forms[form]

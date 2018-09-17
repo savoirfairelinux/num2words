@@ -52,11 +52,6 @@ class Num2Word_Base(object):
         self.set_mid_numwords(self.mid_numwords)
         self.set_low_numwords(self.low_numwords)
 
-    def gen_high_numwords(self, units, tens, lows):
-        out = [u + t for t in tens for u in units]
-        out.reverse()
-        return out + lows
-
     def set_mid_numwords(self, mid):
         for key, val in mid:
             self.cards[key] = val
