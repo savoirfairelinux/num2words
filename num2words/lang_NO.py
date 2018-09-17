@@ -38,7 +38,6 @@ class Num2Word_NO(lang_EU.Num2Word_EU):
 
         self.negword = "minus "
         self.pointword = "komma"
-        self.errmsg_nornum = "Bare tall kan bli konvertert til ord."
         self.exclude_title = ["og", "komma", "minus"]
 
         self.mid_numwords = [(1000, "tusen"), (100, "hundre"),

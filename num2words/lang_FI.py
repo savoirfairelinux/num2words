@@ -527,7 +527,6 @@ class Num2Word_FI(lang_EU.Num2Word_EU):
 
         self.negword = "miinus "
         self.pointword = "pilkku"
-        self.errmsg_nornum = "Vain numerot voidaan muuttaa sanoiksi."
         self.exclude_title = ["pilkku", "miinus"]
 
         self.mid_numwords = [

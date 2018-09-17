@@ -30,7 +30,6 @@ class Num2Word_EN(lang_EU.Num2Word_EU):
 
         self.negword = "minus "
         self.pointword = "point"
-        self.errmsg_nornum = "Only numbers may be converted to words."
         self.exclude_title = ["and", "point", "minus"]
 
         self.mid_numwords = [(1000, "thousand"), (100, "hundred"),

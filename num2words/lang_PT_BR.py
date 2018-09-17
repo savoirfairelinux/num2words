@@ -34,8 +34,6 @@ class Num2Word_PT_BR(lang_EU.Num2Word_EU):
 
         self.negword = "menos "
         self.pointword = "vírgula"
-        self.errmsg_nornum = "Somente números podem ser convertidos para " \
-                             "palavras"
         self.exclude_title = ["e", "vírgula", "menos"]
 
         self.mid_numwords = [
