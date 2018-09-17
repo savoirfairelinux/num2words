@@ -646,8 +646,6 @@ class Num2Word_FI(lang_EU.Num2Word_EU):
                     "cardinal floating point numbers.")
             return self.to_cardinal_float(value)
 
-        self.verify_num(value)
-
         out = ""
         if value < 0:
             value = abs(value)

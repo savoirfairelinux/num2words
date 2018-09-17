@@ -131,31 +131,3 @@ class Num2Word_DE(Num2Word_EU):
         if not (val // 100) % 10:
             return self.to_cardinal(val)
         return self.to_splitnum(val, hightxt="hundert", longval=longval)
-
-
-n2w = Num2Word_DE()
-to_card = n2w.to_cardinal
-to_ord = n2w.to_ordinal
-to_ordnum = n2w.to_ordinal_num
-
-
-def main():
-    for val in [1, 7, 8, 12, 17, 81, 91, 99, 100, 101, 102, 155,
-                180, 300, 308, 832, 1000, 1001, 1061, 1100, 1500, 1701, 3000,
-                8280, 8291, 150000, 500000, 3000000, 1000000, 2000001,
-                1000000000, 2000000000, -21212121211221211111, -2.121212,
-                -1.0000100]:
-        n2w.test(val)
-
-    n2w.test(13253254360678768017687001076010010122121321432104732075403270570)
-    n2w.test(3000000)
-    n2w.test(3000000000001)
-    n2w.test(3000000324566)
-    print(n2w.to_currency(112121))
-    print(n2w.to_year(2000))
-    print(n2w.to_year(1820))
-    print(n2w.to_year(2001))
-
-
-if __name__ == "__main__":
-    main()

@@ -102,8 +102,6 @@ class Num2Word_Base(object):
         except (ValueError, TypeError, AssertionError):
             return self.to_cardinal_float(value)
 
-        self.verify_num(value)
-
         out = ""
         if value < 0:
             value = abs(value)
@@ -196,9 +194,6 @@ class Num2Word_Base(object):
             raise TypeError(self.errmsg_floatord % value)
         if not abs(value) == value:
             raise TypeError(self.errmsg_negord % value)
-
-    def verify_num(self, value):
-        return 1
 
     def set_wordnums(self):
         pass
@@ -308,22 +303,3 @@ class Num2Word_Base(object):
 
     def setup(self):
         pass
-
-    def test(self, value):
-        try:
-            _card = self.to_cardinal(value)
-        except Exception:
-            _card = "invalid"
-
-        try:
-            _ord = self.to_ordinal(value)
-        except Exception:
-            _ord = "invalid"
-
-        try:
-            _ordnum = self.to_ordinal_num(value)
-        except Exception:
-            _ordnum = "invalid"
-
-        print("For %s, card is %s;\n\tord is %s; and\n\tordnum is %s."
-              % (value, _card, _ord, _ordnum))

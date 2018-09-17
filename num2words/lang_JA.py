@@ -553,8 +553,6 @@ class Num2Word_JA(Num2Word_Base):
             return self.to_cardinal_float(value, reading=reading,
                                           prefer=prefer)
 
-        self.verify_num(value)
-
         out = ""
         if value < 0:
             value = abs(value)
