@@ -42,7 +42,8 @@ class Num2Word_Base(object):
         self.setup()
 
         # uses cards
-        if any(hasattr(self, field) for field in ['high_numwords', 'mid_numwords', 'low_numwords']):
+        if any(hasattr(self, field) for field in
+               ['high_numwords', 'mid_numwords', 'low_numwords']):
             self.cards = OrderedDict()
             self.set_numwords()
             self.MAXVAL = 1000 * list(self.cards.keys())[0]
