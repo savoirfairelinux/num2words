@@ -62,7 +62,7 @@ class Num2Word_EU(Num2Word_Base):
         form = 0 if n == 1 else 1
         return forms[form]
 
-    def base_setup(self):
+    def setup(self):
         lows = ["non", "oct", "sept", "sext", "quint", "quadr", "tr", "b", "m"]
         units = ["", "un", "duo", "tre", "quattuor", "quin", "sex", "sept",
                  "octo", "novem"]

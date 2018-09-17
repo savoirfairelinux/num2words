@@ -40,14 +40,15 @@ class Num2Word_Base(object):
         self.errmsg_negord = "Cannot treat negative num %s as ordinal."
         self.errmsg_toobig = "abs(%s) must be less than %s."
 
-        self.base_setup()
         self.setup()
         self.set_numwords()
 
         self.MAXVAL = 1000 * list(self.cards.keys())[0]
 
     def set_numwords(self):
-        self.set_high_numwords(self.high_numwords)
+        if hasattr(self, 'high_numwords'):
+            self.set_high_numwords(self.high_numwords)
+
         self.set_mid_numwords(self.mid_numwords)
         self.set_low_numwords(self.low_numwords)
 
@@ -300,9 +301,6 @@ class Num2Word_Base(object):
             cents_str,
             self.pluralize(right, cr2)
         )
-
-    def base_setup(self):
-        pass
 
     def setup(self):
         pass

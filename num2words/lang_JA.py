@@ -353,6 +353,23 @@ class Num2Word_JA(Num2Word_Base):
         self.pointword = ("点", "てん")
         self.exclude_title = ["点", "マイナス"]
 
+        self.high_numwords = [
+            ("万", "まん"),    # 10**4 man
+            ("億", "おく"),    # 10**8 oku
+            ("兆", "ちょう"),  # 10**12 chō
+            ("京", "けい"),    # 10**16 kei
+            ("垓", "がい"),    # 10**20 gai
+            ("秭", "し"),      # 10**24 shi
+            ("穣", "じょう"),  # 10**28 jō
+            ("溝", "こう"),    # 10**32 kō
+            ("澗", "かん"),    # 10**36 kan
+            ("正", "せい"),    # 10**40 sei
+            ("載", "さい"),    # 10**44 sai
+            ("極", "ごく"),    # 10**48 goku
+        ]
+
+        self.high_numwords.reverse()
+
         self.mid_numwords = [
             (1000, ("千", "せん")),
             (100, ("百", "ひゃく")),
@@ -501,23 +518,6 @@ class Num2Word_JA(Num2Word_Base):
             if cr2 else '',
             (cr2[1] if reading else cr2[0]) if cr2 else '',
         )
-
-    def base_setup(self):
-        self.high_numwords = [
-            ("万", "まん"),    # 10**4 man
-            ("億", "おく"),    # 10**8 oku
-            ("兆", "ちょう"),  # 10**12 chō
-            ("京", "けい"),    # 10**16 kei
-            ("垓", "がい"),    # 10**20 gai
-            ("秭", "し"),      # 10**24 shi
-            ("穣", "じょう"),  # 10**28 jō
-            ("溝", "こう"),    # 10**32 kō
-            ("澗", "かん"),    # 10**36 kan
-            ("正", "せい"),    # 10**40 sei
-            ("載", "さい"),    # 10**44 sai
-            ("極", "ごく"),    # 10**48 goku
-        ]
-        self.high_numwords.reverse()
 
     def splitnum(self, value, reading, prefer):
         for elem in self.cards:

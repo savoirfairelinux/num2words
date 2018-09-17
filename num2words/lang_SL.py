@@ -32,6 +32,8 @@ class Num2Word_SL(Num2Word_EU):
             self.cards[10**(n-3)] = word + "iljon"
 
     def setup(self):
+        super(Num2Word_SL, self).setup()
+
         self.negword = "minus "
         self.pointword = "celih"
         self.errmsg_nonnum = "Only numbers may be converted to words."
