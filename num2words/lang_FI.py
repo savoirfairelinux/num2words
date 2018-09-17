@@ -523,9 +523,10 @@ class Num2Word_FI(lang_EU.Num2Word_EU):
             self.ords[key] = val
 
     def setup(self):
+        super(Num2Word_FI, self).setup()
+
         self.negword = "miinus "
         self.pointword = "pilkku"
-        self.errmsg_nornum = "Vain numerot voidaan muuttaa sanoiksi."
         self.exclude_title = ["pilkku", "miinus"]
 
         self.mid_numwords = [
@@ -645,8 +646,6 @@ class Num2Word_FI(lang_EU.Num2Word_EU):
                     "Cases other than nominative are not implemented for "
                     "cardinal floating point numbers.")
             return self.to_cardinal_float(value)
-
-        self.verify_num(value)
 
         out = ""
         if value < 0:

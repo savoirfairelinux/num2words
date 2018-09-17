@@ -20,16 +20,24 @@ from . import lang_EU
 
 
 class Num2Word_NO(lang_EU.Num2Word_EU):
+    GIGA_SUFFIX = "illard"
+    MEGA_SUFFIX = "illion"
+
     def set_high_numwords(self, high):
-        max = 3 + 6 * len(high)
-        for word, n in zip(high, range(max, 3, -6)):
-            self.cards[10 ** n] = word + "illard"
-            self.cards[10 ** (n - 3)] = word + "illion"
+        cap = 3 + 6 * len(high)
+
+        for word, n in zip(high, range(cap, 3, -6)):
+            if self.GIGA_SUFFIX:
+                self.cards[10 ** n] = word + self.GIGA_SUFFIX
+
+            if self.MEGA_SUFFIX:
+                self.cards[10 ** (n - 3)] = word + self.MEGA_SUFFIX
 
     def setup(self):
+        super(Num2Word_NO, self).setup()
+
         self.negword = "minus "
         self.pointword = "komma"
-        self.errmsg_nornum = "Bare tall kan bli konvertert til ord."
         self.exclude_title = ["og", "komma", "minus"]
 
         self.mid_numwords = [(1000, "tusen"), (100, "hundre"),
@@ -97,26 +105,3 @@ class Num2Word_NO(lang_EU.Num2Word_EU):
     def to_currency(self, val, longval=True):
         return self.to_splitnum(val, hightxt="krone/r", lowtxt="\xf8re/r",
                                 jointxt="og", longval=longval, cents=True)
-
-
-n2w = Num2Word_NO()
-to_card = n2w.to_cardinal
-to_ord = n2w.to_ordinal
-to_ordnum = n2w.to_ordinal_num
-to_year = n2w.to_year
-
-
-def main():
-    for val in [1, 11, 12, 21, 31, 33, 71, 80, 81, 91, 99, 100, 101, 102, 155,
-                180, 300, 308, 832, 1000, 1001, 1061, 1100, 1500, 1701, 3000,
-                8280, 8291, 150000, 500000, 1000000, 2000000, 2000001,
-                -21212121211221211111, -2.121212, -1.0000100]:
-        n2w.test(val)
-    n2w.test(13253254360678768017687001076010010122121321432104732075403270573)
-    for val in [1, 120, 1000, 1120, 1800, 1976, 2000, 2010, 2099, 2171]:
-        print(val, "er", n2w.to_currency(val))
-        print(val, "er", n2w.to_year(val))
-
-
-if __name__ == "__main__":
-    main()

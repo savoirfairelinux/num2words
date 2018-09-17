@@ -127,10 +127,6 @@ class Num2Word_LV(Num2Word_Base):
         self.negword = "mīnus"
         self.pointword = "komats"
 
-    def set_numwords(self):
-        # @FIXME
-        self.cards[0] = []
-
     def to_cardinal(self, number):
         n = str(number).replace(',', '.')
         base_str, n = self.parse_minus(n)

@@ -20,16 +20,14 @@ from . import lang_EU
 
 
 class Num2Word_DK(lang_EU.Num2Word_EU):
-    def set_high_numwords(self, high):
-        max = 3 + 6 * len(high)
-        for word, n in zip(high, range(max, 3, -6)):
-            self.cards[10 ** n] = word + "illarder"
-            self.cards[10 ** (n - 3)] = word + "illioner"
+    GIGA_SUFFIX = "illarder"
+    MEGA_SUFFIX = "illioner"
 
     def setup(self):
+        super(Num2Word_DK, self).setup()
+
         self.negword = "minus "
         self.pointword = "komma"
-        self.errmsg_nornum = "Kun tal kan blive konverteret til ord."
         self.exclude_title = ["og", "komma", "minus"]
 
         self.mid_numwords = [(1000, "tusind"), (100, "hundrede"),
@@ -131,27 +129,3 @@ class Num2Word_DK(lang_EU.Num2Word_EU):
         if not (val // 100) % 10:
             return self.to_cardinal(val)
         return self.to_splitnum(val, hightxt="hundrede", longval=longval)
-
-
-n2w = Num2Word_DK()
-to_card = n2w.to_cardinal
-to_ord = n2w.to_ordinal
-to_ordnum = n2w.to_ordinal_num
-to_year = n2w.to_year
-
-
-def main():
-    for val in [1, 11, 12, 21, 31, 33, 71, 80, 81, 91, 99, 100, 101, 102, 155,
-                180, 300, 308, 832, 1000, 1001, 1061, 1100, 1500, 1701, 3000,
-                8280, 8291, 150000, 500000, 1000000, 2000000, 2000001,
-                -21212121211221211111, -2.121212, -1.0000100]:
-        n2w.test(val)
-    n2w.test(13253254360678768017687001076010010122121321432104732075403270573)
-    for val in [1, 120, 160, 1000, 1120, 1800, 1976, 2000, 2010, 2099, 2171]:
-        print(val, "er", n2w.to_currency(val))
-        print(val, "er", n2w.to_year(val))
-    n2w.test(65132)
-
-
-if __name__ == "__main__":
-    main()

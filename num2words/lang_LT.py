@@ -110,10 +110,6 @@ class Num2Word_LT(Num2Word_Base):
         self.negword = "minus"
         self.pointword = "kablelis"
 
-    def set_numwords(self):
-        # @FIXME
-        self.cards[0] = []
-
     def pluralize(self, n, forms):
         n1, n2, n3 = get_digits(n)
         if n2 == 1 or n1 == 0 or n == 0:

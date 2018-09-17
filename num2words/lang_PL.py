@@ -97,10 +97,6 @@ class Num2Word_PL(Num2Word_Base):
         self.negword = "minus"
         self.pointword = "przecinek"
 
-    def set_numwords(self):
-        # @FIXME
-        self.cards[0] = []
-
     def to_cardinal(self, number):
         n = str(number).replace(',', '.')
         if '.' in n:

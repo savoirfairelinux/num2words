@@ -29,7 +29,6 @@ class Num2Word_Base(object):
     CURRENCY_ADJECTIVES = {}
 
     def __init__(self):
-        self.cards = OrderedDict()
         self.is_title = False
         self.precision = 2
         self.exclude_title = []
@@ -40,21 +39,22 @@ class Num2Word_Base(object):
         self.errmsg_negord = "Cannot treat negative num %s as ordinal."
         self.errmsg_toobig = "abs(%s) must be less than %s."
 
-        self.base_setup()
         self.setup()
-        self.set_numwords()
 
-        self.MAXVAL = 1000 * list(self.cards.keys())[0]
+        # uses cards
+        if any(hasattr(self, field) for field in
+               ['high_numwords', 'mid_numwords', 'low_numwords']):
+            self.cards = OrderedDict()
+            self.set_numwords()
+            self.MAXVAL = 1000 * list(self.cards.keys())[0]
 
     def set_numwords(self):
         self.set_high_numwords(self.high_numwords)
         self.set_mid_numwords(self.mid_numwords)
         self.set_low_numwords(self.low_numwords)
 
-    def gen_high_numwords(self, units, tens, lows):
-        out = [u + t for t in tens for u in units]
-        out.reverse()
-        return out + lows
+    def set_high_numwords(self, *args):
+        raise NotImplementedError
 
     def set_mid_numwords(self, mid):
         for key, val in mid:
@@ -101,8 +101,6 @@ class Num2Word_Base(object):
             assert int(value) == value
         except (ValueError, TypeError, AssertionError):
             return self.to_cardinal_float(value)
-
-        self.verify_num(value)
 
         out = ""
         if value < 0:
@@ -197,9 +195,6 @@ class Num2Word_Base(object):
         if not abs(value) == value:
             raise TypeError(self.errmsg_negord % value)
 
-    def verify_num(self, value):
-        return 1
-
     def set_wordnums(self):
         pass
 
@@ -264,6 +259,9 @@ class Num2Word_Base(object):
     def _cents_verbose(self, number, currency):
         return self.to_cardinal(number)
 
+    def _cents_terse(self, number, currency):
+        return "%02d" % number
+
     def to_currency(self, val, currency='EUR', cents=True, seperator=',',
                     adjective=False):
         """
@@ -292,7 +290,7 @@ class Num2Word_Base(object):
 
         minus_str = "%s " % self.negword if is_negative else ""
         cents_str = self._cents_verbose(right, currency) \
-            if cents else "%02d" % right
+            if cents else self._cents_terse(right, currency)
 
         return u'%s%s %s%s %s %s' % (
             minus_str,
@@ -303,27 +301,5 @@ class Num2Word_Base(object):
             self.pluralize(right, cr2)
         )
 
-    def base_setup(self):
-        pass
-
     def setup(self):
         pass
-
-    def test(self, value):
-        try:
-            _card = self.to_cardinal(value)
-        except Exception:
-            _card = "invalid"
-
-        try:
-            _ord = self.to_ordinal(value)
-        except Exception:
-            _ord = "invalid"
-
-        try:
-            _ordnum = self.to_ordinal_num(value)
-        except Exception:
-            _ordnum = "invalid"
-
-        print("For %s, card is %s;\n\tord is %s; and\n\tordnum is %s."
-              % (value, _card, _ord, _ordnum))

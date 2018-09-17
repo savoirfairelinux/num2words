@@ -30,10 +30,10 @@ class Num2Word_PT_BR(lang_EU.Num2Word_EU):
             self.cards[10**n] = word + "ilhão"
 
     def setup(self):
+        super(Num2Word_PT_BR, self).setup()
+
         self.negword = "menos "
         self.pointword = "vírgula"
-        self.errmsg_nornum = "Somente números podem ser convertidos para " \
-                             "palavras"
         self.exclude_title = ["e", "vírgula", "menos"]
 
         self.mid_numwords = [

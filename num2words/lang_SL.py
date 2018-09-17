@@ -24,14 +24,12 @@ from .lang_EU import Num2Word_EU
 
 
 class Num2Word_SL(Num2Word_EU):
-    def set_high_numwords(self, high):
-        max = 3 + 6*len(high)
-
-        for word, n in zip(high, range(max, 3, -6)):
-            self.cards[10**n] = word + "iljard"
-            self.cards[10**(n-3)] = word + "iljon"
+    GIGA_SUFFIX = "iljard"
+    MEGA_SUFFIX = "iljon"
 
     def setup(self):
+        super(Num2Word_SL, self).setup()
+
         self.negword = "minus "
         self.pointword = "celih"
         self.errmsg_nonnum = "Only numbers may be converted to words."
@@ -143,25 +141,3 @@ class Num2Word_SL(Num2Word_EU):
         if not (val//100) % 10:
             return self.to_cardinal(val)
         return self.to_splitnum(val, hightxt="hundert", longval=longval)
-
-
-n2w = Num2Word_SL()
-to_card = n2w.to_cardinal
-to_ord = n2w.to_ordinal
-to_ordnum = n2w.to_ordinal_num
-
-
-def main():
-    for val in [1, 11, 12, 21, 31, 33, 71, 80, 81, 91, 99, 100, 101, 102, 155,
-                180, 300, 308, 832, 1000, 1001, 1061, 1100, 1500, 1701, 3000,
-                8280, 8291, 150000, 500000, 1000000, 2000000, 2000001,
-                -21212121211221211111, -2.121212, -1.0000100]:
-        n2w.test(val)
-
-    n2w.test(13253254360678768017687001076010010122121321432104732075403270573)
-    print(n2w.to_currency(112121))
-    print(n2w.to_year(2000))
-
-
-if __name__ == "__main__":
-    main()

@@ -29,11 +29,8 @@ class Num2Word_ES(Num2Word_EU):
     }
 
     # //CHECK: Is this sufficient??
-    def set_high_numwords(self, high):
-        max = 3 + 6 * len(high)
-
-        for word, n in zip(high, range(max, 3, -6)):
-            self.cards[10 ** (n - 3)] = word + "illón"
+    GIGA_SUFFIX = None
+    MEGA_SUFFIX = "illón"
 
     def setup(self):
         lows = ["cuatr", "tr", "b", "m"]
