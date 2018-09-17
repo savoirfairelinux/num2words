@@ -29,6 +29,8 @@ class Num2Word_NL(Num2Word_EU):
             self.cards[10 ** (n - 3)] = word + "iljoen"
 
     def setup(self):
+        super(Num2Word_NL, self).setup()
+
         self.negword = "min "
         self.pointword = "komma"
         # "Cannot treat float %s as ordinal."

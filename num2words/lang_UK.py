@@ -110,10 +110,6 @@ class Num2Word_UK(Num2Word_Base):
         self.negword = "мiнус"
         self.pointword = "кома"
 
-    def set_numwords(self):
-        # @FIXME
-        self.cards[0] = []
-
     def to_cardinal(self, number):
         n = str(number).replace(',', '.')
         if '.' in n:

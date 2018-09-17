@@ -30,6 +30,13 @@ class Num2WordsENTest(TestCase):
         self.assertEqual(num2words(12.53), "twelve point five three")
         self.assertEqual(num2words(12.59), "twelve point five nine")
 
+    def test_overflow(self):
+        with self.assertRaises(OverflowError):
+            num2words("100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+                      "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+                      "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+                      "0000000000000000000")
+
     def test_to_currency(self):
         self.assertEqual(
             num2words('38.4', lang='en', to='currency', seperator=' and',

@@ -27,6 +27,8 @@ class Num2Word_NO(lang_EU.Num2Word_EU):
             self.cards[10 ** (n - 3)] = word + "illion"
 
     def setup(self):
+        super(Num2Word_NO, self).setup()
+
         self.negword = "minus "
         self.pointword = "komma"
         self.errmsg_nornum = "Bare tall kan bli konvertert til ord."

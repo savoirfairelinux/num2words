@@ -97,10 +97,6 @@ class Num2Word_CZ(Num2Word_Base):
         self.negword = "mínus"
         self.pointword = "celá"
 
-    def set_numwords(self):
-        # @FIXME
-        self.cards[0] = []
-
     def to_cardinal(self, number):
         n = str(number).replace(',', '.')
         if '.' in n:

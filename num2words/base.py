@@ -29,7 +29,6 @@ class Num2Word_Base(object):
     CURRENCY_ADJECTIVES = {}
 
     def __init__(self):
-        self.cards = OrderedDict()
         self.is_title = False
         self.precision = 2
         self.exclude_title = []
@@ -41,16 +40,20 @@ class Num2Word_Base(object):
         self.errmsg_toobig = "abs(%s) must be less than %s."
 
         self.setup()
-        self.set_numwords()
 
-        self.MAXVAL = 1000 * list(self.cards.keys())[0]
+        # uses cards
+        if any(hasattr(self, field) for field in ['high_numwords', 'mid_numwords', 'low_numwords']):
+            self.cards = OrderedDict()
+            self.set_numwords()
+            self.MAXVAL = 1000 * list(self.cards.keys())[0]
 
     def set_numwords(self):
-        if hasattr(self, 'high_numwords'):
-            self.set_high_numwords(self.high_numwords)
-
+        self.set_high_numwords(self.high_numwords)
         self.set_mid_numwords(self.mid_numwords)
         self.set_low_numwords(self.low_numwords)
+
+    def set_high_numwords(self, *args):
+        raise NotImplementedError
 
     def set_mid_numwords(self, mid):
         for key, val in mid:
