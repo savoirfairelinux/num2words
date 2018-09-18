@@ -195,9 +195,6 @@ class Num2Word_Base(object):
         if not abs(value) == value:
             raise TypeError(self.errmsg_negord % value)
 
-    def set_wordnums(self):
-        pass
-
     def to_ordinal(self, value):
         return self.to_cardinal(value)
 
