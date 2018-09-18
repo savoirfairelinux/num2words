@@ -22,7 +22,7 @@ from .lang_EU import Num2Word_EU
 
 class Num2Word_NL(Num2Word_EU):
     CURRENCY_FORMS = {
-        'EUR': (('euro', 'euro'), ('cent', 'cents')),
+        'EUR': (('euro', 'euros'), ('cent', 'cents')),
     }
 
     GIGA_SUFFIX = "iljard"
@@ -119,7 +119,7 @@ class Num2Word_NL(Num2Word_EU):
             val = cnum + nnum
 
         word = ctext + ntext
-        return (word, val)
+        return word, val
 
     def to_ordinal(self, value):
         self.verify_ordinal(value)
