@@ -64,3 +64,26 @@ class Num2WordsNLTest(TestCase):
 
     def test_ordinal_for_floating_numbers(self):
         self.assertRaises(TypeError, num2words, 2.453, ordinal=True, lang='nl')
+
+    def test_to_currency(self):
+        self.assertEqual(
+            num2words('38.4', lang='nl', to='currency', seperator=' en',
+                      cents=False, currency='EUR'),
+            "achtendertig euro en 40 cent"
+        )
+        self.assertEqual(
+            num2words('0', lang='nl', to='currency', seperator=' en',
+                      cents=False, currency='EUR'),
+            "nul euro en 00 cent"
+        )
+
+        self.assertEqual(
+            num2words('1.01', lang='nl', to='currency', seperator=' en',
+                      cents=True, currency='EUR'),
+            "één euro en één cent"
+        )
+
+        self.assertEqual(
+            num2words('4778.00', lang='nl', to='currency', seperator=' en',
+                      cents=True, currency='EUR'),
+            'vierduizendzevenhonderdachtenzeventig euro en nul cent')
