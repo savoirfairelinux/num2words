@@ -35,18 +35,18 @@ class Num2Word_NL(Num2Word_EU):
         self.pointword = "komma"
         # "Cannot treat float %s as ordinal."
         self.errmsg_floatord = (
-                "Het zwevende puntnummer %s kan niet omgezet worden " +
-                "naar een ordernummer."
+            "Het zwevende puntnummer %s kan niet omgezet worden " +
+            "naar een ordernummer."
         )
         # "type(((type(%s)) ) not in [long, int, float]"
         self.errmsg_nonnum = (
-                "Alleen nummers (type (%s)) kunnen naar " +
-                "woorden omgezet worden."
+            "Alleen nummers (type (%s)) kunnen naar " +
+            "woorden omgezet worden."
         )
         # "Cannot treat negative num %s as ordinal."
         self.errmsg_negord = (
-                "Het negatieve getal %s kan niet omgezet " +
-                "worden naar een ordernummer."
+            "Het negatieve getal %s kan niet omgezet " +
+            "worden naar een ordernummer."
         )
         # "abs(%s) must be less than %s."
         self.errmsg_toobig = "Het getal %s moet minder zijn dan %s."
@@ -59,7 +59,7 @@ class Num2Word_NL(Num2Word_EU):
                 "sexagint", "septuagint", "oktogint", "nonagint"]
 
         self.high_numwords = (
-                    ["zend"] + self.gen_high_numwords(units, tens, lows))
+            ["zend"] + self.gen_high_numwords(units, tens, lows))
 
         self.mid_numwords = [(1000, "duizend"), (100, "honderd"),
                              (90, "negentig"), (80, "tachtig"),
