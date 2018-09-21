@@ -96,6 +96,7 @@ Besides the numerical argument, there are two main optional arguments.
 * ``lv`` (Latvian)
 * ``no`` (Norwegian)
 * ``pl`` (Polish)
+* ``pt`` (Portuguese)
 * ``pt_BR`` (Portuguese - Brazilian)
 * ``sl`` (Slovene)
 * ``ru`` (Russian)
