@@ -35,18 +35,6 @@ class Num2Word_PT(Num2Word_EU):
     GIGA_SUFFIX = None
     MEGA_SUFFIX = "ilião"
 
-    def set_high_numwords(self, high):
-        cap = 3 + 6 * len(high)
-
-        for word, n in zip(high, range(cap, 3, -6)):
-            if self.GIGA_SUFFIX:
-                self.cards[10 ** n] = word + self.GIGA_SUFFIX
-
-            if self.MEGA_SUFFIX:
-                self.cards[10 ** (n - 3)] = word + self.MEGA_SUFFIX
-                if self.cards[10 ** (n - 3)] == 'milião':
-                    self.cards[10 ** (n - 3)] = 'milhão'
-
     def setup(self):
         super(Num2Word_PT, self).setup()
         lows = ["quatr", "tr", "b", "m"]
@@ -142,7 +130,9 @@ class Num2Word_PT(Num2Word_EU):
             ntext = ntext[:-4] + "liões"
         elif (not nnum % 1000000) and cnum > 1:
             ntext = ntext[:-4] + "lhões"
-
+        # correct "milião" to "milhão"
+        if ntext == 'milião':
+            ntext = 'milhão'
         if nnum == 100:
             ctext = self.hundreds[cnum]
             ntext = ""
@@ -218,12 +208,15 @@ class Num2Word_PT(Num2Word_EU):
 
     def to_currency(self, val, currency='EUR', cents=True, seperator=' e',
                     adjective=False):
+        # change negword because base.to_currency() does not need space after
+        backup_negword = self.negword
+        self.negword = self.negword[:-1]
         result = super(Num2Word_PT, self).to_currency(
             val, currency=currency, cents=cents, seperator=seperator,
             adjective=adjective)
-        # hack to correct problem with base.to_currency (adds space after
-        # negword, although base.to_cardinal does not)
-        result = result.replace('  ', ' ')
+        # undo the change on negword
+        self.negword = backup_negword
+
         # transforms "milhões euros" em "milhões de euros"
         try:
             cr1, _ = self.CURRENCY_FORMS[currency]
