@@ -54,6 +54,7 @@ class Num2WordsDETest(TestCase):
     def test_cardinal_at_some_numbers(self):
         self.assertEqual(num2words(2000000, lang='de'), "zwei millionen")
         self.assertEqual(num2words(4000000000, lang='de'), "vier milliarden")
+        self.assertEqual(num2words(1000000000, lang='de'), "eine milliarde")
 
     def test_cardinal_for_decimal_number(self):
         self.assertEqual(
@@ -65,3 +66,15 @@ class Num2WordsDETest(TestCase):
 
     def test_ordinal_for_floating_numbers(self):
         self.assertRaises(TypeError, num2words, 2.453, ordinal=True, lang='de')
+
+    def test_currency(self):
+        self.assertEqual(num2words(12.00, to='currency', lang='de'), 'zwölf euro')
+
+    def test_old_currency(self):
+        self.assertEqual(num2words(12.00, to='currency', lang='de', old=True), 'zwölf mark')
+
+    def test_year(self):
+        self.assertEqual(num2words(2002, to='year', lang='de'), 'zweitausendzwei')
+
+    def test_year_before_2000(self):
+        self.assertEqual(num2words(1780, to='year', lang='de'), 'siebzehnhundertachtzig')
