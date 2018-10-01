@@ -68,13 +68,17 @@ class Num2WordsDETest(TestCase):
         self.assertRaises(TypeError, num2words, 2.453, ordinal=True, lang='de')
 
     def test_currency(self):
-        self.assertEqual(num2words(12.00, to='currency', lang='de'), 'zwölf euro')
+        self.assertEqual(num2words(12.00, to='currency', lang='de'),
+                         'zwölf euro')
 
     def test_old_currency(self):
-        self.assertEqual(num2words(12.00, to='currency', lang='de', old=True), 'zwölf mark')
+        self.assertEqual(num2words(12.00, to='currency', lang='de', old=True),
+                         'zwölf mark')
 
     def test_year(self):
-        self.assertEqual(num2words(2002, to='year', lang='de'), 'zweitausendzwei')
+        self.assertEqual(num2words(2002, to='year', lang='de'),
+                         'zweitausendzwei')
 
     def test_year_before_2000(self):
-        self.assertEqual(num2words(1780, to='year', lang='de'), 'siebzehnhundertachtzig')
+        self.assertEqual(num2words(1780, to='year', lang='de'),
+                         'siebzehnhundertachtzig')
