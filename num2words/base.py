@@ -96,11 +96,51 @@ class Num2Word_Base(object):
             return '%s ' % self.negword, num_str[1:]
         return '', num_str
 
-    def to_cardinal(self, value):
-        try:
-            assert int(value) == value
-        except (ValueError, TypeError, AssertionError):
-            return self.to_cardinal_float(value)
+    def check_thousands(self, value_str,
+                     thousand_separator='.',
+                     decimal_separator=','):
+        if type(value_str) is not str:
+            raise TypeError('%s is not a valid numerical representation!' % value_str)
+
+        decimal_place = value_str.find(decimal_separator)
+        if decimal_place == -1:
+            length = len(value_str)
+        else:
+            length = decimal_place
+
+        # Check if thousand separator comes after decimal separator
+        if thousand_separator in value_str[decimal_place:]:
+            raise TypeError('Decimal place before thousand separator: %s' % value_str)
+
+        # Check that number is formatted correctly with thousand separators
+        separated_correctly = True
+        index = length - 1
+        while index >= 0:
+            if (length - 1 - index) % 4 == 3:
+                if value_str[index] != thousand_separator:
+                    separated_correctly = False
+            elif value_str[index] == thousand_separator:
+                separated_correctly = False
+            index -= 1
+        return separated_correctly
+
+    def to_cardinal(self, value, thousand_separator='.', decimal_separator=','):
+        # Have to be careful about which languages typically use . or , for
+        # decimal places vs. every three digits above the ones place
+        if type(value) is str and decimal_separator not in value:
+            if thousand_separator in value:
+                if self.check_thousands(value, thousand_separator, decimal_separator):
+                    value = int(value.replace(thousand_separator, ''))
+                else:
+                    raise TypeError('Incorrectly formatted number: %s' % value)
+            else:
+                value = int(value)
+        elif type(value) is int:
+            pass
+        else:
+            return getattr(Num2Word_Base, 'to_cardinal_float')(self, value,
+                                        thousand_separator=thousand_separator,
+                                        decimal_separator=decimal_separator)
 
         out = ""
         if value < 0:
@@ -132,10 +172,24 @@ class Num2Word_Base(object):
 
         return pre, post
 
-    def to_cardinal_float(self, value):
-        try:
-            float(value) == value
-        except (ValueError, TypeError, AssertionError):
+    def to_cardinal_float(self, value, thousand_separator='.', decimal_separator=','):
+        # Have to be careful about which languages typically use . or , for
+        # decimal places vs. every three digits above the ones place
+        if type(value) is str and decimal_separator in value:
+            if value.count(decimal_separator) > 1:
+                raise TypeError('Multiple decimal places: %s' % value)
+            # Convert to Python float
+            if thousand_separator in value:
+                if self.check_thousands(value, thousand_separator, decimal_separator):
+                    temp_value = value.replace(thousand_separator, '')
+                    value = float(temp_value.replace(decimal_separator, '.'))
+                else:
+                    raise TypeError('Incorrectly formatted number: %s' % value)
+            else:
+                value = float(value.replace(decimal_separator, '.'))
+        elif type(value) is float:
+            pass
+        else:
             raise TypeError(self.errmsg_nonnum % value)
 
         pre, post = self.float2tuple(float(value))
@@ -259,14 +313,14 @@ class Num2Word_Base(object):
     def _cents_terse(self, number, currency):
         return "%02d" % number
 
-    def to_currency(self, val, currency='EUR', cents=True, seperator=',',
+    def to_currency(self, val, currency='EUR', cents=True, separator=',',
                     adjective=False):
         """
         Args:
             val: Numeric value
             currency (str): Currency code
             cents (bool): Verbose cents
-            seperator (str): Cent seperator
+            separator (str): Cent separator
             adjective (bool): Prefix currency name with adjective
         Returns:
             str: Formatted string
@@ -293,7 +347,7 @@ class Num2Word_Base(object):
             minus_str,
             self.to_cardinal(left),
             self.pluralize(left, cr1),
-            seperator,
+            separator,
             cents_str,
             self.pluralize(right, cr2)
         )

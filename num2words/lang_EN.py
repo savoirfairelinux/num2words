@@ -49,6 +49,13 @@ class Num2Word_EN(lang_EU.Num2Word_EU):
                      "nine": "ninth",
                      "twelve": "twelfth"}
 
+    # Switch separators to ',' (thousands) and '.' (decimals)
+    def to_cardinal(self, value):
+        return super(Num2Word_EN, self).to_cardinal(value, thousand_separator=',', decimal_separator='.')
+
+    def to_cardinal_float(self, value):
+        return super(Num2Word_EN, self).to_cardinal_float(value, thousand_separator=',', decimal_separator='.')
+
     def merge(self, lpair, rpair):
         ltext, lnum = lpair
         rtext, rnum = rpair
