@@ -117,13 +117,17 @@ class Num2Word_DE(Num2Word_EU):
         return str(value) + "."
 
     def to_currency(self, val, longval=True, old=False):
+        hightxt = "euro"
+        lowtxt = "cent"
         if old:
-            return self.to_splitnum(val, hightxt="mark/s", lowtxt="pfennig/e",
-                                    jointxt="und", longval=longval)
-        return super(Num2Word_DE, self).to_currency(val, jointxt="und",
-                                                    longval=longval)
+            hightxt = "mark"
+            lowtxt = "pfennig/e"
+
+        return self.to_splitnum(val, hightxt=hightxt, lowtxt=lowtxt,
+                                jointxt="und", longval=longval)
 
     def to_year(self, val, longval=True):
         if not (val // 100) % 10:
             return self.to_cardinal(val)
-        return self.to_splitnum(val, hightxt="hundert", longval=longval)
+        return self.to_splitnum(val, hightxt="hundert", longval=longval)\
+            .replace(' ', '')
