@@ -17,34 +17,21 @@
 from __future__ import unicode_literals
 
 from .base import Num2Word_Base
-from .utils import get_digits, splitbyx
 from .currency import parse_currency_parts, prefix_currency
-
+from .utils import get_digits, splitbyx
 
 ZERO = ('nula',)
 
-ONES_FEMININE = {
-    1: ('jedna',),
-    2: ('dve',),
-    3: ('tri',),
-    4: ('četiri',),
-    5: ('pet',),
-    6: ('šest',),
-    7: ('sedam',),
-    8: ('osam',),
-    9: ('devet',),
-}
-
 ONES = {
-    1: ('jedan',),
-    2: ('dva',),
-    3: ('tri',),
-    4: ('četiri',),
-    5: ('pet',),
-    6: ('šest',),
-    7: ('sedam',),
-    8: ('osam',),
-    9: ('devet',),
+    1: ('jedan', 'jedna'),
+    2: ('dva', 'dve'),
+    3: ('tri', 'tri'),
+    4: ('četiri', 'četiri'),
+    5: ('pet', 'pet'),
+    6: ('šest', 'šest'),
+    7: ('sedam', 'sedam'),
+    8: ('osam', 'osam'),
+    9: ('devet', 'devet'),
 }
 
 TENS = {
@@ -82,31 +69,35 @@ HUNDREDS = {
     8: ('osamsto',),
     9: ('devetsto',),
 }
-#TODO rename to scale
+
 SCALE = {
-    1: ('hiljada', 'hiljade', 'hiljada'),  # 10^3
-    2: ('milion', 'miliona', 'miliona'),  # 10^6
-    3: ('milijarda', 'milijarde', 'milijardi'),  # 10^9
-    4: ('trilion', 'triliona', 'triliona'),  # 10^12
-    5: ('kvadrilion', 'kvadriliona', 'kvadriliona'),  # 10^15
-    6: ('kvintiliona', 'kvintiliona', 'kvintiliona'),  # 10^18
-    7: ('sekstilion', 'sekstiliona', 'sekstiliona'),  # 10^21
-    8: ('septilion', 'septiliona', 'septiliona'),  # 10^24
-    9: ('oktilion', 'oktiliona', 'oktiliona'),  # 10^27
-    10: ('nonilion', 'noniliona', 'noniliona'),  # 10^30
+    0: ('', '', '', False),
+    1: ('hiljada', 'hiljade', 'hiljada', True),  # 10^3
+    2: ('milion', 'miliona', 'miliona', False),  # 10^6
+    3: ('bilion', 'biliona', 'biliona', False),  # 10^9
+    4: ('trilion', 'triliona', 'triliona', False),  # 10^12
+    5: ('kvadrilion', 'kvadriliona', 'kvadriliona', False),  # 10^15
+    6: ('kvintilion', 'kvintiliona', 'kvintiliona', False),  # 10^18
+    7: ('sekstilion', 'sekstiliona', 'sekstiliona', False),  # 10^21
+    8: ('septilion', 'septiliona', 'septiliona', False),  # 10^24
+    9: ('oktilion', 'oktiliona', 'oktiliona', False),  # 10^27
+    10: ('nonilion', 'noniliona', 'noniliona', False),  # 10^30
 }
 
 
 class Num2Word_SR(Num2Word_Base):
     CURRENCY_FORMS = {
         'RUB': (
-            ('rublja', 'rublje', 'rublji', True), ('kopejka', 'kopejke', 'kopejki', True)
+            ('rublja', 'rublje', 'rublji', True),
+            ('kopejka', 'kopejke', 'kopejki', True)
         ),
         'EUR': (
-            ('evro', 'evra', 'evra', False), ('cent', 'centa', 'centi', False)
+            ('evro', 'evra', 'evra', False),
+            ('cent', 'centa', 'centi', False)
         ),
         'RSD': (
-            ('dinar', 'dinara', 'dinara', False), ('para', 'pare', 'para', True)
+            ('dinar', 'dinara', 'dinara', False),
+            ('para', 'pare', 'para', True)
         ),
     }
 
@@ -170,14 +161,11 @@ class Num2Word_SR(Num2Word_Base):
             if digit_mid == 1:
                 words.append(TENS[digit_right][0])
             elif digit_right > 0:
-                is_feminine = (
-                        chunk_len == 1 or
-                        (chunk_len == 3 and chunk != 0) or
-                        feminine
-                        and chunk_len == 0
+                is_feminine = feminine or SCALE[chunk_len][-1]
+                gender_idx = int(is_feminine)
+                words.append(
+                    ONES[digit_right][gender_idx]
                 )
-                ones = ONES_FEMININE if is_feminine else ONES
-                words.append(ones[digit_right][0])
 
             if chunk_len > 0 and chunk != 0:
                 words.append(self.pluralize(chunk, SCALE[chunk_len]))

@@ -23,26 +23,36 @@ from num2words import num2words
 class Num2WordsSRTest(TestCase):
 
     def test_cardinal(self):
-        self.assertEqual(num2words(100, lang='sr'), "sto")
-        self.assertEqual(num2words(101, lang='sr'), "sto jedan")
-        self.assertEqual(num2words(110, lang='sr'), "sto deset")
-        self.assertEqual(num2words(115, lang='sr'), "sto petnaest")
-        self.assertEqual(num2words(123, lang='sr'), "sto dvadeset tri")
-        self.assertEqual(num2words(1000, lang='sr'), "jedna hiljada")
-        self.assertEqual(num2words(1001, lang='sr'), "jedna hiljada jedan")
-        self.assertEqual(num2words(2012, lang='sr'), "dve hiljade dvanaest")
+        self.assertEqual("sto", num2words(100, lang='sr'))
+        self.assertEqual("sto jedan", num2words(101, lang='sr'))
+        self.assertEqual("sto deset", num2words(110, lang='sr'))
+        self.assertEqual("sto petnaest", num2words(115, lang='sr'))
         self.assertEqual(
-            num2words(12519.85, lang='sr'),
-            "dvanaest hiljada petsto devetnaest zapeta osamdeset pet")
+            "sto dvadeset tri", num2words(123, lang='sr')
+        )
         self.assertEqual(
-            num2words(1234567890, lang='sr'),
-            "jedna milijarda dvesta trideset četiri miliona petsto šezdeset "
-            "sedam hiljada osamsto devedeset")
+            "jedna hiljada", num2words(1000, lang='sr')
+        )
+        self.assertEqual(
+            "jedna hiljada jedan", num2words(1001, lang='sr')
+        )
+        self.assertEqual(
+            "dve hiljade dvanaest", num2words(2012, lang='sr')
+        )
+        self.assertEqual(
+            "dvanaest hiljada petsto devetnaest zapeta osamdeset pet",
+            num2words(12519.85, lang='sr')
+        )
+        self.assertEqual(
+            "jedan bilion dvesta trideset četiri miliona petsto "
+            "šezdeset sedam hiljada osamsto devedeset",
+            num2words(1234567890, lang='sr')
+        )
         self.assertEqual(
             "dvesta petnaest noniliona četristo šezdeset jedan "
             "oktilion četristo sedam septiliona osamsto devedeset "
             "dva sekstiliona trideset devet kvintiliona dva kvadriliona "
-            "sto pedeset sedam triliona sto osamdeset devet milijardi "
+            "sto pedeset sedam triliona sto osamdeset devet biliona "
             "osamsto osamdeset tri miliona devetsto jedna hiljada "
             "šesto sedamdeset šest",
             num2words(215461407892039002157189883901676, lang='sr')
@@ -52,7 +62,7 @@ class Num2WordsSRTest(TestCase):
             "dvesta trideset četiri septiliona šesto devedeset tri "
             "sekstiliona šesto šezdeset tri kvintiliona trideset "
             "četiri kvadriliona osamsto dvadeset dva triliona osamsto "
-            "dvadeset četiri milijarde trista osamdeset četiri miliona "
+            "dvadeset četiri biliona trista osamdeset četiri miliona "
             "dvesta dvadeset hiljada dvesta devedeset jedan",
             num2words(719094234693663034822824384220291, lang='sr')
         )
@@ -68,11 +78,12 @@ class Num2WordsSRTest(TestCase):
             num2words(418531, lang='sr'),
         )
         self.assertEqual(
-            num2words(1000139, lang='sr'), "jedan milion sto trideset devet"
+            "jedan milion sto trideset devet",
+            num2words(1000139, lang='sr')
         )
 
     def test_floating_point(self):
-        self.assertEqual(num2words(5.2, lang='sr'), "pet zapeta dva")
+        self.assertEqual("pet zapeta dva", num2words(5.2, lang='sr'))
         self.assertEqual(
             "petsto šezdeset jedan zapeta četrdeset dva",
             num2words(561.42, lang='sr')
@@ -170,22 +181,38 @@ class Num2WordsSRTest(TestCase):
 
         )
         self.assertEqual(
-            'jedna hiljada dvesta trideset četiri evra, pedeset šest centi',
-            num2words(1234.56, lang='sr', to='currency', currency='EUR')
+            'jedna hiljada dvesta trideset četiri evra, '
+            'pedeset šest centi',
+            num2words(
+                1234.56, lang='sr', to='currency', currency='EUR'
+            )
         )
         self.assertEqual(
-            'jedna hiljada dvesta trideset četiri rublje, pedeset šest kopejki',
-            num2words(1234.56, lang='sr', to='currency', currency='RUB')
+            'jedna hiljada dvesta trideset četiri rublje, '
+            'pedeset šest kopejki',
+            num2words(
+                1234.56, lang='sr', to='currency', currency='RUB'
+            )
         )
         self.assertEqual(
             'sto jedan evro i jedanaest centi',
-            num2words(10111, lang='sr', to='currency', currency='EUR',
-                      seperator=' i'),
+            num2words(
+                10111,
+                lang='sr',
+                to='currency',
+                currency='EUR',
+                seperator=' i'
+            )
         )
         self.assertEqual(
             'sto jedna rublja i dvadeset jedna kopejka',
-            num2words(10121, lang='sr', to='currency', currency='RUB',
-                      seperator=' i'),
+            num2words(
+                10121,
+                lang='sr',
+                to='currency',
+                currency='RUB',
+                seperator=' i'
+            )
         )
         self.assertEqual(
             'sto jedna rublja i dvadeset dve kopejke',
@@ -199,8 +226,13 @@ class Num2WordsSRTest(TestCase):
         )
         self.assertEqual(
             'minus dvanaest hiljada petsto devetnaest evra, 85 centi',
-            num2words(-1251985, lang='sr', to='currency', currency='EUR',
-                      cents=False),
+            num2words(
+                -1251985,
+                lang='sr',
+                to='currency',
+                currency='EUR',
+                cents=False
+            )
         )
         self.assertEqual(
             "trideset osam evra i 40 centi",
