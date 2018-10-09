@@ -84,6 +84,10 @@ CONVERTER_CLASSES = {
 CONVERTES_TYPES = ['cardinal', 'ordinal', 'ordinal_num', 'year', 'currency']
 
 
+def supported_lang():
+    # return the list of supported languages
+    return CONVERTER_CLASSES.keys()
+
 def num2words(number, ordinal=False, lang='en', to='cardinal', **kwargs):
     # We try the full language first
     if lang not in CONVERTER_CLASSES:
