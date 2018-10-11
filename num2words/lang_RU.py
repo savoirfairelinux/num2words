@@ -20,6 +20,7 @@ from .base import Num2Word_Base
 from .utils import get_digits, splitbyx
 
 ZERO = ('ноль',)
+ZERO_ORDINAL = ('нулевой',)
 
 ONES_FEMININE = {
     1: ('одна',),
@@ -34,51 +35,86 @@ ONES_FEMININE = {
 }
 
 ONES = {
-    1: ('один',),
-    2: ('два',),
-    3: ('три',),
-    4: ('четыре',),
-    5: ('пять',),
-    6: ('шесть',),
-    7: ('семь',),
-    8: ('восемь',),
-    9: ('девять',),
+    1: ('один', 'одного',),
+    2: ('два', 'двух',),
+    3: ('три', 'трёх',),
+    4: ('четыре', 'четырёх',),
+    5: ('пять', 'пяти',),
+    6: ('шесть', 'шести',),
+    7: ('семь', 'семи',),
+    8: ('восемь', 'восьми',),
+    9: ('девять', 'девяти',),
+}
+
+ONES_ORDINAL = {
+    1: ('первый',),
+    2: ('второй',),
+    3: ('третий',),
+    4: ('четвертый',),
+    5: ('пятый',),
+    6: ('шестой',),
+    7: ('седьмой',),
+    8: ('восьмой',),
+    9: ('девятый',),
 }
 
 TENS = {
-    0: ('десять',),
-    1: ('одиннадцать',),
-    2: ('двенадцать',),
-    3: ('тринадцать',),
-    4: ('четырнадцать',),
-    5: ('пятнадцать',),
-    6: ('шестнадцать',),
-    7: ('семнадцать',),
-    8: ('восемнадцать',),
-    9: ('девятнадцать',),
+    0: ('десять', 'десятый',),
+    1: ('одиннадцать', 'одиннадцатый',),
+    2: ('двенадцать', 'двенадцатый',),
+    3: ('тринадцать', 'тринадцатый',),
+    4: ('четырнадцать', 'четырнадцатый',),
+    5: ('пятнадцать', 'пятнадцатый',),
+    6: ('шестнадцать', 'шестнадцатый',),
+    7: ('семнадцать', 'семнадцатый',),
+    8: ('восемнадцать', 'восемнадцатый',),
+    9: ('девятнадцать', 'девятнадцатый',),
 }
 
 TWENTIES = {
-    2: ('двадцать',),
-    3: ('тридцать',),
-    4: ('сорок',),
-    5: ('пятьдесят',),
-    6: ('шестьдесят',),
-    7: ('семьдесят',),
-    8: ('восемьдесят',),
-    9: ('девяносто',),
+    2: ('двадцать', 'двадцати',),
+    3: ('тридцать', 'тридцати',),
+    4: ('сорок', 'сорока',),
+    5: ('пятьдесят', 'пятидесяти',),
+    6: ('шестьдесят', 'шестидесяти',),
+    7: ('семьдесят', 'семидесяти',),
+    8: ('восемьдесят', 'восьмидесяти',),
+    9: ('девяносто', 'девяноста',),
+}
+
+TWENTIES_ORDINAL = {
+    2: ('двадцатый',),
+    3: ('тридцатый',),
+    4: ('сороковой',),
+    5: ('пятидесятый',),
+    6: ('шестидесятый',),
+    7: ('семидесятый',),
+    8: ('восьмидесятый',),
+    9: ('девяностый',),
 }
 
 HUNDREDS = {
-    1: ('сто',),
-    2: ('двести',),
-    3: ('триста',),
-    4: ('четыреста',),
-    5: ('пятьсот',),
-    6: ('шестьсот',),
-    7: ('семьсот',),
-    8: ('восемьсот',),
-    9: ('девятьсот',),
+    1: ('сто', 'ста',),
+    2: ('двести', 'двухсот',),
+    3: ('триста', 'трёхсот',),
+    4: ('четыреста', 'четырёхсот',),
+    5: ('пятьсот', 'пятисот',),
+    6: ('шестьсот', 'шестисот',),
+    7: ('семьсот', 'семисот',),
+    8: ('восемьсот', 'восьмисот',),
+    9: ('девятьсот', 'девятисот',),
+}
+
+HUNDREDS_ORDINAL = {
+    1: ('сотый',),
+    2: ('двухсотый',),
+    3: ('трёхсотый',),
+    4: ('четырёхсотый',),
+    5: ('пятисотый',),
+    6: ('шестисотый',),
+    7: ('семисотый',),
+    8: ('восьмисотый',),
+    9: ('девятисотый',),
 }
 
 THOUSANDS = {
@@ -93,7 +129,6 @@ THOUSANDS = {
     9: ('октиллион', 'октиллиона', 'октиллионов'),  # 10^27
     10: ('нониллион', 'нониллиона', 'нониллионов'),  # 10^30
 }
-
 
 class Num2Word_RU(Num2Word_Base):
     CURRENCY_FORMS = {
@@ -134,7 +169,105 @@ class Num2Word_RU(Num2Word_Base):
         return forms[form]
 
     def to_ordinal(self, number):
-        raise NotImplementedError()
+        cardinal_words = self.to_cardinal(number).split(' ')
+
+        ordinal_word = self.get_ordinal_equivalent(cardinal_words)
+
+        if self.ordinal_number_contains_thousands(ordinal_word):
+            ordinal_word = self.build_ordinal_thousands(ordinal_word, number)
+
+        return self.merge_ordinal_words_string(cardinal_words, ordinal_word)
+
+    def get_ordinal_equivalent(self, cardinal_words):
+        last_word = cardinal_words[-1:][0]
+
+        if last_word == ZERO[0]:
+            return ZERO_ORDINAL[0]
+
+        for key, value in ONES.items():
+            if last_word == value[0]:
+                return ONES_ORDINAL[key][0]
+
+        for key, value in TENS.items():
+            if last_word == value[0]:
+                return last_word[:-2] + 'тый'
+
+        for key, value in TWENTIES.items():
+            if last_word == value[0]:
+                return TWENTIES_ORDINAL[key][0]
+
+        for key, value in HUNDREDS.items():
+            if last_word == value[0]:
+                return HUNDREDS_ORDINAL[key][0]
+
+        thousand_identifier = self.get_ordinal_thousand(last_word)
+
+        if thousand_identifier == '':
+            raise ValueError("Ordinal wording for number could not be built")
+        else:
+            return [thousand_identifier]
+
+    def get_ordinal_thousand(self, word):
+        for value_tuple in THOUSANDS.values():
+            for thousands_declination in value_tuple:
+                if word == thousands_declination:
+                    return self.transform_to_ordinal_thousand(word)
+        return ''
+
+    def transform_to_ordinal_thousand(self, word):
+        if word[-1:] in ['а', 'и']:
+            return word[:-1] + 'ный'
+        elif word[-2:] == 'ов':
+            return word[:-2] + 'ный'
+        else:
+            return word + 'ный'
+
+    def ordinal_number_contains_thousands(self, ordinal_word):
+        return isinstance(ordinal_word, list)
+
+    def build_ordinal_thousands(self, ordinal_words, number):
+        number = self.devaluate_number(number, 3)
+        if number % 100 == 0:
+            hundred = self.devaluate_number(number, 2)
+            hundred_genitiv = HUNDREDS[hundred][1]
+            ordinal_words.insert(0, hundred_genitiv)
+        else:
+            rest = number % 100
+            if rest < 10:
+                rest_genitiv = ONES[rest][1] if rest != 1 else ''
+                ordinal_words.insert(0, rest_genitiv)
+            elif rest < 20:
+                rest_genitiv = TENS[rest % 10][1][:-2] + 'и'
+                ordinal_words.insert(0, rest_genitiv)
+            else:
+                ones_genitiv = ONES[rest % 10][1] if rest % 10 > 0 else ''
+                twenties_genitiv = TWENTIES[(rest - rest % 10) / 10][1]
+
+                ordinal_words.insert(0, ones_genitiv)
+                ordinal_words.insert(0, twenties_genitiv)
+
+            if (number - rest) > 0:
+                hundreds = (number - rest) / 100
+                ordinal_words.insert(0, HUNDREDS[hundreds][1])
+
+        return ordinal_words
+
+    def devaluate_number(self, number, power):
+        while number % 10**power == 0:
+            number /= 10**power
+
+        return number % 10**power
+
+    def merge_ordinal_words_string(self, prefix_words, ordinal_word):
+        if self.ordinal_number_contains_thousands(ordinal_word):
+            merged_words_count = len(ordinal_word)
+            ordinal_word = "".join(ordinal_word)
+        else:
+            merged_words_count = 1
+
+        ordinal_words_string = prefix_words[:-merged_words_count]
+        ordinal_words_string.append(ordinal_word)
+        return " ".join(ordinal_words_string)
 
     def _cents_verbose(self, number, currency):
         return self._int2word(number, currency == 'RUB')
@@ -168,4 +301,4 @@ class Num2Word_RU(Num2Word_Base):
             if i > 0 and x != 0:
                 words.append(self.pluralize(x, THOUSANDS[i]))
 
-        return ' '.join(words)
+        return " ".join(words)
