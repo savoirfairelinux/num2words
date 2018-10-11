@@ -22,14 +22,18 @@ import re
 
 from .lang_EU import Num2Word_EU
 
+DOLLAR = ('dólar', 'dólares')
+CENTS = ('cêntimo', 'cêntimos')
+
 
 class Num2Word_PT(Num2Word_EU):
+
     CURRENCY_FORMS = {
-        'AUD': (('dólar', 'dólares'), ('cêntimo', 'cêntimos')),
-        'CAD': (('dólar', 'dólares'), ('cêntimo', 'cêntimos')),
-        'EUR': (('euro', 'euros'), ('cêntimo', 'cêntimos')),
-        'GBP': (('libra', 'libras'), ('centavo', 'centavos')),
-        'USD': (('dólar', 'dólares'), ('cêntimo', 'cêntimos')),
+        'AUD': (DOLLAR, CENTS),
+        'CAD': (DOLLAR, CENTS),
+        'EUR': (('euro', 'euros'), CENTS),
+        'GBP': (('libra', 'libras'), ('péni', 'pence')),
+        'USD': (DOLLAR, CENTS),
     }
 
     GIGA_SUFFIX = None
@@ -169,6 +173,8 @@ class Num2Word_PT(Num2Word_EU):
     # source:
     # https://ciberduvidas.iscte-iul.pt/consultorio/perguntas/a-forma-por-extenso-de-2000-e-de-outros-ordinais/16428
     def to_ordinal(self, value):
+        # Before changing this function remember this is used by pt-BR
+        # so act accordingly
         self.verify_ordinal(value)
 
         result = []
@@ -198,10 +204,14 @@ class Num2Word_PT(Num2Word_EU):
         return result
 
     def to_ordinal_num(self, value):
+        # Before changing this function remember this is used by pt-BR
+        # so act accordingly
         self.verify_ordinal(value)
         return "%sº" % (value)
 
     def to_year(self, val, longval=True):
+        # Before changing this function remember this is used by pt-BR
+        # so act accordingly
         if val < 0:
             return self.to_cardinal(abs(val)) + ' antes de Cristo'
         return self.to_cardinal(val)
