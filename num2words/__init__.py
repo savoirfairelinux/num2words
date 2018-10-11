@@ -83,10 +83,15 @@ CONVERTER_CLASSES = {
 
 CONVERTES_TYPES = ['cardinal', 'ordinal', 'ordinal_num', 'year', 'currency']
 
-
 def supported_lang():
     # return the list of supported languages
-    return CONVERTER_CLASSES.keys()
+    language_path =  os.path.realpath(os.path.join(os.getcwd(), 'num2words'))
+    lang_list = os.listdir(language_path)
+    languages = [language for language in lang_list if language.endswith('py') and language.startswith('lang')]
+    # strip the unicode and *.py extention
+    languages_supported = [str(language) for language in languages]
+    languages_supported = [lang.strip('.py') for lang in languages_supported]
+    return languages_supported
 
 
 def num2words(number, ordinal=False, lang='en', to='cardinal', **kwargs):
