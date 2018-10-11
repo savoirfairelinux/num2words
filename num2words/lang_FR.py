@@ -96,5 +96,6 @@ class Num2Word_FR(Num2Word_EU):
         hightxt = "euro/s"
         if old:
             hightxt = "franc/s"
-        return self.to_splitnum(val, hightxt=hightxt, lowtxt="centime/s",
-                                divisor=1, jointxt="et", longval=longval)
+        cents = int(round(val*100))
+        return self.to_splitnum(cents, hightxt=hightxt, lowtxt="centime/s",
+                                divisor=100, jointxt="et", longval=longval)
