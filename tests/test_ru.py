@@ -196,3 +196,15 @@ class Num2WordsRUTest(TestCase):
                       cents=False, currency='EUR'),
             "тридцать восемь евро и 40 центов"
         )
+        self.assertEqual(
+            num2words('1230.56', lang='ru', to='currency', currency='USD'),
+            'одна тысяча двести тридцать долларов, пятьдесят шесть центов'
+        )
+        self.assertEqual(
+            num2words('1231.56', lang='ru', to='currency', currency='USD'),
+            'одна тысяча двести тридцать один доллар, пятьдесят шесть центов'
+        )
+        self.assertEqual(
+            num2words('1234.56', lang='ru', to='currency', currency='USD'),
+            'одна тысяча двести тридцать четыре доллара, пятьдесят шесть центов'
+        )
