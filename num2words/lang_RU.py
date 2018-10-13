@@ -163,6 +163,8 @@ class Num2Word_RU(Num2Word_Base):
                 if outwords[-2] in self.ords_feminine:
                     outwords[-2] = self.ords_feminine.get(
                         outwords[-2], outwords[-2])
+                elif outwords[-2] == 'десять':
+                    outwords[-2] = outwords[-2][:-1] + 'и'
             if len(outwords) == 3:
                 if outwords[-3] in ['один', 'одна']:
                     outwords[-3] = ''

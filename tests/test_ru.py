@@ -134,6 +134,10 @@ class Num2WordsRUTest(TestCase):
             'двух тысячный'
         )
         self.assertEqual(
+            num2words(10000, lang='ru', to='ordinal'),
+            'десяти тысячный'
+        )
+        self.assertEqual(
             num2words(1000000, lang='ru', to='ordinal'),
             'миллионный'
         )
