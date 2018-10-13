@@ -162,6 +162,37 @@ class Num2Word_RU(Num2Word_Base):
         try:
             if len(outwords) > 1:
                 if outwords[-2] in self.ords_feminine:
+                    outwords[-2] = self.ords_feminine.get(outwords[-2], outwords[-2])
+            lastword = self.ords[lastword]
+            print(lastword)
+        except KeyError:
+            if lastword[:-3] in self.ords_feminine:
+                print(lastword)
+                lastword = self.ords_feminine.get(lastword[:-3], lastword) + "сотый"
+            elif lastword[-1] == "ь" or lastword[-2] == "т":
+                lastword = lastword[:-1] + "ый"
+            elif lastword[-1] == "к":
+                lastword = lastword + "овой"
+            elif lastword[-5:] == "десят":
+                lastword = lastword.replace('ь', 'и') + 'ый'
+            elif lastword[-2] == "ч" or lastword[-1] == "ч":
+                if lastword[-2] == "ч":
+                    lastword = lastword[:-1] + "ный"
+                if lastword[-1] == "ч":
+                    lastword = lastword + "ный"
+            elif lastword[-1] == "н":
+                lastword = lastword + "ный"
+        lastwords[-1] = self.title(lastword)
+        outwords[-1] = "-".join(lastwords)
+        return " ".join(outwords).strip()
+        self.verify_ordinal(number)
+        outwords = self.to_cardinal(number).split(" ")
+        lastwords = outwords[-1].split('-')
+        lastword = lastwords[-1].lower()
+        print(outwords)
+        try:
+            if len(outwords) > 1:
+                if outwords[-2] in self.ords_feminine:
                     outwords[-2] = self.ords_feminine.get(
                         outwords[-2], outwords[-2])
             lastword = self.ords[lastword]
