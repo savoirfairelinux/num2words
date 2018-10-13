@@ -158,7 +158,6 @@ class Num2Word_RU(Num2Word_Base):
         self.verify_ordinal(number)
         outwords = self.to_cardinal(number).split(" ")
         lastword = outwords[-1].lower()
-        print(outwords)
         try:
             if len(outwords) > 1:
                 if outwords[-2] in self.ords_feminine:
@@ -168,10 +167,8 @@ class Num2Word_RU(Num2Word_Base):
                 if outwords[-3] in ['один', 'одна']:
                     outwords[-3] = ''
             lastword = self.ords[lastword]
-            print(lastword)
         except KeyError:
             if lastword[:-3] in self.ords_feminine:
-                print(lastword)
                 lastword = self.ords_feminine.get(
                     lastword[:-3], lastword) + "сотый"
             elif lastword[-1] == "ь" or lastword[-2] == "т":
