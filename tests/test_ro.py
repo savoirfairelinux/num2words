@@ -47,17 +47,44 @@ class Num2WordsROTest(TestCase):
         )
 
     def test_ordinal_num(self):
-        self.assertEqual(num2words(1, lang='ro', to='ordinal_num'), '1-ul')
-        self.assertEqual(num2words(10, lang='ro', to='ordinal_num'), 'al 10-lea')
-        self.assertEqual(num2words(21, lang='ro', to='ordinal_num'), 'al 21-lea')
-        self.assertEqual(num2words(102, lang='ro', to='ordinal_num'), 'al 102-lea')
-        self.assertEqual(num2words(73, lang='ro', to='ordinal_num'), 'al 73-lea')
+        self.assertEqual(
+            num2words(1, lang='ro', to='ordinal_num'),
+            '1-ul'
+        )
+        self.assertEqual(
+            num2words(10, lang='ro', to='ordinal_num'),
+            'al 10-lea'
+        )
+        self.assertEqual(num2words(
+            21, lang='ro', to='ordinal_num'),
+            'al 21-lea'
+        )
+        self.assertEqual(
+            num2words(102, lang='ro', to='ordinal_num'),
+            'al 102-lea'
+        )
+        self.assertEqual(
+            num2words(73, lang='ro', to='ordinal_num'),
+            'al 73-lea'
+        )
 
     def test_cardinal_for_float_number(self):
-        self.assertEqual(num2words(12.5, lang='ro'), 'doisprezece virgulă cinci')
-        self.assertEqual(num2words(12.51, lang='ro'), 'doisprezece virgulă cinci unu')
-        self.assertEqual(num2words(12.53, lang='ro'), 'doisprezece virgulă cinci trei')
-        self.assertEqual(num2words(12.59, lang='ro'), 'doisprezece virgulă cinci nouă')
+        self.assertEqual(
+            num2words(12.5, lang='ro'),
+            'doisprezece virgulă cinci'
+        )
+        self.assertEqual(
+            num2words(12.51, lang='ro'),
+            'doisprezece virgulă cinci unu'
+        )
+        self.assertEqual(
+            num2words(12.53, lang='ro'),
+            'doisprezece virgulă cinci trei'
+        )
+        self.assertEqual(
+            num2words(12.59, lang='ro'),
+            'doisprezece virgulă cinci nouă'
+        )
 
 
     # def test_big_numbers(self):
@@ -81,12 +108,12 @@ class Num2WordsROTest(TestCase):
 
     def test_overflow(self):
         with self.assertRaises(OverflowError):
-            num2words("1000000000000000000000000000000000000000000000000000000"
-                      "0000000000000000000000000000000000000000000000000000000"
-                      "0000000000000000000000000000000000000000000000000000000"
-                      "0000000000000000000000000000000000000000000000000000000"
-                      "0000000000000000000000000000000000000000000000000000000"
-                      "00000000000000000000000000000000")
+            num2words("100000000000000000000000000000000000000000000000000000"
+                      "000000000000000000000000000000000000000000000000000000"
+                      "000000000000000000000000000000000000000000000000000000"
+                      "000000000000000000000000000000000000000000000000000000"
+                      "000000000000000000000000000000000000000000000000000000"
+                      "0000000000000000000000000000000000000")
 
     def test_to_currency(self):
         self.assertEqual(
@@ -136,8 +163,8 @@ class Num2WordsROTest(TestCase):
     #     # suffixes
     #     self.assertEqual(num2words(-44, lang='ro', to='year'),
     #                      'patruzeci și patru î.Hr.')
-    #     self.assertEqual(num2words(-44, lang='ro', to='year', suffix='î.e.n.'),
-    #                      'patruzeci și patru î.e.n.')
+    #     self.assertEqual(num2words(-44, lang='ro', to='year',),
+    #                      suffix='î.e.n.', 'patruzeci și patru î.e.n.')
     #     self.assertEqual(num2words(1, lang='ro', to='year', suffix='d.Hr.'),
     #                      'unu d.Hr.')
     #     self.assertEqual(num2words(-66000000, lang='ro', to='year'),

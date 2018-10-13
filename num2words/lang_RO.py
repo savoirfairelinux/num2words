@@ -30,17 +30,21 @@ class Num2Word_RO(lang_EU.Num2Word_EU):
         self.negword = "minus "
         self.pointword = "virgulă"
         self.exclude_title = ["și", "virgulă", "minus"]
-        self.errmsg_toobig = u"Numărul e prea mare pentru a fi convertit în cuvinte."
+        self.errmsg_toobig = "Numărul e prea mare pentru a"
+                             " fi convertit în cuvinte."
         self.mid_numwords = [(1000, "mie"), (100, "sută"),
-                             (90, "nouăzeci"), (80, "optzeci"), (70, "șaptezeci"),
-                             (60, "șaizeci"), (50, "cincizeci"), (40, "patruzeci"),
+                             (90, "nouăzeci"), (80, "optzeci"),
+                             (70, "șaptezeci"), (60, "șaizeci"),
+                             (50, "cincizeci"), (40, "patruzeci"),
                              (30, "treizeci")]
-        self.low_numwords = ["douăzeci", "nouăsprezece", "optsprezece", "șaptesprezece",
-                             "șaisprezece", "cincisprezece", "paisprezece", "treisprezece",
-                             "doisprezece", "unsprezece", "zece", "nouă", "opt",
-                             "șapte", "șase", "cinci", "patru", "trei", "doi",
+        self.low_numwords = ["douăzeci", "nouăsprezece", "optsprezece",
+                             "șaptesprezece", "șaisprezece", "cincisprezece",
+                             "paisprezece", "treisprezece", "doisprezece",
+                             "unsprezece", "zece", "nouă", "opt", "șapte",
+                             "șase", "cinci", "patru", "trei", "doi",
                              "unu", "zero"]
-        self.high_numwords = ["o", "două", "trei", "patru", "cinci", "șase", "șapte", "opt", "nouă"]
+        self.high_numwords = ["o", "două", "trei", "patru", "cinci",
+                              "șase", "șapte", "opt", "nouă"]
         self.ords = {"unu": "primul",
                      "doi": "al doilea",
                      "three": "al treilea",
