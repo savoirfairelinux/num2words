@@ -67,6 +67,9 @@ class Num2WordsRUTest(TestCase):
         self.assertEqual(
             num2words(1000139, lang='ru'), "один миллион сто тридцать девять"
         )
+        self.assertEqual(num2words(-1, lang='ru'), "минус один")
+        self.assertEqual(num2words(-15, lang='ru'), "минус пятнадцать")
+        self.assertEqual(num2words(-100, lang='ru'), "минус сто")
 
     def test_floating_point(self):
         self.assertEqual(num2words(5.2, lang='ru'), "пять запятая два")
