@@ -97,6 +97,30 @@ class Num2WordsENTest(TestCase):
             'four thousand, seven hundred and seventy-eight dollars and'
             ' zero cents')
 
+        self.assertEqual(
+            num2words('1.1', lang='en', to='currency', seperator=' and',
+                      cents=True, currency='MXN'),
+            "one peso and ten cents"
+        )
+
+        self.assertEqual(
+            num2words('158.3', lang='en', to='currency', seperator=' and',
+                      cents=True, currency='MXN'),
+            "one hundred and fifty-eight pesos and thirty cents"
+        )
+
+        self.assertEqual(
+            num2words('2000.00', lang='en', to='currency', seperator=' and',
+                      cents=True, currency='MXN'),
+            "two thousand pesos and zero cents"
+        )
+
+        self.assertEqual(
+            num2words('4.01', lang='en', to='currency', seperator=' and',
+                      cents=True, currency='MXN'),
+            "four pesos and one cent"
+        )
+
     def test_to_year(self):
         # issue 141
         # "e2 e2"
