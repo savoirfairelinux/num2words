@@ -162,13 +162,15 @@ class Num2Word_RU(Num2Word_Base):
         try:
             if len(outwords) > 1:
                 if outwords[-2] in self.ords_feminine:
-                    outwords[-2] = self.ords_feminine.get(outwords[-2], outwords[-2])
+                    outwords[-2] = self.ords_feminine.get(
+                        outwords[-2], outwords[-2])
             lastword = self.ords[lastword]
             print(lastword)
         except KeyError:
             if lastword[:-3] in self.ords_feminine:
                 print(lastword)
-                lastword = self.ords_feminine.get(lastword[:-3], lastword) + "сотый"
+                lastword = self.ords_feminine.get(
+                    lastword[:-3], lastword) + "сотый"
             elif lastword[-1] == "ь" or lastword[-2] == "т":
                 lastword = lastword[:-1] + "ый"
             elif lastword[-1] == "к":
