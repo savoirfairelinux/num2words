@@ -122,6 +122,7 @@ TEST_CASES_TO_CURRENCY = (
     (12, 'douze euros'),
     (21, 'vingt et un euros'),
     (81.25, 'quatre-vingt-un euros et vingt-cinq centimes'),
+    (81.2, 'quatre-vingt-un euros et vingt centimes'),
     (100, 'cent euros'),
 )
 
@@ -132,6 +133,7 @@ TEST_CASES_TO_CURRENCY_OLD = (
     (12, 'douze francs'),
     (21, 'vingt et un francs'),
     (81.25, 'quatre-vingt-un francs et vingt-cinq centimes'),
+    (81.2, 'quatre-vingt-un francs et vingt centimes'),
     (100, 'cent francs'),
 )
 

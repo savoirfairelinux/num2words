@@ -23,6 +23,34 @@ class Num2WordsENTest(TestCase):
         # ref https://github.com/savoirfairelinux/num2words/issues/8
         self.assertEqual(num2words(199), "one hundred and ninety-nine")
 
+    def test_ordinal(self):
+        self.assertEqual(
+            num2words(1, lang='en', to='ordinal'),
+            'first'
+        )
+        self.assertEqual(
+            num2words(22, lang='en', to='ordinal'),
+            'twenty-second'
+        )
+        self.assertEqual(
+            num2words(12, lang='en', to='ordinal'),
+            'twelfth'
+        )
+        self.assertEqual(
+            num2words(130, lang='en', to='ordinal'),
+            'one hundred and thirtieth'
+        )
+        self.assertEqual(
+            num2words(1003, lang='en', to='ordinal'),
+            'one thousand and third'
+        )
+
+    def test_ordinal_num(self):
+        self.assertEqual(num2words(10, lang='en', to='ordinal_num'), '10th')
+        self.assertEqual(num2words(21, lang='en', to='ordinal_num'), '21st')
+        self.assertEqual(num2words(102, lang='en', to='ordinal_num'), '102nd')
+        self.assertEqual(num2words(73, lang='en', to='ordinal_num'), '73rd')
+
     def test_cardinal_for_float_number(self):
         # issue 24
         self.assertEqual(num2words(12.5), "twelve point five")
