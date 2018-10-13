@@ -67,6 +67,9 @@ class Num2WordsRUTest(TestCase):
         self.assertEqual(
             num2words(1000139, lang='ru'), "один миллион сто тридцать девять"
         )
+        self.assertEqual(num2words(-1, lang='ru'), "минус один")
+        self.assertEqual(num2words(-15, lang='ru'), "минус пятнадцать")
+        self.assertEqual(num2words(-100, lang='ru'), "минус сто")
 
     def test_floating_point(self):
         self.assertEqual(num2words(5.2, lang='ru'), "пять запятая два")
@@ -76,9 +79,75 @@ class Num2WordsRUTest(TestCase):
         )
 
     def test_to_ordinal(self):
-        # @TODO: implement to_ordinal
-        with self.assertRaises(NotImplementedError):
-            num2words(1, lang='ru', to='ordinal')
+        self.assertEqual(
+            num2words(1, lang='ru', to='ordinal'),
+            'первый'
+        )
+        self.assertEqual(
+            num2words(5, lang='ru', to='ordinal'),
+            'пятый'
+        )
+        self.assertEqual(
+            num2words(10, lang='ru', to='ordinal'),
+            'десятый'
+        )
+
+        self.assertEqual(
+            num2words(13, lang='ru', to='ordinal'),
+            'тринадцатый'
+        )
+        self.assertEqual(
+            num2words(20, lang='ru', to='ordinal'),
+            'двадцатый'
+        )
+        self.assertEqual(
+            num2words(23, lang='ru', to='ordinal'),
+            'двадцать третий'
+        )
+        self.assertEqual(
+            num2words(40, lang='ru', to='ordinal'),
+            'сороковой'
+        )
+        self.assertEqual(
+            num2words(70, lang='ru', to='ordinal'),
+            'семидесятый'
+        )
+        self.assertEqual(
+            num2words(100, lang='ru', to='ordinal'),
+            'сотый'
+        )
+        self.assertEqual(
+            num2words(136, lang='ru', to='ordinal'),
+            'сто тридцать шестой'
+        )
+        self.assertEqual(
+            num2words(500, lang='ru', to='ordinal'),
+            'пятисотый'
+        )
+        self.assertEqual(
+            num2words(1000, lang='ru', to='ordinal'),
+            'тысячный'
+        )
+        self.assertEqual(
+            num2words(1001, lang='ru', to='ordinal'),
+            'тысяча первый'
+        )
+        self.assertEqual(
+            num2words(2000, lang='ru', to='ordinal'),
+            'двух тысячный'
+        )
+        self.assertEqual(
+            num2words(10000, lang='ru', to='ordinal'),
+            'десяти тысячный'
+        )
+        self.assertEqual(
+            num2words(1000000, lang='ru', to='ordinal'),
+            'миллионный'
+        )
+        self.assertEqual(
+            num2words(1000000000, lang='ru', to='ordinal'),
+            'миллиардный'
+        )
 
     def test_to_currency(self):
         self.assertEqual(

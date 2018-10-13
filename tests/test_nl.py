@@ -19,6 +19,7 @@ from __future__ import unicode_literals
 from unittest import TestCase
 
 from num2words import num2words
+from num2words.lang_NL import Num2Word_NL
 
 
 class Num2WordsNLTest(TestCase):
@@ -64,3 +65,43 @@ class Num2WordsNLTest(TestCase):
 
     def test_ordinal_for_floating_numbers(self):
         self.assertRaises(TypeError, num2words, 2.453, ordinal=True, lang='nl')
+
+    def test_to_currency(self):
+        self.assertEqual(
+            num2words('38.4', lang='nl', to='currency', seperator=' en',
+                      cents=False, currency='EUR'),
+            "achtendertig euro en 40 cent"
+        )
+        self.assertEqual(
+            num2words('0', lang='nl', to='currency', seperator=' en',
+                      cents=False, currency='EUR'),
+            "nul euro en 00 cent"
+        )
+
+        self.assertEqual(
+            num2words('1.01', lang='nl', to='currency', seperator=' en',
+                      cents=True, currency='EUR'),
+            "één euro en één cent"
+        )
+
+        self.assertEqual(
+            num2words('4778.00', lang='nl', to='currency', seperator=' en',
+                      cents=True, currency='EUR'),
+            'vierduizendzevenhonderdachtenzeventig euro en nul cent')
+
+    def test_pluralize(self):
+        n = Num2Word_NL()
+        # euros always singular
+        cr1, cr2 = n.CURRENCY_FORMS['EUR']
+        self.assertEqual(n.pluralize(1, cr1), 'euro')
+        self.assertEqual(n.pluralize(2, cr1), 'euro')
+        self.assertEqual(n.pluralize(1, cr2), 'cent')
+        self.assertEqual(n.pluralize(2, cr2), 'cent')
+
+        # @TODO other currency
+
+    def test_to_year(self):
+        self.assertEqual(num2words(2018, lang='nl', to='year'),
+                         'tweeduizendachttien')
+        self.assertEqual(num2words(2100, lang='nl', to='year'),
+                         'eenentwintig honderd')
