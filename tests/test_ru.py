@@ -76,9 +76,30 @@ class Num2WordsRUTest(TestCase):
         )
 
     def test_to_ordinal(self):
-        # @TODO: implement to_ordinal
-        with self.assertRaises(NotImplementedError):
-            num2words(1, lang='ru', to='ordinal')
+        self.assertEqual(
+            num2words(1, lang='ru', to='ordinal'),
+            'первый'
+        )
+        self.assertEqual(
+            num2words(5, lang='ru', to='ordinal'),
+            'пятый'
+        )
+        self.assertEqual(
+            num2words(23, lang='ru', to='ordinal'),
+            'двадцать третий'
+        )
+        self.assertEqual(
+            num2words(100, lang='ru', to='ordinal'),
+            'сотый'
+        )
+        self.assertEqual(
+            num2words(500, lang='ru', to='ordinal'),
+            'пятисотый'
+        )
+        self.assertEqual(
+            num2words(1000, lang='ru', to='ordinal'),
+            'тысячный'
+        )
 
     def test_to_currency(self):
         self.assertEqual(
