@@ -23,7 +23,7 @@ class Num2WordsROTest(TestCase):
     def test_ordinal(self):
         self.assertEqual(
             num2words(1, lang='ro', to='ordinal'),
-            'primul' # poate si intaiul
+            'primul'  # poate si intaiul
         )
         self.assertEqual(
             num2words(22, lang='ro', to='ordinal'),
@@ -85,7 +85,6 @@ class Num2WordsROTest(TestCase):
             num2words(12.59, lang='ro'),
             'doisprezece virgulă cinci nouă'
         )
-
 
     # def test_big_numbers(self):
     #     import pdb; pdb.set_trace()
