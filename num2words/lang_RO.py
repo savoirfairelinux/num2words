@@ -30,8 +30,9 @@ class Num2Word_RO(lang_EU.Num2Word_EU):
         self.negword = "minus "
         self.pointword = "virgulă"
         self.exclude_title = ["și", "virgulă", "minus"]
-        self.errmsg_toobig = "Numărul e prea mare pentru a"
-                             " fi convertit în cuvinte."
+        self.errmsg_toobig = (
+            "Numărul e prea mare pentru a fi convertit în cuvinte."
+        )
         self.mid_numwords = [(1000, "mie"), (100, "sută"),
                              (90, "nouăzeci"), (80, "optzeci"),
                              (70, "șaptezeci"), (60, "șaizeci"),
