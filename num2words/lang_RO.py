@@ -21,10 +21,8 @@ from . import lang_EU
 
 
 class Num2Word_RO(lang_EU.Num2Word_EU):
-    def set_high_numwords(self, high):
-        max = 3 + 3 * len(high)
-        for word, n in zip(high, range(max, 3, -3)):
-            self.cards[10 ** n] = word + "ilion"
+    GIGA_SUFFIX = "iliard"
+    MEGA_SUFFIX = "ilion"
 
     def setup(self):
         super(Num2Word_RO, self).setup()
@@ -32,7 +30,7 @@ class Num2Word_RO(lang_EU.Num2Word_EU):
         self.negword = "minus "
         self.pointword = "virgulă"
         self.exclude_title = ["și", "virgulă", "minus"]
-
+        self.errmsg_toobig = u"Numărul e prea mare pentru a fi convertit în cuvinte."
         self.mid_numwords = [(1000, "mie"), (100, "sută"),
                              (90, "nouăzeci"), (80, "optzeci"), (70, "șaptezeci"),
                              (60, "șaizeci"), (50, "cincizeci"), (40, "patruzeci"),
@@ -42,6 +40,7 @@ class Num2Word_RO(lang_EU.Num2Word_EU):
                              "doisprezece", "unsprezece", "zece", "nouă", "opt",
                              "șapte", "șase", "cinci", "patru", "trei", "doi",
                              "unu", "zero"]
+        self.high_numwords = ["o", "două", "trei", "patru", "cinci", "șase", "șapte", "opt", "nouă"]
         self.ords = {"unu": "primul",
                      "doi": "al doilea",
                      "three": "al treilea",
@@ -53,53 +52,46 @@ class Num2Word_RO(lang_EU.Num2Word_EU):
     def merge(self, lpair, rpair):
         ltext, lnum = lpair
         rtext, rnum = rpair
-        if lnum == 1 and rnum < 100:
-            return (rtext, rnum)
-        elif 100 > lnum > rnum:
-            return ("%s-%s" % (ltext, rtext), lnum + rnum)
-        elif lnum >= 100 > rnum:
-            return ("%s și %s" % (ltext, rtext), lnum + rnum)
-        elif rnum > lnum:
-            return ("%s %s" % (ltext, rtext), lnum * rnum)
-        return ("%s, %s" % (ltext, rtext), lnum + rnum)
+        with_prefix = (100, 1000, 1000000, 1000000000)
+        if lnum == 1:
+            if rnum not in with_prefix:
+                return (rtext, rnum)
+            else:
+                return ("o %s" % rtext, rnum)
+        else:
+            if 10 < lnum < 100:
+                return ("%s și %s" % (ltext, rtext), lnum + rnum)
+            else:
+                return ("%s %s" % (ltext, rtext), lnum + rnum)
 
     def to_ordinal(self, value):
         self.verify_ordinal(value)
-        outwords = self.to_cardinal(value).split(" ")
-        lastwords = outwords[-1].split("-")
-        lastword = lastwords[-1].lower()
-        try:
-            lastword = self.ords[lastword]
-        except KeyError:
-            if lastword[-1] == "y":
-                lastword = lastword[:-1] + "ie"
-            lastword += "th"
-        lastwords[-1] = self.title(lastword)
-        outwords[-1] = "-".join(lastwords)
-        return " ".join(outwords)
+        if value == 1:
+            return "primul"
+        else:
+            value = self.to_cardinal(value)
+        return "al %slea" % (value)
 
     def to_ordinal_num(self, value):
         self.verify_ordinal(value)
-        return "%s%s" % (value, self.to_ordinal(value)[-2:])
+        if value == 1:
+            return "1-ul"
+        return "al %s-lea" % (value)
+
+    def inflect(self, value, text):
+        text = text.split("/")
+        if value == 1:
+            return text[0]
+        if text[0][-1] in "aeiou":
+            text[0] = text[0][:-1]
+        return "".join(text)
+
+    def to_currency(self, val, longval=True, old=False):
+        cents = int(round(val*100))
+        return self.to_splitnum(cents, hightxt="de leu/i", lowtxt="de ban/i",
+                                divisor=100, jointxt="și", longval=longval)
 
     def to_year(self, val, suffix=None, longval=True):
-        if val < 0:
-            val = abs(val)
-            suffix = 'BC' if not suffix else suffix
-        high, low = (val // 100, val % 100)
-        # If year is 00XX, X00X, or beyond 9999, go cardinal.
-        if (high == 0
-                or (high % 10 == 0 and low < 10)
-                or high >= 100):
-            valtext = self.to_cardinal(val)
-        else:
-            hightext = self.to_cardinal(high)
-            if low == 0:
-                lowtext = "sută"
-            elif low < 10:
-                lowtext = "oh-%s" % self.to_cardinal(low)
-            else:
-                lowtext = self.to_cardinal(low)
-            valtext = "%s %s" % (hightext, lowtext)
-        return (valtext if not suffix
-                else "%s %s" % (valtext, suffix))
+        suffix = 'î.Hr.' if not suffix else suffix
+        result = super(Num2Word_RO, self).to_year(val, suffix, longval)
+        return result
