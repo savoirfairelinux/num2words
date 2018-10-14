@@ -70,9 +70,9 @@ class Num2Word_DE(Num2Word_EU):
                      "ert": "erts",
                      "end": "ends",
                      "ion": "ions",
-                     "nen": "nens",
-                     "rde": "rdes",
-                     "rden": "rdens"}
+                     "nen": "ns",
+                     "rde": "rds",
+                     "rden": "rds"}
 
     def merge(self, curr, next):
         ctext, cnum, ntext, nnum = curr + next
