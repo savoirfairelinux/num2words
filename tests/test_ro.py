@@ -28,23 +28,23 @@ class Num2WordsROTest(TestCase):
         )
         self.assertEqual(
             num2words(22, lang='ro', to='ordinal'),
-            'al douăzeci și doilea'
+            u'al douăzeci și doilea'
         )
         self.assertEqual(
             num2words(21, lang='ro', to='ordinal'),
-            'al douăzeci și unulea'
+            u'al douăzeci și unulea'
         )
         self.assertEqual(
             num2words(12, lang='ro', to='ordinal'),
-            'al doisprezecelea'
+            u'al doisprezecelea'
         )
         self.assertEqual(
             num2words(130, lang='ro', to='ordinal'),
-            'al o sută treizecilea'
+            u'al o sută treizecilea'
         )
         self.assertEqual(
             num2words(1003, lang='ro', to='ordinal'),
-            'al o mie treilea'
+            u'al o mie treilea'
         )
 
     def test_ordinal_num(self):
@@ -72,19 +72,19 @@ class Num2WordsROTest(TestCase):
     def test_cardinal_for_float_number(self):
         self.assertEqual(
             num2words(12.5, lang='ro'),
-            'doisprezece virgulă cinci'
+            u'doisprezece virgulă cinci'
         )
         self.assertEqual(
             num2words(12.51, lang='ro'),
-            'doisprezece virgulă cinci unu'
+            u'doisprezece virgulă cinci unu'
         )
         self.assertEqual(
             num2words(12.53, lang='ro'),
-            'doisprezece virgulă cinci trei'
+            u'doisprezece virgulă cinci trei'
         )
         self.assertEqual(
             num2words(12.59, lang='ro'),
-            'doisprezece virgulă cinci nouă'
+            u'doisprezece virgulă cinci nouă'
         )
 
     # def test_big_numbers(self):
@@ -118,7 +118,7 @@ class Num2WordsROTest(TestCase):
     def test_to_currency(self):
         self.assertEqual(
             num2words(38.4, lang='ro', to='currency'),
-            "treizeci și opt de lei și patruzeci de bani"
+            u"treizeci și opt de lei și patruzeci de bani"
         )
 
         # self.assertEqual(
