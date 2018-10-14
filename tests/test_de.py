@@ -63,7 +63,7 @@ class Num2WordsDETest(TestCase):
 
     def test_giant_cardinal_for_merge(self):
         self.assertEqual(
-            num2words(45_000_729_000_00_111, lang='de'),
+            num2words(4500072900000111, lang='de'),
             "vier billiarden fünfhundert billionen " +
             "zweiundsiebzig milliarden neunhundert millionen hundertelf"
         )
