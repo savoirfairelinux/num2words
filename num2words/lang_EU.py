@@ -40,6 +40,7 @@ class Num2Word_EU(Num2Word_Base):
         'SEK': (('krona', 'kronor'), ('öre', 'öre')),
         'NOK': (('krone', 'kroner'), ('øre', 'øre')),
         'PLN': (('zloty', 'zlotys', 'zlotu'), ('grosz', 'groszy')),
+        'MXN': (('peso', 'pesos'), GENERIC_CENTS),
         'RON': (('leu', 'lei'), ('ban', 'bani')),
     }
 
@@ -50,6 +51,7 @@ class Num2Word_EU(Num2Word_Base):
         'USD': 'US',
         'RUB': 'Russian',
         'NOK': 'Norwegian',
+        'MXN': 'Mexican',
         'RON': 'Romanian',
     }
 
