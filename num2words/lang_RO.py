@@ -23,6 +23,7 @@ from . import lang_EU
 class Num2Word_RO(lang_EU.Num2Word_EU):
     GIGA_SUFFIX = "iliard/e"
     MEGA_SUFFIX = "ilion"
+    # inflection for million follows different rule
     MEGA_SUFFIX_I = "ilioane"
 
     def setup(self):
@@ -76,16 +77,15 @@ class Num2Word_RO(lang_EU.Num2Word_EU):
                 rtext_i = self.inflect(lnum * rnum, rtext)
                 lresult = (self.numwords_inflections[rnum][lnum], rtext_i)
                 return ("%s %s" % lresult, rnum)
-        else:
-            if 10 < lnum < 100:
-                if lnum % 10 == 0:
-                    return ("%s și %s" % (ltext, rtext), lnum + rnum)
-                else:
-                    return ("%s %s" % (ltext, rtext_i), lnum * rnum)
+        elif 10 < lnum < 100:
+            if lnum % 10 == 0:
+                return ("%s și %s" % (ltext, rtext), lnum + rnum)
             else:
-                if rnum in self.numwords_inflections:
-                    rtext_i = self.inflect(lnum * rnum, rtext)
                 return ("%s %s" % (ltext, rtext_i), lnum * rnum)
+        else:
+            if rnum in self.numwords_inflections:
+                rtext_i = self.inflect(lnum * rnum, rtext)
+            return ("%s %s" % (ltext, rtext_i), lnum * rnum)
 
     def to_ordinal(self, value):
         self.verify_ordinal(value)
