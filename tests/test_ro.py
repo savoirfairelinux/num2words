@@ -24,7 +24,7 @@ class Num2WordsROTest(TestCase):
     def test_ordinal(self):
         self.assertEqual(
             num2words(1, lang='ro', to='ordinal'),
-            'primul'  # poate si intaiul
+            'primul'
         )
         self.assertEqual(
             num2words(22, lang='ro', to='ordinal'),
@@ -90,19 +90,19 @@ class Num2WordsROTest(TestCase):
     def test_big_numbers(self):
         self.assertEqual(
             num2words(1000000, lang="ro"),
-            "un milion"
+            u"un milion"
         )
         self.assertEqual(
             num2words(1000000000, lang="ro"),
-            "un miliard"
+            u"un miliard"
         )
         self.assertEqual(
             num2words(33000000, lang="ro"),
-            "treizeci și trei milioane"
+            u"treizeci și trei milioane"
         )
         self.assertEqual(
             num2words(247000000000, lang="ro"),
-            "două sute patruzeci și șapte miliarde"
+            u"două sute patruzeci și șapte miliarde"
         )
 
     def test_overflow(self):
@@ -165,7 +165,7 @@ class Num2WordsROTest(TestCase):
         self.assertEqual(num2words(-44, lang='ro', to='year'),
                          u'patruzeci și patru î.Hr.')
         self.assertEqual(num2words(-44, lang='ro', to='year',
-                         suffix='î.e.n.'), u'patruzeci și patru î.e.n.')
+                         suffix=u'î.e.n.'), u'patruzeci și patru î.e.n.')
         self.assertEqual(num2words(1, lang='ro', to='year', suffix='d.Hr.'),
                          u'unu d.Hr.')
         self.assertEqual(num2words(-66000000, lang='ro', to='year'),
