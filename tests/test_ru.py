@@ -206,5 +206,6 @@ class Num2WordsRUTest(TestCase):
         )
         self.assertEqual(
             num2words('1234.56', lang='ru', to='currency', currency='USD'),
-            'одна тысяча двести тридцать четыре доллара, пятьдесят шесть центов'
+            'одна тысяча двести тридцать четыре доллара, пятьдесят шесть '
+            'центов'
         )
