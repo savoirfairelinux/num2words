@@ -87,24 +87,23 @@ class Num2WordsROTest(TestCase):
             u'doisprezece virgulă cinci nouă'
         )
 
-    # def test_big_numbers(self):
-    #     import pdb; pdb.set_trace()
-    #     self.assertEqual(
-    #         num2words(1000000),
-    #         "un milion"
-    #     )
-    #     self.assertEqual(
-    #         num2words(1000000000),
-    #         "un miliard"
-    #     )
-    #     self.assertEqual(
-    #         num2words(33000000),
-    #         "treizeci și trei de milioane"
-    #     )
-    #     self.assertEqual(
-    #         num2words(247000000000),
-    #         "două sute patruzeci și șapte de miliarde"
-    #     )
+    def test_big_numbers(self):
+        self.assertEqual(
+            num2words(1000000, lang="ro"),
+            "un milion"
+        )
+        self.assertEqual(
+            num2words(1000000000, lang="ro"),
+            "un miliard"
+        )
+        self.assertEqual(
+            num2words(33000000, lang="ro"),
+            "treizeci și trei milioane"
+        )
+        self.assertEqual(
+            num2words(247000000000, lang="ro"),
+            "două sute patruzeci și șapte miliarde"
+        )
 
     def test_overflow(self):
         with self.assertRaises(OverflowError):
@@ -118,54 +117,56 @@ class Num2WordsROTest(TestCase):
     def test_to_currency(self):
         self.assertEqual(
             num2words(38.4, lang='ro', to='currency'),
-            u"treizeci și opt de lei și patruzeci de bani"
+            u'treizeci și opt lei și patruzeci bani'
         )
 
-        # self.assertEqual(
-        #     num2words(1.01, lang='ro', to='currency'),
-        #     "un leu și un ban"
-        # )
+        self.assertEqual(
+            num2words(1.01, lang='ro', to='currency'),
+            u'un leu și un ban'
+        )
 
-        # self.assertEqual(
-        #     num2words(4778.00, lang='ro', to='currency'),
-        #     'patru mii șapte sute șaptezeci și opt de lei')
+        self.assertEqual(
+            num2words(4778.00, lang='ro', to='currency'),
+            u'patru mii șapte sute șaptezeci și opt lei')
 
-        # self.assertEqual(
-        #     num2words(4778.32, lang='ro', to='currency'),
-        #     'patru mii șapte sute șaptezeci și opt de lei'
-        #     ' și treizeci și doi de bani')
+        self.assertEqual(
+            num2words(4778.32, lang='ro', to='currency'),
+            u'patru mii șapte sute șaptezeci și opt lei'
+            u' și treizeci și doi bani')
 
-    # def test_to_year(self):
-    #     self.assertEqual(num2words(1989, lang='ro', to='year'),
-    #                      'o mie nouă sute optzeci și nouă')
-    #     self.assertEqual(num2words(1984, lang='ro', to='year'),
-    #                      'o mie nouă sute optzeci și patru')
-    #     self.assertEqual(num2words(2018, lang='ro', to='year'),
-    #                      'două mii optsprezece')
-    #     self.assertEqual(num2words(1066, lang='ro', to='year'),
-    #                      'o mie șaizeci și șase')
-    #     self.assertEqual(num2words(5000, lang='ro', to='year'),
-    #                      'cinci mii')
-    #     self.assertEqual(num2words(2001, lang='ro', to='year'),
-    #                      'două mii unu')
-    #     self.assertEqual(num2words(905, lang='ro', to='year'),
-    #                      'nouă sute cinci')
-    #     self.assertEqual(num2words(6600, lang='ro', to='year'),
-    #                      'șase mii șase sute')
-    #     self.assertEqual(num2words(1600, lang='ro', to='year'),
-    #                      'o mie sase sute')
-    #     self.assertEqual(num2words(700, lang='ro', to='year'),
-    #                      'șapte sute')
-    #     self.assertEqual(num2words(50, lang='ro', to='year'),
-    #                      'cincizeci')
-    #     self.assertEqual(num2words(0, lang='ro', to='year'),
-    #                      'zero')
-    #     # suffixes
-    #     self.assertEqual(num2words(-44, lang='ro', to='year'),
-    #                      'patruzeci și patru î.Hr.')
-    #     self.assertEqual(num2words(-44, lang='ro', to='year',),
-    #                      suffix='î.e.n.', 'patruzeci și patru î.e.n.')
-    #     self.assertEqual(num2words(1, lang='ro', to='year', suffix='d.Hr.'),
-    #                      'unu d.Hr.')
-    #     self.assertEqual(num2words(-66000000, lang='ro', to='year'),
-    #                      'șaizeci și șase milioane î.Hr.')
+    def test_to_year(self):
+        self.assertEqual(num2words(1989, lang='ro', to='year'),
+                         u'o mie nouă sute optzeci și nouă')
+        self.assertEqual(num2words(1984, lang='ro', to='year'),
+                         u'o mie nouă sute optzeci și patru')
+        self.assertEqual(num2words(2018, lang='ro', to='year'),
+                         u'două mii optsprezece')
+        self.assertEqual(num2words(1066, lang='ro', to='year'),
+                         u'o mie șaizeci și șase')
+        self.assertEqual(num2words(5000, lang='ro', to='year'),
+                         u'cinci mii')
+        self.assertEqual(num2words(2001, lang='ro', to='year'),
+                         u'două mii unu')
+        self.assertEqual(num2words(905, lang='ro', to='year'),
+                         u'nouă sute cinci')
+        self.assertEqual(num2words(6600, lang='ro', to='year'),
+                         u'șase mii șase sute')
+        self.assertEqual(num2words(1600, lang='ro', to='year'),
+                         u'o mie șase sute')
+        self.assertEqual(num2words(700, lang='ro', to='year'),
+                         u'șapte sute')
+        self.assertEqual(num2words(50, lang='ro', to='year'),
+                         u'cincizeci')
+        self.assertEqual(num2words(0, lang='ro', to='year'),
+                         u'zero')
+        self.assertEqual(num2words(10, lang='ro', to='year'),
+                         u'zece')
+        # suffixes
+        self.assertEqual(num2words(-44, lang='ro', to='year'),
+                         u'patruzeci și patru î.Hr.')
+        self.assertEqual(num2words(-44, lang='ro', to='year',
+                         suffix='î.e.n.'), u'patruzeci și patru î.e.n.')
+        self.assertEqual(num2words(1, lang='ro', to='year', suffix='d.Hr.'),
+                         u'unu d.Hr.')
+        self.assertEqual(num2words(-66000000, lang='ro', to='year'),
+                         u'șaizeci și șase milioane î.Hr.')
