@@ -46,9 +46,9 @@ class Num2Word_RO(lang_EU.Num2Word_EU):
                              "șase", "cinci", "patru", "trei", "doi",
                              "unu", "zero"]
         self.gen_numwords = ["", "o", "două", "trei", "patru", "cinci",
-                              "șase", "șapte", "opt", "nouă"]
+                             "șase", "șapte", "opt", "nouă"]
         self.gen_numwords_m = ["", "un", "două", "trei", "patru", "cinci",
-                              "șase", "șapte", "opt", "nouă"]
+                               "șase", "șapte", "opt", "nouă"]
         self.numwords_inflections = {
             100: self.gen_numwords,
             1000: self.gen_numwords,
@@ -81,7 +81,7 @@ class Num2Word_RO(lang_EU.Num2Word_EU):
                 if lnum % 10 == 0:
                     return ("%s și %s" % (ltext, rtext), lnum + rnum)
                 else:
-                    return ("%s %s" % (ltext, rtext_i), lnum * rnum) 
+                    return ("%s %s" % (ltext, rtext_i), lnum * rnum)
             else:
                 if rnum in self.numwords_inflections:
                     rtext_i = self.inflect(lnum * rnum, rtext)
