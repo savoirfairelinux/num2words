@@ -5,5 +5,16 @@ python:
   - "3.4"
   - "3.5"
   - "3.6"
-install: pip install tox-travis
+matrix:
+  include:
+    - { python: 3.6, env: TOXENV=flake8 }
+    - { python: 3.6, env: TOXENV=isort }
+    # Py37 requires xenial distrubution and sudo
+    # See travis-ci/travis-ci#9069
+    - { python: 3.7, dist: xenial, sudo: true }
+
+install:
+  - pip install tox-travis
+  - pip install coveralls
 script: tox
+after_success: coveralls
