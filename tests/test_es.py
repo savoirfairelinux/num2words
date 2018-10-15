@@ -142,6 +142,17 @@ TEST_CASES_TO_CURRENCY_USD = (
     (100.00, 'cien dolares con cero centavos'),
 )
 
+TEST_CASES_TO_CURRENCY_PEN = (
+    (1.00, 'un sol con cero centimos'),
+    (2.00, 'dos soles con cero centimos'),
+    (8.00, 'ocho soles con cero centimos'),
+    (12.00, 'doce soles con cero centimos'),
+    (21.00, 'veintiun soles con cero centimos'),
+    (81.25, 'ochenta y un soles con veinticinco centimos'),
+    (350.90, 'trescientos cincuenta soles con noventa centimos'),
+    (100.00, 'cien soles con cero centimos'),
+)
+
 
 class Num2WordsESTest(TestCase):
 
@@ -181,5 +192,12 @@ class Num2WordsESTest(TestCase):
         for test in TEST_CASES_TO_CURRENCY_USD:
             self.assertEqual(
                 num2words(test[0], lang='es', to='currency', currency='USD'),
+                test[1]
+            )
+
+    def test_currency_pen(self):
+        for test in TEST_CASES_TO_CURRENCY_PEN:
+            self.assertEqual(
+                num2words(test[0], lang='es', to='currency', currency='PEN'),
                 test[1]
             )
