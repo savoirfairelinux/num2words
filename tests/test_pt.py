@@ -113,6 +113,26 @@ class Num2WordsPTTest(TestCase):
             num2words(1000000000000, lang='pt'),
             'um bilião'
         )
+        self.assertEqual(
+            num2words(2000000000000, lang='pt'),
+            'dois biliões'
+        )
+        self.assertEqual(
+            num2words(1000000000000000, lang='pt'),
+            'mil biliões'
+        )
+        self.assertEqual(
+            num2words(2000000000000000, lang='pt'),
+            'dois mil biliões'
+        )
+        self.assertEqual(
+            num2words(1000000000000000000, lang='pt'),
+            'um trilião'
+        )
+        self.assertEqual(
+            num2words(2000000000000000000, lang='pt'),
+            'dois triliões'
+        )
 
     def test_cardinal_integer_negative(self):
         self.assertEqual(num2words(-1, lang='pt'), 'menos um')
@@ -339,6 +359,12 @@ class Num2WordsPTTest(TestCase):
             self.n2w.to_currency(145000000002.00),
             'cento e quarenta e cinco mil milhões e dois euros'
         )
+        self.assertEqual(self.n2w.to_currency(1.00, currency='USD'),
+                         'um dólar')
+        self.assertEqual(self.n2w.to_currency(1.50, currency='USD'),
+                         'um dólar e cinquenta cêntimos')
+        with self.assertRaises(NotImplementedError):
+            self.n2w.to_currency(1.00, currency='CHF')
 
     def test_currency_integer_negative(self):
         self.assertEqual(self.n2w.to_currency(-1.00), 'menos um euro')
@@ -422,3 +448,7 @@ class Num2WordsPTTest(TestCase):
             'setecentos e quarenta e quatro antes de Cristo'
         )
         self.assertEqual(self.n2w.to_year(-10000), 'dez mil antes de Cristo')
+
+    def test_to_ordinal_num(self):
+        self.assertEqual(self.n2w.to_ordinal_num(1), '1º')
+        self.assertEqual(self.n2w.to_ordinal_num(100), '100º')
