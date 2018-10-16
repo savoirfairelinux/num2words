@@ -102,7 +102,7 @@ Besides the numerical argument, there are two main optional arguments.
 * ``ru`` (Russian)
 * ``tr`` (Turkish)
 * ``th`` (Thai)
-* ``vn`` (Vietnamese)
+* ``vi`` (Vietnamese)
 * ``nl`` (Dutch)
 * ``uk`` (Ukrainian)
 
