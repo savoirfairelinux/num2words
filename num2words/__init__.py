@@ -41,7 +41,7 @@ from . import lang_HE
 from . import lang_IT
 from . import lang_ES_VE
 from . import lang_ES_CO
-from . import lang_VN
+from . import lang_VI
 from . import lang_TR
 from . import lang_NL
 from . import lang_UK
@@ -75,7 +75,7 @@ CONVERTER_CLASSES = {
     'pt_BR': lang_PT_BR.Num2Word_PT_BR(),
     'he': lang_HE.Num2Word_HE(),
     'it': lang_IT.Num2Word_IT(),
-    'vi_VN': lang_VN.Num2Word_VN(),
+    'vi': lang_VI.Num2Word_VI(),
     'th': lang_TH.Num2Word_TH(),
     'tr': lang_TR.Num2Word_TR(),
     'nl': lang_NL.Num2Word_NL(),
