@@ -17,4 +17,4 @@ install:
   - pip install tox-travis
   - pip install coveralls
 script: tox
-after_success: coveralls
+after_success: if [ -e .coverage ]; then coveralls; fi
