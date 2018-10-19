@@ -41,6 +41,7 @@ class Num2Word_EU(Num2Word_Base):
         'NOK': (('krone', 'kroner'), ('øre', 'øre')),
         'PLN': (('zloty', 'zlotys', 'zlotu'), ('grosz', 'groszy')),
         'MXN': (('peso', 'pesos'), GENERIC_CENTS),
+        'RON': (('leu', 'lei'), ('ban', 'bani')),
     }
 
     CURRENCY_ADJECTIVES = {
@@ -51,6 +52,7 @@ class Num2Word_EU(Num2Word_Base):
         'RUB': 'Russian',
         'NOK': 'Norwegian',
         'MXN': 'Mexican',
+        'RON': 'Romanian',
     }
 
     GIGA_SUFFIX = "illiard"

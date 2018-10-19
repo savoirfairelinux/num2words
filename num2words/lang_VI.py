@@ -31,7 +31,7 @@ denom = ('',
          'Octodecillion', 'Novemdecillion', 'Vigintillion')
 
 
-class Num2Word_VN(object):
+class Num2Word_VI(object):
 
     def _convert_nn(self, val):
         if val < 20:
