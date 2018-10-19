@@ -46,6 +46,7 @@ from . import lang_NL
 from . import lang_UK
 from . import lang_SL
 from . import lang_TH
+from . import lang_KO
 
 CONVERTER_CLASSES = {
     'ar': lang_AR.Num2Word_AR(),
@@ -63,6 +64,7 @@ CONVERTER_CLASSES = {
     'es_VE': lang_ES_VE.Num2Word_ES_VE(),
     'id': lang_ID.Num2Word_ID(),
     'ja': lang_JA.Num2Word_JA(),
+    'ko': lang_KO.Num2Word_KO(),
     'lt': lang_LT.Num2Word_LT(),
     'lv': lang_LV.Num2Word_LV(),
     'pl': lang_PL.Num2Word_PL(),

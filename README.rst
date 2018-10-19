@@ -92,6 +92,7 @@ Besides the numerical argument, there are two main optional arguments.
 * ``id`` (Indonesian)
 * ``it`` (Italian)
 * ``ja`` (Japanese)
+* ``ko`` (Korean)
 * ``lt`` (Lithuanian)
 * ``lv`` (Latvian)
 * ``no`` (Norwegian)
