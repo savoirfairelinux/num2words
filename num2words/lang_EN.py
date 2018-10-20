@@ -44,9 +44,14 @@ class Num2Word_EN(lang_EU.Num2Word_EU):
         self.ords = {"one": "first",
                      "two": "second",
                      "three": "third",
+                     "four": "fourth",
                      "five": "fifth",
+                     "six": "sixth",
+                     "seven": "seventh",
                      "eight": "eighth",
                      "nine": "ninth",
+                     "ten": "tenth",
+                     "eleven": "eleventh",
                      "twelve": "twelfth"}
 
     def merge(self, lpair, rpair):
