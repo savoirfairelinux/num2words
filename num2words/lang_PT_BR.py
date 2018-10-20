@@ -20,10 +20,10 @@ from __future__ import division, unicode_literals
 
 import re
 
-from . import lang_EU
+from . import lang_PT
 
 
-class Num2Word_PT_BR(lang_EU.Num2Word_EU):
+class Num2Word_PT_BR(lang_PT.Num2Word_PT):
     def set_high_numwords(self, high):
         max = 3 + 3*len(high)
         for word, n in zip(high, range(max, 3, -3)):
@@ -32,76 +32,16 @@ class Num2Word_PT_BR(lang_EU.Num2Word_EU):
     def setup(self):
         super(Num2Word_PT_BR, self).setup()
 
-        self.negword = "menos "
-        self.pointword = "vírgula"
-        self.exclude_title = ["e", "vírgula", "menos"]
+        self.low_numwords[1] = 'dezenove'
+        self.low_numwords[3] = 'dezessete'
+        self.low_numwords[4] = 'dezesseis'
 
-        self.mid_numwords = [
-            (1000, "mil"), (100, "cem"), (90, "noventa"),
-            (80, "oitenta"), (70, "setenta"), (60, "sessenta"),
-            (50, "cinquenta"), (40, "quarenta"), (30, "trinta")
-        ]
-        self.low_numwords = [
-            "vinte", "dezenove", "dezoito", "dezessete", "dezesseis",
-            "quinze", "catorze", "treze", "doze", "onze", "dez",
-            "nove", "oito", "sete", "seis", "cinco", "quatro", "três", "dois",
-            "um", "zero"
-        ]
-        self.ords = [
-            {
-                0: "",
-                1: "primeiro",
-                2: "segundo",
-                3: "terceiro",
-                4: "quarto",
-                5: "quinto",
-                6: "sexto",
-                7: "sétimo",
-                8: "oitavo",
-                9: "nono",
-            },
-            {
-                0: "",
-                1: "décimo",
-                2: "vigésimo",
-                3: "trigésimo",
-                4: "quadragésimo",
-                5: "quinquagésimo",
-                6: "sexagésimo",
-                7: "septuagésimo",
-                8: "octogésimo",
-                9: "nonagésimo",
-            },
-            {
-                0: "",
-                1: "centésimo",
-                2: "ducentésimo",
-                3: "tricentésimo",
-                4: "quadrigentésimo",
-                5: "quingentésimo",
-                6: "seiscentésimo",
-                7: "septigentésimo",
-                8: "octigentésimo",
-                9: "nongentésimo",
-            },
-        ]
         self.thousand_separators = {
             3: "milésimo",
             6: "milionésimo",
             9: "bilionésimo",
             12: "trilionésimo",
             15: "quadrilionésimo"
-        }
-        self.hundreds = {
-            1: "cento",
-            2: "duzentos",
-            3: "trezentos",
-            4: "quatrocentos",
-            5: "quinhentos",
-            6: "seiscentos",
-            7: "setecentos",
-            8: "oitocentos",
-            9: "novecentos",
         }
 
     def merge(self, curr, next):
@@ -132,7 +72,7 @@ class Num2Word_PT_BR(lang_EU.Num2Word_EU):
         return (ctext + ntext, cnum * nnum)
 
     def to_cardinal(self, value):
-        result = super(Num2Word_PT_BR, self).to_cardinal(value)
+        result = lang_PT.Num2Word_EU.to_cardinal(self, value)
 
         # Transforms "mil E cento e catorze reais" into "mil, cento e catorze
         # reais"
@@ -145,44 +85,6 @@ class Num2Word_PT_BR(lang_EU.Num2Word_EU):
                 )
 
         return result
-
-    def to_ordinal(self, value):
-        self.verify_ordinal(value)
-
-        result = []
-        value = str(value)
-        thousand_separator = ''
-
-        for idx, char in enumerate(value[::-1]):
-            if idx and idx % 3 == 0:
-                thousand_separator = self.thousand_separators[idx]
-
-            if char != '0' and thousand_separator:
-                # avoiding "segundo milionésimo milésimo" for 6000000,
-                # for instance
-                result.append(thousand_separator)
-                thousand_separator = ''
-
-            result.append(self.ords[idx % 3][int(char)])
-
-        result = ' '.join(result[::-1])
-        result = result.strip()
-        result = re.sub('\s+', ' ', result)
-
-        if result.startswith('primeiro') and value != '1':
-            # avoiding "primeiro milésimo", "primeiro milionésimo" and so on
-            result = result[9:]
-
-        return result
-
-    def to_ordinal_num(self, value):
-        self.verify_ordinal(value)
-        return "%sº" % (value)
-
-    def to_year(self, val, longval=True):
-        if val < 0:
-            return self.to_cardinal(abs(val)) + ' antes de Cristo'
-        return self.to_cardinal(val)
 
     def to_currency(self, val, longval=True):
         integer_part, decimal_part = ('%.2f' % val).split('.')
