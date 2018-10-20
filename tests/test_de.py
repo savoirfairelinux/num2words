@@ -61,6 +61,17 @@ class Num2WordsDETest(TestCase):
             num2words(3.486, lang='de'), "drei Komma vier acht sechs"
         )
 
+    def test_giant_cardinal_for_merge(self):
+        self.assertEqual(
+            num2words(4500072900000111, lang='de'),
+            "vier billiarden fünfhundert billionen " +
+            "zweiundsiebzig milliarden neunhundert millionen hundertelf"
+        )
+
+    def test_ordinal_num(self):
+        self.assertEqual(num2words(7, to="ordinal_num", lang='de'), "7.")
+        self.assertEqual(num2words(81, to="ordinal_num", lang='de'), "81.")
+
     def test_ordinal_for_negative_numbers(self):
         self.assertRaises(TypeError, num2words, -12, ordinal=True, lang='de')
 
