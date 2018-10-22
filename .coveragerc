@@ -1,3 +1,5 @@
 [run]
 branch = true
-source = num2words
+source =
+    num2words
+    tests
