@@ -35,6 +35,11 @@ The test suite in this library is new, so it's rather thin, but it can be run wi
 
     python setup.py test
 
+To run the full CI test suite which includes linting and multiple python environments::
+
+    pip install tox
+    tox
+
 Usage
 -----
 Command line::

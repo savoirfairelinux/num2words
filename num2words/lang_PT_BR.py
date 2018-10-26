@@ -79,7 +79,7 @@ class Num2Word_PT_BR(lang_PT.Num2Word_PT):
         for ext in (
                 'mil', 'milhão', 'milhões', 'bilhão', 'bilhões',
                 'trilhão', 'trilhões', 'quatrilhão', 'quatrilhões'):
-            if re.match('.*{} e \w*ento'.format(ext), result):
+            if re.match('.*{} e \\w*ento'.format(ext), result):
                 result = result.replace(
                     '{} e'.format(ext), '{},'.format(ext), 1
                 )

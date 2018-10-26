@@ -157,7 +157,7 @@ class Num2Word_PT(Num2Word_EU):
         for ext in (
                 'mil', 'milhão', 'milhões', 'mil milhões',
                 'bilião', 'biliões', 'mil biliões'):
-            if re.match('.*{} e \w*entos? (?=.*e)'.format(ext), result):
+            if re.match('.*{} e \\w*entos? (?=.*e)'.format(ext), result):
                 result = result.replace(
                     '{} e'.format(ext), '{}'.format(ext)
                 )
@@ -195,7 +195,7 @@ class Num2Word_PT(Num2Word_EU):
 
         result = ' '.join(result[::-1])
         result = result.strip()
-        result = re.sub('\s+', ' ', result)
+        result = re.sub('\\s+', ' ', result)
 
         if result.startswith('primeiro') and value != '1':
             # avoiding "primeiro milésimo", "primeiro milionésimo" and so on
