@@ -117,11 +117,11 @@ class Num2Word_DE(Num2Word_EU):
         return str(value) + "."
 
     def to_currency(self, val, longval=True, old=False):
-        hightxt = "euro"
-        lowtxt = "cent"
+        hightxt = "Euro"
+        lowtxt = "Cent"
         if old:
-            hightxt = "mark"
-            lowtxt = "pfennig/e"
+            hightxt = "Mark"
+            lowtxt = "Pfennig/e"
 
         return self.to_splitnum(val, hightxt=hightxt, lowtxt=lowtxt,
                                 jointxt="und", longval=longval)
