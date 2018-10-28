@@ -124,8 +124,14 @@ class Num2Word_DE(Num2Word_EU):
             lowtxt = "Pfennig/e"
 
         cents = int(round(val*100))
-        return self.to_splitnum(cents, hightxt=hightxt, lowtxt=lowtxt,
-                                jointxt="und", longval=longval)
+        res = self.to_splitnum(cents, hightxt=hightxt, lowtxt=lowtxt,
+                               jointxt="und", longval=longval)
+
+        # Handle exception, in german is "ein Euro" and not "eins Euro"
+        if res.startswith("eins "):
+            res = res.replace("eins ", "ein ", 1)
+
+        return res
 
     def to_year(self, val, longval=True):
         if not (val // 100) % 10:
