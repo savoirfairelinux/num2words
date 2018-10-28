@@ -78,7 +78,9 @@ class Num2Word_DE(Num2Word_EU):
         ctext, cnum, ntext, nnum = curr + next
 
         if cnum == 1:
-            if nnum < 10 ** 6:
+            if nnum == 100 or nnum == 1000:
+                return ("ein" + ntext, nnum)
+            elif nnum < 10 ** 6:
                 return next
             ctext = "eine"
 
@@ -110,7 +112,14 @@ class Num2Word_DE(Num2Word_EU):
             if outword.endswith(key):
                 outword = outword[:len(outword) - len(key)] + self.ords[key]
                 break
-        return outword + "te"
+
+        res = outword + "te"
+
+        # Exception: "hundertste" is usually preferred over "einhundertste"
+        if res == "eintausendste" or res == "einhundertste":
+            res = res.replace("ein", "", 1)
+
+        return res
 
     def to_ordinal_num(self, value):
         self.verify_ordinal(value)
