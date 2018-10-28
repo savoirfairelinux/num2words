@@ -123,7 +123,8 @@ class Num2Word_DE(Num2Word_EU):
             hightxt = "Mark"
             lowtxt = "Pfennig/e"
 
-        return self.to_splitnum(val, hightxt=hightxt, lowtxt=lowtxt,
+        cents = int(round(val*100))
+        return self.to_splitnum(cents, hightxt=hightxt, lowtxt=lowtxt,
                                 jointxt="und", longval=longval)
 
     def to_year(self, val, longval=True):
