@@ -96,6 +96,9 @@ class Num2Word_Base(object):
             return '%s ' % self.negword, num_str[1:]
         return '', num_str
 
+    def str_to_number(self, value):
+        return Decimal(value)
+
     def to_cardinal(self, value):
         try:
             assert int(value) == value

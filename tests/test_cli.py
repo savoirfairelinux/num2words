@@ -72,7 +72,7 @@ class CliTestCase(unittest.TestCase):
         self.assertEqual(output.return_code, 0)
         self.assertEqual(
             output.out.strip(),
-            "one hundred and fifty point zero"
+            "one hundred and fifty"
         )
 
     def test_cli_with_lang(self):
@@ -82,7 +82,7 @@ class CliTestCase(unittest.TestCase):
         self.assertEqual(output.return_code, 0)
         self.assertEqual(
             output.out.strip(),
-            "ciento cincuenta punto cero"
+            "ciento cincuenta"
         )
 
     def test_cli_with_lang_to(self):
