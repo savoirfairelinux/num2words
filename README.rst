@@ -35,6 +35,11 @@ The test suite in this library is new, so it's rather thin, but it can be run wi
 
     python setup.py test
 
+To run the full CI test suite which includes linting and multiple python environments::
+
+    pip install tox
+    tox
+
 Usage
 -----
 Command line::
@@ -97,12 +102,14 @@ Besides the numerical argument, there are two main optional arguments.
 * ``lv`` (Latvian)
 * ``no`` (Norwegian)
 * ``pl`` (Polish)
+* ``pt`` (Portuguese)
 * ``pt_BR`` (Portuguese - Brazilian)
-* ``sl`` (Slovene)
+* ``ro`` (Romanian)
 * ``ru`` (Russian)
+* ``sl`` (Slovene)
 * ``tr`` (Turkish)
 * ``th`` (Thai)
-* ``vn`` (Vietnamese)
+* ``vi`` (Vietnamese)
 * ``nl`` (Dutch)
 * ``uk`` (Ukrainian)
 

@@ -103,11 +103,35 @@ class Num2Word_RU(Num2Word_Base):
         'EUR': (
             ('евро', 'евро', 'евро'), ('цент', 'цента', 'центов')
         ),
+        'USD': (
+            ('доллар', 'доллара', 'долларов'), ('цент', 'цента', 'центов')
+        ),
     }
 
     def setup(self):
         self.negword = "минус"
         self.pointword = "запятая"
+        self.ords = {"ноль": "нулевой",
+                     "один": "первый",
+                     "два": "второй",
+                     "три": "третий",
+                     "четыре": "четвертый",
+                     "пять": "пятый",
+                     "шесть": "шестой",
+                     "семь": "седьмой",
+                     "восемь": "восьмой",
+                     "девять": "девятый",
+                     "сто": "сотый"}
+        self.ords_feminine = {"один": "",
+                              "одна": "",
+                              "две": "двух",
+                              "три": "трёх",
+                              "четыре": "четырёх",
+                              "пять": "пяти",
+                              "шесть": "шести",
+                              "семь": "семи",
+                              "восемь": "восьми",
+                              "девять": "девяти"}
 
     def to_cardinal(self, number):
         n = str(number).replace(',', '.')
@@ -134,7 +158,41 @@ class Num2Word_RU(Num2Word_Base):
         return forms[form]
 
     def to_ordinal(self, number):
-        raise NotImplementedError()
+        self.verify_ordinal(number)
+        outwords = self.to_cardinal(number).split(" ")
+        lastword = outwords[-1].lower()
+        try:
+            if len(outwords) > 1:
+                if outwords[-2] in self.ords_feminine:
+                    outwords[-2] = self.ords_feminine.get(
+                        outwords[-2], outwords[-2])
+                elif outwords[-2] == 'десять':
+                    outwords[-2] = outwords[-2][:-1] + 'и'
+            if len(outwords) == 3:
+                if outwords[-3] in ['один', 'одна']:
+                    outwords[-3] = ''
+            lastword = self.ords[lastword]
+        except KeyError:
+            if lastword[:-3] in self.ords_feminine:
+                lastword = self.ords_feminine.get(
+                    lastword[:-3], lastword) + "сотый"
+            elif lastword[-1] == "ь" or lastword[-2] == "т":
+                lastword = lastword[:-1] + "ый"
+            elif lastword[-1] == "к":
+                lastword = lastword + "овой"
+            elif lastword[-5:] == "десят":
+                lastword = lastword.replace('ь', 'и') + 'ый'
+            elif lastword[-2] == "ч" or lastword[-1] == "ч":
+                if lastword[-2] == "ч":
+                    lastword = lastword[:-1] + "ный"
+                if lastword[-1] == "ч":
+                    lastword = lastword + "ный"
+            elif lastword[-1] == "н" or lastword[-2] == "н":
+                lastword = lastword[:lastword.rfind('н') + 1] + "ный"
+            elif lastword[-1] == "д" or lastword[-2] == "д":
+                lastword = lastword[:lastword.rfind('д') + 1] + "ный"
+        outwords[-1] = self.title(lastword)
+        return " ".join(outwords).strip()
 
     def _cents_verbose(self, number, currency):
         return self._int2word(number, currency == 'RUB')

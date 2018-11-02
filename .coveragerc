@@ -1,4 +1,5 @@
-[report]
-omit =
-    */.tox/*
-    */tests/*
+[run]
+branch = true
+source =
+    num2words
+    tests
