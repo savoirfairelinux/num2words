@@ -79,17 +79,6 @@ class Num2Word_KO(Num2Word_Base):
                      "팔십": "여든",
                      "구십": "아흔"}
 
-    # def set_mid_numwords(self, mid):
-    #     super(Num2Word_KO, self).set_mid_numwords(mid)
-    #     for i in range(2, 10):
-    #         self.cards[i*100] = self.low_numwords[i] + self.cards[100]
-    #
-    # def set_low_numwords(self, numwords):
-    #     super(Num2Word_KO, self).set_low_numwords(numwords)
-    #     for i in range(2, 10):
-    #         self.cards[10+i] = self.cards[10] + self.low_numwords[i]
-    #         self.cards[i*10] = self.low_numwords[i] + self.cards[10]
-
     def merge(self, lpair, rpair):
         ltext, lnum = lpair
         rtext, rnum = rpair
