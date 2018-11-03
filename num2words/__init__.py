@@ -48,9 +48,11 @@ from . import lang_NL
 from . import lang_UK
 from . import lang_SL
 from . import lang_TH
+from . import lang_CH
 
 CONVERTER_CLASSES = {
     'ar': lang_AR.Num2Word_AR(),
+    'ch': lang_CH.Num2Word_CH(),
     'cz': lang_CZ.Num2Word_CZ(),
     'en': lang_EN.Num2Word_EN(),
     'en_IN': lang_EN_IN.Num2Word_EN_IN(),
