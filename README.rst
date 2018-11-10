@@ -103,6 +103,8 @@ Besides the numerical argument, there are two main optional arguments.
 * ``pl`` (Polish)
 * ``pt`` (Portuguese)
 * ``pt_BR`` (Portuguese - Brazilian)
+* ``sl`` (Slovene)
+* ``sr`` (Serbian)
 * ``ro`` (Romanian)
 * ``ru`` (Russian)
 * ``sl`` (Slovene)

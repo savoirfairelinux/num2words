@@ -47,6 +47,7 @@ from . import lang_TR
 from . import lang_NL
 from . import lang_UK
 from . import lang_SL
+from . import lang_SR
 from . import lang_TH
 
 CONVERTER_CLASSES = {
@@ -71,6 +72,7 @@ CONVERTER_CLASSES = {
     'ro': lang_RO.Num2Word_RO(),
     'ru': lang_RU.Num2Word_RU(),
     'sl': lang_SL.Num2Word_SL(),
+    'sr': lang_SR.Num2Word_SR(),
     'no': lang_NO.Num2Word_NO(),
     'dk': lang_DK.Num2Word_DK(),
     'pt': lang_PT.Num2Word_PT(),
