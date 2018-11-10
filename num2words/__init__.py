@@ -30,11 +30,13 @@ from . import lang_FI
 from . import lang_LT
 from . import lang_LV
 from . import lang_PL
+from . import lang_RO
 from . import lang_RU
 from . import lang_ID
 from . import lang_JA
 from . import lang_NO
 from . import lang_DK
+from . import lang_PT
 from . import lang_PT_BR
 from . import lang_HE
 from . import lang_IT
@@ -67,11 +69,13 @@ CONVERTER_CLASSES = {
     'lt': lang_LT.Num2Word_LT(),
     'lv': lang_LV.Num2Word_LV(),
     'pl': lang_PL.Num2Word_PL(),
+    'ro': lang_RO.Num2Word_RO(),
     'ru': lang_RU.Num2Word_RU(),
     'sl': lang_SL.Num2Word_SL(),
     'sr': lang_SR.Num2Word_SR(),
     'no': lang_NO.Num2Word_NO(),
     'dk': lang_DK.Num2Word_DK(),
+    'pt': lang_PT.Num2Word_PT(),
     'pt_BR': lang_PT_BR.Num2Word_PT_BR(),
     'he': lang_HE.Num2Word_HE(),
     'it': lang_IT.Num2Word_IT(),

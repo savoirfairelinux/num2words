@@ -3,5 +3,4 @@ flake8-copyright
 isort
 pep8<1.6
 coverage
-coveralls
 delegator.py
