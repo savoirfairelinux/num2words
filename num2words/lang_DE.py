@@ -78,7 +78,9 @@ class Num2Word_DE(Num2Word_EU):
         ctext, cnum, ntext, nnum = curr + next
 
         if cnum == 1:
-            if nnum < 10 ** 6:
+            if nnum == 100 or nnum == 1000:
+                return ("ein" + ntext, nnum)
+            elif nnum < 10 ** 6:
                 return next
             ctext = "eine"
 
@@ -110,21 +112,35 @@ class Num2Word_DE(Num2Word_EU):
             if outword.endswith(key):
                 outword = outword[:len(outword) - len(key)] + self.ords[key]
                 break
-        return outword + "te"
+
+        res = outword + "te"
+
+        # Exception: "hundertste" is usually preferred over "einhundertste"
+        if res == "eintausendste" or res == "einhundertste":
+            res = res.replace("ein", "", 1)
+
+        return res
 
     def to_ordinal_num(self, value):
         self.verify_ordinal(value)
         return str(value) + "."
 
     def to_currency(self, val, longval=True, old=False):
-        hightxt = "euro"
-        lowtxt = "cent"
+        hightxt = "Euro"
+        lowtxt = "Cent"
         if old:
-            hightxt = "mark"
-            lowtxt = "pfennig/e"
+            hightxt = "Mark"
+            lowtxt = "Pfennig/e"
 
-        return self.to_splitnum(val, hightxt=hightxt, lowtxt=lowtxt,
-                                jointxt="und", longval=longval)
+        cents = int(round(val*100))
+        res = self.to_splitnum(cents, hightxt=hightxt, lowtxt=lowtxt,
+                               jointxt="und", longval=longval)
+
+        # Handle exception, in german is "ein Euro" and not "eins Euro"
+        if res.startswith("eins "):
+            res = res.replace("eins ", "ein ", 1)
+
+        return res
 
     def to_year(self, val, longval=True):
         if not (val // 100) % 10:
