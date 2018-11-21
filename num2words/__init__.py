@@ -27,6 +27,7 @@ from . import lang_FR_DZ
 from . import lang_DE
 from . import lang_ES
 from . import lang_FI
+from . import lang_HI
 from . import lang_LT
 from . import lang_LV
 from . import lang_PL
@@ -65,6 +66,7 @@ CONVERTER_CLASSES = {
     'es': lang_ES.Num2Word_ES(),
     'es_CO': lang_ES_CO.Num2Word_ES_CO(),
     'es_VE': lang_ES_VE.Num2Word_ES_VE(),
+    'hi': lang_HI.Num2Word_HI(),
     'id': lang_ID.Num2Word_ID(),
     'ja': lang_JA.Num2Word_JA(),
     'ko': lang_KO.Num2Word_KO(),
