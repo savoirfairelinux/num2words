@@ -70,16 +70,27 @@ HUNDREDS = {
 }
 
 THOUSANDS = {
-    1: ('tysiąc', 'tysiące', 'tysięcy'),  # 10^3
-    2: ('milion', 'miliony', 'milionów'),  # 10^6
-    3: ('miliard', 'miliardy', 'miliardów'),  # 10^9
-    4: ('bilion', 'biliony', 'bilionów'),  # 10^12
-    5: ('biliard', 'biliardy', 'biliardów'),  # 10^15
-    6: ('trylion', 'tryliony', 'trylionów'),  # 10^18
-    7: ('tryliard', 'tryliardy', 'tryliardów'),  # 10^21
-    8: ('kwadrylion', 'kwadryliony', 'kwadrylionów'),  # 10^24
-    9: ('kwaryliard', 'kwadryliardy', 'kwadryliardów'),  # 10^27
-    10: ('kwintylion', 'kwintyliony', 'kwintylionów'),  # 10^30
+    1: ('tysiąc',       'tysiące',      'tysięcy'),       # 10^3
+    2: ('milion',       'miliony',      'milionów'),      # 10^6
+    3: ('miliard',      'miliardy',     'miliardów'),     # 10^9
+    4: ('bilion',       'biliony',      'bilionów'),      # 10^12
+    5: ('biliard',      'biliardy',     'biliardów'),     # 10^15
+    6: ('trylion',      'tryliony',     'trylionów'),     # 10^18
+    7: ('tryliard',     'tryliardy',    'tryliardów'),    # 10^21
+    8: ('kwadrylion',   'kwadryliony',  'kwadrylionów'),  # 10^24
+    9: ('kwadryliard',  'kwadryliardy', 'kwadryliardów'), # 10^27
+    10: ('kwintylion',  'kwintyliony',  'kwintylionów'),  # 10^30
+    11: ('kwintyliard', 'kwintyliardy', 'kwintyliardów'), # 10^33
+    12: ('sekstylion',  'sekstyliony',  'sekstylionów'),  # 10^36
+    13: ('sekstyliard', 'sekstyliardy', 'sekstyliardów'), # 10^39
+    14: ('septylion',   'septyliony',   'septylionów'),   # 10^42
+    15: ('septyliard',  'septyliardy',  'septyliardów'),  # 10^45
+    16: ('oktylion',    'oktyliony',    'oktylionów'),    # 10^48
+    17: ('oktyliard',   'oktyliardy',   'oktyliardów'),   # 10^51
+    18: ('nonylion',    'nonyliony',    'nonylionów'),    # 10^54
+    19: ('nonyliard',   'nonyliardy',   'nonyliardów'),   # 10^57
+    20: ('decylion',    'decyliony',    'decylionów'),    # 10^60
+    21: ('decyliard',   'decyliardy',   'decyliardów'),   # 10^63
 }
 
 
@@ -92,11 +103,11 @@ class Num2Word_PL(Num2Word_Base):
             ('euro', 'euro', 'euro'), ('cent', 'centy', 'centów')
         ),
     }
-
+    
     def setup(self):
         self.negword = "minus"
         self.pointword = "przecinek"
-
+    
     def to_cardinal(self, number):
         n = str(number).replace(',', '.')
         if '.' in n:
@@ -108,7 +119,7 @@ class Num2Word_PL(Num2Word_Base):
             )
         else:
             return self._int2word(int(n))
-
+    
     def pluralize(self, n, forms):
         if n == 1:
             form = 0
@@ -117,33 +128,33 @@ class Num2Word_PL(Num2Word_Base):
         else:
             form = 2
         return forms[form]
-
+    
     def to_ordinal(self, number):
         raise NotImplementedError()
-
+    
     def _int2word(self, n):
         if n == 0:
             return ZERO[0]
-
+        
         words = []
         chunks = list(splitbyx(str(n), 3))
         i = len(chunks)
         for x in chunks:
             i -= 1
             n1, n2, n3 = get_digits(x)
-
+            
             if n3 > 0:
                 words.append(HUNDREDS[n3][0])
-
+            
             if n2 > 1:
                 words.append(TWENTIES[n2][0])
-
+            
             if n2 == 1:
                 words.append(TENS[n1][0])
             elif n1 > 0 and not (i > 0 and x == 1):
                 words.append(ONES[n1][0])
-
+            
             if i > 0:
                 words.append(self.pluralize(x, THOUSANDS[i]))
-
+        
         return ' '.join(words)
