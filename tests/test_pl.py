@@ -46,6 +46,10 @@ class Num2WordsPLTest(TestCase):
             "sześćdziesiąt siedem tysięcy osiemset dziewięćdzisiąt"
         )
         self.assertEqual(
+            num2words(10000000001000000100000, lang='pl'),
+            "dziesięć tryliardów bilion sto tysięcy"
+        )
+        self.assertEqual(
             num2words(215461407892039002157189883901676, lang='pl'),
             "dwieście piętnaście kwintylionów czterysta sześćdziesiąt jeden "
             "kwadryliardów czterysta siedem kwadrylionów osiemset "

@@ -162,7 +162,7 @@ class Num2Word_UK(Num2Word_Base):
                 ones = ONES_FEMININE if i == 1 or feminine and i == 0 else ONES
                 words.append(ones[n1][0])
 
-            if i > 0 and ((n1 + n2 + n3) > 0):
+            if x > 0 and i > 0:
                 words.append(self.pluralize(x, THOUSANDS[i]))
 
         return ' '.join(words)
