@@ -56,7 +56,7 @@ class Num2WordsPLTest(TestCase):
             "dziewięćdzisiąt dwa tryliardy trzydzieści dziewięć trylionów "
             "dwa biliardy sto pięćdziesiąt siedem bilionów sto osiemdziesiąt "
             "dziewięć miliardów osiemset osiemdziesiąt trzy miliony "
-            "dziewęćset jeden tysięcy sześćset siedemdziesiąt sześć"
+            "dziewięćset jeden tysięcy sześćset siedemdziesiąt sześć"
         )
         self.assertEqual(
             num2words(719094234693663034822824384220291, lang='pl'),
