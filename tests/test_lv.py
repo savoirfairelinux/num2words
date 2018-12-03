@@ -48,9 +48,6 @@ class Num2WordsLVTest(TestCase):
             'mīnus pieci tūkstoši komats divdesmit divi',
         )
 
-        # >>> print(fill(n2w(1000000000000000000000000000000)))
-        # nontiljons
-
         self.assertEqual(num2words(0, lang='lv'), 'nulle')
         self.assertEqual(num2words(5, lang='lv'), "pieci")
         self.assertEqual(num2words(15, lang='lv'), "piecpadsmit")

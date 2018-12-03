@@ -141,6 +141,10 @@ class Num2Word_PL(Num2Word_Base):
         i = len(chunks)
         for x in chunks:
             i -= 1
+
+            if x == 0:
+                continue
+
             n1, n2, n3 = get_digits(x)
 
             if n3 > 0:
@@ -154,7 +158,7 @@ class Num2Word_PL(Num2Word_Base):
             elif n1 > 0 and not (i > 0 and x == 1):
                 words.append(ONES[n1][0])
 
-            if x > 0 and i > 0:
+            if i > 0:
                 words.append(self.pluralize(x, THOUSANDS[i]))
 
         return ' '.join(words)

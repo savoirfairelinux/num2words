@@ -94,9 +94,11 @@ def int2word(n):
     i = len(chunks)
     for x in chunks:
         i -= 1
-        n1, n2, n3 = get_digits(x)
 
-        # print str(n3) + str(n2) + str(n1)
+        if x == 0:
+            continue
+
+        n1, n2, n3 = get_digits(x)
 
         if n3 > 0:
             if n3 <= 2:
@@ -113,7 +115,7 @@ def int2word(n):
         elif n1 > 0 and not (i > 0 and x == 1):
             words.append(ONES[n1][0])
 
-        if x > 0 and i > 0:
+        if i > 0:
             if i <= 2:
                 words.append(THOUSANDS[i][0])
             else:
