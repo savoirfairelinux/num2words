@@ -66,7 +66,7 @@ HUNDREDS = {
     6: ('sześćset',),
     7: ('siedemset',),
     8: ('osiemset',),
-    9: ('dziewęćset',),
+    9: ('dziewięćset',),
 }
 
 THOUSANDS = {
