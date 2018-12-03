@@ -64,6 +64,22 @@ class Num2WordsPLTest(TestCase):
             "osiemdziesiąt cztery miliony dwieście dwadzieścia "
             "tysięcy dwieście dziewięćdzisiąt jeden"
         )
+        self.assertEqual(
+            num2words(
+                963301000001918264129471042047146102350812074235000101020000120324,
+                lang='pl'
+            ),
+            "dziewięćset sześćdziesiąt trzy decyliardy trzysta jeden "
+            "decylionów nonylion dziewięćset osiemnaście oktyliardów dwieście "
+            "sześćdziesiąt cztery oktyliony sto dwadzieścia dziewięć "
+            "septyliardów czterysta siedemdziesiąt jeden septylionów "
+            "czterdzieści dwa sekstyliardy czterdzieści siedem sekstylionów "
+            "sto czterdzieści sześć kwintyliardów sto dwa kwintyliony trzysta "
+            "pięćdziesiąt kwadryliardów osiemset dwanaście kwadrylionów "
+            "siedemdziesiąt cztery tryliardy dwieście trzydzieści pięć "
+            "trylionów sto jeden bilionów dwadzieścia miliardów sto "
+            "dwadzieścia tysięcy trzysta dwadzieścia cztery"
+        )
 
     def test_to_ordinal(self):
         # @TODO: implement to_ordinal
