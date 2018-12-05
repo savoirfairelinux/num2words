@@ -17,8 +17,8 @@ CLASSIFIERS = [
     'Topic :: Text Processing :: Linguistic',
 ]
 
-LONG_DESC = open('README.rst', 'rt').read() + '\n\n' + \
-            open('CHANGES.rst', 'rt').read()
+LONG_DESC = open('README.rst', 'rt', encoding='utf-8').read() + '\n\n' + \
+            open('CHANGES.rst', 'rt', encoding='utf-8').read()
 
 
 def find_version(fname):
@@ -26,7 +26,7 @@ def find_version(fname):
     Returns str or raises RuntimeError
     """
     version = ''
-    with open(fname, 'r') as fp:
+    with open(fname, 'r', encoding='utf-8') as fp:
         reg = re.compile(r'__version__ = [\'"]([^\'"]*)[\'"]')
         for line in fp:
             m = reg.match(line)
