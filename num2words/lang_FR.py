@@ -68,28 +68,37 @@ class Num2Word_FR(Num2Word_EU):
             return ("%s %s" % (ctext, ntext), cnum * nnum)
         return ("%s %s" % (ctext, ntext), cnum + nnum)
 
-    # Is this right for such things as 1001 - "mille unième" instead of
-    # "mille premier"??  "millième"??
-
-    def to_ordinal(self, value):
+    def to_ordinal(self, value, feminine=False, plural=False):
         self.verify_ordinal(value)
         if value == 1:
-            return "premier"
-        word = self.to_cardinal(value)
-        for src, repl in self.ords.items():
-            if word.endswith(src):
-                word = word[:-len(src)] + repl
-                break
+            if feminine:
+                word = "première"
+            else:
+                word = "premier"
         else:
-            if word[-1] == "e":
-                word = word[:-1]
-            word = word + "ième"
+            word = self.to_cardinal(value)
+            for src, repl in self.ords.items():
+                if word.endswith(src):
+                    word = word[:-len(src)] + repl
+                    break
+            else:
+                if word[-1] == "e":
+                    word = word[:-1]
+                word = word + "ième"
+        if plural:
+            word += "s"
         return word
 
-    def to_ordinal_num(self, value):
+    def to_ordinal_num(self, value, feminine=False, plural=False):
         self.verify_ordinal(value)
+        if feminine:
+            ords_num = {"1": "re"}
+        else:
+            ords_num = {"1": "er"}
         out = str(value)
-        out += "er" if value == 1 else "me"
+        out += ords_num.get(out, "e")
+        if plural:
+            out += "s"
         return out
 
     def to_currency(self, val, longval=True, old=False):
