@@ -53,9 +53,6 @@ class Num2WordsLTTest(TestCase):
             'minus penki tūkstančiai kablelis dvidešimt du',
         )
 
-        # print(fill(n2w(1000000000000000000000000000000)))
-        # naintilijonas
-
     def test_to_ordinal(self):
         # @TODO: implement to_ordinal
         with self.assertRaises(NotImplementedError):

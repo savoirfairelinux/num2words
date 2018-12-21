@@ -94,9 +94,11 @@ def int2word(n):
     i = len(chunks)
     for x in chunks:
         i -= 1
-        n1, n2, n3 = get_digits(x)
 
-        # print str(n3) + str(n2) + str(n1)
+        if x == 0:
+            continue
+
+        n1, n2, n3 = get_digits(x)
 
         if n3 > 0:
             if n3 <= 2:

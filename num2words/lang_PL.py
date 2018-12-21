@@ -66,20 +66,31 @@ HUNDREDS = {
     6: ('sześćset',),
     7: ('siedemset',),
     8: ('osiemset',),
-    9: ('dziewęćset',),
+    9: ('dziewięćset',),
 }
 
 THOUSANDS = {
-    1: ('tysiąc', 'tysiące', 'tysięcy'),  # 10^3
-    2: ('milion', 'miliony', 'milionów'),  # 10^6
-    3: ('miliard', 'miliardy', 'miliardów'),  # 10^9
-    4: ('bilion', 'biliony', 'bilionów'),  # 10^12
-    5: ('biliard', 'biliardy', 'biliardów'),  # 10^15
-    6: ('trylion', 'tryliony', 'trylionów'),  # 10^18
-    7: ('tryliard', 'tryliardy', 'tryliardów'),  # 10^21
-    8: ('kwadrylion', 'kwadryliony', 'kwadrylionów'),  # 10^24
-    9: ('kwaryliard', 'kwadryliardy', 'kwadryliardów'),  # 10^27
-    10: ('kwintylion', 'kwintyliony', 'kwintylionów'),  # 10^30
+    1: ('tysiąc',       'tysiące',      'tysięcy'),        # 10^3
+    2: ('milion',       'miliony',      'milionów'),       # 10^6
+    3: ('miliard',      'miliardy',     'miliardów'),      # 10^9
+    4: ('bilion',       'biliony',      'bilionów'),       # 10^12
+    5: ('biliard',      'biliardy',     'biliardów'),      # 10^15
+    6: ('trylion',      'tryliony',     'trylionów'),      # 10^18
+    7: ('tryliard',     'tryliardy',    'tryliardów'),     # 10^21
+    8: ('kwadrylion',   'kwadryliony',  'kwadrylionów'),   # 10^24
+    9: ('kwadryliard',  'kwadryliardy', 'kwadryliardów'),  # 10^27
+    10: ('kwintylion',  'kwintyliony',  'kwintylionów'),   # 10^30
+    11: ('kwintyliard', 'kwintyliardy', 'kwintyliardów'),  # 10^33
+    12: ('sekstylion',  'sekstyliony',  'sekstylionów'),   # 10^36
+    13: ('sekstyliard', 'sekstyliardy', 'sekstyliardów'),  # 10^39
+    14: ('septylion',   'septyliony',   'septylionów'),    # 10^42
+    15: ('septyliard',  'septyliardy',  'septyliardów'),   # 10^45
+    16: ('oktylion',    'oktyliony',    'oktylionów'),     # 10^48
+    17: ('oktyliard',   'oktyliardy',   'oktyliardów'),    # 10^51
+    18: ('nonylion',    'nonyliony',    'nonylionów'),     # 10^54
+    19: ('nonyliard',   'nonyliardy',   'nonyliardów'),    # 10^57
+    20: ('decylion',    'decyliony',    'decylionów'),     # 10^60
+    21: ('decyliard',   'decyliardy',   'decyliardów'),    # 10^63
 }
 
 
@@ -130,6 +141,10 @@ class Num2Word_PL(Num2Word_Base):
         i = len(chunks)
         for x in chunks:
             i -= 1
+
+            if x == 0:
+                continue
+
             n1, n2, n3 = get_digits(x)
 
             if n3 > 0:

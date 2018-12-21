@@ -130,6 +130,10 @@ class Num2Word_CZ(Num2Word_Base):
         i = len(chunks)
         for x in chunks:
             i -= 1
+
+            if x == 0:
+                continue
+
             n1, n2, n3 = get_digits(x)
 
             if n3 > 0:
