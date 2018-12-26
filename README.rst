@@ -46,8 +46,6 @@ Command line::
 
     $ num2words 10001
     ten thousand and one
-    $ num2words 10123123 --lang es
-    diez millones ciento veintitrés mil ciento veintitrés
     $ num2words 24,120.10
     twenty-four thousand, one hundred and twenty point one
     $ num2words 24,120.10 -l es
