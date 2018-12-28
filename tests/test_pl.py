@@ -1,5 +1,6 @@
-# -*- encoding: utf-8 -*-
-# Copyright (c) 2015, Savoir-faire Linux inc.  All Rights Reserved.
+# -*- coding: utf-8 -*-
+# Copyright (c) 2003, Taro Ogawa.  All Rights Reserved.
+# Copyright (c) 2013, Savoir-faire Linux inc.  All Rights Reserved.
 
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -46,13 +47,17 @@ class Num2WordsPLTest(TestCase):
             "sześćdziesiąt siedem tysięcy osiemset dziewięćdzisiąt"
         )
         self.assertEqual(
+            num2words(10000000001000000100000, lang='pl'),
+            "dziesięć tryliardów bilion sto tysięcy"
+        )
+        self.assertEqual(
             num2words(215461407892039002157189883901676, lang='pl'),
             "dwieście piętnaście kwintylionów czterysta sześćdziesiąt jeden "
             "kwadryliardów czterysta siedem kwadrylionów osiemset "
             "dziewięćdzisiąt dwa tryliardy trzydzieści dziewięć trylionów "
             "dwa biliardy sto pięćdziesiąt siedem bilionów sto osiemdziesiąt "
             "dziewięć miliardów osiemset osiemdziesiąt trzy miliony "
-            "dziewęćset jeden tysięcy sześćset siedemdziesiąt sześć"
+            "dziewięćset jeden tysięcy sześćset siedemdziesiąt sześć"
         )
         self.assertEqual(
             num2words(719094234693663034822824384220291, lang='pl'),
@@ -66,19 +71,15 @@ class Num2WordsPLTest(TestCase):
         )
         self.assertEqual(
             num2words(
-                963301000001918264129471042047146102350812074235000101020000120324,
+                963301000001918264129471001047146102 * 10**30 + 1007,
                 lang='pl'
             ),
             "dziewięćset sześćdziesiąt trzy decyliardy trzysta jeden "
             "decylionów nonylion dziewięćset osiemnaście oktyliardów dwieście "
             "sześćdziesiąt cztery oktyliony sto dwadzieścia dziewięć "
             "septyliardów czterysta siedemdziesiąt jeden septylionów "
-            "czterdzieści dwa sekstyliardy czterdzieści siedem sekstylionów "
-            "sto czterdzieści sześć kwintyliardów sto dwa kwintyliony trzysta "
-            "pięćdziesiąt kwadryliardów osiemset dwanaście kwadrylionów "
-            "siedemdziesiąt cztery tryliardy dwieście trzydzieści pięć "
-            "trylionów sto jeden bilionów dwadzieścia miliardów sto "
-            "dwadzieścia tysięcy trzysta dwadzieścia cztery"
+            "sekstyliard czterdzieści siedem sekstylionów sto czterdzieści "
+            "sześć kwintyliardów sto dwa kwintyliony tysiąc siedem"
         )
 
     def test_to_ordinal(self):

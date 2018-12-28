@@ -1,5 +1,5 @@
-# -*- encoding: utf-8 -*-
-#  Copyright (c) 2003, Taro Ogawa.  All Rights Reserved.
+# -*- coding: utf-8 -*-
+# Copyright (c) 2003, Taro Ogawa.  All Rights Reserved.
 # Copyright (c) 2013, Savoir-faire Linux inc.  All Rights Reserved.
 
 # This library is free software; you can redistribute it and/or
@@ -94,9 +94,11 @@ def int2word(n):
     i = len(chunks)
     for x in chunks:
         i -= 1
-        n1, n2, n3 = get_digits(x)
 
-        # print str(n3) + str(n2) + str(n1)
+        if x == 0:
+            continue
+
+        n1, n2, n3 = get_digits(x)
 
         if n3 > 0:
             if n3 <= 2:

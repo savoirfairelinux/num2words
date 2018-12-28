@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 # Copyright (c) 2003, Taro Ogawa.  All Rights Reserved.
 # Copyright (c) 2013, Savoir-faire Linux inc.  All Rights Reserved.
 
@@ -14,6 +14,7 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301 USA
+
 from __future__ import unicode_literals
 
 from .base import Num2Word_Base
@@ -66,7 +67,7 @@ HUNDREDS = {
     6: ('sześćset',),
     7: ('siedemset',),
     8: ('osiemset',),
-    9: ('dziewęćset',),
+    9: ('dziewięćset',),
 }
 
 THOUSANDS = {
@@ -141,6 +142,10 @@ class Num2Word_PL(Num2Word_Base):
         i = len(chunks)
         for x in chunks:
             i -= 1
+
+            if x == 0:
+                continue
+
             n1, n2, n3 = get_digits(x)
 
             if n3 > 0:
