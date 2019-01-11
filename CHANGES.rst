@@ -1,6 +1,13 @@
 Changelog
 =========
 
+Version 0.5.9 -- 2019/01/10
+---------------------------
+
+* Fix encoding issue on release 0.5.8 (#229)
+* Improve Polish localization (#228)
+
+
 Version 0.5.8 -- 2018/11/17
 ---------------------------
 
