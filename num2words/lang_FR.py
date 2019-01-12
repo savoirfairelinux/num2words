@@ -89,7 +89,7 @@ class Num2Word_FR(Num2Word_EU):
     def to_ordinal_num(self, value):
         self.verify_ordinal(value)
         out = str(value)
-        out += {"1": "er"}.get(out[-1], "me")
+        out += "er" if value == 1 else "me"
         return out
 
     def to_currency(self, val, longval=True, old=False):
