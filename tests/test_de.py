@@ -63,6 +63,9 @@ class Num2WordsDETest(TestCase):
 
     def test_cardinal_at_some_numbers(self):
         self.assertEqual(num2words(100, lang='de'), "einhundert")
+        self.assertEqual(num2words(1000, lang='de'), "eintausend")
+        self.assertEqual(num2words(5000, lang='de'), "fünftausend")
+        self.assertEqual(num2words(10000, lang='de'), "zehntausend")
         self.assertEqual(num2words(1000000, lang='de'), "eine Million")
         self.assertEqual(num2words(2000000, lang='de'), "zwei Millionen")
         self.assertEqual(num2words(4000000000, lang='de'), "vier Milliarden")
