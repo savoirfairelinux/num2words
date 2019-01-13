@@ -48,22 +48,22 @@ class Num2WordsDETest(TestCase):
             num2words(4000, ordinal=True, lang='de'), "viertausendste"
         )
         self.assertEqual(
-            num2words(1000000, ordinal=True, lang='de'), "millionste"
+            num2words(1000000, ordinal=True, lang='de'), "Millionste"
         )
         self.assertEqual(
-            num2words(2000000, ordinal=True, lang='de'), "zwei millionste"
+            num2words(2000000, ordinal=True, lang='de'), "zwei Millionste"
         )
         self.assertEqual(
             num2words(5000000000, ordinal=True, lang='de'),
-            "fünf milliardste"
+            "fünf Milliardste"
         )
 
     def test_cardinal_at_some_numbers(self):
         self.assertEqual(num2words(100, lang='de'), "einhundert")
-        self.assertEqual(num2words(1000000, lang='de'), "eine million")
-        self.assertEqual(num2words(2000000, lang='de'), "zwei millionen")
-        self.assertEqual(num2words(4000000000, lang='de'), "vier milliarden")
-        self.assertEqual(num2words(1000000000, lang='de'), "eine milliarde")
+        self.assertEqual(num2words(1000000, lang='de'), "eine Million")
+        self.assertEqual(num2words(2000000, lang='de'), "zwei Millionen")
+        self.assertEqual(num2words(4000000000, lang='de'), "vier Milliarden")
+        self.assertEqual(num2words(1000000000, lang='de'), "eine Milliarde")
 
     def test_cardinal_for_decimal_number(self):
         self.assertEqual(
@@ -73,8 +73,8 @@ class Num2WordsDETest(TestCase):
     def test_giant_cardinal_for_merge(self):
         self.assertEqual(
             num2words(4500072900000111, lang='de'),
-            "vier billiarden fünfhundert billionen " +
-            "zweiundsiebzig milliarden neunhundert millionen einhundertelf"
+            "vier Billiarden fünfhundert Billionen " +
+            "zweiundsiebzig Milliarden neunhundert Millionen einhundertelf"
         )
 
     def test_ordinal_num(self):

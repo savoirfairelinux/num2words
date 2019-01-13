@@ -45,7 +45,7 @@ class Num2Word_DE(Num2Word_EU):
         self.errmsg_toobig = "Die Zahl %s muss kleiner als %s sein."
         self.exclude_title = []
 
-        lows = ["non", "okt", "sept", "sext", "quint", "quadr", "tr", "b", "m"]
+        lows = ["Non", "Okt", "Sept", "Sext", "Quint", "Quadr", "Tr", "B", "M"]
         units = ["", "un", "duo", "tre", "quattuor", "quin", "sex", "sept",
                  "okto", "novem"]
         tens = ["dez", "vigint", "trigint", "quadragint", "quinquagint",
@@ -118,7 +118,7 @@ class Num2Word_DE(Num2Word_EU):
         # Exception: "hundertste" is usually preferred over "einhundertste"
         if res == "eintausendste" or res == "einhundertste":
             res = res.replace("ein", "", 1)
-        if res == "eine millionste":
+        if res == "eine Millionste":
             res = res.replace("eine ", "", 1)
 
         return res
