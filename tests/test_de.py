@@ -48,14 +48,17 @@ class Num2WordsDETest(TestCase):
             num2words(4000, ordinal=True, lang='de'), "viertausendste"
         )
         self.assertEqual(
-            num2words(1000000, ordinal=True, lang='de'), "Millionste"
+            num2words(1000000, ordinal=True, lang='de'), "millionste"
         )
         self.assertEqual(
-            num2words(2000000, ordinal=True, lang='de'), "zwei Millionste"
+            num2words(2000000, ordinal=True, lang='de'), "zweimillionste"
+        )
+        self.assertEqual(
+            num2words(1000000000, ordinal=True, lang='de'), "milliardste"
         )
         self.assertEqual(
             num2words(5000000000, ordinal=True, lang='de'),
-            "fünf Milliardste"
+            "fünfmilliardste"
         )
 
     def test_cardinal_at_some_numbers(self):

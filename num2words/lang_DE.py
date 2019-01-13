@@ -17,6 +17,8 @@
 
 from __future__ import print_function, unicode_literals
 
+import re
+
 from .lang_EU import Num2Word_EU
 
 
@@ -107,7 +109,7 @@ class Num2Word_DE(Num2Word_EU):
 
     def to_ordinal(self, value):
         self.verify_ordinal(value)
-        outword = self.to_cardinal(value)
+        outword = self.to_cardinal(value).lower()
         for key in self.ords:
             if outword.endswith(key):
                 outword = outword[:len(outword) - len(key)] + self.ords[key]
@@ -118,8 +120,13 @@ class Num2Word_DE(Num2Word_EU):
         # Exception: "hundertste" is usually preferred over "einhundertste"
         if res == "eintausendste" or res == "einhundertste":
             res = res.replace("ein", "", 1)
-        if res == "eine Millionste":
-            res = res.replace("eine ", "", 1)
+        # ... similarly for "millionste" etc.
+        res = re.sub(r'eine ([a-z]+(illion|illiard)ste)$',
+                     lambda m: m.group(1), res)
+        # Ordinals involving "Million" etc. are written without a space.
+        # see https://de.wikipedia.org/wiki/Million#Sprachliches
+        res = re.sub(r' ([a-z]+(illion|illiard)ste)$',
+                     lambda m: m.group(1), res)
 
         return res
 
