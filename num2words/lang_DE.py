@@ -118,6 +118,8 @@ class Num2Word_DE(Num2Word_EU):
         # Exception: "hundertste" is usually preferred over "einhundertste"
         if res == "eintausendste" or res == "einhundertste":
             res = res.replace("ein", "", 1)
+        if res == "eine millionste":
+            res = res.replace("eine ", "", 1)
 
         return res
 
