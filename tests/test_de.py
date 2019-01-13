@@ -23,7 +23,10 @@ from num2words import num2words
 
 
 class Num2WordsDETest(TestCase):
+
     def test_ordinal_less_than_twenty(self):
+        self.assertEqual(num2words(0, ordinal=True, lang='de'), "nullte")
+        self.assertEqual(num2words(1, ordinal=True, lang='de'), "erste")
         self.assertEqual(num2words(7, ordinal=True, lang='de'), "siebte")
         self.assertEqual(num2words(8, ordinal=True, lang='de'), "achte")
         self.assertEqual(num2words(12, ordinal=True, lang='de'), "zwölfte")
