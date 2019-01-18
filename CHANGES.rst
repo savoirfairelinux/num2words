@@ -1,6 +1,32 @@
 Changelog
 =========
 
+Version 0.5.9 -- 2019/01/10
+---------------------------
+
+* Fix encoding issue on release 0.5.8 (#229)
+* Improve Polish localization (#228)
+
+
+Version 0.5.8 -- 2018/11/17
+---------------------------
+
+* Add Portuguese (Portugal) localization (#198)
+* Add a command line tool to use num2words
+* Use language iso code for Vietnamese
+* Improve Korean localization (#219)
+* Improve Serbian (Latin) localization (#207)
+* Improve testing setup (#220)
+* Improve German localization (#214) (#222)
+* Improve Romanian localization (#215)
+* Improve Spanish localization (#187) (#200)
+* Improve Russian localization (#211) (#212)
+* Improve French localization (23902ab)
+* Improve Arabic localization (#176)
+* Improve Lithuanian and Latvian localization (#185)
+* Improve Ukrainian localization (#183)
+
+
 Version 0.5.7 -- 2018/06/27
 ---------------------------
 
