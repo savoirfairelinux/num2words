@@ -17,6 +17,8 @@
 
 from __future__ import unicode_literals
 
+import itertools
+
 from .base import Num2Word_Base
 from .utils import get_digits, splitbyx
 
@@ -71,28 +73,26 @@ HUNDREDS = {
 }
 
 THOUSANDS = {
-    1: ('tysiąc',       'tysiące',      'tysięcy'),        # 10^3
-    2: ('milion',       'miliony',      'milionów'),       # 10^6
-    3: ('miliard',      'miliardy',     'miliardów'),      # 10^9
-    4: ('bilion',       'biliony',      'bilionów'),       # 10^12
-    5: ('biliard',      'biliardy',     'biliardów'),      # 10^15
-    6: ('trylion',      'tryliony',     'trylionów'),      # 10^18
-    7: ('tryliard',     'tryliardy',    'tryliardów'),     # 10^21
-    8: ('kwadrylion',   'kwadryliony',  'kwadrylionów'),   # 10^24
-    9: ('kwadryliard',  'kwadryliardy', 'kwadryliardów'),  # 10^27
-    10: ('kwintylion',  'kwintyliony',  'kwintylionów'),   # 10^30
-    11: ('kwintyliard', 'kwintyliardy', 'kwintyliardów'),  # 10^33
-    12: ('sekstylion',  'sekstyliony',  'sekstylionów'),   # 10^36
-    13: ('sekstyliard', 'sekstyliardy', 'sekstyliardów'),  # 10^39
-    14: ('septylion',   'septyliony',   'septylionów'),    # 10^42
-    15: ('septyliard',  'septyliardy',  'septyliardów'),   # 10^45
-    16: ('oktylion',    'oktyliony',    'oktylionów'),     # 10^48
-    17: ('oktyliard',   'oktyliardy',   'oktyliardów'),    # 10^51
-    18: ('nonylion',    'nonyliony',    'nonylionów'),     # 10^54
-    19: ('nonyliard',   'nonyliardy',   'nonyliardów'),    # 10^57
-    20: ('decylion',    'decyliony',    'decylionów'),     # 10^60
-    21: ('decyliard',   'decyliardy',   'decyliardów'),    # 10^63
+    1: ('tysiąc', 'tysiące', 'tysięcy'),  # 10^3
 }
+
+prefixes = (   # 10^(6*x)
+    "mi",      # 10^6
+    "bi",      # 10^12
+    "try",     # 10^18
+    "kwadry",  # 10^24
+    "kwinty",  # 10^30
+    "seksty",  # 10^36
+    "septy",   # 10^42
+    "okty",    # 10^48
+    "nony",    # 10^54
+    "decy"     # 10^60
+)
+suffixes = ("lion", "liard")  # 10^x or 10^(x+3)
+
+for idx, (p, s) in enumerate(itertools.product(prefixes, suffixes)):
+    name = p + s
+    THOUSANDS[idx+2] = (name, name + 'y', name + 'ów')
 
 
 class Num2Word_PL(Num2Word_Base):
