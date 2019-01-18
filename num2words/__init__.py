@@ -101,6 +101,8 @@ def num2words(number, ordinal=False, lang='en', to='cardinal', **kwargs):
     if lang not in CONVERTER_CLASSES:
         raise NotImplementedError()
     converter = CONVERTER_CLASSES[lang]
+    if isinstance(number, str):
+        number = converter.str_to_number(number)
     # backwards compatible
     if ordinal:
         return converter.to_ordinal(number)
