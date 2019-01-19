@@ -168,10 +168,10 @@ class Num2Word_ES(Num2Word_EU):
         self.verify_ordinal(value)
         return "%s%s" % (value, "º" if self.gender_stem == 'o' else "ª")
 
-    def to_currency(self, val, currency='EUR', cents=True, seperator=' con',
+    def to_currency(self, val, currency='EUR', cents=True, separator=' con',
                     adjective=False):
         result = super(Num2Word_ES, self).to_currency(
-            val, currency=currency, cents=cents, seperator=seperator,
+            val, currency=currency, cents=cents, separator=separator,
             adjective=adjective)
         # Handle exception, in spanish is "un euro" and not "uno euro"
         return result.replace("uno", "un")

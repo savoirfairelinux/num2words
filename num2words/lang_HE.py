@@ -131,7 +131,7 @@ def n2w(n):
     return int2word(int(n))
 
 
-def to_currency(n, currency='EUR', cents=True, seperator=','):
+def to_currency(n, currency='EUR', cents=True, separator=','):
     raise NotImplementedError()
 
 
