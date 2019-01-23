@@ -203,7 +203,7 @@ class Num2WordsSRTest(TestCase):
                 lang='sr',
                 to='currency',
                 currency='EUR',
-                seperator=' i'
+                separator=' i'
             )
         )
         self.assertEqual(
@@ -213,18 +213,18 @@ class Num2WordsSRTest(TestCase):
                 lang='sr',
                 to='currency',
                 currency='RUB',
-                seperator=' i'
+                separator=' i'
             )
         )
         self.assertEqual(
             'sto jedna rublja i dvadeset dve kopejke',
             num2words(10122, lang='sr', to='currency', currency='RUB',
-                      seperator=' i')
+                      separator=' i')
         )
         self.assertEqual(
             'sto jedan evro i dvadeset jedan cent',
             num2words(10121, lang='sr', to='currency', currency='EUR',
-                      seperator=' i'),
+                      separator=' i'),
         )
         self.assertEqual(
             'minus dvanaest hiljada petsto devetnaest evra, 85 centi',
@@ -238,6 +238,6 @@ class Num2WordsSRTest(TestCase):
         )
         self.assertEqual(
             "trideset osam evra i 40 centi",
-            num2words('38.4', lang='sr', to='currency', seperator=' i',
+            num2words('38.4', lang='sr', to='currency', separator=' i',
                       cents=False, currency='EUR'),
         )
