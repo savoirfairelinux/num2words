@@ -48,6 +48,47 @@ class Num2WordsSLTest(TestCase):
         self.assertEqual(
             num2words(5000000000, ordinal=True, lang='sl'), "petmiljardti"
         )
+        
+    def test_ordinal_numbers_from_repository_of_test_cases(self):
+        # Tests were compiled from cases in https://github.com/gregopet/zapis-slovenskih-stevil
+        # The male gender is used by the project so those test cases were copied
+        self.assertEqual(num2words(1, ordinal=True, lang='sl'), "prvi")
+        self.assertEqual(num2words(2, ordinal=True, lang='sl'), "drugi")
+        self.assertEqual(num2words(3, ordinal=True, lang='sl'), "tretji")
+        self.assertEqual(num2words(4, ordinal=True, lang='sl'), "četrti")
+        self.assertEqual(num2words(5, ordinal=True, lang='sl'), "peti")
+        self.assertEqual(num2words(6, ordinal=True, lang='sl'), "šesti")
+        self.assertEqual(num2words(7, ordinal=True, lang='sl'), "sedmi")
+        self.assertEqual(num2words(8, ordinal=True, lang='sl'), "osmi")
+        self.assertEqual(num2words(9, ordinal=True, lang='sl'), "deveti")
+        self.assertEqual(num2words(10, ordinal=True, lang='sl'), "deseti")
+        self.assertEqual(num2words(100, ordinal=True, lang='sl'), "stoti")
+        self.assertEqual(num2words(101, ordinal=True, lang='sl'), "stoprvi")
+        self.assertEqual(num2words(102, ordinal=True, lang='sl'), "stodrugi")
+        self.assertEqual(num2words(103, ordinal=True, lang='sl'), "stotretji")
+        self.assertEqual(num2words(104, ordinal=True, lang='sl'), "stočetrti")
+        self.assertEqual(num2words(105, ordinal=True, lang='sl'), "stopeti")
+        self.assertEqual(num2words(106, ordinal=True, lang='sl'), "stošesti")
+        self.assertEqual(num2words(200, ordinal=True, lang='sl'), "dvestoti")
+        self.assertEqual(num2words(1000, ordinal=True, lang='sl'), "tisoči")
+        self.assertEqual(num2words(1001, ordinal=True, lang='sl'), "tisočprvi")
+        self.assertEqual(num2words(1002, ordinal=True, lang='sl'), "tisočdrugi")
+        self.assertEqual(num2words(1003, ordinal=True, lang='sl'), "tisočtretji")
+        self.assertEqual(num2words(1004, ordinal=True, lang='sl'), "tisoččetrti")
+        self.assertEqual(num2words(1005, ordinal=True, lang='sl'), "tisočpeti")
+        self.assertEqual(num2words(1006, ordinal=True, lang='sl'), "tisočšesti")
+        self.assertEqual(num2words(2000, ordinal=True, lang='sl'), "dvatisoči")
+        self.assertEqual(num2words(20000, ordinal=True, lang='sl'), "dvajsettisoči")
+        self.assertEqual(num2words(200000, ordinal=True, lang='sl'), "dvestotisoči")
+        self.assertEqual(num2words(1000000, ordinal=True, lang='sl'), "milijonti")
+        self.assertEqual(num2words(2000000, ordinal=True, lang='sl'), "dvamilijonti")
+        self.assertEqual(num2words(3000000, ordinal=True, lang='sl'), "trimilijonti")
+        self.assertEqual(num2words(101000000, ordinal=True, lang='sl'), "stoenmilijonti")
+        self.assertEqual(num2words(202000000, ordinal=True, lang='sl'), "dvestodvamilijonti")
+        self.assertEqual(num2words(1121, ordinal=True, lang='sl'), "tisočstoenaindvajseti")
+        self.assertEqual(num2words(2405, ordinal=True, lang='sl'), "dvatisočštiristopeti")
+
+        
 
     def test_cardinal_at_some_numbers(self):
         self.assertEqual(num2words(2, lang='sl'), "dve")
