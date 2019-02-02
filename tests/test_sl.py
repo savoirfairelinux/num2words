@@ -22,7 +22,7 @@ from unittest import TestCase
 from num2words import num2words
 
 
-class Num2WordsDETest(TestCase):
+class Num2WordsSLTest(TestCase):
     def test_ordinal_less_than_twenty(self):
         self.assertEqual(num2words(2, ordinal=True, lang='sl'), "drugi")
         self.assertEqual(num2words(4, ordinal=True, lang='sl'), "četrti")
