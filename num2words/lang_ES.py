@@ -22,10 +22,10 @@ from .lang_EU import Num2Word_EU
 
 class Num2Word_ES(Num2Word_EU):
     CURRENCY_FORMS = {
-        'EUR': (('euro', 'euros'), ('centimo', 'centimos')),
-        'ESP': (('peseta', 'pesetas'), ('centimo', 'centimos')),
-        'USD': (('dolar', 'dolares'), ('centavo', 'centavos')),
-        'PEN': (('sol', 'soles'), ('centimo', 'centimos')),
+        'EUR': (('euro', 'euros'), ('céntimo', 'céntimos')),
+        'ESP': (('peseta', 'pesetas'), ('céntimo', 'céntimos')),
+        'USD': (('dolar', 'dólares'), ('centavo', 'centavos')),
+        'PEN': (('sol', 'soles'), ('céntimo', 'céntimos')),
     }
 
     # //CHECK: Is this sufficient??
