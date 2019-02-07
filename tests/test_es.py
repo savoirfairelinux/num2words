@@ -135,13 +135,13 @@ TEST_CASES_TO_CURRENCY_ESP = (
 
 TEST_CASES_TO_CURRENCY_USD = (
     (1.00, 'un dolar con cero centavos'),
-    (2.00, 'dos dolares con cero centavos'),
-    (8.00, 'ocho dolares con cero centavos'),
-    (12.00, 'doce dolares con cero centavos'),
-    (21.00, 'veintiun dolares con cero centavos'),
-    (81.25, 'ochenta y un dolares con veinticinco centavos'),
-    (350.90, 'trescientos cincuenta dolares con noventa centavos'),
-    (100.00, 'cien dolares con cero centavos'),
+    (2.00, 'dos dólares con cero centavos'),
+    (8.00, 'ocho dólares con cero centavos'),
+    (12.00, 'doce dólares con cero centavos'),
+    (21.00, 'veintiun dólares con cero centavos'),
+    (81.25, 'ochenta y un dólares con veinticinco centavos'),
+    (350.90, 'trescientos cincuenta dólares con noventa centavos'),
+    (100.00, 'cien dólares con cero centavos'),
 )
 
 TEST_CASES_TO_CURRENCY_PEN = (
