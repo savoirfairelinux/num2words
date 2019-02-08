@@ -43,17 +43,17 @@ class Num2WordsDETest(TestCase):
             num2words(4000, ordinal=True, lang='sl'), "štiritisoči"
         )
         self.assertEqual(
-            num2words(2000000, ordinal=True, lang='sl'), "dvemiljonti"
+            num2words(2000000, ordinal=True, lang='sl'), "dvamilijonti"
         )
         self.assertEqual(
-            num2words(5000000000, ordinal=True, lang='sl'), "petmiljardti"
+            num2words(5000000000, ordinal=True, lang='sl'), "petmilijardti"
         )
 
     def test_cardinal_at_some_numbers(self):
         self.assertEqual(num2words(2, lang='sl'), "dve")
         self.assertEqual(num2words(4000, lang='sl'), "štiri tisoč")
-        self.assertEqual(num2words(2000000, lang='sl'), "dva miljona")
-        self.assertEqual(num2words(4000000000, lang='sl'), "štiri miljarde")
+        self.assertEqual(num2words(2000000, lang='sl'), "dva milijona")
+        self.assertEqual(num2words(4000000000, lang='sl'), "štiri milijarde")
 
     def test_cardinal_for_decimal_number(self):
         self.assertEqual(num2words(3.48, lang='sl'), "tri celih štiri osem")
