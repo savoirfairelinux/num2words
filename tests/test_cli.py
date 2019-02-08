@@ -107,5 +107,5 @@ class CliTestCase(unittest.TestCase):
         self.assertEqual(output.return_code, 0)
         self.assertEqual(
             output.out.strip(),
-            "ciento cincuenta euros con cincuenta y cinco centimos"
+            "ciento cincuenta euros con cincuenta y cinco céntimos"
         )
