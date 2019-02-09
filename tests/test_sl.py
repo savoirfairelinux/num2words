@@ -174,7 +174,7 @@ class Num2WordsSLTest(TestCase):
         self.assertEqual(num2words(1121, lang='sl'), "tisoč sto enaindvajset")
         self.assertEqual(num2words(2401, lang='sl'), "dva tisoč štiristo ena")
         self.assertEqual(num2words(201001004, lang='sl'), "dvesto en milijon tisoč štiri")
-        self.assertEqual(num2words(1803603801, lang='sl'), "milijarda osemsto trije milijoni šeststo tri tisoč osemsto ena")
+        self.assertEqual(num2words(1803603801, lang='sl'), "milijarda osemsto tri milijone šeststo tri tisoč osemsto ena")
 
     def test_cardinal_for_decimal_number(self):
         self.assertEqual(num2words(3.48, lang='sl'), "tri celih štiri osem")
