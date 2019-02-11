@@ -52,6 +52,9 @@ from . import lang_SR
 from . import lang_TH
 from . import lang_KO
 
+__version__ = "0.5.9"
+__license__ = "LGPL"
+
 CONVERTER_CLASSES = {
     'ar': lang_AR.Num2Word_AR(),
     'cz': lang_CZ.Num2Word_CZ(),
