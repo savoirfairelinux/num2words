@@ -104,8 +104,12 @@ class CliTestCase(unittest.TestCase):
         """You should be able to specify a language
         """
         output = self.cli.run_cmd(150.55, '--lang', 'es', '--to', 'currency')
+        if hasattr(output.out, 'decode'):
+            out = output.out.decode('utf-8').strip()
+        else:
+            out = output.out.strip()
         self.assertEqual(output.return_code, 0)
         self.assertEqual(
-            (output.out.decode('utf-8') if hasattr(output.out, 'decode') else output.out).strip(),
+            out,
             "ciento cincuenta euros con cincuenta y cinco céntimos"
         )
