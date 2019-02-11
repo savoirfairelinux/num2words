@@ -72,21 +72,18 @@ def main():
     args = docopt(__doc__, argv=None, help=True, version=version, options_first=False)
     if args["--list-languages"]:
         for lang in get_languages():
-            sys.stdout.write(lang)
-            sys.stdout.write(os.linesep)
+            print(lang)
         sys.exit(0)
     if args["--list-converters"]:
         for lang in get_converters():
-            sys.stdout.write(lang)
-            sys.stdout.write(os.linesep)
+            print(lang)
         sys.exit(0)
     try:
-        words = num2words.num2words(args['<number>'], lang=args['--lang'], to=args['--to'])
-        sys.stdout.write(words+os.linesep)
+        print(num2words.num2words(args['<number>'], lang=args['--lang'], to=args['--to']))
         sys.exit(0)
     except Exception as err:
         sys.stderr.write(str(args['<number>']))
-        sys.stderr.write(str(err) + os.linesep)
+        print(str(err))
         sys.stderr.write(__doc__)
         sys.exit(1)
 
