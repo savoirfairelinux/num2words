@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright (c) 2003, Taro Ogawa.  All Rights Reserved.
 # Copyright (c) 2013, Savoir-faire Linux inc.  All Rights Reserved.
 
@@ -51,6 +50,7 @@ from . import lang_SL
 from . import lang_SR
 from . import lang_TH
 from . import lang_KO
+from . import lang_KN
 
 CONVERTER_CLASSES = {
     'ar': lang_AR.Num2Word_AR(),
@@ -68,6 +68,7 @@ CONVERTER_CLASSES = {
     'es_VE': lang_ES_VE.Num2Word_ES_VE(),
     'id': lang_ID.Num2Word_ID(),
     'ja': lang_JA.Num2Word_JA(),
+    'kn': lang_KN.Num2Word_KN(),
     'ko': lang_KO.Num2Word_KO(),
     'lt': lang_LT.Num2Word_LT(),
     'lv': lang_LV.Num2Word_LV(),
@@ -101,8 +102,6 @@ def num2words(number, ordinal=False, lang='en', to='cardinal', **kwargs):
     if lang not in CONVERTER_CLASSES:
         raise NotImplementedError()
     converter = CONVERTER_CLASSES[lang]
-    if isinstance(number, str):
-        number = converter.str_to_number(number)
     # backwards compatible
     if ordinal:
         return converter.to_ordinal(number)
