@@ -53,10 +53,8 @@ from __future__ import print_function, unicode_literals
 import os
 import sys
 from docopt import docopt
-import num2words
 
-__version__ = "0.5.9"
-__license__ = "LGPL"
+import num2words
 
 
 def get_languages():
@@ -68,7 +66,7 @@ def get_converters():
 
 
 def main():
-    version = "{}=={}".format(os.path.basename(__file__), __version__)
+    version = "{}=={}".format("num2words", num2words.__version__)
     args = docopt(__doc__, argv=None, help=True, version=version, options_first=False)
     if args["--list-languages"]:
         for lang in get_languages():

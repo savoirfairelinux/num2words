@@ -15,6 +15,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301 USA
 
+import os.path
 import re
 from io import open
 
@@ -58,7 +59,7 @@ def find_version(fname):
 
 setup(
     name=PACKAGE_NAME,
-    version=find_version("bin/num2words"),
+    version=find_version(os.path.join("num2words", "__init__.py")),
     description='Modules to convert numbers to words. Easily extensible.',
     long_description=LONG_DESC,
     license='LGPL',
@@ -73,7 +74,11 @@ setup(
     packages=find_packages(exclude=['tests']),
     test_suite='tests',
     classifiers=CLASSIFIERS,
-    scripts=['bin/num2words'],
+    entry_points={
+        "console_scripts": [
+            "num2words=num2words.__main__:main",
+        ],
+    },
     install_requires=["docopt>=0.6.2"],
     tests_require=['delegator.py'],
 )
