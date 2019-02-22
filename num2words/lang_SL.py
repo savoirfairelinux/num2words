@@ -70,7 +70,8 @@ class Num2Word_SL(Num2Word_EU):
         if ctext == "dve" and not self.ordflag and nnum < 1000000000:
             ctext = "dva"
 
-        if (ctext.endswith("tri") or ctext.endswith("štiri")) and nnum == 1000000 and not self.ordflag:
+        if (ctext.endswith("tri") or ctext.endswith("štiri")) and\
+           nnum == 1000000 and not self.ordflag:
             if ctext.endswith("štiri"):
                 ctext = ctext[:-1]
             ctext = ctext + "je"
