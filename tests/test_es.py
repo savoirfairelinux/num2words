@@ -112,47 +112,47 @@ TEST_CASES_ORDINAL_NUM = (
 )
 
 TEST_CASES_TO_CURRENCY = (
-    (1.00, 'un euro con cero centimos'),
-    (2.00, 'dos euros con cero centimos'),
-    (8.00, 'ocho euros con cero centimos'),
-    (12.00, 'doce euros con cero centimos'),
-    (21.00, 'veintiun euros con cero centimos'),
-    (81.25, 'ochenta y un euros con veinticinco centimos'),
-    (350.90, 'trescientos cincuenta euros con noventa centimos'),
-    (100.00, 'cien euros con cero centimos'),
+    (1.00, 'un euro con cero céntimos'),
+    (2.00, 'dos euros con cero céntimos'),
+    (8.00, 'ocho euros con cero céntimos'),
+    (12.00, 'doce euros con cero céntimos'),
+    (21.00, 'veintiun euros con cero céntimos'),
+    (81.25, 'ochenta y un euros con veinticinco céntimos'),
+    (350.90, 'trescientos cincuenta euros con noventa céntimos'),
+    (100.00, 'cien euros con cero céntimos'),
 )
 
 TEST_CASES_TO_CURRENCY_ESP = (
-    (1.00, 'un peseta con cero centimos'),
-    (2.00, 'dos pesetas con cero centimos'),
-    (8.00, 'ocho pesetas con cero centimos'),
-    (12.00, 'doce pesetas con cero centimos'),
-    (21.00, 'veintiun pesetas con cero centimos'),
-    (81.25, 'ochenta y un pesetas con veinticinco centimos'),
-    (350.90, 'trescientos cincuenta pesetas con noventa centimos'),
-    (100.00, 'cien pesetas con cero centimos'),
+    (1.00, 'un peseta con cero céntimos'),
+    (2.00, 'dos pesetas con cero céntimos'),
+    (8.00, 'ocho pesetas con cero céntimos'),
+    (12.00, 'doce pesetas con cero céntimos'),
+    (21.00, 'veintiun pesetas con cero céntimos'),
+    (81.25, 'ochenta y un pesetas con veinticinco céntimos'),
+    (350.90, 'trescientos cincuenta pesetas con noventa céntimos'),
+    (100.00, 'cien pesetas con cero céntimos'),
 )
 
 TEST_CASES_TO_CURRENCY_USD = (
     (1.00, 'un dolar con cero centavos'),
-    (2.00, 'dos dolares con cero centavos'),
-    (8.00, 'ocho dolares con cero centavos'),
-    (12.00, 'doce dolares con cero centavos'),
-    (21.00, 'veintiun dolares con cero centavos'),
-    (81.25, 'ochenta y un dolares con veinticinco centavos'),
-    (350.90, 'trescientos cincuenta dolares con noventa centavos'),
-    (100.00, 'cien dolares con cero centavos'),
+    (2.00, 'dos dólares con cero centavos'),
+    (8.00, 'ocho dólares con cero centavos'),
+    (12.00, 'doce dólares con cero centavos'),
+    (21.00, 'veintiun dólares con cero centavos'),
+    (81.25, 'ochenta y un dólares con veinticinco centavos'),
+    (350.90, 'trescientos cincuenta dólares con noventa centavos'),
+    (100.00, 'cien dólares con cero centavos'),
 )
 
 TEST_CASES_TO_CURRENCY_PEN = (
-    (1.00, 'un sol con cero centimos'),
-    (2.00, 'dos soles con cero centimos'),
-    (8.00, 'ocho soles con cero centimos'),
-    (12.00, 'doce soles con cero centimos'),
-    (21.00, 'veintiun soles con cero centimos'),
-    (81.25, 'ochenta y un soles con veinticinco centimos'),
-    (350.90, 'trescientos cincuenta soles con noventa centimos'),
-    (100.00, 'cien soles con cero centimos'),
+    (1.00, 'un sol con cero céntimos'),
+    (2.00, 'dos soles con cero céntimos'),
+    (8.00, 'ocho soles con cero céntimos'),
+    (12.00, 'doce soles con cero céntimos'),
+    (21.00, 'veintiun soles con cero céntimos'),
+    (81.25, 'ochenta y un soles con veinticinco céntimos'),
+    (350.90, 'trescientos cincuenta soles con noventa céntimos'),
+    (100.00, 'cien soles con cero céntimos'),
 )
 
 
