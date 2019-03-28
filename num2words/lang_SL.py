@@ -64,7 +64,7 @@ class Num2Word_SL(Num2Word_EU):
     def merge(self, curr, next):
         ctext, cnum, ntext, nnum = curr + next
 
-        if ctext.endswith("dve") and (self.ordflag and nnum <= 1000000):
+        if ctext.endswith("dve") and self.ordflag and nnum <= 1000000:
             ctext = ctext[:len(ctext)-1] + "a"
 
         if ctext == "dve" and not self.ordflag and nnum < 1000000000:
