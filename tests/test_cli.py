@@ -18,10 +18,11 @@
 
 from __future__ import unicode_literals
 
-import delegator
-import num2words
 import os
 import unittest
+
+import delegator
+import num2words
 
 
 class CliCaller(object):
