@@ -118,26 +118,24 @@ TEST_CASES_ORDINAL_NUM = (
     (1000000, '1000000me')
 )
 
-TEST_CASES_TO_CURRENCY = (
-    (1, 'un euro'),
-    (2, 'deux euros'),
-    (8, 'huit euros'),
-    (12, 'douze euros'),
-    (21, 'vingt et un euros'),
+TEST_CASES_TO_CURRENCY_EUR = (
+    (1.00, 'un euro et zéro centimes'),
+    (2.01, 'deux euros et un centime'),
+    (8.10, 'huit euros et dix centimes'),
+    (12.26, 'douze euros et vingt-six centimes'),
+    (21.29, 'vingt et un euros et vingt-neuf centimes'),
     (81.25, 'quatre-vingt-un euros et vingt-cinq centimes'),
-    (81.2, 'quatre-vingt-un euros et vingt centimes'),
-    (100, 'cent euros'),
+    (100.00, 'cent euros et zéro centimes'),
 )
 
-TEST_CASES_TO_CURRENCY_OLD = (
-    (1, 'un franc'),
-    (2, 'deux francs'),
-    (8, 'huit francs'),
-    (12, 'douze francs'),
-    (21, 'vingt et un francs'),
+TEST_CASES_TO_CURRENCY_FRF = (
+    (1.00, 'un franc et zéro centimes'),
+    (2.01, 'deux francs et un centime'),
+    (8.10, 'huit francs et dix centimes'),
+    (12.27, 'douze francs et vingt-sept centimes'),
+    (21.29, 'vingt et un francs et vingt-neuf centimes'),
     (81.25, 'quatre-vingt-un francs et vingt-cinq centimes'),
-    (81.2, 'quatre-vingt-un francs et vingt centimes'),
-    (100, 'cent francs'),
+    (100.00, 'cent francs et zéro centimes'),
 )
 
 
@@ -175,16 +173,16 @@ class Num2WordsENTest(TestCase):
                 test[1]
             )
 
-    def test_currency(self):
-        for test in TEST_CASES_TO_CURRENCY:
+    def test_currency_eur(self):
+        for test in TEST_CASES_TO_CURRENCY_EUR:
             self.assertEqual(
-                num2words(test[0], lang='fr', to='currency'),
+                num2words(test[0], lang='fr', to='currency', currency='EUR'),
                 test[1]
             )
 
-    def test_currency_old(self):
-        for test in TEST_CASES_TO_CURRENCY_OLD:
+    def test_currency_frf(self):
+        for test in TEST_CASES_TO_CURRENCY_FRF:
             self.assertEqual(
-                num2words(test[0], lang='fr', to='currency', old=True),
+                num2words(test[0], lang='fr', to='currency', currency='FRF'),
                 test[1]
             )

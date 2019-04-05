@@ -94,16 +94,16 @@ class Num2WordsDETest(TestCase):
         self.assertRaises(TypeError, num2words, 2.453, ordinal=True, lang='de')
 
     def test_currency(self):
-        self.assertEqual(num2words(1, lang='de', to='currency'),
-                         'ein Euro')
-        self.assertEqual(num2words(12, lang='de', to='currency'),
-                         'zwölf Euro')
+        self.assertEqual(num2words(1.01, lang='de', to='currency'),
+                         'ein Euro und ein Cent')
         self.assertEqual(num2words(12.00, lang='de', to='currency'),
-                         'zwölf Euro')
+                         'zwölf Euro und null Cent')
+        self.assertEqual(num2words(12.00, lang='de', to='currency'),
+                         'zwölf Euro und null Cent')
         self.assertEqual(num2words(100.0, lang='de', to='currency'),
-                         "einhundert Euro")
-        self.assertEqual(num2words(190, lang='de', to='currency'),
-                         "einhundertneunzig Euro")
+                         "einhundert Euro und null Cent")
+        self.assertEqual(num2words(190.01, lang='de', to='currency'),
+                         "einhundertneunzig Euro und ein Cent")
         self.assertEqual(num2words(1.90, lang='de', to='currency'),
                          "ein Euro und neunzig Cent")
         self.assertEqual(num2words(3.4, lang='de', to='currency'),
@@ -114,8 +114,9 @@ class Num2WordsDETest(TestCase):
                          "drei Euro und vier Cent")
 
     def test_old_currency(self):
-        self.assertEqual(num2words(12.00, to='currency', lang='de', old=True),
-                         'zwölf Mark')
+        self.assertEqual(num2words(12.00, to='currency', lang='de',
+                                   currency='DEM'),
+                         'zwölf Mark und null Pfennig')
 
     def test_year(self):
         self.assertEqual(num2words(2002, to='year', lang='de'),
