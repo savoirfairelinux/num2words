@@ -1,4 +1,5 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
+# Copyright (c) 2003, Taro Ogawa.  All Rights Reserved.
 # Copyright (c) 2013, Savoir-faire Linux inc.  All Rights Reserved.
 
 # This library is free software; you can redistribute it and/or
@@ -13,6 +14,7 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301 USA
+
 from __future__ import unicode_literals
 
 from unittest import TestCase
@@ -168,22 +170,22 @@ class Num2WordsRUTest(TestCase):
         )
         self.assertEqual(
             num2words(10111, lang='ru', to='currency', currency='EUR',
-                      seperator=' и'),
+                      separator=' и'),
             'сто один евро и одиннадцать центов'
         )
         self.assertEqual(
             num2words(10121, lang='ru', to='currency', currency='RUB',
-                      seperator=' и'),
+                      separator=' и'),
             'сто один рубль и двадцать одна копейка'
         )
         self.assertEqual(
             num2words(10122, lang='ru', to='currency', currency='RUB',
-                      seperator=' и'),
+                      separator=' и'),
             'сто один рубль и двадцать две копейки'
         )
         self.assertEqual(
             num2words(10121, lang='ru', to='currency', currency='EUR',
-                      seperator=' и'),
+                      separator=' и'),
             'сто один евро и двадцать один цент'
         )
         self.assertEqual(
@@ -192,7 +194,7 @@ class Num2WordsRUTest(TestCase):
             'минус двенадцать тысяч пятьсот девятнадцать евро, 85 центов'
         )
         self.assertEqual(
-            num2words('38.4', lang='ru', to='currency', seperator=' и',
+            num2words('38.4', lang='ru', to='currency', separator=' и',
                       cents=False, currency='EUR'),
             "тридцать восемь евро и 40 центов"
         )

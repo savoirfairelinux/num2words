@@ -1,5 +1,4 @@
-# encoding: UTF-8
-
+# -*- coding: utf-8 -*-
 # Copyright (c) 2003, Taro Ogawa.  All Rights Reserved.
 # Copyright (c) 2013, Savoir-faire Linux inc.  All Rights Reserved.
 
@@ -23,10 +22,10 @@ from .lang_EU import Num2Word_EU
 
 class Num2Word_ES(Num2Word_EU):
     CURRENCY_FORMS = {
-        'EUR': (('euro', 'euros'), ('centimo', 'centimos')),
-        'ESP': (('peseta', 'pesetas'), ('centimo', 'centimos')),
-        'USD': (('dolar', 'dolares'), ('centavo', 'centavos')),
-        'PEN': (('sol', 'soles'), ('centimo', 'centimos')),
+        'EUR': (('euro', 'euros'), ('céntimo', 'céntimos')),
+        'ESP': (('peseta', 'pesetas'), ('céntimo', 'céntimos')),
+        'USD': (('dolar', 'dólares'), ('centavo', 'centavos')),
+        'PEN': (('sol', 'soles'), ('céntimo', 'céntimos')),
     }
 
     # //CHECK: Is this sufficient??
@@ -169,10 +168,10 @@ class Num2Word_ES(Num2Word_EU):
         self.verify_ordinal(value)
         return "%s%s" % (value, "º" if self.gender_stem == 'o' else "ª")
 
-    def to_currency(self, val, currency='EUR', cents=True, seperator=' con',
+    def to_currency(self, val, currency='EUR', cents=True, separator=' con',
                     adjective=False):
         result = super(Num2Word_ES, self).to_currency(
-            val, currency=currency, cents=cents, seperator=seperator,
+            val, currency=currency, cents=cents, separator=separator,
             adjective=adjective)
         # Handle exception, in spanish is "un euro" and not "uno euro"
         return result.replace("uno", "un")

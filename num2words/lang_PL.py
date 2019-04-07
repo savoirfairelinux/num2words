@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 # Copyright (c) 2003, Taro Ogawa.  All Rights Reserved.
 # Copyright (c) 2013, Savoir-faire Linux inc.  All Rights Reserved.
 
@@ -14,7 +14,10 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301 USA
+
 from __future__ import unicode_literals
+
+import itertools
 
 from .base import Num2Word_Base
 from .utils import get_digits, splitbyx
@@ -66,21 +69,30 @@ HUNDREDS = {
     6: ('sześćset',),
     7: ('siedemset',),
     8: ('osiemset',),
-    9: ('dziewęćset',),
+    9: ('dziewięćset',),
 }
 
 THOUSANDS = {
     1: ('tysiąc', 'tysiące', 'tysięcy'),  # 10^3
-    2: ('milion', 'miliony', 'milionów'),  # 10^6
-    3: ('miliard', 'miliardy', 'miliardów'),  # 10^9
-    4: ('bilion', 'biliony', 'bilionów'),  # 10^12
-    5: ('biliard', 'biliardy', 'biliardów'),  # 10^15
-    6: ('trylion', 'tryliony', 'trylionów'),  # 10^18
-    7: ('tryliard', 'tryliardy', 'tryliardów'),  # 10^21
-    8: ('kwadrylion', 'kwadryliony', 'kwadrylionów'),  # 10^24
-    9: ('kwaryliard', 'kwadryliardy', 'kwadryliardów'),  # 10^27
-    10: ('kwintylion', 'kwintyliony', 'kwintylionów'),  # 10^30
 }
+
+prefixes = (   # 10^(6*x)
+    "mi",      # 10^6
+    "bi",      # 10^12
+    "try",     # 10^18
+    "kwadry",  # 10^24
+    "kwinty",  # 10^30
+    "seksty",  # 10^36
+    "septy",   # 10^42
+    "okty",    # 10^48
+    "nony",    # 10^54
+    "decy"     # 10^60
+)
+suffixes = ("lion", "liard")  # 10^x or 10^(x+3)
+
+for idx, (p, s) in enumerate(itertools.product(prefixes, suffixes)):
+    name = p + s
+    THOUSANDS[idx+2] = (name, name + 'y', name + 'ów')
 
 
 class Num2Word_PL(Num2Word_Base):
@@ -130,6 +142,10 @@ class Num2Word_PL(Num2Word_Base):
         i = len(chunks)
         for x in chunks:
             i -= 1
+
+            if x == 0:
+                continue
+
             n1, n2, n3 = get_digits(x)
 
             if n3 > 0:

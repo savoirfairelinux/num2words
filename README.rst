@@ -35,14 +35,17 @@ The test suite in this library is new, so it's rather thin, but it can be run wi
 
     python setup.py test
 
+To run the full CI test suite which includes linting and multiple python environments::
+
+    pip install tox
+    tox
+
 Usage
 -----
 Command line::
 
     $ num2words 10001
     ten thousand and one
-    $ num2words 10123123 --lang es
-    diez millones ciento veintitrés mil ciento veintitrés
     $ num2words 24,120.10
     twenty-four thousand, one hundred and twenty point one
     $ num2words 24,120.10 -l es
@@ -92,12 +95,15 @@ Besides the numerical argument, there are two main optional arguments.
 * ``id`` (Indonesian)
 * ``it`` (Italian)
 * ``ja`` (Japanese)
+* ``ko`` (Korean)
 * ``lt`` (Lithuanian)
 * ``lv`` (Latvian)
 * ``no`` (Norwegian)
 * ``pl`` (Polish)
 * ``pt`` (Portuguese)
 * ``pt_BR`` (Portuguese - Brazilian)
+* ``sl`` (Slovene)
+* ``sr`` (Serbian)
 * ``ro`` (Romanian)
 * ``ru`` (Russian)
 * ``sl`` (Slovene)

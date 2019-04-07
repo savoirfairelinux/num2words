@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+# Copyright (c) 2003, Taro Ogawa.  All Rights Reserved.
 # Copyright (c) 2013, Savoir-faire Linux inc.  All Rights Reserved.
 
 # This library is free software; you can redistribute it and/or
@@ -69,54 +71,54 @@ class Num2WordsENTest(TestCase):
 
     def test_to_currency(self):
         self.assertEqual(
-            num2words('38.4', lang='en', to='currency', seperator=' and',
+            num2words('38.4', lang='en', to='currency', separator=' and',
                       cents=False, currency='USD'),
             "thirty-eight dollars and 40 cents"
         )
         self.assertEqual(
-            num2words('0', lang='en', to='currency', seperator=' and',
+            num2words('0', lang='en', to='currency', separator=' and',
                       cents=False, currency='USD'),
             "zero dollars and 00 cents"
         )
 
         self.assertEqual(
-            num2words('1.01', lang='en', to='currency', seperator=' and',
+            num2words('1.01', lang='en', to='currency', separator=' and',
                       cents=True, currency='USD'),
             "one dollar and one cent"
         )
 
         self.assertEqual(
-            num2words('4778.00', lang='en', to='currency', seperator=' and',
+            num2words('4778.00', lang='en', to='currency', separator=' and',
                       cents=True, currency='USD', adjective=True),
             'four thousand, seven hundred and seventy-eight US dollars'
             ' and zero cents')
 
         self.assertEqual(
-            num2words('4778.00', lang='en', to='currency', seperator=' and',
+            num2words('4778.00', lang='en', to='currency', separator=' and',
                       cents=True, currency='USD'),
             'four thousand, seven hundred and seventy-eight dollars and'
             ' zero cents')
 
         self.assertEqual(
-            num2words('1.1', lang='en', to='currency', seperator=' and',
+            num2words('1.1', lang='en', to='currency', separator=' and',
                       cents=True, currency='MXN'),
             "one peso and ten cents"
         )
 
         self.assertEqual(
-            num2words('158.3', lang='en', to='currency', seperator=' and',
+            num2words('158.3', lang='en', to='currency', separator=' and',
                       cents=True, currency='MXN'),
             "one hundred and fifty-eight pesos and thirty cents"
         )
 
         self.assertEqual(
-            num2words('2000.00', lang='en', to='currency', seperator=' and',
+            num2words('2000.00', lang='en', to='currency', separator=' and',
                       cents=True, currency='MXN'),
             "two thousand pesos and zero cents"
         )
 
         self.assertEqual(
-            num2words('4.01', lang='en', to='currency', seperator=' and',
+            num2words('4.01', lang='en', to='currency', separator=' and',
                       cents=True, currency='MXN'),
             "four pesos and one cent"
         )

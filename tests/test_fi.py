@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# Copyright (c) 2003, Taro Ogawa.  All Rights Reserved.
 # Copyright (c) 2013, Savoir-faire Linux inc.  All Rights Reserved.
 
 # This library is free software; you can redistribute it and/or
@@ -16,7 +17,6 @@
 
 from __future__ import division, print_function, unicode_literals
 
-import sys
 from unittest import TestCase
 
 from num2words import num2words
@@ -30,50 +30,6 @@ CASES = ["nominative", "genitive", "partitive",    # grammatical
 
 def n2f(*args, **kwargs):
     return num2words(lang='fi', *args, **kwargs)
-
-
-def create_test(number, to):
-    return (
-        "# %s\n" % num2words(number, lang='en') +
-        "self.assertEqual(\n" +
-        '    tuple(n2f(%s, to="%s", case=c) for c in CASES),\n' %
-        (number, to) +
-        # grammatical
-        '    ("%s", "%s", "%s",\n' %
-        tuple(n2f(number, to=to, case=c) for c in CASES[0:3]) +
-        # internal locative
-        '     "%s", "%s", "%s",\n' %
-        tuple(n2f(number, to=to, case=c) for c in CASES[3:6]) +
-        # external locative
-        '     "%s", "%s", "%s",\n' %
-        tuple(n2f(number, to=to, case=c) for c in CASES[6:9]) +
-        # essive
-        '     "%s", "%s",\n' %
-        tuple(n2f(number, to=to, case=c) for c in CASES[9:11]) +
-        # rare
-        '     "%s", "%s", "%s")\n' %
-        tuple(n2f(number, to=to, case=c) for c in CASES[11:14]) +
-        ")\n" +
-        "self.assertEqual(\n" +
-        '    tuple(n2f(%s, to="%s", case=c, plural=True) for c in CASES),\n' %
-        (number, to) +
-        # grammatical
-        '    ("%s", "%s", "%s",\n' %
-        tuple(n2f(number, to=to, case=c, plural=True) for c in CASES[0:3]) +
-        # internal locative
-        '     "%s", "%s", "%s",\n' %
-        tuple(n2f(number, to=to, case=c, plural=True) for c in CASES[3:6]) +
-        # external locative
-        '     "%s", "%s", "%s",\n' %
-        tuple(n2f(number, to=to, case=c, plural=True) for c in CASES[6:9]) +
-        # essive
-        '     "%s", "%s",\n' %
-        tuple(n2f(number, to=to, case=c, plural=True) for c in CASES[9:11]) +
-        # rare
-        '     "%s", "%s", "%s")\n' %
-        tuple(n2f(number, to=to, case=c, plural=True) for c in CASES[11:14]) +
-        ")\n"
-    )
 
 
 class Num2WordsFITest(TestCase):
@@ -2804,7 +2760,3 @@ class Num2WordsFITest(TestCase):
         self.assertEqual(
             n2f(150, to="currency", currency="FIM", adjective=True),
             "yksi Suomen markka ja viisikymmentä penniä")
-
-
-if __name__ == '__main__':
-    print(create_test(int(sys.argv[1]), sys.argv[2]))

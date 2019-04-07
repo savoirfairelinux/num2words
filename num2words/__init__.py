@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright (c) 2003, Taro Ogawa.  All Rights Reserved.
 # Copyright (c) 2013, Savoir-faire Linux inc.  All Rights Reserved.
 
@@ -16,38 +17,12 @@
 
 from __future__ import unicode_literals
 
-from . import lang_AR
-from . import lang_CZ
-from . import lang_EN
-from . import lang_EN_IN
-from . import lang_FR
-from . import lang_FR_CH
-from . import lang_FR_BE
-from . import lang_FR_DZ
-from . import lang_DE
-from . import lang_ES
-from . import lang_FI
-from . import lang_LT
-from . import lang_LV
-from . import lang_PL
-from . import lang_RO
-from . import lang_RU
-from . import lang_ID
-from . import lang_JA
-from . import lang_NO
-from . import lang_DK
-from . import lang_PT
-from . import lang_PT_BR
-from . import lang_HE
-from . import lang_IT
-from . import lang_ES_VE
-from . import lang_ES_CO
-from . import lang_VI
-from . import lang_TR
-from . import lang_NL
-from . import lang_UK
-from . import lang_SL
-from . import lang_TH
+from . import (lang_AR, lang_CZ, lang_DE, lang_DK, lang_EN, lang_EN_IN,
+               lang_ES, lang_ES_CO, lang_ES_VE, lang_FI, lang_FR, lang_FR_BE,
+               lang_FR_CH, lang_FR_DZ, lang_HE, lang_ID, lang_IT, lang_JA,
+               lang_KO, lang_LT, lang_LV, lang_NL, lang_NO, lang_PL, lang_PT,
+               lang_PT_BR, lang_RO, lang_RU, lang_SL, lang_SR, lang_TH,
+               lang_TR, lang_UK, lang_VI)
 
 CONVERTER_CLASSES = {
     'ar': lang_AR.Num2Word_AR(),
@@ -65,12 +40,14 @@ CONVERTER_CLASSES = {
     'es_VE': lang_ES_VE.Num2Word_ES_VE(),
     'id': lang_ID.Num2Word_ID(),
     'ja': lang_JA.Num2Word_JA(),
+    'ko': lang_KO.Num2Word_KO(),
     'lt': lang_LT.Num2Word_LT(),
     'lv': lang_LV.Num2Word_LV(),
     'pl': lang_PL.Num2Word_PL(),
     'ro': lang_RO.Num2Word_RO(),
     'ru': lang_RU.Num2Word_RU(),
     'sl': lang_SL.Num2Word_SL(),
+    'sr': lang_SR.Num2Word_SR(),
     'no': lang_NO.Num2Word_NO(),
     'dk': lang_DK.Num2Word_DK(),
     'pt': lang_PT.Num2Word_PT(),
@@ -106,6 +83,8 @@ def num2words(number, ordinal=False, lang='en', to='cardinal', **kwargs):
     if lang not in CONVERTER_CLASSES:
         raise NotImplementedError()
     converter = CONVERTER_CLASSES[lang]
+    if isinstance(number, str):
+        number = converter.str_to_number(number)
     # backwards compatible
     if ordinal:
         return converter.to_ordinal(number)

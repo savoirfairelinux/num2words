@@ -1,5 +1,6 @@
-# -*- encoding: utf-8 -*-
-# Copyright (c) 2015, Savoir-faire Linux inc.  All Rights Reserved.
+# -*- coding: utf-8 -*-
+# Copyright (c) 2003, Taro Ogawa.  All Rights Reserved.
+# Copyright (c) 2013, Savoir-faire Linux inc.  All Rights Reserved.
 
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -83,11 +84,11 @@ class Num2WordsCZTest(TestCase):
             "tisíc dvěstě třicet čtyři koruny, padesát šest haléřů")
         self.assertEqual(
             num2words(101.11, lang='cz', to='currency', currency='EUR',
-                      seperator=' a'),
+                      separator=' a'),
             "sto jedna euro a jedenáct centů")
         self.assertEqual(
             num2words(101.21, lang='cz', to='currency', currency='CZK',
-                      seperator=' a'),
+                      separator=' a'),
             "sto jedna korun a dvacet jedna haléřů"
         )
         self.assertEqual(
@@ -96,7 +97,7 @@ class Num2WordsCZTest(TestCase):
         )
         self.assertEqual(
             num2words(123.50, lang='cz', to='currency', currency='CZK',
-                      seperator=' a'),
+                      separator=' a'),
             "sto dvacet tři koruny a padesát haléřů"
         )
         self.assertEqual(
