@@ -21,6 +21,46 @@ from unittest import TestCase
 
 from num2words import num2words
 
+TEST_CASES_TO_CURRENCY_EUR = (
+    (1.00, 'ein Euro und null Cent'),
+    (2.01, 'zwei Euro und ein Cent'),
+    (8.10, 'acht Euro und zehn Cent'),
+    (12.26, 'zwölf Euro und sechsundzwanzig Cent'),
+    (21.29, 'einundzwanzig Euro und neunundzwanzig Cent'),
+    (81.25, 'einundachtzig Euro und fünfundzwanzig Cent'),
+    (100.00, 'einhundert Euro und null Cent'),
+)
+
+TEST_CASES_TO_CURRENCY_USD = (
+    (1.00, 'ein Dollar und null Cent'),
+    (2.01, 'zwei Dollar und ein Cent'),
+    (8.10, 'acht Dollar und zehn Cent'),
+    (12.26, 'zwölf Dollar und sechsundzwanzig Cent'),
+    (21.29, 'einundzwanzig Dollar und neunundzwanzig Cent'),
+    (81.25, 'einundachtzig Dollar und fünfundzwanzig Cent'),
+    (100.00, 'einhundert Dollar und null Cent'),
+)
+
+TEST_CASES_TO_CURRENCY_GBP = (
+    (1.00, 'ein Pfund und null Pence'),
+    (2.01, 'zwei Pfund und ein Penny'),
+    (8.10, 'acht Pfund und zehn Pence'),
+    (12.26, 'zwölf Pfund und sechsundzwanzig Pence'),
+    (21.29, 'einundzwanzig Pfund und neunundzwanzig Pence'),
+    (81.25, 'einundachtzig Pfund und fünfundzwanzig Pence'),
+    (100.00, 'einhundert Pfund und null Pence'),
+)
+
+TEST_CASES_TO_CURRENCY_DEM = (
+    (1.00, 'ein Mark und null Pfennig'),
+    (2.01, 'zwei Mark und ein Pfennig'),
+    (8.10, 'acht Mark und zehn Pfennig'),
+    (12.26, 'zwölf Mark und sechsundzwanzig Pfennig'),
+    (21.29, 'einundzwanzig Mark und neunundzwanzig Pfennig'),
+    (81.25, 'einundachtzig Mark und fünfundzwanzig Pfennig'),
+    (100.00, 'einhundert Mark und null Pfennig'),
+)
+
 
 class Num2WordsDETest(TestCase):
 
@@ -93,30 +133,33 @@ class Num2WordsDETest(TestCase):
     def test_ordinal_for_floating_numbers(self):
         self.assertRaises(TypeError, num2words, 2.453, ordinal=True, lang='de')
 
-    def test_currency(self):
-        self.assertEqual(num2words(1.01, lang='de', to='currency'),
-                         'ein Euro und ein Cent')
-        self.assertEqual(num2words(12.00, lang='de', to='currency'),
-                         'zwölf Euro und null Cent')
-        self.assertEqual(num2words(12.00, lang='de', to='currency'),
-                         'zwölf Euro und null Cent')
-        self.assertEqual(num2words(100.0, lang='de', to='currency'),
-                         "einhundert Euro und null Cent")
-        self.assertEqual(num2words(190.01, lang='de', to='currency'),
-                         "einhundertneunzig Euro und ein Cent")
-        self.assertEqual(num2words(1.90, lang='de', to='currency'),
-                         "ein Euro und neunzig Cent")
-        self.assertEqual(num2words(3.4, lang='de', to='currency'),
-                         "drei Euro und vierzig Cent")
-        self.assertEqual(num2words(20.18, lang='de', to='currency'),
-                         "zwanzig Euro und achtzehn Cent")
-        self.assertEqual(num2words(3.04, lang='de', to='currency'),
-                         "drei Euro und vier Cent")
+    def test_currency_eur(self):
+        for test in TEST_CASES_TO_CURRENCY_EUR:
+            self.assertEqual(
+                num2words(test[0], lang='de', to='currency', currency='EUR'),
+                test[1]
+            )
 
-    def test_old_currency(self):
-        self.assertEqual(num2words(12.00, to='currency', lang='de',
-                                   currency='DEM'),
-                         'zwölf Mark und null Pfennig')
+    def test_currency_usd(self):
+        for test in TEST_CASES_TO_CURRENCY_USD:
+            self.assertEqual(
+                num2words(test[0], lang='de', to='currency', currency='USD'),
+                test[1]
+            )
+
+    def test_currency_dem(self):
+        for test in TEST_CASES_TO_CURRENCY_DEM:
+            self.assertEqual(
+                num2words(test[0], lang='de', to='currency', currency='DEM'),
+                test[1]
+            )
+
+    def test_currency_gbp(self):
+        for test in TEST_CASES_TO_CURRENCY_GBP:
+            self.assertEqual(
+                num2words(test[0], lang='de', to='currency', currency='GBP'),
+                test[1]
+            )
 
     def test_year(self):
         self.assertEqual(num2words(2002, to='year', lang='de'),

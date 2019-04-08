@@ -138,6 +138,16 @@ TEST_CASES_TO_CURRENCY_FRF = (
     (100.00, 'cent francs et zéro centimes'),
 )
 
+TEST_CASES_TO_CURRENCY_USD = (
+    (1.00, 'un dollar et zéro cents'),
+    (2.01, 'deux dollars et un cent'),
+    (8.10, 'huit dollars et dix cents'),
+    (12.26, 'douze dollars et vingt-six cents'),
+    (21.29, 'vingt et un dollars et vingt-neuf cents'),
+    (81.25, 'quatre-vingt-un dollars et vingt-cinq cents'),
+    (100.00, 'cent dollars et zéro cents'),
+)
+
 
 class Num2WordsENTest(TestCase):
     def test_ordinal_special_joins(self):
@@ -184,5 +194,12 @@ class Num2WordsENTest(TestCase):
         for test in TEST_CASES_TO_CURRENCY_FRF:
             self.assertEqual(
                 num2words(test[0], lang='fr', to='currency', currency='FRF'),
+                test[1]
+            )
+
+    def test_currency_usd(self):
+        for test in TEST_CASES_TO_CURRENCY_USD:
+            self.assertEqual(
+                num2words(test[0], lang='fr', to='currency', currency='USD'),
                 test[1]
             )
