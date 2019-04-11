@@ -22,7 +22,10 @@ from .lang_EU import Num2Word_EU
 
 class Num2Word_NL(Num2Word_EU):
     CURRENCY_FORMS = {
-        'EUR': (('euro', 'euros'), ('cent', 'cents')),
+        'EUR': (('euro', 'euro'), ('cent', 'cent')),
+        'GBP': (('pond', 'pond'), ('penny', 'pence')),
+        'USD': (('dollar', 'dollar'), ('cent', 'cent')),
+        'CNY': (('yuan', 'yuan'), ('jiao', 'fen')),
     }
 
     GIGA_SUFFIX = "iljard"
