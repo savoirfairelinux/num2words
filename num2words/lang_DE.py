@@ -23,6 +23,14 @@ from .lang_EU import Num2Word_EU
 
 
 class Num2Word_DE(Num2Word_EU):
+    CURRENCY_FORMS = {
+        'EUR': (('Euro', 'Euro'), ('Cent', 'Cent')),
+        'GBP': (('Pfund', 'Pfund'), ('Penny', 'Pence')),
+        'USD': (('Dollar', 'Dollar'), ('Cent', 'Cent')),
+        'CNY': (('Yuan', 'Yuan'), ('Jiao', 'Fen')),
+        'DEM': (('Mark', 'Mark'), ('Pfennig', 'Pfennig')),
+    }
+
     GIGA_SUFFIX = "illiarde"
     MEGA_SUFFIX = "illion"
 
@@ -134,22 +142,13 @@ class Num2Word_DE(Num2Word_EU):
         self.verify_ordinal(value)
         return str(value) + "."
 
-    def to_currency(self, val, longval=True, old=False):
-        hightxt = "Euro"
-        lowtxt = "Cent"
-        if old:
-            hightxt = "Mark"
-            lowtxt = "Pfennig/e"
-
-        cents = int(round(val*100))
-        res = self.to_splitnum(cents, hightxt=hightxt, lowtxt=lowtxt,
-                               jointxt="und", longval=longval)
-
+    def to_currency(self, val, currency='EUR', cents=True, separator=' und',
+                    adjective=False):
+        result = super(Num2Word_DE, self).to_currency(
+            val, currency=currency, cents=cents, separator=separator,
+            adjective=adjective)
         # Handle exception, in german is "ein Euro" and not "eins Euro"
-        if res.startswith("eins "):
-            res = res.replace("eins ", "ein ", 1)
-
-        return res
+        return result.replace("eins ", "ein ")
 
     def to_year(self, val, longval=True):
         if not (val // 100) % 10:
