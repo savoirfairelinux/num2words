@@ -393,3 +393,11 @@ class Num2WordsPTBRTest(TestCase):
             'setecentos e quarenta e quatro antes de Cristo'
         )
         self.assertEqual(self.n2w.to_year(-10000), 'dez mil antes de Cristo')
+
+    def test_date(self):
+        self.assertEqual(self.n2w.to_date('12/12/12'), 
+            'doze de dezembro de dois mil e doze')
+
+    def test_time(self):
+        self.assertEqual(self.n2w.to_time('3:10'), 
+            'três horas e dez minutos')
