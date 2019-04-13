@@ -116,7 +116,7 @@ class Num2Word_PT_BR(lang_PT.Num2Word_PT):
 
     def to_date(self, val):
         map_month = {
-            u'01':'janeiro',     u'1':'janeiro'
+            u'01':'janeiro',     u'1':'janeiro',
             u'02':'fevereiro',   u'2':'fevereiro',
             u'03':'março',       u'3':'março',
             u'04':'abril',       u'4':'abril',
