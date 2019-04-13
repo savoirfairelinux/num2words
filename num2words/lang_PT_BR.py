@@ -160,3 +160,45 @@ class Num2Word_PT_BR(lang_PT.Num2Word_PT):
         else:
             day = self.to_cardinal(day)
         return '%s de %s de %s' % (day, month, year)
+
+    def to_time(self, val):
+        hour         = '(2[0-3]|[01]?[0-9])'
+        minute       = '([0-5]?[0-9])(h?)'
+        short_hour   = '(2[0-3]|[01]?[0-9])h'
+        pattern_time = re.compile(r'^(%s:%s|%s|%sh%s|%sh%s)$' % \
+                    (hour, minute, short_hour, hour, minute, short_hour, minute))
+
+        if re.search(pattern_time, val) is None:
+            print('deu ruim')
+            return None
+
+        vals = val.split(':')
+        h_unit = 'hora'
+        m_unit = 'minuto'
+        if len(vals) == 1:   # single hour
+            hour = vals[0].replace('h','')
+            if int(hour) > 1:
+                h_unit += 's' 
+            hour = self.str_to_number(hour)
+            hour = self.to_cardinal(hour) + ' '
+            return hour + ' ' + h_unit
+        elif len(vals) == 2: # hours and minutes
+            hour = vals[0].replace('h','') 
+            if int(hour) > 1:
+                h_unit += 's'
+            hour = self.str_to_number(hour)
+            hour = self.to_cardinal(hour)
+
+            mins = vals[1].replace('m','')
+            if int(mins) == 0:
+                mins    = ''
+                m_unit  = ''
+            elif int(mins) == 1:
+                mins = self.str_to_number(mins)
+                mins = ' e ' + self.to_cardinal(mins)
+            elif int(mins) > 1:
+                mins = self.str_to_number(mins)
+                mins = ' e ' + self.to_cardinal(mins)
+                m_unit += 's'
+
+            return hour + ' ' + h_unit + mins + ' ' + m_unit
