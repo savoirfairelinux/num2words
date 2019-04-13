@@ -113,3 +113,50 @@ class Num2Word_PT_BR(lang_PT.Num2Word_PT):
                 result += ' centavos'
 
         return result
+
+    def to_date(self, val):
+        map_month = {
+            u'01':'janeiro',     u'1':'janeiro'
+            u'02':'fevereiro',   u'2':'fevereiro',
+            u'03':'março',       u'3':'março',
+            u'04':'abril',       u'4':'abril',
+            u'05':'maio',        u'5':'maio',
+            u'06':'junho',       u'6':'junho',
+            u'07':'julho',       u'7':'julho',
+            u'08':'agosto',      u'8':'agosto',
+            u'09':'setembro',    u'9':'setembro',
+            u'10':'outubro',
+            u'11':'novembro',
+            u'12':'dezembro',
+        }
+
+        # NOTE supports only dd/mm/[yy|yyyy]
+        day          = '(3[0-1]|[12][0-9]|0?[1-9])'
+        month        = '(1[0-2]|[0]?[1-9])'
+        year         = '(1[4-9]|2[0-1])([0-9][0-9])'
+        short_year   = '([09][0-9]|1[0-9])'
+        pattern_date = re.compile(r'^%s/%s/(%s|%s)$' % \
+                    (day, month, year, short_year))
+
+        if re.search(pattern_date, val) is None:
+            print('deu ruim')
+            return None
+
+        vals  = val.split('/')
+
+        year = vals[-1]
+        if int(year) < 20:
+            year = '20' + year
+        year = self.str_to_number(year)
+        year = self.to_cardinal(year)
+
+        month = vals[-2]
+        month = map_month[month]
+
+        day = vals[-3]
+        day = self.str_to_number(day)
+        if day == 1:
+            day = self.to_ordinal(day)
+        else:
+            day = self.to_cardinal(day)
+        return '%s de %s de %s' % (day, month, year)
