@@ -62,7 +62,10 @@ CONVERTER_CLASSES = {
 }
 
 
-CONVERTES_TYPES = ['cardinal', 'ordinal', 'ordinal_num', 'year', 'currency']
+CONVERTES_TYPES = [
+    'cardinal', 'ordinal', 'ordinal_num', 
+    'year', 'currency', 'time', 'date',
+    ]
 
 
 def num2words(number, ordinal=False, lang='en', to='cardinal', **kwargs):
@@ -74,7 +77,8 @@ def num2words(number, ordinal=False, lang='en', to='cardinal', **kwargs):
         raise NotImplementedError()
     converter = CONVERTER_CLASSES[lang]
     if isinstance(number, str):
-        number = converter.str_to_number(number)
+        if to != 'date' and to != 'time':
+            number = converter.str_to_number(number)
     # backwards compatible
     if ordinal:
         return converter.to_ordinal(number)
