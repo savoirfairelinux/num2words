@@ -21,6 +21,16 @@ from .lang_EN import Num2Word_EN
 
 
 class Num2Word_EN_IN(Num2Word_EN):
+    CURRENCY_FORMS = {
+        'INR': (('rupee', 'rupees'), ('paisa', 'paise')),
+    }
+
+    CURRENCY_ADJECTIVES = {'INR': 'Indian'}
+
     def set_high_numwords(self, high):
         self.cards[10 ** 7] = "crore"
         self.cards[10 ** 5] = "lakh"
+
+    def to_currency(self, val, currency='INR', **kwargs):
+        return super(Num2Word_EN_IN, self).to_currency(
+            val, currency=currency, **kwargs)

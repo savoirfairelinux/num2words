@@ -25,3 +25,9 @@ class Num2WordsENINTest(TestCase):
         self.assertEqual(num2words(1e5, lang="en_IN"), "one lakh")
         self.assertEqual(num2words(1e6, lang="en_IN"), "ten lakh")
         self.assertEqual(num2words(1e7, lang="en_IN"), "one crore")
+
+    def test_currency_inr(self):
+        self.assertEqual(
+            num2words('11111111.01', lang='en_IN', to='currency', separator=' and'),
+            "one crore, eleven lakh, eleven thousand, one hundred and eleven rupees and one paisa"
+        )
