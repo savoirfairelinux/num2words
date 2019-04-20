@@ -27,7 +27,10 @@ class Num2WordsENINTest(TestCase):
         self.assertEqual(num2words(1e7, lang="en_IN"), "one crore")
 
     def test_currency_inr(self):
-        self.assertEqual(
-            num2words('11111111.01', lang='en_IN', to='currency', separator=' and'),
-            "one crore, eleven lakh, eleven thousand, one hundred and eleven rupees and one paisa"
-        )
+        expected = """one crore, eleven lakh, eleven thousand\
+, one hundred and eleven rupees and eleven paise"""
+        self.assertEqual(num2words('11111111.11',
+                                   lang='en_IN',
+                                   to='currency',
+                                   separator=' and'),
+                         expected)
