@@ -22,8 +22,8 @@ from .lang_EU import Num2Word_EU
 
 
 class Num2Word_SL(Num2Word_EU):
-    GIGA_SUFFIX = "iljard"
-    MEGA_SUFFIX = "iljon"
+    GIGA_SUFFIX = "ilijard"
+    MEGA_SUFFIX = "ilijon"
 
     def setup(self):
         super(Num2Word_SL, self).setup()
@@ -36,7 +36,7 @@ class Num2Word_SL(Num2Word_EU):
 
         self.mid_numwords = [(1000, "tisoč"), (900, "devetsto"),
                              (800, "osemsto"), (700, "sedemsto"),
-                             (600, "šesto"), (500, "petsto"),
+                             (600, "šeststo"), (500, "petsto"),
                              (400, "štiristo"), (300, "tristo"),
                              (200, "dvesto"), (100, "sto"),
                              (90, "devetdeset"), (80, "osemdeset"),
@@ -57,15 +57,30 @@ class Num2Word_SL(Num2Word_EU):
                      "osem": "osm",
                      "sto": "stot",
                      "tisoč": "tisoč",
-                     "miljon": "miljont"
+                     "milijon": "milijont"
                      }
         self.ordflag = False
 
     def merge(self, curr, next):
         ctext, cnum, ntext, nnum = curr + next
 
-        if ctext == "dve" and not self.ordflag:
+        if ctext.endswith("dve") and self.ordflag and nnum <= 1000000:
+            ctext = ctext[:len(ctext)-1] + "a"
+
+        if ctext == "dve" and not self.ordflag and nnum < 1000000000:
             ctext = "dva"
+
+        if (ctext.endswith("tri") or ctext.endswith("štiri")) and\
+           nnum == 1000000 and not self.ordflag:
+            if ctext.endswith("štiri"):
+                ctext = ctext[:-1]
+            ctext = ctext + "je"
+
+        if cnum >= 20 and cnum < 100 and nnum == 2:
+            ntext = "dva"
+
+        if ctext.endswith("ena") and nnum >= 1000:
+            ctext = ctext[0:-1]
 
         if cnum == 1:
             if nnum < 10**6 or self.ordflag:
@@ -89,15 +104,28 @@ class Num2Word_SL(Num2Word_EU):
                     elif not ntext.endswith("d"):
                         ntext += "i"
 
+                elif ctext.endswith("en"):
+                    if ntext.endswith("d") or ntext.endswith("n"):
+                        ntext += ""
+
+                elif ctext.endswith("dve") and ntext.endswith("n"):
+                    ctext = ctext[:-1] + "a"
+                    ntext += "a"
+
+                elif ctext.endswith("je") and ntext.endswith("n"):
+                    ntext += "i"
+
                 else:
                     if ntext.endswith("d"):
+                        ntext += "a"
+                    elif ntext.endswith("n"):
                         ntext += ""
                     elif ntext.endswith("d"):
                         ntext += "e"
                     else:
                         ntext += "ov"
 
-            if nnum >= 10**2 and self.ordflag is False:
+            if nnum >= 10**2 and self.ordflag is False and ctext:
                 ctext += " "
 
             val = cnum * nnum
