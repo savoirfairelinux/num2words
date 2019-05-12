@@ -26,10 +26,14 @@ class Num2WordsKNTest(TestCase):
         self.assertEqual(num2words(42, lang="kn"), u"ನಲವತ್ತ್ ಎರಡು")
         self.assertEqual(num2words(893, lang="kn"), u"ಎಂಟು ನೂರು ತೊಂಬತ್ತ ಮೂರು")
         self.assertEqual(
-            num2words(1729, lang="kn"), u"ಒಂದು ಸಾವಿರ ಏಳು ನೂರು ಇಪ್ಪತ್ತ್ಒಂಬತ್ತು"
+            num2words(1729, lang="kn"), u"ಒಂದು ಸಾವಿರದ ಏಳು ನೂರು ಇಪ್ಪತ್ತ್ಒಂಬತ್ತು"
         )
+        self.assertEqual(num2words(123, lang="kn"), u"ಒಂದು ನೂರ ಇಪ್ಪತ್ತ್ ಮೂರು")
+        self.assertEqual(num2words(32211, lang="kn"), u"ಮೂವತ್ತ್ಎರಡು ಸಾವಿರದ ಎರಡು ನೂರ ಹನ್ನೊಂದು")
+        self.assertEqual(num2words(89843994), u"ಎಂಟು ಕೋಟಿ ತೊಂಬತ್ತೆಂಟು ಒಂದು ಲಕ್ಷ ನಲವತ್ತ್ ಮೂರು ಸಾವಿರ ಒಂಬತ್ತು ನೂರ ತೊಂಬತ್ತ ನಾಲ್ಕು")
 
     def test_ordinals(self):
         self.assertEqual(num2words(2, lang="kn", ordinal=True), u"ಎರಡನೇ")
         self.assertEqual(num2words(5, lang="kn", ordinal=True), u"ಐದನೇ")
         self.assertEqual(num2words(16, lang="kn", ordinal=True), u"ಹದಿನಾರನೇ")
+        self.assertEqual(num2words(113, lang="kn", ordinal=True), u"ಒಂದು ನೂರ ಹದಿಮೂರನೇ")
