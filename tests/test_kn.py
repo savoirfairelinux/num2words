@@ -31,6 +31,8 @@ class Num2WordsKNTest(TestCase):
         self.assertEqual(num2words(123, lang="kn"), u"ಒಂದು ನೂರ ಇಪ್ಪತ್ತ್ ಮೂರು")
         self.assertEqual(num2words(32211, lang="kn"),
                          u"ಮೂವತ್ತ್ಎರಡು ಸಾವಿರ ಎರಡು ನೂರ ಹನ್ನೊಂದು")
+
+    def test_cardinal_for_float_number(self):
         self.assertEqual(num2words(3.14, lang="kn"), u"ಮೂರು ಬಿಂದು ಒಂದು ನಾಲ್ಕು")
         self.assertEqual(num2words(1.61803, lang="kn"),
                          u"ಒಂದು ಬಿಂದು ಆರು ಒಂದು ಎಂಟು ಸೊನ್ನೆ ಮೂರು")
