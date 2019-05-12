@@ -161,7 +161,10 @@ class Num2Word_KN(Num2Word_Base):
         elif 100 > lnum > rnum:
             return ("%s-%s" % (ltext, rtext), lnum + rnum)
         elif lnum >= 100 > rnum:
-            return ("%s %s" % (ltext, rtext), lnum + rnum)
+            if ltext[-1] in self.modifiers:
+                return ("%s %s" % (ltext[:-1], rtext), lnum + rnum)
+            else:
+                return ("%s %s" % (ltext + "ದ", rtext), lnum + rnum)
         elif rnum > lnum:
             return ("%s %s" % (ltext, rtext), lnum * rnum)
         return ("%s %s" % (ltext, rtext), lnum + rnum)
