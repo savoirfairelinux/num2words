@@ -20,9 +20,9 @@ from __future__ import unicode_literals
 from . import (lang_AR, lang_CZ, lang_DE, lang_DK, lang_EN, lang_EN_IN,
                lang_ES, lang_ES_CO, lang_ES_VE, lang_FI, lang_FR, lang_FR_BE,
                lang_FR_CH, lang_FR_DZ, lang_HE, lang_ID, lang_IT, lang_JA,
-               lang_KO, lang_LT, lang_LV, lang_NL, lang_NO, lang_PL, lang_PT,
-               lang_PT_BR, lang_RO, lang_RU, lang_SL, lang_SR, lang_TH,
-               lang_TR, lang_UK, lang_VI)
+               lang_KN, lang_KO, lang_LT, lang_LV, lang_NL, lang_NO, lang_PL,
+               lang_PT, lang_PT_BR, lang_RO, lang_RU, lang_SL, lang_SR,
+               lang_TH, lang_TR, lang_UK, lang_VI)
 
 CONVERTER_CLASSES = {
     'ar': lang_AR.Num2Word_AR(),
@@ -40,6 +40,7 @@ CONVERTER_CLASSES = {
     'es_VE': lang_ES_VE.Num2Word_ES_VE(),
     'id': lang_ID.Num2Word_ID(),
     'ja': lang_JA.Num2Word_JA(),
+    'kn': lang_KN.Num2Word_KN(),
     'ko': lang_KO.Num2Word_KO(),
     'lt': lang_LT.Num2Word_LT(),
     'lv': lang_LV.Num2Word_LV(),
@@ -73,8 +74,10 @@ def num2words(number, ordinal=False, lang='en', to='cardinal', **kwargs):
     if lang not in CONVERTER_CLASSES:
         raise NotImplementedError()
     converter = CONVERTER_CLASSES[lang]
+
     if isinstance(number, str):
         number = converter.str_to_number(number)
+
     # backwards compatible
     if ordinal:
         return converter.to_ordinal(number)
