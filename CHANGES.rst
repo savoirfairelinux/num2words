@@ -1,6 +1,22 @@
 Changelog
 =========
 
+
+Version 0.5.10 -- 2019/05/12
+----------------------------
+
+* Add Kannada language localization (#243)
+* Revert some copyrights changed by mistake (#254)
+* Add indian rupee to the supported currencies (#248)
+* Improve currency functions for German and French (#247)
+* Improve Slovene localization (#246)
+* Improve Spanish localization (#240)
+* Fix typo 'seperator' on source code (#238)
+* Convert string to decimal values (#223)
+* Improve German localization and test coverage (#237)
+* Improve Polish localization (#233)
+* Fix ordinal number for French ending on 1 (#236)
+
 Version 0.5.9 -- 2019/01/10
 ---------------------------
 
