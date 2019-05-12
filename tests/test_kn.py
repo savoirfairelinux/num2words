@@ -37,7 +37,29 @@ class Num2WordsKNTest(TestCase):
         self.assertEqual(num2words(1.61803, lang="kn"),
                          u"ಒಂದು ಬಿಂದು ಆರು ಒಂದು ಎಂಟು ಸೊನ್ನೆ ಮೂರು")
 
-    def test_ordinals(self):
+    def test_ordinal(self):
+        self.assertEqual(
+            num2words(1, lang='kn', to='ordinal'),
+            'ಒಂದನೇ'
+        )
+        self.assertEqual(
+            num2words(22, lang='kn', to='ordinal'),
+            'ಇಪ್ಪತ್ತ್ ಎರಡನೇ'
+        )
+        self.assertEqual(
+            num2words(12, lang='kn', to='ordinal'),
+            'ಹನ್ನೆರಡನೇ'
+        )
+        self.assertEqual(
+            num2words(130, lang='kn', to='ordinal'),
+            'ಒಂದು ನೂರ ಮೂವತ್ತನೇ'
+        )
+        self.assertEqual(
+            num2words(1003, lang='kn', to='ordinal'),
+            'ಒಂದು ಸಾವಿರದ ಮೂರನೇ'
+        )
+
+    def test_ordinal_num(self):
         self.assertEqual(num2words(2, lang="kn", ordinal=True), u"ಎರಡನೇ")
         self.assertEqual(num2words(5, lang="kn", ordinal=True), u"ಐದನೇ")
         self.assertEqual(num2words(16, lang="kn", ordinal=True), u"ಹದಿನಾರನೇ")
