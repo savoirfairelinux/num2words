@@ -40,23 +40,23 @@ class Num2WordsKNTest(TestCase):
     def test_ordinal(self):
         self.assertEqual(
             num2words(1, lang='kn', to='ordinal'),
-            'ಒಂದನೇ'
+            u'ಒಂದನೇ'
         )
         self.assertEqual(
             num2words(22, lang='kn', to='ordinal'),
-            'ಇಪ್ಪತ್ತ್ ಎರಡನೇ'
+            u'ಇಪ್ಪತ್ತ್ ಎರಡನೇ'
         )
         self.assertEqual(
             num2words(12, lang='kn', to='ordinal'),
-            'ಹನ್ನೆರಡನೇ'
+            u'ಹನ್ನೆರಡನೇ'
         )
         self.assertEqual(
             num2words(130, lang='kn', to='ordinal'),
-            'ಒಂದು ನೂರ ಮೂವತ್ತನೇ'
+            u'ಒಂದು ನೂರ ಮೂವತ್ತನೇ'
         )
         self.assertEqual(
             num2words(1003, lang='kn', to='ordinal'),
-            'ಒಂದು ಸಾವಿರದ ಮೂರನೇ'
+            u'ಒಂದು ಸಾವಿರದ ಮೂರನೇ'
         )
 
     def test_ordinal_num(self):
