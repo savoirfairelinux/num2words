@@ -135,6 +135,15 @@ class Num2WordsROTest(TestCase):
             u'patru mii șapte sute șaptezeci și opt lei'
             u' și treizeci și doi bani')
 
+        self.assertEqual(
+            num2words(1200, lang='ro', to='currency'),
+            u'una mie două sute lei')
+
+        
+        self.assertEqual(
+            num2words(22000, lang='ro', to='currency'),
+            u'douăzeci și două mii lei')
+
     def test_to_year(self):
         self.assertEqual(num2words(1989, lang='ro', to='year'),
                          u'o mie nouă sute optzeci și nouă')
