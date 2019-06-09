@@ -120,29 +120,30 @@ class Num2WordsROTest(TestCase):
             num2words(38.4, lang='ro', to='currency'),
             u'treizeci și opt lei și patruzeci bani'
         )
-
         self.assertEqual(
             num2words(1.01, lang='ro', to='currency'),
             u'un leu și un ban'
         )
-
         self.assertEqual(
             num2words(4778.00, lang='ro', to='currency'),
             u'patru mii șapte sute șaptezeci și opt lei')
-
         self.assertEqual(
             num2words(4778.32, lang='ro', to='currency'),
             u'patru mii șapte sute șaptezeci și opt lei'
             u' și treizeci și doi bani')
-
         self.assertEqual(
             num2words(1200, lang='ro', to='currency'),
             u'una mie două sute lei')
-
-        
         self.assertEqual(
             num2words(22000, lang='ro', to='currency'),
             u'douăzeci și două mii lei')
+        self.assertEqual(
+            num2words(80000, lang='ro', to='currency'),
+            u'optzeci mii lei')
+        self.assertEqual(
+            num2words(123456789, lang='ro', to='currency'),
+            u'una sută douăzeci și trei milioane patru sute '
+            u'cincizeci și șase mii șapte sute optzeci și nouă lei')
 
     def test_to_year(self):
         self.assertEqual(num2words(1989, lang='ro', to='year'),
