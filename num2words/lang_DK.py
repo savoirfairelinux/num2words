@@ -101,7 +101,9 @@ class Num2Word_DK(lang_EU.Num2Word_EU):
             if outword.endswith(key):
                 outword = outword[:len(outword) - len(key)] + self.ords[key]
                 break
-        if 30 <= value % 100 <= 39:
+        if 0 == value:
+            outword += "te"
+        elif 30 <= value % 100 <= 39:
             outword = outword.rstrip("e") + "te"
         elif 40 <= value % 100 <= 49:
             outword += "nde"
