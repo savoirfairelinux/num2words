@@ -17,13 +17,13 @@
 
 from __future__ import unicode_literals
 
-from .base import Num2Word_Base
+from .lang_EU import Num2Word_EU
 
 
-class Num2Word_KN(Num2Word_Base):
+class Num2Word_KN(Num2Word_EU):
     def set_high_numwords(self, high):
         for n, word in self.high_numwords:
-            self.cards[10 ** n] = word
+            self.cards[10**n] = word
 
     def setup(self):
         self.low_numwords = [
