@@ -33,6 +33,9 @@ class Num2WordsTETest(TestCase):
     def test_cardinal_for_float_number(self):
         self.assertEqual(num2words(1.61803, lang="te"),
                          u"ఒకటి బిందువు  ఆరు ఒకటి ఎనిమిది సున్న మూడు")
+                         
+        self.assertEqual(num2words(34.876, lang="te"),
+                         u"ముప్పై నాలుగు బిందువు  ఎనిమిది ఏడు ఆరు")
 
     def test_ordinal(self):
         self.assertEqual(num2words(1, lang='te', to='ordinal'), u"ఒకటివ")
