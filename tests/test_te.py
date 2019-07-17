@@ -24,16 +24,15 @@ class Num2WordsTETest(TestCase):
     def test_numbers(self):
         self.assertEqual(num2words(66, lang="te"), u"అరవై ఆరు")
         self.assertEqual(num2words(1734, lang="te"),
-                         u"ఒకటి వేల ఏడు వందల ముప్పై నాలుగు")
+                         u"ఒకటి వేయి ఏడు వందల ముప్పై నాలుగు")
         self.assertEqual(num2words(134, lang="te"),
                          u"ఒకటి వందల ముప్పై నాలుగు")
         self.assertEqual(num2words(54411, lang="te"),
-                         u"యాభై నాలుగు వేల నాలుగు వందల పదకొండు")
+                         u"యాభై నాలుగు వేయి నాలుగు వందల పదకొండు")
 
     def test_cardinal_for_float_number(self):
         self.assertEqual(num2words(1.61803, lang="te"),
                          u"ఒకటి బిందువు  ఆరు ఒకటి ఎనిమిది సున్న మూడు")
-                         
         self.assertEqual(num2words(34.876, lang="te"),
                          u"ముప్పై నాలుగు బిందువు  ఎనిమిది ఏడు ఆరు")
 
@@ -45,7 +44,7 @@ class Num2WordsTETest(TestCase):
         self.assertEqual(num2words(130, lang='te', to='ordinal'),
                          u"ఒకటి వందల ముప్పైవ")
         self.assertEqual(num2words(1003, lang='te', to='ordinal'),
-                         u"ఒకటి వేల మూడువ")
+                         u"ఒకటి వేయిల మూడువ")
 
     def test_ordinal_num(self):
         self.assertEqual(num2words(3, lang="te", ordinal=True), u"మూడువ")

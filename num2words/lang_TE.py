@@ -114,9 +114,9 @@ class Num2Word_TE(Num2Word_EU):
             "సున్న",
         ]
 
-        self.mid_numwords = [(100, "వందల")]
+        self.mid_numwords = [(100, "వంద")]
 
-        self.high_numwords = [(7, "కోటి"), (5, "లక్షల"), (3, "వేల")]
+        self.high_numwords = [(7, "కోటి"), (5, "లక్ష"), (3, "వేయి")]
 
         self.pointword = "బిందువు "
 
@@ -148,7 +148,10 @@ class Num2Word_TE(Num2Word_EU):
         elif 100 > lnum > rnum:
             return ("%s-%s" % (ltext, rtext), lnum + rnum)
         elif lnum >= 100 > rnum:
-            return ("%s %s" % (ltext, rtext), lnum + rnum)
+            if ltext[-1] in self.modifiers:
+                return ("%s %s" % (ltext[:-1], rtext), lnum + rnum)
+            else:
+                return ("%s %s" % (ltext + "ల", rtext), lnum + rnum)
         elif rnum > lnum:
             return ("%s %s" % (ltext, rtext), lnum * rnum)
         return ("%s %s" % (ltext, rtext), lnum + rnum)
