@@ -130,9 +130,6 @@ class Num2Word_BG(Num2Word_Base):
     def setup(self):
         pass
 
-    def calculate_conjunction_position(self, chunks):
-        pass
-
     def _int2word(self, number, feminine=False):
         if number < 0:
             return ' '.join([MINUS_PREFIX_WORD, self._int2word(abs(number))])
@@ -149,7 +146,8 @@ class Num2Word_BG(Num2Word_Base):
             digit_right, digit_mid, digit_left = get_digits(chunk)
 
             if digit_left > 0:
-                if len(words) and digit_right == 0 and digit_mid == 0:
+                # the True is missing condition
+                if len(words) and True and digit_right == 0 and digit_mid == 0:
                     words.append(CONJUNCTION)
 
                 words.append(HUNDREDS[digit_left][0])
