@@ -149,7 +149,7 @@ class Num2Word_BG(Num2Word_Base):
             digit_right, digit_mid, digit_left = get_digits(chunk)
 
             if digit_left > 0:
-                if len(words) and digit_right == 0:
+                if len(words) and digit_right == 0 and digit_mid == 0:
                     words.append(CONJUNCTION)
 
                 words.append(HUNDREDS[digit_left][0])
@@ -162,6 +162,7 @@ class Num2Word_BG(Num2Word_Base):
 
             if digit_mid == 1:
                 if len(words) and digit_right == 0:
+                    pass
                     words.append(CONJUNCTION)
 
                 words.append(TENS[digit_right][0])
