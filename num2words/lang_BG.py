@@ -111,12 +111,9 @@ class Num2Word_BG(Num2Word_Base):
     def merge(self, curr, next):
         pass
 
-    def pluralize(self, number, forms, chunks_len):
+    def pluralize(self, number, forms):
         if number % 10 == 1:
-            if chunks_len > 1:
-                form = 1
-            else:
-                form = 0
+            form = 0
         else:
             form = 1
 
@@ -126,26 +123,7 @@ class Num2Word_BG(Num2Word_Base):
         pass
 
     def calculate_conjunction_position(self, chunks):
-        chunk_index = 0
-        chunk_position = 0
-
-        for chunk in chunks:
-            digit_right, digit_mid, digit_left = get_digits(chunk)
-
-            if chunk == [0, 0, 0]:
-                chunk_index += 1
-                continue
-
-            if digit_left > 0 and digit_mid == 0 and digit_right == 0:
-                chunk_position = 1
-
-            if digit_left > 0 and digit_mid > 0 and digit_right == 0:
-                chunk_position = 2
-
-        return {
-            'chunk_index': chunk_index,
-            'chunk_position': chunk_position
-        }
+        pass
 
     def _int2word(self, number, feminine=False):
         if number < 0:
