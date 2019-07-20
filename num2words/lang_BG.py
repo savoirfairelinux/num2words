@@ -26,13 +26,13 @@ ZERO = 'нула'
 ONES = {
     1: ('едно', 'един', 'една', True),
     2: ('две', 'два', 'две', True),
-    3: ('три', 'три', '', False),
-    4: ('четири', 'четири', '', False),
-    5: ('пет', 'пет', '', False),
-    6: ('шест', 'шест', '', False),
-    7: ('седем', 'седем', '', False),
-    8: ('осем', 'осем', '', False),
-    9: ('девет', 'девет', '', False),
+    3: ('три', 'три', 'три', False),
+    4: ('четири', 'четири', 'четири', False),
+    5: ('пет', 'пет', 'пет', False),
+    6: ('шест', 'шест', 'шест', False),
+    7: ('седем', 'седем', 'седем', False),
+    8: ('осем', 'осем', 'осем', False),
+    9: ('девет', 'девет', 'девет', False),
 }
 
 TENS = {
@@ -112,10 +112,18 @@ class Num2Word_BG(Num2Word_Base):
         pass
 
     def pluralize(self, number, forms):
-        if number % 10 == 1:
-            form = 0
+        is_feminine = forms[-1]
+
+        if number == 1:
+            return forms[0]
+
+        if is_feminine:
+            form = 2
         else:
-            form = 1
+            if number % 10 == 1:
+                form = 0
+            else:
+                form = 1
 
         return forms[form]
 
@@ -133,10 +141,10 @@ class Num2Word_BG(Num2Word_Base):
             return ZERO
 
         words = []
-        chunks = list(splitbyx(str(number), 3))
-        chunk_len = len(chunks)
+        self.chunks = list(splitbyx(str(number), 3))
+        chunk_len = len(self.chunks)
 
-        for chunk in chunks:
+        for chunk in self.chunks:
             chunk_len -= 1
             digit_right, digit_mid, digit_left = get_digits(chunk)
 
@@ -161,15 +169,26 @@ class Num2Word_BG(Num2Word_Base):
                 if len(words):
                     words.append(CONJUNCTION)
 
-                if not (chunk_len == 1 and digit_right == 1):
-                    num_type = 0
+                # digit gender depends from scale
+                gender_type = 0
 
-                    if chunk_len > 0 and chunk != 0:
-                        if self.pluralize(chunk, SCALE[chunk_len]) != SCALE[1][1]:
-                            num_type = 1
+                is_feminine = SCALE[chunk_len][-1]
 
+                if is_feminine:
+                    gender_type = 2
+                elif len(self.chunks) > 2:
+                    gender_type = 1
+
+                if chunk_len == 1 and len(self.chunks) == 2:
+                    if digit_mid == 0 and digit_left == 0 and digit_right == 1:
+                        pass
+                    else:
+                        words.append(
+                            ONES[digit_right][gender_type]
+                        )
+                else:
                     words.append(
-                        ONES[digit_right][num_type]
+                        ONES[digit_right][gender_type]
                     )
 
             if chunk_len > 0 and chunk != 0:
