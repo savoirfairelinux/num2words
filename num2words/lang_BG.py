@@ -177,7 +177,7 @@ class Num2Word_BG(Num2Word_Base):
 
                 if is_feminine:
                     gender_type = 2
-                elif len(self.chunks) > 2:
+                elif len(self.chunks) > 2 and chunk_len > 1:
                     gender_type = 1
 
                 if chunk_len == 1 and len(self.chunks) == 2:
