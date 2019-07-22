@@ -47,8 +47,8 @@ class Num2WordsTETest(TestCase):
                          u"ఒకటి వేయిల మూడువ")
 
     def test_ordinal_num(self):
-        self.assertEqual(num2words(3, lang="te", ordinal=True), u"మూడువ")
-        self.assertEqual(num2words(5, lang="te", ordinal=True), u"అయిదువ")
-        self.assertEqual(num2words(16, lang="te", ordinal=True), u"పదహారువ")
-        self.assertEqual(num2words(113, lang="te", ordinal=True),
-                         u"ఒకటి వందల పదమూడువ")
+        self.assertEqual(num2words(3, lang="te", to='ordinal_num'), u"3వ")
+        self.assertEqual(num2words(5, lang="te", to='ordinal_num'), u"5వ")
+        self.assertEqual(num2words(16, lang="te", to='ordinal_num'), u"16వ")
+        self.assertEqual(num2words(113, lang="te", to='ordinal_num'),
+                         u"113వ")

@@ -116,7 +116,7 @@ class Num2Word_TE(Num2Word_EU):
 
         self.mid_numwords = [(100, "వంద")]
 
-        self.high_numwords = [(7, "కోటి"), (5, "లక్ష"), (3, "వేయి")]
+        self.high_numwords = [(7, "కోట్ల"), (5, "లక్ష"), (3, "వేయి")]
 
         self.pointword = "బిందువు "
 
@@ -151,14 +151,14 @@ class Num2Word_TE(Num2Word_EU):
             if ltext[-1] in self.modifiers:
                 return ("%s %s" % (ltext[:-1], rtext), lnum + rnum)
             else:
-                return ("%s %s" % (ltext + "ల", rtext), lnum + rnum)
+                return ("%s %s" % (ltext+"ల", rtext), lnum + rnum)
         elif rnum > lnum:
             return ("%s %s" % (ltext, rtext), lnum * rnum)
         return ("%s %s" % (ltext, rtext), lnum + rnum)
 
     def to_ordinal_num(self, value):
         self.verify_ordinal(value)
-        return "%s%s" % (value, self.to_ordinal(value))
+        return "%s%s" % (value, self.to_ordinal(value)[-1:])
 
     def to_ordinal(self, value):
         self.verify_ordinal(value)
