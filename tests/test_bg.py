@@ -59,10 +59,24 @@ CARDINAL_TEST_CASES = (
     ('20045309847', 'двадесет милиарда четиридесет и пет милиона триста и девет хиляди осемстотин четиридесет и седем'),
 )
 
+CURRENCY_TEST_CASES = (
+    ('1', 'един лев и нула стотинки'),
+    ('1.01', 'един лев и една стотинка'),
+    ('10', 'десет лева и нула стотинки'),
+    ('10.45', 'десет лева и четиридесет и пет стотинки'),
+    ('1555.55', 'хиляда петстотин петдесет и пет лева и петдесет и пет стотинки')
+)
+
 
 class Num2WordsBGTest(TestCase):
     def test_cardinal(self):
         for test in CARDINAL_TEST_CASES:
             self.assertEqual(
-                num2words(test[0], lang='bg', to='cardinal'), test[1]
+                test[1], num2words(test[0], lang='bg', to='cardinal')
+            )
+
+    def test_currency(self):
+        for test in CURRENCY_TEST_CASES:
+            self.assertEqual(
+                test[1], num2words(test[0], lang='bg', to='currency')
             )
