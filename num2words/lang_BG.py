@@ -66,7 +66,7 @@ HUNDREDS = {
     3: ('триста',),
     4: ('четиристотин',),
     5: ('петстотин',),
-    6: ('шестотин',),
+    6: ('шестстотин',),
     7: ('седемстотин',),
     8: ('осемстотин',),
     9: ('деветстотин',),
@@ -110,6 +110,20 @@ CURRENCY_FORMS = {
         ('долар', 'долара', 'долара', False),
         ('цент', 'цента', 'цента', False)
     )
+}
+
+ORDINAL_YEARS = {
+    'едно': 'първа',
+    'един': 'първа',
+    'една': 'първа',
+    'две': 'втора',
+    'три': 'трета',
+    'четири': 'четвърта',
+    'пет': 'пета',
+    'шест': 'шеста',
+    'седем': 'седма',
+    'осем': 'осма',
+    'девет': 'девета',
 }
 
 
@@ -262,3 +276,17 @@ class Num2Word_BG(Num2Word_Base):
             cents_str if cents else right,
             self.pluralize(right, cr2)
         )
+
+    def to_year(self, number, **kwargs):
+        self.verify_ordinal(number)
+        outwords = self._int2word(number, False).split(" ")
+        lastword = outwords[-1].lower()
+
+        try:
+            lastword = ORDINAL_YEARS[lastword]
+        except KeyError:
+            lastword = lastword + "а"
+
+        outwords[-1] = lastword
+
+        return " ".join(outwords)

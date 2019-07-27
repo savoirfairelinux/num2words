@@ -68,6 +68,14 @@ CURRENCY_TEST_CASES = (
     ('1555.55', 'хиляда петстотин петдесет и пет лева и петдесет и пет стотинки')
 )
 
+YEAR_TEST_CASES = (
+    ('681', 'шестстотин осемдесет и първа'),
+    ('1924', 'хиляда деветстотин двадесет и четвърта'),
+    ('1991', 'хиляда деветстотин деветдесет и първа'),
+    ('2004', 'две хиляди и четвърта'),
+    ('6666', 'шест хиляди шестстотин шейсет и шеста'),
+)
+
 
 class Num2WordsBGTest(TestCase):
     def test_cardinal(self):
@@ -80,4 +88,10 @@ class Num2WordsBGTest(TestCase):
         for test in CURRENCY_TEST_CASES:
             self.assertEqual(
                 test[1], num2words(test[0], lang='bg', to='currency')
+            )
+
+    def test_years(self):
+        for test in YEAR_TEST_CASES:
+            self.assertEqual(
+                test[1], num2words(test[0], lang='bg', to='year')
             )
