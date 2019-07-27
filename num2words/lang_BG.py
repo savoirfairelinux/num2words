@@ -15,6 +15,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301 USA
 from num2words.base import Num2Word_Base
+from num2words.currency import parse_currency_parts, prefix_currency
 from num2words.utils import splitbyx, get_digits
 
 MINUS_PREFIX_WORD = "минус "
@@ -97,13 +98,25 @@ SCALE = {
 }
 
 CURRENCY_FORMS = {
-    'BGN': (('лев', 'лева'), ('стотинка', 'стотинки')),
-    'EUR': (('евро', 'евро'), ('цент', 'цента')),
-    'USD': (('долар', 'долара'), ('цент', 'цента')),
+    'BGN': (
+        ('лев', 'лева', 'лева', False),
+        ('стотинка', 'стотинки', 'стотинки', False)
+    ),
+    'EUR': (
+        ('евро', 'евро', 'евро', False),
+        ('цент', 'цента', 'цента', False)
+    ),
+    'USD': (
+        ('долар', 'долара', 'долара', False),
+        ('цент', 'цента', 'цента', False)
+    )
 }
 
 
 class Num2Word_BG(Num2Word_Base):
+
+    def __init__(self):
+        self.is_currency = False
 
     def set_high_numwords(self, *args):
         pass
@@ -120,7 +133,7 @@ class Num2Word_BG(Num2Word_Base):
         if is_feminine:
             form = 2
         else:
-            if number % 10 == 1:
+            if number % 10 == 1 and not self.is_currency:
                 form = 0
             else:
                 form = 1
@@ -171,11 +184,11 @@ class Num2Word_BG(Num2Word_Base):
                 # digit gender depends from scale
                 gender_type = 0
 
-                is_feminine = SCALE[chunk_len][-1]
+                is_feminine = feminine or SCALE[chunk_len][-1]
 
                 if is_feminine:
                     gender_type = 2
-                elif len(self.chunks) > 2 and chunk_len > 1:
+                elif (len(self.chunks) > 2 and chunk_len > 1) or self.is_currency:
                     gender_type = 1
 
                 if chunk_len == 1 and len(self.chunks) == 2:
@@ -206,3 +219,46 @@ class Num2Word_BG(Num2Word_Base):
             )
         else:
             return self._int2word(int(n), feminine)
+
+    def to_currency(self, val, currency='BGN', cents=True, separator=' и',
+                    adjective=False):
+        """
+        Args:
+            val: Numeric value
+            currency (str): Currency code
+            cents (bool): Verbose cents
+            separator (str): Cent separator
+            adjective (bool): Prefix currency name with adjective
+        Returns:
+            str: Formatted string
+        """
+        left, right, is_negative = parse_currency_parts(val)
+
+        try:
+            cr1, cr2 = CURRENCY_FORMS[currency]
+
+        except KeyError:
+            raise NotImplementedError(
+                'Currency code "%s" not implemented for "%s"' %
+                (currency, self.__class__.__name__))
+
+        if adjective and currency in self.CURRENCY_ADJECTIVES:
+            cr1 = prefix_currency(
+                self.CURRENCY_ADJECTIVES[currency],
+                cr1
+            )
+
+        minus_str = "%s " % self.negword if is_negative else ""
+        cents_str = self.to_cardinal(right, True) \
+            if cents else self._cents_terse(right, currency)
+
+        self.is_currency = True
+
+        return u'%s%s %s%s %s %s' % (
+            minus_str,
+            self.to_cardinal(left, feminine=False),
+            self.pluralize(left, cr1),
+            separator,
+            cents_str if cents else right,
+            self.pluralize(right, cr2)
+        )
