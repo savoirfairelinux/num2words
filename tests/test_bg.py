@@ -76,6 +76,20 @@ YEAR_TEST_CASES = (
     ('6666', 'шест хиляди шестстотин шейсет и шеста'),
 )
 
+ORDINAL_TEST_CASES = (
+    ('1', 'първи'),
+    ('7', 'седми'),
+    ('10', 'десети'),
+    ('101', 'сто и първи'),
+)
+
+ORDINAL_NUMERIC_TEST_CASES = (
+    ('1', '1-ви'),
+    ('7', '7-ми'),
+    ('10', '10-ти'),
+    ('101', '101-ви'),
+)
+
 
 class Num2WordsBGTest(TestCase):
     def test_cardinal(self):
@@ -94,4 +108,16 @@ class Num2WordsBGTest(TestCase):
         for test in YEAR_TEST_CASES:
             self.assertEqual(
                 test[1], num2words(test[0], lang='bg', to='year')
+            )
+
+    def test_ordinal(self):
+        for test in ORDINAL_TEST_CASES:
+            self.assertEqual(
+                test[1], num2words(test[0], lang='bg', to='ordinal')
+            )
+
+    def test_ordinal_numeric(self):
+        for test in ORDINAL_NUMERIC_TEST_CASES:
+            self.assertEqual(
+                test[1], num2words(test[0], lang='bg', to='ordinal_num')
             )

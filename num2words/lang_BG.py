@@ -126,6 +126,34 @@ ORDINAL_YEARS = {
     'девет': 'девета',
 }
 
+ORDINAL_ENDING = {
+    0: ('ти', 'та'),
+    1: ('ви', 'ва'),
+    2: ('ри', 'ра'),
+    3: ('ти', 'та'),
+    4: ('ти', 'та'),
+    5: ('ти', 'та'),
+    6: ('ти', 'та'),
+    7: ('ми', 'ма'),
+    8: ('ми', 'ма'),
+    9: ('ти', 'та'),
+}
+
+ORDINAL = {
+    'едно': 'първи',
+    'един': 'първи',
+    'една': 'първи',
+    'две': 'втори',
+    'три': 'трети',
+    'четири': 'четвърти',
+    'пет': 'пети',
+    'шест': 'шести',
+    'седем': 'седми',
+    'осем': 'осми',
+    'девет': 'девети',
+    'десет': 'десети',
+}
+
 
 class Num2Word_BG(Num2Word_Base):
 
@@ -290,3 +318,23 @@ class Num2Word_BG(Num2Word_Base):
         outwords[-1] = lastword
 
         return " ".join(outwords)
+
+    def to_ordinal(self, number, feminine=False):
+        self.verify_ordinal(number)
+        outwords = self.to_cardinal(number).split(" ")
+        lastword = outwords[-1].lower()
+
+        try:
+            lastword = ORDINAL[lastword]
+        except KeyError:
+            if "десет" in lastword:
+                lastword = lastword + "и"
+
+        outwords[-1] = lastword
+
+        return " ".join(outwords)
+
+    def to_ordinal_num(self, number, feminine=False):
+        gender_idx = int(feminine)
+        last_digit = number % 10
+        return str(number) + '-' + ORDINAL_ENDING[last_digit][gender_idx]
