@@ -16,8 +16,9 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301 USA
 
-from __future__ import unicode_literals
+from __future__ import division, print_function, unicode_literals
 
+from . import lang_EU
 
 class Num2Word_TR(object):
     def __init__(self):
