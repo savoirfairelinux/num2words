@@ -1,6 +1,7 @@
-# -*- encoding: utf-8 -*-
-# Copyright (c) 2013, Savoir-faire Linux inc.  All Rights Reserved.
+# -*- coding: utf-8 -*-
 # Copyright (c) 2017, Tufan Kaynak, Framras.  All Rights Reserved.
+# Copyright (c) 2003, Taro Ogawa.  All Rights Reserved.
+# Copyright (c) 2013, Savoir-faire Linux inc.  All Rights Reserved.
 
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -41,32 +42,69 @@ class Num2WordsTRTest(TestCase):
         self.assertEqual(num2words(1011, True, "tr"), u"binonbirinci")
         self.assertEqual(num2words(1100, True, "tr"), u"binyüzüncü")
         self.assertEqual(num2words(1110, True, "tr"), u"binyüzonuncu")
-        self.assertEqual(num2words(2341, True, "tr"), u"ikibinüçyüzkırkbirinci")
+        self.assertEqual(
+            num2words(2341, True, "tr"), u"ikibinüçyüzkırkbirinci"
+        )
         self.assertEqual(num2words(10000, True, "tr"), u"onbininci")
         self.assertEqual(num2words(10010, True, "tr"), u"onbinonuncu")
         self.assertEqual(num2words(10100, True, "tr"), u"onbinyüzüncü")
         self.assertEqual(num2words(10110, True, "tr"), u"onbinyüzonuncu")
         self.assertEqual(num2words(11000, True, "tr"), u"onbirbininci")
         self.assertEqual(num2words(35000, True, "tr"), u"otuzbeşbininci")
-        self.assertEqual(num2words(116331, True, "tr"), u"yüzonaltıbinüçyüzotuzbirinci")
-        self.assertEqual(num2words(116330, True, "tr"), u"yüzonaltıbinüçyüzotuzuncu")
+        self.assertEqual(
+            num2words(116331, True, "tr"), u"yüzonaltıbinüçyüzotuzbirinci"
+        )
+        self.assertEqual(
+            num2words(116330, True, "tr"), u"yüzonaltıbinüçyüzotuzuncu"
+        )
         self.assertEqual(num2words(100000, True, "tr"), u"yüzbininci")
         self.assertEqual(num2words(501000, True, "tr"), u"beşyüzbirbininci")
-        self.assertEqual(num2words(1000111, True, "tr"), u"birmilyonyüzonbirinci")
-        self.assertEqual(num2words(111000111, True, "tr"), u"yüzonbirmilyonyüzonbirinci")
-        self.assertEqual(num2words(111001111, True, "tr"), u"yüzonbirmilyonbinyüzonbirinci")
-        self.assertEqual(num2words(111111111, True, "tr"), u"yüzonbirmilyonyüzonbirbinyüzonbirinci")
+        self.assertEqual(
+            num2words(1000111, True, "tr"), u"birmilyonyüzonbirinci"
+        )
+        self.assertEqual(
+            num2words(111000111, True, "tr"), u"yüzonbirmilyonyüzonbirinci"
+        )
+        self.assertEqual(
+            num2words(111001111, True, "tr"), u"yüzonbirmilyonbinyüzonbirinci"
+        )
+        self.assertEqual(
+            num2words(111111111, True, "tr"),
+            u"yüzonbirmilyonyüzonbirbinyüzonbirinci"
+        )
         self.assertEqual(num2words(100001000, True, "tr"), u"yüzmilyonbininci")
-        self.assertEqual(num2words(100001001, True, "tr"), u"yüzmilyonbinbirinci")
-        self.assertEqual(num2words(100010000, True, "tr"), u"yüzmilyononbininci")
-        self.assertEqual(num2words(100010001, True, "tr"), u"yüzmilyononbinbirinci")
-        self.assertEqual(num2words(100011000, True, "tr"), u"yüzmilyononbirbininci")
-        self.assertEqual(num2words(100011001, True, "tr"), u"yüzmilyononbirbinbirinci")
-        self.assertEqual(num2words(101011001, True, "tr"), u"yüzbirmilyononbirbinbirinci")
-        self.assertEqual(num2words(101011010, True, "tr"), u"yüzbirmilyononbirbinonuncu")
-        self.assertEqual(num2words(1101011010, True, "tr"), u"birmilyaryüzbirmilyononbirbinonuncu")
-        self.assertEqual(num2words(101101011010, True, "tr"), u"yüzbirmilyaryüzbirmilyononbirbinonuncu")
-        self.assertEqual(num2words(1000000000001, True, "tr"), u"birtrilyonbirinci")
+        self.assertEqual(
+            num2words(100001001, True, "tr"), u"yüzmilyonbinbirinci"
+        )
+        self.assertEqual(
+            num2words(100010000, True, "tr"), u"yüzmilyononbininci"
+        )
+        self.assertEqual(
+            num2words(100010001, True, "tr"), u"yüzmilyononbinbirinci"
+        )
+        self.assertEqual(
+            num2words(100011000, True, "tr"), u"yüzmilyononbirbininci"
+        )
+        self.assertEqual(
+            num2words(100011001, True, "tr"), u"yüzmilyononbirbinbirinci"
+        )
+        self.assertEqual(
+            num2words(101011001, True, "tr"), u"yüzbirmilyononbirbinbirinci"
+        )
+        self.assertEqual(
+            num2words(101011010, True, "tr"), u"yüzbirmilyononbirbinonuncu"
+        )
+        self.assertEqual(
+            num2words(1101011010, True, "tr"),
+            u"birmilyaryüzbirmilyononbirbinonuncu"
+        )
+        self.assertEqual(
+            num2words(101101011010, True, "tr"),
+            u"yüzbirmilyaryüzbirmilyononbirbinonuncu"
+        )
+        self.assertEqual(
+            num2words(1000000000001, True, "tr"), u"birtrilyonbirinci"
+        )
 
         self.assertEqual(num2words(1, False, "tr"), u"bir")
         self.assertEqual(num2words(2, False, "tr"), u"iki")
@@ -92,30 +130,65 @@ class Num2WordsTRTest(TestCase):
         self.assertEqual(num2words(10110, False, "tr"), u"onbinyüzon")
         self.assertEqual(num2words(11000, False, "tr"), u"onbirbin")
         self.assertEqual(num2words(35000, False, "tr"), u"otuzbeşbin")
-        self.assertEqual(num2words(116331, False, "tr"), u"yüzonaltıbinüçyüzotuzbir")
-        self.assertEqual(num2words(116330, False, "tr"), u"yüzonaltıbinüçyüzotuz")
+        self.assertEqual(
+            num2words(116331, False, "tr"), u"yüzonaltıbinüçyüzotuzbir"
+        )
+        self.assertEqual(
+            num2words(116330, False, "tr"), u"yüzonaltıbinüçyüzotuz"
+        )
         self.assertEqual(num2words(500000, False, "tr"), u"beşyüzbin")
         self.assertEqual(num2words(501000, False, "tr"), u"beşyüzbirbin")
         self.assertEqual(num2words(1000111, False, "tr"), u"birmilyonyüzonbir")
-        self.assertEqual(num2words(111000111, False, "tr"), u"yüzonbirmilyonyüzonbir")
-        self.assertEqual(num2words(111001111, False, "tr"), u"yüzonbirmilyonbinyüzonbir")
-        self.assertEqual(num2words(111111111, False, "tr"), u"yüzonbirmilyonyüzonbirbinyüzonbir")
+        self.assertEqual(
+            num2words(111000111, False, "tr"), u"yüzonbirmilyonyüzonbir"
+        )
+        self.assertEqual(
+            num2words(111001111, False, "tr"), u"yüzonbirmilyonbinyüzonbir"
+        )
+        self.assertEqual(
+            num2words(111111111, False, "tr"),
+            u"yüzonbirmilyonyüzonbirbinyüzonbir"
+        )
         self.assertEqual(num2words(100001000, False, "tr"), u"yüzmilyonbin")
         self.assertEqual(num2words(100001001, False, "tr"), u"yüzmilyonbinbir")
         self.assertEqual(num2words(100010000, False, "tr"), u"yüzmilyononbin")
-        self.assertEqual(num2words(100010001, False, "tr"), u"yüzmilyononbinbir")
-        self.assertEqual(num2words(100011000, False, "tr"), u"yüzmilyononbirbin")
-        self.assertEqual(num2words(100011001, False, "tr"), u"yüzmilyononbirbinbir")
-        self.assertEqual(num2words(101011001, False, "tr"), u"yüzbirmilyononbirbinbir")
-        self.assertEqual(num2words(101011010, False, "tr"), u"yüzbirmilyononbirbinon")
-        self.assertEqual(num2words(1101011010, False, "tr"), u"birmilyaryüzbirmilyononbirbinon")
-        self.assertEqual(num2words(101101011010, False, "tr"), u"yüzbirmilyaryüzbirmilyononbirbinon")
-        self.assertEqual(num2words(1000000000001, False, "tr"), u"birtrilyonbir")
+        self.assertEqual(
+            num2words(100010001, False, "tr"), u"yüzmilyononbinbir"
+        )
+        self.assertEqual(
+            num2words(100011000, False, "tr"), u"yüzmilyononbirbin"
+        )
+        self.assertEqual(
+            num2words(100011001, False, "tr"), u"yüzmilyononbirbinbir"
+        )
+        self.assertEqual(
+            num2words(101011001, False, "tr"), u"yüzbirmilyononbirbinbir"
+        )
+        self.assertEqual(
+            num2words(101011010, False, "tr"), u"yüzbirmilyononbirbinon"
+        )
+        self.assertEqual(
+            num2words(1101011010, False, "tr"),
+            u"birmilyaryüzbirmilyononbirbinon"
+        )
+        self.assertEqual(
+            num2words(101101011010, False, "tr"),
+            u"yüzbirmilyaryüzbirmilyononbirbinon"
+        )
+        self.assertEqual(
+            num2words(1000000000001, False, "tr"), u"birtrilyonbir"
+        )
         self.assertEqual(num2words(0.01, False, "tr"), u"sıfırvirgülbir")
         self.assertEqual(num2words(0.1, False, "tr"), u"sıfırvirgülon")
         self.assertEqual(num2words(0.21, False, "tr"), u"sıfırvirgülyirmibir")
         self.assertEqual(num2words(1.01, False, "tr"), u"birvirgülbir")
         self.assertEqual(num2words(1.1, False, "tr"), u"birvirgülon")
         self.assertEqual(num2words(1.21, False, "tr"), u"birvirgülyirmibir")
-        self.assertEqual(num2words(101101011010.02, False, "tr"), u"yüzbirmilyaryüzbirmilyononbirbinonvirgüliki")
-        self.assertEqual(num2words(101101011010.2, False, "tr"), u"yüzbirmilyaryüzbirmilyononbirbinonvirgülyirmi")
+        self.assertEqual(
+            num2words(101101011010.02, False, "tr"),
+            u"yüzbirmilyaryüzbirmilyononbirbinonvirgüliki"
+        )
+        self.assertEqual(
+            num2words(101101011010.2, False, "tr"),
+            u"yüzbirmilyaryüzbirmilyononbirbinonvirgülyirmi"
+        )

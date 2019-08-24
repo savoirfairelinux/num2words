@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright (c) 2003, Taro Ogawa.  All Rights Reserved.
 # Copyright (c) 2013, Savoir-faire Linux inc.  All Rights Reserved.
 
@@ -17,14 +18,18 @@
 from __future__ import unicode_literals
 
 import math
+from collections import OrderedDict
+from decimal import Decimal
 
-from .orderedmapping import OrderedMapping
 from .compat import to_s
+from .currency import parse_currency_parts, prefix_currency
 
 
 class Num2Word_Base(object):
+    CURRENCY_FORMS = {}
+    CURRENCY_ADJECTIVES = {}
+
     def __init__(self):
-        self.cards = OrderedMapping()
         self.is_title = False
         self.precision = 2
         self.exclude_title = []
@@ -35,34 +40,30 @@ class Num2Word_Base(object):
         self.errmsg_negord = "Cannot treat negative num %s as ordinal."
         self.errmsg_toobig = "abs(%s) must be less than %s."
 
-        self.base_setup()
         self.setup()
-        self.set_numwords()
 
-        self.MAXVAL = 1000 * self.cards.order[0]
-
+        # uses cards
+        if any(hasattr(self, field) for field in
+               ['high_numwords', 'mid_numwords', 'low_numwords']):
+            self.cards = OrderedDict()
+            self.set_numwords()
+            self.MAXVAL = 1000 * list(self.cards.keys())[0]
 
     def set_numwords(self):
         self.set_high_numwords(self.high_numwords)
         self.set_mid_numwords(self.mid_numwords)
         self.set_low_numwords(self.low_numwords)
 
-
-    def gen_high_numwords(self, units, tens, lows):
-        out = [u + t for t in tens for u in units]
-        out.reverse()
-        return out + lows
-
+    def set_high_numwords(self, *args):
+        raise NotImplementedError
 
     def set_mid_numwords(self, mid):
         for key, val in mid:
             self.cards[key] = val
 
-
     def set_low_numwords(self, numwords):
         for word, n in zip(numwords, range(len(numwords) - 1, -1, -1)):
             self.cards[n] = word
-
 
     def splitnum(self, value):
         for elem in self.cards:
@@ -89,14 +90,21 @@ class Num2Word_Base(object):
 
             return out
 
+    def parse_minus(self, num_str):
+        """Detach minus and return it as symbol with new num_str."""
+        if num_str.startswith('-'):
+            # Extra spacing to compensate if there is no minus.
+            return '%s ' % self.negword, num_str[1:]
+        return '', num_str
+
+    def str_to_number(self, value):
+        return Decimal(value)
 
     def to_cardinal(self, value):
         try:
             assert int(value) == value
         except (ValueError, TypeError, AssertionError):
             return self.to_cardinal_float(value)
-
-        self.verify_num(value)
 
         out = ""
         if value < 0:
@@ -110,20 +118,23 @@ class Num2Word_Base(object):
         words, num = self.clean(val)
         return self.title(out + words)
 
-
     def float2tuple(self, value):
         pre = int(value)
+
+        # Simple way of finding decimal places to update the precision
+        self.precision = abs(Decimal(str(value)).as_tuple().exponent)
+
         post = abs(value - pre) * 10**self.precision
         if abs(round(post) - post) < 0.01:
-            # We generally floor all values beyond our precision (rather than rounding), but in
-            # cases where we have something like 1.239999999, which is probably due to python's
-            # handling of floats, we actually want to consider it as 1.24 instead of 1.23
+            # We generally floor all values beyond our precision (rather than
+            # rounding), but in cases where we have something like 1.239999999,
+            # which is probably due to python's handling of floats, we actually
+            # want to consider it as 1.24 instead of 1.23
             post = int(round(post))
         else:
             post = int(math.floor(post))
 
         return pre, post
-
 
     def to_cardinal_float(self, value):
         try:
@@ -146,10 +157,8 @@ class Num2Word_Base(object):
 
         return " ".join(out)
 
-
     def merge(self, curr, next):
         raise NotImplementedError
-
 
     def clean(self, val):
         out = val
@@ -172,7 +181,6 @@ class Num2Word_Base(object):
             val = out
         return out[0]
 
-
     def title(self, value):
         if self.is_title:
             out = []
@@ -185,29 +193,17 @@ class Num2Word_Base(object):
             value = " ".join(out)
         return value
 
-
     def verify_ordinal(self, value):
         if not value == int(value):
             raise TypeError(self.errmsg_floatord % value)
         if not abs(value) == value:
             raise TypeError(self.errmsg_negord % value)
 
-
-    def verify_num(self, value):
-        return 1
-
-
-    def set_wordnums(self):
-        pass
-
-
     def to_ordinal(self, value):
         return self.to_cardinal(value)
 
-
     def to_ordinal_num(self, value):
         return value
-
 
     # Trivial version
     def inflect(self, value, text):
@@ -216,8 +212,7 @@ class Num2Word_Base(object):
             return text[0]
         return "".join(text)
 
-
-    #//CHECK: generalise? Any others like pounds/shillings/pence?
+    # //CHECK: generalise? Any others like pounds/shillings/pence?
     def to_splitnum(self, val, hightxt="", lowtxt="", jointxt="",
                     divisor=100, longval=True, cents=True):
         out = []
@@ -252,38 +247,60 @@ class Num2Word_Base(object):
 
         return " ".join(out)
 
-
     def to_year(self, value, **kwargs):
         return self.to_cardinal(value)
 
+    def pluralize(self, n, forms):
+        """
+        Should resolve gettext form:
+        http://docs.translatehouse.org/projects/localization-guide/en/latest/l10n/pluralforms.html
+        """
+        raise NotImplementedError
 
-    def to_currency(self, value, **kwargs):
-        return self.to_cardinal(value)
+    def _cents_verbose(self, number, currency):
+        return self.to_cardinal(number)
 
+    def _cents_terse(self, number, currency):
+        return "%02d" % number
 
-    def base_setup(self):
-        pass
+    def to_currency(self, val, currency='EUR', cents=True, separator=',',
+                    adjective=False):
+        """
+        Args:
+            val: Numeric value
+            currency (str): Currency code
+            cents (bool): Verbose cents
+            separator (str): Cent separator
+            adjective (bool): Prefix currency name with adjective
+        Returns:
+            str: Formatted string
 
+        """
+        left, right, is_negative = parse_currency_parts(val)
+
+        try:
+            cr1, cr2 = self.CURRENCY_FORMS[currency]
+
+        except KeyError:
+            raise NotImplementedError(
+                'Currency code "%s" not implemented for "%s"' %
+                (currency, self.__class__.__name__))
+
+        if adjective and currency in self.CURRENCY_ADJECTIVES:
+            cr1 = prefix_currency(self.CURRENCY_ADJECTIVES[currency], cr1)
+
+        minus_str = "%s " % self.negword if is_negative else ""
+        cents_str = self._cents_verbose(right, currency) \
+            if cents else self._cents_terse(right, currency)
+
+        return u'%s%s %s%s %s %s' % (
+            minus_str,
+            self.to_cardinal(left),
+            self.pluralize(left, cr1),
+            separator,
+            cents_str,
+            self.pluralize(right, cr2)
+        )
 
     def setup(self):
         pass
-
-
-    def test(self, value):
-        try:
-            _card = self.to_cardinal(value)
-        except:
-            _card = "invalid"
-
-        try:
-            _ord = self.to_ordinal(value)
-        except:
-            _ord = "invalid"
-
-        try:
-            _ordnum = self.to_ordinal_num(value)
-        except:
-            _ordnum = "invalid"
-
-        print ("For %s, card is %s;\n\tord is %s; and\n\tordnum is %s." %
-                    (value, _card, _ord, _ordnum))

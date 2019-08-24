@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 # Copyright (c) 2003, Taro Ogawa.  All Rights Reserved.
 # Copyright (c) 2013, Savoir-faire Linux inc.  All Rights Reserved.
 
@@ -14,272 +14,173 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301 USA
-u"""
->>> from textwrap import fill
 
->>> ' '.join([str(i) for i in splitby3('1')])
-u'1'
->>> ' '.join([str(i) for i in splitby3('1123')])
-u'1 123'
->>> ' '.join([str(i) for i in splitby3('1234567890')])
-u'1 234 567 890'
-
->>> print(' '.join([n2w(i) for i in range(10)]))
-nulle viens divi trīs četri pieci seši septiņi astoņi deviņi
-
->>> print(fill(' '.join([n2w(i+10) for i in range(10)])))
-desmit vienpadsmit divpadsmit trīspadsmit četrpadsmit piecpadsmit
-sešpadsmit septiņpadsmit astoņpadsmit deviņpadsmit
-
->>> print(fill(' '.join([n2w(i*10) for i in range(10)])))
-nulle desmit divdesmit trīsdesmit četrdesmit piecdesmit sešdesmit
-septiņdesmit astoņdesmit deviņdesmit
-
->>> print(n2w(100))
-simts
->>> print(n2w(101))
-simtu viens
->>> print(n2w(110))
-simts desmit
->>> print(n2w(115))
-simts piecpadsmit
->>> print(n2w(123))
-simts divdesmit trīs
->>> print(n2w(1000))
-tūkstotis
->>> print(n2w(1001))
-tūkstotis viens
->>> print(n2w(2012))
-divi tūkstoši divpadsmit
-
->>> print(fill(n2w(1234567890)))
-miljards divi simti trīsdesmit četri miljoni pieci simti sešdesmit
-septiņi tūkstoši astoņi simti deviņdesmit
-
->>> print(fill(n2w(215461407892039002157189883901676)))
-divi simti piecpadsmit nontiljoni četri simti sešdesmit viens
-oktiljons četri simti septiņi septiljoni astoņi simti deviņdesmit divi
-sikstiljoni trīsdesmit deviņi kvintiljoni divi kvadriljoni simts
-piecdesmit septiņi triljoni simts astoņdesmit deviņi miljardi astoņi
-simti astoņdesmit trīs miljoni deviņi simti viens tūkstotis seši simti
-septiņdesmit seši
-
->>> print(fill(n2w(719094234693663034822824384220291)))
-septiņi simti deviņpadsmit nontiljoni deviņdesmit četri oktiljoni divi
-simti trīsdesmit četri septiljoni seši simti deviņdesmit trīs
-sikstiljoni seši simti sešdesmit trīs kvintiljoni trīsdesmit četri
-kvadriljoni astoņi simti divdesmit divi triljoni astoņi simti
-divdesmit četri miljardi trīs simti astoņdesmit četri miljoni divi
-simti divdesmit tūkstoši divi simti deviņdesmit viens
-
-# TODO: fix this:
-# >>> print(fill(n2w(1000000000000000000000000000000)))
-# nontiljons
-
->>> print(to_currency(1.0, 'EUR'))
-viens eiro, nulle centu
-
->>> print(to_currency(1.0, 'LVL'))
-viens lats, nulle santīmu
-
->>> print(to_currency(1234.56, 'EUR'))
-tūkstotis divi simti trīsdesmit četri eiro, piecdesmit seši centi
-
->>> print(to_currency(1234.56, 'LVL'))
-tūkstotis divi simti trīsdesmit četri lati, piecdesmit seši santīmi
-
->>> print(to_currency(10111, 'EUR', seperator=' un'))
-simtu viens eiro un vienpadsmit centi
-
->>> print(to_currency(10121, 'LVL', seperator=' un'))
-simtu viens lats un divdesmit viens santīms
-
->>> print(to_currency(-1251985, cents = False))
-mīnus divpadsmit tūkstoši pieci simti deviņpadsmit eiro, 85 centi
-"""
 from __future__ import unicode_literals
 
-ZERO = (u'nulle',)
+from .base import Num2Word_Base
+from .utils import get_digits, splitbyx
+
+ZERO = ('nulle',)
 
 ONES = {
-    1: (u'viens',),
-    2: (u'divi',),
-    3: (u'trīs',),
-    4: (u'četri',),
-    5: (u'pieci',),
-    6: (u'seši',),
-    7: (u'septiņi',),
-    8: (u'astoņi',),
-    9: (u'deviņi',),
+    1: ('viens',),
+    2: ('divi',),
+    3: ('trīs',),
+    4: ('četri',),
+    5: ('pieci',),
+    6: ('seši',),
+    7: ('septiņi',),
+    8: ('astoņi',),
+    9: ('deviņi',),
 }
 
 TENS = {
-    0: (u'desmit',),
-    1: (u'vienpadsmit',),
-    2: (u'divpadsmit',),
-    3: (u'trīspadsmit',),
-    4: (u'četrpadsmit',),
-    5: (u'piecpadsmit',),
-    6: (u'sešpadsmit',),
-    7: (u'septiņpadsmit',),
-    8: (u'astoņpadsmit',),
-    9: (u'deviņpadsmit',),
+    0: ('desmit',),
+    1: ('vienpadsmit',),
+    2: ('divpadsmit',),
+    3: ('trīspadsmit',),
+    4: ('četrpadsmit',),
+    5: ('piecpadsmit',),
+    6: ('sešpadsmit',),
+    7: ('septiņpadsmit',),
+    8: ('astoņpadsmit',),
+    9: ('deviņpadsmit',),
 }
 
 TWENTIES = {
-    2: (u'divdesmit',),
-    3: (u'trīsdesmit',),
-    4: (u'četrdesmit',),
-    5: (u'piecdesmit',),
-    6: (u'sešdesmit',),
-    7: (u'septiņdesmit',),
-    8: (u'astoņdesmit',),
-    9: (u'deviņdesmit',),
+    2: ('divdesmit',),
+    3: ('trīsdesmit',),
+    4: ('četrdesmit',),
+    5: ('piecdesmit',),
+    6: ('sešdesmit',),
+    7: ('septiņdesmit',),
+    8: ('astoņdesmit',),
+    9: ('deviņdesmit',),
 }
 
-HUNDRED = (u'simts', u'simti', u'simtu')
+HUNDRED = ('simts', 'simti', 'simtu')
 
 THOUSANDS = {
-    1: (u'tūkstotis', u'tūkstoši', u'tūkstošu'),
-    2: (u'miljons', u'miljoni', u'miljonu'),
-    3: (u'miljards', u'miljardi', u'miljardu'),
-    4: (u'triljons', u'triljoni', u'triljonu'),
-    5: (u'kvadriljons', u'kvadriljoni', u'kvadriljonu'),
-    6: (u'kvintiljons', u'kvintiljoni', u'kvintiljonu'),
-    7: (u'sikstiljons', u'sikstiljoni', u'sikstiljonu'),
-    8: (u'septiljons', u'septiljoni', u'septiljonu'),
-    9: (u'oktiljons', u'oktiljoni', u'oktiljonu'),
-    10: (u'nontiljons', u'nontiljoni', u'nontiljonu'),
+    1: ('tūkstotis', 'tūkstoši', 'tūkstošu'),
+    2: ('miljons', 'miljoni', 'miljonu'),
+    3: ('miljards', 'miljardi', 'miljardu'),
+    4: ('triljons', 'triljoni', 'triljonu'),
+    5: ('kvadriljons', 'kvadriljoni', 'kvadriljonu'),
+    6: ('kvintiljons', 'kvintiljoni', 'kvintiljonu'),
+    7: ('sikstiljons', 'sikstiljoni', 'sikstiljonu'),
+    8: ('septiljons', 'septiljoni', 'septiljonu'),
+    9: ('oktiljons', 'oktiljoni', 'oktiljonu'),
+    10: ('nontiljons', 'nontiljoni', 'nontiljonu'),
 }
 
-CURRENCIES = {
-    'LVL': (
-        (u'lats', u'lati', u'latu'), (u'santīms', u'santīmi', u'santīmu')
-    ),
-    'EUR': (
-        (u'eiro', u'eiro', u'eiro'), (u'cents', u'centi', u'centu')
-    ),
-}
+GENERIC_DOLLARS = ('dolārs', 'dolāri', 'dolāru')
+GENERIC_CENTS = ('cents', 'centi', 'centu')
+
+GENERIC_KRONA = ('krona', 'kronas', 'kronu')
+GENERIC_ERA = ('ēre', 'ēras', 'ēru')
 
 
-def splitby3(n):
-    length = len(n)
-    if length > 3:
-        start = length % 3
-        if start > 0:
-            yield int(n[:start])
-        for i in range(start, length, 3):
-            yield int(n[i:i+3])
-    else:
-        yield int(n)
+class Num2Word_LV(Num2Word_Base):
+    """
+    Sadly we have a legal form (used in legal and finance documents):
+    http://www.eiro.lv/files/upload/files/Eiro_rakstiba-1.pdf
+    https://likumi.lv/doc.php?id=254741
+    http://eur-lex.europa.eu/legal-content/LV/TXT/HTML/?uri=CELEX:31998R0974&from=LV
 
+    Source: http://publications.europa.eu/code/lv/lv-5000500.htm
+    """
+    CURRENCY_FORMS = {
+        'AUD': (GENERIC_DOLLARS, GENERIC_CENTS),
+        'CAD': (GENERIC_DOLLARS, GENERIC_CENTS),
+        # repalced by EUR
+        'EEK': (GENERIC_KRONA, GENERIC_CENTS),
+        'EUR': (('eiro', 'eiro', 'eiro'), GENERIC_CENTS),
+        'EUR_LEGAL': (('euro', 'euro', 'euro'), GENERIC_CENTS),
+        'GBP': (
+            ('sterliņu mārciņa', 'sterliņu mārciņas', 'sterliņu mārciņu'),
+            ('penss', 'pensi', 'pensu')),
+        # replaced by EUR
+        'LTL': (('lits', 'liti', 'litu'), GENERIC_CENTS),
+        # replaced by EUR
+        'LVL': (('lats', 'lati', 'latu'),
+                ('santīms', 'santīmi', 'santīmu')),
+        'USD': (GENERIC_DOLLARS, GENERIC_CENTS),
+        'RUB': (('rublis', 'rubļi', 'rubļu'),
+                ('kapeika', 'kapeikas', 'kapeiku')),
+        'SEK': (GENERIC_KRONA, GENERIC_ERA),
+        'NOK': (GENERIC_KRONA, GENERIC_ERA),
+        'PLN': (('zlots', 'zloti', 'zlotu'),
+                ('grasis', 'graši', 'grašu')),
+    }
 
-def get_digits(n):
-    return [int(x) for x in reversed(list(('%03d' % n)[-3:]))]
+    CURRENCY_ADJECTIVES = {
+        'AUD': 'Austrālijas',
+        'CAD': 'Kanādas',
+        'EEK': 'Igaunijas',
+        'USD': 'ASV',
+        'RUB': 'Kreivijas',
+        'SEK': 'Zviedrijas',
+        'NOK': 'Norvēģijas',
+    }
 
+    def setup(self):
+        self.negword = "mīnus"
+        self.pointword = "komats"
 
-def pluralize(n, forms):
-    # gettext implementation:
-    # (n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2)
-
-    form = 0 if (n % 10 == 1 and n % 100 != 11) else 1 if n != 0 else 2
-
-    return forms[form]
-
-
-def int2word(n):
-    if n == 0:
-        return ZERO[0]
-
-    words = []
-    chunks = list(splitby3(str(n)))
-    i = len(chunks)
-    for x in chunks:
-        i -= 1
-        n1, n2, n3 = get_digits(x)
-
-        # print str(n3) + str(n2) + str(n1)
-
-        if n3 > 0:
-            if n3 == 1 and n2 == 0 and n1 > 0:
-                words.append(HUNDRED[2])
-            elif n3 > 1:
-                words.append(ONES[n3][0])
-                words.append(HUNDRED[1])
-            else:
-                words.append(HUNDRED[0])
-
-        if n2 > 1:
-            words.append(TWENTIES[n2][0])
-
-        if n2 == 1:
-            words.append(TENS[n1][0])
-        elif n1 > 0 and not (i > 0 and x == 1):
-            words.append(ONES[n1][0])
-
-        if i > 0:
-            words.append(pluralize(x, THOUSANDS[i]))
-
-    return ' '.join(words)
-
-
-def n2w(n):
-    n = str(n).replace(',', '.')
-    if '.' in n:
-        left, right = n.split('.')
-        return u'%s kablelis %s' % (int2word(int(left)), int2word(int(right)))
-    else:
-        return int2word(int(n))
-
-
-def to_currency(n, currency='EUR', cents=True, seperator=','):
-    if type(n) == int:
-        if n < 0:
-            minus = True
-        else:
-            minus = False
-
-        n = abs(n)
-        left = n / 100
-        right = n % 100
-    else:
-        n = str(n).replace(',', '.')
+    def to_cardinal(self, number):
+        n = str(number).replace(',', '.')
+        base_str, n = self.parse_minus(n)
         if '.' in n:
             left, right = n.split('.')
+            return '%s%s %s %s' % (
+                base_str,
+                self._int2word(int(left)),
+                self.pointword,
+                self._int2word(int(right))
+            )
         else:
-            left, right = n, 0
-        left, right = int(left), int(right)
-        minus = False
-    cr1, cr2 = CURRENCIES[currency]
+            return "%s%s" % (base_str, self._int2word(int(n)))
 
-    if minus:
-        minus_str = "mīnus "
-    else:
-        minus_str = ""
-
-    if cents:
-        cents_str = int2word(right)
-    else:
-        cents_str = "%02d" % right
-
-    return u'%s%s %s%s %s %s' % (
-        minus_str,
-        int2word(left),
-        pluralize(left, cr1),
-        seperator,
-        cents_str,
-        pluralize(right, cr2)
-    )
-
-
-class Num2Word_LV(object):
-    def to_cardinal(self, number):
-        return n2w(number)
+    def pluralize(self, n, forms):
+        form = 0 if (n % 10 == 1 and n % 100 != 11) else 1 if n != 0 else 2
+        return forms[form]
 
     def to_ordinal(self, number):
         raise NotImplementedError()
 
+    def _int2word(self, n):
+        if n == 0:
+            return ZERO[0]
 
-if __name__ == '__main__':
-    import doctest
-    doctest.testmod()
+        words = []
+        chunks = list(splitbyx(str(n), 3))
+        i = len(chunks)
+        for x in chunks:
+            i -= 1
+
+            if x == 0:
+                continue
+
+            n1, n2, n3 = get_digits(x)
+
+            if n3 > 0:
+                if n3 == 1 and n2 == 0 and n1 > 0:
+                    words.append(HUNDRED[2])
+                elif n3 > 1:
+                    words.append(ONES[n3][0])
+                    words.append(HUNDRED[1])
+                else:
+                    words.append(HUNDRED[0])
+
+            if n2 > 1:
+                words.append(TWENTIES[n2][0])
+
+            if n2 == 1:
+                words.append(TENS[n1][0])
+            elif n1 > 0 and not (i > 0 and x == 1):
+                words.append(ONES[n1][0])
+
+            if i > 0:
+                words.append(self.pluralize(x, THOUSANDS[i]))
+
+        return ' '.join(words)

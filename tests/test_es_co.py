@@ -1,4 +1,5 @@
-# encoding: UTF-8
+# -*- coding: utf-8 -*-
+# Copyright (c) 2003, Taro Ogawa.  All Rights Reserved.
 # Copyright (c) 2013, Savoir-faire Linux inc.  All Rights Reserved.
 
 # This library is free software; you can redistribute it and/or
@@ -17,7 +18,18 @@
 from __future__ import unicode_literals
 
 from num2words import num2words
+
 from . import test_es
+
+TEST_CASES_TO_CURRENCY = (
+    (1, 'un peso'),
+    (2, 'dos pesos'),
+    (8, 'ocho pesos'),
+    (12, 'doce pesos'),
+    (21, 'veintiun pesos'),
+    (81.25, 'ochenta y un pesos y veinticinco centavos'),
+    (100, 'cien pesos'),
+)
 
 
 class Num2WordsESCOTest(test_es.Num2WordsESTest):
@@ -30,5 +42,19 @@ class Num2WordsESCOTest(test_es.Num2WordsESTest):
         for test in test_es.TEST_CASES_ORDINAL:
             self.assertEqual(
                 num2words(test[0], lang='es_CO', ordinal=True),
+                test[1]
+            )
+
+    def test_ordinal_num(self):
+        for test in test_es.TEST_CASES_ORDINAL_NUM:
+            self.assertEqual(
+                num2words(test[0], lang='es', to='ordinal_num'),
+                test[1]
+            )
+
+    def test_currency(self):
+        for test in TEST_CASES_TO_CURRENCY:
+            self.assertEqual(
+                num2words(test[0], lang='es_CO', to='currency'),
                 test[1]
             )

@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 # Copyright (c) 2003, Taro Ogawa.  All Rights Reserved.
 # Copyright (c) 2013, Savoir-faire Linux inc.  All Rights Reserved.
 
@@ -15,17 +15,28 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301 USA
 
-from __future__ import unicode_literals, print_function
+from __future__ import print_function, unicode_literals
+
 from .lang_EU import Num2Word_EU
 
 
 class Num2Word_FR(Num2Word_EU):
+    CURRENCY_FORMS = {
+        'EUR': (('euro', 'euros'), ('centime', 'centimes')),
+        'USD': (('dollar', 'dollars'), ('cent', 'cents')),
+        'FRF': (('franc', 'francs'), ('centime', 'centimes')),
+        'GBP': (('livre', 'livres'), ('penny', 'pence')),
+        'CNY': (('yuan', 'yuans'), ('fen', 'jiaos')),
+    }
+
     def setup(self):
         Num2Word_EU.setup(self)
 
         self.negword = "moins "
         self.pointword = "virgule"
-        self.errmsg_nonnum = u"Seulement des nombres peuvent être convertis en mots."
+        self.errmsg_nonnum = (
+            u"Seulement des nombres peuvent être convertis en mots."
+            )
         self.errmsg_toobig = u"Nombre trop grand pour être converti en mots."
         self.exclude_title = ["et", "virgule", "moins"]
         self.mid_numwords = [(1000, "mille"), (100, "cent"),
@@ -41,7 +52,6 @@ class Num2Word_FR(Num2Word_EU):
             "neuf": "neuvième",
         }
 
-
     def merge(self, curr, next):
         ctext, cnum, ntext, nnum = curr + next
 
@@ -49,24 +59,27 @@ class Num2Word_FR(Num2Word_EU):
             if nnum < 1000000:
                 return next
         else:
-            if (not (cnum - 80)%100 or not cnum%100) and ctext[-1] == "s":
+            if (not (cnum - 80) % 100
+                or (not cnum % 100 and cnum < 1000))\
+                    and nnum < 1000000 \
+                    and ctext[-1] == "s":
                 ctext = ctext[:-1]
-            if cnum < 1000 and nnum != 1000 and ntext[-1] != "s" and not nnum % 100:
+            if cnum < 1000 and nnum != 1000 and \
+                    ntext[-1] != "s" and not nnum % 100:
                 ntext += "s"
 
         if nnum < cnum < 100:
             if nnum % 10 == 1 and cnum != 80:
-                return ("%s et %s"%(ctext, ntext), cnum + nnum)
-            return ("%s-%s"%(ctext, ntext), cnum + nnum)
+                return ("%s et %s" % (ctext, ntext), cnum + nnum)
+            return ("%s-%s" % (ctext, ntext), cnum + nnum)
         if nnum > cnum:
-            return ("%s %s"%(ctext, ntext), cnum * nnum)
-        return ("%s %s"%(ctext, ntext), cnum + nnum)
-
+            return ("%s %s" % (ctext, ntext), cnum * nnum)
+        return ("%s %s" % (ctext, ntext), cnum + nnum)
 
     # Is this right for such things as 1001 - "mille unième" instead of
     # "mille premier"??  "millième"??
 
-    def to_ordinal(self,value):
+    def to_ordinal(self, value):
         self.verify_ordinal(value)
         if value == 1:
             return "premier"
@@ -84,32 +97,12 @@ class Num2Word_FR(Num2Word_EU):
     def to_ordinal_num(self, value):
         self.verify_ordinal(value)
         out = str(value)
-        out += {"1" : "er"}.get(out[-1], "me")
+        out += "er" if value == 1 else "me"
         return out
 
-    def to_currency(self, val, longval=True, old=False):
-        hightxt = "Euro/s"
-        if old:
-            hightxt = "franc/s"
-        return self.to_splitnum(val, hightxt=hightxt, lowtxt="centime/s",
-                                jointxt="et", longval=longval)
-
-n2w = Num2Word_FR()
-to_card = n2w.to_cardinal
-to_ord = n2w.to_ordinal
-to_ordnum = n2w.to_ordinal_num
-
-def main():
-    for val in [1, 11, 12, 21, 31, 33, 71, 80, 81, 91, 99, 100, 101, 102, 155,
-                180, 300, 308, 832, 1000, 1001, 1061, 1100, 1500, 1701, 3000,
-                8280, 8291, 150000, 500000, 1000000, 2000000, 2000001,
-                -21212121211221211111, -2.121212, -1.0000100]:
-        n2w.test(val)
-
-    n2w.test(1325325436067876801768700107601001012212132143210473207540327057320957032975032975093275093275093270957329057320975093272950730)
-    print(n2w.to_currency(112121))
-    print(n2w.to_year(1996))
-
-
-if __name__ == "__main__":
-    main()
+    def to_currency(self, val, currency='EUR', cents=True, separator=' et',
+                    adjective=False):
+        result = super(Num2Word_FR, self).to_currency(
+            val, currency=currency, cents=cents, separator=separator,
+            adjective=adjective)
+        return result

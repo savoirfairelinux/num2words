@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright (c) 2003, Taro Ogawa.  All Rights Reserved.
 # Copyright (c) 2013, Savoir-faire Linux inc.  All Rights Reserved.
 
@@ -14,22 +15,13 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301 USA
 
-class OrderedMapping(dict):
-    def __init__(self, *pairs):
-        self.order = []
-        for key, val in pairs:
-            self[key] = val
-            
-    def __setitem__(self, key, val):
-        if key not in self:
-            self.order.append(key)
-        super(OrderedMapping, self).__setitem__(key, val)
+from unittest import TestCase
 
-    def __iter__(self):
-        for item in self.order:
-            yield item
+from num2words import num2words
 
-    def __repr__(self):
-        out = ["%s: %s"%(repr(item), repr(self[item])) for item in self]
-        out = ", ".join(out)
-        return "{%s}"%out
+
+class Num2WordsENINTest(TestCase):
+    def test_cardinal(self):
+        self.assertEqual(num2words(1e5, lang="en_IN"), "one lakh")
+        self.assertEqual(num2words(1e6, lang="en_IN"), "ten lakh")
+        self.assertEqual(num2words(1e7, lang="en_IN"), "one crore")

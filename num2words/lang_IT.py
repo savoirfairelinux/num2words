@@ -1,5 +1,6 @@
-# -*- encoding: utf-8 -*-
-#
+# -*- coding: utf-8 -*-
+# Copyright (c) 2018-2019, Filippo Costa.  All Rights Reserved.
+
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
 # License as published by the Free Software Foundation; either
@@ -14,7 +15,6 @@
 # MA 02110-1301 USA
 
 from __future__ import unicode_literals
-from .lang_EU import Num2Word_EU
 
 # Globals
 # -------
@@ -42,16 +42,18 @@ EXPONENT_PREFIXES = [
     ZERO, "m", "b", "tr", "quadr", "quint", "sest", "sett", "ott", "nov", "dec"
 ]
 
+
 # Utils
 # =====
 
 def phonetic_contraction(string):
     return (string
-        .replace("oo", "o") # ex. "centootto"
-        .replace("ao", "o") # ex. "settantaotto"
-        .replace("io", "o") # ex. "ventiotto"
-        .replace("au", "u") # ex. "trentauno"
-    )
+            .replace("oo", "o")  # ex. "centootto"
+            .replace("ao", "o")  # ex. "settantaotto"
+            .replace("io", "o")  # ex. "ventiotto"
+            .replace("au", "u")  # ex. "trentauno"
+            )
+
 
 def exponent_length_to_string(exponent_length):
     # We always assume `exponent` to be a multiple of 3. If it's not true, then
@@ -62,6 +64,7 @@ def exponent_length_to_string(exponent_length):
     else:
         return prefix + "iliardo"
 
+
 def accentuate(string):
     # This is inefficient: it may do several rewritings when deleting
     # half-sentence accents. However, it is the easiest method and speed is
@@ -69,23 +72,24 @@ def accentuate(string):
     return " ".join(
         # Deletes half-sentence accents and accentuates the last "tre"
         [w.replace("tré", "tre")[:-3] + "tré"
-            # We shouldn't accentuate a single "tre": is has to be a composite
-            # word.                ~~~~~~~~~~
-            if w[-3:] == "tre" and len(w) > 3
-            # Deletes half-sentence accents anyway
-            #     ~~~~~~~~~~~~~~~~~~~~~~
-            else w.replace("tré", "tre")
-            for w in string.split()
-        ])
+         # We shouldn't accentuate a single "tre": is has to be a composite
+         # word.                ~~~~~~~~~~
+         if w[-3:] == "tre" and len(w) > 3
+         # Deletes half-sentence accents anyway
+         #     ~~~~~~~~~~~~~~~~~~~~~~
+         else w.replace("tré", "tre")
+         for w in string.split()
+         ])
+
 
 def omitt_if_zero(number_to_string):
     return "" if number_to_string == ZERO else number_to_string
+
 
 # Main class
 # ==========
 
 class Num2Word_IT:
-
     MINUS_PREFIX_WORD = "meno "
     FLOAT_INFIX_WORD = " virgola "
 
@@ -97,9 +101,10 @@ class Num2Word_IT:
             prefix = self.to_ordinal(int(float_number))
         else:
             prefix = self.to_cardinal(int(float_number))
+        float_part = str(float_number).split('.')[1]
         postfix = " ".join(
-            # Drops the trailing zero and comma                     ~~~~
-            [self.to_cardinal(int(c)) for c in str(float_number % 1)[2:]]
+            # Drops the trailing zero and comma
+            [self.to_cardinal(int(c)) for c in float_part]
         )
         return prefix + Num2Word_IT.FLOAT_INFIX_WORD + postfix
 
@@ -165,7 +170,7 @@ class Num2Word_IT:
     def to_cardinal(self, number):
         if number < 0:
             string = Num2Word_IT.MINUS_PREFIX_WORD + self.to_cardinal(-number)
-        elif number % 1 != 0:
+        elif isinstance(number, float):
             string = self.float_to_words(number)
         elif number < 20:
             string = CARDINAL_WORDS[number]

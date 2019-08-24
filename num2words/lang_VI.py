@@ -17,7 +17,6 @@
 
 from __future__ import unicode_literals
 
-
 to_19 = (u'không', u'một', u'hai', u'ba', u'bốn', u'năm', u'sáu',
          u'bảy', u'tám', u'chín', u'mười', u'mười một', u'mười hai',
          u'mười ba', u'mười bốn', u'mười lăm', u'mười sáu', u'mười bảy',
@@ -32,7 +31,7 @@ denom = ('',
          'Octodecillion', 'Novemdecillion', 'Vigintillion')
 
 
-class Num2Word_VN(object):
+class Num2Word_VI(object):
 
     def _convert_nn(self, val):
         if val < 20:
@@ -75,12 +74,12 @@ class Num2Word_VN(object):
         for (didx, dval) in ((v - 1, 1000 ** v) for v in range(len(denom))):
             if dval > val:
                 mod = 1000 ** didx
-                l = val // mod
-                r = val - (l * mod)
+                lval = val // mod
+                r = val - (lval * mod)
 
-                ret = self._convert_nnn(l) + u' ' + denom[didx]
-                if r > 0 and r <= 99:
-                    ret = self._convert_nnn(l) + u' ' + denom[didx] + u' lẻ'
+                ret = self._convert_nnn(lval) + u' ' + denom[didx]
+                if 99 >= r > 0:
+                    ret = self._convert_nnn(lval) + u' ' + denom[didx] + u' lẻ'
                 if r > 0:
                     ret = ret + ' ' + self.vietnam_number(r)
                 return ret

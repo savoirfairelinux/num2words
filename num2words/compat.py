@@ -1,5 +1,6 @@
+# -*- coding: utf-8 -*-
 # Copyright (c) 2003, Taro Ogawa.  All Rights Reserved.
-# Copyright (c) 2016, Savoir-faire Linux inc.  All Rights Reserved.
+# Copyright (c) 2013, Savoir-faire Linux inc.  All Rights Reserved.
 
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -14,13 +15,15 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301 USA
 
-import sys
 
-PY3 = sys.version_info[0] == 3
+try:
+    strtype = basestring
+except NameError:
+    strtype = str
+
 
 def to_s(val):
-    if PY3:
-        return str(val)
-    else:
+    try:
         return unicode(val)
-
+    except NameError:
+        return str(val)

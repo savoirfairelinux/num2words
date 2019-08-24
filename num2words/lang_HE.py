@@ -1,5 +1,5 @@
-# -*- encoding: utf-8 -*-
-#  Copyright (c) 2003, Taro Ogawa.  All Rights Reserved.
+# -*- coding: utf-8 -*-
+# Copyright (c) 2003, Taro Ogawa.  All Rights Reserved.
 # Copyright (c) 2013, Savoir-faire Linux inc.  All Rights Reserved.
 
 # This library is free software; you can redistribute it and/or
@@ -16,7 +16,9 @@
 # MA 02110-1301 USA
 
 
-from __future__ import unicode_literals, print_function
+from __future__ import print_function, unicode_literals
+
+from .utils import get_digits, splitbyx
 
 ZERO = (u'אפס',)
 
@@ -69,21 +71,6 @@ THOUSANDS = {
 
 AND = u'ו'
 
-def splitby3(n):
-    length = len(n)
-    if length > 3:
-        start = length % 3
-        if start > 0:
-            yield int(n[:start])
-        for i in range(start, length, 3):
-            yield int(n[i:i+3])
-    else:
-        yield int(n)
-
-
-def get_digits(n):
-    return [int(x) for x in reversed(list(('%03d' % n)[-3:]))]
-
 
 def pluralize(n, forms):
     # gettext implementation:
@@ -95,7 +82,7 @@ def pluralize(n, forms):
 
 
 def int2word(n):
-    if n > 9999: #doesn't yet work for numbers this big
+    if n > 9999:  # doesn't yet work for numbers this big
         raise NotImplementedError()
 
     if n == 0:
@@ -103,13 +90,15 @@ def int2word(n):
 
     words = []
 
-    chunks = list(splitby3(str(n)))
+    chunks = list(splitbyx(str(n), 3))
     i = len(chunks)
     for x in chunks:
         i -= 1
-        n1, n2, n3 = get_digits(x)
 
-        # print str(n3) + str(n2) + str(n1)
+        if x == 0:
+            continue
+
+        n1, n2, n3 = get_digits(x)
 
         if n3 > 0:
             if n3 <= 2:
@@ -142,7 +131,7 @@ def n2w(n):
     return int2word(int(n))
 
 
-def to_currency(n, currency='EUR', cents=True, seperator=','):
+def to_currency(n, currency='EUR', cents=True, separator=','):
     raise NotImplementedError()
 
 
@@ -159,4 +148,3 @@ if __name__ == '__main__':
     nums = [1, 11, 21, 24, 99, 100, 101, 200, 211, 345, 1000, 1011]
     for num in nums:
         print(num, yo.to_cardinal(num))
-
