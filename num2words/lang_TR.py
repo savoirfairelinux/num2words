@@ -18,6 +18,10 @@
 
 from __future__ import division, print_function, unicode_literals
 
+from .base import Num2Word_Base
+from . import compat
+from .currency import parse_currency_parts, prefix_currency
+
 
 class Num2Word_TR(object):
     def __init__(self):
