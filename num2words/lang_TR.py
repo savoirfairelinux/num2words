@@ -20,6 +20,7 @@ from __future__ import unicode_literals
 
 from .base import Num2Word_Base
 
+
 class Num2Word_TR(Num2Word_Base):
     def __init__(self):
         self.precision = 2
