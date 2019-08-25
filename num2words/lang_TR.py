@@ -839,4 +839,4 @@ class Num2Word_TR(Num2Word_Base):
                 return self.CURRENCY_UNIT[0].join(valueparts) + \
                    self.CURRENCY_SUBUNIT[0]
             else:
-                return valueparts[1] + self.self.CURRENCY_SUBUNIT[0]
+                return valueparts[1] + self.CURRENCY_SUBUNIT[0]
