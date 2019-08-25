@@ -192,3 +192,32 @@ class Num2WordsTRTest(TestCase):
             num2words(101101011010.2, False, "tr"),
             u"yüzbirmilyaryüzbirmilyononbirbinonvirgülyirmi"
         )
+
+        self.assertEqual(
+            num2words(0.01, False, lang='tr',to='currency'),
+            u"birkuruş"
+        )
+        self.assertEqual(
+            num2words(0.1, False, lang='tr',to='currency'),
+            u"onkuruş"
+        )
+        self.assertEqual(
+            num2words(0.11, False, lang='tr',to='currency'),
+            u"onbirkuruş"
+        )
+        self.assertEqual(
+            num2words(4000000, False, lang='tr',to='currency'),
+            u"dörtmilyonlira"
+        )
+        self.assertEqual(
+            num2words(4000000.1, False, lang='tr',to='currency'),
+            u"dörtmilyonliraonkuruş"
+        )
+        self.assertEqual(
+            num2words(4000000.01, False, lang='tr',to='currency'),
+            u"dörtmilyonlirabirkuruş"
+        )
+        self.assertEqual(
+            num2words(4000000.11, False, lang='tr',to='currency'),
+            u"dörtmilyonliraonbirkuruş"
+        )

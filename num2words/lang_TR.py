@@ -18,8 +18,9 @@
 
 from __future__ import unicode_literals
 
+from .base import Num2Word_Base
 
-class Num2Word_TR(object):
+class Num2Word_TR(Num2Word_Base):
     def __init__(self):
         self.precision = 2
         self.negword = u"eksi"
@@ -834,5 +835,8 @@ class Num2Word_TR(object):
         if len(valueparts) == 1:
             return valueparts[0] + self.CURRENCY_UNIT[0]
         if len(valueparts) == 2:
-            return self.CURRENCY_UNIT[0].join(valueparts) + \
+            if not valueparts[0] == self.ZERO[0]:
+                return self.CURRENCY_UNIT[0].join(valueparts) + \
                    self.CURRENCY_SUBUNIT[0]
+            else:
+                return valueparts[1] + self.self.CURRENCY_SUBUNIT[0]
