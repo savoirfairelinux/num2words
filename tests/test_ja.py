@@ -163,6 +163,7 @@ class Num2WordsJATest(TestCase):
                          "はちじゅうきゅうえん")
 
     def test_year(self):
+        self.assertEqual(n2j(2020, to="year"), "令和二年")
         self.assertEqual(n2j(2017, to="year"), "平成二十九年")
         self.assertEqual(n2j(2017, to="year", reading=True),
                          "へいせいにじゅうくねん")
