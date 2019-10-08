@@ -214,9 +214,24 @@ class Num2Word_ES(Num2Word_EU):
             adjective=adjective,
         )
         # Handle exception, in spanish is "un euro" and not "uno euro"
+        # Orthography exception "veintiún"
         return (
             result.replace("uno", "un")
             if result.find("veintiuno")
             else result.replace("veintiuno", "veintiún")
         )
+
+    def to_cardinal_float(self, value):
+        try:
+            float(value) == value
+        except (ValueError, TypeError, AssertionError):
+            raise TypeError(self.errmsg_nonnum % value)
+
+        pre, post = self.float2tuple(float(value))
+        out = [self.to_cardinal(pre)]
+        if self.precision:
+            out.append(self.title(self.pointword))
+        out.append(self.to_cardinal(post))
+
+        return " ".join(out)
 
