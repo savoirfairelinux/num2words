@@ -18,6 +18,7 @@
 from __future__ import print_function, unicode_literals
 
 from .lang_EU import Num2Word_EU
+from .compat import to_s
 
 
 class Num2Word_ES(Num2Word_EU):
@@ -231,7 +232,15 @@ class Num2Word_ES(Num2Word_EU):
         out = [self.to_cardinal(pre)]
         if self.precision:
             out.append(self.title(self.pointword))
-        out.append(self.to_cardinal(post))
 
+        # Numbers smaller than 4 digits it is common to write it in a grouped way
+        if self.precision <= 4:
+            out.append(self.to_cardinal(post))
+        else:
+            post = str(post)
+            post = "0" * (self.precision - len(post)) + post
+            for i in range(self.precision):
+                curr = int(post[i])
+                out.append(to_s(self.to_cardinal(curr)))
         return " ".join(out)
 
