@@ -24,7 +24,7 @@ from num2words import num2words
 class Num2WordsTRTest(TestCase):
     def test_tr(self):
         # ref https://github.com/savoirfairelinux/num2words/issues/8
-        
+
         self.assertEqual(num2words(00, True, "tr"), u"")
         self.assertEqual(num2words(1, True, "tr"), u"birinci")
         self.assertEqual(num2words(2, True, "tr"), u"ikinci")
