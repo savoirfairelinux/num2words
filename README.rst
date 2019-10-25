@@ -82,6 +82,8 @@ Besides the numerical argument, there are two main optional arguments.
 * ``dk`` (Danish)
 * ``en_GB`` (English - Great Britain)
 * ``en_IN`` (English - India)
+* ``en_CA`` (English - Canada)
+* ``en_AU`` (English - Australia)
 * ``es`` (Spanish)
 * ``es_CO`` (Spanish - Colombia)
 * ``es_VE`` (Spanish - Venezuela)
