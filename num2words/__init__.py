@@ -18,11 +18,11 @@
 from __future__ import unicode_literals
 
 from . import (lang_AR, lang_CZ, lang_DE, lang_DK, lang_EN, lang_EN_IN,
-               lang_ES, lang_ES_CO, lang_ES_VE, lang_FI, lang_FR, lang_FR_BE,
-               lang_FR_CH, lang_FR_DZ, lang_HE, lang_ID, lang_IT, lang_JA,
-               lang_KN, lang_KO, lang_LT, lang_LV, lang_NL, lang_NO, lang_PL,
-               lang_PT, lang_PT_BR, lang_RO, lang_RU, lang_SL, lang_SR,
-               lang_TH, lang_TR, lang_UK, lang_VI)
+               lang_ES, lang_ES_CO, lang_ES_NI, lang_ES_VE, lang_FI, lang_FR,
+               lang_FR_BE, lang_FR_CH, lang_FR_DZ, lang_HE, lang_ID, lang_IT,
+               lang_JA, lang_KN, lang_KO, lang_LT, lang_LV, lang_NL, lang_NO,
+               lang_PL, lang_PT, lang_PT_BR, lang_RO, lang_RU, lang_SL,
+               lang_SR, lang_TH, lang_TR, lang_UK, lang_VI)
 
 CONVERTER_CLASSES = {
     'ar': lang_AR.Num2Word_AR(),
@@ -37,6 +37,7 @@ CONVERTER_CLASSES = {
     'fi': lang_FI.Num2Word_FI(),
     'es': lang_ES.Num2Word_ES(),
     'es_CO': lang_ES_CO.Num2Word_ES_CO(),
+    'es_NI': lang_ES_NI.Num2Word_ES_NI(),
     'es_VE': lang_ES_VE.Num2Word_ES_VE(),
     'id': lang_ID.Num2Word_ID(),
     'ja': lang_JA.Num2Word_JA(),
