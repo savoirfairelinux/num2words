@@ -77,3 +77,4 @@ setup(
     install_requires=["docopt>=0.6.2"],
     tests_require=['delegator.py'],
 )
+print("Hacktober Fest")
