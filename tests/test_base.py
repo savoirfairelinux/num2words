@@ -50,11 +50,11 @@ class Num2WordBaseTest(TestCase):
         from num2words.base import Num2Word_Base
         self.base = Num2Word_Base()
         self.assertEqual(
-            self.base.title(9),
-            9
+            self.base.title("one"),
+            "one"
             )
         self.base.is_title = True
         self.assertEqual(
-            self.base.title("ii"),
-            "Ii"
+            self.base.title("one"),
+            "One"
             )
