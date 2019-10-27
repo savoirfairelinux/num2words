@@ -15,7 +15,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301 USA
 
-from __future__ import print_function, unicode_literals
+from __future__ import division, print_function, unicode_literals
 
 import math
 
@@ -122,54 +122,48 @@ class Num2Word_ES(Num2Word_EU):
 
     def to_ordinal(self, value):
         self.verify_ordinal(value)
-        try:
-            if value == 0:
-                text = ""
-            elif value <= 10:
-                text = "%s%s" % (self.ords[value], self.gender_stem)
-            elif value <= 12:
-                text = (
-                    "%s%s%s" % (self.ords[10], self.gender_stem,
-                                self.to_ordinal(value - 10))
-                        )
-            elif value <= 100:
-                dec = (value // 10) * 10
-                text = (
-                    "%s%s %s" % (self.ords[dec], self.gender_stem,
-                                 self.to_ordinal(value - dec))
-                        )
-            elif value <= 1e3:
-                cen = (value // 100) * 100
-                text = (
-                    "%s%s %s" % (self.ords[cen], self.gender_stem,
-                                 self.to_ordinal(value - cen))
-                        )
-            elif value < 1e18:
-                # Round down to the nearest 1e(3n)
-                # dec contains the following:
-                # [ 1e3,  1e6): 1e3
-                # [ 1e6,  1e9): 1e6
-                # [ 1e9, 1e12): 1e9
-                # [1e12, 1e15): 1e12
-                # [1e15, 1e18): 1e15
-                dec = 1000 ** int(math.log(int(value), 1000))
-
-                # Split the parts before and after the word for 'dec'
-                # eg (12, 345) = divmod(12_345, 1_000)
-                high_part, low_part = divmod(value, dec)
-
-                cardinal = (
-                    self.to_cardinal(high_part) if high_part != 1 else ""
+        if value == 0:
+            text = ""
+        elif value <= 10:
+            text = "%s%s" % (self.ords[value], self.gender_stem)
+        elif value <= 12:
+            text = (
+                "%s%s%s" % (self.ords[10], self.gender_stem,
+                            self.to_ordinal(value - 10))
                     )
-                text = (
-                    "%s%s%s %s" % (cardinal, self.ords[dec], self.gender_stem,
-                                   self.to_ordinal(low_part))
-                        )
-            else:
-                text = self.to_cardinal(value)
-        except KeyError:
+        elif value <= 100:
+            dec = (value // 10) * 10
+            text = (
+                "%s%s %s" % (self.ords[dec], self.gender_stem,
+                             self.to_ordinal(value - dec))
+                    )
+        elif value <= 1e3:
+            cen = (value // 100) * 100
+            text = (
+                "%s%s %s" % (self.ords[cen], self.gender_stem,
+                             self.to_ordinal(value - cen))
+                    )
+        elif value < 1e18:
+            # Round down to the nearest 1e(3n)
+            # dec contains the following:
+            # [ 1e3,  1e6): 1e3
+            # [ 1e6,  1e9): 1e6
+            # [ 1e9, 1e12): 1e9
+            # [1e12, 1e15): 1e12
+            # [1e15, 1e18): 1e15
+            dec = 1000 ** int(math.log(int(value), 1000))
+
+            # Split the parts before and after the word for 'dec'
+            # eg (12, 345) = divmod(12_345, 1_000)
+            high_part, low_part = divmod(value, dec)
+
+            cardinal = self.to_cardinal(high_part) if high_part != 1 else ""
+            text = (
+                "%s%s%s %s" % (cardinal, self.ords[dec], self.gender_stem,
+                               self.to_ordinal(low_part))
+                    )
+        else:
             text = self.to_cardinal(value)
-            raise
         return text.strip()
 
     def to_ordinal_num(self, value):
