@@ -95,7 +95,7 @@ TEST_CASES_ORDINAL = (
     (28, 'vigésimo octavo'),
     (100, 'centésimo'),
     (1000, 'milésimo'),
-    (12345, 'doce mil trescientos cuarenta y cinco'),
+    (12345, 'docemilésimo tricentésimo quadragésimo quinto'),
     (1000000, 'millonésimo'),
     (1000000000000000, 'cuadrillonésimo'),
     (1000000000000000000, 'un trillón')  # over 1e18 is not supported

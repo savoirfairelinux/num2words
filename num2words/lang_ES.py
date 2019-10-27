@@ -17,6 +17,8 @@
 
 from __future__ import print_function, unicode_literals
 
+import math
+
 from .lang_EU import Num2Word_EU
 
 
@@ -143,25 +145,31 @@ class Num2Word_ES(Num2Word_EU):
                                  self.to_ordinal(value - cen))
                         )
             elif value < 1e18:
+                # Round down to the nearest 1e(3n)
                 # dec contains the following:
                 # [ 1e3,  1e6): 1e3
                 # [ 1e6,  1e9): 1e6
                 # [ 1e9, 1e12): 1e9
                 # [1e12, 1e15): 1e12
                 # [1e15, 1e18): 1e15
-                dec = 10 ** ((((len(str(int(value))) - 1) / 3 - 1) + 1) * 3)
-                part = int(float(value / dec) * dec)
+                dec = 1000 ** int(math.log(int(value), 1000))
+
+                # Split the parts before and after the word for 'dec'
+                # eg (12, 345) = divmod(12_345, 1_000)
+                high_part, low_part = divmod(value, dec)
+
                 cardinal = (
-                    self.to_cardinal(part / dec) if part / dec != 1 else ""
+                    self.to_cardinal(high_part) if high_part != 1 else ""
                     )
                 text = (
                     "%s%s%s %s" % (cardinal, self.ords[dec], self.gender_stem,
-                                   self.to_ordinal(value - part))
+                                   self.to_ordinal(low_part))
                         )
             else:
                 text = self.to_cardinal(value)
         except KeyError:
             text = self.to_cardinal(value)
+            raise
         return text.strip()
 
     def to_ordinal_num(self, value):
