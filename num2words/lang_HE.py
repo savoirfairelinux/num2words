@@ -129,7 +129,7 @@ def int2word(n):
         if i > 0:
             words.append(THOUSANDS[i][0])
 
-    # source: https://hebrew-academy.org.il/2017/01/30/%d7%95-%d7%94%d7%97%d7%99%d7%91%d7%95%d7%a8-%d7%91%d7%9e%d7%a1%d7%a4%d7%a8%d7%99%d7%9d/
+    # source: https://hebrew-academy.org.il/2017/01/30/ו-החיבור-במספרים/
     if len(words) > 1:
         words[-1] = AND + words[-1]
 
