@@ -17,6 +17,8 @@
 
 from __future__ import unicode_literals
 
+from .base import Num2Word_Base
+
 to_19 = (u'không', u'một', u'hai', u'ba', u'bốn', u'năm', u'sáu',
          u'bảy', u'tám', u'chín', u'mười', u'mười một', u'mười hai',
          u'mười ba', u'mười bốn', u'mười lăm', u'mười sáu', u'mười bảy',
@@ -24,14 +26,14 @@ to_19 = (u'không', u'một', u'hai', u'ba', u'bốn', u'năm', u'sáu',
 tens = (u'hai mươi', u'ba mươi', u'bốn mươi', u'năm mươi',
         u'sáu mươi', u'bảy mươi', u'tám mươi', u'chín mươi')
 denom = ('',
-         u'nghìn', u'triệu', u'tỷ', u'nghìn tỷ', u'trăm nghìn tỷ',
-         'Quintillion', 'Sextillion', 'Septillion', 'Octillion', 'Nonillion',
+         u'nghìn', u'triệu', u'tỷ', u'nghìn tỷ', u'triệu tỷ',
+         u'tỷ tỷ', u'nghìn tỷ tỷ', 'Septillion', 'Octillion', 'Nonillion',
          'Decillion', 'Undecillion', 'Duodecillion', 'Tredecillion',
          'Quattuordecillion', 'Sexdecillion', 'Septendecillion',
          'Octodecillion', 'Novemdecillion', 'Vigintillion')
 
 
-class Num2Word_VI(object):
+class Num2Word_VI(Num2Word_Base): # FIXME: seems wrong with number over 10^22
 
     def _convert_nn(self, val):
         if val < 20:
