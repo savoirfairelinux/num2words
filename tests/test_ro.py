@@ -125,6 +125,10 @@ class Num2WordsROTest(TestCase):
             u'una sută unu lei'
         )
         self.assertEqual(
+            num2words(100, lang='ro', to='currency'),
+            u'una sută de lei'
+        )
+        self.assertEqual(
             num2words(38.4, lang='ro', to='currency'),
             u'treizeci și opt de lei și patruzeci de bani'
         )
@@ -146,8 +150,8 @@ class Num2WordsROTest(TestCase):
             num2words(22000, lang='ro', to='currency'),
             u'douăzeci și două de mii de lei')
         self.assertEqual(
-            num2words(13000, lang='ro', to='currency'),
-            u'treisprezece mii de lei')
+            num2words(80000, lang='ro', to='currency'),
+            u'optzeci de mii de lei')
         self.assertEqual(
             num2words(123456789, lang='ro', to='currency'),
             u'una sută douăzeci și trei milioane patru sute '
