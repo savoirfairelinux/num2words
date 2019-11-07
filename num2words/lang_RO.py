@@ -133,7 +133,8 @@ class Num2Word_RO(lang_EU.Num2Word_EU):
             result = result.replace("iliare", self.GIGA_SUFFIX_I)
         return result
 
-    def to_currency(self, val, currency="RON", cents=False, separator=" și", adjective=False):
+    def to_currency(self, val, currency="RON", cents=False, separator=" și",
+                    adjective=False):
         # romanian currency has a particularity for numeral: one
         self.gen_numwords[1] = "una"
         result = super(Num2Word_RO, self).to_currency(
