@@ -23,8 +23,9 @@ from . import lang_EU
 class Num2Word_RO(lang_EU.Num2Word_EU):
     GIGA_SUFFIX = "iliard/e"
     MEGA_SUFFIX = "ilion"
-    # inflection for million follows different rule
+    # inflection for mi/billion follows different rule
     MEGA_SUFFIX_I = "ilioane"
+    GIGA_SUFFIX_I = "iliarde"
 
     def setup(self):
         super(Num2Word_RO, self).setup()
@@ -106,29 +107,50 @@ class Num2Word_RO(lang_EU.Num2Word_EU):
             return "1-ul"
         return "al %s-lea" % (value)
 
+    def pluralize(self, n, forms):
+        if n == 1:
+            form = 0
+        elif n == 0 or (n % 100 > 0 and n % 100 < 20):
+            form = 1
+        else:
+            form = 2
+        return forms[form]
+
     def inflect(self, value, text, side_effect=-1):
         text = text.split("/")
-        if value in (1, 100, 1000, 100000, 1000000000):
-            return text[0]
-        if len(text) > 1 and text[0][-1] in "aăeiou":
-            text[0] = text[0][:-1]
-        result = "".join(text)
-        # mega inflections are with 'oa' inside, use suffixes
+        result = text[0]
+        if len(text) > 1:
+            forms = [
+                text[0],
+                text[0][:-1] + text[1],
+                "de " + text[0][:-1] + text[1]
+            ]
+            result = self.pluralize(side_effect, forms)
+        # mega inflections are different
         if side_effect > 1 and result.endswith(self.MEGA_SUFFIX):
             result = result.replace(self.MEGA_SUFFIX, self.MEGA_SUFFIX_I)
+        elif side_effect > 1 and result.endswith("iliare"):
+            result = result.replace("iliare", self.GIGA_SUFFIX_I)
         return result
 
-    def to_currency(self, val, longval=True, old=False):
-        cents = int(round(val*100))
+    def to_currency(self, val, currency="RON", cents=False, separator=" și", adjective=False):
         # romanian currency has a particularity for numeral: one
         self.gen_numwords[1] = "una"
-        result = self.to_splitnum(cents, hightxt="leu/i", lowtxt="ban/i",
-                                  divisor=100, jointxt="și", longval=longval)
+        result = super(Num2Word_RO, self).to_currency(
+            int(round(val*100)),
+            currency,
+            True,
+            separator,
+            adjective
+        )
         self.gen_numwords[1] = "o"  # revert numeral
         return result.replace(
             "unu leu", "un leu"
         ).replace(
             "unu ban", "un ban"
+        ).replace(
+            # if the romanian low text is 0, it is not usually printed
+            separator + " zero bani", ""
         )
 
     def to_year(self, val, suffix=None, longval=True):
