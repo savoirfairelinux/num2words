@@ -102,7 +102,7 @@ class CliTestCase(unittest.TestCase):
         )
 
     def test_cli_with_lang_to(self):
-        """You should be able to specify a language
+        """You should be able to specify a language and currency
         """
         output = self.cli.run_cmd(150.55, '--lang', 'es', '--to', 'currency')
         self.assertEqual(output.return_code, 0)
