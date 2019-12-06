@@ -138,9 +138,11 @@ class Num2Word_VI(object):
         return final_result
 
     def to_cardinal(self, number):
+        return self.to_vn_str(number)
+
+    def to_cardinal_float(self, number):
         return self.number_to_text(number)
 
-    #def to_cardinal_float(self, value):
     #def verify_cardinal(self, value):
     #def verify_ordinal(self, value):
     
