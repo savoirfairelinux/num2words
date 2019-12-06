@@ -17,11 +17,13 @@
 
 from __future__ import unicode_literals
 
+from .base import Num2Word_Base
+
 # This code for Vietnam number spelling. It based on tntxtnt's code on daynhauhoc.com
 
-class Num2Word_VI(object):
+class Num2Word_VI(Num2Word_Base):
 
-    def __init__(self, mươi='mươi', nghìn='nghìn', tư='tư', lăm='lăm', linh='linh', tỷ='tỷ', đọc_số_rỗng=True):
+    def __init__(self, mươi='mươi', nghìn='nghìn', tư='bốn', lăm='lăm', linh='lẻ', tỷ='tỷ', đọc_số_rỗng=False):
         self.chữ_số = ('không', 'một', 'hai', 'ba', 'bốn', 'năm', 'sáu', 'bảy', 'tám', 'chín', 'mười')
         self.mươi = mươi
         self.trăm = 'trăm'
@@ -34,6 +36,7 @@ class Num2Word_VI(object):
         self.linh = linh
         self.đọc_số_rỗng = đọc_số_rỗng
     def to_vn_str(self, s):
+        s = str(s)
         return self._arbitrary(s.lstrip('0'))
     def _int(self, c):
         return ord(c) - ord('0') if c else 0
@@ -84,49 +87,6 @@ class Num2Word_VI(object):
         if not right: return left + ' ' + hang
         return left + ' ' + hang + ', ' + right
 
-# if __name__ == '__main__':
-#     test_cases_1 = (
-#         "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
-#         "10", "11", "12", "20", "21", "22", "24", "90", "91", "97",
-#         "300", "999", "121", "215", "5121", "39500",
-#         "1025217", "51105500", "51000000", "999999999",
-#         "5120625952200", "12000000000000000000", "18446744073709551615",
-#         "18000000000709551615", "11000000000",
-#         "1000015", "1002015", "1000000024",
-#         "03215", "", "0000", "00001", "00100",
-#         "1844674407370955161518000000000000000000709551615",
-#         "0321", "000345", "15", "40430203", "3209", "3500", "3901", "21",
-#         "3005", "3055", "9031", "9330",
-#         "9000005", "9001005",
-#     )
-#     test_cases_2 = (
-#         ("32000000", "ba mươi hai triệu"),
-#         ("32516000", "ba mươi hai triệu năm trăm mười sáu nghìn"),
-#         ("32516497", "ba mươi hai triệu năm trăm mười sáu nghìn bốn trăm chín mươi bảy"),
-#         ("834291712", "tám trăm ba mươi tư triệu hai trăm chín mươi mốt nghìn bảy trăm mười hai"),
-#         ("308250705", "ba trăm linh tám triệu hai trăm năm mươi nghìn bảy trăm linh năm"),
-#         ("500209037", "năm trăm triệu hai trăm linh chín nghìn không trăm ba mươi bảy"),
-#         ("7312836", "bảy triệu ba trăm mười hai nghìn tám trăm ba mươi sáu"),
-#         ("57602511", "năm mươi bảy triệu sáu trăm linh hai nghìn năm trăm mười một"),
-#         ("351600307", "ba trăm năm mươi mốt triệu sáu trăm nghìn ba trăm linh bảy"),
-#         ("900370200", "chín trăm triệu ba trăm bảy mươi nghìn hai trăm"),
-#         ("400070192", "bốn trăm triệu không trăm bảy mươi nghìn một trăm chín mươi hai"),
-#         ("10250214", "mười triệu hai trăm năm mươi nghìn hai trăm mười bốn"),
-#         ("253564888", "hai trăm năm mươi ba triệu năm trăm sáu mươi tư nghìn tám trăm tám mươi tám"),
-#         ("400036105", "bốn trăm triệu không trăm ba mươi sáu nghìn một trăm linh năm"),
-#         ("700000231", "bảy trăm triệu không nghìn hai trăm ba mươi mốt"),
-#     )
-
-#     custom_converter = NumToVnStr(đọc_số_rỗng=True, linh='lẻ', tư='bốn', nghìn='ngàn', mươi=False, tỷ='tỉ', lăm='nhăm')
-#     for i in test_cases_1:
-#         print('{} = {}'.format(i, custom_converter.to_vn_str(i)))
-#     default_converter = NumToVnStr()
-#     for test_case in test_cases_2:
-#         i, o = test_case
-#         assert default_converter.to_vn_str(i) == o
-#         print('\n{}\n{}\n{}'.format(i, default_converter.to_vn_str(i), o))
-
-
     def number_to_text(self, number):
         number = '{:.2f}'.format(number)
         the_list = str(number).split('.')
@@ -151,3 +111,5 @@ class Num2Word_VI(object):
 
     #def to_splitnum(self, val):
     #def to_currency(self, value):
+
+custom_converter = Num2Word_VI(đọc_số_rỗng=True, linh='linh', tư='tư', nghìn='ngàn', mươi=False, tỷ='tỉ', lăm='nhăm')
