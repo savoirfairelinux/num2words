@@ -24,8 +24,8 @@ class Num2Word_TR(object):
         self.precision = 2
         self.negword = u"eksi"
         self.pointword = u"virgül"
-        self.CURRENCY_UNIT = (u"lira",)
-        self.CURRENCY_SUBUNIT = (u"kuruş",)
+        self.CURRENCY_UNIT = u"lira"
+        self.CURRENCY_SUBUNIT = u"kuruş"
         self.errmsg_nonnum = u"Sadece sayılar yazıya çevrilebilir."
         self.errmsg_floatord = u"Tam sayı olmayan {} sıralamada kullanılamaz."
         self.errmsg_negord = u"Pozitif olmayan {} sıralamada kullanılamaz."
@@ -831,10 +831,10 @@ class Num2Word_TR(object):
 
     def to_currency(self, value):
         if int(value) == 0:
-            return self.CURRENCY_UNIT[0].join(self.ZERO)
+            return self.CURRENCY_UNIT.join(self.ZERO)
         valueparts = self.to_cardinal(value).split(self.pointword)
         if len(valueparts) == 1:
-            return valueparts[0] + self.CURRENCY_UNIT[0]
+            return valueparts[0] + self.CURRENCY_UNIT
         if len(valueparts) == 2:
-            return self.CURRENCY_UNIT[0].join(valueparts) + \
-                   self.CURRENCY_SUBUNIT[0]
+            return self.CURRENCY_UNIT.join(valueparts) + \
+                   self.CURRENCY_SUBUNIT
