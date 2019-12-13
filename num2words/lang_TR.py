@@ -34,7 +34,7 @@ class Num2Word_TR(object):
         self.exclude_title = []
         self.DECIMAL_SIGN = (",",)
         self.ORDINAL_SIGN = (".",)
-        self.ZERO = (u"sıfır",)
+        self.ZERO = u"sıfır"
         self.CARDINAL_ONES = {
             "1": u"bir",
             "2": u"iki",
