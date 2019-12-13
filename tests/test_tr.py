@@ -204,5 +204,5 @@ class Num2WordsTRTest(TestCase):
         self.assertEqual(num2words(1002001, lang="tr", to="currency"), u'birmilyonikibinbirlira')
         self.assertEqual(num2words(1002002, lang="tr", to="ordinal"), u'birmilyonikibinikinci')
         self.assertEqual(num2words(1003000, lang="tr", to="ordinal"), u'birmilyonüçbininci')
-        self.assertEqual(num2words(1100000, lang="tr", to="currency"), u'birmilyonyüzbin')
+        self.assertEqual(num2words(1100000, lang="tr", to="currency"), u'birmilyonyüzbinlira')
         self.assertEqual(num2words(1200000, lang="tr", to="ordinal"), u'birmilyonikiyüzbininci')
