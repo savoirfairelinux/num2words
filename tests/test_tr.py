@@ -75,7 +75,7 @@ class Num2WordsTRTest(TestCase):
             {"test": 101011010, "lang": "tr", "to": "ordinal", "expected": u"yüzbirmilyononbirbinonuncu"},
             {"test": 1101011010, "lang": "tr", "to": "ordinal", "expected": u"birmilyaryüzbirmilyononbirbinonuncu"},
             {"test": 101101011010, "lang": "tr", "to": "ordinal",
-             "response": u"yüzbirmilyaryüzbirmilyononbirbinonuncu"},
+             "expected": u"yüzbirmilyaryüzbirmilyononbirbinonuncu"},
             {"test": 1000000000001, "lang": "tr", "to": "ordinal", "expected": u"birtrilyonbirinci"},
             {"test": 1.2, "lang": "tr", "to": "ordinal", "expected": u""},
             {"test": 1.3, "lang": "tr", "to": "ordinal", "expected": u""},
@@ -135,9 +135,9 @@ class Num2WordsTRTest(TestCase):
             {"test": 1.1, "lang": "tr", "to": "cardinal", "expected": u"birvirgülon"},
             {"test": 1.21, "lang": "tr", "to": "cardinal", "expected": u"birvirgülyirmibir"},
             {"test": 101101011010.02, "lang": "tr", "to": "cardinal",
-             "response": u"yüzbirmilyaryüzbirmilyononbirbinonvirgüliki"},
+             "expected": u"yüzbirmilyaryüzbirmilyononbirbinonvirgüliki"},
             {"test": 101101011010.2, "lang": "tr", "to": "cardinal",
-             "response": u"yüzbirmilyaryüzbirmilyononbirbinonvirgülyirmi"}
+             "expected": u"yüzbirmilyaryüzbirmilyononbirbinonvirgülyirmi"}
         ]
 
         for casedata in testcases:
