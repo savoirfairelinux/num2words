@@ -184,5 +184,8 @@ class Num2WordsTRTest(TestCase):
         ]
 
         for casedata in testcases:
-            self.assertEqual(num2words(casedata["test"], lang=testlang,
-                                       to=casedata["to"]), casedata["expected"])
+            self.assertEqual(
+                num2words(casedata["test"],
+                          lang=testlang,
+                          to=casedata["to"]),
+                casedata["expected"])
