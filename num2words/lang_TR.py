@@ -830,6 +830,8 @@ class Num2Word_TR(object):
                 found = 1
 
     def to_currency(self, value):
+        if int(value) == 0:
+            return self.ZERO + self.CURRENCY_UNIT[0]
         valueparts = self.to_cardinal(value).split(self.pointword)
         if len(valueparts) == 1:
             return valueparts[0] + self.CURRENCY_UNIT[0]
