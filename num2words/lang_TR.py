@@ -32,8 +32,8 @@ class Num2Word_TR(object):
         self.errmsg_toobig = u"abs({}) sayı yazıya çevirmek için çok büyük. " \
                              u"Yazıya çevrilebilecek en büyük rakam {}."
         self.exclude_title = []
-        self.DECIMAL_SIGN = (",",)
-        self.ORDINAL_SIGN = (".",)
+        self.DECIMAL_SIGN = ","
+        self.ORDINAL_SIGN = "."
         self.ZERO = u"sıfır"
         self.CARDINAL_ONES = {
             "1": u"bir",
@@ -444,7 +444,7 @@ class Num2Word_TR(object):
             wrd += self.CARDINAL_ONES.get(self.integers_to_read[1][1], "")
 
         if self.integers_to_read[0] == "0":
-            wrd = self.ZERO[0] + wrd
+            wrd = self.ZERO + wrd
         else:
             wrd = self.to_cardinal(int(self.integers_to_read[0])) + wrd
         return wrd
