@@ -96,7 +96,7 @@ THOUSANDS = {
 }
 
 
-class Num2Word_RU(Num2Word_Base):
+class Num2Word_UA(Num2Word_Base):
     CURRENCY_FORMS = {
         'RUB': (
             ("рубль", "рубля", "рублів"), ("копійка", "копійки", "копійок")
