@@ -171,7 +171,8 @@ class Num2WordsUATest(TestCase):
         )
         self.assertEqual(
             num2words(1234.56, lang='ua', to='currency', currency='UAH'),
-            "одна тисяча двісті тридцять чотири гривні, п’ятдесят шість копійок"
+            "одна тисяча двісті тридцять чотири гривні, п’ятдесят шість "
+            "копійок"
         )
         self.assertEqual(
             num2words(10111, lang='ua', to='currency', currency='EUR',
