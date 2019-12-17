@@ -22,192 +22,193 @@ from unittest import TestCase
 from num2words import num2words
 
 
-class Num2WordsRUTest(TestCase):
+class Num2WordsUATest(TestCase):
 
     def test_cardinal(self):
-        self.assertEqual(num2words(100, lang='ru'), "сто")
-        self.assertEqual(num2words(101, lang='ru'), "сто один")
-        self.assertEqual(num2words(110, lang='ru'), "сто десять")
-        self.assertEqual(num2words(115, lang='ru'), "сто пятнадцать")
-        self.assertEqual(num2words(123, lang='ru'), "сто двадцать три")
-        self.assertEqual(num2words(1000, lang='ru'), "одна тысяча")
-        self.assertEqual(num2words(1001, lang='ru'), "одна тысяча один")
-        self.assertEqual(num2words(2012, lang='ru'), "две тысячи двенадцать")
+        self.assertEqual(num2words(100, lang='ua'), "сто")
+        self.assertEqual(num2words(101, lang='ua'), "сто один")
+        self.assertEqual(num2words(110, lang='ua'), "сто десять")
+        self.assertEqual(num2words(115, lang='ua'), "сто п’ятнадцять")
+        self.assertEqual(num2words(123, lang='ua'), "сто двадцять три")
+        self.assertEqual(num2words(1000, lang='ua'), "одна тисяча")
+        self.assertEqual(num2words(1001, lang='ua'), "одна тисяча один")
+        self.assertEqual(num2words(2012, lang='ua'), "дві тисячі дванадцять")
         self.assertEqual(
-            num2words(12519.85, lang='ru'),
-            "двенадцать тысяч пятьсот девятнадцать запятая восемьдесят пять")
+            num2words(12519.85, lang='ua'),
+            "дванадцять тисяч п’ятсот дев’ятнадцять кома вісімдесят п’ять")
         self.assertEqual(
-            num2words(1234567890, lang='ru'),
-            "один миллиард двести тридцать четыре миллиона пятьсот "
-            "шестьдесят семь тысяч восемьсот девяносто")
+            num2words(1234567890, lang='ua'),
+            "один мільярд двісті тридцять чотири мільйони п’ятсот "
+            "шістдесят сім тисяч вісімсот дев’яносто")
         self.assertEqual(
-            num2words(215461407892039002157189883901676, lang='ru'),
-            "двести пятнадцать нониллионов четыреста шестьдесят один "
-            "октиллион четыреста семь септиллионов восемьсот девяносто "
-            "два секстиллиона тридцать девять квинтиллионов два квадриллиона "
-            "сто пятьдесят семь триллионов сто восемьдесят девять миллиардов "
-            "восемьсот восемьдесят три миллиона девятьсот одна тысяча "
-            "шестьсот семьдесят шесть")
+            num2words(215461407892039002157189883901676, lang='ua'),
+            "двісті п’ятнадцять нонілліонов чотириста шістдесят один "
+            "октілліон чотириста сім септілліонов вісімсот дев’яносто "
+            "два секстильйонів тридцять дев’ять квінтильйонів два "
+            "квадрильйона сто п’ятдесят сім трильйонів сто вісімдесят дев’ять "
+            "мільярдів вісімсот вісімдесят три мільйони дев’ятсот одна тисяча "
+            "шістсот сімдесят шість")
         self.assertEqual(
-            num2words(719094234693663034822824384220291, lang='ru'),
-            "семьсот девятнадцать нониллионов девяносто четыре октиллиона "
-            "двести тридцать четыре септиллиона шестьсот девяносто три "
-            "секстиллиона шестьсот шестьдесят три квинтиллиона тридцать "
-            "четыре квадриллиона восемьсот двадцать два триллиона восемьсот "
-            "двадцать четыре миллиарда триста восемьдесят четыре миллиона "
-            "двести двадцать тысяч двести девяносто один")
-        self.assertEqual(num2words(5, lang='ru'), "пять")
-        self.assertEqual(num2words(15, lang='ru'), "пятнадцать")
-        self.assertEqual(num2words(154, lang='ru'), "сто пятьдесят четыре")
+            num2words(719094234693663034822824384220291, lang='ua'),
+            "сімсот дев’ятнадцять нонілліонов дев’яносто чотири октілліона "
+            "двісті тридцять чотири септілліона шістсот дев’яносто три "
+            "секстильйонів шістсот шістдесят три квінтильйони тридцять "
+            "чотири квадрильйона вісімсот двадцять два трильйона вісімсот "
+            "двадцять чотири мільярди триста вісімдесят чотири мільйони "
+            "двісті двадцять тисяч двісті дев’яносто один")
+        self.assertEqual(num2words(5, lang='ua'), "п’ять")
+        self.assertEqual(num2words(15, lang='ua'), "п’ятнадцять")
+        self.assertEqual(num2words(154, lang='ua'), "сто п’ятдесят чотири")
+
         self.assertEqual(
-            num2words(1135, lang='ru'), "одна тысяча сто тридцать пять"
+            num2words(1135, lang='ua'), "одна тисяча сто тридцять п’ять"
         )
         self.assertEqual(
-            num2words(418531, lang='ru'),
-            "четыреста восемнадцать тысяч пятьсот тридцать один"
+            num2words(418531, lang='ua'),
+            "чотириста вісімнадцять тисяч п’ятсот тридцять один"
         )
         self.assertEqual(
-            num2words(1000139, lang='ru'), "один миллион сто тридцать девять"
+            num2words(1000139, lang='ua'), "один мільйон сто тридцять дев’ять"
         )
-        self.assertEqual(num2words(-1, lang='ru'), "минус один")
-        self.assertEqual(num2words(-15, lang='ru'), "минус пятнадцать")
-        self.assertEqual(num2words(-100, lang='ru'), "минус сто")
+        self.assertEqual(num2words(-1, lang='ua'), "мінус один")
+        self.assertEqual(num2words(-15, lang='ua'), "мінус п’ятнадцять")
+        self.assertEqual(num2words(-100, lang='ua'), "мінус сто")
 
     def test_floating_point(self):
-        self.assertEqual(num2words(5.2, lang='ru'), "пять запятая два")
+        self.assertEqual(num2words(5.2, lang='ua'), "п’ять кома два")
         self.assertEqual(
-            num2words(561.42, lang='ru'),
-            "пятьсот шестьдесят один запятая сорок два"
+            num2words(561.42, lang='ua'),
+            "п’ятсот шістдесят один кома сорок два"
         )
 
     def test_to_ordinal(self):
         self.assertEqual(
-            num2words(1, lang='ru', to='ordinal'),
-            'первый'
+            num2words(1, lang='ua', to='ordinal'),
+            "перший"
         )
         self.assertEqual(
-            num2words(5, lang='ru', to='ordinal'),
-            'пятый'
+            num2words(5, lang='ua', to='ordinal'),
+            "п’ятий"
         )
         self.assertEqual(
-            num2words(10, lang='ru', to='ordinal'),
-            'десятый'
+            num2words(10, lang='ua', to='ordinal'),
+            "десятий"
         )
 
         self.assertEqual(
-            num2words(13, lang='ru', to='ordinal'),
-            'тринадцатый'
+            num2words(13, lang='ua', to='ordinal'),
+            "тринадцятий"
         )
         self.assertEqual(
-            num2words(20, lang='ru', to='ordinal'),
-            'двадцатый'
+            num2words(20, lang='ua', to='ordinal'),
+            "двадцятий"
         )
         self.assertEqual(
-            num2words(23, lang='ru', to='ordinal'),
-            'двадцать третий'
+            num2words(23, lang='ua', to='ordinal'),
+            "двадцять третій"
         )
         self.assertEqual(
-            num2words(40, lang='ru', to='ordinal'),
-            'сороковой'
+            num2words(40, lang='ua', to='ordinal'),
+            "сороковий"
         )
         self.assertEqual(
-            num2words(70, lang='ru', to='ordinal'),
-            'семидесятый'
+            num2words(70, lang='ua', to='ordinal'),
+            "сімдесятий"
         )
         self.assertEqual(
-            num2words(100, lang='ru', to='ordinal'),
-            'сотый'
+            num2words(100, lang='ua', to='ordinal'),
+            "сотий"
         )
         self.assertEqual(
-            num2words(136, lang='ru', to='ordinal'),
-            'сто тридцать шестой'
+            num2words(136, lang='ua', to='ordinal'),
+            "сто тридцять шостий"
         )
         self.assertEqual(
-            num2words(500, lang='ru', to='ordinal'),
-            'пятисотый'
+            num2words(500, lang='ua', to='ordinal'),
+            "п’ятсот"
         )
         self.assertEqual(
-            num2words(1000, lang='ru', to='ordinal'),
-            'тысячный'
+            num2words(1000, lang='ua', to='ordinal'),
+            "тисячний"
         )
         self.assertEqual(
-            num2words(1001, lang='ru', to='ordinal'),
-            'тысяча первый'
+            num2words(1001, lang='ua', to='ordinal'),
+            "тисяча перший"
         )
         self.assertEqual(
-            num2words(2000, lang='ru', to='ordinal'),
-            'двух тысячный'
+            num2words(2000, lang='ua', to='ordinal'),
+            "двох тисячний"
         )
         self.assertEqual(
-            num2words(10000, lang='ru', to='ordinal'),
-            'десяти тысячный'
+            num2words(10000, lang='ua', to='ordinal'),
+            "десяти тисячний"
         )
         self.assertEqual(
-            num2words(1000000, lang='ru', to='ordinal'),
-            'миллионный'
+            num2words(1000000, lang='ua', to='ordinal'),
+            "мільйонний"
         )
         self.assertEqual(
-            num2words(1000000000, lang='ru', to='ordinal'),
-            'миллиардный'
+            num2words(1000000000, lang='ua', to='ordinal'),
+            "мільярдний"
         )
 
     def test_to_currency(self):
         self.assertEqual(
-            num2words(1.0, lang='ru', to='currency', currency='EUR'),
-            'один евро, ноль центов'
+            num2words(1.0, lang='ua', to='currency', currency='EUR'),
+            "один євро, нуль центів"
         )
         self.assertEqual(
-            num2words(1.0, lang='ru', to='currency', currency='RUB'),
-            'один рубль, ноль копеек'
+            num2words(1.0, lang='ua', to='currency', currency='UAH'),
+            "одна гривня, нуль копійок"
         )
         self.assertEqual(
-            num2words(1234.56, lang='ru', to='currency', currency='EUR'),
-            'одна тысяча двести тридцать четыре евро, пятьдесят шесть центов'
+            num2words(1234.56, lang='ua', to='currency', currency='EUR'),
+            "одна тисяча двісті тридцять чотири євро, п’ятдесят шість центів"
         )
         self.assertEqual(
-            num2words(1234.56, lang='ru', to='currency', currency='RUB'),
-            'одна тысяча двести тридцать четыре рубля, пятьдесят шесть копеек'
+            num2words(1234.56, lang='ua', to='currency', currency='UAH'),
+            "одна тисяча двісті тридцять чотири гривні, п’ятдесят шість копійок"
         )
         self.assertEqual(
-            num2words(10111, lang='ru', to='currency', currency='EUR',
-                      separator=' и'),
-            'сто один евро и одиннадцать центов'
+            num2words(10111, lang='ua', to='currency', currency='EUR',
+                      separator=' і'),
+            "сто один євро і одинадцять центів"
         )
         self.assertEqual(
-            num2words(10121, lang='ru', to='currency', currency='RUB',
-                      separator=' и'),
-            'сто один рубль и двадцать одна копейка'
+            num2words(10121, lang='ua', to='currency', currency='UAH',
+                      separator=' і'),
+            "сто одна гривня і двадцять одна копійка"
         )
         self.assertEqual(
-            num2words(10122, lang='ru', to='currency', currency='RUB',
-                      separator=' и'),
-            'сто один рубль и двадцать две копейки'
+            num2words(10122, lang='ua', to='currency', currency='UAH',
+                      separator=' і'),
+            "сто одна гривня і двадцять дві копійки"
         )
         self.assertEqual(
-            num2words(10121, lang='ru', to='currency', currency='EUR',
-                      separator=' и'),
-            'сто один евро и двадцать один цент'
+            num2words(10121, lang='ua', to='currency', currency='EUR',
+                      separator=' і'),
+            "сто один євро і двадцять один цент"
         )
         self.assertEqual(
-            num2words(-1251985, lang='ru', to='currency', currency='EUR',
+            num2words(-1251985, lang='ua', to="currency", currency='EUR',
                       cents=False),
-            'минус двенадцать тысяч пятьсот девятнадцать евро, 85 центов'
+            "мінус дванадцять тисяч п’ятсот дев’ятнадцять євро, 85 центів"
         )
         self.assertEqual(
-            num2words('38.4', lang='ru', to='currency', separator=' и',
+            num2words('38.4', lang='ua', to='currency', separator=' і',
                       cents=False, currency='EUR'),
-            "тридцать восемь евро и 40 центов"
+            "тридцять вісім євро і 40 центів"
         )
         self.assertEqual(
-            num2words('1230.56', lang='ru', to='currency', currency='USD'),
-            'одна тысяча двести тридцать долларов, пятьдесят шесть центов'
+            num2words('1230.56', lang='ua', to='currency', currency='USD'),
+            "одна тисяча двісті тридцять доларів, п’ятдесят шість центів"
         )
         self.assertEqual(
-            num2words('1231.56', lang='ru', to='currency', currency='USD'),
-            'одна тысяча двести тридцать один доллар, пятьдесят шесть центов'
+            num2words('1231.56', lang='ua', to='currency', currency='USD'),
+            "одна тисяча двісті тридцять один долар, п’ятдесят шість центів"
         )
         self.assertEqual(
-            num2words('1234.56', lang='ru', to='currency', currency='USD'),
-            'одна тысяча двести тридцать четыре доллара, пятьдесят шесть '
-            'центов'
+            num2words('1234.56', lang='ua', to='currency', currency='USD'),
+            "одна тисяча двісті тридцять чотири долара, п’ятдесят шість "
+            "центів"
         )
