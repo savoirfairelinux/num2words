@@ -258,7 +258,7 @@ class Num2Word_Base(object):
         raise NotImplementedError
 
     def _money_verbose(self, number, currency):
-        return self.to_cardinal(number),
+        return self.to_cardinal(number)
 
     def _cents_verbose(self, number, currency):
         return self.to_cardinal(number)
