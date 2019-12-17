@@ -198,8 +198,11 @@ class Num2Word_UA(Num2Word_Base):
         outwords[-1] = self.title(lastword)
         return " ".join(outwords).strip()
 
-    def _cents_verbose(self, number, currency):
+    def _money_verbose(self, number, currency):
         return self._int2word(number, currency == 'UAH')
+
+    def _cents_verbose(self, number, currency):
+        return self._int2word(number, currency in ('UAH', 'RUB'))
 
     def _int2word(self, n, feminine=False):
         if n < 0:
