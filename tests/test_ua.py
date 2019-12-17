@@ -162,6 +162,10 @@ class Num2WordsUATest(TestCase):
             "одна гривня, нуль копійок"
         )
         self.assertEqual(
+            num2words(1.0, lang='ua', to='currency', currency='RUB'),
+            "один рубль, нуль копійок"
+        )
+        self.assertEqual(
             num2words(1234.56, lang='ua', to='currency', currency='EUR'),
             "одна тисяча двісті тридцять чотири євро, п’ятдесят шість центів"
         )
@@ -180,9 +184,19 @@ class Num2WordsUATest(TestCase):
             "сто одна гривня і двадцять одна копійка"
         )
         self.assertEqual(
+            num2words(10121, lang='ua', to='currency', currency='RUB',
+                      separator=' і'),
+            "сто один рубль і двадцять одна копійка"
+        )
+        self.assertEqual(
             num2words(10122, lang='ua', to='currency', currency='UAH',
                       separator=' і'),
             "сто одна гривня і двадцять дві копійки"
+        )
+        self.assertEqual(
+            num2words(10122, lang='ua', to='currency', currency='RUB',
+                      separator=' і'),
+            "сто один рубль і двадцять дві копійки"
         )
         self.assertEqual(
             num2words(10121, lang='ua', to='currency', currency='EUR',
