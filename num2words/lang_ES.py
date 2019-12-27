@@ -26,6 +26,7 @@ class Num2Word_ES(Num2Word_EU):
         'ESP': (('peseta', 'pesetas'), ('céntimo', 'céntimos')),
         'USD': (('dolar', 'dólares'), ('centavo', 'centavos')),
         'PEN': (('sol', 'soles'), ('céntimo', 'céntimos')),
+        'GTQ': (('quetzal', 'quetzales'), ('centavo', 'centavos'))
     }
 
     # //CHECK: Is this sufficient??

@@ -155,6 +155,17 @@ TEST_CASES_TO_CURRENCY_PEN = (
     (100.00, 'cien soles con cero céntimos'),
 )
 
+TEST_CASES_TO_CURRENCY_GTQ = (
+    (1.00, 'un quetzal con cero centavos'),
+    (2.00, 'dos quetzales con cero centavos'),
+    (8.00, 'ocho quetzales con cero centavos'),
+    (12.00, 'doce quetzales con cero centavos'),
+    (21.00, 'veintiun quetzales con cero centavos'),
+    (81.25, 'ochenta y un quetzales con veinticinco centavos'),
+    (350.90, 'trescientos cincuenta quetzales con noventa centavos'),
+    (100.00, 'cien quetzales con cero centavos'),
+)
+
 
 class Num2WordsESTest(TestCase):
 
@@ -201,5 +212,12 @@ class Num2WordsESTest(TestCase):
         for test in TEST_CASES_TO_CURRENCY_PEN:
             self.assertEqual(
                 num2words(test[0], lang='es', to='currency', currency='PEN'),
+                test[1]
+            )
+
+    def test_currency_gtq(self):
+        for test in TEST_CASES_TO_CURRENCY_GTQ:
+            self.assertEqual(
+                num2words(test[0], lang='es', to='currency', currency='GTQ'),
                 test[1]
             )
