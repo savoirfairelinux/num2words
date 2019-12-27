@@ -24,17 +24,17 @@ class Num2Word_TR(object):
         self.precision = 2
         self.negword = u"eksi"
         self.pointword = u"virgül"
-        self.CURRENCY_UNIT = (u"lira",)
-        self.CURRENCY_SUBUNIT = (u"kuruş",)
+        self.CURRENCY_UNIT = u"lira"
+        self.CURRENCY_SUBUNIT = u"kuruş"
         self.errmsg_nonnum = u"Sadece sayılar yazıya çevrilebilir."
         self.errmsg_floatord = u"Tam sayı olmayan {} sıralamada kullanılamaz."
         self.errmsg_negord = u"Pozitif olmayan {} sıralamada kullanılamaz."
         self.errmsg_toobig = u"abs({}) sayı yazıya çevirmek için çok büyük. " \
                              u"Yazıya çevrilebilecek en büyük rakam {}."
         self.exclude_title = []
-        self.DECIMAL_SIGN = (",",)
-        self.ORDINAL_SIGN = (".",)
-        self.ZERO = (u"sıfır",)
+        self.DECIMAL_SIGN = ","
+        self.ORDINAL_SIGN = "."
+        self.ZERO = u"sıfır"
         self.CARDINAL_ONES = {
             "1": u"bir",
             "2": u"iki",
@@ -444,7 +444,7 @@ class Num2Word_TR(object):
             wrd += self.CARDINAL_ONES.get(self.integers_to_read[1][1], "")
 
         if self.integers_to_read[0] == "0":
-            wrd = self.ZERO[0] + wrd
+            wrd = self.ZERO + wrd
         else:
             wrd = self.to_cardinal(int(self.integers_to_read[0])) + wrd
         return wrd
@@ -830,9 +830,11 @@ class Num2Word_TR(object):
                 found = 1
 
     def to_currency(self, value):
+        if int(value) == 0:
+            return u"bedelsiz"
         valueparts = self.to_cardinal(value).split(self.pointword)
         if len(valueparts) == 1:
-            return valueparts[0] + self.CURRENCY_UNIT[0]
+            return valueparts[0] + self.CURRENCY_UNIT
         if len(valueparts) == 2:
-            return self.CURRENCY_UNIT[0].join(valueparts) + \
-                   self.CURRENCY_SUBUNIT[0]
+            return self.CURRENCY_UNIT.join(valueparts) + \
+                   self.CURRENCY_SUBUNIT
