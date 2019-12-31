@@ -52,6 +52,7 @@ def phonetic_contraction(string):
             .replace("ao", "o")  # ex. "settantaotto"
             .replace("io", "o")  # ex. "ventiotto"
             .replace("au", "u")  # ex. "trentauno"
+            .replace("iu", "u")  # ex. "ventiunesimo"
             )
 
 

@@ -139,7 +139,7 @@ class Num2Word_Base(object):
     def to_cardinal_float(self, value):
         try:
             float(value) == value
-        except (ValueError, TypeError, AssertionError):
+        except (ValueError, TypeError, AssertionError, AttributeError):
             raise TypeError(self.errmsg_nonnum % value)
 
         pre, post = self.float2tuple(float(value))
