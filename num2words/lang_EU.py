@@ -41,7 +41,7 @@ class Num2Word_EU(Num2Word_Base):
         'NOK': (('krone', 'kroner'), ('øre', 'øre')),
         'PLN': (('zloty', 'zlotys', 'zlotu'), ('grosz', 'groszy')),
         'MXN': (('peso', 'pesos'), GENERIC_CENTS),
-        'RON': (('leu', 'lei'), ('ban', 'bani')),
+        'RON': (('leu', 'lei', 'de lei'), ('ban', 'bani', 'de bani')),
         'INR': (('rupee', 'rupees'), ('paisa', 'paise'))
     }
 
