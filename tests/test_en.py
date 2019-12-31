@@ -27,8 +27,16 @@ class Num2WordsENTest(TestCase):
 
     def test_ordinal(self):
         self.assertEqual(
+            num2words(0, lang='en', to='ordinal'),
+            'zeroth'
+        )
+        self.assertEqual(
             num2words(1, lang='en', to='ordinal'),
             'first'
+        )
+        self.assertEqual(
+            num2words(13, lang='en', to='ordinal'),
+            'thirteenth'
         )
         self.assertEqual(
             num2words(22, lang='en', to='ordinal'),
