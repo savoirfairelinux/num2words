@@ -25,21 +25,41 @@ from num2words import num2words
 class Num2WordsKZTest(TestCase):
     def test_to_cardinal(self):
         self.maxDiff = None
-        self.assertEqual(num2words(7, lang='kz'), 'жеті')
-        self.assertEqual(num2words(23, lang='kz'), 'жиырма үш')
-        self.assertEqual(num2words(145, lang='kz'), 'жүз қырық бес')
-        self.assertEqual(num2words(2869, lang='kz'), 'екі мың сегіз жүз алпыс тоғыз')
-        self.assertEqual(num2words(84932, lang='kz'), 'сексен төрт мың тоғыз жүз отыз екі')
+        self.assertEqual(num2words(7, lang="kz"), "жеті")
+        self.assertEqual(num2words(23, lang="kz"), "жиырма үш")
+        self.assertEqual(num2words(145, lang="kz"), "жүз қырық бес")
+        self.assertEqual(num2words(2869, lang="kz"), "екі мың сегіз жүз алпыс тоғыз")
+        self.assertEqual(
+            num2words(84932, lang="kz"), "сексен төрт мың тоғыз жүз отыз екі"
+        )
 
     def test_to_cardinal_floats(self):
-        self.assertEqual(num2words(100.67, lang='kz'), 'жүз бүтін алпыс жеті')
+        self.assertEqual(num2words(100.67, lang="kz"), "жүз бүтін алпыс жеті")
+        self.assertEqual(num2words(0.7, lang="kz"), "нөл бүтін жеті")
+        self.assertEqual(num2words(1.73, lang="kz"), "бір бүтін жетпіс үш")
 
     def test_to_ordinal(self):
         with self.assertRaises(NotImplementedError):
-            num2words(1, lang='kz', to='ordinal')
+            num2words(1, lang="kz", to="ordinal")
 
     def test_to_currency(self):
         self.assertEqual(
-            num2words(25.24, lang='kz', to='currency', currency='KZT'),
-            'жиырма бес теңге, жиырма төрт тиын'
+            num2words(25.24, lang="kz", to="currency", currency="KZT"),
+            "жиырма бес теңге, жиырма төрт тиын",
+        )
+        self.assertEqual(
+            num2words(1996.4, lang="kz", to="currency", currency="KZT"),
+            "бір мың тоғыз жүз тоқсан алты теңге, қырық тиын",
+        )
+        self.assertEqual(
+            num2words(632924.51, lang="kz", to="currency", currency="KZT"),
+            "алты жүз отыз екі мың тоғыз жүз жиырма төрт теңге, елу бір тиын",
+        )
+        self.assertEqual(
+            num2words(632924.513, lang="kz", to="currency", currency="KZT"),
+            "алты жүз отыз екі мың тоғыз жүз жиырма төрт теңге, елу бір тиын",
+        )
+        self.assertEqual(
+            num2words(987654321.123, lang="kz", to="currency", currency="KZT"),
+            "тоғыз жүз сексен жеті миллион алты жүз елу төрт мың үш жүз жиырма бір теңге, он екі тиын",
         )
