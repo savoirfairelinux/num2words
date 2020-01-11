@@ -28,7 +28,10 @@ class Num2WordsKZTest(TestCase):
         self.assertEqual(num2words(7, lang="kz"), "жеті")
         self.assertEqual(num2words(23, lang="kz"), "жиырма үш")
         self.assertEqual(num2words(145, lang="kz"), "жүз қырық бес")
-        self.assertEqual(num2words(2869, lang="kz"), "екі мың сегіз жүз алпыс тоғыз")
+        self.assertEqual(
+            num2words(2869, lang="kz"),
+            "екі мың сегіз жүз алпыс тоғыз"
+        )
         self.assertEqual(
             num2words(-789000125, lang="kz"),
             "минус жеті жүз сексен тоғыз миллион жүз жиырма бес",
@@ -65,5 +68,6 @@ class Num2WordsKZTest(TestCase):
         )
         self.assertEqual(
             num2words(987654321.123, lang="kz", to="currency", currency="KZT"),
-            "тоғыз жүз сексен жеті миллион алты жүз елу төрт мың үш жүз жиырма бір теңге, он екі тиын",
+            "тоғыз жүз сексен жеті миллион алты жүз елу төрт мың "
+            "үш жүз жиырма бір теңге, он екі тиын",
         )
