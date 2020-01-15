@@ -108,7 +108,7 @@ Besides the numerical argument, there are two main optional arguments.
 * ``sr`` (Serbian)
 * ``ro`` (Romanian)
 * ``ru`` (Russian)
-* ``sl`` (Slovene)
+* ``te`` (Telugu)
 * ``tr`` (Turkish)
 * ``th`` (Thai)
 * ``vi`` (Vietnamese)
