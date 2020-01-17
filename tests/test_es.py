@@ -135,7 +135,7 @@ TEST_CASES_TO_CURRENCY_ESP = (
 )
 
 TEST_CASES_TO_CURRENCY_USD = (
-    (1.00, 'un dolar con cero centavos'),
+    (1.00, 'un dólar con cero centavos'),
     (2.00, 'dos dólares con cero centavos'),
     (8.00, 'ocho dólares con cero centavos'),
     (12.00, 'doce dólares con cero centavos'),
