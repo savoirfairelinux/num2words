@@ -87,6 +87,14 @@ class Num2WordsHUTest(TestCase):
             'első'
         )
         self.assertEqual(
+            num2words(2, lang='hu', to='ordinal'),
+            'második'
+        )
+        self.assertEqual(
+            num2words(-3, lang='hu', to='ordinal'),
+            'mínusz harmadik'
+        )
+        self.assertEqual(
             num2words(13, lang='hu', to='ordinal'),
             'tizenharmadik'
         )
@@ -124,7 +132,10 @@ class Num2WordsHUTest(TestCase):
 
     def test_cardinal_for_float_number(self):
         # issue 24
+        self.assertEqual(num2words(12, lang='hu'), "tizenkettő")
+        self.assertEqual(num2words(12.0, lang='hu'), "tizenkettő")
         self.assertEqual(num2words(12.5, lang='hu'), "tizenkettő egész öt tized")
+        self.assertEqual(num2words(-12.5, lang='hu'), "mínusz tizenkettő egész öt tized")
         self.assertEqual(num2words(12.51, lang='hu'), "tizenkettő egész ötvenegy század")
         self.assertEqual(num2words(12.53, lang='hu'), "tizenkettő egész ötvenhárom század")
         self.assertEqual(num2words(12.590, lang='hu'), "tizenkettő egész ötvenkilenc század")
