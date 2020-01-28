@@ -42,7 +42,7 @@ class Num2Word_EU(Num2Word_Base):
         'PLN': (('zloty', 'zlotys', 'zlotu'), ('grosz', 'groszy')),
         'MXN': (('peso', 'pesos'), GENERIC_CENTS),
         'RON': (('leu', 'lei', 'de lei'), ('ban', 'bani', 'de bani')),
-        'INR': (('rupee', 'rupees'), ('paisa', 'paise'))
+        'INR': (('rupee', 'rupees'), ('paisa', 'paise')),
         'HUF': (('forint', 'forint'), ('fillér', 'fillér'))
     }
 
