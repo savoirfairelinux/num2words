@@ -153,7 +153,7 @@ class Num2Word_HU(lang_EU.Num2Word_EU):
 
     def to_currency(self, val, currency='HUF', cents=True, separator=',',
                     adjective=False):
-        return super().to_currency(val, currency, cents, separator, adjective)
+        return super(Num2Word_HU, self).to_currency(val, currency, cents, separator, adjective)
 
     def to_cardinal_float(self, value):
         if abs(value) != value:
