@@ -21,6 +21,7 @@ from . import lang_EU
 
 ZERO = 'nulla'
 
+
 class Num2Word_HU(lang_EU.Num2Word_EU):
     GIGA_SUFFIX = "illiárd"
     MEGA_SUFFIX = "illió"
