@@ -156,8 +156,6 @@ class Num2Word_HU(lang_EU.Num2Word_EU):
         return super().to_currency(val, currency, cents, separator, adjective)
 
     def to_cardinal_float(self, value):
-        if float(value) != value:
-            return self.to_cardinal(value)
         if abs(value) != value:
             return self.negword + self.to_cardinal_float(-value)
         left, right = str(value).split('.')
