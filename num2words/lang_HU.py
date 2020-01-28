@@ -39,13 +39,13 @@ class Num2Word_HU(lang_EU.Num2Word_EU):
 
         low_numwords = ["kilenc", "nyolc", "hét", "hat", "öt", "négy", "három",
                         "kettő", "egy"]
-        self.low_numwords = ['tizen' + w for w in low_numwords] \
-                            + ['tíz'] \
-                            + low_numwords
-        self.low_numwords = ['huszon' + w for w in low_numwords] \
-                            + ['húsz'] \
-                            + self.low_numwords \
-                            + [ZERO]
+        self.low_numwords = (['tizen' + w for w in low_numwords]
+                            + ['tíz']
+                            + low_numwords)
+        self.low_numwords = (['huszon' + w for w in low_numwords]
+                            + ['húsz']
+                            + self.low_numwords
+                            + [ZERO])
 
         self.partial_ords = {
             'nulla': 'nullad',
@@ -153,13 +153,14 @@ class Num2Word_HU(lang_EU.Num2Word_EU):
 
     def to_currency(self, val, currency='HUF', cents=True, separator=',',
                     adjective=False):
-        return super(Num2Word_HU, self).to_currency(val, currency, cents, separator, adjective)
+        return super(Num2Word_HU, self).to_currency(
+            val, currency, cents, separator, adjective)
 
     def to_cardinal_float(self, value):
         if abs(value) != value:
             return self.negword + self.to_cardinal_float(-value)
         left, right = str(value).split('.')
-        return self.to_cardinal(int(left)) \
-               + ' egész ' \
-               + self.to_cardinal(int(right)) \
-               + ' ' + self.partial_ords[self.cards[10 ** len(right)]]
+        return (self.to_cardinal(int(left))
+               + ' egész '
+               + self.to_cardinal(int(right))
+               + ' ' + self.partial_ords[self.cards[10 ** len(right)]])
