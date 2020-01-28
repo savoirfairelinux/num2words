@@ -40,12 +40,12 @@ class Num2Word_HU(lang_EU.Num2Word_EU):
         low_numwords = ["kilenc", "nyolc", "hét", "hat", "öt", "négy", "három",
                         "kettő", "egy"]
         self.low_numwords = (['tizen' + w for w in low_numwords]
-                            + ['tíz']
-                            + low_numwords)
+                             + ['tíz']
+                             + low_numwords)
         self.low_numwords = (['huszon' + w for w in low_numwords]
-                            + ['húsz']
-                            + self.low_numwords
-                            + [ZERO])
+                             + ['húsz']
+                             + self.low_numwords
+                             + [ZERO])
 
         self.partial_ords = {
             'nulla': 'nullad',
@@ -121,8 +121,8 @@ class Num2Word_HU(lang_EU.Num2Word_EU):
         digits = digits if digits % 3 != 0 else digits - 2
         exp = 10 ** (digits // 3 * 3)
         rest = self.to_cardinal(value % exp, '')
-        return self.to_cardinal(value // exp, '') + self.cards[exp] \
-               + ('-' + rest if rest else '')
+        return (self.to_cardinal(value // exp, '') + self.cards[exp]
+                + ('-' + rest if rest else ''))
 
     def to_ordinal(self, value):
         if value < 0:
@@ -161,6 +161,6 @@ class Num2Word_HU(lang_EU.Num2Word_EU):
             return self.negword + self.to_cardinal_float(-value)
         left, right = str(value).split('.')
         return (self.to_cardinal(int(left))
-               + ' egész '
-               + self.to_cardinal(int(right))
-               + ' ' + self.partial_ords[self.cards[10 ** len(right)]])
+                + ' egész '
+                + self.to_cardinal(int(right))
+                + ' ' + self.partial_ords[self.cards[10 ** len(right)]])
