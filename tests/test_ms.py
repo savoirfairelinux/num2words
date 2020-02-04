@@ -44,8 +44,8 @@ class Num2WordsMSTest(TestCase):
         )
 
         self.assertEqual(
-            num2words(8765432, lang='ms'),
-            "lapan juta tujuh ratus enam puluh lima ribu empat ratus tiga puluh dua"
+            num2words(765432, lang='ms'),
+            "tujuh ratus enam puluh lima ribu empat ratus tiga puluh dua"
         )
 
     def test_cardinal_for_decimal_number(self):

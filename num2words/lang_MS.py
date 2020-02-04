@@ -17,6 +17,7 @@
 
 from . import lang_ID
 
+
 class Num2Word_MS(lang_ID.Num2Word_ID):
     BASE = {0: [],
             1: ["satu"],
