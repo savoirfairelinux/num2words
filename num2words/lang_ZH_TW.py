@@ -24,7 +24,7 @@ from .currency import parse_currency_parts, prefix_currency
 
 def select_text(text, reading=False, prefer=None):
     """Select the correct text from the Chinese, phonetic symbol (注音) or
-        alternatives"""
+        alternatives ('ㄧ' or '壹')"""
     
     if reading is True:
         text = text[1]
@@ -43,7 +43,7 @@ def select_text(text, reading=False, prefer=None):
 
 class Num2Word_ZH_TW(Num2Word_Base):
     CURRENCY_FORMS = {
-        'NTD': (('元', 'ㄩㄢˊ'), ()),
+        "NTD": (("元", "ㄩㄢˊ"), ()),
     }
 
     MAXVAL = 10**73 
@@ -59,23 +59,23 @@ class Num2Word_ZH_TW(Num2Word_Base):
         self.exclude_title = [self.negword, self.pointword]
 
         self.high_numwords = [
-            ("萬", "ㄨㄢˋ"),   # 10**4
-            ("億", "ㄧˋ"),     # 10**8
-            ("兆", "ㄓㄠˋ"),   # 10**12
-            ("京", "ㄐㄧㄥ"),  # 10**16
-            ("垓", "ㄍㄞ"),    # 10**20
-            ("秭", "ㄗˇ"),     # 10**24
-            ("穣", "ㄖㄤ"),    # 10**28
-            ("溝", "ㄍㄡ"),    # 10**32
-            ("澗", "ㄐㄧㄢˋ"), # 10**36
-            ("正", "ㄓㄥˋ"),   # 10**40
-            ("載", "ㄗㄞˇ"),   # 10**44
-            ("極", "ㄐㄧˊ"),   # 10**48
+            ("萬", "ㄨㄢˋ"),    # 10**4
+            ("億", "ㄧˋ"),      # 10**8
+            ("兆", "ㄓㄠˋ"),    # 10**12
+            ("京", "ㄐㄧㄥ"),   # 10**16
+            ("垓", "ㄍㄞ"),     # 10**20
+            ("秭", "ㄗˇ"),      # 10**24
+            ("穣", "ㄖㄤ"),     # 10**28
+            ("溝", "ㄍㄡ"),     # 10**32
+            ("澗", "ㄐㄧㄢˋ"),  # 10**36
+            ("正", "ㄓㄥˋ"),    # 10**40
+            ("載", "ㄗㄞˇ"),    # 10**44
+            ("極", "ㄐㄧˊ"),    # 10**48
             ("恆河沙", "ㄏㄥˊㄏㄜˊㄕㄚ"),     # 10**52
             ("阿僧祇", "ㄚㄙㄥㄑㄧˊ"),        # 10**56
             ("那由他", "ㄋㄚˋㄧㄡˊㄊㄚ"),     # 10**60
-            ("不可思議", "ㄅㄨˋㄎㄜˇㄙㄧˋ"), # 10**64
-            ("無量", "ㄨˊㄌㄧㄤˋ"),            # 10**68
+            ("不可思議", "ㄅㄨˋㄎㄜˇㄙㄧˋ"),  # 10**64
+            ("無量", "ㄨˊㄌㄧㄤˋ"),           # 10**68
             ("不可說", "ㄅㄨˋㄎㄜˇㄕㄨㄛ")    # 10**72
         ]
 
@@ -131,7 +131,7 @@ class Num2Word_ZH_TW(Num2Word_Base):
                 return ("%s%s" % (ltext, rtext), num)
 
     def should_stuff_zero(self, left, right):
-        # The logic of stuff zero is follow the description:
+        # The logic of stuff zero refers to:
         # https://mathseed.ntue.edu.tw/hard/%E6%95%99%E5%AD%B8%E7%96%91%E9%9B%A3%E5%BD%99%E7%B7%A8/ch1/95Q-E08.pdf
         if len(str(left[1])) - len(str(right[1])) >= 2 \
             and len(str(right[1])) % 4 != 0:
@@ -145,7 +145,8 @@ class Num2Word_ZH_TW(Num2Word_Base):
             left, right = val[:2]
             if isinstance(left, tuple) and isinstance(right, tuple):
                 if self.should_stuff_zero(left, right):
-                    out.append(self.merge(left, right, stuff_zero=True, reading=reading))
+                    out.append(self.merge(left, right, stuff_zero=True,
+                               reading=reading))
                 else:
                     out.append(self.merge(left, right))
                 if val[2:]:
@@ -170,7 +171,7 @@ class Num2Word_ZH_TW(Num2Word_Base):
 
     def _ordinal_suffix(self, reading, counter):
         if reading is True:
-            counter = self.counters.get(counter, '')
+            counter = self.counters.get(counter, "")
             if not counter:
                 raise NotImplementedError(
                     "Reading not implemented for %s" % counter)
@@ -209,7 +210,8 @@ class Num2Word_ZH_TW(Num2Word_Base):
             return "%s%s%s" % (prefix, year, "年")
 
         year_words = self.to_cardinal(year, reading=reading, prefer=prefer)
-        return "%s%s%s" % (prefix, year_words, "ㄋㄧㄢˊ" if reading is True else "年")
+        suffix = "ㄋㄧㄢˊ" if reading is True else "年"
+        return "%s%s%s" % (prefix, year_words, suffix)
 
     def to_currency(self, val, currency="NTD", cents=False, separator="",
                     adjective=False, reading=False, prefer=None):
@@ -230,13 +232,13 @@ class Num2Word_ZH_TW(Num2Word_Base):
 
         minus_str = self.negword if is_negative else ""
 
-        return '%s%s%s%s%s' % (
+        return "%s%s%s%s%s" % (
             minus_str,
             self.to_cardinal(left, reading=reading, prefer=prefer),
             cr1[1] if reading is True else cr1[0],
             self.to_cardinal(right, reading=reading, prefer=prefer)
-            if cr2 else '',
-            (cr2[1] if reading is True else cr2[0]) if cr2 else '',
+            if cr2 else "",
+            (cr2[1] if reading is True else cr2[0]) if cr2 else "",
         )
 
     def splitnum(self, value, reading, prefer):
@@ -284,7 +286,7 @@ class Num2Word_ZH_TW(Num2Word_Base):
         val = self.splitnum(value, reading, prefer)
         words, _ = self.clean(val, reading=reading)
         # remove 'one' if word starts with ten
-        if len(words) >= 2 and words[:2] in ["一十", "一拾", "ㄧㄕ"]:
+        if len(words) >= 2 and words[:2] in ["一十", "一拾", "ㄧㄕ", "壹拾"]:
             words = words[1:]
         return self.title(out + words)
 
@@ -297,7 +299,7 @@ class Num2Word_ZH_TW(Num2Word_Base):
         pre, post = self.float2tuple(float(value))
 
         post = str(post)
-        post = '0' * (self.precision - len(post)) + post
+        post = "0" * (self.precision - len(post)) + post
 
         out = [self.to_cardinal(pre, reading=reading, prefer=prefer)]
         if self.precision:
