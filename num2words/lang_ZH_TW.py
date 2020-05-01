@@ -23,9 +23,9 @@ from .currency import parse_currency_parts, prefix_currency
 
 
 def select_text(text, reading=False, prefer=None):
-    """Select the correct text from the Chinese number, reading and
-    alternatives"""
-    # select chinese number or phonetic symbol reading (注音)
+    """Select the correct text from the Chinese, phonetic symbol (注音) or
+        alternatives"""
+    
     if reading is True:
         text = text[1]
     else:
@@ -38,7 +38,6 @@ def select_text(text, reading=False, prefer=None):
             text = common.pop()
         else:
             text = text[0]
-
     return text
 
 
@@ -96,16 +95,16 @@ class Num2Word_ZH_TW(Num2Word_Base):
         self.zero = ("零", "ㄌㄧㄥˊ")
 
         self.low_numwords = [
-            ("十", "ㄕˊ"),      # 10
-            ("九", "ㄐㄧㄡˇ"),  # 9
-            ("八", "ㄅㄚ"),     # 8
-            ("七", "ㄑㄧ"),     # 7
-            ("六", "ㄌㄧㄡˋ"),  # 6
-            ("五", "ㄨˇ"),      # 5
-            ("四", "ㄙˋ"),      # 4
-            ("三", "ㄙㄢ"),     # 3
-            ("二", "ㄦˋ"),      # 2
-            ("一", "ㄧ"),       # 1
+            (("十", "拾"), ("ㄕˊ")),      # 10
+            (("九", "玖"), ("ㄐㄧㄡˇ")),  # 9
+            (("八", "捌"), ("ㄅㄚ")),     # 8
+            (("七", "柒"), ("ㄑㄧ")),     # 7
+            (("六", "陸"), ("ㄌㄧㄡˋ")),  # 6
+            (("五", "伍"), ("ㄨˇ")),      # 5
+            (("四", "肆"), ("ㄙˋ")),      # 4
+            (("三", "參"), ("ㄙㄢ")),     # 3
+            (("二", "貳"), ("ㄦˋ")),      # 2
+            (("一", "壹"), ("ㄧ")),       # 1
             self.zero,
         ]
 
@@ -131,16 +130,21 @@ class Num2Word_ZH_TW(Num2Word_Base):
             else:
                 return ("%s%s" % (ltext, rtext), num)
 
+    def should_stuff_zero(self, left, right):
+        # The logic of stuff zero is follow the description:
+        # https://mathseed.ntue.edu.tw/hard/%E6%95%99%E5%AD%B8%E7%96%91%E9%9B%A3%E5%BD%99%E7%B7%A8/ch1/95Q-E08.pdf
+        if len(str(left[1])) - len(str(right[1])) >= 2 \
+            and len(str(right[1])) % 4 != 0:
+            return True
+        return False
+
     def clean(self, val, reading=False):
         out = val
         while len(val) != 1:
             out = []
             left, right = val[:2]
             if isinstance(left, tuple) and isinstance(right, tuple):
-                # The logic of stuff zero is follow the description:
-                # https://mathseed.ntue.edu.tw/hard/%E6%95%99%E5%AD%B8%E7%96%91%E9%9B%A3%E5%BD%99%E7%B7%A8/ch1/95Q-E08.pdf
-                if len(str(left[1])) - len(str(right[1])) >= 2 \
-                    and len(str(right[1])) % 4 != 0:
+                if self.should_stuff_zero(left, right):
                     out.append(self.merge(left, right, stuff_zero=True, reading=reading))
                 else:
                     out.append(self.merge(left, right))
@@ -191,6 +195,9 @@ class Num2Word_ZH_TW(Num2Word_Base):
     def to_year(self, val, suffix=None, longval=True, reading=False,
                 prefer=None, era=True):
         year = val
+        if isinstance(year, float):
+            raise NotImplementedError(
+                "The value of year must be integer: %s" % year)
 
         # Gregorian calendar
         prefix = "ㄒㄧㄩㄢˊ" if reading is True else "西元"
@@ -277,7 +284,7 @@ class Num2Word_ZH_TW(Num2Word_Base):
         val = self.splitnum(value, reading, prefer)
         words, _ = self.clean(val, reading=reading)
         # remove 'one' if word starts with ten
-        if len(words) >= 2 and words[:2] in ['一十', 'ㄧㄕ']:
+        if len(words) >= 2 and words[:2] in ["一十", "一拾", "ㄧㄕ"]:
             words = words[1:]
         return self.title(out + words)
 

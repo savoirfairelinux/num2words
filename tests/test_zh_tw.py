@@ -31,14 +31,23 @@ class Num2WordsZhTWTest(TestCase):
         self.assertEqual(n2zh_tw(0), "零")
         self.assertEqual(n2zh_tw(1), "一")
         self.assertEqual(n2zh_tw(2), "二")
+        self.assertEqual(n2zh_tw(2, prefer=['貳']), "貳")
         self.assertEqual(n2zh_tw(3), "三")
+        self.assertEqual(n2zh_tw(3, prefer=['參']), "參")
         self.assertEqual(n2zh_tw(4), "四")
+        self.assertEqual(n2zh_tw(4, prefer=['肆']), "肆")
         self.assertEqual(n2zh_tw(5), "五")
+        self.assertEqual(n2zh_tw(5, prefer=['伍']), "伍")
         self.assertEqual(n2zh_tw(6), "六")
+        self.assertEqual(n2zh_tw(6, prefer=['陸']), "陸")
         self.assertEqual(n2zh_tw(7), "七")
+        self.assertEqual(n2zh_tw(7, prefer=['柒']), "柒")
         self.assertEqual(n2zh_tw(8), "八")
+        self.assertEqual(n2zh_tw(8, prefer=['捌']), "捌")
         self.assertEqual(n2zh_tw(9), "九")
+        self.assertEqual(n2zh_tw(9, prefer=['玖']), "玖")
         self.assertEqual(n2zh_tw(10), "十")
+        self.assertEqual(n2zh_tw(10, prefer=['拾']), "拾")
         self.assertEqual(n2zh_tw(11), "十一")
         self.assertEqual(n2zh_tw(12), "十二")
         self.assertEqual(n2zh_tw(13), "十三")
@@ -57,6 +66,8 @@ class Num2WordsZhTWTest(TestCase):
         self.assertEqual(n2zh_tw(101, reading=True), "ㄧㄅㄞˇㄌㄧㄥˊㄧ")
         self.assertEqual(n2zh_tw(123), "一百二十三")
         self.assertEqual(n2zh_tw(123, reading=True), "ㄧㄅㄞˇㄦˋㄕˊㄙㄢ")
+        self.assertEqual(n2zh_tw(123, prefer=['壹', '貳', '參', '拾']),
+                         "壹百貳拾參")
         self.assertEqual(n2zh_tw(1000), "一千")
         self.assertEqual(n2zh_tw(1000, reading=True), "ㄧㄑㄧㄢ")
         self.assertEqual(n2zh_tw(1010), "一千零一十")
@@ -81,10 +92,9 @@ class Num2WordsZhTWTest(TestCase):
         self.assertEqual(n2zh_tw(10**8, reading=True), "ㄧㄧˋ")
         self.assertEqual(n2zh_tw(5*10**8+80*10**4), "五億零八十萬")
         self.assertEqual(n2zh_tw(5*10**8+80*10**4, reading=True),
-                        "ㄨˇㄧˋ"
-                        "ㄌㄧㄥˊ"
-                        "ㄅㄚㄕˊㄨㄢˋ"
-                        )
+                         "ㄨˇㄧˋ"
+                         "ㄌㄧㄥˊ"
+                         "ㄅㄚㄕˊㄨㄢˋ")
         self.assertEqual(n2zh_tw(10**9), "十億")
         self.assertEqual(n2zh_tw(10**9, reading=True), "ㄕˊㄧˋ")
         self.assertEqual(n2zh_tw(123456789), "一億二千三百四十五萬六千七百八十九")
@@ -98,9 +108,9 @@ class Num2WordsZhTWTest(TestCase):
                          "ㄐㄧㄡˇ")
         self.assertEqual(n2zh_tw(4080*10**8), "四千零八十億")
         self.assertEqual(n2zh_tw(4080*10**8, reading=True),
-                        "ㄙˋㄑㄧㄢ"
-                        "ㄌㄧㄥˊ"
-                        "ㄅㄚㄕˊㄧˋ")
+                         "ㄙˋㄑㄧㄢ"
+                         "ㄌㄧㄥˊ"
+                         "ㄅㄚㄕˊㄧˋ")
         # TODO: tests for 10**12 and above
 
     def test_cardinal_float(self):
