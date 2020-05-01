@@ -230,7 +230,8 @@ class Num2Word_ZH_TW(Num2Word_Base):
         if adjective and currency in self.CURRENCY_ADJECTIVES:
             cr1 = prefix_currency(self.CURRENCY_ADJECTIVES[currency], cr1)
 
-        minus_str = self.negword if is_negative else ""
+        minus_str = self.negword if is_negative else ("", "")
+        minus_str = minus_str[1] if reading is True else minus_str[0]
 
         return "%s%s%s%s%s" % (
             minus_str,
@@ -285,8 +286,8 @@ class Num2Word_ZH_TW(Num2Word_Base):
 
         val = self.splitnum(value, reading, prefer)
         words, _ = self.clean(val, reading=reading)
-        # remove 'one' if word starts with ten
-        if len(words) >= 2 and words[:2] in ["一十", "一拾", "ㄧㄕ", "壹拾"]:
+        # remove 'one' if word starts with ten and prefer is None
+        if len(words) >= 2 and words[:2] in ["一十", "ㄧㄕ"]:
             words = words[1:]
         return self.title(out + words)
 

@@ -30,6 +30,7 @@ class Num2WordsZhTWTest(TestCase):
     def test_low(self):
         self.assertEqual(n2zh_tw(0), "零")
         self.assertEqual(n2zh_tw(1), "一")
+        self.assertEqual(n2zh_tw(1, prefer=['壹']), "壹")
         self.assertEqual(n2zh_tw(2), "二")
         self.assertEqual(n2zh_tw(2, prefer=['貳']), "貳")
         self.assertEqual(n2zh_tw(3), "三")
@@ -148,6 +149,8 @@ class Num2WordsZhTWTest(TestCase):
     def test_currency(self):
         self.assertEqual(n2zh_tw(123456789, to="currency"),
                          "一億二千三百四十五萬六千七百八十九元")
+        self.assertEqual(n2zh_tw(-123, to="currency"),
+                         "負一百二十三元")
 
     def test_year(self):
         self.assertEqual(
