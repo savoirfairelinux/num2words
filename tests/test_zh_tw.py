@@ -28,6 +28,8 @@ def n2zh_tw(*args, **kwargs):
 
 class Num2WordsZhTWTest(TestCase):
     def test_low(self):
+        self.assertEqual(n2zh_tw(-1), "負一")
+        self.assertEqual(n2zh_tw(-1, reading=True), "ㄈㄨˋㄧ")
         self.assertEqual(n2zh_tw(0), "零")
         self.assertEqual(n2zh_tw(1), "一")
         self.assertEqual(n2zh_tw(1, prefer=['壹']), "壹")
@@ -48,7 +50,7 @@ class Num2WordsZhTWTest(TestCase):
         self.assertEqual(n2zh_tw(9), "九")
         self.assertEqual(n2zh_tw(9, prefer=['玖']), "玖")
         self.assertEqual(n2zh_tw(10), "十")
-        self.assertEqual(n2zh_tw(10, prefer=['拾']), "拾")
+        self.assertEqual(n2zh_tw(10, prefer=['拾', "壹"]), "壹拾")
         self.assertEqual(n2zh_tw(11), "十一")
         self.assertEqual(n2zh_tw(12), "十二")
         self.assertEqual(n2zh_tw(13), "十三")
@@ -113,6 +115,8 @@ class Num2WordsZhTWTest(TestCase):
                          "ㄌㄧㄥˊ"
                          "ㄅㄚㄕˊㄧˋ")
         # TODO: tests for 10**12 and above
+        with self.assertRaises(OverflowError):
+            n2zh_tw(10**100)
 
     def test_cardinal_float(self):
         self.assertEqual(n2zh_tw(0.0123456789), "零點零一二三四五六七八九")
@@ -147,10 +151,15 @@ class Num2WordsZhTWTest(TestCase):
         self.assertEqual(n2zh_tw(3, to="ordinal_num", counter="位"), "第3位")
 
     def test_currency(self):
+        self.assertEqual(n2zh_tw(1, to="currency", adjective=True), "一元")
         self.assertEqual(n2zh_tw(123456789, to="currency"),
                          "一億二千三百四十五萬六千七百八十九元")
         self.assertEqual(n2zh_tw(-123, to="currency"),
                          "負一百二十三元")
+        with self.assertRaises(ValueError):
+            n2zh_tw(1.1, to="currency")
+        with self.assertRaises(NotImplementedError):
+            n2zh_tw(1.1, to="NTDNTD")
 
     def test_year(self):
         self.assertEqual(
@@ -169,3 +178,5 @@ class Num2WordsZhTWTest(TestCase):
             n2zh_tw(-2020, to="year", reading="arabic"),
             "西元前2020年"
         )
+        with self.assertRaises(NotImplementedError):
+            n2zh_tw(1.1, to="year")

@@ -25,7 +25,7 @@ from .currency import parse_currency_parts, prefix_currency
 def select_text(text, reading=False, prefer=None):
     """Select the correct text from the Chinese, phonetic symbol (注音) or
         alternatives ('ㄧ' or '壹')"""
-    
+
     if reading is True:
         text = text[1]
     else:
@@ -46,7 +46,7 @@ class Num2Word_ZH_TW(Num2Word_Base):
         "NTD": (("元", "ㄩㄢˊ"), ()),
     }
 
-    MAXVAL = 10**73 
+    MAXVAL = 10**73
 
     def set_high_numwords(self, high):
         max = 4 * len(high)
@@ -83,7 +83,7 @@ class Num2Word_ZH_TW(Num2Word_Base):
             "個": "˙ㄍㄜ",
             "名": "ㄇㄧㄥˊ",
             "位": "ㄨㄟˋ"
-        } 
+        }
 
         self.high_numwords.reverse()
 
@@ -123,7 +123,7 @@ class Num2Word_ZH_TW(Num2Word_Base):
             # rnum is multiplied by lnum
             elif lnum < rnum:
                 num = lnum * rnum
-        
+
             if stuff_zero:
                 zero = self.zero[1] if reading is True else self.zero[0]
                 return ("%s%s%s" % (ltext, zero, rtext), num)
@@ -134,7 +134,7 @@ class Num2Word_ZH_TW(Num2Word_Base):
         # The logic of stuff zero refers to:
         # https://mathseed.ntue.edu.tw/hard/%E6%95%99%E5%AD%B8%E7%96%91%E9%9B%A3%E5%BD%99%E7%B7%A8/ch1/95Q-E08.pdf
         if len(str(left[1])) - len(str(right[1])) >= 2 \
-            and len(str(right[1])) % 4 != 0:
+           and len(str(right[1])) % 4 != 0:
             return True
         return False
 
@@ -311,7 +311,7 @@ class Num2Word_ZH_TW(Num2Word_Base):
             out.append(to_s(
                 self.to_cardinal(curr, reading=reading, prefer=prefer)))
 
-        minus_str = "" 
+        minus_str = ""
         if value < 0:
             minus_str = self.negword[1] if reading is True else self.negword[0]
         return "%s%s" % (minus_str, "".join(out))
