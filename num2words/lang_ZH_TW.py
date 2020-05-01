@@ -26,7 +26,7 @@ def select_text(text, reading=False, prefer=None):
     """Select the correct text from the Chinese number, reading and
     alternatives"""
     # select chinese number or phonetic symbol reading (注音)
-    if reading:
+    if reading is True:
         text = text[1]
     else:
         text = text[0]
@@ -44,7 +44,7 @@ def select_text(text, reading=False, prefer=None):
 
 class Num2Word_ZH_TW(Num2Word_Base):
     CURRENCY_FORMS = {
-        'NTW': (('元', 'ㄩㄢˊ'), ()),
+        'NTD': (('元', 'ㄩㄢˊ'), ()),
     }
 
     MAXVAL = 10**73 
@@ -126,7 +126,7 @@ class Num2Word_ZH_TW(Num2Word_Base):
                 num = lnum * rnum
         
             if stuff_zero:
-                zero = self.zero[1] if reading else self.zero[0]
+                zero = self.zero[1] if reading is True else self.zero[0]
                 return ("%s%s%s" % (ltext, zero, rtext), num)
             else:
                 return ("%s%s" % (ltext, rtext), num)
@@ -137,7 +137,10 @@ class Num2Word_ZH_TW(Num2Word_Base):
             out = []
             left, right = val[:2]
             if isinstance(left, tuple) and isinstance(right, tuple):
-                if len(str(left[1])) - len(str(right[1])) >= 2:
+                # The logic of stuff zero is follow the description:
+                # https://mathseed.ntue.edu.tw/hard/%E6%95%99%E5%AD%B8%E7%96%91%E9%9B%A3%E5%BD%99%E7%B7%A8/ch1/95Q-E08.pdf
+                if len(str(left[1])) - len(str(right[1])) >= 2 \
+                    and len(str(right[1])) % 4 != 0:
                     out.append(self.merge(left, right, stuff_zero=True, reading=reading))
                 else:
                     out.append(self.merge(left, right))
@@ -156,13 +159,13 @@ class Num2Word_ZH_TW(Num2Word_Base):
         return out[0]
 
     def _ordinal_prefix(self, reading):
-        if reading:
+        if reading is True:
             return "ㄉㄧˋ"
         else:
             return "第"
 
     def _ordinal_suffix(self, reading, counter):
-        if reading:
+        if reading is True:
             counter = self.counters.get(counter, '')
             if not counter:
                 raise NotImplementedError(
@@ -190,15 +193,18 @@ class Num2Word_ZH_TW(Num2Word_Base):
         year = val
 
         # Gregorian calendar
-        prefix = ""
+        prefix = "ㄒㄧㄩㄢˊ" if reading is True else "西元"
         if year < 0:
             year = abs(year)
-            prefix = "ㄒㄧㄩㄢˊㄑㄧㄢˊ" if reading else "西元前"
+            prefix = "%s%s" % (prefix, "ㄑㄧㄢˊ" if reading is True else "前")
+
+        if reading == "arabic":
+            return "%s%s%s" % (prefix, year, "年")
 
         year_words = self.to_cardinal(year, reading=reading, prefer=prefer)
-        return "%s%s%s" % (prefix, year_words, "ㄋㄧㄢˊ" if reading else "年")
+        return "%s%s%s" % (prefix, year_words, "ㄋㄧㄢˊ" if reading is True else "年")
 
-    def to_currency(self, val, currency="NTW", cents=False, separator="",
+    def to_currency(self, val, currency="NTD", cents=False, separator="",
                     adjective=False, reading=False, prefer=None):
         left, right, is_negative = parse_currency_parts(
             val, is_int_with_cents=cents)
@@ -220,10 +226,10 @@ class Num2Word_ZH_TW(Num2Word_Base):
         return '%s%s%s%s%s' % (
             minus_str,
             self.to_cardinal(left, reading=reading, prefer=prefer),
-            cr1[1] if reading else cr1[0],
+            cr1[1] if reading is True else cr1[0],
             self.to_cardinal(right, reading=reading, prefer=prefer)
             if cr2 else '',
-            (cr2[1] if reading else cr2[0]) if cr2 else '',
+            (cr2[1] if reading is True else cr2[0]) if cr2 else '',
         )
 
     def splitnum(self, value, reading, prefer):
@@ -263,7 +269,7 @@ class Num2Word_ZH_TW(Num2Word_Base):
         out = ""
         if value < 0:
             value = abs(value)
-            out = self.negword[1] if reading else self.negword[0]
+            out = self.negword[1] if reading is True else self.negword[0]
 
         if value >= self.MAXVAL:
             raise OverflowError(self.errmsg_toobig % (value, self.MAXVAL))
@@ -276,7 +282,6 @@ class Num2Word_ZH_TW(Num2Word_Base):
         return self.title(out + words)
 
     def to_cardinal_float(self, value, reading=False, prefer=None):
-        prefer = prefer or ["零"]
         try:
             float(value) == value
         except (ValueError, TypeError, AssertionError):
@@ -289,11 +294,14 @@ class Num2Word_ZH_TW(Num2Word_Base):
 
         out = [self.to_cardinal(pre, reading=reading, prefer=prefer)]
         if self.precision:
-            out.append(self.title(self.pointword[1 if reading else 0]))
+            out.append(self.title(self.pointword[1 if reading is True else 0]))
 
         for i in range(self.precision):
             curr = int(post[i])
             out.append(to_s(
                 self.to_cardinal(curr, reading=reading, prefer=prefer)))
 
-        return "".join(out)
+        minus_str = "" 
+        if value < 0:
+            minus_str = self.negword[1] if reading is True else self.negword[0]
+        return "%s%s" % (minus_str, "".join(out))
