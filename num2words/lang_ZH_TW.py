@@ -55,8 +55,8 @@ class Num2Word_ZH_TW(Num2Word_Base):
             self.cards[10 ** n] = word
 
     def setup(self):
-        self.negword = "負"
-        self.pointword = "點"
+        self.negword = ("負", "ㄈㄨˋ")
+        self.pointword = ("點", "ㄉㄧㄢˇ")
         self.exclude_title = [self.negword, self.pointword]
 
         self.high_numwords = [
@@ -263,7 +263,7 @@ class Num2Word_ZH_TW(Num2Word_Base):
         out = ""
         if value < 0:
             value = abs(value)
-            out = self.negword
+            out = self.negword[1] if reading else self.negword[0]
 
         if value >= self.MAXVAL:
             raise OverflowError(self.errmsg_toobig % (value, self.MAXVAL))
