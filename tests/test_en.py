@@ -23,7 +23,7 @@ from num2words import num2words
 class Num2WordsENTest(TestCase):
     def test_and_join_199(self):
         # ref https://github.com/savoirfairelinux/num2words/issues/8
-        self.assertEqual(num2words(199), "one hundred and ninety-nine")
+        self.assertEqual(num2words(199), "one hundred ninety-nine")
 
     def test_ordinal(self):
         self.assertEqual(
@@ -48,11 +48,11 @@ class Num2WordsENTest(TestCase):
         )
         self.assertEqual(
             num2words(130, lang='en', to='ordinal'),
-            'one hundred and thirtieth'
+            'one hundred thirtieth'
         )
         self.assertEqual(
             num2words(1003, lang='en', to='ordinal'),
-            'one thousand and third'
+            'one thousand third'
         )
 
     def test_ordinal_num(self):
@@ -98,13 +98,13 @@ class Num2WordsENTest(TestCase):
         self.assertEqual(
             num2words('4778.00', lang='en', to='currency', separator=' and',
                       cents=True, currency='USD', adjective=True),
-            'four thousand, seven hundred and seventy-eight US dollars'
+            'four thousand seven hundred seventy-eight US dollars'
             ' and zero cents')
 
         self.assertEqual(
             num2words('4778.00', lang='en', to='currency', separator=' and',
                       cents=True, currency='USD'),
-            'four thousand, seven hundred and seventy-eight dollars and'
+            'four thousand seven hundred seventy-eight dollars and'
             ' zero cents')
 
         self.assertEqual(
@@ -116,7 +116,7 @@ class Num2WordsENTest(TestCase):
         self.assertEqual(
             num2words('158.3', lang='en', to='currency', separator=' and',
                       cents=True, currency='MXN'),
-            "one hundred and fifty-eight pesos and thirty cents"
+            "one hundred fifty-eight pesos and thirty cents"
         )
 
         self.assertEqual(
@@ -148,7 +148,7 @@ class Num2WordsENTest(TestCase):
         self.assertEqual(num2words(3000, lang='en', to='year'),
                          'three thousand')
         self.assertEqual(num2words(2001, lang='en', to='year'),
-                         'two thousand and one')
+                         'two thousand one')
         self.assertEqual(num2words(1901, lang='en', to='year'),
                          'nineteen oh-one')
         self.assertEqual(num2words(2000, lang='en', to='year'),

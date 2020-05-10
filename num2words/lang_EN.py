@@ -63,10 +63,10 @@ class Num2Word_EN(lang_EU.Num2Word_EU):
         elif 100 > lnum > rnum:
             return ("%s-%s" % (ltext, rtext), lnum + rnum)
         elif lnum >= 100 > rnum:
-            return ("%s and %s" % (ltext, rtext), lnum + rnum)
+            return ("%s %s" % (ltext, rtext), lnum + rnum)
         elif rnum > lnum:
             return ("%s %s" % (ltext, rtext), lnum * rnum)
-        return ("%s, %s" % (ltext, rtext), lnum + rnum)
+        return ("%s %s" % (ltext, rtext), lnum + rnum)
 
     def to_ordinal(self, value):
         self.verify_ordinal(value)
