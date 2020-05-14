@@ -151,7 +151,7 @@ class Num2Word_RM:
         if hundreds != 1:
             prefix = CARDINAL_WORDS[hundreds] + prefix
         postfix = omitt_if_zero(self.to_cardinal(tens))
-        # "e/ed" is inserted if tens >= 13 or = 15, 16, 20, 30
+        # "e/ed" is inserted if tens <= 13 or = 15, 16, 20, 30
         # distribution may seem unusual but it was reviewed by a native speaker
         infix = ""
         if (tens > 0 and tens <= 13) or tens in [15, 16, 20, 30]:
