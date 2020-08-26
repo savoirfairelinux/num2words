@@ -43,7 +43,8 @@ class Num2Word_EU(Num2Word_Base):
         'MXN': (('peso', 'pesos'), GENERIC_CENTS),
         'RON': (('leu', 'lei', 'de lei'), ('ban', 'bani', 'de bani')),
         'INR': (('rupee', 'rupees'), ('paisa', 'paise')),
-        'HUF': (('forint', 'forint'), ('fillér', 'fillér'))
+        'HUF': (('forint', 'forint'), ('fillér', 'fillér')),
+        'NGN': (('naira', 'naira'), ('kobo', 'kobo'))
     }
 
     CURRENCY_ADJECTIVES = {
