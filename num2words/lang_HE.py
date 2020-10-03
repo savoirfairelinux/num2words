@@ -136,11 +136,13 @@ def n2w(n):
     return int2word(int(n))
 
 
-def to_currency(n, currency='EUR', cents=True, separator=','):
-    raise NotImplementedError()
-
-
 class Num2Word_HE(Num2Word_Base):
+    CURRENCY_FORMS = {
+        'NIS': (('שקל', 'שקלים'), ('אגורה', 'אגורות')),
+        'EUR': (('אירו', 'אירו'), ('סנט', 'סנט')),
+        'USD': (('דולר', 'דולרים'), ('סנט', 'סנט')),
+    }
+
     def to_cardinal(self, number):
         return n2w(number)
 
@@ -149,6 +151,14 @@ class Num2Word_HE(Num2Word_Base):
 
     def pluralize(self, n, forms):
         return pluralize(n, forms)
+
+    def to_currency(self, val, currency='NIS', cents=True, separator=' ו',
+                    adjective=False):
+        result = super(Num2Word_HE, self).to_currency(
+            val, currency=currency, cents=cents, separator=separator,
+            adjective=adjective)
+        # In Hebrew the separator is along with the following word
+        return result.replace(" ו ", " ו")
 
 
 if __name__ == '__main__':
