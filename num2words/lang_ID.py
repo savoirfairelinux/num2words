@@ -42,9 +42,9 @@ class Num2Word_ID():
                30: "noniliun",
                33: "desiliun"}
 
-    errmsg_floatord = "Cannot treat float number as ordinal"
-    errmsg_negord = "Cannot treat negative number as ordinal"
-    errmsg_toobig = "Too large"
+    errmsg_floatord = "Bilangan desimal %s tidak dapat digunakan sebagai nomor urutan."
+    errmsg_negord = "Bilangan negatif %s tidak dapat digunakan sebagai nomor urutan."
+    errmsg_toobig = "Nilai absolut(%s) harus kurang dari %s."
     max_num = 10 ** 36
 
     def split_by_koma(self, number):

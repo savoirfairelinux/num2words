@@ -40,9 +40,7 @@ class Num2Word_ES(Num2Word_EU):
         self.negword = "menos "
         self.pointword = "punto"
         self.errmsg_nonnum = "Solo números pueden ser convertidos a palabras."
-        self.errmsg_toobig = (
-            "Numero muy grande para ser convertido a palabras."
-            )
+        self.errmsg_toobig = "El numero %s debe ser menor de %s para ser convertido a palabras."
         self.gender_stem = "o"
         self.exclude_title = ["y", "menos", "punto"]
         self.mid_numwords = [(1000, "mil"), (100, "cien"), (90, "noventa"),
