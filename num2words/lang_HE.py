@@ -81,11 +81,7 @@ AND = u'ו'
 
 
 def pluralize(n, forms):
-    # gettext implementation:
-    # (n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2)
-
-    form = 0 if (n % 10 == 1 and n % 100 != 11) else 1 if n != 0 else 2
-
+    form = 1 if n == 0 else 0 if n == 1 else 1
     return forms[form]
 
 
@@ -150,6 +146,9 @@ class Num2Word_HE(Num2Word_Base):
 
     def to_ordinal(self, number):
         raise NotImplementedError()
+
+    def pluralize(self, n, forms):
+        return pluralize(n, forms)
 
 
 if __name__ == '__main__':
