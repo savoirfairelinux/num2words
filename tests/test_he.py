@@ -87,7 +87,7 @@ class Num2WordsHETest(TestCase):
         self.assertEqual(n.pluralize(1, cr2), 'סנט')
         self.assertEqual(n.pluralize(2, cr2), 'סנט')
 
-    def test_currency_(self):
+    def test_to_currency(self):
         n = Num2Word_HE()
         self.assertEqual(n.to_currency(20.0 ,currency='NIS'), 'עשרים שקלים ואפס אגורות')
         self.assertEqual(n.to_currency(100.0 ,currency='NIS'), 'מאה שקלים ואפס אגורות')
