@@ -21,90 +21,90 @@ from .base import Num2Word_Base
 from .currency import parse_currency_parts, prefix_currency
 from .utils import get_digits, splitbyx
 
-ZERO = ('нула',)
+ZERO = ('nula',)
 
 ONES = {
-    1: ('један', 'једна'),
-    2: ('два', 'две'),
-    3: ('три', 'три'),
-    4: ('четири', 'четири'),
-    5: ('пет', 'пет'),
-    6: ('шест', 'шест'),
-    7: ('седам', 'седам'),
-    8: ('осам', 'осам'),
-    9: ('девет', 'девет'),
+    1: ('jedan', 'jedna'),
+    2: ('dva', 'dve'),
+    3: ('tri', 'tri'),
+    4: ('četiri', 'četiri'),
+    5: ('pet', 'pet'),
+    6: ('šest', 'šest'),
+    7: ('sedam', 'sedam'),
+    8: ('osam', 'osam'),
+    9: ('devet', 'devet'),
 }
 
 TENS = {
-    0: ('десет',),
-    1: ('једанаест',),
-    2: ('дванаест',),
-    3: ('тринаест',),
-    4: ('четрнаест',),
-    5: ('петнаест',),
-    6: ('шеснаест',),
-    7: ('седамнаест',),
-    8: ('осамнаест',),
-    9: ('деветнаест',),
+    0: ('deset',),
+    1: ('jedanaest',),
+    2: ('dvanaest',),
+    3: ('trinaest',),
+    4: ('četrnaest',),
+    5: ('petnaest',),
+    6: ('šesnaest',),
+    7: ('sedamnaest',),
+    8: ('osamnaest',),
+    9: ('devetnaest',),
 }
 
 TWENTIES = {
-    2: ('двадесет',),
-    3: ('тридесет',),
-    4: ('четрдесет',),
-    5: ('педесет',),
-    6: ('шездесет',),
-    7: ('седамдесет',),
-    8: ('осамдесет',),
-    9: ('деведесет',),
+    2: ('dvadeset',),
+    3: ('trideset',),
+    4: ('četrdeset',),
+    5: ('pedeset',),
+    6: ('šezdeset',),
+    7: ('sedamdeset',),
+    8: ('osamdeset',),
+    9: ('devedeset',),
 }
 
 HUNDREDS = {
-    1: ('сто',),
-    2: ('двеста',),
-    3: ('триста',),
-    4: ('четристо',),
-    5: ('петсо',),
-    6: ('шесто',),
-    7: ('седамсто',),
-    8: ('осамсто',),
-    9: ('деветсто',),
+    1: ('sto',),
+    2: ('dvesta',),
+    3: ('trista',),
+    4: ('četristo',),
+    5: ('petsto',),
+    6: ('šesto',),
+    7: ('sedamsto',),
+    8: ('osamsto',),
+    9: ('devetsto',),
 }
 
 SCALE = {
     0: ('', '', '', False),
-    1: ('хиљада', 'хиљаде', 'хиљада', True),  # 10^3
-    2: ('милион', 'милиона', 'милиона', False),  # 10^6
-    3: ('билион', 'билиона', 'билиона', False),  # 10^9
-    4: ('трилион', 'трилиона', 'трилиона', False),  # 10^12
-    5: ('квадрилион', 'квадрилиона', 'квадрилиона', False),  # 10^15
-    6: ('квинтилион', 'квинтилиона', 'квинтилиона', False),  # 10^18
-    7: ('секстилион', 'секстилиона', 'секстилиона', False),  # 10^21
-    8: ('септилион', 'септилиона', 'септилиона', False),  # 10^24
-    9: ('октилион', 'октилиона', 'октилиона', False),  # 10^27
-    10: ('нонилион', 'нонилиона', 'нонилиона', False),  # 10^30
+    1: ('hiljada', 'hiljade', 'hiljada', True),  # 10^3
+    2: ('milion', 'miliona', 'miliona', False),  # 10^6
+    3: ('bilion', 'biliona', 'biliona', False),  # 10^9
+    4: ('trilion', 'triliona', 'triliona', False),  # 10^12
+    5: ('kvadrilion', 'kvadriliona', 'kvadriliona', False),  # 10^15
+    6: ('kvintilion', 'kvintiliona', 'kvintiliona', False),  # 10^18
+    7: ('sekstilion', 'sekstiliona', 'sekstiliona', False),  # 10^21
+    8: ('septilion', 'septiliona', 'septiliona', False),  # 10^24
+    9: ('oktilion', 'oktiliona', 'oktiliona', False),  # 10^27
+    10: ('nonilion', 'noniliona', 'noniliona', False),  # 10^30
 }
 
 
 class Num2Word_SR(Num2Word_Base):
     CURRENCY_FORMS = {
         'RUB': (
-            ('рубља', 'рубље', 'рубљи', True),
-            ('корејка', 'корејке', 'корејки', True)
+            ('rublja', 'rublje', 'rublji', True),
+            ('kopejka', 'kopejke', 'kopejki', True)
         ),
         'EUR': (
-            ('евро', 'евра', 'евра', False),
-            ('цент', 'цента', 'центи', False)
+            ('evro', 'evra', 'evra', False),
+            ('cent', 'centa', 'centi', False)
         ),
         'RSD': (
-            ('динар', 'динара', 'динара', False),
-            ('пара', 'паре', 'пара', True)
+            ('dinar', 'dinara', 'dinara', False),
+            ('para', 'pare', 'para', True)
         ),
     }
 
     def setup(self):
-        self.negword = "минус"
-        self.pointword = "запета"
+        self.negword = "minus"
+        self.pointword = "zapeta"
 
     def to_cardinal(self, number, feminine=False):
         n = str(number).replace(',', '.')
