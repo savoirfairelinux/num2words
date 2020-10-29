@@ -2,6 +2,11 @@ Changelog
 =========
 
 
+Version 0.5.11 -- 2020/10/29
+----------------------------
+* Add Bulgarian language localization (#340)
+
+
 Version 0.5.10 -- 2019/05/12
 ----------------------------
 
