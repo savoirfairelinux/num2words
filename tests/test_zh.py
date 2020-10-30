@@ -26,7 +26,7 @@ def n2zh(*args, **kwargs):
     return num2words(*args, lang='zh', **kwargs)
 
 
-class Num2WordsJATest(TestCase):
+class Num2WordsZHTest(TestCase):
     def test_low(self):
         self.assertEqual(n2zh(0), "零")
         self.assertEqual(n2zh(0, capital=True), "零")
