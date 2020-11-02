@@ -136,5 +136,5 @@ class Num2WordsZHTest(TestCase):
                          "三百一十四欧元八十七分")
         
     def test_year(self):
-        self.assertEqual(n2zh(2017, to="year"), "二〇二〇年")
+        self.assertEqual(n2zh(2020, to="year"), "二〇二〇年")
         
