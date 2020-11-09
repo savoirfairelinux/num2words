@@ -52,7 +52,7 @@ class Num2WordsPLTest(TestCase):
         self.assertEqual(
             num2words(1234567890, lang='pl'),
             "miliard dwieście trzydzieści cztery miliony pięćset "
-            "sześćdziesiąt siedem tysięcy osiemset dziewięćdzisiąt"
+            "sześćdziesiąt siedem tysięcy osiemset dziewięćdziesiąt"
         )
         self.assertEqual(
             num2words(10000000001000000100000, lang='pl'),
@@ -62,20 +62,20 @@ class Num2WordsPLTest(TestCase):
             num2words(215461407892039002157189883901676, lang='pl'),
             "dwieście piętnaście kwintylionów czterysta sześćdziesiąt jeden "
             "kwadryliardów czterysta siedem kwadrylionów osiemset "
-            "dziewięćdzisiąt dwa tryliardy trzydzieści dziewięć trylionów "
+            "dziewięćdziesiąt dwa tryliardy trzydzieści dziewięć trylionów "
             "dwa biliardy sto pięćdziesiąt siedem bilionów sto osiemdziesiąt "
             "dziewięć miliardów osiemset osiemdziesiąt trzy miliony "
             "dziewięćset jeden tysięcy sześćset siedemdziesiąt sześć"
         )
         self.assertEqual(
             num2words(719094234693663034822824384220291, lang='pl'),
-            "siedemset dziewiętnaście kwintylionów dziewięćdzisiąt cztery "
+            "siedemset dziewiętnaście kwintylionów dziewięćdziesiąt cztery "
             "kwadryliardy dwieście trzydzieści cztery kwadryliony sześćset "
-            "dziewięćdzisiąt trzy tryliardy sześćset sześćdziesiąt trzy "
+            "dziewięćdziesiąt trzy tryliardy sześćset sześćdziesiąt trzy "
             "tryliony trzydzieści cztery biliardy osiemset dwadzieścia dwa "
             "biliony osiemset dwadzieścia cztery miliardy trzysta "
             "osiemdziesiąt cztery miliony dwieście dwadzieścia "
-            "tysięcy dwieście dziewięćdzisiąt jeden"
+            "tysięcy dwieście dziewięćdziesiąt jeden"
         )
         self.assertEqual(
             num2words(
