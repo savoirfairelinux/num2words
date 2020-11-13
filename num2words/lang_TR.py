@@ -152,6 +152,8 @@ class Num2Word_TR(object):
                     wrd += self.CARDINAL_ONES.get(
                         self.integers_to_read[0][0], ""
                     )
+                    if self.integers_to_read[0][0] == "0":
+                        return self.ZERO
                     return wrd
 
             if self.total_digits_outside_triplets == 0:
@@ -507,6 +509,8 @@ class Num2Word_TR(object):
                         wrd += self.ORDINAL_ONES.get(
                             self.integers_to_read[0][0], ""
                         )
+                        if self.integers_to_read[0][0] == "0":
+                            return u"sıfırıncı"
                         return wrd
 
                 if self.total_digits_outside_triplets == 0:
