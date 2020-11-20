@@ -178,3 +178,8 @@ class Num2WordsENTest(TestCase):
                          'sixty-six m.y.a.')
         self.assertEqual(num2words(-66000000, lang='en', to='year'),
                          'sixty-six million BC')
+
+    def test_large_numbers(self):
+        # Verify integers and strings produce same output.
+        for i in (1, 100, 200, 306):
+            self.assertEqual(num2words(int('9' * i)), num2words(str('9' * i)))
