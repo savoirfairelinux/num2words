@@ -24,11 +24,11 @@ from num2words import num2words
 
 class Num2WordsSVTest(TestCase):
     def test_ordinal(self):
-        pass
+        self.assertEqual(num2words(1435, to="ordinal", lang="sv"), "etttusen fyrahundratrettiofemte")
+        self.assertEqual(num2words(32, to="ordinal", lang="sv"), "trettioandra")
         self.assertEqual(num2words(1, to="ordinal", lang="sv"), "första")
         self.assertEqual(num2words(5, to="ordinal", lang="sv"), "femte")
-        self.assertEqual(num2words(32, to="ordinal", lang="sv"), "trettioandra")
-
+        self.assertEqual(num2words(10, to="ordinal", lang="sv"), "tionde")
 
     def test_cardinal(self):
         self.assertEqual(num2words(0, to="cardinal", lang="sv"), "noll")

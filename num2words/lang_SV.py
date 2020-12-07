@@ -85,17 +85,21 @@ class Num2Word_SV(lang_EU.Num2Word_EU):
     def to_ordinal(self, value):
         self.verify_ordinal(value)
         outwords = self.to_cardinal(value).split(" ")
-        lastwords = outwords[-1].split("-")
-        lastword = lastwords[-1].lower()
+        lastword = outwords[-1]
+        # lastword = lastwords[-1].lower()
+        ending_length = 0
         try:
-            lastword = self.ords[lastword]
-        except KeyError:
-            if lastword[-2:] == "tio":
-                lastword = lastword + "onde"
-            else:
+            lastword_ending = self.ords[lastword[-4:]]
+            ending_length = 4
+        except:
+            try:
+                lastword_ending = self.ords[lastword[-3:]]
+                ending_length = 3
+            except KeyError:
                 lastword += "de"
-        lastwords[-1] = self.title(lastword)
-        outwords[-1] = "".join(lastwords)
+        lastword_first_part = self.title(lastword)[:-ending_length]
+        lastword_correct = lastword_first_part + lastword_ending
+        outwords[-1] = lastword_correct
         return " ".join(outwords)
 
     def to_ordinal_num(self, value):
