@@ -137,3 +137,6 @@ class Num2WordsVITest(TestCase):
             num2words(1000101017, lang="vi"),
             "một tỷ một trăm lẻ một nghìn lẻ mười bảy"
         )
+
+    def test_str_to_number(self):
+        self.assertEqual(num2words("21", lang="vi"), "hai mươi mốt")

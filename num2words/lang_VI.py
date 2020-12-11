@@ -16,6 +16,7 @@
 # MA 02110-1301 USA
 
 from __future__ import unicode_literals
+from .base import Num2Word_Base
 
 to_19 = (u'không', u'một', u'hai', u'ba', u'bốn', u'năm', u'sáu',
          u'bảy', u'tám', u'chín', u'mười', u'mười một', u'mười hai',
@@ -31,7 +32,7 @@ denom = ('',
          'Octodecillion', 'Novemdecillion', 'Vigintillion')
 
 
-class Num2Word_VI(object):
+class Num2Word_VI(Num2Word_Base):
 
     def _convert_nn(self, val):
         if val < 20:
