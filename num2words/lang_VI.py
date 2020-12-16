@@ -87,7 +87,7 @@ class Num2Word_VI(Num2Word_Base):
                 return ret
 
     def number_to_text(self, number):
-        number = '%.2f' % number
+        number = '%.2f' % float(number)
         the_list = str(number).split('.')
         start_word = self.vietnam_number(int(the_list[0]))
         final_result = start_word
