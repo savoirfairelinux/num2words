@@ -86,6 +86,7 @@ Besides the numerical argument, there are two main optional arguments.
 * ``es_CO`` (Spanish - Colombia)
 * ``es_VE`` (Spanish - Venezuela)
 * ``eu`` (EURO)
+* ``fa`` (Farsi)
 * ``fi`` (Finnish)
 * ``fr`` (French)
 * ``fr_CH`` (French - Switzerland)
