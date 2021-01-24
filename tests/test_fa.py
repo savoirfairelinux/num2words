@@ -58,8 +58,24 @@ class Num2WordsFATest(TestCase):
     def test_cardinal(self):
         self.assertEqual(num2words(130000, lang='fa'), "صد و سی هزار")
         self.assertEqual(num2words(242, lang='fa'), "دویست و چهل و دو")
+        self.assertEqual(num2words(800, lang='fa'), "هشتصد")
+        self.assertEqual(num2words(-203, lang='fa'), "منفی دویست و سه")
+        self.assertEqual(
+            num2words(1234567890, lang='fa'),
+            "یک میلیارد و دویست و سی و چهار میلیون و پانصد و شصت و هفت هزار و هشتصد و نود"
+        )
+
+    def test_year(self):
+        self.assertEqual(num2words(1398, lang='fa', to='year'), "هزار و سیصد و نود و هشت")
+        self.assertEqual(num2words(1399, lang='fa', to='year'), "هزار و سیصد و نود و نه")
+        self.assertEqual(num2words(1400, lang='fa', to='year'), "هزار و چهارصد")    
         
-        
+    def test_currency(self):
+        self.assertEqual(num2words(1000, lang='fa', to='currency'), 'هزار تومان')
+        self.assertEqual(
+            num2words(1500000, lang='fa', to='currency'),
+            'یک میلیون و پانصد هزار تومان'
+        )
 
     def test_ordinal_num(self):
         self.assertEqual(num2words(10, lang='fa', to='ordinal_num'), '10م')
