@@ -123,10 +123,12 @@ class Num2Word_FA(object):
             if (y == 0):
                 continue
             yx = self.cardinal3(y) + b
+            if b == ' هزار' and y == 1:
+                yx = 'هزار'
             if (res == ''):
                 res = yx
             else:
-                res = yx + farsiSeperator
+                res = yx + farsiSeperator + res
         return res
 
     def fractional(self, number, l):
