@@ -1,4 +1,5 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
+# Copyright (c) 2003, Taro Ogawa.  All Rights Reserved.
 # Copyright (c) 2013, Savoir-faire Linux inc.  All Rights Reserved.
 
 # This library is free software; you can redistribute it and/or
@@ -13,6 +14,7 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301 USA
+
 from __future__ import unicode_literals
 
 from unittest import TestCase
@@ -201,7 +203,7 @@ class Num2WordsSRTest(TestCase):
                 lang='sr',
                 to='currency',
                 currency='EUR',
-                seperator=' i'
+                separator=' i'
             )
         )
         self.assertEqual(
@@ -211,18 +213,18 @@ class Num2WordsSRTest(TestCase):
                 lang='sr',
                 to='currency',
                 currency='RUB',
-                seperator=' i'
+                separator=' i'
             )
         )
         self.assertEqual(
             'sto jedna rublja i dvadeset dve kopejke',
             num2words(10122, lang='sr', to='currency', currency='RUB',
-                      seperator=' i')
+                      separator=' i')
         )
         self.assertEqual(
             'sto jedan evro i dvadeset jedan cent',
             num2words(10121, lang='sr', to='currency', currency='EUR',
-                      seperator=' i'),
+                      separator=' i'),
         )
         self.assertEqual(
             'minus dvanaest hiljada petsto devetnaest evra, 85 centi',
@@ -236,6 +238,6 @@ class Num2WordsSRTest(TestCase):
         )
         self.assertEqual(
             "trideset osam evra i 40 centi",
-            num2words('38.4', lang='sr', to='currency', seperator=' i',
+            num2words('38.4', lang='sr', to='currency', separator=' i',
                       cents=False, currency='EUR'),
         )

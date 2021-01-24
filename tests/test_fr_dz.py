@@ -1,5 +1,6 @@
-# -*- encoding: utf-8 -*-
-# Copyright (c) 2015, Savoir-faire Linux inc.  All Rights Reserved.
+# -*- coding: utf-8 -*-
+# Copyright (c) 2003, Taro Ogawa.  All Rights Reserved.
+# Copyright (c) 2013, Savoir-faire Linux inc.  All Rights Reserved.
 
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -28,7 +29,7 @@ TEST_CASES_TO_CURRENCY = (
     (8, 'huit dinards'),
     (12, 'douze dinards'),
     (21, 'vingt et un dinards'),
-    (81.25, 'quatre-vingt-un dinards virgule vingt-cinq centimes'),
+    (81.25, 'quatre-vingt-un dinards et vingt-cinq centimes'),
     (100, 'cent dinards'),
 )
 
@@ -37,11 +38,11 @@ class Num2WordsPLTest(TestCase):
     def test_currency(self):
         self.assertEqual(
             num2words(1234.12, lang='fr_DZ', to='currency'),
-            "mille deux cent trente-quatre dinards virgule douze centimes"
+            "mille deux cent trente-quatre dinards et douze centimes"
         )
         self.assertEqual(
             num2words(45689.89, lang='fr_DZ', to='currency'),
-            "quarante-cinq mille six cent quatre-vingt-neuf dinards virgule "
+            "quarante-cinq mille six cent quatre-vingt-neuf dinards et "
             "quatre-vingt-neuf centimes"
         )
 

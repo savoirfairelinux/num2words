@@ -188,11 +188,11 @@ class Num2Word_AR(object):
                 ones = tens % 10
                 tens = (tens / 10) - 2
                 if ones > 0:
-                    if ret_val is not "" and tens < 4:
+                    if ret_val != "" and tens < 4:
                         ret_val += " و "
 
                     ret_val += self.digit_feminine_status(ones, group_level)
-                if ret_val is not "" and ones != 0:
+                if ret_val != "" and ones != 0:
                     ret_val += " و "
 
                 ret_val += self.arabicTens[int(tens)]
@@ -226,9 +226,9 @@ class Num2Word_AR(object):
                 self.process_arabic_group(number_to_process,
                                           group,
                                           Decimal(floor(temp_number)))
-            if group_description is not '':
+            if group_description != '':
                 if group > 0:
-                    if ret_val is not "":
+                    if ret_val != "":
                         ret_val = "{} و {}".format("", ret_val)
                     if number_to_process != 2:
                         if number_to_process % 100 != 1:
@@ -236,7 +236,7 @@ class Num2Word_AR(object):
                                 ret_val = "{} {}".format(
                                     self.arabicPluralGroups[group], ret_val)
                             else:
-                                if ret_val is not "":
+                                if ret_val != "":
                                     ret_val = "{} {}".format(
                                         self.arabicAppendedGroup[group],
                                         ret_val)
@@ -250,7 +250,7 @@ class Num2Word_AR(object):
                 ret_val = "{} {}".format(group_description, ret_val)
             group += 1
         formatted_number = ""
-        if self.arabicPrefixText is not "":
+        if self.arabicPrefixText != "":
             formatted_number += "{} ".format(self.arabicPrefixText)
         formatted_number += ret_val
         if self.integer_value != 0:
@@ -288,7 +288,7 @@ class Num2Word_AR(object):
             elif 11 <= remaining100 <= 99:
                 formatted_number += self.currency_subunit[3]
 
-        if self.arabicSuffixText is not "":
+        if self.arabicSuffixText != "":
             formatted_number += " {}".format(self.arabicSuffixText)
 
         return formatted_number
@@ -299,10 +299,10 @@ class Num2Word_AR(object):
         return number
 
     def set_currency_prefer(self, currency):
-        if currency is 'EGP':
+        if currency == 'EGP':
             self.currency_unit = CURRENCY_EGP[0]
             self.currency_subunit = CURRENCY_EGP[1]
-        elif currency is 'KWD':
+        elif currency == 'KWD':
             self.currency_unit = CURRENCY_KWD[0]
             self.currency_subunit = CURRENCY_KWD[1]
         else:

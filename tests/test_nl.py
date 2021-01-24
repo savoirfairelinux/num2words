@@ -1,5 +1,6 @@
-# -*- encoding: utf-8 -*-
-# Copyright (c) 2015, Savoir-faire Linux inc.  All Rights Reserved.
+# -*- coding: utf-8 -*-
+# Copyright (c) 2003, Taro Ogawa.  All Rights Reserved.
+# Copyright (c) 2013, Savoir-faire Linux inc.  All Rights Reserved.
 
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -66,28 +67,51 @@ class Num2WordsNLTest(TestCase):
     def test_ordinal_for_floating_numbers(self):
         self.assertRaises(TypeError, num2words, 2.453, ordinal=True, lang='nl')
 
-    def test_to_currency(self):
+    def test_to_currency_eur(self):
         self.assertEqual(
-            num2words('38.4', lang='nl', to='currency', seperator=' en',
+            num2words('38.4', lang='nl', to='currency', separator=' en',
                       cents=False, currency='EUR'),
             "achtendertig euro en 40 cent"
         )
         self.assertEqual(
-            num2words('0', lang='nl', to='currency', seperator=' en',
+            num2words('0', lang='nl', to='currency', separator=' en',
                       cents=False, currency='EUR'),
             "nul euro en 00 cent"
         )
 
         self.assertEqual(
-            num2words('1.01', lang='nl', to='currency', seperator=' en',
+            num2words('1.01', lang='nl', to='currency', separator=' en',
                       cents=True, currency='EUR'),
             "één euro en één cent"
         )
 
         self.assertEqual(
-            num2words('4778.00', lang='nl', to='currency', seperator=' en',
+            num2words('4778.00', lang='nl', to='currency', separator=' en',
                       cents=True, currency='EUR'),
             'vierduizendzevenhonderdachtenzeventig euro en nul cent')
+
+    def test_to_currency_usd(self):
+        self.assertEqual(
+            num2words('38.4', lang='nl', to='currency', separator=' en',
+                      cents=False, currency='USD'),
+            "achtendertig dollar en 40 cent"
+        )
+        self.assertEqual(
+            num2words('0', lang='nl', to='currency', separator=' en',
+                      cents=False, currency='USD'),
+            "nul dollar en 00 cent"
+        )
+
+        self.assertEqual(
+            num2words('1.01', lang='nl', to='currency', separator=' en',
+                      cents=True, currency='USD'),
+            "één dollar en één cent"
+        )
+
+        self.assertEqual(
+            num2words('4778.00', lang='nl', to='currency', separator=' en',
+                      cents=True, currency='USD'),
+            'vierduizendzevenhonderdachtenzeventig dollar en nul cent')
 
     def test_pluralize(self):
         n = Num2Word_NL()

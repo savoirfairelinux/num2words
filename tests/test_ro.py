@@ -1,4 +1,5 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
+# Copyright (c) 2003, Taro Ogawa.  All Rights Reserved.
 # Copyright (c) 2013, Savoir-faire Linux inc.  All Rights Reserved.
 
 # This library is free software; you can redistribute it and/or
@@ -102,7 +103,7 @@ class Num2WordsROTest(TestCase):
         )
         self.assertEqual(
             num2words(247000000000, lang="ro"),
-            u"două sute patruzeci și șapte miliarde"
+            u"două sute patruzeci și șapte de miliarde"
         )
 
     def test_overflow(self):
@@ -116,23 +117,45 @@ class Num2WordsROTest(TestCase):
 
     def test_to_currency(self):
         self.assertEqual(
-            num2words(38.4, lang='ro', to='currency'),
-            u'treizeci și opt lei și patruzeci bani'
+            num2words(1000, lang='ro', to='currency'),
+            u'una mie de lei'
         )
-
+        self.assertEqual(
+            num2words(101, lang='ro', to='currency'),
+            u'una sută unu lei'
+        )
+        self.assertEqual(
+            num2words(100, lang='ro', to='currency'),
+            u'una sută de lei'
+        )
+        self.assertEqual(
+            num2words(38.4, lang='ro', to='currency'),
+            u'treizeci și opt de lei și patruzeci de bani'
+        )
         self.assertEqual(
             num2words(1.01, lang='ro', to='currency'),
             u'un leu și un ban'
         )
-
         self.assertEqual(
             num2words(4778.00, lang='ro', to='currency'),
-            u'patru mii șapte sute șaptezeci și opt lei')
-
+            u'patru mii șapte sute șaptezeci și opt de lei')
         self.assertEqual(
             num2words(4778.32, lang='ro', to='currency'),
-            u'patru mii șapte sute șaptezeci și opt lei'
-            u' și treizeci și doi bani')
+            u'patru mii șapte sute șaptezeci și opt de lei'
+            u' și treizeci și doi de bani')
+        self.assertEqual(
+            num2words(1207, lang='ro', to='currency'),
+            u'una mie două sute șapte lei')
+        self.assertEqual(
+            num2words(22000, lang='ro', to='currency'),
+            u'douăzeci și două de mii de lei')
+        self.assertEqual(
+            num2words(80000, lang='ro', to='currency'),
+            u'optzeci de mii de lei')
+        self.assertEqual(
+            num2words(123456789, lang='ro', to='currency'),
+            u'una sută douăzeci și trei milioane patru sute '
+            u'cincizeci și șase de mii șapte sute optzeci și nouă de lei')
 
     def test_to_year(self):
         self.assertEqual(num2words(1989, lang='ro', to='year'),

@@ -1,5 +1,5 @@
-# -*- encoding: utf-8 -*-
-#  Copyright (c) 2003, Taro Ogawa.  All Rights Reserved.
+# -*- coding: utf-8 -*-
+# Copyright (c) 2003, Taro Ogawa.  All Rights Reserved.
 # Copyright (c) 2013, Savoir-faire Linux inc.  All Rights Reserved.
 
 # This library is free software; you can redistribute it and/or
@@ -18,32 +18,33 @@
 
 from __future__ import print_function, unicode_literals
 
+from .base import Num2Word_Base
 from .utils import get_digits, splitbyx
 
 ZERO = (u'אפס',)
 
 ONES = {
-    1: (u'אחד',),
-    2: (u'שנים',),
+    1: (u'אחת',),
+    2: (u'שתים',),
     3: (u'שלש',),
     4: (u'ארבע',),
     5: (u'חמש',),
     6: (u'שש',),
     7: (u'שבע',),
-    8: (u'שמנה',),
+    8: (u'שמונה',),
     9: (u'תשע',),
 }
 
 TENS = {
     0: (u'עשר',),
-    1: (u'אחד עשרה',),
-    2: (u'שנים עשרה',),
+    1: (u'אחת עשרה',),
+    2: (u'שתים עשרה',),
     3: (u'שלש עשרה',),
     4: (u'ארבע עשרה',),
     5: (u'חמש עשרה',),
     6: (u'שש עשרה',),
     7: (u'שבע עשרה',),
-    8: (u'שמנה עשרה',),
+    8: (u'שמונה עשרה',),
     9: (u'תשע עשרה',),
 }
 
@@ -54,7 +55,7 @@ TWENTIES = {
     5: (u'חמישים',),
     6: (u'ששים',),
     7: (u'שבעים',),
-    8: (u'שמנים',),
+    8: (u'שמונים',),
     9: (u'תשעים',),
 }
 
@@ -67,6 +68,13 @@ HUNDRED = {
 THOUSANDS = {
     1: (u'אלף',),
     2: (u'אלפיים',),
+    3: (u'שלשת אלפים',),
+    4: (u'ארבעת אלפים',),
+    5: (u'חמשת אלפים',),
+    6: (u'ששת אלפים',),
+    7: (u'שבעת אלפים',),
+    8: (u'שמונת אלפים',),
+    9: (u'תשעת אלפים',),
 }
 
 AND = u'ו'
@@ -94,16 +102,21 @@ def int2word(n):
     i = len(chunks)
     for x in chunks:
         i -= 1
+
+        if x == 0:
+            continue
+
         n1, n2, n3 = get_digits(x)
 
-        # print str(n3) + str(n2) + str(n1)
+        if i > 0:
+            words.append(THOUSANDS[n1][0])
+            continue
 
         if n3 > 0:
             if n3 <= 2:
                 words.append(HUNDRED[n3][0])
             else:
-                words.append(ONES[n3][0])
-                words.append(HUNDRED[3][0])
+                words.append(ONES[n3][0] + ' ' + HUNDRED[3][0])
 
         if n2 > 1:
             words.append(TWENTIES[n2][0])
@@ -114,14 +127,12 @@ def int2word(n):
             words.append(ONES[n1][0])
 
         if i > 0:
-            if i <= 2:
-                words.append(THOUSANDS[i][0])
-            else:
-                words.append(ONES[i][0])
-                words.append(THOUSANDS[1][0])
+            words.append(THOUSANDS[i][0])
 
+    # source: https://hebrew-academy.org.il/2017/01/30/ו-החיבור-במספרים/
     if len(words) > 1:
         words[-1] = AND + words[-1]
+
     return ' '.join(words)
 
 
@@ -129,11 +140,11 @@ def n2w(n):
     return int2word(int(n))
 
 
-def to_currency(n, currency='EUR', cents=True, seperator=','):
+def to_currency(n, currency='EUR', cents=True, separator=','):
     raise NotImplementedError()
 
 
-class Num2Word_HE(object):
+class Num2Word_HE(Num2Word_Base):
     def to_cardinal(self, number):
         return n2w(number)
 

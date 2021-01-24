@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 # Copyright (c) 2003, Taro Ogawa.  All Rights Reserved.
 # Copyright (c) 2013, Savoir-faire Linux inc.  All Rights Reserved.
 
@@ -21,6 +21,14 @@ from .lang_EU import Num2Word_EU
 
 
 class Num2Word_FR(Num2Word_EU):
+    CURRENCY_FORMS = {
+        'EUR': (('euro', 'euros'), ('centime', 'centimes')),
+        'USD': (('dollar', 'dollars'), ('cent', 'cents')),
+        'FRF': (('franc', 'francs'), ('centime', 'centimes')),
+        'GBP': (('livre', 'livres'), ('penny', 'pence')),
+        'CNY': (('yuan', 'yuans'), ('fen', 'jiaos')),
+    }
+
     def setup(self):
         Num2Word_EU.setup(self)
 
@@ -89,13 +97,12 @@ class Num2Word_FR(Num2Word_EU):
     def to_ordinal_num(self, value):
         self.verify_ordinal(value)
         out = str(value)
-        out += {"1": "er"}.get(out[-1], "me")
+        out += "er" if value == 1 else "me"
         return out
 
-    def to_currency(self, val, longval=True, old=False):
-        hightxt = "euro/s"
-        if old:
-            hightxt = "franc/s"
-        cents = int(round(val*100))
-        return self.to_splitnum(cents, hightxt=hightxt, lowtxt="centime/s",
-                                divisor=100, jointxt="et", longval=longval)
+    def to_currency(self, val, currency='EUR', cents=True, separator=' et',
+                    adjective=False):
+        result = super(Num2Word_FR, self).to_currency(
+            val, currency=currency, cents=cents, separator=separator,
+            adjective=adjective)
+        return result

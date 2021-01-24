@@ -1,4 +1,4 @@
-num2words - Convert numbers to words in multiple languages
+num2words library - Convert numbers to words in multiple languages
 ==========================================================
 
 .. image:: https://img.shields.io/pypi/v/num2words.svg
@@ -46,8 +46,6 @@ Command line::
 
     $ num2words 10001
     ten thousand and one
-    $ num2words 10123123 --lang es
-    diez millones ciento veintitrés mil ciento veintitrés
     $ num2words 24,120.10
     twenty-four thousand, one hundred and twenty point one
     $ num2words 24,120.10 -l es
@@ -94,10 +92,13 @@ Besides the numerical argument, there are two main optional arguments.
 * ``fr_BE`` (French - Belgium)
 * ``fr_DZ`` (French - Algeria)
 * ``he`` (Hebrew)
+* ``hu`` (Hungarian)
 * ``id`` (Indonesian)
 * ``it`` (Italian)
 * ``ja`` (Japanese)
+* ``kn`` (Kannada)
 * ``ko`` (Korean)
+* ``kz`` (Kazakh)
 * ``lt`` (Lithuanian)
 * ``lv`` (Latvian)
 * ``no`` (Norwegian)
@@ -108,7 +109,7 @@ Besides the numerical argument, there are two main optional arguments.
 * ``sr`` (Serbian)
 * ``ro`` (Romanian)
 * ``ru`` (Russian)
-* ``sl`` (Slovene)
+* ``te`` (Telugu)
 * ``tr`` (Turkish)
 * ``th`` (Thai)
 * ``vi`` (Vietnamese)

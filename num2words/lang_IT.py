@@ -1,5 +1,6 @@
-# -*- encoding: utf-8 -*-
-#
+# -*- coding: utf-8 -*-
+# Copyright (c) 2018-2019, Filippo Costa.  All Rights Reserved.
+
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
 # License as published by the Free Software Foundation; either
@@ -51,6 +52,7 @@ def phonetic_contraction(string):
             .replace("ao", "o")  # ex. "settantaotto"
             .replace("io", "o")  # ex. "ventiotto"
             .replace("au", "u")  # ex. "trentauno"
+            .replace("iu", "u")  # ex. "ventiunesimo"
             )
 
 

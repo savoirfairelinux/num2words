@@ -123,7 +123,7 @@ class Num2Word_KO(Num2Word_Base):
         return ("%s년" % valtext if not suffix
                 else "%s %s년" % (suffix, valtext))
 
-    def to_currency(self, val, currency="KRW", cents=False, seperator="",
+    def to_currency(self, val, currency="KRW", cents=False, separator="",
                     adjective=False):
         left, right, is_negative = parse_currency_parts(
             val, is_int_with_cents=cents)

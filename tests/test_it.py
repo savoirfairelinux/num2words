@@ -1,5 +1,6 @@
-# -*- encoding: utf-8 -*-
-# Copyright (c) 2015, Savoir-faire Linux inc.  All Rights Reserved.
+# -*- coding: utf-8 -*-
+# Copyright (c) 2003, Taro Ogawa.  All Rights Reserved.
+# Copyright (c) 2013, Savoir-faire Linux inc.  All Rights Reserved.
 
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -77,6 +78,7 @@ class Num2WordsITTest(TestCase):
 
     def test_20_to_99(self):
         self.assertEqual(num2words(20, lang="it"), "venti")
+        self.assertEqual(num2words(21, lang="it"), "ventuno")
         self.assertEqual(num2words(23, lang="it"), "ventitré")
         self.assertEqual(num2words(28, lang="it"), "ventotto")
         self.assertEqual(num2words(31, lang="it"), "trentuno")
@@ -154,6 +156,9 @@ class Num2WordsITTest(TestCase):
         self.assertEqual(num2words(1, lang="it", ordinal=True), "primo")
         self.assertEqual(num2words(8, lang="it", ordinal=True), "ottavo")
         self.assertEqual(
+            num2words(21, lang="it", ordinal=True), "ventunesimo"
+        )
+        self.assertEqual(
             num2words(23, lang="it", ordinal=True), "ventitreesimo"
         )
         self.assertEqual(
@@ -170,6 +175,9 @@ class Num2WordsITTest(TestCase):
         )
         self.assertEqual(
             num2words(120, lang="it", ordinal=True), "centoventesimo"
+        )
+        self.assertEqual(
+            num2words(121, lang="it", ordinal=True), "centoventunesimo"
         )
         self.assertEqual(
             num2words(316, lang="it", ordinal=True), "trecentosedicesimo"

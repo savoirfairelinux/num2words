@@ -1,4 +1,5 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
+# Copyright (c) 2003, Taro Ogawa.  All Rights Reserved.
 # Copyright (c) 2013, Savoir-faire Linux inc.  All Rights Reserved.
 
 # This library is free software; you can redistribute it and/or
@@ -13,6 +14,7 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301 USA
+
 from __future__ import unicode_literals
 
 from unittest import TestCase
@@ -98,27 +100,27 @@ class Num2WordsUKTest(TestCase):
         )
         # self.assertEqual(
         #     num2words(10111, lang='uk', to='currency', currency='EUR',
-        #               seperator=u' та'),
+        #               separator=u' та'),
         #     "сто один євро та одинадцять центiв"
         # )
         self.assertEqual(
             num2words(10121, lang='uk', to='currency', currency='UAH',
-                      seperator=u' та'),
+                      separator=u' та'),
             "сто одна гривня та двадцять одна копiйка"
         )
         self.assertEqual(
             num2words(10121, lang='uk', to='currency', currency='UAH',
-                      seperator=u' та'),
+                      separator=u' та'),
             "сто одна гривня та двадцять одна копiйка"
         )
         self.assertEqual(
             num2words(10122, lang='uk', to='currency', currency='UAH',
-                      seperator=u' та'),
+                      separator=u' та'),
             "сто одна гривня та двадцять двi копiйки"
         )
         # self.assertEqual(
         #     num2words(10121, lang='uk', to='currency', currency='EUR',
-        #               seperator=u' та'),
+        #               separator=u' та'),
         #     "сто один євро та двадцять один цент"
         # )
         self.assertEqual(
@@ -127,7 +129,7 @@ class Num2WordsUKTest(TestCase):
             "мiнус дванадцять тисяч п'ятсот дев'ятнадцять євро, 85 центiв"
         )
         self.assertEqual(
-            num2words('38.4', lang='uk', to='currency', seperator=' и',
+            num2words('38.4', lang='uk', to='currency', separator=' и',
                       cents=False, currency='EUR'),
             "тридцять вiсiм євро и 40 центiв"
         )

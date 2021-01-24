@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 # Copyright (c) 2003, Taro Ogawa.  All Rights Reserved.
 # Copyright (c) 2013, Savoir-faire Linux inc.  All Rights Reserved.
 
@@ -41,7 +41,9 @@ class Num2Word_EU(Num2Word_Base):
         'NOK': (('krone', 'kroner'), ('øre', 'øre')),
         'PLN': (('zloty', 'zlotys', 'zlotu'), ('grosz', 'groszy')),
         'MXN': (('peso', 'pesos'), GENERIC_CENTS),
-        'RON': (('leu', 'lei'), ('ban', 'bani')),
+        'RON': (('leu', 'lei', 'de lei'), ('ban', 'bani', 'de bani')),
+        'INR': (('rupee', 'rupees'), ('paisa', 'paise')),
+        'HUF': (('forint', 'forint'), ('fillér', 'fillér'))
     }
 
     CURRENCY_ADJECTIVES = {
@@ -53,6 +55,8 @@ class Num2Word_EU(Num2Word_Base):
         'NOK': 'Norwegian',
         'MXN': 'Mexican',
         'RON': 'Romanian',
+        'INR': 'Indian',
+        'HUF': 'Hungarian'
     }
 
     GIGA_SUFFIX = "illiard"

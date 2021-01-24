@@ -1,5 +1,20 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+# Copyright (c) 2003, Taro Ogawa.  All Rights Reserved.
+# Copyright (c) 2013, Savoir-faire Linux inc.  All Rights Reserved.
+
+# This library is free software; you can redistribute it and/or
+# modify it under the terms of the GNU Lesser General Public
+# License as published by the Free Software Foundation; either
+# version 2.1 of the License, or (at your option) any later version.
+# This library is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+# Lesser General Public License for more details.
+# You should have received a copy of the GNU Lesser General Public
+# License along with this library; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+# MA 02110-1301 USA
 
 from __future__ import unicode_literals
 
@@ -7,6 +22,7 @@ import os
 import unittest
 
 import delegator
+
 import num2words
 
 
@@ -72,7 +88,7 @@ class CliTestCase(unittest.TestCase):
         self.assertEqual(output.return_code, 0)
         self.assertEqual(
             output.out.strip(),
-            "one hundred and fifty point zero"
+            "one hundred and fifty"
         )
 
     def test_cli_with_lang(self):
@@ -82,15 +98,16 @@ class CliTestCase(unittest.TestCase):
         self.assertEqual(output.return_code, 0)
         self.assertEqual(
             output.out.strip(),
-            "ciento cincuenta punto cero"
+            "ciento cincuenta"
         )
 
     def test_cli_with_lang_to(self):
-        """You should be able to specify a language
+        """You should be able to specify a language and currency
         """
         output = self.cli.run_cmd(150.55, '--lang', 'es', '--to', 'currency')
         self.assertEqual(output.return_code, 0)
         self.assertEqual(
-            output.out.strip(),
-            "ciento cincuenta euros con cincuenta y cinco centimos"
+            (output.out.decode('utf-8') if hasattr(output.out, 'decode') else
+             output.out).strip(),
+            "ciento cincuenta euros con cincuenta y cinco céntimos"
         )

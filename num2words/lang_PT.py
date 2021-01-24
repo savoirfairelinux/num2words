@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 # Copyright (c) 2003, Taro Ogawa.  All Rights Reserved.
 # Copyright (c) 2013, Savoir-faire Linux inc.  All Rights Reserved.
 
@@ -216,13 +215,13 @@ class Num2Word_PT(Num2Word_EU):
             return self.to_cardinal(abs(val)) + ' antes de Cristo'
         return self.to_cardinal(val)
 
-    def to_currency(self, val, currency='EUR', cents=True, seperator=' e',
+    def to_currency(self, val, currency='EUR', cents=True, separator=' e',
                     adjective=False):
         # change negword because base.to_currency() does not need space after
         backup_negword = self.negword
         self.negword = self.negword[:-1]
         result = super(Num2Word_PT, self).to_currency(
-            val, currency=currency, cents=cents, seperator=seperator,
+            val, currency=currency, cents=cents, separator=separator,
             adjective=adjective)
         # undo the change on negword
         self.negword = backup_negword

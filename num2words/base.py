@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright (c) 2003, Taro Ogawa.  All Rights Reserved.
 # Copyright (c) 2013, Savoir-faire Linux inc.  All Rights Reserved.
 
@@ -96,6 +97,9 @@ class Num2Word_Base(object):
             return '%s ' % self.negword, num_str[1:]
         return '', num_str
 
+    def str_to_number(self, value):
+        return Decimal(value)
+
     def to_cardinal(self, value):
         try:
             assert int(value) == value
@@ -135,7 +139,7 @@ class Num2Word_Base(object):
     def to_cardinal_float(self, value):
         try:
             float(value) == value
-        except (ValueError, TypeError, AssertionError):
+        except (ValueError, TypeError, AssertionError, AttributeError):
             raise TypeError(self.errmsg_nonnum % value)
 
         pre, post = self.float2tuple(float(value))
@@ -259,14 +263,14 @@ class Num2Word_Base(object):
     def _cents_terse(self, number, currency):
         return "%02d" % number
 
-    def to_currency(self, val, currency='EUR', cents=True, seperator=',',
+    def to_currency(self, val, currency='EUR', cents=True, separator=',',
                     adjective=False):
         """
         Args:
             val: Numeric value
             currency (str): Currency code
             cents (bool): Verbose cents
-            seperator (str): Cent seperator
+            separator (str): Cent separator
             adjective (bool): Prefix currency name with adjective
         Returns:
             str: Formatted string
@@ -293,7 +297,7 @@ class Num2Word_Base(object):
             minus_str,
             self.to_cardinal(left),
             self.pluralize(left, cr1),
-            seperator,
+            separator,
             cents_str,
             self.pluralize(right, cr2)
         )

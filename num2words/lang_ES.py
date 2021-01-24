@@ -1,5 +1,4 @@
-# encoding: UTF-8
-
+# -*- coding: utf-8 -*-
 # Copyright (c) 2003, Taro Ogawa.  All Rights Reserved.
 # Copyright (c) 2013, Savoir-faire Linux inc.  All Rights Reserved.
 
@@ -16,17 +15,19 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301 USA
 
-from __future__ import print_function, unicode_literals
+from __future__ import division, print_function, unicode_literals
+
+import math
 
 from .lang_EU import Num2Word_EU
 
 
 class Num2Word_ES(Num2Word_EU):
     CURRENCY_FORMS = {
-        'EUR': (('euro', 'euros'), ('centimo', 'centimos')),
-        'ESP': (('peseta', 'pesetas'), ('centimo', 'centimos')),
-        'USD': (('dolar', 'dolares'), ('centavo', 'centavos')),
-        'PEN': (('sol', 'soles'), ('centimo', 'centimos')),
+        'EUR': (('euro', 'euros'), ('céntimo', 'céntimos')),
+        'ESP': (('peseta', 'pesetas'), ('céntimo', 'céntimos')),
+        'USD': (('dolar', 'dólares'), ('centavo', 'centavos')),
+        'PEN': (('sol', 'soles'), ('céntimo', 'céntimos')),
     }
 
     # //CHECK: Is this sufficient??
@@ -121,47 +122,47 @@ class Num2Word_ES(Num2Word_EU):
 
     def to_ordinal(self, value):
         self.verify_ordinal(value)
-        try:
-            if value == 0:
-                text = ""
-            elif value <= 10:
-                text = "%s%s" % (self.ords[value], self.gender_stem)
-            elif value <= 12:
-                text = (
-                    "%s%s%s" % (self.ords[10], self.gender_stem,
-                                self.to_ordinal(value - 10))
-                        )
-            elif value <= 100:
-                dec = (value // 10) * 10
-                text = (
-                    "%s%s %s" % (self.ords[dec], self.gender_stem,
-                                 self.to_ordinal(value - dec))
-                        )
-            elif value <= 1e3:
-                cen = (value // 100) * 100
-                text = (
-                    "%s%s %s" % (self.ords[cen], self.gender_stem,
-                                 self.to_ordinal(value - cen))
-                        )
-            elif value < 1e18:
-                # dec contains the following:
-                # [ 1e3,  1e6): 1e3
-                # [ 1e6,  1e9): 1e6
-                # [ 1e9, 1e12): 1e9
-                # [1e12, 1e15): 1e12
-                # [1e15, 1e18): 1e15
-                dec = 10 ** ((((len(str(int(value))) - 1) / 3 - 1) + 1) * 3)
-                part = int(float(value / dec) * dec)
-                cardinal = (
-                    self.to_cardinal(part / dec) if part / dec != 1 else ""
+        if value == 0:
+            text = ""
+        elif value <= 10:
+            text = "%s%s" % (self.ords[value], self.gender_stem)
+        elif value <= 12:
+            text = (
+                "%s%s%s" % (self.ords[10], self.gender_stem,
+                            self.to_ordinal(value - 10))
                     )
-                text = (
-                    "%s%s%s %s" % (cardinal, self.ords[dec], self.gender_stem,
-                                   self.to_ordinal(value - part))
-                        )
-            else:
-                text = self.to_cardinal(value)
-        except KeyError:
+        elif value <= 100:
+            dec = (value // 10) * 10
+            text = (
+                "%s%s %s" % (self.ords[dec], self.gender_stem,
+                             self.to_ordinal(value - dec))
+                    )
+        elif value <= 1e3:
+            cen = (value // 100) * 100
+            text = (
+                "%s%s %s" % (self.ords[cen], self.gender_stem,
+                             self.to_ordinal(value - cen))
+                    )
+        elif value < 1e18:
+            # Round down to the nearest 1e(3n)
+            # dec contains the following:
+            # [ 1e3,  1e6): 1e3
+            # [ 1e6,  1e9): 1e6
+            # [ 1e9, 1e12): 1e9
+            # [1e12, 1e15): 1e12
+            # [1e15, 1e18): 1e15
+            dec = 1000 ** int(math.log(int(value), 1000))
+
+            # Split the parts before and after the word for 'dec'
+            # eg (12, 345) = divmod(12_345, 1_000)
+            high_part, low_part = divmod(value, dec)
+
+            cardinal = self.to_cardinal(high_part) if high_part != 1 else ""
+            text = (
+                "%s%s%s %s" % (cardinal, self.ords[dec], self.gender_stem,
+                               self.to_ordinal(low_part))
+                    )
+        else:
             text = self.to_cardinal(value)
         return text.strip()
 
@@ -169,10 +170,10 @@ class Num2Word_ES(Num2Word_EU):
         self.verify_ordinal(value)
         return "%s%s" % (value, "º" if self.gender_stem == 'o' else "ª")
 
-    def to_currency(self, val, currency='EUR', cents=True, seperator=' con',
+    def to_currency(self, val, currency='EUR', cents=True, separator=' con',
                     adjective=False):
         result = super(Num2Word_ES, self).to_currency(
-            val, currency=currency, cents=cents, seperator=seperator,
+            val, currency=currency, cents=cents, separator=separator,
             adjective=adjective)
         # Handle exception, in spanish is "un euro" and not "uno euro"
         return result.replace("uno", "un")

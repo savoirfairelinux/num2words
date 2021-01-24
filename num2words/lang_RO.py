@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 # Copyright (c) 2003, Taro Ogawa.  All Rights Reserved.
 # Copyright (c) 2013, Savoir-faire Linux inc.  All Rights Reserved.
 
@@ -23,8 +23,9 @@ from . import lang_EU
 class Num2Word_RO(lang_EU.Num2Word_EU):
     GIGA_SUFFIX = "iliard/e"
     MEGA_SUFFIX = "ilion"
-    # inflection for million follows different rule
+    # inflection for mi/billion follows different rule
     MEGA_SUFFIX_I = "ilioane"
+    GIGA_SUFFIX_I = "iliarde"
 
     def setup(self):
         super(Num2Word_RO, self).setup()
@@ -48,13 +49,13 @@ class Num2Word_RO(lang_EU.Num2Word_EU):
                              "unu", "zero"]
         self.gen_numwords = ["", "o", "două", "trei", "patru", "cinci",
                              "șase", "șapte", "opt", "nouă"]
-        self.gen_numwords_m = ["", "un", "două", "trei", "patru", "cinci",
+        self.gen_numwords_n = ["", "un", "două", "trei", "patru", "cinci",
                                "șase", "șapte", "opt", "nouă"]
         self.numwords_inflections = {
             100: self.gen_numwords,
             1000: self.gen_numwords,
-            1000000: self.gen_numwords_m,
-            1000000000: self.gen_numwords_m
+            1000000: self.gen_numwords_n,
+            1000000000: self.gen_numwords_n
         }
         self.ords = {"unu": "primul",
                      "doi": "al doilea",
@@ -67,24 +68,29 @@ class Num2Word_RO(lang_EU.Num2Word_EU):
     def merge(self, lpair, rpair):
         ltext, lnum = lpair
         rtext, rnum = rpair
-        rtext_i = self.inflect(rnum, rtext)
-        if lnum > 1 and rtext_i.endswith(self.MEGA_SUFFIX):
-            rtext_i = rtext_i.replace(self.MEGA_SUFFIX, self.MEGA_SUFFIX_I)
+        rtext_i = self.inflect(rnum, rtext, lnum)
         if 1 <= lnum < 10:
             if rnum not in self.numwords_inflections:
                 return (rtext, rnum)
             else:
-                rtext_i = self.inflect(lnum * rnum, rtext)
+                rtext_i = self.inflect(lnum * rnum, rtext, lnum)
                 lresult = (self.numwords_inflections[rnum][lnum], rtext_i)
                 return ("%s %s" % lresult, rnum)
         elif 10 < lnum < 100:
             if lnum % 10 == 0:
-                return ("%s și %s" % (ltext, rtext), lnum + rnum)
+                if rnum in self.numwords_inflections:
+                    rtext_i = self.inflect(lnum * rnum, rtext, lnum)
+                    return ("%s %s" % (ltext, rtext_i), lnum * rnum)
+                else:
+                    return ("%s și %s" % (ltext, rtext), lnum + rnum)
             else:
-                return ("%s %s" % (ltext, rtext_i), lnum * rnum)
+                rtext_i = self.inflect(lnum * rnum, rtext, lnum)
+                ltext_i = ltext if lnum % 10 != 2 \
+                    else ltext.replace("doi", "două")
+                return ("%s %s" % (ltext_i, rtext_i), lnum * rnum)
         else:
             if rnum in self.numwords_inflections:
-                rtext_i = self.inflect(lnum * rnum, rtext)
+                rtext_i = self.inflect(lnum * rnum, rtext, lnum)
             return ("%s %s" % (ltext, rtext_i), lnum * rnum)
 
     def to_ordinal(self, value):
@@ -101,21 +107,52 @@ class Num2Word_RO(lang_EU.Num2Word_EU):
             return "1-ul"
         return "al %s-lea" % (value)
 
-    def inflect(self, value, text):
-        text = text.split("/")
-        if value in (1, 100, 1000, 100000, 1000000000):
-            return text[0]
-        if len(text) > 1 and text[0][-1] in "aăeiou":
-            text[0] = text[0][:-1]
-        return "".join(text)
+    def pluralize(self, n, forms):
+        if n == 1:
+            form = 0
+        elif n == 0 or (n % 100 > 0 and n % 100 < 20):
+            form = 1
+        else:
+            form = 2
+        return forms[form]
 
-    def to_currency(self, val, longval=True, old=False):
-        cents = int(round(val*100))
-        result = self.to_splitnum(cents, hightxt="leu/i", lowtxt="ban/i",
-                                  divisor=100, jointxt="și", longval=longval)
+    def inflect(self, value, text, side_effect=-1):
+        text = text.split("/")
+        result = text[0]
+        if len(text) > 1:
+            forms = [
+                text[0],
+                text[0][:-1] + text[1],
+                "de " + text[0][:-1] + text[1]
+            ]
+            result = self.pluralize(side_effect, forms)
+        # mega inflections are different
+        if side_effect > 1 and result.endswith(self.MEGA_SUFFIX):
+            result = result.replace(self.MEGA_SUFFIX, self.MEGA_SUFFIX_I)
+        elif side_effect > 1 and result.endswith("iliare"):
+            result = result.replace("iliare", self.GIGA_SUFFIX_I)
+        return result
+
+    def to_currency(self, val, currency="RON", cents=False, separator=" și",
+                    adjective=False):
+        # romanian currency has a particularity for numeral: one
+        self.gen_numwords[1] = "una"
+        result = super(Num2Word_RO, self).to_currency(
+            int(round(val*100)),
+            currency,
+            True,
+            separator,
+            adjective
+        )
+        self.gen_numwords[1] = "o"  # revert numeral
         return result.replace(
             "unu leu", "un leu"
-        ).replace("unu ban", "un ban")
+        ).replace(
+            "unu ban", "un ban"
+        ).replace(
+            # if the romanian low text is 0, it is not usually printed
+            separator + " zero bani", ""
+        )
 
     def to_year(self, val, suffix=None, longval=True):
         result = super(Num2Word_RO, self).to_year(

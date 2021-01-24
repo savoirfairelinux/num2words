@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright (c) 2003, Taro Ogawa.  All Rights Reserved.
 # Copyright (c) 2013, Savoir-faire Linux inc.  All Rights Reserved.
 
@@ -20,8 +21,13 @@ from .lang_FR import Num2Word_FR
 
 
 class Num2Word_FR_DZ(Num2Word_FR):
-    def to_currency(self, val, longval=True, cents=True, jointxt="virgule"):
-        return self.to_splitnum(
-            val, hightxt="dinard/s", lowtxt="centime/s", divisor=1,
-            jointxt=jointxt, longval=longval, cents=cents
-        )
+    CURRENCY_FORMS = {
+        'DIN': (('dinard', 'dinards'), ('centime', 'centimes')),
+    }
+
+    def to_currency(self, val, currency='DIN', cents=True, separator=' et',
+                    adjective=False):
+        result = super(Num2Word_FR, self).to_currency(
+            val, currency=currency, cents=cents, separator=separator,
+            adjective=adjective)
+        return result
