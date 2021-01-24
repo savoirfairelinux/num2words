@@ -90,8 +90,14 @@ class Num2Word_FA(object):
         self.precision = abs(Decimal(str(value)).as_tuple().exponent)
 
         post = abs(value - pre) * 10**self.precision
-        post = int(math.floor(post))
-
+        if abs(round(post) - post) < 0.01:
+            # We generally floor all values beyond our precision (rather than
+            # rounding), but in cases where we have something like 1.239999999,
+            # which is probably due to python's handling of floats, we actually
+            # want to consider it as 1.24 instead of 1.23
+            post = int(round(post))
+        else:
+            post = int(floor(post))
         return pre, post, self.precision
 
 
