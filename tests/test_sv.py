@@ -24,6 +24,7 @@ from num2words import num2words
 
 class Num2WordsSVTest(TestCase):
     def test_ordinal(self):
+        self.assertEqual(num2words(14, to="ordinal", lang="sv"), "fjortonde")
         self.assertEqual(num2words(1435, to="ordinal", lang="sv"), "etttusen fyrahundratrettiofemte")
         self.assertEqual(num2words(32, to="ordinal", lang="sv"), "trettioandra")
         self.assertEqual(num2words(1, to="ordinal", lang="sv"), "första")
@@ -44,3 +45,17 @@ class Num2WordsSVTest(TestCase):
         self.assertEqual(num2words(14004235000, to="cardinal", lang="sv"), "fjorton miljarder fyra miljoner tvåhundratrettiofemtusen")
         self.assertEqual(num2words(14004235, to="cardinal", lang="sv"), "fjorton miljoner fyratusen tvåhundratrettiofem")
         self.assertEqual(num2words(1.25, to="cardinal", lang="sv"), "ett komma två fem")
+
+    def test_not_implemented_options(self):
+
+        with self.assertRaises(NotImplementedError) as context:
+            num2words(1235, to="year", lang="sv")
+        self.assertTrue("'year' is not implemented for swedish language" in str(context.exception))
+
+        with self.assertRaises(NotImplementedError) as context:
+            num2words(1235, to="currency", lang="sv")
+        self.assertTrue("'currency' is not implemented for swedish language" in str(context.exception))
+
+        with self.assertRaises(NotImplementedError) as context:
+            num2words(1235, to="ordinal_num", lang="sv")
+        self.assertTrue("'ordinal_num' is not implemented for swedish language" in str(context.exception))

@@ -96,22 +96,22 @@ class Num2Word_SV(lang_EU.Num2Word_EU):
                 lastword_ending = self.ords[lastword[-3:]]
                 ending_length = 3
             except KeyError:
-                lastword += "de"
-        lastword_first_part = self.title(lastword)[:-ending_length]
+                # lastword += "de"
+                lastword_ending = "de"
+        if lastword_ending == 'de':
+            lastword_first_part = self.title(lastword)[:]
+        else:
+            lastword_first_part = self.title(lastword)[:-ending_length]
         lastword_correct = lastword_first_part + lastword_ending
         outwords[-1] = lastword_correct
         return " ".join(outwords)
 
     def to_ordinal_num(self, value):
-        self.verify_ordinal(value)
-        return "%s%s" % (value, self.to_ordinal(value)[-2:])
+        raise NotImplementedError("'ordinal_num' is not implemented for swedish language")
 
     def to_year(self, val, longval=True):
-        if not (val // 100) % 10:
-            return self.to_cardinal(val)
-        return self.to_splitnum(val, hightxt="hundra", jointxt="och",
-                                longval=longval)
+        raise NotImplementedError("'year' is not implemented for swedish language")
+
 
     def to_currency(self, val, longval=True):
-        return self.to_splitnum(val, hightxt="krone/r", lowtxt="öre/n",
-                                jointxt="och", longval=longval, cents=True)
+        raise NotImplementedError("'currency' is not implemented for swedish language")
