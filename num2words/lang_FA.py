@@ -17,7 +17,6 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301 USA
 
-import re
 from decimal import Decimal
 from math import floor
 
@@ -76,6 +75,7 @@ farsiFracBig = ["", "هزارم", "میلیونیم", "میلیاردیم"]
 
 farsiSeperator = ' و '
 
+
 class Num2Word_FA(object):
     errmsg_too_big = "Too large"
     max_num = 10 ** 36
@@ -100,7 +100,6 @@ class Num2Word_FA(object):
             post = int(floor(post))
         return pre, post, self.precision
 
-
     def cardinal3(self, number):
         if (number < 19):
             return farsiOnes[number]
@@ -108,12 +107,12 @@ class Num2Word_FA(object):
             x, y = divmod(number, 10)
             if y == 0:
                 return farsiTens[x]
-            return farsiTens[x] + farsiSeperator + farsiOnes[y] 
+            return farsiTens[x] + farsiSeperator + farsiOnes[y]
         x, y = divmod(number, 100)
         if y == 0:
             return farsiHundreds[x]
         return farsiHundreds[x] + farsiSeperator + self.cardinal3(y)
-    
+
     def cardinalPos(self, number):
         x = number
         res = ''
@@ -130,11 +129,11 @@ class Num2Word_FA(object):
                 res = yx + farsiSeperator + res
         return res
 
-    def fractional(self, number, l):
+    def fractional(self, number, level):
         if (number == 5):
             return "نیم"
         x = self.cardinalPos(number)
-        ld3, lm3 = divmod(l, 3)
+        ld3, lm3 = divmod(level, 3)
         ltext = (farsiFrac[lm3] + " " + farsiFracBig[ld3]).strip()
         return x + " " + ltext
 
@@ -158,9 +157,9 @@ class Num2Word_FA(object):
             return "منفی " + self.to_cardinal(-number)
         if (number == 0):
             return "صفر"
-        x, y, l = self.float2tuple(number)
+        x, y, level = self.float2tuple(number)
         if y == 0:
             return self.cardinalPos(x)
         if x == 0:
-            return self.fractional(y, l)
-        return self.cardinalPos(x) + farsiSeperator + self.fractional(y, l)
+            return self.fractional(y, level)
+        return self.cardinalPos(x) + farsiSeperator + self.fractional(y, level)

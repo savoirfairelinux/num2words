@@ -62,16 +62,21 @@ class Num2WordsFATest(TestCase):
         self.assertEqual(num2words(-203, lang='fa'), "منفی دویست و سه")
         self.assertEqual(
             num2words(1234567890, lang='fa'),
-            "یک میلیارد و دویست و سی و چهار میلیون و پانصد و شصت و هفت هزار و هشتصد و نود"
+            "یک میلیارد و دویست و سی و چهار میلیون و"
+            " پانصد و شصت و هفت هزار و هشتصد و نود"
         )
 
     def test_year(self):
-        self.assertEqual(num2words(1398, lang='fa', to='year'), "هزار و سیصد و نود و هشت")
-        self.assertEqual(num2words(1399, lang='fa', to='year'), "هزار و سیصد و نود و نه")
-        self.assertEqual(num2words(1400, lang='fa', to='year'), "هزار و چهارصد")    
-        
+        self.assertEqual(num2words(1398, lang='fa', to='year'),
+                         "هزار و سیصد و نود و هشت")
+        self.assertEqual(num2words(1399, lang='fa', to='year'),
+                         "هزار و سیصد و نود و نه")
+        self.assertEqual(
+            num2words(1400, lang='fa', to='year'), "هزار و چهارصد")
+
     def test_currency(self):
-        self.assertEqual(num2words(1000, lang='fa', to='currency'), 'هزار تومان')
+        self.assertEqual(
+            num2words(1000, lang='fa', to='currency'), 'هزار تومان')
         self.assertEqual(
             num2words(1500000, lang='fa', to='currency'),
             'یک میلیون و پانصد هزار تومان'
@@ -86,9 +91,12 @@ class Num2WordsFATest(TestCase):
     def test_cardinal_for_float_number(self):
         self.assertEqual(num2words(12.5, lang='fa'), "دوازده و نیم")
         self.assertEqual(num2words(0.75, lang='fa'), "هفتاد و پنج صدم")
-        self.assertEqual(num2words(12.51, lang='fa'), "دوازده و پنجاه و یک صدم")
-        self.assertEqual(num2words(12.53, lang='fa'), "دوازده و پنجاه و سه صدم")
-        self.assertEqual(num2words(12.59, lang='fa'), "دوازده و پنجاه و نه صدم")
+        self.assertEqual(num2words(12.51, lang='fa'),
+                         "دوازده و پنجاه و یک صدم")
+        self.assertEqual(num2words(12.53, lang='fa'),
+                         "دوازده و پنجاه و سه صدم")
+        self.assertEqual(num2words(12.59, lang='fa'),
+                         "دوازده و پنجاه و نه صدم")
         self.assertEqual(num2words(0.000001, lang='fa'), "یک میلیونیم")
 
     def test_overflow(self):
