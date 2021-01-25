@@ -1,4 +1,4 @@
-num2words - Convert numbers to words in multiple languages
+num2words library - Convert numbers to words in multiple languages
 ==========================================================
 
 .. image:: https://img.shields.io/pypi/v/num2words.svg
