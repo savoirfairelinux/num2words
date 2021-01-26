@@ -86,17 +86,15 @@ class Num2Word_SV(lang_EU.Num2Word_EU):
         self.verify_ordinal(value)
         outwords = self.to_cardinal(value).split(" ")
         lastword = outwords[-1]
-        # lastword = lastwords[-1].lower()
         ending_length = 0
         try:
             lastword_ending = self.ords[lastword[-4:]]
             ending_length = 4
-        except:
+        except KeyError:
             try:
                 lastword_ending = self.ords[lastword[-3:]]
                 ending_length = 3
             except KeyError:
-                # lastword += "de"
                 lastword_ending = "de"
         if lastword_ending == 'de':
             lastword_first_part = self.title(lastword)[:]
