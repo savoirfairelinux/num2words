@@ -115,6 +115,7 @@ Besides the numerical argument, there are two main optional arguments.
 * ``vi`` (Vietnamese)
 * ``nl`` (Dutch)
 * ``uk`` (Ukrainian)
+* ``zh_TW`` (Chinese - Taiwan)
 
 You can supply values like ``fr_FR``; if the country doesn't exist but the
 language does, the code will fall back to the base language (i.e. ``fr``). If
