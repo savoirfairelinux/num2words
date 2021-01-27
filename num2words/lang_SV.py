@@ -42,7 +42,7 @@ class Num2Word_SV(lang_EU.Num2Word_EU):
         self.exclude_title = ["och", "komma", "minus"]
 
         self.mid_numwords = [(1000, "tusen"), (100, "hundra"),
-                             (90, "nittio"), (80, "\åttio"), (70, "sjuttio"),
+                             (90, "nittio"), (80, "åttio"), (70, "sjuttio"),
                              (60, "sextio"), (50, "femtio"), (40, "förtio"),
                              (30, "trettio")]
         self.low_numwords = ["tjugo", "nitton", "arton", "sjutton",
@@ -105,11 +105,13 @@ class Num2Word_SV(lang_EU.Num2Word_EU):
         return " ".join(outwords)
 
     def to_ordinal_num(self, value):
-        raise NotImplementedError("'ordinal_num' is not implemented for swedish language")
+        raise NotImplementedError(
+            "'ordinal_num' is not implemented for swedish language")
 
     def to_year(self, val, longval=True):
-        raise NotImplementedError("'year' is not implemented for swedish language")
-
+        raise NotImplementedError(
+            "'year' is not implemented for swedish language")
 
     def to_currency(self, val, longval=True):
-        raise NotImplementedError("'currency' is not implemented for swedish language")
+        raise NotImplementedError(
+            "'currency' is not implemented for swedish language")
