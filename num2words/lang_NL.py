@@ -76,7 +76,8 @@ class Num2Word_NL(Num2Word_EU):
                              "zes", "vijf", "vier", "drie", "twee", "één",
                              "nul"]
 
-        self.ords = {"één": "eerst",
+        self.ords = {"nul": "nuld",
+                     "één": "eerst",
                      "twee": "tweed",
                      "drie": "derd",
                      "vier": "vierd",
