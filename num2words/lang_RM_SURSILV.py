@@ -167,7 +167,7 @@ class Num2Word_RM_SURSILV:
         if thousands != 1:
             prefix = self.to_cardinal(thousands) + "melli"
         postfix = omitt_if_zero(self.to_cardinal(hundreds))
-        # "e/ed" is inserted if tens >= 101
+        # "e/ed" is inserted if tens <= 100
         infix = ""
         if hundreds <= 100 and postfix != "":
             infix = "e"
