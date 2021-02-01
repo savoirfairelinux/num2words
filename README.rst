@@ -1,4 +1,4 @@
-num2words - Convert numbers to words in multiple languages
+num2words library - Convert numbers to words in multiple languages
 ==========================================================
 
 .. image:: https://img.shields.io/pypi/v/num2words.svg
@@ -110,6 +110,7 @@ Besides the numerical argument, there are two main optional arguments.
 * ``rm`` (Rumantsch Grischun)
 * ``rm_sursilv`` (Rumantsch Sursilvan)
 * ``rm_vallader`` (Rumantsch Vallader)
+* ``sv`` (Swedish)
 * ``ro`` (Romanian)
 * ``ru`` (Russian)
 * ``te`` (Telugu)
