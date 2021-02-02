@@ -180,14 +180,13 @@ class Num2WordsRMSURMIRANTest(TestCase):
         self.assertEqual(num2words(10000, lang="rm_surmiran"), "dieschmella")
         self.assertEqual(num2words(10001, lang="rm_surmiran"), "dieschmelladegn")
         self.assertEqual(
+            num2words(32000, lang="rm_surmiran"), "trentadumella"
+        )
+        self.assertEqual(
             num2words(98765, lang="rm_surmiran"),
             "novantotgmellasettschentsessantatschintg"
         )
         self.assertEqual(num2words(100000, lang="rm_surmiran"), "tschentmella")
-        self.assertEqual(
-            num2words(523456, lang="rm_surmiran"),
-            "tschintgtschentvantgatremellaquattertschenttschuncantaseis"
-        )
 
     def test_big(self):
         self.assertEqual(num2words(1000000, lang="rm_surmiran"), "en milliun")
@@ -208,6 +207,10 @@ class Num2WordsRMSURMIRANTest(TestCase):
         self.assertEqual(num2words(3000000, lang="rm_surmiran"), "treis milliuns")
         self.assertEqual(
             num2words(3000005, lang="rm_surmiran"), "treis milliuns a tschintg"
+        )
+        self.assertEqual(
+            num2words(523456, lang="rm_surmiran"),
+            "tschintgtschentvantgatremellaquattertschenttschuncantaseis"
         )
         self.assertEqual(
             num2words(3800000, lang="rm_surmiran"), "treis milliuns otgtschentmella"
