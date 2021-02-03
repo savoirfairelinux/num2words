@@ -16,6 +16,7 @@
 # MA 02110-1301 USA
 
 from __future__ import unicode_literals
+import os
 
 from . import (lang_AR, lang_CZ, lang_DE, lang_DK, lang_EN, lang_EN_IN,
                lang_ES, lang_ES_CO, lang_ES_NI, lang_ES_VE, lang_FI, lang_FR,
