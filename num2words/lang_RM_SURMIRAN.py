@@ -96,7 +96,8 @@ def adapt_milliarda(string):
     string = " " + string + " "
     return (string
             .replace(" en milliarda ", " ena milliarda ")
-            .replace(" a en", " ad egn")               # check if 'e' or 'a'
+            .replace(" a endesch", " ad endesch")
+            .replace(" a en", " ad egn")
             .replace(" a otg", " ad otg")
             )
 
@@ -161,7 +162,7 @@ class Num2Word_RM_SURMIRAN:
         # surmiran's "and" is normally "e/ed", but in numbers, "a/ad" is used
         infix = ""
         if (tens > 0 and tens <= 13) or tens in [15, 16, 20, 30]:
-            infix = "a"                                   #check
+            infix = "a"
         return adapt_hundred(prefix + infix + postfix)
 
     def thousands_to_cardinal(self, number):
@@ -171,10 +172,10 @@ class Num2Word_RM_SURMIRAN:
         if thousands != 1:
             prefix = self.to_cardinal(thousands) + "mella"
         postfix = omitt_if_zero(self.to_cardinal(hundreds))
-        # "e/ed" is inserted if tens <= 100               #check
+        # "a/ad" is inserted if tens <= 100
         infix = ""
         if hundreds <= 100 and postfix != "":
-            infix = "a"                                   #check
+            infix = "a"
         return adapt_thousand(prefix + infix + postfix)
 
     def big_number_to_cardinal(self, number):

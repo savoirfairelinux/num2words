@@ -198,6 +198,7 @@ class Num2WordsRMSURMIRANTest(TestCase):
         self.assertEqual(num2words(2000000, lang="rm_surmiran"), "dus milliuns")
         self.assertEqual(num2words(2000004, lang="rm_surmiran"), "dus milliuns a quatter")
         self.assertEqual(num2words(2000009, lang="rm_surmiran"), "dus milliuns a nov")
+        self.assertEqual(num2words(2000100, lang="rm_surmiran"), "dus milliuns a tschent")
         self.assertEqual(
             num2words(2200311, lang="rm_surmiran"), "dus milliuns dutschentmellatretschentadendesch"
         )
@@ -207,6 +208,12 @@ class Num2WordsRMSURMIRANTest(TestCase):
         self.assertEqual(num2words(3000000, lang="rm_surmiran"), "treis milliuns")
         self.assertEqual(
             num2words(3000005, lang="rm_surmiran"), "treis milliuns a tschintg"
+        )
+        self.assertEqual(
+            num2words(3000080, lang="rm_surmiran"), "treis milliuns ad otganta"
+        )
+        self.assertEqual(
+            num2words(20300000, lang="rm_surmiran"), "vantg milliuns tretschentmella"
         )
         self.assertEqual(
             num2words(523456, lang="rm_surmiran"),
@@ -219,9 +226,15 @@ class Num2WordsRMSURMIRANTest(TestCase):
         self.assertEqual(
             num2words(1000000017, lang="rm_surmiran"), "ena milliarda a dischset"
         )
+        self.assertEqual(
+            num2words(1020300000, lang="rm_surmiran"), "ena milliarda vantg milliuns tretschentmella"
+        )
         self.assertEqual(num2words(2000000000, lang="rm_surmiran"), "dus milliardas")
         self.assertEqual(
             num2words(2000001000, lang="rm_surmiran"), "dus milliardas a mella"
+        )
+        self.assertEqual(
+            num2words(2003000011, lang="rm_surmiran"), "dus milliardas treis milliuns ad endesch"
         )
         self.assertEqual(
             num2words(3000000100, lang="rm_surmiran"), "treis milliardas a tschent"
@@ -231,6 +244,9 @@ class Num2WordsRMSURMIRANTest(TestCase):
         )
         self.assertEqual(
             num2words(3002000100, lang="rm_surmiran"), "treis milliardas dus milliuns a tschent"
+        )
+        self.assertEqual(
+            num2words(3003000001, lang="rm_surmiran"), "treis milliardas treis milliuns ad egn"
         )
         self.assertEqual(
             num2words(3002000101, lang="rm_surmiran"), "treis milliardas dus milliuns a tschentadegn"
