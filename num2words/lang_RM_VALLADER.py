@@ -24,15 +24,16 @@ ZERO = "nolla"
 
 CARDINAL_WORDS = [
     ZERO, "ün", "duos", "trais", "quatter", "tschinch", "ses", "set", "ot",
-    "nouv", "desch", "ündesch", "dudesch", "traidesch", "quattordesch", "quindesch",
-    "saidesch", "deschset", "deschdot", "deschnouv"
+    "nouv", "desch", "ündesch", "dudesch", "traidesch", "quattordesch",
+    "quindesch", "saidesch", "deschset", "deschdot", "deschnouv"
 ]
 
 ORDINAL_WORDS = [
     ZERO, "prüm", "seguond", "terz", "quart", "tschinchavel", "sesavel",
-    "settavel", "ottavel", "nouvavel", "deschavel", "ündeschavel", "dudeschavel",
-    "traideschavel", "quattordeschavel", "quindeschavel", "saideschavel",
-    "deschsettavel", "deschdottavel", "deschnouvavel", "vainchavel"
+    "settavel", "ottavel", "nouvavel", "deschavel", "ündeschavel",
+    "dudeschavel", "traideschavel", "quattordeschavel", "quindeschavel",
+    "saideschavel", "deschsettavel", "deschdottavel", "deschnouvavel",
+    "vainchavel"
 ]
 
 # "20" = "vainch" / surface form is restaured during phonetic adaptation phase
@@ -56,9 +57,10 @@ def phonetic_contraction(string):
             .replace("eün", "ün")   # ex. "vaincheün" -> "vainchün"
             .replace("aot", "ot")   # ex. "quarantaot" -> "quarantot"
             .replace("eot", "ot")   # ex. "vaincheot" -> "vainchot"
-            .replace("vainche_", "vainch") # ex. "vainche" -> "vainch"
+            .replace("vainche_", "vainch")  # ex. "vainche" -> "vainch"
             .replace("_", "")
             )
+
 
 def adapt_hundred(string):
     '''apply surface modifications:
@@ -72,6 +74,7 @@ def adapt_hundred(string):
             .replace("eot", "edot")
             )
 
+
 def adapt_thousand(string):
     '''apply surface modifications:
          - collective plural
@@ -84,6 +87,7 @@ def adapt_thousand(string):
             .replace("eot", "edot")
             )
 
+
 def adapt_milliard(string):
     '''apply surface modifications:
          - article gender agreement
@@ -95,6 +99,7 @@ def adapt_milliard(string):
             .replace(" e ot", " ed ot")
             )
 
+
 def exponent_length_to_string(exponent_length):
     # We always assume `exponent` to be a multiple of 3. If it's not true, then
     # Num2Word_RM_VALLADER.big_number_to_cardinal did something wrong.
@@ -104,8 +109,10 @@ def exponent_length_to_string(exponent_length):
     else:
         return prefix + "illiard"
 
+
 def omitt_if_zero(number_to_string):
     return "" if number_to_string == ZERO else number_to_string
+
 
 def empty_if_zero(number_to_string):
     return "_" if number_to_string == ZERO else number_to_string
@@ -205,7 +212,8 @@ class Num2Word_RM_VALLADER:
 
     def to_cardinal(self, number):
         if number < 0:
-            string = Num2Word_RM_VALLADER.MINUS_PREFIX_WORD + self.to_cardinal(-number)
+            string = (Num2Word_RM_VALLADER.MINUS_PREFIX_WORD +
+                      self.to_cardinal(-number))
         elif isinstance(number, float):
             string = self.float_to_words(number)
         elif number < 20:
@@ -221,9 +229,10 @@ class Num2Word_RM_VALLADER:
         return string
 
     def to_ordinal(self, number):
-        tens = number % 100
         if number < 0:
-            return Num2Word_RM_VALLADER.MINUS_PREFIX_WORD + self.to_ordinal(-number)
+            ordinal = (Num2Word_RM_VALLADER.MINUS_PREFIX_WORD +
+                       self.to_ordinal(-number))
+            return ordinal
         elif number % 1 != 0:
             return self.float_to_words(number, ordinal=True)
         elif number <= 20:

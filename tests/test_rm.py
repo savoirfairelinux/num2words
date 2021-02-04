@@ -153,7 +153,8 @@ class Num2WordsRMTest(TestCase):
         self.assertEqual(num2words(400, lang="rm"), "quattertschient")
         self.assertEqual(num2words(409, lang="rm"), "quattertschientenov")
         self.assertEqual(num2words(410, lang="rm"), "quattertschientediesch")
-        self.assertEqual(num2words(472, lang="rm"), "quattertschientsettantadus")
+        self.assertEqual(
+            num2words(472, lang="rm"), "quattertschientsettantadus")
         self.assertEqual(num2words(701, lang="rm"), "settschientedin")
 
     def test_1000_to_9999(self):
@@ -197,43 +198,39 @@ class Num2WordsRMTest(TestCase):
             num2words(1200000, lang="rm"), "in milliun duatschientmilli"
         )
         self.assertEqual(num2words(2000000, lang="rm"), "dus milliuns")
-        self.assertEqual(num2words(2000004, lang="rm"), "dus milliuns e quatter")
+        self.assertEqual(
+            num2words(2000004, lang="rm"), "dus milliuns e quatter")
         self.assertEqual(num2words(2000009, lang="rm"), "dus milliuns e nov")
         self.assertEqual(
-            num2words(2200311, lang="rm"), "dus milliuns duatschientmillitraitschientedindesch"
-        )
+            num2words(2200311, lang="rm"),
+            "dus milliuns duatschientmillitraitschientedindesch")
         self.assertEqual(
-            num2words(2300000, lang="rm"), "dus milliuns traitschientmilli"
-        )
+            num2words(2300000, lang="rm"), "dus milliuns traitschientmilli")
         self.assertEqual(num2words(3000000, lang="rm"), "trais milliuns")
         self.assertEqual(
-            num2words(3000005, lang="rm"), "trais milliuns e tschintg"
-        )
+            num2words(3000005, lang="rm"), "trais milliuns e tschintg")
         self.assertEqual(
-            num2words(3800000, lang="rm"), "trais milliuns otgtschientmilli"
-        )
+            num2words(3800000, lang="rm"), "trais milliuns otgtschientmilli")
         self.assertEqual(num2words(1000000000, lang="rm"), "ina milliarda")
         self.assertEqual(
-            num2words(1000000017, lang="rm"), "ina milliarda e deschset"
-        )
+            num2words(1000000017, lang="rm"), "ina milliarda e deschset")
         self.assertEqual(num2words(2000000000, lang="rm"), "duas milliardas")
         self.assertEqual(
-            num2words(2000001000, lang="rm"), "duas milliardas e milli"
-        )
+            num2words(2000001000, lang="rm"), "duas milliardas e milli")
         self.assertEqual(
-            num2words(3000000100, lang="rm"), "trais milliardas e tschient"
-        )
+            num2words(3000000100, lang="rm"), "trais milliardas e tschient")
         self.assertEqual(
-            num2words(3000002000, lang="rm"), "trais milliardas e duamilli"
-        )
+            num2words(3000002000, lang="rm"), "trais milliardas e duamilli")
         self.assertEqual(
-            num2words(3002000100, lang="rm"), "trais milliardas dus milliuns e tschient"
-        )
+            num2words(3002000100, lang="rm"),
+            "trais milliardas dus milliuns e tschient")
         self.assertEqual(
-            num2words(3002000101, lang="rm"), "trais milliardas dus milliuns e tschientedin"
-        )
-        self.assertEqual(num2words(21000000000, lang="rm"), "ventgin milliardas")
-        self.assertEqual(num2words(22000000000, lang="rm"), "ventgaduas milliardas")
+            num2words(3002000101, lang="rm"),
+            "trais milliardas dus milliuns e tschientedin")
+        self.assertEqual(num2words(21000000000, lang="rm"),
+                         "ventgin milliardas")
+        self.assertEqual(num2words(22000000000, lang="rm"),
+                         "ventgaduas milliardas")
         self.assertEqual(
             num2words(1234567890, lang="rm"),
             "ina milliarda duatschienttrentaquatter milliuns "
@@ -257,56 +254,43 @@ class Num2WordsRMTest(TestCase):
         self.assertEqual(num2words(20, lang="rm", ordinal=True), "ventgavel")
         self.assertEqual(num2words(21, lang="rm", ordinal=True), "ventginavel")
         self.assertEqual(
-            num2words(27, lang="rm", ordinal=True), "ventgasettavel"
-        )
+            num2words(27, lang="rm", ordinal=True), "ventgasettavel")
         self.assertEqual(
-            num2words(48, lang="rm", ordinal=True), "quarantotgavel"
-        )
+            num2words(48, lang="rm", ordinal=True), "quarantotgavel")
         self.assertEqual(num2words(60, lang="rm", ordinal=True), "sessantavel")
         self.assertEqual(
-            num2words(99, lang="rm", ordinal=True), "novantanovavel"
-        )
+            num2words(99, lang="rm", ordinal=True), "novantanovavel")
 
     def test_nth_100_to_999(self):
-        self.assertEqual(num2words(100, lang="rm", ordinal=True), "tschientavel")
+        self.assertEqual(num2words(100, lang="rm", ordinal=True),
+                         "tschientavel")
         self.assertEqual(
-            num2words(112, lang="rm", ordinal=True), "tschientedudeschavel"
-        )
+            num2words(112, lang="rm", ordinal=True), "tschientedudeschavel")
         self.assertEqual(
-            num2words(137, lang="rm", ordinal=True), "tschienttrentasettavel"
-        )
+            num2words(137, lang="rm", ordinal=True), "tschienttrentasettavel")
         self.assertEqual(
-            num2words(700, lang="rm", ordinal=True), "settschientavel"
-        )
+            num2words(700, lang="rm", ordinal=True), "settschientavel")
 
     def test_nth_1000_to_999999(self):
         self.assertEqual(num2words(1000, lang="rm", ordinal=True), "milliavel")
         self.assertEqual(
-            num2words(1001, lang="rm", ordinal=True), "milliedinavel"
-        )
+            num2words(1001, lang="rm", ordinal=True), "milliedinavel")
         self.assertEqual(
-            num2words(1200, lang="rm", ordinal=True), "milliduatschientavel"
-        )
+            num2words(1200, lang="rm", ordinal=True), "milliduatschientavel")
         self.assertEqual(
             num2words(8640, lang="rm", ordinal=True),
-            "otgmillisistschientquarantavel"
-        )
+            "otgmillisistschientquarantavel")
         self.assertEqual(
-            num2words(14000, lang="rm", ordinal=True), "quattordeschmilliavel"
-        )
+            num2words(14000, lang="rm", ordinal=True), "quattordeschmilliavel")
         self.assertEqual(
             num2words(123456, lang="rm", ordinal=True),
-            "tschientventgatraimilliquattertschienttschuncantasisavel"
-        )
+            "tschientventgatraimilliquattertschienttschuncantasisavel")
         self.assertEqual(
             num2words(987655, lang="rm", ordinal=True),
-            "novtschientotgantasetmillisistschienttschuncantatschintgavel"
-        )
+            "novtschientotgantasetmillisistschienttschuncantatschintgavel")
 
     def test_with_decimals(self):
         self.assertAlmostEqual(
-            num2words(1.0, lang="rm"), "in comma nulla"
-        )
+            num2words(1.0, lang="rm"), "in comma nulla")
         self.assertAlmostEqual(
-            num2words(1.1, lang="rm"), "in comma in"
-        )
+            num2words(1.1, lang="rm"), "in comma in")

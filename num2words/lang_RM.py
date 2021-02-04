@@ -24,15 +24,16 @@ ZERO = "nulla"
 
 CARDINAL_WORDS = [
     ZERO, "in", "dus", "trais", "quatter", "tschintg", "sis", "set", "otg",
-    "nov", "diesch", "indesch", "dudesch", "tredesch", "quattordesch", "quindesch",
-    "sedesch", "deschset", "deschdotg", "deschnov"
+    "nov", "diesch", "indesch", "dudesch", "tredesch", "quattordesch",
+    "quindesch", "sedesch", "deschset", "deschdotg", "deschnov"
 ]
 
 ORDINAL_WORDS = [
     ZERO, "emprim", "segund", "terz", "quart", "tschintgavel", "sisavel",
-    "settavel", "otgavel", "novavel", "dieschavel", "indeschavel", "dudeschavel",
-    "tredeschavel", "quattordeschavel", "quindeschavel", "sedeschavel",
-    "deschsettavel", "deschdotgavel", "deschnovavel", "ventgavel"
+    "settavel", "otgavel", "novavel", "dieschavel", "indeschavel",
+    "dudeschavel", "tredeschavel", "quattordeschavel", "quindeschavel",
+    "sedeschavel", "deschsettavel", "deschdotgavel", "deschnovavel",
+    "ventgavel"
 ]
 
 # "20" = "ventg"
@@ -58,6 +59,7 @@ def phonetic_contraction(string):
             .replace("_", "")
             )
 
+
 def adapt_hundred(string):
     '''apply surface modifications:
          - collective plural
@@ -70,6 +72,7 @@ def adapt_hundred(string):
             .replace("eotg", "edotg")
             )
 
+
 def adapt_thousand(string):
     '''apply surface modifications:
          - collective plural
@@ -81,6 +84,7 @@ def adapt_thousand(string):
             .replace("ein", "edin")
             .replace("eotg", "edotg")
             )
+
 
 def adapt_milliarda(string):
     '''apply surface modifications:
@@ -95,6 +99,7 @@ def adapt_milliarda(string):
             .replace(" e otg", " ed otg")
             )
 
+
 def exponent_length_to_string(exponent_length):
     # We always assume `exponent` to be a multiple of 3. If it's not true, then
     # Num2Word_RM.big_number_to_cardinal did something wrong.
@@ -104,8 +109,10 @@ def exponent_length_to_string(exponent_length):
     else:
         return prefix + "illiarda"
 
+
 def omitt_if_zero(number_to_string):
     return "" if number_to_string == ZERO else number_to_string
+
 
 def empty_if_zero(number_to_string):
     return "_" if number_to_string == ZERO else number_to_string
@@ -221,7 +228,6 @@ class Num2Word_RM:
         return string
 
     def to_ordinal(self, number):
-        tens = number % 100
         if number < 0:
             return Num2Word_RM.MINUS_PREFIX_WORD + self.to_ordinal(-number)
         elif number % 1 != 0:

@@ -24,15 +24,15 @@ ZERO = "nulla"
 
 CARDINAL_WORDS = [
     ZERO, "in", "dus", "treis", "quater", "tschun", "sis", "siat", "otg",
-    "nov", "diesch", "endisch", "dudisch", "tredisch", "quitordisch", "quendisch",
-    "sedisch", "gissiat", "schotg", "scheniv"
+    "nov", "diesch", "endisch", "dudisch", "tredisch", "quitordisch",
+    "quendisch", "sedisch", "gissiat", "schotg", "scheniv"
 ]
 
 ORDINAL_WORDS = [
     ZERO, "emprem", "secund", "tierz", "quart", "tschunavel", "sisavel",
-    "siatavel", "otgavel", "novavel", "dieschavel",  "endischavel", "dudischavel",
-    "tredischavel", "quitordischavel", "quendischavel", "sedischavel", "gissiatavel",
-    "schotgavel", "schenivavel", "vegnavel"
+    "siatavel", "otgavel", "novavel", "dieschavel",  "endischavel",
+    "dudischavel", "tredischavel", "quitordischavel", "quendischavel",
+    "sedischavel", "gissiatavel", "schotgavel", "schenivavel", "vegnavel"
 ]
 
 # "20" = "vegn" / surface form is restaured during phonetic adaptation phase
@@ -54,9 +54,10 @@ def phonetic_contraction(string):
     return (string
             .replace("ain", "in")     # ex. "trentain" -> "trentin"
             .replace("aotg", "otg")   # ex. "curontaotg" -> "curantotg"
-            .replace("ventga_", "vegn") # ex. "ventga" -> "vegn"
+            .replace("ventga_", "vegn")  # ex. "ventga" -> "vegn"
             .replace("_", "")
             )
+
 
 def adapt_hundred(string):
     '''apply surface modifications:
@@ -84,6 +85,7 @@ def adapt_thousand(string):
             .replace("eotg", "edotg")
             )
 
+
 def adapt_milliarda(string):
     '''apply surface modifications:
          - article gender agreement
@@ -97,6 +99,7 @@ def adapt_milliarda(string):
             .replace(" e otg", " ed otg")
             )
 
+
 def exponent_length_to_string(exponent_length):
     # We always assume `exponent` to be a multiple of 3. If it's not true, then
     # Num2Word_RM_SURSILV.big_number_to_cardinal did something wrong.
@@ -106,8 +109,10 @@ def exponent_length_to_string(exponent_length):
     else:
         return prefix + "illiarda"
 
+
 def omitt_if_zero(number_to_string):
     return "" if number_to_string == ZERO else number_to_string
+
 
 def empty_if_zero(number_to_string):
     return "_" if number_to_string == ZERO else number_to_string
@@ -207,7 +212,8 @@ class Num2Word_RM_SURSILV:
 
     def to_cardinal(self, number):
         if number < 0:
-            string = Num2Word_RM_SURSILV.MINUS_PREFIX_WORD + self.to_cardinal(-number)
+            string = (Num2Word_RM_SURSILV.MINUS_PREFIX_WORD +
+                      self.to_cardinal(-number))
         elif isinstance(number, float):
             string = self.float_to_words(number)
         elif number < 20:
@@ -223,9 +229,10 @@ class Num2Word_RM_SURSILV:
         return string
 
     def to_ordinal(self, number):
-        tens = number % 100
         if number < 0:
-            return Num2Word_RM_SURSILV.MINUS_PREFIX_WORD + self.to_ordinal(-number)
+            ordinal = (Num2Word_RM_SURSILV.MINUS_PREFIX_WORD +
+                       self.to_ordinal(-number))
+            return ordinal
         elif number % 1 != 0:
             return self.float_to_words(number, ordinal=True)
         elif number <= 20:
