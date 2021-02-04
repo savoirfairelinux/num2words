@@ -235,7 +235,8 @@ class Num2WordsRMSURMIRANTest(TestCase):
             num2words(2000100, lang="rm_surmiran"), "dus milliuns a tschent")
         self.assertEqual(
             num2words(
-                2200311, lang="rm_surmiran"), "dus milliuns dutschentmellatretschentadendesch")
+                2200311, lang="rm_surmiran"),
+            "dus milliuns dutschentmellatretschentadendesch")
         self.assertEqual(
             num2words(
                 2300000, lang="rm_surmiran"), "dus milliuns tretschentmella")

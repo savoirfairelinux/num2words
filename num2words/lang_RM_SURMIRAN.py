@@ -32,7 +32,8 @@ ORDINAL_WORDS = [
     ZERO, "amprem", "sagond", "terz", "quart", "tschintgavel", "seisavel",
     "settavel", "otgavel", "novavel", "dieschavel", "endeschavel",
     "dodeschavel", "tredeschavel", "quittordeschavel", "quindeschavel",
-    "sedeschavel", "dischsettavel", "dischdotgavel", "dischnovavel", "vantgavel"
+    "sedeschavel", "dischsettavel", "dischdotgavel", "dischnovavel",
+    "vantgavel"
 ]
 
 # "20" = "ventg"

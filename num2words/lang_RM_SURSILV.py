@@ -72,6 +72,7 @@ def adapt_hundred(string):
             .replace("eotg", "edotg")
             )
 
+
 def adapt_thousand(string):
     '''apply surface modifications:
          - collective plural
