@@ -21,18 +21,36 @@ import re
 
 from .lang_EU import Num2Word_EU
 
-DOLLAR = ('dólar', 'dólares')
-CENTS = ('cêntimo', 'cêntimos')
+GENERIC_DOLLARS = ('dólar', 'dólares')
+GENERIC_CENTS = ('cêntimo', 'cêntimos')
 
 
 class Num2Word_PT(Num2Word_EU):
 
     CURRENCY_FORMS = {
-        'AUD': (DOLLAR, CENTS),
-        'CAD': (DOLLAR, CENTS),
-        'EUR': (('euro', 'euros'), CENTS),
+        'AUD': (GENERIC_DOLLARS, GENERIC_CENTS),
+        'CAD': (GENERIC_DOLLARS, GENERIC_CENTS),
+        'EUR': (('euro', 'euros'), GENERIC_CENTS),
         'GBP': (('libra', 'libras'), ('péni', 'pence')),
-        'USD': (DOLLAR, CENTS),
+        'USD': (GENERIC_DOLLARS, GENERIC_CENTS),
+        'RUB': (('rublo', 'rublos')), GENERIC_CENTS),
+        'MXN': (('peso', 'pesos'), GENERIC_CENTS),
+        'RON': ('leu', GENERIC_CENTS),
+        'INR': (('rupia', 'rupias'), GENERIC_CENTS),
+        'HUF': (('florim', 'florins'), GENERIC_CENTS)
+    }
+    
+    CURRENCY_ADJECTIVES = {
+        'AUD': 'Australiano',
+        'CAD': 'Canadiano',
+      # 'EEK': 'Estonian', now EURO
+        'USD': 'Americano',
+        'RUB': 'Russo',
+      # 'NOK': 'Norwegian', now EURO
+        'MXN': 'Mexicano',
+        'RON': 'Romeno',
+        'INR': 'Indiana',
+        'HUF': 'Húngaro'
     }
 
     GIGA_SUFFIX = None
@@ -228,7 +246,8 @@ class Num2Word_PT(Num2Word_EU):
 
         # transforms "milhões euros" em "milhões de euros"
         cr1, _ = self.CURRENCY_FORMS[currency]
-
+        
+        # https://ciberduvidas.iscte-iul.pt/consultorio/perguntas/as-grafias-e-as-pronuncias-de-biliao-e-bilhao/30031
         for ext in (
                 'milhão', 'milhões', 'bilião',
                 'biliões', 'trilião', 'triliões'):
