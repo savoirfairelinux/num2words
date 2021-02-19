@@ -107,6 +107,7 @@ Besides the numerical argument, there are two main optional arguments.
 * ``pt_BR`` (Portuguese - Brazilian)
 * ``sl`` (Slovene)
 * ``sr`` (Serbian)
+* ``sv`` (Swedish)
 * ``ro`` (Romanian)
 * ``ru`` (Russian)
 * ``te`` (Telugu)
