@@ -74,28 +74,15 @@ HUNDREDS_ORDINAL = {
 THOUSANDS = {
     1: ('tūkstotis', 'tūkstoši', 'tūkstošu', 'tūkstošais'),
     2: ('miljons', 'miljoni', 'miljonu', 'miljonais'),
-    3: ('miljards', 'miljardi', 'miljardu'),
-    4: ('triljons', 'triljoni', 'triljonu'),
-    5: ('kvadriljons', 'kvadriljoni', 'kvadriljonu'),
-    6: ('kvintiljons', 'kvintiljoni', 'kvintiljonu'),
-    7: ('sikstiljons', 'sikstiljoni', 'sikstiljonu'),
-    8: ('septiljons', 'septiljoni', 'septiljonu'),
-    9: ('oktiljons', 'oktiljoni', 'oktiljonu'),
-    10: ('nontiljons', 'nontiljoni', 'nontiljonu'),
+    3: ('miljards', 'miljardi', 'miljardu', 'miljardais'),
+    4: ('triljons', 'triljoni', 'triljonu', 'triljonais'),
+    5: ('kvadriljons', 'kvadriljoni', 'kvadriljonu', 'kvadriljonais'),
+    6: ('kvintiljons', 'kvintiljoni', 'kvintiljonu', 'kvintiljonais'),
+    7: ('sikstiljons', 'sikstiljoni', 'sikstiljonu', 'sikstiljonais'),
+    8: ('septiljons', 'septiljoni', 'septiljonu', 'septiljonais'),
+    9: ('oktiljons', 'oktiljoni', 'oktiljonu', 'oktiljonais'),
+    10: ('nontiljons', 'nontiljoni', 'nontiljonu', 'nontiljonais'),
 }
-
-'''
-THOUSANDS_ORDINAL = {
-    2: ('tūkstošais',),
-    3: ('miljonais',),
-    4: ('miljardus',),
-    5: ('triljonus',),
-    6: ('kvadriljonus',),
-    7: ('septiņsimtais',),
-    8: ('astoņsimtais',),
-    9: ('deviņsimtais',),
-}
-'''
 
 GENERIC_DOLLARS = ('dolārs', 'dolāri', 'dolāru')
 GENERIC_CENTS = ('cents', 'centi', 'centu')
