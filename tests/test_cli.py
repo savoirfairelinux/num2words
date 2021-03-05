@@ -20,6 +20,7 @@ from __future__ import unicode_literals
 
 import os
 import unittest
+import runpy
 
 import delegator
 
@@ -111,3 +112,10 @@ class CliTestCase(unittest.TestCase):
              output.out).strip(),
             "ciento cincuenta euros con cincuenta y cinco céntimos"
         )
+
+
+class RunpyTestCase(unittest.TestCase):
+    """Test the command"""
+
+    def test_runpy(self):
+        runpy.run_module('num2words')
