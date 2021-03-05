@@ -72,7 +72,8 @@ def get_converters():
 
 def main():
     version = "{}=={}".format(os.path.basename(__file__), __version__)
-    args = docopt(__doc__, argv=None, help=True, version=version, options_first=False)
+    args = docopt(
+        __doc__, argv=None, help=True, version=version, options_first=False)
     if args["--list-languages"]:
         for lang in get_languages():
             sys.stdout.write(lang)
@@ -84,7 +85,8 @@ def main():
             sys.stdout.write(os.linesep)
         sys.exit(0)
     try:
-        words = num2words.num2words(args['<number>'], lang=args['--lang'], to=args['--to'])
+        words = num2words.num2words(
+            args['<number>'], lang=args['--lang'], to=args['--to'])
         sys.stdout.write(words+os.linesep)
         sys.exit(0)
     except Exception as err:
