@@ -20,6 +20,7 @@ from __future__ import unicode_literals
 
 import os
 import runpy
+import sys
 import unittest
 
 import delegator
@@ -117,5 +118,9 @@ class CliTestCase(unittest.TestCase):
 class RunpyTestCase(unittest.TestCase):
     """Test the command"""
 
+    @unittest.skipIf(
+        sys.version_info < (3,),
+        "__future__ fails on Python 2 when under test",
+    )
     def test_runpy(self):
-        runpy.run_module('num2words')
+        runpy.run_module('num2words')  # pragma: nocover
