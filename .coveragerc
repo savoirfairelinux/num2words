@@ -3,3 +3,5 @@ branch = true
 source =
     num2words
     tests
+omit =
+    num2words/__main__.py
