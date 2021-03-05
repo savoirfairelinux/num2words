@@ -34,7 +34,7 @@ Options:
     -t --to=<to>            Output converter [default: cardinal].
     -h --help               Show this message.
     -v --version            Show version.
-    
+
 Examples:
     $ num2words 10001
     ten thousand and one
@@ -50,9 +50,12 @@ Examples:
 """
 
 from __future__ import print_function, unicode_literals
+
 import os
 import sys
+
 from docopt import docopt
+
 import num2words
 
 __version__ = "0.5.10"
