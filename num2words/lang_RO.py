@@ -59,10 +59,15 @@ class Num2Word_RO(lang_EU.Num2Word_EU):
         }
         self.ords = {"unu": "primul",
                      "doi": "al doilea",
-                     "three": "al treilea",
+                     "trei": "al treilea",
+                     "patru": "al patrulea",
                      "cinci": "al cincilea",
+                     "șase": "al șaselea",
+                     "șapte": "al șaptelea",
                      "opt": "al optulea",
                      "nouă": "al nouălea",
+                     "zece": "al zecelea",
+                     "unsprezece": "al unsprezecelea",
                      "doisprezece": "al doisprezecelea"}
 
     def merge(self, lpair, rpair):
