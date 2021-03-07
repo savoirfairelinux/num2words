@@ -124,6 +124,14 @@ class Num2WordsNLTest(TestCase):
 
         # @TODO other currency
 
+    def test_to_ordinal_num(self):
+        n = Num2Word_NL()
+        self.assertEqual(n.to_ordinal_num(0), '0e')
+        self.assertEqual(n.to_ordinal_num(1), '1e')
+        self.assertEqual(n.to_ordinal_num(2), '2e')
+        self.assertEqual(n.to_ordinal_num(3), '3e')
+        self.assertEqual(n.to_ordinal_num(5), '5e')
+
     def test_to_year(self):
         self.assertEqual(num2words(2018, lang='nl', to='year'),
                          'tweeduizendachttien')
