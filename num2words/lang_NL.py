@@ -135,7 +135,7 @@ class Num2Word_NL(Num2Word_EU):
 
     def to_ordinal_num(self, value):
         self.verify_ordinal(value)
-        return str(value) + "e"
+        return f"{value}e"
 
     def pluralize(self, n, forms):
         """
