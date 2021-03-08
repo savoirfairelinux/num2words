@@ -131,7 +131,11 @@ class Num2Word_DE(Num2Word_EU):
         # ... similarly for "millionste" etc.
         # Ordinals involving "Million" etc. are written without a space.
         # see https://de.wikipedia.org/wiki/Million#Sprachliches
-        return re.sub(r'(?:eine)? ([a-z]+(illion|illiard)ste)$', r'\1', res)
+        return re.sub(
+          r'(?:eine)? ([a-z]+(illion|illiard)ste)$',
+          r'\1',
+          res
+        )
 
     def to_ordinal_num(self, value):
         self.verify_ordinal(value)
