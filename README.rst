@@ -108,6 +108,7 @@ Besides the numerical argument, there are two main optional arguments.
 * ``sl`` (Slovene)
 * ``sr`` (Serbian)
 * ``rm`` (Rumantsch Grischun)
+* ``rm_puter`` (Rumantsch Puter)
 * ``rm_surmiran`` (Rumantsch Surmiran)
 * ``rm_sursilv`` (Rumantsch Sursilvan)
 * ``rm_vallader`` (Rumantsch Vallader)
