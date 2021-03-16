@@ -54,7 +54,7 @@ def phonetic_contraction(string):
     '''
     return (string
             .replace("aün", "ün")   # ex. "trentaün" -> "trentün"
-            .replace("aoch", "och") # ex. "quarantaoch" -> "quarantoch"
+            .replace("aoch", "och")  # ex. "quarantaoch" -> "quarantoch"
             .replace("vaincha_", "vainch")  # ex. "vaincha" -> "vainch"
             .replace("_", "")
             )
