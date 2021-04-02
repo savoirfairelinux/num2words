@@ -88,8 +88,8 @@ Besides the numerical argument, there are two main optional arguments.
 * ``eu`` (EURO)
 * ``fi`` (Finnish)
 * ``fr`` (French)
-* ``fr_CH`` (French - Switzerland)
 * ``fr_BE`` (French - Belgium)
+* ``fr_CH`` (French - Switzerland)
 * ``fr_DZ`` (French - Algeria)
 * ``he`` (Hebrew)
 * ``hu`` (Hungarian)
@@ -101,6 +101,7 @@ Besides the numerical argument, there are two main optional arguments.
 * ``kz`` (Kazakh)
 * ``lt`` (Lithuanian)
 * ``lv`` (Latvian)
+* ``nl`` (Dutch)
 * ``no`` (Norwegian)
 * ``pl`` (Polish)
 * ``pt`` (Portuguese)
@@ -111,11 +112,10 @@ Besides the numerical argument, there are two main optional arguments.
 * ``ro`` (Romanian)
 * ``ru`` (Russian)
 * ``te`` (Telugu)
-* ``tr`` (Turkish)
 * ``th`` (Thai)
-* ``vi`` (Vietnamese)
-* ``nl`` (Dutch)
+* ``tr`` (Turkish)
 * ``uk`` (Ukrainian)
+* ``vi`` (Vietnamese)
 
 You can supply values like ``fr_FR``; if the country doesn't exist but the
 language does, the code will fall back to the base language (i.e. ``fr``). If
