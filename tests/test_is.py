@@ -26,12 +26,23 @@ class Num2WordsISTest(TestCase):
 
     def test_cardinal(self):
         self.assertEqual(num2words(0, to="cardinal", lang="is"), "núll")
-        self.assertEqual(num2words(1, to="cardinal", lang="is"), "eitt")
-        self.assertEqual(num2words(2, to="cardinal", lang="is"), "tvö")
-        self.assertEqual(num2words(5, to="cardinal", lang="is"), "fimm")
-        self.assertEqual(num2words(8, to="cardinal", lang="is"), "átta")
-        self.assertEqual(num2words(18, to="cardinal", lang="is"), "átján")
+        self.assertEqual(num2words(1, to="cardinal", lang="is"), "einn")
         self.assertEqual(num2words(45, to="cardinal", lang="is"), "fjörutíu og fimm")
         self.assertEqual(num2words(145, to="cardinal", lang="is"), "eitt hundrað fjörutíu og fimm")
-        self.assertEqual(num2words(1245, to="cardinal", lang="is"), "eitt þúsund tvö hundruð fjörutíu og fimm")
-        self.assertEqual(num2words(1010234045, to="cardinal", lang="is"), "einn milljarður tíu milljónir tvö hundruð þrjátíu og fjögur þúsund fjörutíu og fimm")
+        self.assertEqual(num2words(-1245, to="cardinal", lang="is"), "mínus eitt þúsund tvö hundruð fjörutíu og fimm")
+        self.assertEqual(num2words(1002234045, to="cardinal", lang="is"), "einn milljarður tvær milljónir tvö hundruð þrjátíu og fjögur þúsund fjörutíu og fimm")
+
+    def test_cardinal_for_float_number(self):
+        self.assertEqual(num2words(12.5, to="cardinal", lang="is"), "tólf komma fimm")
+        self.assertEqual(num2words(12.51, to="cardinal", lang="is"), "tólf komma fimm einn")
+        self.assertEqual(num2words(-12.53, to="cardinal", lang="is"), "mínus tólf komma fimm þrír")
+        self.assertEqual(num2words(12.59, to="cardinal", lang="is"), "tólf komma fimm níu")
+
+    def test_overflow(self):
+        with self.assertRaises(OverflowError):
+            num2words("1000000000000000000000000000000000000000000000000000000"
+                      "0000000000000000000000000000000000000000000000000000000"
+                      "0000000000000000000000000000000000000000000000000000000"
+                      "0000000000000000000000000000000000000000000000000000000"
+                      "0000000000000000000000000000000000000000000000000000000"
+                      "00000000000000000000000000000000", lang="is")

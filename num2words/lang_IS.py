@@ -19,17 +19,33 @@ from __future__ import division, print_function, unicode_literals
 
 from . import lang_EU
 
+# Genders
+KK = 0  # Karlkyn (male)
+KVK = 1  # Kvenkyn (female)
+HK = 2  # Hvorugkyn (neuter)
+
+GENDERS = {
+    "einn": ("einn", "ein", "eitt"),
+    "tveir": ("tveir", "tvær", "tvö"),
+    "þrír": ("þrír", "þrjár", "þrjú"),
+    "fjórir": ("fjórir", "fjórar", "fjögur"),
+}
+
+PLURALS = {
+    "hundrað": ("hundrað", "hundruð"),
+}
 
 class Num2Word_IS(lang_EU.Num2Word_EU):
-    GIGA_SUFFIX = "illjarðar"
-    MEGA_SUFFIX = "illjónir"
+    GIGA_SUFFIX = "illjarður"
+    MEGA_SUFFIX = "illjón"
 
     def setup(self):
-        super(Num2Word_IS, self).setup()
+        lows = ["okt", "sept", "sext", "kvint", "kvaðr", "tr", "b", "m"]
+        self.high_numwords = self.gen_high_numwords([], [], lows)
 
         self.negword = "mínus "
         self.pointword = "komma"
-        self.exclude_title = ["og", "komma", "mínus"]
+        # self.exclude_title = ["og", "komma", "mínus"]
 
         self.mid_numwords = [(1000, "þúsund"), (100, "hundrað"),
                              (90, "níutíu"), (80, "áttatíu"), (70, "sjötíu"),
@@ -38,12 +54,12 @@ class Num2Word_IS(lang_EU.Num2Word_EU):
         self.low_numwords = ["tuttugu", "nítján", "átján", "sautján",
                              "sextán", "fimmtán", "fjórtán", "þrettán",
                              "tólf", "ellefu", "tíu", "níu", "átta",
-                             "sjö", "sex", "fimm", "fjögur", "þrjú", "tvö",
-                             "eitt", "núll"]
-        self.ords = {"eitt": "fyrsti",
-                     "tvö": "annar",
-                     "þrjú": "þriðji",
-                     "fjögur": "fjórði",
+                             "sjö", "sex", "fimm", "fjórir", "þrír",
+                             "tveir", "einn", "núll"]
+        self.ords = {"einn": "fyrsti",
+                     "tveir": "annar",
+                     "þrír": "þriðji",
+                     "fjórir": "fjórði",
                      "fimm": "fimmti",
                      "sex": "sjötti",
                      "sjö": "sjöundi",
@@ -53,58 +69,52 @@ class Num2Word_IS(lang_EU.Num2Word_EU):
                      "ellefu": "ellefti",
                      "tólf": "tólfti"}
 
-    def pluralize(self, n, forms):
-        form = 0 if (n%10 == 1 and n%100 != 11) else 1
-        return forms[form]
+    def pluralize(self, n, noun):
+        form = 0 if (n % 10 == 1 and n % 100 != 11) else 1
+        if form == 0:
+            return noun
+        elif self.GIGA_SUFFIX in noun:
+            return noun.replace(self.GIGA_SUFFIX, "illjarðar")
+        elif self.MEGA_SUFFIX in noun:
+            return noun.replace(self.MEGA_SUFFIX, "illjónir")
+        elif noun not in PLURALS:
+            return noun
+        return PLURALS[noun][form]
+
+    def genderize(self, adj, noun):
+        last = adj.split()[-1]
+        if last not in GENDERS:
+            return adj
+        gender = KK
+        if "hund" in noun or "þús" in noun:
+            gender = HK
+        elif "illjarð" in noun:
+            gender = KK
+        elif "illjón" in noun:
+            gender = KVK
+        return adj.replace(last, GENDERS[last][gender])
 
     def merge(self, lpair, rpair):
         ltext, lnum = lpair
         rtext, rnum = rpair
+
         if lnum == 1 and rnum < 100:
             return (rtext, rnum)
-        elif rnum > lnum:
+        elif lnum < rnum:
+            rtext = self.pluralize(lnum, rtext)
+            ltext = self.genderize(ltext, rtext)
             return ("%s %s" % (ltext, rtext), lnum * rnum)
         elif lnum > rnum and rnum in self.cards:
+            rtext = self.pluralize(lnum, rtext)
+            ltext = self.genderize(ltext, rtext)
             return ("%s og %s" % (ltext, rtext), lnum + rnum)
         return ("%s %s" % (ltext, rtext), lnum + rnum)
 
     def to_ordinal(self, value):
-        self.verify_ordinal(value)
-        outwords = self.to_cardinal(value).split(" ")
-        lastwords = outwords[-1].split("-")
-        lastword = lastwords[-1].lower()
-        try:
-            lastword = self.ords[lastword]
-        except KeyError:
-            if lastword[-1] == "y":
-                lastword = lastword[:-1] + "ie"
-            lastword += "th"
-        lastwords[-1] = self.title(lastword)
-        outwords[-1] = "-".join(lastwords)
-        return " ".join(outwords)
+        raise NotImplementedError
 
     def to_ordinal_num(self, value):
-        self.verify_ordinal(value)
-        return "%s%s" % (value, self.to_ordinal(value)[-2:])
+        raise NotImplementedError
 
     def to_year(self, val, suffix=None, longval=True):
-        if val < 0:
-            val = abs(val)
-            suffix = 'BC' if not suffix else suffix
-        high, low = (val // 100, val % 100)
-        # If year is 00XX, X00X, or beyond 9999, go cardinal.
-        if (high == 0
-                or (high % 10 == 0 and low < 10)
-                or high >= 100):
-            valtext = self.to_cardinal(val)
-        else:
-            hightext = self.to_cardinal(high)
-            if low == 0:
-                lowtext = "hundred"
-            elif low < 10:
-                lowtext = "oh-%s" % self.to_cardinal(low)
-            else:
-                lowtext = self.to_cardinal(low)
-            valtext = "%s %s" % (hightext, lowtext)
-        return (valtext if not suffix
-                else "%s %s" % (valtext, suffix))
+        raise NotImplementedError
