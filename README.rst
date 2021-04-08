@@ -94,6 +94,7 @@ Besides the numerical argument, there are two main optional arguments.
 * ``he`` (Hebrew)
 * ``hu`` (Hungarian)
 * ``id`` (Indonesian)
+* ``is`` (Icelandic)
 * ``it`` (Italian)
 * ``ja`` (Japanese)
 * ``kn`` (Kannada)

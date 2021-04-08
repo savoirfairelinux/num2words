@@ -43,7 +43,8 @@ class Num2Word_EU(Num2Word_Base):
         'MXN': (('peso', 'pesos'), GENERIC_CENTS),
         'RON': (('leu', 'lei', 'de lei'), ('ban', 'bani', 'de bani')),
         'INR': (('rupee', 'rupees'), ('paisa', 'paise')),
-        'HUF': (('forint', 'forint'), ('fillér', 'fillér'))
+        'HUF': (('forint', 'forint'), ('fillér', 'fillér')),
+        'ISK': (('króna', 'krónur'), ('aur', 'aurar'))
     }
 
     CURRENCY_ADJECTIVES = {
@@ -56,7 +57,8 @@ class Num2Word_EU(Num2Word_Base):
         'MXN': 'Mexican',
         'RON': 'Romanian',
         'INR': 'Indian',
-        'HUF': 'Hungarian'
+        'HUF': 'Hungarian',
+        'ISK': 'íslenskar'
     }
 
     GIGA_SUFFIX = "illiard"

@@ -47,7 +47,9 @@ class Num2Word_IS(lang_EU.Num2Word_EU):
 
         self.negword = "mínus "
         self.pointword = "komma"
-        # self.exclude_title = ["og", "komma", "mínus"]
+
+        # All words should be excluded, title case is not used in Icelandic
+        self.exclude_title = ["og", "komma", "mínus"]
 
         self.mid_numwords = [(1000, "þúsund"), (100, "hundrað"),
                              (90, "níutíu"), (80, "áttatíu"), (70, "sjötíu"),
@@ -119,4 +121,7 @@ class Num2Word_IS(lang_EU.Num2Word_EU):
         raise NotImplementedError
 
     def to_year(self, val, suffix=None, longval=True):
+        raise NotImplementedError
+
+    def to_currency(self, val, longval=True):
         raise NotImplementedError
