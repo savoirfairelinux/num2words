@@ -35,6 +35,7 @@ PLURALS = {
     "hundrað": ("hundrað", "hundruð"),
 }
 
+
 class Num2Word_IS(lang_EU.Num2Word_EU):
 
     GIGA_SUFFIX = "illjarður"
