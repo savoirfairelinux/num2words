@@ -62,18 +62,18 @@ class Num2WordsISTest(TestCase):
                       "00000000000000000000000000000000", lang="is")
 
     def test_not_implemented(self):
-        #Ordinals
+        # Ordinals
         with self.assertRaises(NotImplementedError):
             num2words(1, to="ordinal", lang="is")
 
-        #Ordinal num
+        # Ordinal num
         with self.assertRaises(NotImplementedError):
             num2words(1, to="ordinal_num", lang="is")
 
-        #Year
+        # Year
         with self.assertRaises(NotImplementedError):
             num2words(1, to="year", lang="is")
 
-        #Currency
+        # Currency
         with self.assertRaises(NotImplementedError):
             num2words(1, to="currency", lang="is")
