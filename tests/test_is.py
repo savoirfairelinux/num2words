@@ -35,8 +35,11 @@ class Num2WordsISTest(TestCase):
                          "eitt hundrað fjörutíu og fimm")
         self.assertEqual(num2words(-1245, to="cardinal", lang="is"),
                          "mínus eitt þúsund tvö hundruð fjörutíu og fimm")
-        self.assertEqual(num2words(1002234045, to="cardinal", lang="is"),
-                         "einn milljarður tvær milljónir tvö hundruð "
+        self.assertEqual(num2words(2234045, to="cardinal", lang="is"),
+                         "tvær milljónir tvö hundruð þrjátíu og fjögur þúsund "
+                         "fjörutíu og fimm")
+        self.assertEqual(num2words(4002234045, to="cardinal", lang="is"),
+                         "fjórir milljarðar tvær milljónir tvö hundruð "
                          "þrjátíu og fjögur þúsund fjörutíu og fimm")
 
     def test_cardinal_for_float_number(self):
@@ -57,3 +60,20 @@ class Num2WordsISTest(TestCase):
                       "0000000000000000000000000000000000000000000000000000000"
                       "0000000000000000000000000000000000000000000000000000000"
                       "00000000000000000000000000000000", lang="is")
+
+    def test_not_implemented(self):
+        #Ordinals
+        with self.assertRaises(NotImplementedError):
+            num2words(1, to="ordinal", lang="is")
+
+        #Ordinal num
+        with self.assertRaises(NotImplementedError):
+            num2words(1, to="ordinal_num", lang="is")
+
+        #Year
+        with self.assertRaises(NotImplementedError):
+            num2words(1, to="year", lang="is")
+
+        #Currency
+        with self.assertRaises(NotImplementedError):
+            num2words(1, to="currency", lang="is")
