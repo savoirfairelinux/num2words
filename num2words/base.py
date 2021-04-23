@@ -21,8 +21,9 @@ import math
 from collections import OrderedDict
 from decimal import Decimal
 
-from .compat import to_s, represents_int
+from .compat import to_s
 from .currency import parse_currency_parts, prefix_currency
+from .utils import represents_int
 
 
 class Num2Word_Base(object):
