@@ -21,7 +21,7 @@ import math
 from collections import OrderedDict
 from decimal import Decimal
 
-from .compat import to_s
+from .compat import to_s, represents_int
 from .currency import parse_currency_parts, prefix_currency
 
 
@@ -102,7 +102,7 @@ class Num2Word_Base(object):
 
     def to_cardinal(self, value):
         try:
-            assert int(value) == value
+            assert represents_int(value.__str__())
         except (ValueError, TypeError, AssertionError):
             return self.to_cardinal_float(value)
 
