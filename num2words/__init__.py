@@ -40,6 +40,8 @@ CONVERTER_CLASSES = {
     'es_CO': lang_ES_CO.Num2Word_ES_CO(),
     'es_NI': lang_ES_NI.Num2Word_ES_NI(),
     'es_VE': lang_ES_VE.Num2Word_ES_VE(),
+    'hi': lang_HI.Num2Word_HI(),
+    'hi_EN': lang_HI_EN.Num2Word_HI(),
     'id': lang_ID.Num2Word_ID(),
     'ja': lang_JA.Num2Word_JA(),
     'kn': lang_KN.Num2Word_KN(),
