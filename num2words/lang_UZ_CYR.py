@@ -19,9 +19,8 @@ from __future__ import unicode_literals
 
 from num2words.base import Num2Word_Base
 from num2words.utils import get_digits, splitbyx
-from num2words.currency import parse_currency_parts, prefix_currency
 
-ZERO = ('ноль',)
+ZERO = ('нол',)
 
 ONES_FEMININE = {
     1: ('бир',),
@@ -101,6 +100,12 @@ class Num2Word_UZ_CYRILLIC(Num2Word_Base):
     CURRENCY_FORMS = {
         'UZS': (
             ('сўм', 'сўм', 'сўм'), ('тийин', 'тийин', 'тийин')
+        ),
+        'EUR': (
+            ('евро', 'евро', 'евро'), ('цент', 'цент', 'цент')
+        ),
+        'USD': (
+            ('доллар', 'доллар', 'доллар'), ('цент', 'цент', 'цент')
         ),
 
     }
@@ -195,45 +200,6 @@ class Num2Word_UZ_CYRILLIC(Num2Word_Base):
 
     def _cents_verbose(self, number, currency):
         return self._int2word(number, currency == 'UZS')
-
-    def to_currency(self, val, currency='UZS', cents=False, separator='',
-                    adjective=False):
-        """
-        Args:
-            val: Numeric value
-            currency (str): Currency code
-            cents (bool): Verbose cents
-            separator (str): Cent separator
-            adjective (bool): Prefix currency name with adjective
-        Returns:
-            str: Formatted string
-
-        """
-        left, right, is_negative = parse_currency_parts(val, is_int_with_cents=False)
-
-        try:
-            cr1, cr2 = self.CURRENCY_FORMS[currency]
-
-        except KeyError:
-            raise NotImplementedError(
-                'Currency code "%s" not implemented for "%s"' %
-                (currency, self.__class__.__name__))
-
-        if adjective and currency in self.CURRENCY_ADJECTIVES:
-            cr1 = prefix_currency(self.CURRENCY_ADJECTIVES[currency], cr1)
-
-        minus_str = "%s " % self.negword if is_negative else ""
-        cents_str = self._cents_verbose(right, currency) \
-            if cents else self._cents_terse(right, currency)
-
-        return u'%s%s %s%s %s %s' % (
-            minus_str,
-            self.to_cardinal(left),
-            self.pluralize(left, cr1),
-            separator,
-            cents_str,
-            self.pluralize(right, cr2)
-        )
 
     def _int2word(self, n, feminine=False):
         if n < 0:
