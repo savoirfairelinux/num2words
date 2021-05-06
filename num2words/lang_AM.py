@@ -23,8 +23,7 @@ from . import lang_EU
 class Num2Word_AM(lang_EU.Num2Word_EU):
     def set_high_numwords(self, high):
         high = ["տրիլիոն", "միլլիարդ", "միլիոն"]
-        max = 3 + 3 * len(high)
-        for word, n in zip(high, range(max, 3, -3)):
+        for word, n in zip(high, range(12, 3, -3)):
             self.cards[10 ** n] = word
 
     def setup(self):
