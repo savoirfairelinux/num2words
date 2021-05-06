@@ -18,6 +18,8 @@
 
 from __future__ import unicode_literals
 
+from decimal import Decimal
+
 
 class Num2Word_TR(object):
     def __init__(self):
@@ -113,6 +115,9 @@ class Num2Word_TR(object):
         self.total_triplets_to_read = 0
         self.total_digits_outside_triplets = 0
         self.order_of_last_zero_digit = 0
+
+    def str_to_number(self, value):
+        return Decimal(value)
 
     def to_cardinal(self, value):
         wrd = ""
