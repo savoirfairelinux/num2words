@@ -22,7 +22,7 @@ from num2words import num2words
 
 class Num2WordsAMTest(TestCase):
     def test_and_join_199(self):
-        self.assertEqual(num2words(199), "մեկ հարյուր իննսունինը")
+        self.assertEqual(num2words(199, lang='am'), "մեկ հարյուր իննսունինը")
 
     def test_ordinal(self):
         self.assertEqual(
@@ -35,7 +35,7 @@ class Num2WordsAMTest(TestCase):
                          '10րդ')
 
     def test_cardinal_for_float_number(self):
-        self.assertEqual(num2words(12.5), "տասներկու ամբողջ հինգ")
+        self.assertEqual(num2words(12.5, lang='am'), "տասներկու ամբողջ հինգ")
 
     def test_overflow(self):
         with self.assertRaises(OverflowError):
