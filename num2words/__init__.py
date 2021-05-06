@@ -27,6 +27,7 @@ from . import (lang_AM, lang_AR, lang_CZ, lang_DE, lang_DK, lang_EN,
                lang_VI)
 
 CONVERTER_CLASSES = {
+    'am': lang_AM.Num2Word_AM()
     'ar': lang_AR.Num2Word_AR(),
     'cz': lang_CZ.Num2Word_CZ(),
     'en': lang_EN.Num2Word_EN(),
@@ -66,8 +67,7 @@ CONVERTER_CLASSES = {
     'nl': lang_NL.Num2Word_NL(),
     'uk': lang_UK.Num2Word_UK(),
     'te': lang_TE.Num2Word_TE(),
-    'hu': lang_HU.Num2Word_HU(),
-    'am': lang_AM.Num2Word_AM()
+    'hu': lang_HU.Num2Word_HU()
 }
 
 CONVERTES_TYPES = ['cardinal', 'ordinal', 'ordinal_num', 'year', 'currency']
