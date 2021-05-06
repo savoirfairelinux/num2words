@@ -22,20 +22,20 @@ from num2words import num2words
 
 class Num2WordsAMTest(TestCase):
     def test_and_join_199(self):
-        self.assertEqual(num2words("199", lang='am'), "մեկ հարյուր իննսունինը")
+        self.assertEqual(num2words(u"199", lang='am'), "մեկ հարյուր իննսունինը")
 
     def test_ordinal(self):
         self.assertEqual(
-            num2words("0", lang='am', to='ordinal'),
+            num2words(u"0", lang='am', to='ordinal'),
             'զրոերորդ'
         )
 
     def test_ordinal_num(self):
-        self.assertEqual(num2words("10", lang='am', to='ordinal_num'),
+        self.assertEqual(num2words(u"10", lang='am', to='ordinal_num'),
                          '10րդ')
 
     def test_cardinal_for_float_number(self):
-        self.assertEqual(num2words("12.5", lang='am'), "տասներկու ամբողջ հինգ")
+        self.assertEqual(num2words(u"12.5", lang='am'), "տասներկու ամբողջ հինգ")
 
     def test_overflow(self):
         with self.assertRaises(OverflowError):
@@ -48,10 +48,10 @@ class Num2WordsAMTest(TestCase):
 
     def test_to_currency(self):
         self.assertEqual(
-            num2words('38.4', lang='am', to='currency', separator=' և',
+            num2words(u"38.4", lang='am', to='currency', separator=' և',
                       cents=False, currency='USD'),
             "երեսունութ dollars և 40 cents")
 
     def test_to_year(self):
-        self.assertEqual(num2words("1990", lang='am', to='year'),
+        self.assertEqual(num2words(u"1990", lang='am', to='year'),
                          'տասնինը իննսուն')
