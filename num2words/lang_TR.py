@@ -18,10 +18,10 @@
 
 from __future__ import unicode_literals
 
-from decimal import Decimal
+from .base import Num2Word_Base
 
 
-class Num2Word_TR(object):
+class Num2Word_TR(Num2Word_Base):
     def __init__(self):
         self.precision = 2
         self.negword = u"eksi"
@@ -115,9 +115,6 @@ class Num2Word_TR(object):
         self.total_triplets_to_read = 0
         self.total_digits_outside_triplets = 0
         self.order_of_last_zero_digit = 0
-
-    def str_to_number(self, value):
-        return Decimal(value)
 
     def to_cardinal(self, value):
         wrd = ""
