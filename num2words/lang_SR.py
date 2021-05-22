@@ -174,7 +174,7 @@ class Num2Word_SR(Num2Word_Base):
         return ' '.join(words)
 
     def to_currency(self, val, currency='EUR', cents=True, separator=',',
-                    adjective=False):
+                    adjective=False, verbose_decimal=True):
         """
         Args:
             val: Numeric value
@@ -182,6 +182,7 @@ class Num2Word_SR(Num2Word_Base):
             cents (bool): Verbose cents
             separator (str): Cent separator
             adjective (bool): Prefix currency name with adjective
+            verbose_decimal (bool): Append cents regardless of whether cents > 0
         Returns:
             str: Formatted string
 
@@ -205,12 +206,18 @@ class Num2Word_SR(Num2Word_Base):
         minus_str = "%s " % self.negword if is_negative else ""
         cents_str = self._cents_verbose(right, currency) \
             if cents else self._cents_terse(right, currency)
-
-        return u'%s%s %s%s %s %s' % (
-            minus_str,
-            self.to_cardinal(left, feminine=cr1[-1]),
-            self.pluralize(left, cr1),
-            separator,
-            cents_str,
-            self.pluralize(right, cr2)
-        )
+        if verbose_decimal or right > 0:
+            return u'%s%s %s%s %s %s' % (
+                minus_str,
+                self.to_cardinal(left, feminine=cr1[-1]),
+                self.pluralize(left, cr1),
+                separator,
+                cents_str,
+                self.pluralize(right, cr2)
+            )
+        else:
+            return u'%s%s %s' % (
+                minus_str,
+                self.to_cardinal(left, feminine=cr1[-1]),
+                self.pluralize(left, cr1)
+            )
