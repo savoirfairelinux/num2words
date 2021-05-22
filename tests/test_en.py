@@ -25,6 +25,12 @@ class Num2WordsENTest(TestCase):
         # ref https://github.com/savoirfairelinux/num2words/issues/8
         self.assertEqual(num2words(199), "one hundred and ninety-nine")
 
+    def test_omit_commas(self):
+        self.assertEqual(
+            num2words(1234567, lang='en', to='ordinal', omit_commas=True),
+            'one million two hundred and thirty-four thousand five hundred and sixty-seventh'
+        )
+
     def test_ordinal(self):
         self.assertEqual(
             num2words(0, lang='en', to='ordinal'),
