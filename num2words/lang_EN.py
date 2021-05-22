@@ -64,7 +64,7 @@ class Num2Word_EN(lang_EU.Num2Word_EU):
             return ("%s-%s" % (ltext, rtext), lnum + rnum)
         elif lnum >= 100 > rnum:
             return ("%s and %s" % (ltext, rtext), lnum + rnum)
-        elif rnum > lnum:
+        elif rnum > lnum or self.omit_commas:
             return ("%s %s" % (ltext, rtext), lnum * rnum)
         return ("%s, %s" % (ltext, rtext), lnum + rnum)
 

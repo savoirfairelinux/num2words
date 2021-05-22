@@ -71,7 +71,7 @@ CONVERTER_CLASSES = {
 CONVERTES_TYPES = ['cardinal', 'ordinal', 'ordinal_num', 'year', 'currency']
 
 
-def num2words(number, ordinal=False, lang='en', to='cardinal', **kwargs):
+def num2words(number, ordinal=False, lang='en', to='cardinal', omit_commas=False, **kwargs):
     # We try the full language first
     if lang not in CONVERTER_CLASSES:
         # ... and then try only the first 2 letters
@@ -89,5 +89,7 @@ def num2words(number, ordinal=False, lang='en', to='cardinal', **kwargs):
 
     if to not in CONVERTES_TYPES:
         raise NotImplementedError()
+
+    converter.omit_commas = omit_commas
 
     return getattr(converter, 'to_{}'.format(to))(number, **kwargs)
