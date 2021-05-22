@@ -28,7 +28,8 @@ class Num2WordsENTest(TestCase):
     def test_omit_commas(self):
         self.assertEqual(
             num2words(1234567, lang='en', to='ordinal', omit_commas=True),
-            'one million two hundred and thirty-four thousand five hundred and sixty-seventh'
+            "one million two hundred and thirty-four"
+            " thousand five hundred and sixty-seventh"
         )
 
     def test_ordinal(self):
