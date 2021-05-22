@@ -182,7 +182,7 @@ class Num2Word_SR(Num2Word_Base):
             cents (bool): Verbose cents
             separator (str): Cent separator
             adjective (bool): Prefix currency name with adjective
-            verbose_subunits (bool): Append cents regardless of whether cents > 0
+            verbose_subunits (bool): Append cents regardless of cents=0
         Returns:
             str: Formatted string
 
