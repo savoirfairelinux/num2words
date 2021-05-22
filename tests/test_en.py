@@ -127,7 +127,7 @@ class Num2WordsENTest(TestCase):
 
         self.assertEqual(
             num2words('2000.00', lang='en', to='currency', separator=' and',
-                      cents=True, currency='MXN', verbose_decimal=False),
+                      cents=True, currency='MXN', verbose_subunits=False),
             "two thousand pesos"
         )
 

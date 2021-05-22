@@ -264,7 +264,7 @@ class Num2Word_Base(object):
         return "%02d" % number
 
     def to_currency(self, val, currency='EUR', cents=True, separator=',',
-                    adjective=False, verbose_decimal=True):
+                    adjective=False, verbose_subunits=True):
         """
         Args:
             val: Numeric value
@@ -272,7 +272,7 @@ class Num2Word_Base(object):
             cents (bool): Verbose cents
             separator (str): Cent separator
             adjective (bool): Prefix currency name with adjective
-            verbose_decimal (bool): Append cents regardless of whether cents > 0
+            verbose_subunits (bool): Append cents regardless of whether cents > 0
         Returns:
             str: Formatted string
 
@@ -294,7 +294,7 @@ class Num2Word_Base(object):
         cents_str = self._cents_verbose(right, currency) \
             if cents else self._cents_terse(right, currency)
 
-        if verbose_decimal or right > 0:
+        if verbose_subunits or right > 0:
             return u'%s%s %s%s %s %s' % (
                 minus_str,
                 self.to_cardinal(left),

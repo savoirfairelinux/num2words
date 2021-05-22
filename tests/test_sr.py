@@ -244,5 +244,5 @@ class Num2WordsSRTest(TestCase):
         self.assertEqual(
             "trideset osam evra",
             num2words('38', lang='sr', to='currency', separator=' i',
-                      cents=False, currency='EUR', verbose_decimal=False),
+                      cents=False, currency='EUR', verbose_subunits=False),
         )
