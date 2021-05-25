@@ -32,10 +32,10 @@ class Num2WordsUKTest(TestCase):
         self.assertEqual(num2words(123, lang='uk'), 'сто двадцять три')
         self.assertEqual(num2words(1000, lang='uk'), 'одна тисяча')
         # self.assertEqual(num2words(1001, lang='uk'), 'одна тисяча один')
-        self.assertEqual(num2words(2012, lang='uk'), 'двi тисячi дванадцять')
+        self.assertEqual(num2words(2012, lang='uk'), 'дві тисячі дванадцять')
         self.assertEqual(
             num2words(12519.85, lang='uk'),
-            "дванадцять тисяч п'ятсот дев'ятнадцять кома вiсiмдесят п'ять")
+            "дванадцять тисяч п'ятсот дев'ятнадцять кома вісімдесят п'ять")
         # self.assertEqual(
         #    num2words(1234567890, lang='uk'),
         #    "мiльярд двiстi тридцать чотири мiльйона п'ятсот шiстдесят сiмь "
@@ -59,14 +59,14 @@ class Num2WordsUKTest(TestCase):
         #     "двiстi двадцять тисяч двiстi дев'яносто один")
 
     def test_and_join_199(self):
-        self.assertEqual(num2words(187, lang='uk'), "сто вiсiмдесят сiм")
+        self.assertEqual(num2words(187, lang='uk'), "сто вісімдесят сім")
 
     def test_cardinal_for_float_number(self):
         self.assertEqual(
             num2words(12.40, lang='uk'), "дванадцять кома чотири"
         )
         self.assertEqual(
-            num2words(17.31, lang='uk'), "сiмнадцять кома тридцять одна"
+            num2words(17.31, lang='uk'), "сімнадцять кома тридцять одна"
         )
         self.assertEqual(
             num2words(14.13, lang='uk'), "чотирнадцять кома тринадцять"
@@ -87,16 +87,16 @@ class Num2WordsUKTest(TestCase):
         # )
         self.assertEqual(
             num2words(1.0, lang='uk', to='currency', currency='UAH'),
-            "одна гривня, нуль копiйок"
+            "одна гривня, нуль копійок"
         )
         self.assertEqual(
             num2words(1234.56, lang='uk', to='currency', currency='EUR'),
-            "одна тисяча двiстi тридцять чотири євро, п'ятдесят шiсть центiв"
+            "одна тисяча двісті тридцять чотири євро, п'ятдесят шість центів"
         )
         self.assertEqual(
             num2words(1234.56, lang='uk', to='currency', currency='UAH'),
-            "одна тисяча двiстi тридцять чотири гривнi, п'ятдесят шiсть "
-            "копiйок"
+            "одна тисяча двісті тридцять чотири гривні, п'ятдесят шість "
+            "копійок"
         )
         # self.assertEqual(
         #     num2words(10111, lang='uk', to='currency', currency='EUR',
@@ -106,17 +106,17 @@ class Num2WordsUKTest(TestCase):
         self.assertEqual(
             num2words(10121, lang='uk', to='currency', currency='UAH',
                       separator=u' та'),
-            "сто одна гривня та двадцять одна копiйка"
+            "сто одна гривня та двадцять одна копійка"
         )
         self.assertEqual(
             num2words(10121, lang='uk', to='currency', currency='UAH',
                       separator=u' та'),
-            "сто одна гривня та двадцять одна копiйка"
+            "сто одна гривня та двадцять одна копійка"
         )
         self.assertEqual(
             num2words(10122, lang='uk', to='currency', currency='UAH',
                       separator=u' та'),
-            "сто одна гривня та двадцять двi копiйки"
+            "сто одна гривня та двадцять дві копійки"
         )
         # self.assertEqual(
         #     num2words(10121, lang='uk', to='currency', currency='EUR',
@@ -126,10 +126,10 @@ class Num2WordsUKTest(TestCase):
         self.assertEqual(
             num2words(-1251985, lang='uk', to='currency', currency='EUR',
                       cents=False),
-            "мiнус дванадцять тисяч п'ятсот дев'ятнадцять євро, 85 центiв"
+            "мінус дванадцять тисяч п'ятсот дев'ятнадцять євро, 85 центів"
         )
         self.assertEqual(
-            num2words('38.4', lang='uk', to='currency', separator=' и',
+            num2words('38.4', lang='uk', to='currency', separator=' і',
                       cents=False, currency='EUR'),
-            "тридцять вiсiм євро и 40 центiв"
+            "тридцять вісім євро і 40 центів"
         )
