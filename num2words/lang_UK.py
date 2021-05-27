@@ -137,7 +137,7 @@ class Num2Word_UK(Num2Word_Base):
 
         return forms[form]
 
-    def _int2word(self, n, feminine=True):
+    def _int2word(self, n, feminine=False):
         if n < 0:
             return ' '.join([self.negword, self._int2word(abs(n))])
 
@@ -172,6 +172,9 @@ class Num2Word_UK(Num2Word_Base):
                 words.append(self.pluralize(x, THOUSANDS[i]))
 
         return ' '.join(words)
+
+    def _money_verbose(self, number, currency):
+        return self._int2word(number, currency == 'UAH')
 
     def _cents_verbose(self, number, currency):
         return self._int2word(number, currency == 'UAH')
