@@ -271,10 +271,11 @@ class Num2Word_UK(Num2Word_Base):
         n = str(number).replace(',', '.')
         if '.' in n:
             left, right = n.split('.')
-            return '%s %s %s' % (
+            leading_zero_count = len(right) - len(right.lstrip('0'))
+            return u'%s %s %s' % (
                 self._int2word(int(left)),
                 self.pointword,
-                self._int2word(int(right))
+                (ZERO[0] + ' ') * leading_zero_count + self._int2word(int(right))
             )
         else:
             return self._int2word(int(n))
