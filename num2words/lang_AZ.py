@@ -27,7 +27,7 @@ class Num2Word_AZ(Num2Word_TR):
     def __init__(self):
         self.tr_instance = Num2Word_TR()
     
-    def translate_to_aze(self, turkish_str: str):
+    def translate_to_aze(self, turkish_str):
         """Translates the given turkish string to azerbaijani"""
         aze_str = turkish_str
         
