@@ -111,10 +111,12 @@ class Num2Word_SR(Num2Word_Base):
         if '.' in n:
             left, right = n.split('.')
             leading_zero_count = len(right) - len(right.lstrip('0'))
+            decimal_part = ((ZERO[0] + ' ') * leading_zero_count +
+                            self._int2word(int(right), feminine))
             return u'%s %s %s' % (
                 self._int2word(int(left), feminine),
                 self.pointword,
-                (ZERO[0] + ' ') * leading_zero_count + self._int2word(int(right), feminine)
+                decimal_part
             )
         else:
             return self._int2word(int(n), feminine)

@@ -103,10 +103,12 @@ class Num2Word_CZ(Num2Word_Base):
         if '.' in n:
             left, right = n.split('.')
             leading_zero_count = len(right) - len(right.lstrip('0'))
+            decimal_part = ((ZERO[0] + ' ') * leading_zero_count +
+                            self._int2word(int(right)))
             return u'%s %s %s' % (
                 self._int2word(int(left)),
                 self.pointword,
-                (ZERO[0] + ' ') * leading_zero_count + self._int2word(int(right))
+                decimal_part
             )
         else:
             return self._int2word(int(n))
