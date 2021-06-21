@@ -189,7 +189,7 @@ class Num2Word_AR(Num2Word_Base):
                 ones = tens % 10
                 tens = (tens / 10) - 2
                 if ones > 0:
-                    if ret_val != "" and tens < 4:
+                    if ret_val != "":
                         ret_val += " و "
 
                     ret_val += self.digit_feminine_status(ones, group_level)

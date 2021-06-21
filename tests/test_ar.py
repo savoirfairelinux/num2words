@@ -86,6 +86,7 @@ class Num2WordsARTest(TestCase):
 
     def test_cardinal(self):
         self.assertEqual(num2words(12, to='cardinal', lang='ar'), 'اثنا عشر')
+        self.assertEqual(num2words(262, to='cardinal', lang='ar'), 'مئتان و اثنان و ستون')
         self.assertEqual(num2words(-8324, to='cardinal', lang='ar'),
                          'سالب ثمانية آلاف و ثلاثمائة و أربعة و عشرون')
         self.assertEqual(
