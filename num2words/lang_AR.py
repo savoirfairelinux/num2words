@@ -193,7 +193,7 @@ class Num2Word_AR(Num2Word_Base):
                         ret_val += " و "
 
                     ret_val += self.digit_feminine_status(ones, group_level)
-                if ret_val != "" and ones != 0:
+                if ret_val != "":
                     ret_val += " و "
 
                 ret_val += self.arabicTens[int(tens)]
@@ -274,7 +274,10 @@ class Num2Word_AR(Num2Word_Base):
             elif 11 <= remaining100 <= 99:
                 formatted_number += self.currency_unit[3]
         if self._decimalValue != 0:
-            formatted_number += " {} ".format(self.separator)
+            if self.separator == ',':
+                formatted_number += "{} ".format(self.separator)
+            else:
+                formatted_number += " {} ".format(self.separator)
             formatted_number += decimal_string
 
         if self._decimalValue != 0:
