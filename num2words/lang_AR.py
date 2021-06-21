@@ -20,6 +20,7 @@
 import re
 from decimal import Decimal
 from math import floor
+from .base import Num2Word_Base
 
 CURRENCY_SR = [("ريال", "ريالان", "ريالات", "ريالاً"),
                ("هللة", "هللتان", "هللات", "هللة")]
@@ -37,7 +38,7 @@ ARABIC_ONES = [
 ]
 
 
-class Num2Word_AR(object):
+class Num2Word_AR(Num2Word_Base):
     errmsg_too_big = "Too large"
     max_num = 10 ** 36
 
