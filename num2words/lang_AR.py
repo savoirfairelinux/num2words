@@ -230,7 +230,7 @@ class Num2Word_AR(Num2Word_Base):
             if group_description != '':
                 if group > 0:
                     if ret_val != "":
-                        ret_val = "{} و {}".format("", ret_val)
+                        ret_val = "{}و {}".format("", ret_val)
                     if number_to_process != 2:
                         if number_to_process % 100 != 1:
                             if 3 <= number_to_process <= 10:

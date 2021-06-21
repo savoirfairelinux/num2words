@@ -43,10 +43,10 @@ class Num2WordsARTest(TestCase):
                          'عشرون ألف ريال و اثنتا عشرة هللة')
         self.assertEqual(num2words(1000000, to='currency', lang='ar'),
                          'مليون ريال')
-        val = 'تسعمائة و ثلاثة و عشرون ألفاً  و أربعمائة و أحد عشر ريالاً'
+        val = 'تسعمائة و ثلاثة و عشرون ألفاً و أربعمائة و أحد عشر ريالاً'
         self.assertEqual(num2words(923411, to='currency', lang='ar'), val)
         self.assertEqual(num2words(63411, to='currency', lang='ar'),
-                         'ثلاثة و ستون ألفاً  و أربعمائة و أحد عشر ريالاً')
+                         'ثلاثة و ستون ألفاً و أربعمائة و أحد عشر ريالاً')
         self.assertEqual(num2words(1000000.99, to='currency', lang='ar'),
                          'مليون ريال و تسع و تسعون هللة')
 
@@ -62,7 +62,7 @@ class Num2WordsARTest(TestCase):
             'عشرون ألف جنيه و اثنتا عشرة قرش')
         self.assertEqual(
             num2words(923411, to='currency', lang='ar', currency="SR"),
-            'تسعمائة و ثلاثة و عشرون ألفاً  و أربعمائة و أحد عشر ريالاً')
+            'تسعمائة و ثلاثة و عشرون ألفاً و أربعمائة و أحد عشر ريالاً')
         self.assertEqual(
             num2words(1000000.99, to='currency', lang='ar', currency="KWD"),
             'مليون دينار و تسع و تسعون فلس')
@@ -82,21 +82,21 @@ class Num2WordsARTest(TestCase):
                          'مائة و اثنان')
         self.assertEqual(
             num2words(923411, to='ordinal_num', lang='ar'),
-            'تسعمائة و ثلاثة و عشرون ألفاً  و أربعمائة و أحد عشر')
+            'تسعمائة و ثلاثة و عشرون ألفاً و أربعمائة و أحد عشر')
 
     def test_cardinal(self):
         self.assertEqual(num2words(12, to='cardinal', lang='ar'), 'اثنا عشر')
         self.assertEqual(num2words(-8324, to='cardinal', lang='ar'),
-                         'سالب ثمانية آلاف  و ثلاثمائة و أربعة و عشرون')
+                         'سالب ثمانية آلاف و ثلاثمائة و أربعة و عشرون')
         self.assertEqual(
             num2words(3431.12, to='cardinal', lang='ar'),
-            'ثلاثة آلاف  و أربعمائة و واحد و ثلاثون  , اثنتا عشرة')
+            'ثلاثة آلاف و أربعمائة و واحد و ثلاثون  , اثنتا عشرة')
         self.assertEqual(num2words(431, to='cardinal', lang='ar'),
                          'أربعمائة و واحد و ثلاثون')
         self.assertEqual(num2words(94231, to='cardinal', lang='ar'),
-                         'أربعة و تسعون ألفاً  و مئتان و واحد و ثلاثون')
+                         'أربعة و تسعون ألفاً و مئتان و واحد و ثلاثون')
         self.assertEqual(num2words(1431, to='cardinal', lang='ar'),
-                         'ألف  و أربعمائة و واحد و ثلاثون')
+                         'ألف و أربعمائة و واحد و ثلاثون')
 
     def test_prefix_and_suffix(self):
         self.assertEqual(num2words(645, to='currency',
