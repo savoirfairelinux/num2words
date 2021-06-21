@@ -23,7 +23,7 @@ from num2words import num2words
 class Num2WordsARTest(TestCase):
 
     def test_default_currency(self):
-        self.assertEqual(num2words(1, to='currency', lang='ar'), 'واحد ريال')
+        self.assertEqual(num2words(1, to='currency', lang='ar'), 'ريال')
         self.assertEqual(num2words(2, to='currency', lang='ar'),
                          'اثنان ريالان')
         self.assertEqual(num2words(10, to='currency', lang='ar'),
@@ -42,18 +42,18 @@ class Num2WordsARTest(TestCase):
         self.assertEqual(num2words(20000.12, to='currency', lang='ar'),
                          'عشرون ألف ريال و اثنتا عشرة هللة')
         self.assertEqual(num2words(1000000, to='currency', lang='ar'),
-                         'واحد مليون ريال')
+                         'مليون ريال')
         val = 'تسعمائة و ثلاثة و عشرون ألفاً  و أربعمائة و أحد عشر ريالاً'
         self.assertEqual(num2words(923411, to='currency', lang='ar'), val)
         self.assertEqual(num2words(63411, to='currency', lang='ar'),
                          'ثلاثة و ستون ألفاً  و أربعمائة و أحد عشر ريالاً')
         self.assertEqual(num2words(1000000.99, to='currency', lang='ar'),
-                         'واحد مليون ريال و تسع و تسعون هللة')
+                         'مليون ريال و تسع و تسعون هللة')
 
     def test_currency_parm(self):
         self.assertEqual(
             num2words(1, to='currency', lang='ar', currency="KWD"),
-            'واحد دينار')
+            'دينار')
         self.assertEqual(
             num2words(10, to='currency', lang='ar', currency="EGP"),
             'عشرة جنيهات')
@@ -65,7 +65,7 @@ class Num2WordsARTest(TestCase):
             'تسعمائة و ثلاثة و عشرون ألفاً  و أربعمائة و أحد عشر ريالاً')
         self.assertEqual(
             num2words(1000000.99, to='currency', lang='ar', currency="KWD"),
-            'واحد مليون دينار و تسع و تسعون فلس')
+            'مليون دينار و تسع و تسعون فلس')
 
     def test_ordinal(self):
         self.assertEqual(num2words(1, to='ordinal', lang='ar'), 'اول')
@@ -96,7 +96,7 @@ class Num2WordsARTest(TestCase):
         self.assertEqual(num2words(94231, to='cardinal', lang='ar'),
                          'أربعة و تسعون ألفاً  و مئتان و واحد و ثلاثون')
         self.assertEqual(num2words(1431, to='cardinal', lang='ar'),
-                         'واحد ألف  و أربعمائة و واحد و ثلاثون')
+                         'ألف  و أربعمائة و واحد و ثلاثون')
 
     def test_prefix_and_suffix(self):
         self.assertEqual(num2words(645, to='currency',

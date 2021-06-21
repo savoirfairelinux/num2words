@@ -248,7 +248,10 @@ class Num2Word_AR(Num2Word_Base):
                         else:
                             ret_val = "{} {}".format(self.arabicGroup[group],
                                                      ret_val)
-                ret_val = "{} {}".format(group_description, ret_val)
+                if number_to_process != 1:
+                    ret_val = "{} {}".format(group_description, ret_val)
+                if float(self.number) == 1 and self.currency_unit == ('', '', '', ''):
+                    ret_val = "{} {}".format(group_description, ret_val) 
             group += 1
         formatted_number = ""
         if self.arabicPrefixText != "":
