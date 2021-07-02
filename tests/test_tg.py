@@ -24,7 +24,10 @@ from num2words import num2words
 
 class Num2WordsTGTest(TestCase):
     def test_cardinal(self):
+        with self.assertRaises(OverflowError):
+            num2words(1000000000000000000000000, lang='tg')
         self.assertEqual(num2words(100, lang="tg"), "сад")
+        self.assertEqual(num2words(100000, lang="tg"), "сад ҳазор")
         self.assertEqual(num2words(101, lang="tg"), "яксаду як")
         self.assertEqual(num2words(110, lang="tg"), "яксаду даҳ")
         self.assertEqual(num2words(115, lang="tg"), "яксаду понздаҳ")
@@ -101,4 +104,9 @@ class Num2WordsTGTest(TestCase):
         self.assertEqual(
             num2words("1230.56", lang="tg", to="currency", currency="USD"),
             "як ҳазору дусаду си доллар, панҷову шаш сент",
+        )
+    
+    def test_to_ordinal_num(self):
+        self.assertEqual(
+            num2words("100", lang="tg", to="ordinal_num"), "100ум",
         )
