@@ -45,6 +45,9 @@ class Num2WordsTGTest(TestCase):
             "як миллиарду дусаду сию чор миллиону панҷсаду шасту ҳафт ҳазору "
             "ҳаштсаду навад",
         )
+        self.assertEqual(num2words(1000000, lang="tg"), "як миллион")
+        self.assertEqual(num2words(1000000000, lang="tg"), "як миллиард")
+        self.assertEqual(num2words(1000000000000, lang="tg"), "як триллион")
         self.assertEqual(num2words(5, lang="tg"), "панҷ")
         self.assertEqual(num2words(-1, lang="tg"), "минус як")
         self.assertEqual(num2words(-15, lang="tg"), "минус понздаҳ")
