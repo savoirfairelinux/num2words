@@ -43,7 +43,7 @@ class Num2Word_TG(lang_EU.Num2Word_EU):
             if n == 9:
                 self.cards[10 ** n] = word + self.GIGA_SUFFIX
 
-            elif self.MEGA_SUFFIX:
+            else:
                 self.cards[10 ** n] = word + self.MEGA_SUFFIX
 
     def setup(self):
@@ -147,3 +147,4 @@ class Num2Word_TG(lang_EU.Num2Word_EU):
     def to_ordinal_num(self, value):
         self.verify_ordinal(value)
         return "%s%s" % (value, self.to_ordinal(value)[-2:])
+    
