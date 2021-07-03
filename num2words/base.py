@@ -33,6 +33,7 @@ class Num2Word_Base(object):
         self.is_title = False
         self.precision = 2
         self.exclude_title = []
+        self.omit_commas = False
         self.negword = "(-) "
         self.pointword = "(.)"
         self.errmsg_nonnum = "type(%s) not in [long, int, float]"
