@@ -268,7 +268,7 @@ class Num2Word_DV:
                 self.negword,
                 result
             ])
-        return result
+        return result.strip()
 
 
     def verify_ordinal(self, value):
