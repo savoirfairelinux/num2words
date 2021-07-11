@@ -100,7 +100,7 @@ class Num2Word_Base(object):
     def str_to_number(self, value):
         return Decimal(value)
 
-    def to_cardinal(self, value, negative_value_flag = False):
+    def to_cardinal(self, value, negative_value_flag=False):
         try:
             assert int(value) == value
         except (ValueError, TypeError, AssertionError):
