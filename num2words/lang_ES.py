@@ -36,7 +36,7 @@ class Num2Word_ES(Num2Word_EU):
         'ESP': (('peseta', 'pesetas'), ('céntimo', 'céntimos')),
         'USD': (GENERIC_DOLLARS, GENERIC_CENTS),
         'PEN': (('sol', 'soles'), ('céntimo', 'céntimos')),
-        'CRC': (('colón', 'colones'), GENERIC_CENTS),
+        'CRC': (('colón', 'colones'), ('céntimo', 'céntimos')),
         'AUD': (GENERIC_DOLLARS, GENERIC_CENTS),
         'CAD': (GENERIC_DOLLARS, GENERIC_CENTS),
         'GBP': (('libra', 'libras'), ('penny', 'pence')),
