@@ -89,7 +89,7 @@ class Num2Word_FR(Num2Word_EU):
                 word = word[:-len(src)] + repl
                 break
         else:
-            if word[-1] == "e":
+            if word[-1] == "e" or (word[-1] == "s" and value % 20 == 0):
                 word = word[:-1]
             word = word + "ième"
         return word
