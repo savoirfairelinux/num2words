@@ -33,6 +33,14 @@ class Num2WordsPLTest(TestCase):
         self.assertEqual(num2words(1001, lang='pl'), "tysiąc jeden")
         self.assertEqual(num2words(2012, lang='pl'), "dwa tysiące dwanaście")
         self.assertEqual(
+            num2words(10.02, lang='pl'),
+            "dziesięć przecinek zero dwa"
+        )
+        self.assertEqual(
+            num2words(15.007, lang='pl'),
+            "piętnaście przecinek zero zero siedem"
+        )
+        self.assertEqual(
             num2words(12519.85, lang='pl'),
             "dwanaście tysięcy pięćset dziewiętnaście przecinek "
             "osiemdziesiąt pięć"
