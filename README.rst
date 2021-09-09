@@ -111,6 +111,7 @@ Besides the numerical argument, there are two main optional arguments.
 * ``rm_puter`` (Rumantsch Puter)
 * ``rm_surmiran`` (Rumantsch Surmiran)
 * ``rm_sursilv`` (Rumantsch Sursilvan)
+* ``rm_sutsilv`` (Rumantsch Sutsilvan)
 * ``rm_vallader`` (Rumantsch Vallader)
 * ``sv`` (Swedish)
 * ``ro`` (Romanian)
