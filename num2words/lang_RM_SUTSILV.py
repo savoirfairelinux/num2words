@@ -96,6 +96,7 @@ def adapt_milliarda(string):
     return (string
             .replace(" egn miliarda ", " egna miliarda ")
             .replace("dus miliardas", "duas miliardas")
+            .replace(" a end", " ad end")
             .replace(" a egn", " ad egn")
             .replace(" a otg", " ad otg")
             )
@@ -202,7 +203,7 @@ class Num2Word_RM_SUTSILV:
         if set(exponent) != set("0"):
             exponent_str = "".join(exponent)
             postfix = self.to_cardinal(int(exponent_str))
-            # we introduce "e" if 3-digits gap before next value
+            # we introduce "a" if 3-digits gap before next value
             if exponent_str.startswith('000'):
                 infix += " a "
             else:
