@@ -529,7 +529,6 @@ class Num2Word_BA(Num2Word_Base):
         
         len_zeros = k - len(self.integers_to_read[1])
 
-        print(int(self.integers_to_read[1]+'0'*len_zeros))
         wrdlst += [self.to_cardinal(int(self.integers_to_read[1]+'0'*len_zeros))]
 
         self.to_splitnum(value)
