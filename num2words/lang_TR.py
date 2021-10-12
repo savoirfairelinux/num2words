@@ -806,6 +806,10 @@ class Num2Word_TR(Num2Word_Base):
 
         return wrd
 
+    def to_ordinal_num(self, value):
+        self.verify_ordinal(value)
+        return "%s%s" % (value, self.to_ordinal(value)[-4:])
+        
     def to_splitnum(self, val):
         float_digits = str(int(val * 10 ** self.precision))
         if not int(val) == 0:
