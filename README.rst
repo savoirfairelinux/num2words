@@ -110,6 +110,7 @@ Besides the numerical argument, there are two main optional arguments.
 * ``sv`` (Swedish)
 * ``ro`` (Romanian)
 * ``ru`` (Russian)
+* ``ta`` (Tamil)
 * ``te`` (Telugu)
 * ``tr`` (Turkish)
 * ``th`` (Thai)
