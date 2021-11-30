@@ -22,7 +22,7 @@ from unittest import TestCase
 from num2words import num2words
 
 
-class Num2WordsCZTest(TestCase):
+class Num2WordsFATest(TestCase):
     def test_cardinal(self):
         self.assertEqual(num2words(100, lang='fa'), "یكصد")
         self.assertEqual(num2words(101, lang='fa'), "یكصد و یک")
