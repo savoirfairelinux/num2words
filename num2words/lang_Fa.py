@@ -16,14 +16,15 @@
 # MA 02110-1301 USA
 
 from .base import Num2Word_Base
-
+from .utils import get_digits, splitbyx
 
 CURRENCY_ir = {
-    1: ("ريال",),
-    2:("تومان",),
+    'RIAL': ("ريال",),
+    'TOMAN': ("تومان",),
 }
 
 ONES = {
+    0: ('صفر',),
     1: ('یک',),
     2: ('دو',),
     3: ('سه',),
@@ -84,5 +85,88 @@ THOUSANDS = {
     10: ('کوینتیلیون', ),  # 10^30
 }
 
+MANTISSA = {
+    1: ('دهم',),  # .0
+    2: ('صدم', ),  # .00
+    3: ('هزارم', ),  # .000
+    4: ('ده هزارم', ),  # .0000
+    5: ('صدهزارم', ),  # .00000
+    6: ('یک میلیونیم', ),  # .000000
+    7: ('ده میلیونیم',),  # .0000000
+    8: (' صد میلیونیم', ),  # .00000000
+    9: ('یک میلیاردم', ),  # .000000000
+}
+
+
 class Num2Word_FA(Num2Word_Base):
+
     def __init__():
+        self.separator = ' و '
+        self.errmsg_too_big = "Too large"
+        self.errmsg_too_small = "Too Small"
+        self.max_num = 10 ** 30
+
+    def to_cardinal(self, number):
+        n = str(number).replace(',', '.')
+        if '.' in n:
+            left, right = n.split('.')
+            leading_zero_count = len(right) - len(right.lstrip('0'))
+            decimal_part = self._int2word(int(right))
+            if len(str(right).strip("0")) > 0:
+                return(u'%s%s%s %s' % (
+                    self._int2word(int(left)),
+                    separator,
+                    decimal_part,
+                    MANTISSA[len(str(right).rstrip("0"))][0]
+                ))
+            else:
+                return (self._nt2word(int(left)))
+        else:
+            return (self._int2word(int(n)))
+
+    def ـint2word(self, n):
+        if n == 0:
+            return ONES[0][0]
+        words = []
+        chunks = list(splitbyx(str(n), 3))
+        i = len(chunks)
+
+        for x in chunks:
+            i -= 1
+
+            if x == 0:
+                continue
+
+            n1, n2, n3 = get_digits(x)
+
+            if n3 > 0:
+                words.append(HUNDREDS[n3][0])
+
+            if n2 > 1:
+                words.append(TWENTIES[n2][0])
+
+            if n2 == 1:
+                words.append(TENS[n1][0])
+            elif n1 > 0 and not (i > 0 and x == 1):
+                words.append(ONES[n1][0])
+            if i > 0:
+                words[-1] += ' '+(THOUSANDS[i][0])
+
+        return self.separator.join(words)
+
+    def validate_number(self, number):
+        if type(number) is int:
+            if number >= self.max_num:
+                raise OverflowError(self.errmsg_too_big)
+            return number
+        else:
+            _, right = n.split('.')
+            if len(right) <= 9:
+                raise OverflowError(self.errmsg_too_small)
+            return number
+
+    def to_currency(self, value, currency='RIAL'):
+        if type(value) is str:
+            value = value.replace(',', '')
+
+        return u'%s %s' % (str(self.ـint2word(value)), CURRENCY_ir[currency][0])
