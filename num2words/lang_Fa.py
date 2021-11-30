@@ -61,7 +61,7 @@ TWENTIES = {
 }
 
 HUNDREDS = {
-    1: ('صد',),
+    1: ('یكصد',),
     2: ('دویست',),
     3: ('سیصد',),
     4: ('چهارصد',),
@@ -100,29 +100,30 @@ MANTISSA = {
 
 class Num2Word_FA(Num2Word_Base):
 
-    def __init__():
+    def __init__(self):
         self.separator = ' و '
         self.errmsg_too_big = "Too large"
         self.errmsg_too_small = "Too Small"
-        self.max_num = 10 ** 30
+        self.max_num = 10 ** 33
 
     def to_cardinal(self, number):
+        number = self._validate_number(number)
         n = str(number).replace(',', '.')
         if '.' in n:
             left, right = n.split('.')
             leading_zero_count = len(right) - len(right.lstrip('0'))
-            decimal_part = self._int2word(int(right))
+            decimal_part = self.ـint2word(int(right))
             if len(str(right).strip("0")) > 0:
                 return(u'%s%s%s %s' % (
-                    self._int2word(int(left)),
-                    separator,
+                    self.ـint2word(int(left)),
+                    self.separator,
                     decimal_part,
                     MANTISSA[len(str(right).rstrip("0"))][0]
                 ))
             else:
                 return (self._nt2word(int(left)))
         else:
-            return (self._int2word(int(n)))
+            return (self.ـint2word(int(n)))
 
     def ـint2word(self, n):
         if n == 0:
@@ -147,26 +148,33 @@ class Num2Word_FA(Num2Word_Base):
 
             if n2 == 1:
                 words.append(TENS[n1][0])
-            elif n1 > 0 and not (i > 0 and x == 1):
+            elif n1 > 0 and not (i > 0 and x == 0):
                 words.append(ONES[n1][0])
+
             if i > 0:
                 words[-1] += ' '+(THOUSANDS[i][0])
 
         return self.separator.join(words)
 
-    def validate_number(self, number):
+    def _validate_number(self, number):
         if type(number) is int:
             if number >= self.max_num:
                 raise OverflowError(self.errmsg_too_big)
             return number
         else:
+            n = str(number)
             _, right = n.split('.')
-            if len(right) <= 9:
+            if len(right) >= 9:
                 raise OverflowError(self.errmsg_too_small)
             return number
 
     def to_currency(self, value, currency='RIAL'):
         if type(value) is str:
-            value = value.replace(',', '')
+            value = int(value.replace(',', ''))
+
+        value = self._validate_number(value)
 
         return u'%s %s' % (str(self.ـint2word(value)), CURRENCY_ir[currency][0])
+
+
+    

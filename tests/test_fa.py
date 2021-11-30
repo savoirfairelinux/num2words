@@ -31,84 +31,40 @@ class Num2WordsCZTest(TestCase):
         self.assertEqual(num2words(123, lang='fa'), "یكصد و بیست و سه")
         self.assertEqual(num2words(1000, lang='fa'), "یک هزار")
         self.assertEqual(num2words(1001, lang='fa'), "یک هزار و یک")
-        self.assertEqual(num2words(2012, lang='fa'), "dva tisíce dvanáct")
+        self.assertEqual(num2words(2012, lang='fa'), "دو هزار و دوازده")
         self.assertEqual(
             num2words(10.02, lang='fa'),
-            "deset celá nula dva"
+            "ده و دو صدم"
         )
         self.assertEqual(
             num2words(15.007, lang='fa'),
-            "patnáct celá nula nula sedm"
+            "پانزده و هفت هزارم"
         )
         self.assertEqual(
             num2words(12519.85, lang='fa'),
-            "dvanáct tisíc pětset devatenáct celá osmdesát pět"
+            "دوازده هزار و پانصد و نوزده و هشتاد و پنج صدم"
         )
         self.assertEqual(
             num2words(123.50, lang='fa'),
-            "sto dvacet tři celá pět"
+            "یكصد و بیست و سه و پنج دهم"
         )
         self.assertEqual(
             num2words(1234567890, lang='fa'),
-            "miliarda dvěstě třicet čtyři miliony pětset šedesát "
-            "sedm tisíc osmset devadesát"
+            "یک میلیارد و دویست و سی و چهار میلیون و پانصد و شصت و هفت هزار و هشتصد و نود"
         )
         self.assertEqual(
             num2words(215461407892039002157189883901676, lang='fa'),
-            "dvěstě patnáct quintillionů čtyřista šedesát jedna kvadriliard "
-            "čtyřista sedm kvadrilionů osmset devadesát dva triliardy třicet "
-            "devět trilionů dva biliardy sto padesát sedm bilionů sto "
-            "osmdesát devět miliard osmset osmdesát tři miliony "
-            "devětset jedna tisíc šestset sedmdesát šest"
+            "دویست و پانزده کوینتیلیون و چهارصد و شصت و یک کادریلیارد و چهارصد و هفت کوآدریلیون و هشتصد و نود و دو تریلیارد و سی و نه تریلیون و دو بیلیارد و یكصد و پنجاه و هفت بیلیون و یكصد و هشتاد و نه میلیارد و هشتصد و هشتاد و سه میلیون و نهصد و یک هزار و ششصد و هفتاد و شش"
         )
-        self.assertEqual(
-            num2words(719094234693663034822824384220291, lang='fa'),
-            "sedmset devatenáct quintillionů devadesát "
-            "čtyři kvadriliardy dvěstě třicet čtyři "
-            "kvadriliony šestset devadesát tři triliardy "
-            "šestset šedesát tři triliony třicet čtyři biliardy osmset "
-            "dvacet dva biliony osmset dvacet čtyři "
-            "miliardy třista osmdesát čtyři miliony dvěstě dvacet "
-            "tisíc dvěstě devadesát jedna"
-        )
-
-    def test_to_ordinal(self):
-        # @TODO: implement to_ordinal
-        with self.assertRaises(NotImplementedError):
-            num2words(1, lang='fa', to='ordinal')
 
     def test_currency(self):
         self.assertEqual(
-            num2words(10.0, lang='fa', to='currency', currency='EUR'),
-            "deset euro, nula centů")
+            num2words(70500, lang='fa', to='currency', currency='TOMAN'),
+            "هفتاد هزار و پانصد تومان")
         self.assertEqual(
-            num2words(1.0, lang='fa', to='currency', currency='CZK'),
-            "jedna koruna, nula haléřů")
+            num2words(102543, lang='fa', to='currency'),
+            "یكصد و دو هزار و پانصد و چهل و سه ريال")
         self.assertEqual(
-            num2words(1234.56, lang='fa', to='currency', currency='EUR'),
-            "tisíc dvěstě třicet čtyři euro, padesát šest centů")
-        self.assertEqual(
-            num2words(1234.56, lang='fa', to='currency', currency='CZK'),
-            "tisíc dvěstě třicet čtyři koruny, padesát šest haléřů")
-        self.assertEqual(
-            num2words(101.11, lang='fa', to='currency', currency='EUR',
-                      separator=' a'),
-            "sto jedna euro a jedenáct centů")
-        self.assertEqual(
-            num2words(101.21, lang='fa', to='currency', currency='CZK',
-                      separator=' a'),
-            "sto jedna korun a dvacet jedna haléřů"
-        )
-        self.assertEqual(
-            num2words(-12519.85, lang='fa', to='currency', cents=False),
-            "mínus dvanáct tisíc pětset devatenáct euro, 85 centů"
-        )
-        self.assertEqual(
-            num2words(123.50, lang='fa', to='currency', currency='CZK',
-                      separator=' a'),
-            "sto dvacet tři koruny a padesát haléřů"
-        )
-        self.assertEqual(
-            num2words(19.50, lang='fa', to='currency', cents=False),
-            "devatenáct euro, 50 centů"
-        )
+            num2words(102543, lang='fa', to='currency', currency='TOMAN'),
+            "یكصد و دو هزار و پانصد و چهل و سه تومان")
+       
