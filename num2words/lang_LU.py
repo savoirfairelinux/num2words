@@ -61,8 +61,11 @@ class Num2Word_LU(Num2Word_EU):
             "ert": "erts",
             "end": "ends",
             "oun": "ouns",
+            "ounen": "ouns",
             "ard": "ards",
+            "arden": "ards",
             "ion": "ions",
+            "ionen": "ions",
         }
 
     def merge(self, curr, next):
@@ -101,7 +104,7 @@ class Num2Word_LU(Num2Word_EU):
 
             if nnum < 10 < cnum < 100:
                 # Eifel rule ("Eifeler Regel")
-                if ctext[0] in 'n d t z h'.split():
+                if ctext[0] in 'a n d t z h'.split():
                     ntext, ctext = ctext, ntext + "an"
                 else:
                     ntext, ctext = ctext, ntext + "a"
@@ -131,6 +134,9 @@ class Num2Word_LU(Num2Word_EU):
         return result
 
     def to_ordinal(self, value):
+        if value > 10 ** 6:
+            raise OverflowError(self.errmsg_toobig % (value, 10 ** 6))
+
         self.verify_ordinal(value)
         outword = self.to_cardinal(value).lower()
 
