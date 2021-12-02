@@ -90,16 +90,6 @@ class Num2WordsLUTest(TestCase):
         self.assertEqual(
             num2words(1000000, ordinal=True, lang='lu'), "eng milliounst"
         )
-        # self.assertEqual(
-        #     num2words(2000000, ordinal=True, lang='lu'), "zweemilliounst"
-        # )
-        # self.assertEqual(
-        #     num2words(1000000000, ordinal=True, lang='lu'), "milliardst"
-        # )
-        # self.assertEqual(
-        #     num2words(5000000000, ordinal=True, lang='lu'),
-        #     "fënnefmilliardst"
-        # )
 
     def test_cardinal_at_some_numbers(self):
         self.assertEqual(num2words(100, lang='lu'), "honnert")
