@@ -85,7 +85,7 @@ class Num2Word_Base(object):
 
             out.append((self.cards[elem], elem))
 
-            if mod: #not ahead of the upstream savoirfairelinux:master.
+            if mod:
                 out.append(self.splitnum(mod))
 
             return out
