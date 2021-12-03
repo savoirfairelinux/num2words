@@ -100,6 +100,7 @@ Besides the numerical argument, there are two main optional arguments.
 * ``ko`` (Korean)
 * ``kz`` (Kazakh)
 * ``lt`` (Lithuanian)
+* ``lu`` (Luxembourgish)
 * ``lv`` (Latvian)
 * ``no`` (Norwegian)
 * ``pl`` (Polish)
