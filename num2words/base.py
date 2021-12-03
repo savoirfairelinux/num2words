@@ -85,7 +85,7 @@ class Num2Word_Base(object):
 
             out.append((self.cards[elem], elem))
 
-            if mod:
+            if mod:not ahead of the upstream savoirfairelinux:master.
                 out.append(self.splitnum(mod))
 
             return out
@@ -279,7 +279,7 @@ class Num2Word_Base(object):
             str: Formatted string
 
         """
-        left, right, is_negative = parse_currency_parts(val)
+        left, right, is_negative = parse_currency_parts(val, (type(val) is float) )
 
         try:
             cr1, cr2 = self.CURRENCY_FORMS[currency]
