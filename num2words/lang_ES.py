@@ -204,7 +204,7 @@ class Num2Word_ES(Num2Word_EU):
         'ZMW': (('kwacha', 'kwachas'), ('ngwee', 'ngwee')),
         'ZRZ': (('zaire', 'zaires'), ('likuta', 'makuta')),
         'ZWL': (GENERIC_DOLLARS, ('céntimo', 'céntimos')),
-        'ZWL': (GENERIC_DOLLARS, ('céntimo', 'céntimos')),
+
     }
 
     # //CHECK: Is this sufficient??
@@ -297,7 +297,10 @@ class Num2Word_ES(Num2Word_EU):
 
         return (ctext + ntext, cnum * nnum)
 
-    def to_ordinal(self, value):
+    def to_ordinal(self, value, char):
+        if char == "f":
+            self.gender_stem = 'a'
+
         self.verify_ordinal(value)
         if value == 0:
             text = ""
@@ -306,19 +309,19 @@ class Num2Word_ES(Num2Word_EU):
         elif value <= 12:
             text = (
                 "%s%s%s" % (self.ords[10], self.gender_stem,
-                            self.to_ordinal(value - 10))
+                            self.to_ordinal((value - 10), char))
                     )
         elif value <= 100:
             dec = (value // 10) * 10
             text = (
                 "%s%s %s" % (self.ords[dec], self.gender_stem,
-                             self.to_ordinal(value - dec))
+                             self.to_ordinal((value - dec), char))
                     )
         elif value <= 1e3:
             cen = (value // 100) * 100
             text = (
                 "%s%s %s" % (self.ords[cen], self.gender_stem,
-                             self.to_ordinal(value - cen))
+                             self.to_ordinal((value - cen), char))
                     )
         elif value < 1e18:
             # Round down to the nearest 1e(3n)
@@ -337,7 +340,7 @@ class Num2Word_ES(Num2Word_EU):
             cardinal = self.to_cardinal(high_part) if high_part != 1 else ""
             text = (
                 "%s%s%s %s" % (cardinal, self.ords[dec], self.gender_stem,
-                               self.to_ordinal(low_part))
+                               self.to_ordinal((low_part), char))
                     )
         else:
             text = self.to_cardinal(value)
