@@ -113,6 +113,10 @@ class Num2Word_RU(Num2Word_Base):
         'KZT': (
             ('тенге', 'тенге', 'тенге'), ('тиын', 'тиына', 'тиынов')
         ),
+        'BYN': (
+            ('белорусский рубль', 'белорусского рубля', 'белорусских рублей'), ('копейка', 'копейки', 'копеек')
+        ),
+
     }
 
     def setup(self):
@@ -208,7 +212,7 @@ class Num2Word_RU(Num2Word_Base):
         return self._int2word(number, currency == 'UAH')
 
     def _cents_verbose(self, number, currency):
-        return self._int2word(number, currency in ('UAH', 'RUB'))
+        return self._int2word(number, currency in ('UAH', 'RUB', 'BYN'))
 
     def _int2word(self, n, feminine=False):
         if n < 0:

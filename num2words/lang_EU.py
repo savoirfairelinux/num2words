@@ -26,6 +26,7 @@ GENERIC_CENTS = ('cent', 'cents')
 class Num2Word_EU(Num2Word_Base):
     CURRENCY_FORMS = {
         'AUD': (GENERIC_DOLLARS, GENERIC_CENTS),
+        'BYN': (('rouble', 'roubles'), ('kopek', 'kopeks')),
         'CAD': (GENERIC_DOLLARS, GENERIC_CENTS),
         # repalced by EUR
         'EEK': (('kroon', 'kroons'), ('sent', 'senti')),
@@ -48,6 +49,7 @@ class Num2Word_EU(Num2Word_Base):
 
     CURRENCY_ADJECTIVES = {
         'AUD': 'Australian',
+        'BYN': 'Belarussian',
         'CAD': 'Canadian',
         'EEK': 'Estonian',
         'USD': 'US',
