@@ -92,6 +92,7 @@ Besides the numerical argument, there are two main optional arguments.
 * ``fr_BE`` (French - Belgium)
 * ``fr_DZ`` (French - Algeria)
 * ``he`` (Hebrew)
+* ``hi`` (Hindi)
 * ``hu`` (Hungarian)
 * ``id`` (Indonesian)
 * ``it`` (Italian)
