@@ -171,6 +171,7 @@ TEST_CASES_TO_CURRENCY_CRC = (
 
 TEST_CASES_TO_CURRENCY_GBP = (
     (1.00, 'una libra con cero peniques'),
+    (1.01, 'una libra con un penique'),
     (2.00, 'dos libras con cero peniques'),
     (8.00, 'ocho libras con cero peniques'),
     (12.00, 'doce libras con cero peniques'),
