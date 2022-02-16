@@ -20,6 +20,7 @@ from unittest import TestCase
 from num2words import num2words
 
 
+# number, pronounced form
 TEST_CASES_CARDINAL = (
     (-42, "माइनस बयालीस"),
     (0, "शून्य"),
@@ -139,6 +140,7 @@ TEST_CASES_CARDINAL = (
     (113345, "एक लाख तेरह हज़ार तीन सौ पैंतालीस"),
 )
 
+# number, hindi notation, pronounced form
 TEST_CASES_ORDINAL = (
     (0, "०", "शून्य"),  # zero is used in cardinal form
     (1, "१ला", "पहला"),
@@ -254,14 +256,30 @@ TEST_CASES_ORDINAL = (
 
 
 class Num2WordsHITest(TestCase):
-    def test_number(self):
+    def test_cardinal(self):
         for test in TEST_CASES_CARDINAL:
-            self.assertEqual(num2words(test[0], lang="hi"), test[1])
+            self.assertEqual(
+                num2words(test[0], lang="hi"),
+                test[1],
+                msg="failing number %s" % test[0],
+            )
+
+    def test_float_cardinal(self):
+        self.assertEqual(num2words(12.5, lang="hi"), "बारह दशमलव पाँच")
+        self.assertEqual(num2words(12.51, lang="hi"), "बारह दशमलव पाँच एक")
 
     def test_ordinal(self):
         for test in TEST_CASES_ORDINAL:
-            self.assertEqual(num2words(test[0], lang="hi", ordinal=True), test[2])
+            self.assertEqual(
+                num2words(test[0], lang="hi", ordinal=True),
+                test[2],
+                msg="failing number %s" % test[0],
+            )
 
     def test_ordinal_num(self):
         for test in TEST_CASES_ORDINAL:
-            self.assertEqual(num2words(test[0], lang="hi", to="ordinal_num"), test[1])
+            self.assertEqual(
+                num2words(test[0], lang="hi", to="ordinal_num"),
+                test[1],
+                msg="failing number %s" % test[0],
+            )
