@@ -185,7 +185,7 @@ class Num2Word_HI(Num2Word_Base):
         cardinal = self.to_cardinal(value)
         return cardinal + self._regular_ordinal_suffix
 
-    def _convert_to_hindi_numerals(self, value) -> str:
+    def _convert_to_hindi_numerals(self, value):
         return "".join(map(self._digits_to_hindi_digits.__getitem__, str(value)))
 
     def to_ordinal_num(self, value):
