@@ -23,7 +23,7 @@ from num2words.base import Num2Word_Base
 
 class Num2Word_HI(Num2Word_Base):
     """
-    Hindi (HI) Num2Word converter class
+    Hindi (HI) Num2Word class
     """
 
     _irregular_ordinals = {
@@ -47,6 +47,7 @@ class Num2Word_HI(Num2Word_Base):
     _regular_ordinal_suffix = "वाँ"
 
     def setup(self):
+        # Note: alternative forms are informal
         self.low_numwords = [
             "निन्यानवे",
             "अट्ठानवे",

@@ -21,7 +21,6 @@ from num2words import num2words
 
 # number, hindi number, pronounced form
 TEST_CASES_CARDINAL = (
-    (-42, "-४२", "माइनस बयालीस"),
     (0, "०", "शून्य"),
     (1, "१", "एक"),
     (2, "२", "दो"),
@@ -263,6 +262,9 @@ class Num2WordsHITest(TestCase):
                 msg="failing number %s" % number,
             )
 
+    def test_negative_cardinal(self):
+        self.assertEqual(num2words(-42, lang="hi"), "माइनस बयालीस")
+
     def test_float_cardinal(self):
         self.assertEqual(num2words(12.5, lang="hi"), "बारह दशमलव पाँच")
         self.assertEqual(num2words(12.51, lang="hi"), "बारह दशमलव पाँच एक")
@@ -280,5 +282,16 @@ class Num2WordsHITest(TestCase):
             self.assertEqual(
                 num2words(number, lang="hi", to="ordinal_num"),
                 numeric_notation,
+                msg="failing number %s" % number,
+            )
+
+    # In python3, Hindi numbers are implicitly converted into number as `assert int('४२') == 42`.
+    # Thus it's possible to pass Hindi numbers string directly to the num2words as `num2words('४२', lang='hi')`.
+    # This will work for any language, but is relevant to test for Hindi particularly.
+    def test_hindi_numeric_input(self):
+        for number, hindi_number, words in TEST_CASES_CARDINAL:
+            self.assertEqual(
+                num2words(hindi_number, lang="hi"),
+                words,
                 msg="failing number %s" % number,
             )
