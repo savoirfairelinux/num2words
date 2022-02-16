@@ -21,7 +21,7 @@ import math
 
 from .lang_EU import Num2Word_EU
 
-GENERIC_DOLLARS = ('dolar', 'dólares')
+GENERIC_DOLLARS = ('dólar', 'dólares')
 GENERIC_CENTS = ('centavo', 'centavos')
 CURRENCIES_UNA = ('SLL', 'SEK', 'NOK', 'CZK', 'DKK', 'ISK',
                   'SKK', 'GBP', 'CYP', 'EGP', 'FKP', 'GIP',
@@ -230,7 +230,7 @@ class Num2Word_ES(Num2Word_EU):
                              "veintiséis", "veinticinco", "veinticuatro",
                              "veintitrés", "veintidós", "veintiuno",
                              "veinte", "diecinueve", "dieciocho", "diecisiete",
-                             "dieciseis", "quince", "catorce", "trece", "doce",
+                             "dieciséis", "quince", "catorce", "trece", "doce",
                              "once", "diez", "nueve", "ocho", "siete", "seis",
                              "cinco", "cuatro", "tres", "dos", "uno", "cero"]
         self.ords = {1: "primer",
