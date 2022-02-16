@@ -363,5 +363,6 @@ class Num2Word_ES(Num2Word_EU):
                 list_result[0] = list_result[0].replace("uno", "una")
                 result = " ".join(list_result)
         result = result.replace("uno", "un")
-        result = result.replace("veintiun", "veintiún") # correct orthography for this specific case
+        # correct orthography for the specific case of "veintiún":
+        result = result.replace("veintiun", "veintiún")
         return result
