@@ -25,6 +25,7 @@ class Num2Word_HI(Num2Word_Base):
     """
     Hindi (HI) Num2Word converter class
     """
+
     _irregular_ordinals = {
         0: "शून्य",
         1: "पहला",
