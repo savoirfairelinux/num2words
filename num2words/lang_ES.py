@@ -184,7 +184,7 @@ class Num2Word_ES(Num2Word_EU):
         'TND': (('dinar', 'dinares'), ('milésimo', 'milésimos')),
         'TOP': (('paanga', 'paangas'), ('céntimo', 'céntimos')),
         'TTD': (GENERIC_DOLLARS, ('céntimo', 'céntimos')),
-        'TWD': (('nuevo dólar', 'nuevos dolares'), ('céntimo', 'céntimos')),
+        'TWD': (('nuevo dólar', 'nuevos dólares'), ('céntimo', 'céntimos')),
         'TZS': (('chelín', 'chelines'), ('céntimo', 'céntimos')),
         'UAG': (('hryvnia', 'hryvnias'), ('kopiyka', 'kopiykas')),
         'UGX': (('chelín', 'chelines'), ('céntimo', 'céntimos')),
