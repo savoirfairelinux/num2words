@@ -16,11 +16,15 @@
 # MA 02110-1301 USA
 
 from __future__ import unicode_literals
+import string
 
 from num2words.base import Num2Word_Base
 
 
 class Num2Word_HI(Num2Word_Base):
+    """
+    Hindi (HI) Num2Word converter class
+    """
     _irregular_ordinals = {
         0: "शून्य",
         1: "पहला",
@@ -37,7 +41,8 @@ class Num2Word_HI(Num2Word_Base):
         4: "४था",
         6: "६ठा",
     }
-    _hindi_digits = dict(zip("0123456789", "०१२३४५६७८९"))
+    _hindi_digits = "०१२३४५६७८९"  # 0-9
+    _digits_to_hindi_digits = dict(zip(string.digits, _hindi_digits))
     _regular_ordinal_suffix = "वाँ"
 
     def setup(self):
@@ -163,24 +168,25 @@ class Num2Word_HI(Num2Word_Base):
         ltext, lnum = lpair
         rtext, rnum = rpair
         if lnum == 1 and rnum < 100:
-            return (rtext, rnum)
+            return rtext, rnum
         elif 100 > lnum > rnum:
-            return ("%s-%s" % (ltext, rtext), lnum + rnum)
+            return "%s-%s" % (ltext, rtext), lnum + rnum
         elif lnum >= 100 > rnum:
-            return ("%s %s" % (ltext, rtext), lnum + rnum)
+            return "%s %s" % (ltext, rtext), lnum + rnum
         elif rnum > lnum:
-            return ("%s %s" % (ltext, rtext), lnum * rnum)
-        return ("%s %s" % (ltext, rtext), lnum + rnum)
+            return "%s %s" % (ltext, rtext), lnum * rnum
+        return "%s %s" % (ltext, rtext), lnum + rnum
 
     def to_ordinal(self, value):
         if value in self._irregular_ordinals:
             return self._irregular_ordinals[value]
 
+        # regular Hindi ordinals are derived from cardinals by modifying the last member of the expression.
         cardinal = self.to_cardinal(value)
         return cardinal + self._regular_ordinal_suffix
 
     def _convert_to_hindi_numerals(self, value) -> str:
-        return "".join(map(self._hindi_digits.__getitem__, str(value)))
+        return "".join(map(self._digits_to_hindi_digits.__getitem__, str(value)))
 
     def to_ordinal_num(self, value):
         if value in self._irregular_ordinals_nums:
