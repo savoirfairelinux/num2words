@@ -170,16 +170,16 @@ TEST_CASES_TO_CURRENCY_CRC = (
 )
 
 TEST_CASES_TO_CURRENCY_GBP = (
-    (1.00, 'una libra con cero pence'),
-    (2.00, 'dos libras con cero pence'),
-    (8.00, 'ocho libras con cero pence'),
-    (12.00, 'doce libras con cero pence'),
-    (21.00, 'veintiún libras con cero pence'),
-    (81.25, 'ochenta y un libras con veinticinco pence'),
-    (350.90, 'trescientos cincuenta libras con noventa pence'),
-    (100.00, 'cien libras con cero pence'),
+    (1.00, 'una libra con cero peniques'),
+    (2.00, 'dos libras con cero peniques'),
+    (8.00, 'ocho libras con cero peniques'),
+    (12.00, 'doce libras con cero peniques'),
+    (21.00, 'veintiún libras con cero peniques'),
+    (81.25, 'ochenta y un libras con veinticinco peniques'),
+    (350.90, 'trescientos cincuenta libras con noventa peniques'),
+    (100.00, 'cien libras con cero peniques'),
     (4150.83,
-        'cuatro mil ciento cincuenta libras con ochenta y tres pence'),
+        'cuatro mil ciento cincuenta libras con ochenta y tres peniques'),
 )
 
 TEST_CASES_TO_CURRENCY_RUB = (
