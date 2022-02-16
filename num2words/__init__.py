@@ -81,7 +81,7 @@ def num2words(number, ordinal=False, lang='en', to='cardinal', **kwargs):
         raise NotImplementedError()
     converter = CONVERTER_CLASSES[lang]
 
-    if isinstance(number, str):
+    if isinstance(number, (str, unicode)):
         number = converter.str_to_number(number)
 
     # backwards compatible
