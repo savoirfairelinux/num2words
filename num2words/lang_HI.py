@@ -21,22 +21,24 @@ from num2words.base import Num2Word_Base
 
 
 class Num2Word_HI(Num2Word_Base):
-    def set_high_numwords(self, high):
-        for n, word in self.high_numwords:
-            self.cards[10**n] = word
-
-    def merge(self, lpair, rpair):
-        ltext, lnum = lpair
-        rtext, rnum = rpair
-        if lnum == 1 and rnum < 100:
-            return (rtext, rnum)
-        elif 100 > lnum > rnum:
-            return ("%s-%s" % (ltext, rtext), lnum + rnum)
-        elif lnum >= 100 > rnum:
-            return ("%s %s" % (ltext, rtext), lnum + rnum)
-        elif rnum > lnum:
-            return ("%s %s" % (ltext, rtext), lnum * rnum)
-        return ("%s %s" % (ltext, rtext), lnum + rnum)
+    _irregular_ordinals = {
+        0: "शून्य",
+        1: "पहला",
+        2: "दूसरा",
+        3: "तीसरा",
+        4: "चौथा",
+        6: "छठा",
+    }
+    _irregular_ordinals_nums = {
+        0: "०",
+        1: "१ला",
+        2: "२रा",
+        3: "३रा",
+        4: "४था",
+        6: "६ठा",
+    }
+    _hindi_digits = dict(zip("0123456789", "०१२३४५६७८९"))
+    _regular_ordinal_suffix = "वाँ"
 
     def setup(self):
         self.low_numwords = [
@@ -151,29 +153,24 @@ class Num2Word_HI(Num2Word_Base):
             (3, "हज़ार"),  # alternative "हज़ार"
         ]
         self.pointword = "दशमलव"
-
-        self._irregular_ordinals = {
-            0: "शून्य",
-            1: "पहला",
-            2: "दूसरा",
-            3: "तीसरा",
-            4: "चौथा",
-            6: "छठा",
-        }
-
-        self._irregular_ordinals_nums = {
-            0: "०",
-            1: "१ला",
-            2: "२रा",
-            3: "३रा",
-            4: "४था",
-            6: "६ठा",
-        }
-
-        self._hindi_digits = dict(zip("0123456789", "०१२३४५६७८९"))
-
-        self._regular_ordinal_suffix = "वाँ"
         self.negword = "माइनस "
+
+    def set_high_numwords(self, high):
+        for n, word in self.high_numwords:
+            self.cards[10**n] = word
+
+    def merge(self, lpair, rpair):
+        ltext, lnum = lpair
+        rtext, rnum = rpair
+        if lnum == 1 and rnum < 100:
+            return (rtext, rnum)
+        elif 100 > lnum > rnum:
+            return ("%s-%s" % (ltext, rtext), lnum + rnum)
+        elif lnum >= 100 > rnum:
+            return ("%s %s" % (ltext, rtext), lnum + rnum)
+        elif rnum > lnum:
+            return ("%s %s" % (ltext, rtext), lnum * rnum)
+        return ("%s %s" % (ltext, rtext), lnum + rnum)
 
     def to_ordinal(self, value):
         if value in self._irregular_ordinals:
