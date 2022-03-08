@@ -41,7 +41,7 @@ class Num2Word_BR(Num2Word_EU):
         self.exclude_title = ["ha", "virgule", "moins"]
         self.mid_numwords = [(1000, "mil"), (100, "kant"),
                              (80, "pevar-ugent"), (60, "tri-ugent"),
-                             (50, "hanter kant"), (40, "daou-ugent"),
+                             (50, "hanter-kant"), (40, "daou-ugent"),
                              (30, "tregont")]
         self.low_numwords = ['ugent', 'naontek', "triwec'h", 'seitek', "c'hwezek", 'pemzek', 'pevarzek', 'trizek',
                              'daouzek', 'unnek', 'dek', 'nav', 'eizh', 'seizh', "c'hwec'h", 'pemp', 'pevar', 'tri',
@@ -63,10 +63,12 @@ class Num2Word_BR(Num2Word_EU):
                     and nnum < 1000000 \
                     and ctext[-1] == "s":
                 ctext = ctext[:-1]
-            if cnum < 1000 and nnum != 1000 and \
-                    ntext[-1] != "s" and not nnum % 100:
-                ntext += "s"
-
+            # if cnum < 1000 and nnum != 1000 and \
+            #         ntext[-1] != "s" and not nnum % 100:
+            #     ntext += "s"
+        # Mutations:
+        if ntext == "kant" and ctext in ["daou", "tri", "pevar", "nav"]:
+            ntext = "c'hant"
         if nnum < cnum < 100:
             if cnum < 30:
                 and_ = "warn"
@@ -78,9 +80,6 @@ class Num2Word_BR(Num2Word_EU):
         if nnum > cnum:
             return ("%s %s" % (ctext, ntext), cnum * nnum)
         return ("%s %s" % (ctext, ntext), cnum + nnum)
-
-    # Is this right for such things as 1001 - "mille unième" instead of
-    # "mille premier"??  "millième"??
 
     def to_ordinal(self, value):
         self.verify_ordinal(value)
