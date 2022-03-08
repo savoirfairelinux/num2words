@@ -39,9 +39,9 @@ class Num2Word_BR(Num2Word_EU):
         )
         self.errmsg_toobig = u"Nombre trop grand pour être converti en mots."
         self.exclude_title = ["ha", "virgule", "moins"]
-        self.mid_numwords = [(1000, "mil"), (100, "kant"), (90, "dek ha pevar-ugent"),
-                             (80, "pevar-ugent"), (70, "dek ha tri-ugent"), (60, "tri-ugent"),
-                             (50, "hanter-kant"), (40, "daou-ugent"),
+        self.mid_numwords = [(1000, "mil"), (100, "kant"),
+                             (80, "pevar-ugent"), (60, "tri-ugent"),
+                             (50, "hanter kant"), (40, "daou-ugent"),
                              (30, "tregont")]
         self.low_numwords = ['ugent', 'naontek', "triwec'h", 'seitek', "c'hwezek", 'pemzek', 'pevarzek', 'trizek',
                              'daouzek', 'unnek', 'dek', 'nav', 'eizh', 'seizh', "c'hwec'h", 'pemp', 'pevar', 'tri',
@@ -68,9 +68,13 @@ class Num2Word_BR(Num2Word_EU):
                 ntext += "s"
 
         if nnum < cnum < 100:
+            if cnum < 30:
+                and_ = "warn"
+            else:
+                and_ = "ha"
             if nnum % 10 == 1 and cnum != 80:
-                return ("%s ah %s" % (ctext, ntext), cnum + nnum)
-            return ("%s ah %s" % (ctext, ntext), cnum + nnum)
+                return ("%s %s %s" % (ntext, and_,ctext), cnum + nnum)
+            return ("%s %s %s" % (ntext, and_, ctext), cnum + nnum)
         if nnum > cnum:
             return ("%s %s" % (ctext, ntext), cnum * nnum)
         return ("%s %s" % (ctext, ntext), cnum + nnum)
