@@ -26,12 +26,14 @@ class Num2Word_BR(Num2Word_EU):
     And from teachers from the Skol Diwan, Saint-Herblain
     """
     CURRENCY_FORMS = {
-        'EUR': (('euro', 'euros'), ('centime', 'centimes')),
+        'EUR': (('euro', 'euroioù'), ('centime', 'centimes')),
         'USD': (('dollar', 'dollars'), ('cent', 'cents')),
         'FRF': (('franc', 'francs'), ('centime', 'centimes')),
         'GBP': (('livre', 'livres'), ('penny', 'pence')),
         'CNY': (('yuan', 'yuans'), ('fen', 'jiaos')),
     }
+    MEGA_SUFFIX = "ilion"
+    GIGA_SUFFIX = "iliard"
 
     def setup(self):
         Num2Word_EU.setup(self)
@@ -73,6 +75,8 @@ class Num2Word_BR(Num2Word_EU):
         # Mutations:
         if ntext == "kant" and ctext in ["daou", "tri", "pevar", "nav"]:
             ntext = "c'hant"
+        if ntext.startswith(("mil", "bil")) and ctext == "daou":
+            ntext = "vil" + ntext[3:]
         if nnum < cnum < 100:
             if cnum < 30:
                 and_ = "warn"
