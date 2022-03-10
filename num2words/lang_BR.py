@@ -75,7 +75,7 @@ class Num2Word_BR(Num2Word_EU):
         # Mutations:
         if ntext == "kant" and ctext in ["daou", "tri", "pevar", "nav"]:
             ntext = "c'hant"
-        if ntext.startswith(("mil", "bil")) and ctext == "daou":
+        if ntext.startswith("mil") and ctext == "daou":
             ntext = "vil" + ntext[3:]
         if nnum < cnum < 100:
             if cnum < 30:
