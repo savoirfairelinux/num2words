@@ -1,4 +1,4 @@
-num2words - Convert numbers to words in multiple languages
+num2words library - Convert numbers to words in multiple languages
 ==========================================================
 
 .. image:: https://img.shields.io/pypi/v/num2words.svg
@@ -94,11 +94,13 @@ Besides the numerical argument, there are two main optional arguments.
 * ``fr_BE`` (French - Belgium)
 * ``fr_DZ`` (French - Algeria)
 * ``he`` (Hebrew)
+* ``hu`` (Hungarian)
 * ``id`` (Indonesian)
 * ``it`` (Italian)
 * ``ja`` (Japanese)
 * ``kn`` (Kannada)
 * ``ko`` (Korean)
+* ``kz`` (Kazakh)
 * ``lt`` (Lithuanian)
 * ``lv`` (Latvian)
 * ``no`` (Norwegian)
@@ -107,9 +109,10 @@ Besides the numerical argument, there are two main optional arguments.
 * ``pt_BR`` (Portuguese - Brazilian)
 * ``sl`` (Slovene)
 * ``sr`` (Serbian)
+* ``sv`` (Swedish)
 * ``ro`` (Romanian)
 * ``ru`` (Russian)
-* ``sl`` (Slovene)
+* ``te`` (Telugu)
 * ``tr`` (Turkish)
 * ``th`` (Thai)
 * ``vi`` (Vietnamese)

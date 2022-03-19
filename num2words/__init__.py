@@ -18,11 +18,12 @@
 from __future__ import unicode_literals
 
 from . import (lang_AR, lang_CZ, lang_DE, lang_DK, lang_EN, lang_EN_IN,
-               lang_ES, lang_ES_CO, lang_ES_VE, lang_FI, lang_FR, lang_FR_BE,
-               lang_FR_CH, lang_FR_DZ, lang_HE, lang_ID, lang_IT, lang_JA,
-               lang_KN, lang_KO, lang_LT, lang_LV, lang_NL, lang_NO, lang_PL,
-               lang_PT, lang_PT_BR, lang_RO, lang_RU, lang_SL, lang_SR,
-               lang_TH, lang_TR, lang_UK, lang_VI)
+               lang_ES, lang_ES_CO, lang_ES_NI, lang_ES_VE, lang_FI, lang_FR,
+               lang_FR_BE, lang_FR_CH, lang_FR_DZ, lang_HE, lang_HU, lang_ID,
+               lang_IT, lang_JA, lang_KN, lang_KO, lang_KZ, lang_LT, lang_LV,
+               lang_NL, lang_NO, lang_PL, lang_PT, lang_PT_BR, lang_RO,
+               lang_RU, lang_SL, lang_SR, lang_SV, lang_TE, lang_TH, lang_TR,
+               lang_UK, lang_VI)
 
 CONVERTER_CLASSES = {
     'ar': lang_AR.Num2Word_AR(),
@@ -37,11 +38,13 @@ CONVERTER_CLASSES = {
     'fi': lang_FI.Num2Word_FI(),
     'es': lang_ES.Num2Word_ES(),
     'es_CO': lang_ES_CO.Num2Word_ES_CO(),
+    'es_NI': lang_ES_NI.Num2Word_ES_NI(),
     'es_VE': lang_ES_VE.Num2Word_ES_VE(),
     'id': lang_ID.Num2Word_ID(),
     'ja': lang_JA.Num2Word_JA(),
     'kn': lang_KN.Num2Word_KN(),
     'ko': lang_KO.Num2Word_KO(),
+    'kz': lang_KZ.Num2Word_KZ(),
     'lt': lang_LT.Num2Word_LT(),
     'lv': lang_LV.Num2Word_LV(),
     'pl': lang_PL.Num2Word_PL(),
@@ -49,6 +52,7 @@ CONVERTER_CLASSES = {
     'ru': lang_RU.Num2Word_RU(),
     'sl': lang_SL.Num2Word_SL(),
     'sr': lang_SR.Num2Word_SR(),
+    'sv': lang_SV.Num2Word_SV(),
     'no': lang_NO.Num2Word_NO(),
     'dk': lang_DK.Num2Word_DK(),
     'pt': lang_PT.Num2Word_PT(),
@@ -59,9 +63,10 @@ CONVERTER_CLASSES = {
     'th': lang_TH.Num2Word_TH(),
     'tr': lang_TR.Num2Word_TR(),
     'nl': lang_NL.Num2Word_NL(),
-    'uk': lang_UK.Num2Word_UK()
+    'uk': lang_UK.Num2Word_UK(),
+    'te': lang_TE.Num2Word_TE(),
+    'hu': lang_HU.Num2Word_HU()
 }
-
 
 CONVERTES_TYPES = ['cardinal', 'ordinal', 'ordinal_num', 'year', 'currency']
 

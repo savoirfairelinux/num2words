@@ -32,3 +32,29 @@ class Num2WordBaseTest(TestCase):
     def test_to_currency_not_implemented(self):
         with self.assertRaises(NotImplementedError):
             self.base.to_currency(Decimal('1.00'), currency='EUR')
+
+    def test_error_to_cardinal_float(self):
+        from num2words.base import Num2Word_Base
+        with self.assertRaises(TypeError):
+            Num2Word_Base.to_cardinal_float(9)
+        with self.assertRaises(TypeError):
+            Num2Word_Base.to_cardinal_float("a")
+
+    def test_error_merge(self):
+        from num2words.base import Num2Word_Base
+        self.base = Num2Word_Base()
+        with self.assertRaises(NotImplementedError):
+            self.base.merge(2, 3)
+
+    def test_is_title(self):
+        from num2words.base import Num2Word_Base
+        self.base = Num2Word_Base()
+        self.assertEqual(
+            self.base.title("one"),
+            "one"
+            )
+        self.base.is_title = True
+        self.assertEqual(
+            self.base.title("one"),
+            "One"
+            )
