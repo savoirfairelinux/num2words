@@ -27,7 +27,8 @@ CURRENCIES_UNA = ('SLL', 'SEK', 'NOK', 'CZK', 'DKK', 'ISK',
                   'SKK', 'GBP', 'CYP', 'EGP', 'FKP', 'GIP',
                   'LBP', 'SDG', 'SHP', 'SSP', 'SYP', 'INR',
                   'IDR', 'LKR', 'MUR', 'NPR', 'PKR', 'SCR',
-                  'ESP')
+                  'ESP', 'TRY', 'ITL')
+CENTS_UNA = ('EGP', 'JOD', 'LBP', 'SDG', 'SSP', 'SYP')
 
 
 class Num2Word_ES(Num2Word_EU):
@@ -216,9 +217,13 @@ class Num2Word_ES(Num2Word_EU):
         self.high_numwords = self.gen_high_numwords([], [], lows)
         self.negword = "menos "
         self.pointword = "punto"
-        self.errmsg_nonnum = "Solo números pueden ser convertidos a palabras."
+        self.errmsg_nonnum = "type(%s) no es [long, int, float]"
+        self.errmsg_floatord = "El float %s no puede ser tratado como un" \
+            " ordinal."
+        self.errmsg_negord = "El número negativo %s no puede ser tratado" \
+            " como un ordinal."
         self.errmsg_toobig = (
-            "Numero muy grande para ser convertido a palabras."
+            "abs(%s) deber ser inferior a %s."
             )
         self.gender_stem = "o"
         self.exclude_title = ["y", "menos", "punto"]
@@ -352,17 +357,52 @@ class Num2Word_ES(Num2Word_EU):
         result = super(Num2Word_ES, self).to_currency(
             val, currency=currency, cents=cents, separator=separator,
             adjective=adjective)
-        # Handle exception, in spanish is "un euro" and not "uno euro"
-        # except in this currencies: leona, corona,
-        # libra, rupia, lempira, peseta, is 'una'
-        # but only when it's first word, otherwise
-        # it's replaced in others words like 'veintiun'
+        # Handle exception: In Spanish it's "un euro" and not "uno euro",
+        # except in these currencies, where it's "una": leona, corona,
+        # libra, lira, rupia, lempira, peseta.
+        # The same goes for "veintiuna", "treinta y una"...
+        # Also, this needs to be handled separately for "dollars" and
+        # "cents".
+        # All "cents" are masculine except for: piastra.
+        # Source: https://www.rae.es/dpd/una (section 2.2)
+
+        # split "dollars" part from "cents" part
+        list_result = result.split(" con ")
+
+        # "DOLLARS" PART (list_result[0])
+
+        # Feminine currencies ("una libra", "trescientas libras"...)
         if currency in CURRENCIES_UNA:
-            list_result = result.split(" ")
-            if list_result[0] == "uno":
-                list_result[0] = list_result[0].replace("uno", "una")
-                result = " ".join(list_result)
-        result = result.replace("uno", "un")
-        # correct orthography for the specific case of "veintiún":
-        result = result.replace("veintiun", "veintiún")
+
+            # "una libra", "veintiuna libras", "treinta y una libras"...
+            list_result[0] = list_result[0].replace("uno", "una")
+
+            # "doscientas libras", "trescientas libras"...
+            list_result[0] = list_result[0].replace("cientos", "cientas")
+
+        # Masc.: Correct orthography for the specific case of "veintiún":
+        list_result[0] = list_result[0].replace("veintiuno", "veintiún")
+
+        # Masculine currencies: general case ("un euro", "treinta y un
+        # euros"...):
+        list_result[0] = list_result[0].replace("uno", "un")
+
+        # "CENTS" PART (list_result[1])
+
+        # Feminine "cents" ("una piastra", "veintiuna piastras"...)
+        if currency in CENTS_UNA:
+
+            # "una piastra", "veintiuna piastras", "treinta y una piastras"...
+            list_result[1] = list_result[1].replace("uno", "una")
+
+        # Masc.: Correct orthography for the specific case of "veintiún":
+        list_result[1] = list_result[1].replace("veintiuno", "veintiún")
+
+        # Masculine "cents": general case ("un centavo", "treinta y un
+        # centavos"...):
+        list_result[1] = list_result[1].replace("uno", "un")
+
+        # join back "dollars" part with "cents" part
+        result = " con ".join(list_result)
+
         return result
