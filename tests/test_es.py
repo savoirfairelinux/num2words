@@ -114,6 +114,7 @@ TEST_CASES_ORDINAL_NUM = (
 
 TEST_CASES_TO_CURRENCY = (
     (1.00, 'un euro con cero céntimos'),
+    (1.01, 'un euro con un céntimo'),
     (2.00, 'dos euros con cero céntimos'),
     (8.00, 'ocho euros con cero céntimos'),
     (12.00, 'doce euros con cero céntimos'),
@@ -125,6 +126,7 @@ TEST_CASES_TO_CURRENCY = (
 
 TEST_CASES_TO_CURRENCY_ESP = (
     (1.00, 'una peseta con cero céntimos'),
+    (1.01, 'una peseta con un céntimo'),
     (2.00, 'dos pesetas con cero céntimos'),
     (8.00, 'ocho pesetas con cero céntimos'),
     (12.00, 'doce pesetas con cero céntimos'),
