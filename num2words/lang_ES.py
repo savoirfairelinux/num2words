@@ -367,7 +367,7 @@ class Num2Word_ES(Num2Word_EU):
         # Source: https://www.rae.es/dpd/una (section 2.2)
 
         # split "dollars" part from "cents" part
-        list_result = result.split(" con ")
+        list_result = result.split(separator + " ")
 
         # "DOLLARS" PART (list_result[0])
 
@@ -403,6 +403,6 @@ class Num2Word_ES(Num2Word_EU):
         list_result[1] = list_result[1].replace("uno", "un")
 
         # join back "dollars" part with "cents" part
-        result = " con ".join(list_result)
+        result = (separator + " ").join(list_result)
 
         return result
