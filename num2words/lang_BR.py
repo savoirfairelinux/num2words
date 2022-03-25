@@ -21,24 +21,30 @@ from .lang_EU import Num2Word_EU
 
 
 class Num2Word_BR(Num2Word_EU):
+    """Breton spelling for numbers
+    Some details taken from http://www.preder.net/r/bibli/jedoniezh_6ved.pdf
+    And from teachers from the Skol Diwan, Saint-Herblain
+    """
     CURRENCY_FORMS = {
-        'EUR': (('euro', 'euros'), ('centime', 'centimes')),
+        'EUR': (('euro', 'euroioù'), ('centime', 'centimes')),
         'USD': (('dollar', 'dollars'), ('cent', 'cents')),
         'FRF': (('franc', 'francs'), ('centime', 'centimes')),
         'GBP': (('livre', 'livres'), ('penny', 'pence')),
         'CNY': (('yuan', 'yuans'), ('fen', 'jiaos')),
     }
+    MEGA_SUFFIX = "ilion"
+    GIGA_SUFFIX = "iliard"
 
     def setup(self):
         Num2Word_EU.setup(self)
 
-        self.negword = "moins "
-        self.pointword = "virgule"
+        self.negword = "nemet "
+        self.pointword = "skej"
         self.errmsg_nonnum = (
             u"Seulement des nombres peuvent être convertis en mots."
         )
         self.errmsg_toobig = u"Nombre trop grand pour être converti en mots."
-        self.exclude_title = ["ha", "virgule", "moins"]
+        self.exclude_title = ["ha", "skej", "nemet"]
         self.mid_numwords = [(1000, "mil"), (100, "kant"),
                              (80, "pevar-ugent"), (60, "tri-ugent"),
                              (50, "hanter-kant"), (40, "daou-ugent"),
@@ -69,6 +75,8 @@ class Num2Word_BR(Num2Word_EU):
         # Mutations:
         if ntext == "kant" and ctext in ["daou", "tri", "pevar", "nav"]:
             ntext = "c'hant"
+        if ntext.startswith("mil") and ctext == "daou":
+            ntext = "vil" + ntext[3:]
         if nnum < cnum < 100:
             if cnum < 30:
                 and_ = "warn"
