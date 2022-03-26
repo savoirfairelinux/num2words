@@ -49,9 +49,11 @@ class Num2Word_BR(Num2Word_EU):
                              (80, "pevar-ugent"), (60, "tri-ugent"),
                              (50, "hanter-kant"), (40, "daou-ugent"),
                              (30, "tregont")]
-        self.low_numwords = ['ugent', 'naontek', "triwec'h", 'seitek', "c'hwezek", 'pemzek', 'pevarzek', 'trizek',
-                             'daouzek', 'unnek', 'dek', 'nav', 'eizh', 'seizh', "c'hwec'h", 'pemp', 'pevar', 'tri',
-                             'daou', 'unan', 'mann']
+        self.low_numwords = ['ugent', 'naontek', "triwec'h", 'seitek',
+                             "c'hwezek", 'pemzek', 'pevarzek', 'trizek',
+                             'daouzek', 'unnek', 'dek', 'nav', 'eizh',
+                             'seizh', "c'hwec'h", 'pemp', 'pevar',
+                             'tri', 'daou', 'unan', 'mann']
         self.ords = {
             "cinq": "cinquième",
             "neuf": "neuvième",
@@ -83,7 +85,7 @@ class Num2Word_BR(Num2Word_EU):
             else:
                 and_ = "ha"
             if nnum % 10 == 1 and cnum != 80:
-                return ("%s %s %s" % (ntext, and_,ctext), cnum + nnum)
+                return ("%s %s %s" % (ntext, and_, ctext), cnum + nnum)
             return ("%s %s %s" % (ntext, and_, ctext), cnum + nnum)
         if nnum > cnum:
             return ("%s %s" % (ctext, ntext), cnum * nnum)

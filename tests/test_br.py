@@ -49,7 +49,7 @@ TEST_CASES_CARDINAL = (
     (79, 'naontek ha tri-ugent'),
     (89, 'nav ha pevar-ugent'),
     (95, 'pemzek ha pevar-ugent'),
-     (100, 'kant'),
+    (100, 'kant'),
     (101, 'kant unan'),
     (110, 'kant dek'),
     (150, 'kant hanter-kant'),
@@ -151,6 +151,7 @@ TEST_CASES_TO_CURRENCY_USD = (
     (81.25, 'quatre-vingt-un dollars et vingt-cinq cents'),
     (100.00, 'cent dollars et zéro cents'),
 )
+
 
 class Num2WordsENTest(TestCase):
     def test_ordinal_special_joins(self):
