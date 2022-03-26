@@ -20,7 +20,7 @@ from __future__ import print_function, unicode_literals
 from .lang_EU import Num2Word_EU
 
 
-class Num2Word_FR(Num2Word_EU):
+class Num2Word_ZH(Num2Word_EU):
     CURRENCY_FORMS = {
         'EUR': (('euro', 'euros'), ('centime', 'centimes')),
         'USD': (('dollar', 'dollars'), ('cent', 'cents')),
@@ -51,8 +51,8 @@ class Num2Word_FR(Num2Word_EU):
         }
 
     def merge(self, curr, next):
-        raise NotImplementedError
-
+        return ("Valeur passée : %s %s" % (curr, next))
+    
     def to_ordinal(self, value):
         raise NotImplementedError
 
