@@ -136,7 +136,7 @@ TEST_CASES_TO_CURRENCY_EUR = (
     (100.00, 'cent euros et zéro centimes'),
 )
 
-TEST_CASES_TO_CURRENCY_FRF = (
+TEST_CASES_TO_CURRENCY_ZHF = (
     (1.00, 'un franc et zéro centimes'),
     (2.01, 'deux francs et un centime'),
     (8.10, 'huit francs et dix centimes'),

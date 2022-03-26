@@ -51,8 +51,16 @@ class Num2Word_ZH(Num2Word_EU):
         }
 
     def merge(self, curr, next):
-        return ("Valeur passée : %s %s" % (curr, next))
-    
+        ctext, cnum, ntext, nnum = curr + next
+
+        if cnum == 0:
+            return next
+
+        if cnum == 1:
+            return next
+        else:
+            return ("%s%s" % (ctext, ntext), cnum + nnum)
+
     def to_ordinal(self, value):
         raise NotImplementedError
 
