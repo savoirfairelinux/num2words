@@ -22,6 +22,7 @@ from unittest import TestCase
 from num2words import num2words
 
 TEST_CASES_CARDINAL = (
+    (0, "zero"),
     (1, 'unan'),
     (2, 'daou'),
     (3, 'tri'),
@@ -86,12 +87,12 @@ TEST_CASES_CARDINAL = (
     (200000000, "daou c'hant milion"),
     (208000000, "daou c'hant eizh milion"),
     (2000000000, 'daou viliard'),
-    # (10000000000000, 'dix billions'),
-    # (10000000000010, 'dix billions dix'),
-    # (100000000000000, 'cent billions'),
-    # (1000000000000000000, 'un trillion'),
+    (10000000000000, 'dek bilion'),
+    (10000000000010, 'dek bilion dek'),
+    (100000000000000, 'kant bilion'),
+    (1000000000000000000, 'unan trilion'),
     # (1000000000000000000000, 'un trilliard'),
-    # (10000000000000000000000000, 'dix quadrillions')
+    # (10000000000000000000000000, 'dek perlion')
 )
 
 TEST_CASES_ORDINAL = (
@@ -122,14 +123,18 @@ TEST_CASES_ORDINAL_NUM = (
 )
 
 TEST_CASES_TO_CURRENCY_EUR = (
-    (1.00, 'un euro et zéro centimes'),
-    (2.01, 'deux euros et un centime'),
-    (8.10, 'huit euros et dix centimes'),
-    (12.26, 'douze euros et vingt-six centimes'),
-    (21.29, 'vingt et un euros et vingt-neuf centimes'),
-    (81.25, 'quatre-vingt-un euros et vingt-cinq centimes'),
-    (100.00, 'cent euros et zéro centimes'),
-    (100000.00, 'kant milion a euroioù et zéro centimes'),
+    (1.00, 'un euro, zero santim'),
+    (2.01, 'daou euro, un santim'),
+    (8.10, 'eizh euro, dek santim'),
+    (12.26, "daouzek euro, c'hwec'h santim warn ugent"),
+    (21.29, 'un euro warn ugent, nav santim warn ugent'),
+    (77.00, 'seitek euro ha tri-ugent, zero santim'),
+    (81.25, 'un euro ha pevar-ugent, pemp santim warn ugent'),
+    (90.25, 'dek euro ha pevar-ugent, pemp santim warn ugent'),
+    (100.00, 'kant euro, zero santim'),
+    (252.90, "daou c'hant daou euro ha hanterhant, dek santim ha pevar-ugent"),
+    (566.37, "pemp kant c'hwec'h euro ha tri-ugent, seizh santim ha tregont"),
+    (100000.00, 'kant milion euro, zero santim'),
 )
 
 TEST_CASES_TO_CURRENCY_FRF = (
@@ -150,6 +155,7 @@ TEST_CASES_TO_CURRENCY_USD = (
     (21.29, 'vingt et un dollars et vingt-neuf cents'),
     (81.25, 'quatre-vingt-un dollars et vingt-cinq cents'),
     (100.00, 'cent dollars et zéro cents'),
+    (10000.00, "dek mil dollar ha zero sent")
 )
 
 class Num2WordsENTest(TestCase):
@@ -188,7 +194,6 @@ class Num2WordsENTest(TestCase):
                 test[1]
             )
 
-    @unittest.expectedFailure
     def test_currency_eur(self):
         for test in TEST_CASES_TO_CURRENCY_EUR:
             self.assertEqual(

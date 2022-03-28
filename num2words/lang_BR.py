@@ -22,15 +22,15 @@ from .lang_EU import Num2Word_EU
 
 class Num2Word_BR(Num2Word_EU):
     """Breton spelling for numbers
-    Some details taken from http://www.preder.net/r/bibli/jedoniezh_6ved.pdf
+    Some details taken from http://www.preder.net/r/bibli/jedoniezh_6ved.pdf and
+    http://www.culture-bretagne.net/wp-content/uploads/2017/05/liste-montants-rediger-cheque-breton.pdf
     And from teachers from the Skol Diwan, Saint-Herblain
     """
     CURRENCY_FORMS = {
-        'EUR': (('euro', 'euroioù'), ('centime', 'centimes')),
-        'USD': (('dollar', 'dollars'), ('cent', 'cents')),
-        'FRF': (('franc', 'francs'), ('centime', 'centimes')),
-        'GBP': (('livre', 'livres'), ('penny', 'pence')),
-        'CNY': (('yuan', 'yuans'), ('fen', 'jiaos')),
+        'EUR': (('euro', 'euro'), ('santim', 'santim')),
+        'USD': (('dollar', 'dollarioù'), ('sent', 'sent')),
+        'FRF': (('lur', 'lur'), ('kantim', 'kantim')),
+        'GBP': (('lur sterling', 'lur sterling'), ('sent sterling', 'sent sterling')),
     }
     MEGA_SUFFIX = "ilion"
     GIGA_SUFFIX = "iliard"
@@ -51,7 +51,7 @@ class Num2Word_BR(Num2Word_EU):
                              (30, "tregont")]
         self.low_numwords = ['ugent', 'naontek', "triwec'h", 'seitek', "c'hwezek", 'pemzek', 'pevarzek', 'trizek',
                              'daouzek', 'unnek', 'dek', 'nav', 'eizh', 'seizh', "c'hwec'h", 'pemp', 'pevar', 'tri',
-                             'daou', 'unan', 'mann']
+                             'daou', 'unan', 'zero']
         self.ords = {
             "cinq": "cinquième",
             "neuf": "neuvième",
@@ -110,9 +110,24 @@ class Num2Word_BR(Num2Word_EU):
         out += "er" if value == 1 else "me"
         return out
 
-    def to_currency(self, val, currency='EUR', cents=True, separator=' et',
+    def to_currency(self, val, currency='EUR', cents=True, separator=',',
                     adjective=False):
+        """For all values with units in breton (currency, measurements, ...) the 'twenties'
+        part (20, 30, ...) is placed after the units unless there is no digit after the
+        twenties part (20 euros is simply ugent euro but 21 euros is un euro warn ugent)
+        """
+        euros = int(val)
+        special_values = [20, 30, 40, 50, 60, 80, 100]
+        scores_euros = max((x for x in special_values[:-1] if euros - x > 0 and euros not in special_values), default=0)
+        centimes = round(100 * val) % 100
+        scores_cents = max((x for x in special_values[:-1] if centimes - x > 0 and centimes not in special_values), default=0)
         result = super(Num2Word_BR, self).to_currency(
-            val, currency=currency, cents=cents, separator=separator,
+            (val - scores_euros - scores_cents / 100), currency=currency, cents=cents, separator=separator,
             adjective=adjective)
+        result = result.replace("unan ", "un ")
+        if scores_euros:
+            result = result.replace("euro", "euro ha " + Num2Word_BR().to_cardinal(scores_euros))
+        if scores_cents:
+            result = result.replace("santim", "santim ha " + Num2Word_BR().to_cardinal(scores_cents))
+        result = result.replace("ha ugent", "warn ugent")
         return result
