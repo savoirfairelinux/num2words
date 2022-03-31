@@ -22,15 +22,15 @@ from .lang_EU import Num2Word_EU
 
 class Num2Word_BR(Num2Word_EU):
     """Breton spelling for numbers
-    Some details taken from http://www.preder.net/r/bibli/jedoniezh_6ved.pdf
+    Some details taken from http://www.preder.net/r/bibli/jedoniezh_6ved.pdf and
+    http://www.culture-bretagne.net/wp-content/uploads/2017/05/liste-montants-rediger-cheque-breton.pdf
     And from teachers from the Skol Diwan, Saint-Herblain
     """
     CURRENCY_FORMS = {
-        'EUR': (('euro', 'euroioù'), ('centime', 'centimes')),
-        'USD': (('dollar', 'dollars'), ('cent', 'cents')),
-        'FRF': (('franc', 'francs'), ('centime', 'centimes')),
-        'GBP': (('livre', 'livres'), ('penny', 'pence')),
-        'CNY': (('yuan', 'yuans'), ('fen', 'jiaos')),
+        'EUR': (('euro', 'euro'), ('santim', 'santim')),
+        'USD': (('dollar', 'dollarioù'), ('sent', 'sent')),
+        'FRF': (('lur', 'lur'), ('kantim', 'kantim')),
+        'GBP': (('lur sterling', 'lur sterling'), ('sent sterling', 'sent sterling')),
     }
     MEGA_SUFFIX = "ilion"
     GIGA_SUFFIX = "iliard"
@@ -49,11 +49,9 @@ class Num2Word_BR(Num2Word_EU):
                              (80, "pevar-ugent"), (60, "tri-ugent"),
                              (50, "hanter-kant"), (40, "daou-ugent"),
                              (30, "tregont")]
-        self.low_numwords = ['ugent', 'naontek', "triwec'h", 'seitek',
-                             "c'hwezek", 'pemzek', 'pevarzek', 'trizek',
-                             'daouzek', 'unnek', 'dek', 'nav', 'eizh',
-                             'seizh', "c'hwec'h", 'pemp', 'pevar',
-                             'tri', 'daou', 'unan', 'mann']
+        self.low_numwords = ['ugent', 'naontek', "triwec'h", 'seitek', "c'hwezek", 'pemzek', 'pevarzek', 'trizek',
+                             'daouzek', 'unnek', 'dek', 'nav', 'eizh', 'seizh', "c'hwec'h", 'pemp', 'pevar', 'tri',
+                             'daou', 'unan', 'zero']
         self.ords = {
             "cinq": "cinquième",
             "neuf": "neuvième",
@@ -85,7 +83,7 @@ class Num2Word_BR(Num2Word_EU):
             else:
                 and_ = "ha"
             if nnum % 10 == 1 and cnum != 80:
-                return ("%s %s %s" % (ntext, and_, ctext), cnum + nnum)
+                return ("%s %s %s" % (ntext, and_,ctext), cnum + nnum)
             return ("%s %s %s" % (ntext, and_, ctext), cnum + nnum)
         if nnum > cnum:
             return ("%s %s" % (ctext, ntext), cnum * nnum)
