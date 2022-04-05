@@ -132,9 +132,9 @@ TEST_CASES_TO_CURRENCY_EUR = (
     (81.25, 'un euro ha pevar-ugent, pemp santim warn ugent'),
     (90.25, 'dek euro ha pevar-ugent, pemp santim warn ugent'),
     (100.00, 'kant euro, zero santim'),
-    (252.90, "daou c'hant daou euro ha hanterhant, dek santim ha pevar-ugent"),
+    (252.90, "daou c'hant daou euro ha hanter-kant, dek santim ha pevar-ugent"),
     (566.37, "pemp kant c'hwec'h euro ha tri-ugent, seizh santim ha tregont"),
-    (100000.00, 'kant milion euro, zero santim'),
+    (100000.00, 'kant mil euro, zero santim'),
 )
 
 TEST_CASES_TO_CURRENCY_FRF = (

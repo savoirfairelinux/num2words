@@ -20,6 +20,19 @@ from __future__ import print_function, unicode_literals
 from .lang_EU import Num2Word_EU
 
 
+def _vigesimal(val):
+    two_digits = val % 100
+    hundreds = val - two_digits
+    special_values = [0, 20, 30, 40, 50, 60, 80, 100]
+    if two_digits in special_values:
+        units_part = two_digits
+    else:
+        units_part = min(
+        (two_digits - x for x in special_values[:-1] if two_digits - x > 0),
+        default=0)
+    return hundreds + units_part, val - hundreds - units_part
+
+
 class Num2Word_BR(Num2Word_EU):
     """Breton spelling for numbers
     Some details taken from http://www.preder.net/r/bibli/jedoniezh_6ved.pdf and
@@ -115,19 +128,19 @@ class Num2Word_BR(Num2Word_EU):
         """For all values with units in breton (currency, measurements, ...) the 'twenties'
         part (20, 30, ...) is placed after the units unless there is no digit after the
         twenties part (20 euros is simply ugent euro but 21 euros is un euro warn ugent)
+        https://www.culture-bretagne.net/comment-ecrire-cheque-en-breton/
         """
         euros = int(val)
-        special_values = [20, 30, 40, 50, 60, 80, 100]
-        scores_euros = max((x for x in special_values[:-1] if euros - x > 0 and euros not in special_values), default=0)
         centimes = round(100 * val) % 100
-        scores_cents = max((x for x in special_values[:-1] if centimes - x > 0 and centimes not in special_values), default=0)
+        euros_1, euros_2 = _vigesimal(euros)
+        cents_1, cents_2 = _vigesimal(centimes)
         result = super(Num2Word_BR, self).to_currency(
-            (val - scores_euros - scores_cents / 100), currency=currency, cents=cents, separator=separator,
+            (val - euros_2 - cents_2 / 100), currency=currency, cents=cents, separator=separator,
             adjective=adjective)
         result = result.replace("unan ", "un ")
-        if scores_euros:
-            result = result.replace("euro", "euro ha " + Num2Word_BR().to_cardinal(scores_euros))
-        if scores_cents:
-            result = result.replace("santim", "santim ha " + Num2Word_BR().to_cardinal(scores_cents))
+        if euros_2:
+            result = result.replace("euro", "euro ha " + Num2Word_BR().to_cardinal(euros_2))
+        if cents_2:
+            result = result.replace("santim", "santim ha " + Num2Word_BR().to_cardinal(cents_2))
         result = result.replace("ha ugent", "warn ugent")
         return result
