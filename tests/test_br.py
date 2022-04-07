@@ -96,16 +96,26 @@ TEST_CASES_CARDINAL = (
 )
 
 TEST_CASES_ORDINAL = (
-    (1, 'premier'),
-    (8, 'huitième'),
-    (12, 'douzième'),
-    (14, 'quatorzième'),
-    (28, 'vingt-huitième'),
-    (100, 'centième'),
-    (1000, 'millième'),
-    (1000000, 'un millionième'),
-    (1000000000000000, 'un billiardième'),
-    (1000000000000000000, 'un trillionième')  # over 1e18 is not supported
+    (1, 'kentañ'),
+    (2, 'eil'),
+    (3, 'trede'),
+    (4, 'pevare'),
+    (5, 'pempvet'),
+    (6, "c'hwec'hvet"),
+    (7, 'seizhvet'),
+    (8, 'eizhvet'),
+    (9, 'navvet'),
+    (11, 'unnekvet'),
+    (12, 'daouzekvet'),
+    (14, 'pevarzekvet'),
+    (15, 'pemzekvet'),
+    (21, 'unanvet warn-ugent'),
+    (28, 'eizhvet warn-ugent'),
+    (73, 'trizekvet ha tri-ugent'),
+    (100, 'kantvet'),
+    (101, 'kant unanvet'),
+    (1000, 'milvet'),
+    (1000000, 'milionvet')
 )
 
 TEST_CASES_ORDINAL_NUM = (

@@ -104,8 +104,13 @@ class Num2Word_BR(Num2Word_EU):
 
     def to_ordinal(self, value):
         self.verify_ordinal(value)
-        if value == 1:
-            return "premier"
+        ordinals = {1: 'kentañ',
+                    2: 'eil',
+                    3: 'trede',
+                    4: 'pevare',
+                    }
+        if value in ordinals:
+            return ordinals[value]
         word = self.to_cardinal(value)
         for src, repl in self.ords.items():
             if word.endswith(src):
@@ -114,7 +119,7 @@ class Num2Word_BR(Num2Word_EU):
         else:
             if word[-1] == "e":
                 word = word[:-1]
-            word = word + "ième"
+            word = word + "vet"
         return word
 
     def to_ordinal_num(self, value):
