@@ -1,12 +1,28 @@
-from decimal import BasicContext, Decimal, InvalidOperation, ROUND_FLOOR, getcontext, localcontext
-import decimal
+# -*- coding: utf-8 -*-
+# Copyright (c) 2003, Taro Ogawa.  All Rights Reserved.
+# Copyright (c) 2013, Savoir-faire Linux inc.  All Rights Reserved.
+
+# This library is free software; you can redistribute it and/or
+# modify it under the terms of the GNU Lesser General Public
+# License as published by the Free Software Foundation; either
+# version 2.1 of the License, or (at your option) any later version.
+# This library is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+# Lesser General Public License for more details.
+# You should have received a copy of the GNU Lesser General Public
+# License along with this library; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+# MA 02110-1301 USA
+
+from decimal import Decimal, InvalidOperation, ROUND_FLOOR
 from itertools import tee
 from collections import OrderedDict
 
 
 class Num2Word_DV:
     def __init__(self):
-        
+
         self.negword = "މައިނަސް"
         self.pointword = "ޕޮއިންޓް"
         self.ordword = "ވަނަ"
@@ -47,7 +63,8 @@ class Num2Word_DV:
         #getcontext().prec = 34
         #getcontext().rounding = ROUND_FLOOR
 
-        self.grouping = [-3, -5] + [(x*3 + 6)*-1 for x in range(len(self.cards))] 
+        self.grouping = [-3, -5] + \
+            [(x*3 + 6)*-1 for x in range(len(self.cards))]
 
         self.base_nominal = {
             0: "ސުމެއް",
@@ -93,12 +110,10 @@ class Num2Word_DV:
         self.errmsg_negord = "Cannot treat negative num {} as ordinal."
         self.errmsg_toobig = "abs({}) must be less than {}."
 
-
     def set_high_numwords(self, high):
         max = 3 + 3 * len(high)
         for word, n in zip(high, range(max, 3, -3)):
             self.cards[10 ** n] = word + "ޔަން"
-
 
     def pairwise(self, iterable):
         "s -> (s0,s1), (s1,s2), (s2, s3), ..."
@@ -106,16 +121,13 @@ class Num2Word_DV:
         next(b, 0)
         return zip(a, b)
 
-
     def convert_decade2nominal(self, decade):
         return self.base_nominal[int(decade) * 10]
-
 
     def convert_decade2stem(self, decade):
         if int(decade) == 1:
             return self.base_stem[10]
         return self.convert_decade2nominal(decade)
-
 
     def convert_two2nominal(self, digits_str):
         if int(digits_str) < 30:
@@ -123,13 +135,12 @@ class Num2Word_DV:
 
         if int(digits_str[1]) == 0:
             return self.convert_decade2stem(digits_str[0])
-        
+
         return self.convert_decade2stem(digits_str[0]) + self.base_nominal[int(digits_str[1])]
 
-
     def convert_two2stem(self, digits_str):
-        digits_str = str(int(digits_str)) #trim leading zeros
-    
+        digits_str = str(int(digits_str))  # trim leading zeros
+
         if int(digits_str) < 11:
             return self.base_stem[int(digits_str)]
 
@@ -141,9 +152,8 @@ class Num2Word_DV:
 
         return self.convert_decade2stem(digits_str[0]) + self.base_stem[int(digits_str[1])]
 
-
     def convert_three2stem(self, digits_str):
-        digits_str = str(int(digits_str)) #trim leading zeros
+        digits_str = str(int(digits_str))  # trim leading zeros
 
         if len(digits_str) < 3:
             return self.convert_two2stem(digits_str)
@@ -163,9 +173,8 @@ class Num2Word_DV:
 
         return self.convert_two2stem(digits_str[0]) + self.base_stem[100] + " " + self.convert_two2stem(digits_str[1:3])
 
-
     def convert_three2nominal(self, digits_str):
-        digits_str = str(int(digits_str)) #trim leading zeros
+        digits_str = str(int(digits_str))  # trim leading zeros
 
         if len(digits_str) < 3:
             return self.convert_two2nominal(digits_str)
@@ -185,8 +194,6 @@ class Num2Word_DV:
 
         return self.convert_two2stem(digits_str[0]) + self.base_stem[100] + " " + self.convert_two2nominal(digits_str[1:3])
 
-
-
     def convert_discrete(self, digits, nominal):
         if not nominal:
             return " ".join(
@@ -195,7 +202,6 @@ class Num2Word_DV:
         return " ".join(
             [self.base_nominal[d] for d in digits]
         )
-
 
     def convert_int(self, digits, nominal=True):
         digits_str = "".join([str(d) for d in digits])
@@ -207,14 +213,14 @@ class Num2Word_DV:
 
         parts = list(filter(lambda x: x, (
             digits_str[start:end]
-            for end, start 
+            for end, start
             in self.pairwise([len(digits_str)] + self.grouping)
         )))
 
         part_words = [
             self.convert_three2stem(num) + word
             for
-                num, (base, word)
+            num, (base, word)
             in zip(
                 parts[1:],
                 reversed(self.cards.items())
@@ -228,30 +234,29 @@ class Num2Word_DV:
             return " ".join(part_words)
 
         if not nominal:
-            return " ".join(part_words) + " " + self.convert_three2stem(parts[0])    
+            return " ".join(part_words) + " " + self.convert_three2stem(parts[0])
 
         return " ".join(part_words) + " " + self.convert_three2nominal(parts[0])
- 
-    
+
     def to_decimal(self, value):
         if isinstance(value, float):
-            #This is to fix rounding error when directly converting floats to
-            #Decimal 12.51 to 12.509999....
+            # This is to fix rounding error when directly converting floats to
+            # Decimal 12.51 to 12.509999....
             value = str(value)
         try:
             return Decimal(value)
         except InvalidOperation:
             raise TypeError(self.errmsg_nonnum.format(value))
 
-
     def to_cardinal_float(self, value, nominal=True):
         decimal_value = self.to_decimal(value)
 
         if Decimal(self.MAXVAL).compare(abs(decimal_value).to_integral(ROUND_FLOOR)) < 1:
-            raise OverflowError(self.errmsg_toobig.format(decimal_value, self.MAXVAL))
+            raise OverflowError(self.errmsg_toobig.format(
+                decimal_value, self.MAXVAL))
 
         sign, digits, exponent = decimal_value.as_tuple()
-        
+
         result = []
 
         if exponent < 0:
@@ -270,50 +275,63 @@ class Num2Word_DV:
             ])
         return result.strip()
 
-
     def verify_ordinal(self, value):
         if not value == int(value):
             raise TypeError(self.errmsg_floatord.format(value))
         if not abs(value) == value:
             raise TypeError(self.errmsg_negord.format(value))
 
-    
     def to_cardinal(self, value, nominal=True):
         return self.to_cardinal_float(value, nominal)
-
 
     def to_ordinal(self, value):
         self.verify_ordinal(value)
         return self.to_cardinal_float(value, nominal=False) + " " + self.ordword
 
-
     def to_ordinal_num(self, value):
         self.verify_ordinal(value)
         return "{} {}".format(value, self.ordword)
-
 
     def to_year(self, value, suffix=""):
         if value < 0:
             value = abs(value)
             suffix = self.bcword if not suffix else suffix
         high, low = (value // 100, value % 100)
-        if value < 2000 and value > 1000:
-            return " ".join([
+
+        if value < 2000 and value >= 1100:
+            result = [
                 self.to_cardinal(high),
                 "ސަތޭކަ",
-                " ",
-                self.to_cardinal(low),
-                suffix
-            ])
-        return " ".join([
-            self.to_cardinal(value),
-            suffix
-        ])
+                self.to_cardinal(low)
+            ]
+        else:
+            result = [self.to_cardinal(value)]
 
+        if suffix:
+            result.append(suffix)
+
+        return " ".join(result)
 
     def to_currency(self, value, currency="ރުފިޔާ", cents="ލާރި"):
-        return self.to_cardinal(value)
+        decimal_value = self.to_decimal(value)
 
+        if (decimal_value == 0):
+            return "{} {}".format(self.base_stem[0], currency)
+
+        int_part = decimal_value.to_integral_value()
+        frac_part = Decimal((decimal_value - int_part)
+                            * 100).to_integral_value()
+
+        result = []
+        if (int_part):
+            result.append(self.to_cardinal_float(int_part,  nominal=False))
+            result.append(currency)
+
+        if (frac_part):
+            result.append(self.to_cardinal_float(frac_part, nominal=False))
+            result.append(cents)
+
+        return " ".join(result)
 
     def str_to_number(self, string):
         return self.to_decimal(string)
