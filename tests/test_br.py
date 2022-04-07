@@ -109,17 +109,26 @@ TEST_CASES_ORDINAL = (
 )
 
 TEST_CASES_ORDINAL_NUM = (
-    (1, '1er'),
-    (8, '8me'),
-    (11, '11me'),
-    (12, '12me'),
-    (14, '14me'),
-    (21, '21me'),
-    (28, '28me'),
-    (100, '100me'),
-    (101, '101me'),
-    (1000, '1000me'),
-    (1000000, '1000000me')
+    (1, 'kentañ'),
+    (2, 'eil'),
+    (3, 'trede'),
+    (4, 'pevare'),
+    (5, 'pempvet'),
+    (6, "cʼhwecʼhvet"),
+    (7, 'seizhvet'),
+    (8, 'eizhvet'),
+    (9, 'navvet'),
+    (11, 'unnekvet'),
+    (12, 'douzekvet'),
+    (14, 'pevarzekvet'),
+    (15, 'pemzekvet'),
+    (21, 'unanvet warn-ugent'),
+    (28, 'eizhvet warn-ugent'),
+    (73, 'trizekvet ha tri-ugent'),
+    (100, 'kantvet'),
+    (101, 'kant unanvet'),
+    (1000, 'milvet'),
+    (1000000, 'milionvet')
 )
 
 TEST_CASES_TO_CURRENCY_EUR = (
@@ -178,7 +187,6 @@ class Num2WordsENTest(TestCase):
         for test in TEST_CASES_CARDINAL:
             self.assertEqual(num2words(test[0], lang='br'), test[1])
 
-    @unittest.expectedFailure
     def test_ordinal(self):
         for test in TEST_CASES_ORDINAL:
             self.assertEqual(

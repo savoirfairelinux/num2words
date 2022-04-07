@@ -120,7 +120,7 @@ class Num2Word_BR(Num2Word_EU):
     def to_ordinal_num(self, value):
         self.verify_ordinal(value)
         out = str(value)
-        out += "er" if value == 1 else "me"
+        out += "vet"
         return out
 
     def to_currency(self, val, currency='EUR', cents=True, separator=',',
