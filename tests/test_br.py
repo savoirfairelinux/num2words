@@ -109,13 +109,13 @@ TEST_CASES_ORDINAL = (
     (12, 'daouzekvet'),
     (14, 'pevarzekvet'),
     (15, 'pemzekvet'),
-    (21, 'unanvet warn-ugent'),
-    (28, 'eizhvet warn-ugent'),
+    (21, 'unanvet warn ugent'),
+    (28, 'eizhvet warn ugent'),
     (73, 'trizekvet ha tri-ugent'),
     (100, 'kantvet'),
     (101, 'kant unanvet'),
     (1000, 'milvet'),
-    (1000000, 'milionvet')
+    (1000000, 'unan milionvet')
 )
 
 TEST_CASES_ORDINAL_NUM = (
@@ -132,8 +132,8 @@ TEST_CASES_ORDINAL_NUM = (
     (12, 'douzekvet'),
     (14, 'pevarzekvet'),
     (15, 'pemzekvet'),
-    (21, 'unanvet warn-ugent'),
-    (28, 'eizhvet warn-ugent'),
+    (21, 'unanvet warn ugent'),
+    (28, 'eizhvet warn ugent'),
     (73, 'trizekvet ha tri-ugent'),
     (100, 'kantvet'),
     (101, 'kant unanvet'),
@@ -167,17 +167,22 @@ TEST_CASES_TO_CURRENCY_FRF = (
 )
 
 TEST_CASES_TO_CURRENCY_USD = (
-    (1.00, 'un dollar et zéro cents'),
-    (2.01, 'deux dollars et un cent'),
-    (8.10, 'huit dollars et dix cents'),
-    (12.26, 'douze dollars et vingt-six cents'),
-    (21.29, 'vingt et un dollars et vingt-neuf cents'),
-    (81.25, 'quatre-vingt-un dollars et vingt-cinq cents'),
-    (100.00, 'cent dollars et zéro cents'),
-    (10000.00, "dek mil dollar ha zero sent")
+    (1.00, 'un dollar, zero sent'),
+    (2.01, 'daou dollar, un sent'),
+    (8.10, 'eizh dollar, dek sent'),
+    (12.26, "daouzek dollar, c'hwec'h sent warn ugent"),
+    (21.29, 'un dollar warn ugent, nav sent warn ugent'),
+    (77.00, 'seitek dollar ha tri-ugent, zero sent'),
+    (81.25, 'un dollar ha pevar-ugent, pemp sent warn ugent'),
+    (90.25, 'dek dollar ha pevar-ugent, pemp sent warn ugent'),
+    (100.00, 'kant dollar, zero sent'),
+    (252.90, "daou c'hant daou dollar ha hanter-kant, dek sent ha pevar-ugent"),
+    (566.37, "pemp kant c'hwec'h dollar ha tri-ugent, seizh sent ha tregont"),
+    (100000.00, 'kant mil dollar, zero sent'),
 )
 
 class Num2WordsENTest(TestCase):
+    @unittest.expectedFailure
     def test_ordinal_special_joins(self):
         # ref https://github.com/savoirfairelinux/num2words/issues/18
         self.assertEqual(

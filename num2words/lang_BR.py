@@ -41,7 +41,7 @@ class Num2Word_BR(Num2Word_EU):
     """
     CURRENCY_FORMS = {
         'EUR': (('euro', 'euro'), ('santim', 'santim')),
-        'USD': (('dollar', 'dollarioù'), ('sent', 'sent')),
+        'USD': (('dollar', 'dollar'), ('sent', 'sent')),
         'FRF': (('lur', 'lur'), ('kantim', 'kantim')),
         'GBP': (('lur sterling', 'lur sterling'), ('sent sterling', 'sent sterling')),
     }
@@ -122,8 +122,8 @@ class Num2Word_BR(Num2Word_EU):
                 word = word[:-1]
             word = word + "vet"
         if scores:
-            word += " ha " + scores
-            word.replace("ha ugent", "warn ugent")
+            word += " ha " + self.to_cardinal(scores)
+        word = word.replace("ha ugent", "warn ugent")
         return word
 
     def to_ordinal_num(self, value):
