@@ -111,6 +111,7 @@ class Num2Word_BR(Num2Word_EU):
                     }
         if value in ordinals:
             return ordinals[value]
+        value, scores = _vigesimal(value)
         word = self.to_cardinal(value)
         for src, repl in self.ords.items():
             if word.endswith(src):
@@ -120,6 +121,9 @@ class Num2Word_BR(Num2Word_EU):
             if word[-1] == "e":
                 word = word[:-1]
             word = word + "vet"
+        if scores:
+            word += " ha " + scores
+            word.replace("ha ugent", "warn ugent")
         return word
 
     def to_ordinal_num(self, value):
