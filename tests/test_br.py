@@ -50,7 +50,7 @@ TEST_CASES_CARDINAL = (
     (79, 'naontek ha tri-ugent'),
     (89, 'nav ha pevar-ugent'),
     (95, 'pemzek ha pevar-ugent'),
-     (100, 'kant'),
+    (100, 'kant'),
     (101, 'kant unan'),
     (110, 'kant dek'),
     (150, 'kant hanter-kant'),
@@ -119,26 +119,26 @@ TEST_CASES_ORDINAL = (
 )
 
 TEST_CASES_ORDINAL_NUM = (
-    (1, 'kentañ'),
-    (2, 'eil'),
-    (3, 'trede'),
-    (4, 'pevare'),
-    (5, 'pempvet'),
-    (6, "cʼhwecʼhvet"),
-    (7, 'seizhvet'),
-    (8, 'eizhvet'),
-    (9, 'navvet'),
-    (11, 'unnekvet'),
-    (12, 'douzekvet'),
-    (14, 'pevarzekvet'),
-    (15, 'pemzekvet'),
-    (21, 'unanvet warn ugent'),
-    (28, 'eizhvet warn ugent'),
-    (73, 'trizekvet ha tri-ugent'),
-    (100, 'kantvet'),
-    (101, 'kant unanvet'),
-    (1000, 'milvet'),
-    (1000000, 'milionvet')
+    (1, '1añ'),
+    (2, '2l'),
+    (3, '3e'),
+    (4, '4e'),
+    (5, '5vet'),
+    (6, "6vet"),
+    (7, '7vet'),
+    (8, '8vet'),
+    (9, '9vet'),
+    (11, '11vet'),
+    (12, '12vet'),
+    (14, '14vet'),
+    (15, '15vet'),
+    (21, '21vet'),
+    (28, '28vet'),
+    (73, '73vet'),
+    (100, '100vet'),
+    (101, '101vet'),
+    (1000, '1000vet'),
+    (1000000, '1000000vet')
 )
 
 TEST_CASES_TO_CURRENCY_EUR = (
@@ -157,13 +157,18 @@ TEST_CASES_TO_CURRENCY_EUR = (
 )
 
 TEST_CASES_TO_CURRENCY_FRF = (
-    (1.00, 'un franc et zéro centimes'),
-    (2.01, 'deux francs et un centime'),
-    (8.10, 'huit francs et dix centimes'),
-    (12.27, 'douze francs et vingt-sept centimes'),
-    (21.29, 'vingt et un francs et vingt-neuf centimes'),
-    (81.25, 'quatre-vingt-un francs et vingt-cinq centimes'),
-    (100.00, 'cent francs et zéro centimes'),
+    (1.00, 'un lur, zero santim'),
+    (2.01, 'daou lur, un santim'),
+    (8.10, 'eizh lur, dek santim'),
+    (12.26, "daouzek lur, c'hwec'h santim warn ugent"),
+    (21.29, 'un lur warn ugent, nav santim warn ugent'),
+    (77.00, 'seitek lur ha tri-ugent, zero santim'),
+    (81.25, 'un lur ha pevar-ugent, pemp santim warn ugent'),
+    (90.25, 'dek lur ha pevar-ugent, pemp santim warn ugent'),
+    (100.00, 'kant lur, zero santim'),
+    (252.90, "daou c'hant daou lur ha hanter-kant, dek santim ha pevar-ugent"),
+    (566.37, "pemp kant c'hwec'h lur ha tri-ugent, seizh santim ha tregont"),
+    (100000.00, 'kant mil lur, zero santim'),
 )
 
 TEST_CASES_TO_CURRENCY_USD = (
@@ -181,22 +186,8 @@ TEST_CASES_TO_CURRENCY_USD = (
     (100000.00, 'kant mil dollar, zero sent'),
 )
 
+
 class Num2WordsENTest(TestCase):
-    @unittest.expectedFailure
-    def test_ordinal_special_joins(self):
-        # ref https://github.com/savoirfairelinux/num2words/issues/18
-        self.assertEqual(
-            num2words(5, ordinal=True, lang='br'), "cinquième"
-        )
-        self.assertEqual(
-            num2words(35, ordinal=True, lang='br'), "trente-cinquième"
-        )
-        self.assertEqual(
-            num2words(9, ordinal=True, lang='br'), "neuvième"
-        )
-        self.assertEqual(
-            num2words(49, ordinal=True, lang='br'), "quarante-neuvième"
-        )
 
     def test_number(self):
         for test in TEST_CASES_CARDINAL:
@@ -209,7 +200,6 @@ class Num2WordsENTest(TestCase):
                 test[1]
             )
 
-    @unittest.expectedFailure
     def test_ordinal_num(self):
         for test in TEST_CASES_ORDINAL_NUM:
             self.assertEqual(
@@ -224,7 +214,6 @@ class Num2WordsENTest(TestCase):
                 test[1]
             )
 
-    @unittest.expectedFailure
     def test_currency_frf(self):
         for test in TEST_CASES_TO_CURRENCY_FRF:
             self.assertEqual(
@@ -232,10 +221,13 @@ class Num2WordsENTest(TestCase):
                 test[1]
             )
 
-    @unittest.expectedFailure
     def test_currency_usd(self):
         for test in TEST_CASES_TO_CURRENCY_USD:
             self.assertEqual(
                 num2words(test[0], lang='br', to='currency', currency='USD'),
                 test[1]
             )
+
+
+if __name__ == '__main__':
+    unittest.main()

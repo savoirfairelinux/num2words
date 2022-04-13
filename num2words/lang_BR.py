@@ -28,8 +28,8 @@ def _vigesimal(val):
         units_part = two_digits
     else:
         units_part = min(
-        (two_digits - x for x in special_values[:-1] if two_digits - x > 0),
-        default=0)
+            (two_digits - x for x in special_values[:-1] if two_digits - x > 0),
+            default=0)
     return hundreds + units_part, val - hundreds - units_part
 
 
@@ -42,8 +42,9 @@ class Num2Word_BR(Num2Word_EU):
     CURRENCY_FORMS = {
         'EUR': (('euro', 'euro'), ('santim', 'santim')),
         'USD': (('dollar', 'dollar'), ('sent', 'sent')),
-        'FRF': (('lur', 'lur'), ('kantim', 'kantim')),
-        'GBP': (('lur sterling', 'lur sterling'), ('sent sterling', 'sent sterling')),
+        'FRF': (('lur', 'lur'), ('santim', 'santim')),
+        # https://br.wikipedia.org/wiki/Lur_sterling
+        'GBP': (('lur sterling', 'lur sterling'), ('penny', 'penny')),
     }
     MEGA_SUFFIX = "ilion"
     GIGA_SUFFIX = "iliard"
@@ -62,8 +63,10 @@ class Num2Word_BR(Num2Word_EU):
                              (80, "pevar-ugent"), (60, "tri-ugent"),
                              (50, "hanter-kant"), (40, "daou-ugent"),
                              (30, "tregont")]
-        self.low_numwords = ['ugent', 'naontek', "triwec'h", 'seitek', "c'hwezek", 'pemzek', 'pevarzek', 'trizek',
-                             'daouzek', 'unnek', 'dek', 'nav', 'eizh', 'seizh', "c'hwec'h", 'pemp', 'pevar', 'tri',
+        self.low_numwords = ['ugent', 'naontek', "triwec'h", 'seitek',
+                             "c'hwezek", 'pemzek', 'pevarzek', 'trizek',
+                             'daouzek', 'unnek', 'dek', 'nav', 'eizh',
+                             'seizh', "c'hwec'h", 'pemp', 'pevar', 'tri',
                              'daou', 'unan', 'zero']
         self.ords = {
             "cinq": "cinquième",
@@ -82,9 +85,6 @@ class Num2Word_BR(Num2Word_EU):
                     and nnum < 1000000 \
                     and ctext[-1] == "s":
                 ctext = ctext[:-1]
-            # if cnum < 1000 and nnum != 1000 and \
-            #         ntext[-1] != "s" and not nnum % 100:
-            #     ntext += "s"
         # Mutations:
         if ntext == "kant" and ctext in ["daou", "tri", "pevar", "nav"]:
             ntext = "c'hant"
@@ -96,7 +96,7 @@ class Num2Word_BR(Num2Word_EU):
             else:
                 and_ = "ha"
             if nnum % 10 == 1 and cnum != 80:
-                return ("%s %s %s" % (ntext, and_,ctext), cnum + nnum)
+                return ("%s %s %s" % (ntext, and_, ctext), cnum + nnum)
             return ("%s %s %s" % (ntext, and_, ctext), cnum + nnum)
         if nnum > cnum:
             return ("%s %s" % (ctext, ntext), cnum * nnum)
@@ -128,6 +128,13 @@ class Num2Word_BR(Num2Word_EU):
 
     def to_ordinal_num(self, value):
         self.verify_ordinal(value)
+        ordinal_nums = {1: '1añ',
+                        2: '2l',
+                        3: '3e',
+                        4: '4e',
+                        }
+        if value in ordinal_nums:
+            return ordinal_nums[value]
         out = str(value)
         out += "vet"
         return out
@@ -141,15 +148,20 @@ class Num2Word_BR(Num2Word_EU):
         """
         euros = int(val)
         centimes = round(100 * val) % 100
-        euros_1, euros_2 = _vigesimal(euros)
-        cents_1, cents_2 = _vigesimal(centimes)
+        _, euros_2 = _vigesimal(euros)
+        _, cents_2 = _vigesimal(centimes)
         result = super(Num2Word_BR, self).to_currency(
             (val - euros_2 - cents_2 / 100), currency=currency, cents=cents, separator=separator,
             adjective=adjective)
         result = result.replace("unan ", "un ")
+        (currency_name, _), (cents_name, _) = self.CURRENCY_FORMS[currency]
         if euros_2:
-            result = result.replace("euro", "euro ha " + Num2Word_BR().to_cardinal(euros_2))
+            result = result.replace(currency_name,
+                                    currency_name + " ha " + Num2Word_BR().to_cardinal(euros_2)
+                                    )
         if cents_2:
-            result = result.replace("santim", "santim ha " + Num2Word_BR().to_cardinal(cents_2))
+            result = result.replace(cents_name,
+                                    cents_name + " ha " + Num2Word_BR().to_cardinal(cents_2)
+                                    )
         result = result.replace("ha ugent", "warn ugent")
         return result
