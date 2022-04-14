@@ -32,6 +32,7 @@ class Num2Word_BR(Num2Word_EU):
         'FRF': (('lur', 'lur'), ('kantim', 'kantim')),
         'GBP': (('lur sterling', 'lur sterling'), ('sent sterling', 'sent sterling')),
     }
+
     MEGA_SUFFIX = "ilion"
     GIGA_SUFFIX = "iliard"
 
@@ -41,9 +42,9 @@ class Num2Word_BR(Num2Word_EU):
         self.negword = "nemet "
         self.pointword = "skej"
         self.errmsg_nonnum = (
-            u"Seulement des nombres peuvent être convertis en mots."
+            u"mar ha nemet mar an niver eo, e c'haller treiñ anezho e gerioù."
         )
-        self.errmsg_toobig = u"Nombre trop grand pour être converti en mots."
+        self.errmsg_toobig = u"nemet an niver a c'haller treiñ e gerioù."
         self.exclude_title = ["ha", "skej", "nemet"]
         self.mid_numwords = [(1000, "mil"), (100, "kant"),
                              (80, "pevar-ugent"), (60, "tri-ugent"),
@@ -89,6 +90,7 @@ class Num2Word_BR(Num2Word_EU):
             return ("%s %s" % (ctext, ntext), cnum * nnum)
         return ("%s %s" % (ctext, ntext), cnum + nnum)
 
+    # according to https://fr.wiktionary.org/wiki/Mod%C3%A8le:ordinaux_en_breton 
     def to_ordinal(self, value):
         self.verify_ordinal(value)
         if value == 1:
