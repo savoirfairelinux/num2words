@@ -55,9 +55,9 @@ class Num2Word_BR(Num2Word_EU):
         self.negword = "nemet "
         self.pointword = "skej"
         self.errmsg_nonnum = (
-            u"Seulement des nombres peuvent être convertis en mots."
+            u"mar ha nemet mar an niver eo, e c'haller treiñ anezho e gerioù."
         )
-        self.errmsg_toobig = u"Nombre trop grand pour être converti en mots."
+        self.errmsg_toobig = u"nemet an niver a c'haller treiñ e gerioù."
         self.exclude_title = ["ha", "skej", "nemet"]
         self.mid_numwords = [(1000, "mil"), (100, "kant"),
                              (80, "pevar-ugent"), (60, "tri-ugent"),
@@ -102,6 +102,7 @@ class Num2Word_BR(Num2Word_EU):
             return ("%s %s" % (ctext, ntext), cnum * nnum)
         return ("%s %s" % (ctext, ntext), cnum + nnum)
 
+    # according to https://fr.wiktionary.org/wiki/Mod%C3%A8le:ordinaux_en_breton
     def to_ordinal(self, value):
         self.verify_ordinal(value)
         ordinals = {1: 'kentañ',
@@ -139,7 +140,7 @@ class Num2Word_BR(Num2Word_EU):
         out += "vet"
         return out
 
-    def to_currency(self, val, currency='EUR', cents=True, separator=',',
+    def to_currency(self, val, currency='EUR', cents=True, separator=' et',
                     adjective=False):
         """For all values with units in breton (currency, measurements, ...) the 'twenties'
         part (20, 30, ...) is placed after the units unless there is no digit after the
