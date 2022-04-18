@@ -15,11 +15,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301 USA
 from __future__ import unicode_literals
+from num2words import num2words
 
 import unittest
 from unittest import TestCase
-
-from num2words import num2words
 
 TEST_CASES_CARDINAL = (
     (0, "zero"),
@@ -42,8 +41,7 @@ TEST_CASES_CARDINAL = (
     (40, 'daou-ugent'),
     (44, 'pevar ha daou-ugent'),
     (50, 'hanter-kant'),
-    # (53.486, 'cinquante-trois virgule quatre huit six'),
-    (55, 'pemp ha hanter-kant'),
+    (55, 'pemp hag hanter-kant'),
     (60, 'tri-ugent'),
     (67, 'seizh ha tri-ugent'),
     (70, 'dek ha tri-ugent'),
@@ -55,33 +53,26 @@ TEST_CASES_CARDINAL = (
     (110, 'kant dek'),
     (150, 'kant hanter-kant'),
     (200, "daou c'hant"),
-    # (203, 'deux cent trois'),
-    # (287, 'deux cent quatre-vingt-sept'),
-    # (300.42, 'trois cents virgule quatre deux'),
-    # (356, 'trois cent cinquante-six'),
-    # (400, 'quatre cents'),
-    # (434, 'quatre cent trente-quatre'),
-    # (578, 'cinq cent soixante-dix-huit'),
-    # (689, 'six cent quatre-vingt-neuf'),
-    # (729, 'sept cent vingt-neuf'),
-    (851, "eizh kant unan ha hanter-kant"),
-    # (999, 'neuf cent quatre-vingt-dix-neuf'),
+    (201, "daou c'hant unan"),
+    (237, "daou c'hant seizh ha tregont"),
+    (302, "tri c'hant daou"),
+    (338, "tri c'hant eizh ha tregont"),
+    (453, "pevar c'hant tri hag hanter-kant"),
+    (599, "pemp kant naontek ha pevar-ugent"),
+    (655, "c'hwec'h kant pemp hag hanter-kant"),
+    (774, "seizh kant pevarzek ha tri-ugent"),
+    (851, "eizh kant unan hag hanter-kant"),
     (1000, 'mil'),
-    # (1001, 'mille un'),
-    # (1097, 'mille quatre-vingt-dix-sept'),
     (1984, "mil nav c'hant pevar ha pevar-ugent"),
     (1995, "mil nav c'hant pemzek ha pevar-ugent"),
     (2007, "daou vil seizh"),
-    # (2385, 'deux mille trois cent quatre-vingt-cinq'),
-    # (3766, 'trois mille sept cent soixante-six'),
-    # (4196, 'quatre mille cent quatre-vingt-seize'),
-    # (4196.42, 'quatre mille cent quatre-vingt-seize virgule quatre deux'),
-    # (5846, 'cinq mille huit cent quarante-six'),
-    # (6459, 'six mille quatre cent cinquante-neuf'),
+    (2100, "daou vil kant"),
+    (3001, "tri mil unan"),
     (7777, "seizh mil seizh kant seitek ha tri-ugent"),
     (7847, "seizh mil eizh kant seizh ha daou-ugent"),
     (1000000, 'unan milion'),
     (2000000, 'daou vilion'),
+    (3010100, "tri milion dek mil kant"),
     (4000000, 'pevar milion'),
     (11000000, 'unnek milion'),
     (200000000, "daou c'hant milion"),
@@ -91,9 +82,9 @@ TEST_CASES_CARDINAL = (
     (10000000000010, 'dek bilion dek'),
     (100000000000000, 'kant bilion'),
     (1000000000000000000, 'unan trilion'),
-    # (1000000000000000000000, 'un trilliard'),
-    # (10000000000000000000000000, 'dek perlion')
 )
+
+# Some tests adapted from https://www.webklas.org/IMG/odt/kartou_niverin_CE1.odt
 
 TEST_CASES_ORDINAL = (
     (1, 'kentañ'),
@@ -151,7 +142,7 @@ TEST_CASES_TO_CURRENCY_EUR = (
     (81.25, 'un euro ha pevar-ugent, pemp santim warn ugent'),
     (90.25, 'dek euro ha pevar-ugent, pemp santim warn ugent'),
     (100.00, 'kant euro, zero santim'),
-    (252.90, "daou c'hant daou euro ha hanter-kant, dek santim ha pevar-ugent"),
+    (252.90, "daou c'hant daou euro hag hanter-kant, dek santim ha pevar-ugent"),
     (566.37, "pemp kant c'hwec'h euro ha tri-ugent, seizh santim ha tregont"),
     (100000.00, 'kant mil euro, zero santim'),
 )
@@ -166,7 +157,7 @@ TEST_CASES_TO_CURRENCY_FRF = (
     (81.25, 'un lur ha pevar-ugent, pemp santim warn ugent'),
     (90.25, 'dek lur ha pevar-ugent, pemp santim warn ugent'),
     (100.00, 'kant lur, zero santim'),
-    (252.90, "daou c'hant daou lur ha hanter-kant, dek santim ha pevar-ugent"),
+    (252.90, "daou c'hant daou lur hag hanter-kant, dek santim ha pevar-ugent"),
     (566.37, "pemp kant c'hwec'h lur ha tri-ugent, seizh santim ha tregont"),
     (100000.00, 'kant mil lur, zero santim'),
 )
@@ -181,7 +172,7 @@ TEST_CASES_TO_CURRENCY_USD = (
     (81.25, 'un dollar ha pevar-ugent, pemp sent warn ugent'),
     (90.25, 'dek dollar ha pevar-ugent, pemp sent warn ugent'),
     (100.00, 'kant dollar, zero sent'),
-    (252.90, "daou c'hant daou dollar ha hanter-kant, dek sent ha pevar-ugent"),
+    (252.90, "daou c'hant daou dollar hag hanter-kant, dek sent ha pevar-ugent"),
     (566.37, "pemp kant c'hwec'h dollar ha tri-ugent, seizh sent ha tregont"),
     (100000.00, 'kant mil dollar, zero sent'),
 )

@@ -21,6 +21,7 @@ from .lang_EU import Num2Word_EU
 
 
 def _vigesimal(val):
+    """Helper function for splitting breton numbers into two parts"""
     two_digits = val % 100
     hundreds = val - two_digits
     special_values = [0, 20, 30, 40, 50, 60, 80, 100]
@@ -37,7 +38,7 @@ class Num2Word_BR(Num2Word_EU):
     """Breton spelling for numbers
     Some details taken from http://www.preder.net/r/bibli/jedoniezh_6ved.pdf and
     http://www.culture-bretagne.net/wp-content/uploads/2017/05/liste-montants-rediger-cheque-breton.pdf
-    And from teachers from the Skol Diwan, Saint-Herblain
+    And from teachers and students from the Skol Diwan, Saint-Herblain
     """
     CURRENCY_FORMS = {
         'EUR': (('euro', 'euro'), ('santim', 'santim')),
@@ -51,7 +52,6 @@ class Num2Word_BR(Num2Word_EU):
 
     def setup(self):
         Num2Word_EU.setup(self)
-
         self.negword = "nemet "
         self.pointword = "skej"
         self.errmsg_nonnum = (
@@ -69,8 +69,6 @@ class Num2Word_BR(Num2Word_EU):
                              'seizh', "c'hwec'h", 'pemp', 'pevar', 'tri',
                              'daou', 'unan', 'zero']
         self.ords = {
-            "cinq": "cinquième",
-            "neuf": "neuvième",
         }
 
     def merge(self, curr, next):
@@ -93,6 +91,8 @@ class Num2Word_BR(Num2Word_EU):
         if nnum < cnum < 100:
             if cnum < 30:
                 and_ = "warn"
+            elif cnum == 50:
+                and_ = "hag"
             else:
                 and_ = "ha"
             if nnum % 10 == 1 and cnum != 80:
@@ -123,7 +123,8 @@ class Num2Word_BR(Num2Word_EU):
                 word = word[:-1]
             word = word + "vet"
         if scores:
-            word += " ha " + self.to_cardinal(scores)
+            and_ = " hag " if scores == 50 else " ha "
+            word += and_ + self.to_cardinal(scores)
         word = word.replace("ha ugent", "warn ugent")
         return word
 
@@ -140,7 +141,7 @@ class Num2Word_BR(Num2Word_EU):
         out += "vet"
         return out
 
-    def to_currency(self, val, currency='EUR', cents=True, separator=' et',
+    def to_currency(self, val, currency='EUR', cents=True, separator=',',
                     adjective=False):
         """For all values with units in breton (currency, measurements, ...) the 'twenties'
         part (20, 30, ...) is placed after the units unless there is no digit after the
@@ -164,5 +165,5 @@ class Num2Word_BR(Num2Word_EU):
             result = result.replace(cents_name,
                                     cents_name + " ha " + Num2Word_BR().to_cardinal(cents_2)
                                     )
-        result = result.replace("ha ugent", "warn ugent")
+        result = result.replace("ha ugent", "warn ugent").replace("ha hanter", "hag hanter")
         return result
