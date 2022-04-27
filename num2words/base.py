@@ -88,7 +88,7 @@ class Num2Word_Base(object):
 
     def to_cardinal(self, value):
         try:
-            assert long(value) == value
+            long(value) == value
         except (ValueError, TypeError, AssertionError):
             return self.to_cardinal_float(value)
 
