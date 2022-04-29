@@ -182,7 +182,11 @@ class Num2WordsTRTest(TestCase):
             {"test": 101101011010.02, "to": "cardinal",
              "expected": u"yüzbirmilyaryüzbirmilyononbirbinonvirgüliki"},
             {"test": 101101011010.2, "to": "cardinal",
-             "expected": u"yüzbirmilyaryüzbirmilyononbirbinonvirgülyirmi"}
+             "expected": u"yüzbirmilyaryüzbirmilyononbirbinonvirgülyirmi"},
+            {"test": -5, "to": "cardinal", "expected": u"eksibeş"},
+            {"test": -55, "to": "cardinal", "expected": u"eksiellibeş"},
+            {"test": -576, "to": "cardinal", "expected": u"eksibeşyüzyetmişaltı"},
+            {"test": -3, "to": "currency", "expected": u"eksiüçlira"},
         ]
 
         for casedata in testcases:
