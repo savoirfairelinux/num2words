@@ -71,7 +71,6 @@ TENS = {
     9: ('dziewiętnaście',),
 }
 
-
 TWENTIES = {
     2: ('dwadzieścia',),
     3: ('trzydzieści',),
@@ -80,18 +79,18 @@ TWENTIES = {
     6: ('sześćdziesiąt',),
     7: ('siedemdziesiąt',),
     8: ('osiemdziesiąt',),
-    9: ('dziewięćdzisiąt',),
+    9: ('dziewięćdziesiąt',),
 }
 
 TWENTIES_ORDINALS = {
     2: ('dwudziesty', "dwudziesto"),
-    3: ('trzydziesty', "trzydiesto"),
+    3: ('trzydziesty', "trzydziesto"),
     4: ('czterdziesty', "czterdziesto"),
     5: ('pięćdziesiąty', "pięćdziesięcio"),
     6: ('sześćdziesiąty', "sześćdziesięcio"),
     7: ('siedemdziesiąty', "siedemdziesięcio"),
     8: ('osiemdziesiąty', "osiemdziesięcio"),
-    9: ('dziewięćdzisiąty', "dziewięćdziesięcio"),
+    9: ('dziewięćdziesiąty', "dziewięćdziesięcio"),
 }
 
 HUNDREDS = {
@@ -109,12 +108,12 @@ HUNDREDS = {
 HUNDREDS_ORDINALS = {
     1: ('setny', "stu"),
     2: ('dwusetny', "dwustu"),
-    3: ('trzysetny', "trzystu"),
-    4: ('czterysetny', "czterystu"),
-    5: ('pięćsetny', "pięcset"),
+    3: ('trzechsetny', "trzystu"),
+    4: ('czterechsetny', "czterystu"),
+    5: ('pięćsetny', "pięćset"),
     6: ('sześćsetny', "sześćset"),
     7: ('siedemsetny', "siedemset"),
-    8: ('osiemsetny', "ośiemset"),
+    8: ('osiemsetny', "osiemset"),
     9: ('dziewięćsetny', "dziewięćset"),
 }
 
@@ -125,7 +124,7 @@ THOUSANDS = {
 prefixes_ordinal = {
     1: "tysięczny",
     2: "milionowy",
-    3: "milairdowy"
+    3: "miliardowy"
 }
 
 prefixes = (   # 10^(6*x)
