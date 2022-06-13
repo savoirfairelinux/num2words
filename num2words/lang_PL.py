@@ -22,7 +22,7 @@ import itertools
 from .base import Num2Word_Base
 from .utils import get_digits, splitbyx
 
-ZERO = ('zero',)
+ZERO = ("zero",)
 
 NAME_TO_CASE = {
     "nominative": 0,
@@ -35,27 +35,27 @@ NAME_TO_CASE = {
 }
 
 DECIMAL_LEVELS = {
-    1: ('dziesiąta', 'dziesiąte', 'dziesiątych',),
-    2: ('setna', 'setne', 'setnych',),
-    3: ('tysięczna', 'tysięczne', 'tysięcznych',),
-    4: ('dziesięciotysięczna', 'dziesięciotysięczne', 'dziesięciotysięcznych',),
-    5: ('stutysięczna', 'stutysięczne', 'stutysięcznych',),
-    6: ('milionowa', 'milionowe', 'milionowych',),
-    7: ('dziesięciomilionowa', 'dziesięciomilionowe', 'dziesięciomilionowych',),
-    8: ('stumilionowa', 'stumilionowe', 'stumilionowych',),
-    9: ('miliardowa', 'miliardowe', 'miliardowych',),
+    1: ("dziesiąta", "dziesiąte", "dziesiątych",),
+    2: ("setna", "setne", "setnych",),
+    3: ("tysięczna", "tysięczne", "tysięcznych",),
+    4: ("dziesięciotysięczna", "dziesięciotysięczne", "dziesięciotysięcznych",),
+    5: ("stutysięczna", "stutysięczne", "stutysięcznych",),
+    6: ("milionowa", "milionowe", "milionowych",),
+    7: ("dziesięciomilionowa", "dziesięciomilionowe", "dziesięciomilionowych",),
+    8: ("stumilionowa", "stumilionowe", "stumilionowych",),
+    9: ("miliardowa", "miliardowe", "miliardowych",),
 }
 
 ONES = {
-    1: (('jeden', 'jednego'), ('jedna', 'jednej')),
-    2: (('dwa', 'dwóch'), ('dwie', 'dwóch')),
-    3: (('trzy', 'trzech'), ('trzy', 'trzech')),
-    4: (('cztery', 'czterech'), ('cztery', 'czterech')),
-    5: (('pięć', 'pięciu'), ('pięć', 'pięciu')),
-    6: (('sześć', 'sześciu'), ('sześć', 'sześciu')),
-    7: (('siedem', 'siedmiu'), ('siedem', 'siedmiu')),
-    8: (('osiem', 'ośmiu'), ('osiem', 'ośmiu')),
-    9: (('dziewięć', 'dziewięciu'), ('dziewięć', 'dziewięciu')),
+    1: (("jeden", "jednego"), ("jedna", "jednej")),
+    2: (("dwa", "dwóch"), ("dwie", "dwóch")),
+    3: (("trzy", "trzech"), ("trzy", "trzech")),
+    4: (("cztery", "czterech"), ("cztery", "czterech")),
+    5: (("pięć", "pięciu"), ("pięć", "pięciu")),
+    6: (("sześć", "sześciu"), ("sześć", "sześciu")),
+    7: (("siedem", "siedmiu"), ("siedem", "siedmiu")),
+    8: (("osiem", "ośmiu"), ("osiem", "ośmiu")),
+    9: (("dziewięć", "dziewięciu"), ("dziewięć", "dziewięciu")),
 }
 
 ONES_ORDINALS = {
@@ -81,27 +81,27 @@ ONES_ORDINALS = {
 }
 
 TENS = {
-    0: ('dziesięć', 'dziesięciu'),
-    1: ('jedenaście', 'jedenastu'),
-    2: ('dwanaście', 'dwunastu'),
-    3: ('trzynaście', 'trzynastu'),
-    4: ('czternaście', 'czternastu'),
-    5: ('piętnaście', 'piętnastu'),
-    6: ('szesnaście', 'szesnastu'),
-    7: ('siedemnaście', 'siedemnastu'),
-    8: ('osiemnaście', 'osiemnastu'),
-    9: ('dziewiętnaście', 'dziewiętnastu'),
+    0: ("dziesięć", "dziesięciu"),
+    1: ("jedenaście", "jedenastu"),
+    2: ("dwanaście", "dwunastu"),
+    3: ("trzynaście", "trzynastu"),
+    4: ("czternaście", "czternastu"),
+    5: ("piętnaście", "piętnastu"),
+    6: ("szesnaście", "szesnastu"),
+    7: ("siedemnaście", "siedemnastu"),
+    8: ("osiemnaście", "osiemnastu"),
+    9: ("dziewiętnaście", "dziewiętnastu"),
 }
 
 TWENTIES = {
-    2: ('dwadzieścia', 'dwudziestu'),
-    3: ('trzydzieści', 'trzydziestu'),
-    4: ('czterdzieści', 'czterdziestu'),
-    5: ('pięćdziesiąt', 'pięćdziesięciu'),
-    6: ('sześćdziesiąt', 'sześćdziesięciu'),
-    7: ('siedemdziesiąt', 'siedemdziesięciu'),
-    8: ('osiemdziesiąt', 'osiemdziesięciu'),
-    9: ('dziewięćdziesiąt', 'dziewięćdziesięciu'),
+    2: ("dwadzieścia", "dwudziestu"),
+    3: ("trzydzieści", "trzydziestu"),
+    4: ("czterdzieści", "czterdziestu"),
+    5: ("pięćdziesiąt", "pięćdziesięciu"),
+    6: ("sześćdziesiąt", "sześćdziesięciu"),
+    7: ("siedemdziesiąt", "siedemdziesięciu"),
+    8: ("osiemdziesiąt", "osiemdziesięciu"),
+    9: ("dziewięćdziesiąt", "dziewięćdziesięciu"),
 }
 
 TWENTIES_ORDINALS = {
@@ -116,15 +116,15 @@ TWENTIES_ORDINALS = {
 }
 
 HUNDREDS = {
-    1: ('sto', 'stu'),
-    2: ('dwieście', 'dwustu'),
-    3: ('trzysta', 'trzystu'),
-    4: ('czterysta', 'czterystu'),
-    5: ('pięćset', 'pięciuset'),
-    6: ('sześćset', 'sześciuset'),
-    7: ('siedemset', 'siedmiuset'),
-    8: ('osiemset', 'ośmiuset'),
-    9: ('dziewięćset', 'dziewięciuset'),
+    1: ("sto", "stu"),
+    2: ("dwieście", "dwustu"),
+    3: ("trzysta", "trzystu"),
+    4: ("czterysta", "czterystu"),
+    5: ("pięćset", "pięciuset"),
+    6: ("sześćset", "sześciuset"),
+    7: ("siedemset", "siedmiuset"),
+    8: ("osiemset", "ośmiuset"),
+    9: ("dziewięćset", "dziewięciuset"),
 }
 
 HUNDREDS_ORDINALS = {
@@ -182,12 +182,24 @@ class Num2Word_PL(Num2Word_Base):
         self.negword = "minus"
         self.pointword = "i"
 
-    def to_cardinal(self, number, gender="m_inanimate", case="nominative"):
+    def to_cardinal(self, number, gender="m_inanimate", case="nominative") -> str:
+        """Convert number to cardinal numeral.
+
+        Args:
+            number: Number to convert.
+            gender: Gender of the numberal (see self._int2word() for
+                supported values).
+            case: Grammatical case of the numeral (see self._int2word()
+                for supported values).
+
+        Returns:
+            Converted number.
+        """
         case_number = NAME_TO_CASE[case]
-        n = str(number).replace(',', '.')
+        n = str(number).replace(",", ".")
         base_str, n = self.parse_minus(n)
-        if '.' in n:
-            left, right = n.rstrip('0').split('.')
+        if "." in n:
+            left, right = n.rstrip("0").split(".")
             n1, n2, n3 = get_digits(int(right))
             last_two = n2*10+n1
             if last_two == 1:
@@ -205,7 +217,7 @@ class Num2Word_PL(Num2Word_Base):
                 return base_str + ("półtorej" if gender == "f" else "półtora")
             elif right == "5":
                 decimal_part = "pół"
-            return u'%s%s %s %s' % (
+            return u"%s%s %s %s" % (
                 base_str,
                 self._int2word(int(left), gender=gender, case=case_number),
                 self.pointword,
@@ -266,9 +278,26 @@ class Num2Word_PL(Num2Word_Base):
             output = output + prefixes_ordinal[level]
         return output
 
-    def _int2word(self, n, gender="m_inanimate", case=0):
-        case_number = case if case in {0, 1} else 0
-        gender_index = 1 if gender == "f" else 0
+    def _int2word(self, n: int, gender="m_inanimate", case: int = 0) -> str:
+        """Convert integer `n` to word.
+
+        Args:
+            n: Number to convert.
+            gender:  Use "f" for feminine, any other value defaults to the masculine inanimate.
+            case: Currently supports 0 (nominative) and 1 (genitive).
+
+        Returns:
+            Converted number.
+        """
+        if case not in {0, 1}:
+            raise NotImplementedError()
+        if gender == "f":
+            gender_index = 1
+        elif gender in {"m_inanimate", "neuter"}:
+            gender_index = 0
+        else:
+            raise NotImplementedError()
+
         if n == 0:
             return ZERO[0]
 
@@ -284,17 +313,17 @@ class Num2Word_PL(Num2Word_Base):
             n1, n2, n3 = get_digits(x)
 
             if n3 > 0:
-                words.append(HUNDREDS[n3][case_number])
+                words.append(HUNDREDS[n3][case])
 
             if n2 > 1:
-                words.append(TWENTIES[n2][case_number])
+                words.append(TWENTIES[n2][case])
 
             if n2 == 1:
-                words.append(TENS[n1][case_number])
+                words.append(TENS[n1][case])
             elif n1 > 0 and not (i > 0 and x == 1):
-                words.append(ONES[n1][gender_index][case_number])
+                words.append(ONES[n1][gender_index][case])
 
             if i > 0:
                 words.append(self.pluralize(x, THOUSANDS[i]))
 
-        return ' '.join(words)
+        return " ".join(words)
