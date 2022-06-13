@@ -24,16 +24,38 @@ from .utils import get_digits, splitbyx
 
 ZERO = ('zero',)
 
+NAME_TO_CASE = {
+    "nominative": 0,
+    "genitive": 1,
+    "dative": 2,
+    "accusative": 3,
+    "instrumental": 4,
+    "locative": 5,
+    "vocative": 6
+}
+
+DECIMAL_LEVELS = {
+    1: ('dziesiąta', 'dziesiąte', 'dziesiątych',),
+    2: ('setna', 'setne', 'setnych',),
+    3: ('tysięczna', 'tysięczne', 'tysięcznych',),
+    4: ('dziesięciotysięczna', 'dziesięciotysięczne', 'dziesięciotysięcznych',),
+    5: ('stutysięczna', 'stutysięczne', 'stutysięcznych',),
+    6: ('milionowa', 'milionowe', 'milionowych',),
+    7: ('dziesięciomilionowa', 'dziesięciomilionowe', 'dziesięciomilionowych',),
+    8: ('stumilionowa', 'stumilionowe', 'stumilionowych',),
+    9: ('miliardowa', 'miliardowe', 'miliardowych',),
+}
+
 ONES = {
-    1: ('jeden',),
-    2: ('dwa',),
-    3: ('trzy',),
-    4: ('cztery',),
-    5: ('pięć',),
-    6: ('sześć',),
-    7: ('siedem',),
-    8: ('osiem',),
-    9: ('dziewięć',),
+    1: (('jeden', 'jednego'), ('jedna', 'jednej')),
+    2: (('dwa', 'dwóch'), ('dwie', 'dwóch')),
+    3: (('trzy', 'trzech'), ('trzy', 'trzech')),
+    4: (('cztery', 'czterech'), ('cztery', 'czterech')),
+    5: (('pięć', 'pięciu'), ('pięć', 'pięciu')),
+    6: (('sześć', 'sześciu'), ('sześć', 'sześciu')),
+    7: (('siedem', 'siedmiu'), ('siedem', 'siedmiu')),
+    8: (('osiem', 'ośmiu'), ('osiem', 'ośmiu')),
+    9: (('dziewięć', 'dziewięciu'), ('dziewięć', 'dziewięciu')),
 }
 
 ONES_ORDINALS = {
@@ -59,27 +81,27 @@ ONES_ORDINALS = {
 }
 
 TENS = {
-    0: ('dziesięć',),
-    1: ('jedenaście',),
-    2: ('dwanaście',),
-    3: ('trzynaście',),
-    4: ('czternaście',),
-    5: ('piętnaście',),
-    6: ('szesnaście',),
-    7: ('siedemnaście',),
-    8: ('osiemnaście',),
-    9: ('dziewiętnaście',),
+    0: ('dziesięć', 'dziesięciu'),
+    1: ('jedenaście', 'jedenastu'),
+    2: ('dwanaście', 'dwunastu'),
+    3: ('trzynaście', 'trzynastu'),
+    4: ('czternaście', 'czternastu'),
+    5: ('piętnaście', 'piętnastu'),
+    6: ('szesnaście', 'szesnastu'),
+    7: ('siedemnaście', 'siedemnastu'),
+    8: ('osiemnaście', 'osiemnastu'),
+    9: ('dziewiętnaście', 'dziewiętnastu'),
 }
 
 TWENTIES = {
-    2: ('dwadzieścia',),
-    3: ('trzydzieści',),
-    4: ('czterdzieści',),
-    5: ('pięćdziesiąt',),
-    6: ('sześćdziesiąt',),
-    7: ('siedemdziesiąt',),
-    8: ('osiemdziesiąt',),
-    9: ('dziewięćdziesiąt',),
+    2: ('dwadzieścia', 'dwudziestu'),
+    3: ('trzydzieści', 'trzydziestu'),
+    4: ('czterdzieści', 'czterdziestu'),
+    5: ('pięćdziesiąt', 'pięćdziesięciu'),
+    6: ('sześćdziesiąt', 'sześćdziesięciu'),
+    7: ('siedemdziesiąt', 'siedemdziesięciu'),
+    8: ('osiemdziesiąt', 'osiemdziesięciu'),
+    9: ('dziewięćdziesiąt', 'dziewięćdziesięciu'),
 }
 
 TWENTIES_ORDINALS = {
@@ -94,15 +116,15 @@ TWENTIES_ORDINALS = {
 }
 
 HUNDREDS = {
-    1: ('sto',),
-    2: ('dwieście',),
-    3: ('trzysta',),
-    4: ('czterysta',),
-    5: ('pięćset',),
-    6: ('sześćset',),
-    7: ('siedemset',),
-    8: ('osiemset',),
-    9: ('dziewięćset',),
+    1: ('sto', 'stu'),
+    2: ('dwieście', 'dwustu'),
+    3: ('trzysta', 'trzystu'),
+    4: ('czterysta', 'czterystu'),
+    5: ('pięćset', 'pięciuset'),
+    6: ('sześćset', 'sześciuset'),
+    7: ('siedemset', 'siedmiuset'),
+    8: ('osiemset', 'ośmiuset'),
+    9: ('dziewięćset', 'dziewięciuset'),
 }
 
 HUNDREDS_ORDINALS = {
@@ -158,22 +180,39 @@ class Num2Word_PL(Num2Word_Base):
 
     def setup(self):
         self.negword = "minus"
-        self.pointword = "przecinek"
+        self.pointword = "i"
 
-    def to_cardinal(self, number):
+    def to_cardinal(self, number, gender="m_inanimate", case="nominative"):
+        case_number = NAME_TO_CASE[case]
         n = str(number).replace(',', '.')
+        base_str, n = self.parse_minus(n)
         if '.' in n:
-            left, right = n.split('.')
-            leading_zero_count = len(right) - len(right.lstrip('0'))
-            decimal_part = ((ZERO[0] + ' ') * leading_zero_count +
-                            self._int2word(int(right)))
-            return u'%s %s %s' % (
-                self._int2word(int(left)),
+            left, right = n.rstrip('0').split('.')
+            n1, n2, n3 = get_digits(int(right))
+            last_two = n2*10+n1
+            if last_two == 1:
+                decimal_index = 0
+            elif n1 in {2, 3, 4} and last_two not in {12, 13, 14}:
+                decimal_index = 1
+            else:
+                decimal_index = 2
+            decimal_part = self._int2word(int(right), gender="f", case=case_number)
+            decimal_level = DECIMAL_LEVELS[len(right)][decimal_index]
+            decimal_part += f" {decimal_level}"
+            if n == "0.5":
+                return base_str + "pół"
+            elif n == "1.5":
+                return base_str + ("półtorej" if gender == "f" else "półtora")
+            elif right == "5":
+                decimal_part = "pół"
+            return u'%s%s %s %s' % (
+                base_str,
+                self._int2word(int(left), gender=gender, case=case_number),
                 self.pointword,
                 decimal_part
             )
         else:
-            return self._int2word(int(n))
+            return base_str + self._int2word(int(n), gender=gender, case=case_number)
 
     def pluralize(self, n, forms):
         if n == 1:
@@ -227,7 +266,9 @@ class Num2Word_PL(Num2Word_Base):
             output = output + prefixes_ordinal[level]
         return output
 
-    def _int2word(self, n):
+    def _int2word(self, n, gender="m_inanimate", case=0):
+        case_number = case if case in {0, 1} else 0
+        gender_index = 1 if gender == "f" else 0
         if n == 0:
             return ZERO[0]
 
@@ -243,15 +284,15 @@ class Num2Word_PL(Num2Word_Base):
             n1, n2, n3 = get_digits(x)
 
             if n3 > 0:
-                words.append(HUNDREDS[n3][0])
+                words.append(HUNDREDS[n3][case_number])
 
             if n2 > 1:
-                words.append(TWENTIES[n2][0])
+                words.append(TWENTIES[n2][case_number])
 
             if n2 == 1:
-                words.append(TENS[n1][0])
+                words.append(TENS[n1][case_number])
             elif n1 > 0 and not (i > 0 and x == 1):
-                words.append(ONES[n1][0])
+                words.append(ONES[n1][gender_index][case_number])
 
             if i > 0:
                 words.append(self.pluralize(x, THOUSANDS[i]))
