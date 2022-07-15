@@ -155,6 +155,9 @@ class Num2Word_PL(Num2Word_Base):
         'EUR': (
             ('euro', 'euro', 'euro'), ('cent', 'centy', 'centów')
         ),
+        'USD': (
+            ('dolar amerykański', 'dolary amerykańskie', 'dolarów amerykańskich'), ('cent', 'centy', 'centów')
+        ),
     }
 
     def setup(self):
