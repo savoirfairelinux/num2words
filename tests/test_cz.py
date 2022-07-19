@@ -33,6 +33,14 @@ class Num2WordsCZTest(TestCase):
         self.assertEqual(num2words(1001, lang='cz'), "tisíc jedna")
         self.assertEqual(num2words(2012, lang='cz'), "dva tisíce dvanáct")
         self.assertEqual(
+            num2words(10.02, lang='cz'),
+            "deset celá nula dva"
+        )
+        self.assertEqual(
+            num2words(15.007, lang='cz'),
+            "patnáct celá nula nula sedm"
+        )
+        self.assertEqual(
             num2words(12519.85, lang='cz'),
             "dvanáct tisíc pětset devatenáct celá osmdesát pět"
         )
