@@ -1,5 +1,5 @@
 num2words library - Convert numbers to words in multiple languages
-==========================================================
+==================================================================
 
 .. image:: https://img.shields.io/pypi/v/num2words.svg
    :target: https://pypi.python.org/pypi/num2words
