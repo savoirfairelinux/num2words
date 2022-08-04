@@ -50,6 +50,7 @@ CONVERTER_CLASSES = {
     'ru': lang_RU.Num2Word_RU(),
     'sl': lang_SL.Num2Word_SL(),
     'sr': lang_SR.Num2Word_SR(),
+    'sv': lang_SV.Num2Word_SV(),
     'no': lang_NO.Num2Word_NO(),
     'dk': lang_DK.Num2Word_DK(),
     'pt': lang_PT.Num2Word_PT(),
@@ -62,7 +63,6 @@ CONVERTER_CLASSES = {
     'nl': lang_NL.Num2Word_NL(),
     'uk': lang_UK.Num2Word_UK()
 }
-
 
 CONVERTES_TYPES = ['cardinal', 'ordinal', 'ordinal_num', 'year', 'currency']
 
