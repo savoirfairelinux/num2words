@@ -44,6 +44,14 @@ class Num2WordsKZTest(TestCase):
         self.assertEqual(num2words(100.67, lang="kz"), "жүз бүтін алпыс жеті")
         self.assertEqual(num2words(0.7, lang="kz"), "нөл бүтін жеті")
         self.assertEqual(num2words(1.73, lang="kz"), "бір бүтін жетпіс үш")
+        self.assertEqual(
+            num2words(10.02, lang='kz'),
+            "он бүтін нөл екі"
+        )
+        self.assertEqual(
+            num2words(15.007, lang='kz'),
+            "он бес бүтін нөл нөл жеті"
+        )
 
     def test_to_ordinal(self):
         with self.assertRaises(NotImplementedError):
