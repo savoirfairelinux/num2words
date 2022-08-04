@@ -87,6 +87,14 @@ class Num2WordsSRTest(TestCase):
     def test_floating_point(self):
         self.assertEqual("pet zapeta dva", num2words(5.2, lang='sr'))
         self.assertEqual(
+            num2words(10.02, lang='sr'),
+            "deset zapeta nula dva"
+        )
+        self.assertEqual(
+            num2words(15.007, lang='sr'),
+            "petnaest zapeta nula nula sedam"
+        )
+        self.assertEqual(
             "petsto šezdeset jedan zapeta četrdeset dva",
             num2words(561.42, lang='sr')
         )
