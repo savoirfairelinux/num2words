@@ -58,3 +58,8 @@ class Num2WordBaseTest(TestCase):
             self.base.title("one"),
             "One"
             )
+        self.base.exclude_title.append('one')
+        self.assertEqual(
+            self.base.title("one"),
+            "one"
+            )
