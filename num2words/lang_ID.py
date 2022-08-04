@@ -42,6 +42,11 @@ class Num2Word_ID():
                30: "noniliun",
                33: "desiliun"}
 
+    ZERO = "nol"
+    DECIMAL_SEPARATOR = "koma"
+    CURRENCY = "rupiah"
+    MINUS_SIGN = "min"
+
     errmsg_floatord = "Cannot treat float number as ordinal"
     errmsg_negord = "Cannot treat negative number as ordinal"
     errmsg_toobig = "Too large"
@@ -88,7 +93,7 @@ class Num2Word_ID():
         first_block = blocks[0]
         if len(first_block[0]) == 1:
             if first_block[0] == '0':
-                spelling = ['nol']
+                spelling = [self.ZERO]
             else:
                 spelling = self.BASE[int(first_block[0])]
         elif len(first_block[0]) == 2:
@@ -138,10 +143,10 @@ class Num2Word_ID():
         word_list = []
         for n in float_part:
             if n == '0':
-                word_list += ['nol']
+                word_list += [self.ZERO]
                 continue
             word_list += self.BASE[int(n)]
-        return ' '.join(['', 'koma'] + word_list)
+        return ' '.join(['', self.DECIMAL_SEPARATOR] + word_list)
 
     def join(self, word_blocks, float_part):
         """
@@ -173,7 +178,7 @@ class Num2Word_ID():
             raise OverflowError(self.errmsg_toobig % (number, self.max_num))
         minus = ''
         if number < 0:
-            minus = 'min '
+            minus = self.MINUS_SIGN + ' '
         float_word = ''
         n = self.split_by_koma(abs(number))
         if len(n) == 2:
@@ -192,7 +197,7 @@ class Num2Word_ID():
         return "ke-" + str(number)
 
     def to_currency(self, value):
-        return self.to_cardinal(value) + " rupiah"
+        return self.to_cardinal(value) + ' ' + self.CURRENCY
 
     def to_year(self, value):
         return self.to_cardinal(value)
