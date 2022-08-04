@@ -227,12 +227,7 @@ class Num2Word_PT(Num2Word_EU):
         self.negword = backup_negword
 
         # transforms "milhões euros" em "milhões de euros"
-        try:
-            cr1, _ = self.CURRENCY_FORMS[currency]
-        except KeyError:
-            raise NotImplementedError(
-                'Currency code "%s" not implemented for "%s"' %
-                (currency, self.__class__.__name__))
+        cr1, _ = self.CURRENCY_FORMS[currency]
 
         for ext in (
                 'milhão', 'milhões', 'bilião',

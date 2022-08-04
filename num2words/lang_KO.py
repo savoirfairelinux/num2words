@@ -93,7 +93,7 @@ class Num2Word_KO(Num2Word_Base):
 
     def to_ordinal(self, value):
         self.verify_ordinal(value)
-        if(value == 1):
+        if value == 1:
             return "첫 번째"
         outwords = self.to_cardinal(value).split(" ")
         lastwords = outwords[-1].split("백")

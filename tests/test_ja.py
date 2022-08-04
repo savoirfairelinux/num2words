@@ -163,6 +163,21 @@ class Num2WordsJATest(TestCase):
                          "はちじゅうきゅうえん")
 
     def test_year(self):
+        self.assertEqual(n2j(2021, to="year"), "令和三年")
+        self.assertEqual(n2j(2021, to="year", reading=True),
+                         "れいわさんねん")
+        self.assertEqual(n2j(2021, to="year", reading="arabic"),
+                         "令和3年")
+        self.assertEqual(n2j(2019, to="year"), "令和元年")
+        self.assertEqual(n2j(2019, to="year", reading=True),
+                         "れいわがんねん")
+        self.assertEqual(n2j(2019, to="year", reading="arabic"),
+                         "令和1年")
+        self.assertEqual(n2j(2018, to="year"), "平成三十年")
+        self.assertEqual(n2j(2018, to="year", reading=True),
+                         "へいせいさんじゅうねん")
+        self.assertEqual(n2j(2018, to="year", reading="arabic"),
+                         "平成30年")
         self.assertEqual(n2j(2017, to="year"), "平成二十九年")
         self.assertEqual(n2j(2017, to="year", reading=True),
                          "へいせいにじゅうくねん")
@@ -174,8 +189,6 @@ class Num2WordsJATest(TestCase):
         self.assertEqual(n2j(2000, to="year", era=False), "二千年")
         self.assertEqual(n2j(2000, to="year", era=False, reading=True),
                          "にせんねん")
-        self.assertEqual(n2j(645, to="year"), "大化元年")
-        self.assertEqual(n2j(645, to="year", reading=True), "たいかがんねん")
         self.assertEqual(n2j(645, to="year"), "大化元年")
         self.assertEqual(n2j(645, to="year", reading=True), "たいかがんねん")
         self.assertEqual(n2j(-99, to="year", era=False), "紀元前九十九年")

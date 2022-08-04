@@ -53,8 +53,6 @@ class Num2Word_PT_BR(lang_PT.Num2Word_PT):
             ctext = "cento"
 
         if nnum < cnum:
-            if cnum < 100:
-                return ("%s e %s" % (ctext, ntext), cnum + nnum)
             return ("%s e %s" % (ctext, ntext), cnum + nnum)
 
         elif (not nnum % 1000000) and cnum > 1:

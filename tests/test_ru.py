@@ -76,6 +76,14 @@ class Num2WordsRUTest(TestCase):
     def test_floating_point(self):
         self.assertEqual(num2words(5.2, lang='ru'), "пять запятая два")
         self.assertEqual(
+            num2words(10.02, lang='ru'),
+            "десять запятая ноль два"
+        )
+        self.assertEqual(
+            num2words(15.007, lang='ru'),
+            "пятнадцать запятая ноль ноль семь"
+        )
+        self.assertEqual(
             num2words(561.42, lang='ru'),
             "пятьсот шестьдесят один запятая сорок два"
         )
@@ -161,6 +169,10 @@ class Num2WordsRUTest(TestCase):
             'один рубль, ноль копеек'
         )
         self.assertEqual(
+            num2words(1.0, lang='ru', to='currency', currency='UAH'),
+            'одна гривна, ноль копеек'
+        )
+        self.assertEqual(
             num2words(1234.56, lang='ru', to='currency', currency='EUR'),
             'одна тысяча двести тридцать четыре евро, пятьдесят шесть центов'
         )
@@ -169,19 +181,23 @@ class Num2WordsRUTest(TestCase):
             'одна тысяча двести тридцать четыре рубля, пятьдесят шесть копеек'
         )
         self.assertEqual(
+            num2words(1234.56, lang='ru', to='currency', currency='UAH'),
+            'одна тысяча двести тридцать четыре гривны, пятьдесят шесть копеек'
+        )
+        self.assertEqual(
             num2words(10111, lang='ru', to='currency', currency='EUR',
                       separator=' и'),
             'сто один евро и одиннадцать центов'
         )
         self.assertEqual(
-            num2words(10121, lang='ru', to='currency', currency='RUB',
+            num2words(10111, lang='ru', to='currency', currency='RUB',
                       separator=' и'),
-            'сто один рубль и двадцать одна копейка'
+            'сто один рубль и одиннадцать копеек'
         )
         self.assertEqual(
-            num2words(10122, lang='ru', to='currency', currency='RUB',
+            num2words(10111, lang='ru', to='currency', currency='UAH',
                       separator=' и'),
-            'сто один рубль и двадцать две копейки'
+            'сто одна гривна и одиннадцать копеек'
         )
         self.assertEqual(
             num2words(10121, lang='ru', to='currency', currency='EUR',
@@ -189,14 +205,59 @@ class Num2WordsRUTest(TestCase):
             'сто один евро и двадцать один цент'
         )
         self.assertEqual(
+            num2words(10121, lang='ru', to='currency', currency='RUB',
+                      separator=' и'),
+            'сто один рубль и двадцать одна копейка'
+        )
+        self.assertEqual(
+            num2words(10121, lang='ru', to='currency', currency='UAH',
+                      separator=' и'),
+            'сто одна гривна и двадцать одна копейка'
+        )
+        self.assertEqual(
+            num2words(10122, lang='ru', to='currency', currency='EUR',
+                      separator=' и'),
+            'сто один евро и двадцать два цента'
+        )
+        self.assertEqual(
+            num2words(10122, lang='ru', to='currency', currency='RUB',
+                      separator=' и'),
+            'сто один рубль и двадцать две копейки'
+        )
+        self.assertEqual(
+            num2words(10122, lang='ru', to='currency', currency='UAH',
+                      separator=' и'),
+            'сто одна гривна и двадцать две копейки'
+        )
+        self.assertEqual(
             num2words(-1251985, lang='ru', to='currency', currency='EUR',
                       cents=False),
             'минус двенадцать тысяч пятьсот девятнадцать евро, 85 центов'
         )
         self.assertEqual(
+            num2words(-1251985, lang='ru', to='currency', currency='RUB',
+                      cents=False),
+            'минус двенадцать тысяч пятьсот девятнадцать рублей, 85 копеек'
+        )
+        self.assertEqual(
+            num2words(-1251985, lang='ru', to='currency', currency='UAH',
+                      cents=False),
+            'минус двенадцать тысяч пятьсот девятнадцать гривен, 85 копеек'
+        )
+        self.assertEqual(
             num2words('38.4', lang='ru', to='currency', separator=' и',
                       cents=False, currency='EUR'),
             "тридцать восемь евро и 40 центов"
+        )
+        self.assertEqual(
+            num2words('38.4', lang='ru', to='currency', separator=' и',
+                      cents=False, currency='RUB'),
+            "тридцать восемь рублей и 40 копеек"
+        )
+        self.assertEqual(
+            num2words('38.4', lang='ru', to='currency', separator=' и',
+                      cents=False, currency='UAH'),
+            "тридцать восемь гривен и 40 копеек"
         )
         self.assertEqual(
             num2words('1230.56', lang='ru', to='currency', currency='USD'),
