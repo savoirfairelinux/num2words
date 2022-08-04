@@ -24,7 +24,7 @@ from . import (lang_AR, lang_CZ, lang_DE, lang_DK, lang_EN, lang_EN_IN,
                lang_NL, lang_NO, lang_PL, lang_PT, lang_PT_BR, lang_RO,
                lang_RU, lang_SL, lang_SR, lang_SV, lang_TE, lang_TH, lang_TR,
                lang_UK, lang_VI)
-
+               
 CONVERTER_CLASSES = {
     'ar': lang_AR.Num2Word_AR(),
     'cz': lang_CZ.Num2Word_CZ(),
