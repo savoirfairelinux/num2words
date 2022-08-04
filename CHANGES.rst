@@ -30,6 +30,11 @@ Version 0.5.11 -- 2022/08/03
 * feat: ci: replace travis by github workflows (#448)
 * [ES] Added missing accents ("dieciséis", "dólar", "dólares", "veintiún"), improved currency gender handling, fixed pound cent names (#443)
 
+Version 0.5.11 -- 2020/10/29
+----------------------------
+* Add Bulgarian language localization (#340)
+
+
 Version 0.5.10 -- 2019/05/12
 ----------------------------
 
