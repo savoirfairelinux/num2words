@@ -68,6 +68,14 @@ class Num2WordsLTTest(TestCase):
             num2words(-5000.22, lang='lt'),
             'minus penki tūkstančiai kablelis dvidešimt du',
         )
+        self.assertEqual(
+            num2words(10.02, lang='lt'),
+            "dešimt kablelis nulis du"
+        )
+        self.assertEqual(
+            num2words(15.007, lang='lt'),
+            "penkiolika kablelis nulis nulis septyni"
+        )
 
     def test_to_ordinal(self):
         # @TODO: implement to_ordinal
