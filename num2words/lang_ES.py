@@ -21,13 +21,14 @@ import math
 
 from .lang_EU import Num2Word_EU
 
-GENERIC_DOLLARS = ('dolar', 'dólares')
+GENERIC_DOLLARS = ('dólar', 'dólares')
 GENERIC_CENTS = ('centavo', 'centavos')
 CURRENCIES_UNA = ('SLL', 'SEK', 'NOK', 'CZK', 'DKK', 'ISK',
                   'SKK', 'GBP', 'CYP', 'EGP', 'FKP', 'GIP',
                   'LBP', 'SDG', 'SHP', 'SSP', 'SYP', 'INR',
                   'IDR', 'LKR', 'MUR', 'NPR', 'PKR', 'SCR',
-                  'ESP')
+                  'ESP', 'TRY', 'ITL')
+CENTS_UNA = ('EGP', 'JOD', 'LBP', 'SDG', 'SSP', 'SYP')
 
 
 class Num2Word_ES(Num2Word_EU):
@@ -39,7 +40,7 @@ class Num2Word_ES(Num2Word_EU):
         'CRC': (('colón', 'colones'), GENERIC_CENTS),
         'AUD': (GENERIC_DOLLARS, GENERIC_CENTS),
         'CAD': (GENERIC_DOLLARS, GENERIC_CENTS),
-        'GBP': (('libra', 'libras'), ('penny', 'pence')),
+        'GBP': (('libra', 'libras'), ('penique', 'peniques')),
         'RUB': (('rublo', 'rublos'), ('kopeyka', 'kopeykas')),
         'SEK': (('corona', 'coronas'), ('öre', 'öre')),
         'NOK': (('corona', 'coronas'), ('øre', 'øre')),
@@ -101,7 +102,7 @@ class Num2Word_ES(Num2Word_EU):
         'ERN': (('nakfa', 'nakfas'), ('céntimo', 'céntimos')),
         'ETB': (('birr', 'birrs'), ('céntimo', 'céntimos')),
         'FJD': (GENERIC_DOLLARS, GENERIC_CENTS),
-        'FKP': (('libra', 'libras'), ('penny', 'peniques')),
+        'FKP': (('libra', 'libras'), ('penique', 'peniques')),
         'GEL': (('lari', 'laris'), ('tetri', 'tetris')),
         'GHS': (('cedi', 'cedis'), ('pesewa', 'pesewas')),
         'GIP': (('libra', 'libras'), ('penique', 'peniques')),
@@ -170,7 +171,7 @@ class Num2Word_ES(Num2Word_EU):
         'SCR': (('rupia', 'rupias'), ('céntimo', 'céntimos')),
         'SDG': (('libra', 'libras'), ('piastra', 'piastras')),
         'SGD': (GENERIC_DOLLARS, ('céntimo', 'céntimos')),
-        'SHP': (('libra', 'libras'), ('penny', 'peniques')),
+        'SHP': (('libra', 'libras'), ('penique', 'peniques')),
         'SKK': (('corona', 'coronas'), ('halier', 'haliers')),
         'SLL': (('leona', 'leonas'), ('céntimo', 'céntimos')),
         'SRD': (GENERIC_DOLLARS, ('céntimo', 'céntimos')),
@@ -184,7 +185,7 @@ class Num2Word_ES(Num2Word_EU):
         'TND': (('dinar', 'dinares'), ('milésimo', 'milésimos')),
         'TOP': (('paanga', 'paangas'), ('céntimo', 'céntimos')),
         'TTD': (GENERIC_DOLLARS, ('céntimo', 'céntimos')),
-        'TWD': (('nuevo dólar', 'nuevos dolares'), ('céntimo', 'céntimos')),
+        'TWD': (('nuevo dólar', 'nuevos dólares'), ('céntimo', 'céntimos')),
         'TZS': (('chelín', 'chelines'), ('céntimo', 'céntimos')),
         'UAG': (('hryvnia', 'hryvnias'), ('kopiyka', 'kopiykas')),
         'UGX': (('chelín', 'chelines'), ('céntimo', 'céntimos')),
@@ -216,9 +217,13 @@ class Num2Word_ES(Num2Word_EU):
         self.high_numwords = self.gen_high_numwords([], [], lows)
         self.negword = "menos "
         self.pointword = "punto"
-        self.errmsg_nonnum = "Solo números pueden ser convertidos a palabras."
+        self.errmsg_nonnum = "type(%s) no es [long, int, float]"
+        self.errmsg_floatord = "El float %s no puede ser tratado como un" \
+            " ordinal."
+        self.errmsg_negord = "El número negativo %s no puede ser tratado" \
+            " como un ordinal."
         self.errmsg_toobig = (
-            "Numero muy grande para ser convertido a palabras."
+            "abs(%s) deber ser inferior a %s."
             )
         self.gender_stem = "o"
         self.exclude_title = ["y", "menos", "punto"]
@@ -230,7 +235,7 @@ class Num2Word_ES(Num2Word_EU):
                              "veintiséis", "veinticinco", "veinticuatro",
                              "veintitrés", "veintidós", "veintiuno",
                              "veinte", "diecinueve", "dieciocho", "diecisiete",
-                             "dieciseis", "quince", "catorce", "trece", "doce",
+                             "dieciséis", "quince", "catorce", "trece", "doce",
                              "once", "diez", "nueve", "ocho", "siete", "seis",
                              "cinco", "cuatro", "tres", "dos", "uno", "cero"]
         self.ords = {1: "primer",
@@ -352,15 +357,52 @@ class Num2Word_ES(Num2Word_EU):
         result = super(Num2Word_ES, self).to_currency(
             val, currency=currency, cents=cents, separator=separator,
             adjective=adjective)
-        # Handle exception, in spanish is "un euro" and not "uno euro"
-        # except in this currencies: leona, corona,
-        # libra, rupia, lempira, peseta, is 'una'
-        # but only when it's first word, otherwise
-        # it's replaced in others words like 'veintiun'
+        # Handle exception: In Spanish it's "un euro" and not "uno euro",
+        # except in these currencies, where it's "una": leona, corona,
+        # libra, lira, rupia, lempira, peseta.
+        # The same goes for "veintiuna", "treinta y una"...
+        # Also, this needs to be handled separately for "dollars" and
+        # "cents".
+        # All "cents" are masculine except for: piastra.
+        # Source: https://www.rae.es/dpd/una (section 2.2)
+
+        # split "dollars" part from "cents" part
+        list_result = result.split(separator + " ")
+
+        # "DOLLARS" PART (list_result[0])
+
+        # Feminine currencies ("una libra", "trescientas libras"...)
         if currency in CURRENCIES_UNA:
-            list_result = result.split(" ")
-            if list_result[0] == "uno":
-                list_result[0] = list_result[0].replace("uno", "una")
-                result = " ".join(list_result)
-        result = result.replace("uno", "un")
+
+            # "una libra", "veintiuna libras", "treinta y una libras"...
+            list_result[0] = list_result[0].replace("uno", "una")
+
+            # "doscientas libras", "trescientas libras"...
+            list_result[0] = list_result[0].replace("cientos", "cientas")
+
+        # Masc.: Correct orthography for the specific case of "veintiún":
+        list_result[0] = list_result[0].replace("veintiuno", "veintiún")
+
+        # Masculine currencies: general case ("un euro", "treinta y un
+        # euros"...):
+        list_result[0] = list_result[0].replace("uno", "un")
+
+        # "CENTS" PART (list_result[1])
+
+        # Feminine "cents" ("una piastra", "veintiuna piastras"...)
+        if currency in CENTS_UNA:
+
+            # "una piastra", "veintiuna piastras", "treinta y una piastras"...
+            list_result[1] = list_result[1].replace("uno", "una")
+
+        # Masc.: Correct orthography for the specific case of "veintiún":
+        list_result[1] = list_result[1].replace("veintiuno", "veintiún")
+
+        # Masculine "cents": general case ("un centavo", "treinta y un
+        # centavos"...):
+        list_result[1] = list_result[1].replace("uno", "un")
+
+        # join back "dollars" part with "cents" part
+        result = (separator + " ").join(list_result)
+
         return result
