@@ -17,15 +17,16 @@
 
 from __future__ import unicode_literals
 
-from . import (lang_AR, lang_CZ, lang_DE, lang_DK, lang_EN, lang_EN_IN,
-               lang_ES, lang_ES_CO, lang_ES_NI, lang_ES_VE, lang_FI, lang_FR,
-               lang_FR_BE, lang_FR_CH, lang_FR_DZ, lang_HE, lang_HU, lang_ID,
-               lang_IT, lang_JA, lang_KN, lang_KO, lang_KZ, lang_LT, lang_LV,
-               lang_NL, lang_NO, lang_PL, lang_PT, lang_PT_BR, lang_RO,
-               lang_RU, lang_SL, lang_SR, lang_SV, lang_TE, lang_TH, lang_TR,
-               lang_UK, lang_VI)
+from . import (lang_AM, lang_AR, lang_CZ, lang_DE, lang_DK, lang_EN,
+               lang_EN_IN, lang_ES, lang_ES_CO, lang_ES_NI, lang_ES_VE,
+               lang_FI, lang_FR, lang_FR_BE, lang_FR_CH, lang_FR_DZ,
+               lang_HE, lang_HU, lang_ID, lang_IT, lang_JA, lang_KN,
+               lang_KO, lang_KZ, lang_LT, lang_LV, lang_NL, lang_NO,
+               lang_PL, lang_PT, lang_PT_BR, lang_RO, lang_RU, lang_SL,
+               lang_SR, lang_SV, lang_TE, lang_TH, lang_TR, lang_UK, lang_VI)
 
 CONVERTER_CLASSES = {
+    'am': lang_AM.Num2Word_AM(),
     'ar': lang_AR.Num2Word_AR(),
     'cz': lang_CZ.Num2Word_CZ(),
     'en': lang_EN.Num2Word_EN(),
