@@ -107,6 +107,12 @@ class Num2Word_RU(Num2Word_Base):
         'USD': (
             ('доллар', 'доллара', 'долларов'), ('цент', 'цента', 'центов')
         ),
+        'UAH': (
+            ('гривна', 'гривны', 'гривен'), ('копейка', 'копейки', 'копеек')
+        ),
+        'KZT': (
+            ('тенге', 'тенге', 'тенге'), ('тиын', 'тиына', 'тиынов')
+        ),
     }
 
     def setup(self):
@@ -138,10 +144,13 @@ class Num2Word_RU(Num2Word_Base):
         n = str(number).replace(',', '.')
         if '.' in n:
             left, right = n.split('.')
+            leading_zero_count = len(right) - len(right.lstrip('0'))
+            decimal_part = ((ZERO[0] + ' ') * leading_zero_count +
+                            self._int2word(int(right)))
             return u'%s %s %s' % (
                 self._int2word(int(left)),
                 self.pointword,
-                self._int2word(int(right))
+                decimal_part
             )
         else:
             return self._int2word(int(n))
@@ -195,8 +204,11 @@ class Num2Word_RU(Num2Word_Base):
         outwords[-1] = self.title(lastword)
         return " ".join(outwords).strip()
 
+    def _money_verbose(self, number, currency):
+        return self._int2word(number, currency == 'UAH')
+
     def _cents_verbose(self, number, currency):
-        return self._int2word(number, currency == 'RUB')
+        return self._int2word(number, currency in ('UAH', 'RUB'))
 
     def _int2word(self, n, feminine=False):
         if n < 0:
