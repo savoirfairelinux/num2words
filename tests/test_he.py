@@ -93,10 +93,10 @@ class Num2WordsHETest(TestCase):
             n.to_currency(20.0, currency='NIS'), 'עשרים שקלים ואפס אגורות'
         )
         self.assertEqual(
-           (n.to_currency(100.0, currency='NIS'), 'מאה שקלים ואפס אגורות'
+           n.to_currency(100.0, currency='NIS'), 'מאה שקלים ואפס אגורות'
         )
         self.assertEqual(
-           (n.to_currency(100.50, currency='NIS'), 'מאה שקלים וחמישים אגורות'
+           n.to_currency(100.50, currency='NIS'), 'מאה שקלים וחמישים אגורות'
         )
 
     def test_to_cardinal(self):
