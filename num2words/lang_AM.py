@@ -105,5 +105,4 @@ class Num2Word_AM(lang_EU.Num2Word_EU):
     def to_year(self, val, longval=True):
         if not (val // 100) % 10:
             return self.to_cardinal(val)
-        return self.to_splitnum(val, hightxt="መቶ", longval=longval) \
-            .replace(' ', '')
+        return self.to_splitnum(val, hightxt="መቶ", longval=longval)

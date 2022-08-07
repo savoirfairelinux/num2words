@@ -21,3 +21,46 @@ from num2words import num2words
 
 
 class Num2WordsAMTest(TestCase):
+    def test_and_join_199(self):
+        self.assertEqual(num2words(199, lang='am'), "አንድ መቶ ዘጠና ዘጠኝ")
+
+    def test_ordinal(self):
+        self.assertEqual(
+            num2words(1, lang='am', to='ordinal'),
+            'አንደኛ'
+        )
+        self.assertEqual(
+            num2words(13, lang='am', to='ordinal'),
+            'አሥራ ሦስተኛ'
+        )
+        self.assertEqual(
+            num2words(22, lang='am', to='ordinal'),
+            'ሃያ ሁለተኛ'
+        )
+
+    def test_to_currency(self):
+        self.assertEqual(
+            num2words('38.4', lang='am', to='currency', cents=False, currency='ETB'),
+            "ሠላሳ ስምንት ብር ከ 40 ሳንቲም"
+        )
+        self.assertEqual(
+            num2words('0', lang='am', to='currency', separator=' እና', cents=True, currency='ETB'),
+            "ዜሮ ብር እና ዜሮ ሳንቲም"
+        )
+
+        self.assertEqual(
+            num2words('1.50', lang='am', to='currency', cents=True, currency='ETB'),
+            "አንድ ብር ከ አምሳ ሳንቲም"
+        )
+
+    def test_to_year(self):
+        self.assertEqual(num2words(1990, lang='am', to='year'),
+                         'አሥራ ዘጠኝ መቶ ዘጠና')
+        self.assertEqual(num2words(5555, lang='am', to='year'),
+                         'አምሳ አምስት መቶ አምሳ አምስት')
+        self.assertEqual(num2words(2017, lang='am', to='year'),
+                         'ሁለት ሺህ አሥራ ሰባት')
+        self.assertEqual(num2words(1066, lang='am', to='year'),
+                         'አንድ ሺህ ስድሳ ስድስት')
+        self.assertEqual(num2words(1865, lang='am', to='year'),
+                         'አሥራ ስምንት መቶ ስድሳ አምስት')
