@@ -67,9 +67,9 @@ class Num2Word_AM(lang_EU.Num2Word_EU):
         if lnum == 1 and rnum < 100:
             return (rtext, rnum)
         elif 100 > lnum > rnum:
-            return ("%s-%s" % (ltext, rtext), lnum + rnum)
+            return ("%s %s" % (ltext, rtext), lnum + rnum)
         elif lnum >= 100 > rnum:
-            return ("%s እና %s" % (ltext, rtext), lnum + rnum)
+            return ("%s %s" % (ltext, rtext), lnum + rnum)
         elif rnum > lnum:
             return ("%s %s" % (ltext, rtext), lnum * rnum)
         return ("%s, %s" % (ltext, rtext), lnum + rnum)
@@ -86,7 +86,7 @@ class Num2Word_AM(lang_EU.Num2Word_EU):
                 lastword = lastword[:-1] + "ie"
             lastword += "th"
         lastwords[-1] = self.title(lastword)
-        outwords[-1] = "-".join(lastwords)
+        outwords[-1] = " ".join(lastwords)
         return " ".join(outwords)
 
     def to_ordinal_num(self, value):
