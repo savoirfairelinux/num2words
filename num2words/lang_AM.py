@@ -21,6 +21,8 @@ from . import lang_EU
 
 
 class Num2Word_AM(lang_EU.Num2Word_EU):
+    CURRENCY_FORMS = {'ETB': (('ብር', 'ብር'), ('ሳንቲም', 'ሳንቲም'))}
+
     def set_high_numwords(self, high):
         max = 3 + 3 * len(high)
         for word, n in zip(high, range(max, 3, -3)):
@@ -93,8 +95,8 @@ class Num2Word_AM(lang_EU.Num2Word_EU):
         self.verify_ordinal(value)
         return "%s%s" % (value, self.to_ordinal(value)[-2:])
 
-    def to_currency(self, val, currency='ብር', cents=True, separator='.',
-                    adjective=False):
+    def to_currency(self, val, currency='ብር', cents=True, separator=' ከ',
+                    adjective=True):
         result = super(Num2Word_AM, self).to_currency(
             val, currency=currency, cents=cents, separator=separator,
             adjective=adjective)
