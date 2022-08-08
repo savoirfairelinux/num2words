@@ -1,5 +1,5 @@
 num2words library - Convert numbers to words in multiple languages
-==========================================================
+==================================================================
 
 .. image:: https://img.shields.io/pypi/v/num2words.svg
    :target: https://pypi.python.org/pypi/num2words
@@ -51,7 +51,7 @@ Command line::
     $ num2words 24,120.10 -l es
     veinticuatro mil ciento veinte punto uno
     $num2words 2.14 -l es --to currency
-    dos euros con catorce centimos
+    dos euros con catorce céntimos
 
 In code there's only one function to use::
 
@@ -86,6 +86,7 @@ Besides the numerical argument, there are two main optional arguments.
 * ``es_CO`` (Spanish - Colombia)
 * ``es_VE`` (Spanish - Venezuela)
 * ``eu`` (EURO)
+* ``fa`` (Farsi)
 * ``fi`` (Finnish)
 * ``fr`` (French)
 * ``fr_CH`` (French - Switzerland)
