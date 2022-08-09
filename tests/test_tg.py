@@ -25,7 +25,7 @@ from num2words import num2words
 class Num2WordsTGTest(TestCase):
     def test_cardinal(self):
         with self.assertRaises(OverflowError):
-            num2words(1000000000000000000000000, lang='tg')
+            num2words(1000000000000000000000000, lang="tg")
         self.assertEqual(num2words(100, lang="tg"), "сад")
         self.assertEqual(num2words(100000, lang="tg"), "сад ҳазор")
         self.assertEqual(num2words(101, lang="tg"), "яксаду як")
@@ -63,8 +63,9 @@ class Num2WordsTGTest(TestCase):
         self.assertEqual(num2words(20, lang="tg", to="ordinal"), "бистум")
         self.assertEqual(num2words(23, lang="tg", to="ordinal"), "бисту сеюм")
         self.assertEqual(num2words(100, lang="tg", to="ordinal"), "садум")
-        self.assertEqual(num2words(136, lang="tg", to="ordinal"),
-                        "яксаду сию шашум")
+        self.assertEqual(
+            num2words(136, lang="tg", to="ordinal"), "яксаду сию шашум"
+        )
         self.assertEqual(num2words(500, lang="tg", to="ordinal"), "панҷсадум")
         self.assertEqual(
             num2words(1000, lang="tg", to="ordinal"), "як ҳазорум"
@@ -100,16 +101,18 @@ class Num2WordsTGTest(TestCase):
             "як ҳазору дусаду сию чор рубл, панҷову шаш копейк",
         )
         self.assertEqual(
-            num2words(12519.85, lang="tg", to="currency", currency="TJS",
-                      cents=False),
+            num2words(
+                12519.85, lang="tg", to="currency", currency="TJS", cents=False
+            ),
             "дувоздаҳ ҳазору панҷсаду нуздаҳ сомонӣ, 85 дирам",
         )
         self.assertEqual(
             num2words("1230.56", lang="tg", to="currency", currency="USD"),
             "як ҳазору дусаду си доллар, панҷову шаш сент",
         )
-    
+
     def test_to_ordinal_num(self):
         self.assertEqual(
-            num2words("100", lang="tg", to="ordinal_num"), "100ум",
+            num2words("100", lang="tg", to="ordinal_num"),
+            "100ум",
         )
