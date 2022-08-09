@@ -21,10 +21,15 @@ from num2words import num2words
 
 
 class Num2WordsAMTest(TestCase):
-    def test_and_join_199(self):
-        self.assertEqual(num2words(199, lang='am'), "አንድ መቶ ዘጠና ዘጠኝ")
+    def test_cardinal(self):
+        self.assertEqual(num2words(100, lang='am'), 'መቶ')
+        self.assertEqual(num2words(100000, lang='am'), 'አንድ መቶ ሺህ')
+        self.assertEqual(num2words(101, lang='am'), 'አንድ መቶ አንድ')
 
-    def test_ordinal(self):
+    def test_and_join_199(self):
+        self.assertEqual(num2words(199, lang='am'), 'አንድ መቶ ዘጠና ዘጠኝ')
+
+    def test_to_ordinal(self):
         self.assertEqual(
             num2words(1, lang='am', to='ordinal'),
             'አንደኛ'
@@ -38,38 +43,38 @@ class Num2WordsAMTest(TestCase):
             'ሃያ ሁለተኛ'
         )
 
-    def test_ordinal_num(self):
+    def test_to_ordinal_num(self):
         self.assertEqual(num2words(10, lang='am', to='ordinal_num'), '10ኛ')
         self.assertEqual(num2words(21, lang='am', to='ordinal_num'), '21ኛ')
         self.assertEqual(num2words(102, lang='am', to='ordinal_num'), '102ኛ')
 
     def test_cardinal_for_float_number(self):
-        self.assertEqual(num2words(12.5, lang='am'), "አሥራ ሁለት ነጥብ አምስት")
-        self.assertEqual(num2words(12.51, lang='am'), "አሥራ ሁለት ነጥብ አምስት አንድ")
-        self.assertEqual(num2words(12.53, lang='am'), "አሥራ ሁለት ነጥብ አምስት ሦስት")
+        self.assertEqual(num2words(12.5, lang='am'), 'አሥራ ሁለት ነጥብ አምስት')
+        self.assertEqual(num2words(12.51, lang='am'), 'አሥራ ሁለት ነጥብ አምስት አንድ')
+        self.assertEqual(num2words(12.53, lang='am'), 'አሥራ ሁለት ነጥብ አምስት ሦስት')
 
-    def test_overflow(self):
+    def test_to_overflow(self):
         with self.assertRaises(OverflowError):
-            num2words("1000000000000000000000000000000000000000000000000000000"
-                      "0000000000000000000000000000000000000000000000000000000"
-                      "0000000000000000000000000000000000000000000000000000000"
-                      "0000000000000000000000000000000000000000000000000000000"
-                      "0000000000000000000000000000000000000000000000000000000"
-                      "00000000000000000000000000000000", lang='am')
+            num2words('1000000000000000000000000000000000000000000000000000000'
+                      '0000000000000000000000000000000000000000000000000000000'
+                      '0000000000000000000000000000000000000000000000000000000'
+                      '0000000000000000000000000000000000000000000000000000000'
+                      '0000000000000000000000000000000000000000000000000000000'
+                      '00000000000000000000000000000000', lang='am')
 
     def test_to_currency(self):
         self.assertEqual(
             num2words('38.4', lang='am', to='currency', cents=False,
-                      currency='ETB'), "ሠላሳ ስምንት ብር ከ 40 ሳንቲም"
+                      currency='ETB'), 'ሠላሳ ስምንት ብር ከ 40 ሳንቲም'
         )
         self.assertEqual(
             num2words('0', lang='am', to='currency', separator=' እና',
-                      cents=True, currency='ETB'), "ዜሮ ብር እና ዜሮ ሳንቲም"
+                      cents=True, currency='ETB'), 'ዜሮ ብር እና ዜሮ ሳንቲም'
         )
 
         self.assertEqual(
             num2words('1.50', lang='am', to='currency', cents=True,
-                      currency='ETB'), "አንድ ብር ከ አምሳ ሳንቲም"
+                      currency='ETB'), 'አንድ ብር ከ አምሳ ሳንቲም'
         )
 
     def test_to_year(self):
