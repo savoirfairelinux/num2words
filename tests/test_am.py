@@ -38,19 +38,38 @@ class Num2WordsAMTest(TestCase):
             'ሃያ ሁለተኛ'
         )
 
+    def test_ordinal_num(self):
+        self.assertEqual(num2words(10, lang='am', to='ordinal_num'), '10ኛ')
+        self.assertEqual(num2words(21, lang='am', to='ordinal_num'), '21ኛ')
+        self.assertEqual(num2words(102, lang='am', to='ordinal_num'), '102ኛ')
+
+    def test_cardinal_for_float_number(self):
+        self.assertEqual(num2words(12.5, lang='am'), "አሥራ ሁለት ነጥብ አምስት")
+        self.assertEqual(num2words(12.51, lang='am'), "አሥራ ሁለት ነጥብ አምስት አንድ")
+        self.assertEqual(num2words(12.53, lang='am'), "አሥራ ሁለት ነጥብ አምስት ሦስት")
+
+    def test_overflow(self):
+        with self.assertRaises(OverflowError):
+            num2words("1000000000000000000000000000000000000000000000000000000"
+                      "0000000000000000000000000000000000000000000000000000000"
+                      "0000000000000000000000000000000000000000000000000000000"
+                      "0000000000000000000000000000000000000000000000000000000"
+                      "0000000000000000000000000000000000000000000000000000000"
+                      "00000000000000000000000000000000", lang='am')
+
     def test_to_currency(self):
         self.assertEqual(
-            num2words('38.4', lang='am', to='currency', cents=False, currency='ETB'),
-            "ሠላሳ ስምንት ብር ከ 40 ሳንቲም"
+            num2words('38.4', lang='am', to='currency', cents=False,
+                      currency='ETB'), "ሠላሳ ስምንት ብር ከ 40 ሳንቲም"
         )
         self.assertEqual(
-            num2words('0', lang='am', to='currency', separator=' እና', cents=True, currency='ETB'),
-            "ዜሮ ብር እና ዜሮ ሳንቲም"
+            num2words('0', lang='am', to='currency', separator=' እና',
+                      cents=True, currency='ETB'), "ዜሮ ብር እና ዜሮ ሳንቲም"
         )
 
         self.assertEqual(
-            num2words('1.50', lang='am', to='currency', cents=True, currency='ETB'),
-            "አንድ ብር ከ አምሳ ሳንቲም"
+            num2words('1.50', lang='am', to='currency', cents=True,
+                      currency='ETB'), "አንድ ብር ከ አምሳ ሳንቲም"
         )
 
     def test_to_year(self):
