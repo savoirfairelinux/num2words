@@ -93,7 +93,7 @@ class Num2Word_AM(lang_EU.Num2Word_EU):
 
     def to_ordinal_num(self, value):
         self.verify_ordinal(value)
-        return "%s%s" % (value, self.to_ordinal(value)[-2:])
+        return "%s%s" % (value, self.to_ordinal(value)[-1:])
 
     def to_currency(self, val, currency='ብር', cents=True, separator=' ከ',
                     adjective=True):
