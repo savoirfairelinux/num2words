@@ -42,6 +42,10 @@ class Num2WordsAMTest(TestCase):
             num2words(22, lang='am', to='ordinal'),
             'ሃያ ሁለተኛ'
         )
+        self.assertEqual(
+            num2words(10000, lang='am', to='ordinal'),
+            'አሥር ሺህኛ'
+        )
 
     def test_to_ordinal_num(self):
         self.assertEqual(num2words(10, lang='am', to='ordinal_num'), '10ኛ')
