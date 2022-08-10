@@ -60,7 +60,7 @@ class Num2Word_AM(lang_EU.Num2Word_EU):
                      'ስምንት': 'ስምንተኛ',
                      'ዘጠኝ': 'ዘጠነኛ',
                      'አሥር': 'አሥረኛ',
-                     'አሥራ አንድ': 'አሥራ አንድ',
+                     'አሥራ አንድ': 'አሥራ አንደኛ',
                      'አሥራ ሁለት': 'አሥራ ሁለተኛ',
                      'አሥራ ሦስት': 'አሥራ ሦስተኛ',
                      'አሥራ አራት': 'አሥራ አራተኛ',
@@ -77,10 +77,6 @@ class Num2Word_AM(lang_EU.Num2Word_EU):
             return self.to_cardinal_float(value)
 
         out = ''
-        if value < 0:
-            value = abs(value)
-            out = self.negword
-
         if value >= self.MAXVAL:
             raise OverflowError(self.errmsg_toobig % (value, self.MAXVAL))
 
@@ -95,14 +91,13 @@ class Num2Word_AM(lang_EU.Num2Word_EU):
         ltext, lnum = lpair
         rtext, rnum = rpair
         if lnum == 1 and rnum < 100:
-            return (rtext, rnum)
+            return rtext, rnum
         elif 100 > lnum > rnum:
-            return ('%s %s' % (ltext, rtext), lnum + rnum)
+            return '%s %s' % (ltext, rtext), lnum + rnum
         elif lnum >= 100 > rnum:
-            return ('%s %s' % (ltext, rtext), lnum + rnum)
+            return '%s %s' % (ltext, rtext), lnum + rnum
         elif rnum > lnum:
-            return ('%s %s' % (ltext, rtext), lnum * rnum)
-        return ('%s, %s' % (ltext, rtext), lnum + rnum)
+            return '%s %s' % (ltext, rtext), lnum * rnum
 
     def to_ordinal(self, value):
         self.verify_ordinal(value)
@@ -112,9 +107,7 @@ class Num2Word_AM(lang_EU.Num2Word_EU):
         try:
             lastword = self.ords[lastword]
         except KeyError:
-            if lastword[-1] == 'y':
-                lastword = lastword[:-1] + 'ie'
-            lastword += 'th'
+            lastword += 'ኛ'
         lastwords[-1] = self.title(lastword)
         outwords[-1] = ' '.join(lastwords)
         return ' '.join(outwords)
