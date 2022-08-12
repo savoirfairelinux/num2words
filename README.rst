@@ -76,6 +76,7 @@ Besides the numerical argument, there are two main optional arguments.
 **lang:** The language in which to convert the number. Supported values are:
 
 * ``en`` (English, default)
+* ``am`` (Amharic)
 * ``ar`` (Arabic)
 * ``cz`` (Czech)
 * ``de`` (German)
@@ -112,6 +113,7 @@ Besides the numerical argument, there are two main optional arguments.
 * ``ro`` (Romanian)
 * ``ru`` (Russian)
 * ``te`` (Telugu)
+* ``tg`` (Tajik)
 * ``tr`` (Turkish)
 * ``th`` (Thai)
 * ``vi`` (Vietnamese)

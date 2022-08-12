@@ -81,11 +81,7 @@ AND = u'ו'
 
 
 def pluralize(n, forms):
-    # gettext implementation:
-    # (n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2)
-
-    form = 0 if (n % 10 == 1 and n % 100 != 11) else 1 if n != 0 else 2
-
+    form = 1 if n == 0 else 0 if n == 1 else 1
     return forms[form]
 
 
@@ -140,16 +136,29 @@ def n2w(n):
     return int2word(int(n))
 
 
-def to_currency(n, currency='EUR', cents=True, separator=','):
-    raise NotImplementedError()
-
-
 class Num2Word_HE(Num2Word_Base):
+    CURRENCY_FORMS = {
+        'NIS': (('שקל', 'שקלים'), ('אגורה', 'אגורות')),
+        'EUR': (('אירו', 'אירו'), ('סנט', 'סנט')),
+        'USD': (('דולר', 'דולרים'), ('סנט', 'סנט')),
+    }
+
     def to_cardinal(self, number):
         return n2w(number)
 
     def to_ordinal(self, number):
         raise NotImplementedError()
+
+    def pluralize(self, n, forms):
+        return pluralize(n, forms)
+
+    def to_currency(self, val, currency='NIS', cents=True, separator=' ו',
+                    adjective=False):
+        result = super(Num2Word_HE, self).to_currency(
+            val, currency=currency, cents=cents, separator=separator,
+            adjective=adjective)
+        # In Hebrew the separator is along with the following word
+        return result.replace(" ו ", " ו")
 
 
 if __name__ == '__main__':
