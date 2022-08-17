@@ -28,7 +28,12 @@ class Num2Word_DE(Num2Word_EU):
         'GBP': (('Pfund', 'Pfund'), ('Penny', 'Pence')),
         'USD': (('Dollar', 'Dollar'), ('Cent', 'Cent')),
         'CNY': (('Yuan', 'Yuan'), ('Jiao', 'Fen')),
-        'DEM': (('Mark', 'Mark'), ('Pfennig', 'Pfennig')),
+        'CHF': (('Franken', 'Franken'), ('Rappen', 'Rappen')), # Schweizer Franken / Swiss Franc
+        'DEM': (('Mark', 'Mark'), ('Pfennig', 'Pfennig')), # Deutsche Mark, replaced by Euro in 2002
+        'TRY': (('Lira', 'Lira'), ('Kuruş', 'Kuruş')), # Turkish Lira
+        'DMG': (('Lira', 'Lira'), ('Piaster', 'Piaster')), # Syrian Lira (in Syrian and German) or pound
+        'FIM': (('Mark', 'Mark'), ('Pfennig', 'Pfennig')), # Finnish Mark (replaced by Euro in 2002)
+        'ITL': (('Lira', 'Lira'), ('Centesimo', 'Centesimi')), # Italian Lira (replaced by Euro in 2002)
     }
 
     GIGA_SUFFIX = "illiarde"
@@ -147,10 +152,11 @@ class Num2Word_DE(Num2Word_EU):
         result = super(Num2Word_DE, self).to_currency(
             val, currency=currency, cents=cents, separator=separator,
             adjective=adjective)
-        # Handle exception: in German it's not "eins Euro" but "ein Euro"
-        # (also for USD & other "Dollar", CHF & other Franken, cent, Pfennig...) but "eine Mark" for DEM
+        # Handle exception: in German it's not "eins Euro" but "ein Euro", same for most other currencies
+        # but "eine Mark" for DEM (Deutsche Mark) and FIM (Finnische Mark), "eine Lira" for ITL, TRY and MTL
+        # (Italian, Turkish and Maltesian Lira, maybe others)
         # See also issue #462 and patch #469
-        return result.replace("eins ", "eine " if currency in ("DEM","ITL") else "ein ")
+        return result.replace("eins ", "eine " if currency in ("DEM","FIM","ITL","MTL","TRY") else "ein ")
 
     def to_year(self, val, longval=True):
         if not (val // 100) % 10:
