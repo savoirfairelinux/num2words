@@ -147,8 +147,10 @@ class Num2Word_DE(Num2Word_EU):
         result = super(Num2Word_DE, self).to_currency(
             val, currency=currency, cents=cents, separator=separator,
             adjective=adjective)
-        # Handle exception, in german is "ein Euro" and not "eins Euro"
-        return result.replace("eins ", "ein ")
+        # Handle exception: in German it's not "eins Euro" but "ein Euro"
+        # (also for USD & other "Dollar", CHF & other Franken, cent, Pfennig...) but "eine Mark" for DEM
+        # See also issue #462 and patch #469
+        return result.replace("eins ", "eine " if currency in ("DEM","ITL") else "ein ")
 
     def to_year(self, val, longval=True):
         if not (val // 100) % 10:
