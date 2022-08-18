@@ -30,11 +30,12 @@ class Num2Word_DE(Num2Word_EU):
         'CNY': (('Yuan', 'Yuan'), ('Jiao', 'Fen')),
         'CHF': (('Franken', 'Franken'), ('Rappen', 'Rappen')), # Schweizer Franken / Swiss Franc
         'DEM': (('Mark', 'Mark'), ('Pfennig', 'Pfennig')), # Deutsche Mark, replaced by Euro in 2002
-        'TRY': (('Lira', 'Lira'), ('Kuruş', 'Kuruş')), # Turkish Lira
+        'TRY': (('Lira', 'Lira'), ('Kuruş', 'Kuruş')), # Turkish Lira ; "Kuruş" a.k.a. "Groschen" in German
         'DMG': (('Lira', 'Lira'), ('Piaster', 'Piaster')), # Syrian Lira (in Syrian and German) or pound
         'FIM': (('Mark', 'Mark'), ('Pfennig', 'Pfennig')), # Finnish Mark (replaced by Euro in 2002)
         'ITL': (('Lira', 'Lira'), ('Centesimo', 'Centesimi')), # Italian Lira (replaced by Euro in 2002)
     }
+    FEMININE_CURRENCIES = { 'DEM', 'DMG', 'FIM', 'ITL', 'TRY' }
 
     GIGA_SUFFIX = "illiarde"
     MEGA_SUFFIX = "illion"
@@ -156,7 +157,7 @@ class Num2Word_DE(Num2Word_EU):
         # but "eine Mark" for DEM (Deutsche Mark) and FIM (Finnische Mark), "eine Lira" for ITL, TRY and MTL
         # (Italian, Turkish and Maltesian Lira, maybe others)
         # See also issue #462 and patch #469
-        return result.replace("eins ", "eine " if currency in ("DEM","FIM","ITL","MTL","TRY") else "ein ")
+        return result.replace("eins ", "eine " if currency in self.FEMININE_CURRENCIES else "ein ")
 
     def to_year(self, val, longval=True):
         if not (val // 100) % 10:
