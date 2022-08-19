@@ -49,7 +49,7 @@ class Num2Word_PT_BR(lang_PT.Num2Word_PT):
             if nnum < 1000000:
                 return next
             ctext = "um"
-        elif cnum == 100 and not nnum == 1000:
+        elif cnum == 100 and nnum % 1000 != 0:
             ctext = "cento"
 
         if nnum < cnum:
