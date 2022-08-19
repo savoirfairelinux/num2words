@@ -182,7 +182,11 @@ class Num2WordsTRTest(TestCase):
             {"test": 101101011010.02, "to": "cardinal",
              "expected": u"yüzbirmilyaryüzbirmilyononbirbinonvirgüliki"},
             {"test": 101101011010.2, "to": "cardinal",
-             "expected": u"yüzbirmilyaryüzbirmilyononbirbinonvirgülyirmi"}
+             "expected": u"yüzbirmilyaryüzbirmilyononbirbinonvirgülyirmi"},
+            {"test": 10, "to": "ordinal_num", "expected": u"10uncu"},
+            {"test": 1, "to": "ordinal_num", "expected": u"1inci"},
+            {"test": 3, "to": "ordinal_num", "expected": u"3üncü"},
+            {"test": 6, "to": "ordinal_num", "expected": u"6ıncı"}
         ]
 
         for casedata in testcases:
