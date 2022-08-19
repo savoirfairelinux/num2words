@@ -189,7 +189,8 @@ class Num2WordsTRTest(TestCase):
             {"test": 6, "to": "ordinal_num", "expected": u"6ıncı"},
             {"test": -5, "to": "cardinal", "expected": u"eksibeş"},
             {"test": -55, "to": "cardinal", "expected": u"eksiellibeş"},
-            {"test": -576, "to": "cardinal", "expected": u"eksibeşyüzyetmişaltı"},
+            {"test": -576, "to": "cardinal",
+            "expected": u"eksibeşyüzyetmişaltı"},
             {"test": -3, "to": "currency", "expected": u"eksiüçlira"},
         ]
 
