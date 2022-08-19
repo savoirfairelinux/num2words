@@ -76,7 +76,10 @@ class Num2Word_NL(Num2Word_EU):
                              "zes", "vijf", "vier", "drie", "twee", "één",
                              "nul"]
 
-        self.ords = {"één": "eerst",
+        # Wiktionary says it is "nulde", not "nulte" or "nule"
+        # https://en.wiktionary.org/wiki/nulde
+        self.ords = {"nul": "nuld",
+                     "één": "eerst",
                      "twee": "tweed",
                      "drie": "derd",
                      "vier": "vierd",
