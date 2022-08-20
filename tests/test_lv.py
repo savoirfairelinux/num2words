@@ -63,6 +63,14 @@ class Num2WordsLVTest(TestCase):
             num2words(-5000.22, lang='lv'),
             'mīnus pieci tūkstoši komats divdesmit divi',
         )
+        self.assertEqual(
+            num2words(10.02, lang='lv'),
+            "desmit komats nulle divi"
+        )
+        self.assertEqual(
+            num2words(15.007, lang='lv'),
+            "piecpadsmit komats nulle nulle septiņi"
+        )
 
         self.assertEqual(num2words(0, lang='lv'), 'nulle')
         self.assertEqual(num2words(5, lang='lv'), "pieci")

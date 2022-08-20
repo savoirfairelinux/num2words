@@ -34,7 +34,7 @@ Options:
     -t --to=<to>            Output converter [default: cardinal].
     -h --help               Show this message.
     -v --version            Show version.
-    
+
 Examples:
     $ num2words 10001
     ten thousand and one
@@ -46,7 +46,7 @@ Examples:
     veinticuatro mil ciento veinte punto uno
 
     $num2words 2.14 -l es --to currency
-    dos euros con catorce centimos
+    dos euros con catorce céntimos
 """
 
 from __future__ import print_function, unicode_literals
@@ -55,7 +55,7 @@ import sys
 from docopt import docopt
 import num2words
 
-__version__ = "0.5.10"
+__version__ = "0.5.12"
 __license__ = "LGPL"
 
 

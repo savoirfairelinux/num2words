@@ -36,6 +36,7 @@ class Num2WordsTRTest(TestCase):
              "expected": u"birmilyonikibinbirlira"},
             {"test": 1100000, "to": "currency",
              "expected": u"birmilyonyüzbinlira"},
+            {"test": 0, "to": "ordinal", "expected": u"sıfırıncı"},
             {"test": 1, "to": "ordinal", "expected": u"birinci"},
             {"test": 2, "to": "ordinal", "expected": u"ikinci"},
             {"test": 9, "to": "ordinal", "expected": u"dokuzuncu"},
@@ -108,6 +109,7 @@ class Num2WordsTRTest(TestCase):
              "expected": u"birmilyonüçbininci"},
             {"test": 1200000, "to": "ordinal",
              "expected": u"birmilyonikiyüzbininci"},
+            {"test": 0, "to": "cardinal", "expected": u"sıfır"},
             {"test": 1, "to": "cardinal", "expected": u"bir"},
             {"test": 2, "to": "cardinal", "expected": u"iki"},
             {"test": 9, "to": "cardinal", "expected": u"dokuz"},
@@ -180,7 +182,16 @@ class Num2WordsTRTest(TestCase):
             {"test": 101101011010.02, "to": "cardinal",
              "expected": u"yüzbirmilyaryüzbirmilyononbirbinonvirgüliki"},
             {"test": 101101011010.2, "to": "cardinal",
-             "expected": u"yüzbirmilyaryüzbirmilyononbirbinonvirgülyirmi"}
+             "expected": u"yüzbirmilyaryüzbirmilyononbirbinonvirgülyirmi"},
+            {"test": 10, "to": "ordinal_num", "expected": u"10uncu"},
+            {"test": 1, "to": "ordinal_num", "expected": u"1inci"},
+            {"test": 3, "to": "ordinal_num", "expected": u"3üncü"},
+            {"test": 6, "to": "ordinal_num", "expected": u"6ıncı"},
+            {"test": -5, "to": "cardinal", "expected": u"eksibeş"},
+            {"test": -55, "to": "cardinal", "expected": u"eksiellibeş"},
+            {"test": -576, "to": "cardinal",
+             "expected": u"eksibeşyüzyetmişaltı"},
+            {"test": -3, "to": "currency", "expected": u"eksiüçlira"},
         ]
 
         for casedata in testcases:
