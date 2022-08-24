@@ -20,6 +20,7 @@ from __future__ import unicode_literals
 from unittest import TestCase
 
 from num2words import num2words
+from num2words.lang_HE import Num2Word_HE
 
 
 class Num2WordsHETest(TestCase):
@@ -71,3 +72,45 @@ class Num2WordsHETest(TestCase):
         self.assertEqual(
             num2words(6870, lang="he"), u'ששת אלפים שמונה מאות ושבעים'
         )
+
+    def test_pluralize(self):
+        n = Num2Word_HE()
+        cr1, cr2 = n.CURRENCY_FORMS['NIS']
+        self.assertEqual(n.pluralize(1, cr1), 'שקל')
+        self.assertEqual(n.pluralize(2, cr1), 'שקלים')
+        self.assertEqual(n.pluralize(1, cr2), 'אגורה')
+        self.assertEqual(n.pluralize(2, cr2), 'אגורות')
+
+        cr1, cr2 = n.CURRENCY_FORMS['USD']
+        self.assertEqual(n.pluralize(1, cr1), 'דולר')
+        self.assertEqual(n.pluralize(2, cr1), 'דולרים')
+        self.assertEqual(n.pluralize(1, cr2), 'סנט')
+        self.assertEqual(n.pluralize(2, cr2), 'סנט')
+
+    def test_to_currency(self):
+        n = Num2Word_HE()
+        self.assertEqual(
+            n.to_currency(20.0, currency='NIS'), 'עשרים שקלים ואפס אגורות'
+        )
+        self.assertEqual(
+           n.to_currency(100.0, currency='NIS'), 'מאה שקלים ואפס אגורות'
+        )
+        self.assertEqual(
+           n.to_currency(100.50, currency='NIS'), 'מאה שקלים וחמישים אגורות'
+        )
+
+    def test_to_cardinal(self):
+        n = Num2Word_HE()
+        self.assertEqual(n.to_cardinal(1500), u'אלף וחמש מאות')
+
+
+class Num2WordsHETestNotImplementedMethofs(TestCase):
+    n = Num2Word_HE()
+
+    def test_to_ordinal(self):
+        with self.assertRaises(NotImplementedError):
+            self.n.to_ordinal('1')
+
+    def test_large_number(self):
+        with self.assertRaises(NotImplementedError):
+            num2words(2000000, lang="he")
