@@ -63,7 +63,7 @@ THOUSANDS = {
 }
 
 
-class Num2Word_KZ(Num2Word_Base):
+class Num2Word_KG(Num2Word_Base):
     CURRENCY_FORMS = {
         'USD': ('доллар', 'цент'),
         'KG': ('сом', 'тыйын'),
@@ -90,7 +90,7 @@ class Num2Word_KZ(Num2Word_Base):
         return form
 
     def _cents_verbose(self, number, currency):
-        return self._int2word(number, currency == 'KZT')
+        return self._int2word(number, currency == 'KG')
 
     def _int2word(self, n, feminine=False):
         if n < 0:
