@@ -22,7 +22,7 @@ from .lang_FR import Num2Word_FR
 
 class Num2Word_FR_DZ(Num2Word_FR):
     CURRENCY_FORMS = {
-        'DIN': (('Dinar', 'Dinars'), ('centime', 'centimes')),
+        'DIN': (('Dinar', 'Dinars'), ('Centime', 'Centimes')),
     }
 
     def to_currency(self, val, currency='DIN', cents=True, separator=' et',
