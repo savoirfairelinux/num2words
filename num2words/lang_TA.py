@@ -136,7 +136,7 @@ class Num2Word_TA(Num2Word_EU):
         self.pointword = "புள்ளி"
 
         self.modifiers = [
-           
+
         ]
 
     def merge(self, lpair, rpair):

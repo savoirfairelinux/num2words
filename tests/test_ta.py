@@ -26,7 +26,7 @@ class Num2WordsTATest(TestCase):
         self.assertEqual(num2words(42, lang="ta"), u"நாற்பத்தி இரண்டு")
         self.assertEqual(num2words(893, lang="ta"),
                          u"எட்டு நூறு தொண்ணூற்றி ஏழு,தொண்ணூற்று ஆறு")
-        self.assertEqual(num2words(1729, lang="ta"), 
+        self.assertEqual(num2words(1729, lang="ta"),
                          u"ஒன்று ஆயிரம் ஏழு நூறு இருபத்து ஒன்பது")
         self.assertEqual(num2words(123, lang="ta"),
                          u"ஒன்று நூறு இருபத்து மூன்று")
