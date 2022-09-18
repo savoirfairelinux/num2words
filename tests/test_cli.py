@@ -59,12 +59,12 @@ class CliTestCase(unittest.TestCase):
         output = self.cli.run_cmd('--list-languages')
         self.assertEqual(
             sorted(list(num2words.CONVERTER_CLASSES.keys())),
-            output.out.strip().split(os.linesep)
+            output.out.strip().splitlines()
         )
         output = self.cli.run_cmd('-L')
         self.assertEqual(
             sorted(list(num2words.CONVERTER_CLASSES.keys())),
-            output.out.strip().split(os.linesep)
+            output.out.strip().splitlines()
         )
 
     def test_cli_list_converters(self):
@@ -73,12 +73,12 @@ class CliTestCase(unittest.TestCase):
         output = self.cli.run_cmd('--list-converters')
         self.assertEqual(
             sorted(list(num2words.CONVERTES_TYPES)),
-            output.out.strip().split(os.linesep)
+            output.out.strip().splitlines()
         )
         output = self.cli.run_cmd('-C')
         self.assertEqual(
             sorted(list(num2words.CONVERTES_TYPES)),
-            output.out.strip().split(os.linesep)
+            output.out.strip().splitlines()
         )
 
     def test_cli_default_lang(self):
