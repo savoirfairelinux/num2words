@@ -279,7 +279,7 @@ class Num2Word_Base(object):
             str: Formatted string
 
         """
-        left, right, is_negative = parse_currency_parts(val)
+        left, right, is_negative = parse_currency_parts(val, (type(val) is float) )
 
         try:
             cr1, cr2 = self.CURRENCY_FORMS[currency]
