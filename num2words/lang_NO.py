@@ -23,6 +23,7 @@ from . import lang_EU
 class Num2Word_NO(lang_EU.Num2Word_EU):
     GIGA_SUFFIX = "illard"
     MEGA_SUFFIX = "illion"
+    CURRENCY_FORMS = {'NOK': (('krone', 'kroner'), ('øre', 'øre'))}
 
     def set_high_numwords(self, high):
         cap = 3 + 6 * len(high)
@@ -107,6 +108,12 @@ class Num2Word_NO(lang_EU.Num2Word_EU):
         return self.to_splitnum(val, hightxt="hundre", jointxt="og",
                                 longval=longval)
 
-    def to_currency(self, val, longval=True):
-        return self.to_splitnum(val, hightxt="krone/r", lowtxt="\xf8re/r",
-                                jointxt="og", longval=longval, cents=True)
+    def to_currency(self, val, currency='NOK', cents=True, separator=' og',
+                    adjective=False):
+        result = super(Num2Word_NO, self).to_currency(
+            val, currency=currency, cents=cents, separator=separator,
+            adjective=adjective)
+        
+         # do not print "og null øre"
+        result = result.replace(' og null øre', '')
+        return result
