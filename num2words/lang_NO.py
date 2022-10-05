@@ -50,8 +50,7 @@ class Num2Word_NO(lang_EU.Num2Word_EU):
                              "tolv", "elleve", "ti", "ni", "\xe5tte",
                              "syv", "seks", "fem", "fire", "tre", "to",
                              "en", "null"]
-        self.ords = {"en": "f\xf8rste",
-                     "to": "andre",
+        self.ords_pl = {"to": "andre",
                      "tre": "tredje",
                      "fire": "fjerde",
                      "fem": "femte",
@@ -62,7 +61,15 @@ class Num2Word_NO(lang_EU.Num2Word_EU):
                      "ti": "tiende",
                      "elleve": "ellevte",
                      "tolv": "tolvte",
+                     "fjorten": "fjortende",
+                     "femten": "femtende",
+                     "seksten": "sekstende",
+                     "sytten": "syttende",
+                     "atten": "attende",
+                     "nitten": "nittende",
                      "tjue": "tjuende"}
+        # this needs to be done separately to not block 13-19 to_ordinal (as they all end with "-en")
+        self.ords_sg = {"en": "f\xf8rste"}
 
     def merge(self, lpair, rpair):
         ltext, lnum = lpair
@@ -70,7 +77,7 @@ class Num2Word_NO(lang_EU.Num2Word_EU):
         if lnum == 1 and rnum < 100:
             return (rtext, rnum)
         elif 100 > lnum > rnum:
-            return ("%s-%s" % (ltext, rtext), lnum + rnum)
+            return ("%s%s" % (ltext, rtext), lnum + rnum)
         elif lnum >= 100 > rnum:
             return ("%s og %s" % (ltext, rtext), lnum + rnum)
         elif rnum > lnum:
@@ -79,19 +86,16 @@ class Num2Word_NO(lang_EU.Num2Word_EU):
 
     def to_ordinal(self, value):
         self.verify_ordinal(value)
-        outwords = self.to_cardinal(value).split(" ")
-        lastwords = outwords[-1].split("-")
-        lastword = lastwords[-1].lower()
-        try:
-            lastword = self.ords[lastword]
-        except KeyError:
-            if lastword[-2:] == "ti":
-                lastword = lastword + "ende"
-            else:
-                lastword += "de"
-        lastwords[-1] = self.title(lastword)
-        outwords[-1] = "".join(lastwords)
-        return " ".join(outwords)
+        outword = self.to_cardinal(value)
+        for key in self.ords_pl:
+            if outword.endswith(key):
+                outword = outword[:len(outword) - len(key)] + self.ords_pl[key]
+                break
+        for key in self.ords_sg:
+            if outword.endswith(key):
+                outword = outword[:len(outword) - len(key)] + self.ords_sg[key]
+                break
+        return outword
 
     def to_ordinal_num(self, value):
         self.verify_ordinal(value)
