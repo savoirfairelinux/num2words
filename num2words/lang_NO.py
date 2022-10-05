@@ -52,24 +52,24 @@ class Num2Word_NO(lang_EU.Num2Word_EU):
                              "syv", "seks", "fem", "fire", "tre", "to",
                              "en", "null"]
         self.ords_pl = {"to": "andre",
-                     "tre": "tredje",
-                     "fire": "fjerde",
-                     "fem": "femte",
-                     "seks": "sjette",
-                     "syv": "syvende",
-                     "\xe5tte": "\xe5ttende",
-                     "ni": "niende",
-                     "ti": "tiende",
-                     "elleve": "ellevte",
-                     "tolv": "tolvte",
-                     "fjorten": "fjortende",
-                     "femten": "femtende",
-                     "seksten": "sekstende",
-                     "sytten": "syttende",
-                     "atten": "attende",
-                     "nitten": "nittende",
-                     "tjue": "tjuende"}
-        # this needs to be done separately to not block 13-19 to_ordinal (as they all end with "-en")
+                        "tre": "tredje",
+                        "fire": "fjerde",
+                        "fem": "femte",
+                        "seks": "sjette",
+                        "syv": "syvende",
+                        "\xe5tte": "\xe5ttende",
+                        "ni": "niende",
+                        "ti": "tiende",
+                        "elleve": "ellevte",
+                        "tolv": "tolvte",
+                        "fjorten": "fjortende",
+                        "femten": "femtende",
+                        "seksten": "sekstende",
+                        "sytten": "syttende",
+                        "atten": "attende",
+                        "nitten": "nittende",
+                        "tjue": "tjuende"}
+        # this needs to be done separately to not block 13-19 to_ordinal
         self.ords_sg = {"en": "f\xf8rste"}
 
     def merge(self, lpair, rpair):
@@ -113,7 +113,7 @@ class Num2Word_NO(lang_EU.Num2Word_EU):
         result = super(Num2Word_NO, self).to_currency(
             val, currency=currency, cents=cents, separator=separator,
             adjective=adjective)
-        
-         # do not print "og null øre"
+
+        # do not print "og null øre"
         result = result.replace(' og null øre', '')
         return result
