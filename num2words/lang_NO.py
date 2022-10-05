@@ -99,7 +99,7 @@ class Num2Word_NO(lang_EU.Num2Word_EU):
 
     def to_ordinal_num(self, value):
         self.verify_ordinal(value)
-        return "%s%s" % (value, self.to_ordinal(value)[-2:])
+        return str(value) + "."
 
     def to_year(self, val, longval=True):
         if not (val // 100) % 10:
