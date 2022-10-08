@@ -33,7 +33,7 @@ class Num2Word_PT(Num2Word_EU):
         'EUR': (('euro', 'euros'), GENERIC_CENTS),
         'GBP': (('libra', 'libras'), ('péni', 'pence')),
         'USD': (GENERIC_DOLLARS, GENERIC_CENTS),
-        'RUB': (('rublo', 'rublos')), GENERIC_CENTS),
+        'RUB': (('rublo', 'rublos'), GENERIC_CENTS),
         'MXN': (('peso', 'pesos'), GENERIC_CENTS),
         'RON': ('leu', GENERIC_CENTS),
         'INR': (('rupia', 'rupias'), GENERIC_CENTS),
