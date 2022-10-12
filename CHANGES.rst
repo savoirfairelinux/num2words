@@ -1,6 +1,49 @@
 Changelog
 =========
 
+Version 0.5.12 -- 2022/08/19
+----------------------------
+
+* Support Japanese Reiwa (令和/れいわ) era. (#412)
+* Add basic farsi support (#354)
+* Added Tajik language support (#406)
+* Fix Amharic language support (#465)
+* Fix Hebrew pluralize and implement to_currency (#330)
+* Add support to translate some currencies in italian language (#434)
+* Fix Polish twenties (#345)
+* Add uzs for ru and en (#422)
+* Added support for Esperanto numbers. (#387)
+* [ADD] to ordinal number for Turkish (#468)
+* Fix zeroth in Dutch to nulde fixing (#326)
+
+Version 0.5.11 -- 2022/08/03
+----------------------------
+
+* Add KZT and UAH currencies to lang RU (#264)
+* Add es_NI currency (#276)
+* Update .gitignore to add .eggs/ directory (#280)
+* Fix Hebrew support (#289)
+* Update test_tr.py to increase coverage (#298)
+* Add ordinal 12,345 to ES test suite to increase coverage (#287)
+* Add simple tests for lang_DK.py (#286)
+* Add testcase for lang_EN.py (#288)
+* Add more tests to base.py (#283)
+* Fixed misspelling of 21 (cardinal and ordinal number) in IT language (#270)
+* Romanian issues 259 (#260)
+* Adding Language Support for Telugu / Bug Fix in Kannada (#263)
+* Add support of Kazakh language (KZ) (#306)
+* Update README.rst (#307)
+* Added support for Hungarian language (#310)
+* [UPD] Readme file (#363)
+* [ADD] num2words: add traslation to spanish of several currencies (#356)
+* added swedish language including test cases (#352)
+* Remove dupplicated line in lang_PT_BR (#355)
+* Fix ordinal_num output for Dutch (NL) (#369)
+* Polishordinals (#367)
+* [tr] return Turkish 0 ordinal and cardinal (#347)
+* Improve Ukrainian support and minor fixes in CZ, KZ, LT, LV, PL, RU, SR languages (#400)
+* feat: ci: replace travis by github workflows (#448)
+* [ES] Added missing accents ("dieciséis", "dólar", "dólares", "veintiún"), improved currency gender handling, fixed pound cent names (#443)
 
 Version 0.5.10 -- 2019/05/12
 ----------------------------
@@ -49,9 +92,9 @@ Version 0.5.7 -- 2018/06/27
 * Add Finnish localization. (#170)
 * Add Japanese localization. (#171)
 * Add belgian-french localization. (#151)
-* Add Czech localization. (#154) 
+* Add Czech localization. (#154)
 * Add Thai localization. (#139)
-* Improve English localization. (#144) 
+* Improve English localization. (#144)
 * Improve Spanish localization. (#167)
 * Improve Italian localization. (#143)
 * Improve documentation. (#155, #145, #174)

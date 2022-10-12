@@ -80,7 +80,7 @@ TWENTIES = {
     6: ('sześćdziesiąt',),
     7: ('siedemdziesiąt',),
     8: ('osiemdziesiąt',),
-    9: ('dziewięćdzisiąt',),
+    9: ('dziewięćdziesiąt',),
 }
 
 TWENTIES_ORDINALS = {

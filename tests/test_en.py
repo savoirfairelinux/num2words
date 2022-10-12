@@ -131,6 +131,12 @@ class Num2WordsENTest(TestCase):
             "four pesos and one cent"
         )
 
+        self.assertEqual(
+            num2words('2000.00', lang='en', to='currency', separator=' and',
+                      cents=True, currency='UZS'),
+            "two thousand sums and zero tiyins"
+        )
+
     def test_to_year(self):
         # issue 141
         # "e2 e2"
