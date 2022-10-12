@@ -51,8 +51,12 @@ class Num2WordsNOTest(TestCase):
         self.assertEqual(num2words(14, to="ordinal", lang="no"), "fjortende")
         self.assertEqual(num2words(30, to="ordinal", lang="no"), "trettiende")
         self.assertEqual(num2words(32, to="ordinal", lang="no"), "trettiandre")
+        self.assertEqual(num2words(100, to="ordinal", lang="no"), "en hundrede")
+        self.assertEqual(num2words(1000, to="ordinal", lang="no"), "en tusende")
         self.assertEqual(num2words(1435, to="ordinal", lang="no"),
                          "en tusen fire hundre og trettifemte")
+        self.assertEqual(num2words(1000000, to="ordinal", lang="no"),
+                         "en millionte")
 
     def test_ordinal_num(self):
         self.assertEqual(num2words(1, to="ordinal_num", lang="no"), "1.")

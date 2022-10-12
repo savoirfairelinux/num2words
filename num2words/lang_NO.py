@@ -68,7 +68,10 @@ class Num2Word_NO(lang_EU.Num2Word_EU):
                         "sytten": "syttende",
                         "atten": "attende",
                         "nitten": "nittende",
-                        "tjue": "tjuende"}
+                        "tjue": "tjuende",
+                        "hundre": "hundrede",
+                        "tusen": "tusende",
+                        "million": "millionte"}
         # this needs to be done separately to not block 13-19 to_ordinal
         self.ords_sg = {"en": "f\xf8rste"}
 
