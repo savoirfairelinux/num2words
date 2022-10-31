@@ -73,10 +73,11 @@ CONVERTER_CLASSES = {
     'hu': lang_HU.Num2Word_HU()
 }
 
-CONVERTES_TYPES = ['cardinal', 'ordinal', 'ordinal_num', 'year', 'currency']
+#m and f (or char) denotes the respective gender-association within certain languages (spanish for example)
+CONVERTES_TYPES = ['cardinal', 'ordinal', 'ordinal_num', 'year', 'currency', 'm', 'f']
 
 
-def num2words(number, ordinal=False, lang='en', to='cardinal', **kwargs):
+def num2words(number, ordinal=True, lang='es', to='cardinal', char='m',  **kwargs):
     # We try the full language first
     if lang not in CONVERTER_CLASSES:
         # ... and then try only the first 2 letters
@@ -90,7 +91,7 @@ def num2words(number, ordinal=False, lang='en', to='cardinal', **kwargs):
 
     # backwards compatible
     if ordinal:
-        return converter.to_ordinal(number)
+        return converter.to_ordinal(number, char)
 
     if to not in CONVERTES_TYPES:
         raise NotImplementedError()
