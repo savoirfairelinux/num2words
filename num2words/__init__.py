@@ -70,7 +70,8 @@ CONVERTER_CLASSES = {
     'nl': lang_NL.Num2Word_NL(),
     'uk': lang_UK.Num2Word_UK(),
     'te': lang_TE.Num2Word_TE(),
-    'hu': lang_HU.Num2Word_HU()
+    'hu': lang_HU.Num2Word_HU(),
+    'fa': lang_Fa.Num2Word_FA()
 }
 
 CONVERTES_TYPES = ['cardinal', 'ordinal', 'ordinal_num', 'year', 'currency']
