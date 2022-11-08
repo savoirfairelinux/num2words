@@ -156,7 +156,16 @@ class Num2Word_PL(Num2Word_Base):
             ('euro', 'euro', 'euro'), ('cent', 'centy', 'centów')
         ),
         'USD': (
-            ('dolar amerykański', 'dolary amerykańskie', 'dolarów amerykańskich'), ('cent', 'centy', 'centów')
+            (
+                'dolar amerykański',
+                'dolary amerykańskie',
+                'dolarów amerykańskich'
+            ),
+            (
+                'cent',
+                'centy',
+                'centów'
+            )
         ),
     }
 
