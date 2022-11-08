@@ -272,3 +272,8 @@ class Num2WordsRUTest(TestCase):
             'одна тысяча двести тридцать четыре доллара, пятьдесят шесть '
             'центов'
         )
+        self.assertEqual(
+            num2words(10122, lang='ru', to='currency', currency='UZS',
+                      separator=' и'),
+            'сто один сум и двадцать два тийина'
+        )
