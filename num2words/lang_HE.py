@@ -82,14 +82,19 @@ THOUSANDS = {
 
 AND = u'ו'
 
+DEF = u'ה'
+
 MAXVAL = 10000
 
-def int2word(n, gender='f', ordinal=False):
+
+def int2word(n, gender='f', ordinal=False, definite=False):
     assert n == int(n)
     if n >= MAXVAL:  # doesn't yet work for numbers this big
         raise NotImplementedError()
 
     if n == 0:
+        if ordinal:
+            return DEF + ZERO[0]
         return ZERO[0]
 
     words = []
@@ -118,9 +123,9 @@ def int2word(n, gender='f', ordinal=False):
             words.append(TWENTIES[n2][0])
 
         if n2 == 1:
-            words.append(TENS[n1][(gender == 'm') + ordinal*(not n1)])
+            words.append(TENS[n1][(gender == 'm') + 2*ordinal*(not n1)])
         elif n1 > 0 and not (i > 0 and x == 1):
-            words.append(ONES[n1][(gender == 'm') + ordinal*(x < 11)])
+            words.append(ONES[n1][(gender == 'm') + 2*ordinal*(x < 11)])
 
         if i > 0:
             words.append(THOUSANDS[i][0])
@@ -128,6 +133,9 @@ def int2word(n, gender='f', ordinal=False):
     # source: https://hebrew-academy.org.il/2017/01/30/%D7%95-%D7%94%D7%97%D7%99%D7%91%D7%95%D7%A8-%D7%91%D7%9E%D7%A1%D7%A4%D7%A8%D7%99%D7%9D
     if len(words) > 1:
         words[-1] = AND + words[-1]
+
+    if ordinal and (n > 10 or definite):
+        words[0] = DEF + words[0]
 
     return ' '.join(words)
 
@@ -173,12 +181,11 @@ class Num2Word_HE(Num2Word_Base):
 
         return " ".join(out)
 
-
     def to_cardinal(self, value, gender='f'):
         try:
             assert int(value) == value
         except (ValueError, TypeError, AssertionError):
-            return self.to_cardinal_float(value, gender)  # https://hebrew-academy.org.il/2019/12/03/%D7%A2%D7%9C-%D7%94%D7%91%D7%A2%D7%AA-%D7%94%D7%9E%D7%A1%D7%A4%D7%A8-%D7%94%D7%9E%D7%A2%D7%95%D7%A8%D7%91/
+            return self.to_cardinal_float(value, gender=gender)  # https://hebrew-academy.org.il/2019/12/03/%D7%A2%D7%9C-%D7%94%D7%91%D7%A2%D7%AA-%D7%94%D7%9E%D7%A1%D7%A4%D7%A8-%D7%94%D7%9E%D7%A2%D7%95%D7%A8%D7%91/
 
         out = ""
         if value < 0:
@@ -188,20 +195,20 @@ class Num2Word_HE(Num2Word_Base):
         if value >= self.MAXVAL:
             raise OverflowError(self.errmsg_toobig % (value, self.MAXVAL))
 
-        return out + int2word(int(value), gender, ordinal=False)
+        return out + int2word(int(value), gender=gender, ordinal=False)
 
-    def to_ordinal(self, value, gender='m'):
+    def to_ordinal(self, value, gender='m', definite=False):
         self.verify_ordinal(value)
-        out = int2word(int(value), gender, ordinal=True)
-        if value == 0 or value > 10:
-            out = 'ה' + out
-        return out
+
+        if value >= self.MAXVAL:
+            raise OverflowError(self.errmsg_toobig % (value, self.MAXVAL))
+
+        return int2word(int(value), gender=gender, ordinal=True, definite=definite)
 
     def pluralize(self, n, forms):
         assert n == int(n)
         form = 0 if n == 1 else 1
         return forms[form]
-
 
     def to_currency(self, val, currency='ILS', cents=True, separator=' ' + AND,
                     adjective=False):

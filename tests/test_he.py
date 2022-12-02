@@ -120,6 +120,15 @@ class Num2WordsHETest(TestCase):
         n = Num2Word_HE()
         self.assertEqual(n.to_ordinal(1500), u'האלף וחמש מאות')
         self.assertEqual(n.to_ordinal(1501), u'האלף חמש מאות ואחד')
+        self.assertEqual(n.to_ordinal(1501, definite=True), u'האלף חמש מאות ואחד')
+        self.assertEqual(n.to_ordinal(1), u'ראשון')
+        self.assertEqual(n.to_ordinal(1, definite=True), u'הראשון')
+        self.assertEqual(n.to_ordinal(1, gender='f'), u'ראשונה')
+        self.assertEqual(n.to_ordinal(1, gender='f', definite=True), u'הראשונה')
+        self.assertEqual(n.to_ordinal(0), u'האפס')
+        self.assertEqual(n.to_ordinal(0, definite=True), u'האפס')
+        self.assertEqual(n.to_ordinal(0, gender='f'), u'האפס')
+        self.assertEqual(n.to_ordinal(0, gender='f', definite=True), u'האפס')
 
     def test_cardinal_for_float_number(self):
         self.assertEqual(num2words(12.5, lang='he'), u'שתים עשרה נקודה חמש')
@@ -139,3 +148,6 @@ class Num2WordsHETestNotImplementedMethods(TestCase):
     def test_large_number(self):
         with self.assertRaises(OverflowError):
             num2words(2000000, lang="he")
+
+        with self.assertRaises(OverflowError):
+            num2words(2000000, lang="he", ordinal=True)
