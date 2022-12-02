@@ -78,13 +78,14 @@ THOUSANDS = {
     7: (u'שבעת אלפים',),
     8: (u'שמונת אלפים',),
     9: (u'תשעת אלפים',),
+    10: (u'עשרת אלפים',),
 }
 
 AND = u'ו'
 
 DEF = u'ה'
 
-MAXVAL = 10000
+MAXVAL = 1000000
 
 
 def int2word(n, gender='f', ordinal=False, definite=False):
@@ -109,10 +110,6 @@ def int2word(n, gender='f', ordinal=False, definite=False):
 
         n1, n2, n3 = get_digits(x)
 
-        if i > 0:
-            words.append(THOUSANDS[n1][0])
-            continue
-
         if n3 > 0:
             if n3 <= 2:
                 words.append(HUNDRED[n3][0])
@@ -122,17 +119,23 @@ def int2word(n, gender='f', ordinal=False, definite=False):
         if n2 > 1:
             words.append(TWENTIES[n2][0])
 
-        if n2 == 1:
-            words.append(TENS[n1][(gender == 'm') + 2*ordinal*(not n1)])
-        elif n1 > 0 and not (i > 0 and x == 1):
-            words.append(ONES[n1][(gender == 'm') + 2*ordinal*(x < 11)])
+        if i == 0 or x > 10:
+            if n2 == 1:
+                words.append(
+                    TENS[n1][(gender == 'm' or i > 0) + 2 * ordinal * (not n1)])
+            elif n1 > 0:
+                words.append(
+                    ONES[n1][(gender == 'm' or i > 0) + 2 * ordinal * (x < 11)])
 
         if i > 0:
-            words.append(THOUSANDS[i][0])
+            if x < 11:
+                words.append(THOUSANDS[x][0])
+            else:
+                words[-1] = words[-1] + ' ' + THOUSANDS[1][0]
 
-    # source: https://hebrew-academy.org.il/2017/01/30/%D7%95-%D7%94%D7%97%D7%99%D7%91%D7%95%D7%A8-%D7%91%D7%9E%D7%A1%D7%A4%D7%A8%D7%99%D7%9D
-    if len(words) > 1:
-        words[-1] = AND + words[-1]
+        # source: https://hebrew-academy.org.il/2017/01/30/%D7%95-%D7%94%D7%97%D7%99%D7%91%D7%95%D7%A8-%D7%91%D7%9E%D7%A1%D7%A4%D7%A8%D7%99%D7%9D
+        if len(words) > 1:
+            words[-1] = AND + words[-1]
 
     if ordinal and (n > 10 or definite):
         words[0] = DEF + words[0]
