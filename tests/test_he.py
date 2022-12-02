@@ -105,10 +105,34 @@ class Num2WordsHETest(TestCase):
             n.to_currency(-101.51, currency='ILS'), u'מינוס מאה ואחד שקלים וחמישים ואחת אגורות'
         )
         self.assertEqual(
+            n.to_currency(-101.51, currency='ILS', prefer_singular=True), u'מינוס מאה ואחד שקל וחמישים ואחת אגורות'
+        )
+        self.assertEqual(
+            n.to_currency(-101.51, currency='ILS', prefer_singular_cents=True), u'מינוס מאה ואחד שקלים וחמישים ואחת אגורה'
+        )
+        self.assertEqual(
+            n.to_currency(-101.51, currency='ILS', prefer_singular=True, prefer_singular_cents=True), u'מינוס מאה ואחד שקל וחמישים ואחת אגורה'
+        )
+        self.assertEqual(
+            n.to_currency(5.05, currency='ILS', prefer_singular=True, prefer_singular_cents=True), u'חמישה שקלים וחמש אגורות'
+        )
+        self.assertEqual(
             n.to_currency(1.01, currency='ILS'), u'שקל אחד ואגורה אחת'
         )
         self.assertEqual(
             n.to_currency(-1.01, currency='ILS'), u'מינוס שקל אחד ואגורה אחת'
+        )
+        self.assertEqual(
+            n.to_currency(5.05, currency='USD'), u'חמישה דולרים וחמישה סנטים'
+        )
+        self.assertEqual(
+            n.to_currency(5.05, currency='USD', prefer_singular=True), u'חמישה דולר וחמישה סנטים'
+        )
+        self.assertEqual(
+            n.to_currency(5.05, currency='USD', prefer_singular_cents=True), u'חמישה דולרים וחמישה סנט'
+        )
+        self.assertEqual(
+            n.to_currency(5.05, currency='USD', prefer_singular=True, prefer_singular_cents=True), u'חמישה דולר וחמישה סנט'
         )
 
     def test_to_cardinal(self):

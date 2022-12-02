@@ -205,13 +205,15 @@ class Num2Word_HE(Num2Word_Base):
 
         return int2word(int(value), gender=gender, ordinal=True, definite=definite)
 
-    def pluralize(self, n, forms):
+    def pluralize(self, n, forms, currency=None, is_negative=False, prefer_singular=False):
         assert n == int(n)
-        form = 0 if n == 1 else 1
+        form = 1
+        if n == 1 or prefer_singular and (n > 10 or n == 0 or is_negative or currency != 'ILS'):
+            form = 0
         return forms[form]
 
     def to_currency(self, val, currency='ILS', cents=True, separator=' ' + AND,
-                    adjective=False):
+                    adjective=False, prefer_singular=False, prefer_singular_cents=False):
         left, right, is_negative = parse_currency_parts(val)
 
         try:
@@ -235,10 +237,10 @@ class Num2Word_HE(Num2Word_Base):
         strings = [
             minus_str,
             money_str,
-            self.pluralize(left, cr1),
+            self.pluralize(left, cr1, currency=currency, is_negative=is_negative, prefer_singular=prefer_singular),
             separator,
             cents_str,
-            self.pluralize(right, cr2)
+            self.pluralize(right, cr2, currency=currency, is_negative=is_negative, prefer_singular=prefer_singular_cents)
         ]
         if left == 1:
             strings[1], strings[2] = strings[2], strings[1]
