@@ -90,7 +90,7 @@ def num2words(number, ordinal=False, lang='en', to='cardinal', **kwargs):
 
     # backwards compatible
     if ordinal:
-        return converter.to_ordinal(number)
+        to = 'ordinal'
 
     if to not in CONVERTES_TYPES:
         raise NotImplementedError()
