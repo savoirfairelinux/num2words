@@ -96,12 +96,6 @@ class Num2WordsENTest(TestCase):
         )
 
         self.assertEqual(
-            num2words('1.01', lang='en', to='currency', separator=' and',
-                      cents=True, currency='USD'),
-            "one dollar and one cent"
-        )
-
-        self.assertEqual(
             num2words('4778.00', lang='en', to='currency', separator=' and',
                       cents=True, currency='USD', adjective=True),
             'four thousand, seven hundred and seventy-eight US dollars'
