@@ -99,6 +99,54 @@ MAKAF = '-'
 MAXVAL = int('1' + '0'*66)
 
 
+def chunk2word(n, i, x, gender='f', construct=False, ordinal=False):
+    words = []
+    n1, n2, n3 = get_digits(x)
+
+    if n3 > 0:
+        if construct and i == 0 and x == 100:
+            words.append(HUNDRED[n3][1])
+        elif n3 <= 2:
+            words.append(HUNDRED[n3][0])
+        else:
+            words.append(ONES[n3][0] + ' ' + HUNDRED[3][0])
+
+    if n2 > 1:
+        words.append(TWENTIES[n2][0])
+
+    if i == 0 or x >= 11:
+        if n2 == 1:
+            if n1 in (0, 2):
+                words.append(TENS[n1][gender == 'm' or i > 0])
+            else:
+                words.append(ONES[n1][(gender == 'm' or i > 0)] + ' ' + TENS[1][(gender == 'm' or i > 0)])
+        elif n1 > 0:
+            words.append(ONES[n1][(gender == 'm' or i > 0) + 2*(construct > ordinal and i == 0) + 4*ordinal*(x < 11)])
+
+    if i == 1:
+        if x >= 11:
+            words[-1] = words[-1] + ' ' + THOUSANDS[1][0]
+        elif n1 == 0:
+            words.append(TENS[0][3] + ' ' + THOUSANDS[3][construct and n % 1000**i == 0])
+        elif n1 <= 2:
+            words.append(THOUSANDS[n1][0])
+        else:
+            words.append(ONES[n1][3] + ' ' + THOUSANDS[3][construct and n % 1000**i== 0])
+
+    elif i > 1:
+        if x >= 11:
+            words[-1] = words[-1] + ' ' + LARGE[i - 1][
+                construct and n % 1000**i == 0]
+        elif n1 == 0:
+            words.append(TENS[0][1 + 2*(construct and n % 1000**i == 0)] + ' ' + LARGE[i - 1][construct and n % 1000**i == 0])
+        elif n1 == 1:
+            words.append(LARGE[i - 1][0])
+        else:
+            words.append(ONES[n1][1 + 2*(construct and n % 1000**i == 0 or x == 2)] + ' ' + LARGE[i - 1][construct and n % 1000**i == 0])
+
+    return words
+
+
 def int2word(n, gender='f', construct=False, ordinal=False, definite=False):
     assert n == int(n)
     if n >= MAXVAL:
@@ -119,55 +167,13 @@ def int2word(n, gender='f', construct=False, ordinal=False, definite=False):
         if x == 0:
             continue
 
-        n1, n2, n3 = get_digits(x)
-
-        if n3 > 0:
-            if construct and i == 0 and x == 100:
-                words.append(HUNDRED[n3][1])
-            elif n3 <= 2:
-                words.append(HUNDRED[n3][0])
-            else:
-                words.append(ONES[n3][0] + ' ' + HUNDRED[3][0])
-
-        if n2 > 1:
-            words.append(TWENTIES[n2][0])
-
-        if i == 0 or x > 10:
-            if n2 == 1:
-                if n1 in (0, 2):
-                    words.append(
-                        TENS[n1][gender == 'm' or i > 0])
-                else:
-                    words.append(
-                        ONES[n1][(gender == 'm' or i > 0)] + ' ' + TENS[1][(gender == 'm' or i > 0)])
-            elif n1 > 0:
-                words.append(
-                        ONES[n1][(gender == 'm' or i > 0) + 2*(construct > ordinal and i == 0) + 4*ordinal*(x < 11)])
-
-        if i == 1:
-            if x >= 11:
-                words[-1] = words[-1] + ' ' + THOUSANDS[1][0]
-            elif n1 == 0:
-                words.append(TENS[0][3] + ' ' + THOUSANDS[3][construct and n % 1000 == 0])
-            elif n1 <= 2:
-                words.append(THOUSANDS[n1][0])
-            else:
-                words.append(ONES[n1][3] + ' ' + THOUSANDS[3][construct and n % 1000 == 0])
-        elif i > 1:
-            if x >= 11:
-                words[-1] = words[-1] + ' ' + LARGE[i-1][construct and n % 1000**i == 0]
-            elif n1 == 0:
-                words.append(TENS[0][1 + 2*(construct and n % 1000**i == 0)] + ' ' + LARGE[i-1][construct and n % 1000**i == 0])
-            elif n1 == 1:
-                words.append(LARGE[i-1][0])
-            else:
-                words.append(ONES[n1][1 + 2*(construct and n % 1000**i == 0 or x == 2)] + ' ' + LARGE[i-1][construct and n % 1000**i == 0])
+        words += chunk2word(n, i, x, gender=gender, construct=construct, ordinal=ordinal)
 
         # source: https://hebrew-academy.org.il/2017/01/30/%D7%95-%D7%94%D7%97%D7%99%D7%91%D7%95%D7%A8-%D7%91%D7%9E%D7%A1%D7%A4%D7%A8%D7%99%D7%9D
         if len(words) > 1:
             words[-1] = AND + words[-1]
 
-    if ordinal and (n > 10 or definite):
+    if ordinal and (n >= 11 or definite):
         words[0] = DEF + words[0]
 
     return ' '.join(words)
@@ -202,7 +208,7 @@ class Num2Word_HE(Num2Word_Base):
         pre, post = self.float2tuple(float(value))
 
         post = str(post)
-        post = '0' * (self.precision - len(post)) + post
+        post = '0'*(self.precision - len(post)) + post
 
         out = [self.to_cardinal(pre, gender=gender)]
         if self.precision:
@@ -241,7 +247,7 @@ class Num2Word_HE(Num2Word_Base):
     def pluralize(self, n, forms, currency=None, prefer_singular=False):
         assert n == int(n)
         form = 1
-        if n == 1 or prefer_singular and (abs(n) > 10 or n == 0 or currency != 'ILS'):
+        if n == 1 or prefer_singular and (abs(n) >= 11 or n == 0 or currency != 'ILS'):
             form = 0
         return forms[form]
 
