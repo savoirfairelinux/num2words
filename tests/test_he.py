@@ -218,6 +218,9 @@ class Num2WordsHETest(TestCase):
             n.to_currency(5.05, currency='ILS', prefer_singular=True, prefer_singular_cents=True), u'חמישה שקלים וחמש אגורות'
         )
         self.assertEqual(
+            n.to_currency(-5.05, currency='ILS', prefer_singular=True, prefer_singular_cents=True), u'מינוס חמישה שקלים וחמש אגורות'
+        )
+        self.assertEqual(
             n.to_currency(1.01, currency='ILS'), u'שקל אחד ואגורה אחת'
         )
         self.assertEqual(

@@ -223,7 +223,7 @@ class Num2Word_HE(Num2Word_Base):
     def pluralize(self, n, forms, currency=None, is_negative=False, prefer_singular=False):
         assert n == int(n)
         form = 1
-        if n == 1 or prefer_singular and (n > 10 or n == 0 or is_negative or currency != 'ILS'):
+        if n == 1 or prefer_singular and (abs(n) > 10 or n == 0 or currency != 'ILS'):
             form = 0
         return forms[form]
 
@@ -252,10 +252,10 @@ class Num2Word_HE(Num2Word_Base):
         strings = [
             minus_str,
             money_str,
-            self.pluralize(left, cr1, currency=currency, is_negative=is_negative, prefer_singular=prefer_singular),
+            self.pluralize(left, cr1, currency=currency, prefer_singular=prefer_singular),
             separator,
             cents_str,
-            self.pluralize(right, cr2, currency=currency, is_negative=is_negative, prefer_singular=prefer_singular_cents)
+            self.pluralize(right, cr2, currency=currency, prefer_singular=prefer_singular_cents)
         ]
         if left == 1:
             strings[1], strings[2] = strings[2], strings[1]
