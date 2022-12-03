@@ -223,6 +223,9 @@ class Num2WordsHETest(TestCase):
             n.to_currency(-5.05, currency='ILS', prefer_singular=True, prefer_singular_cents=True), u'מינוס חמישה שקלים וחמש אגורות'
         )
         self.assertEqual(
+            n.to_currency(-5.05, currency='ILS', cents=False), u'מינוס חמישה שקלים ו-05 אגורות'
+        )
+        self.assertEqual(
             n.to_currency(1.01, currency='ILS'), u'שקל אחד ואגורה אחת'
         )
         self.assertEqual(
@@ -266,6 +269,10 @@ class Num2WordsHETest(TestCase):
         self.assertEqual(n.to_ordinal(1, definite=True), u'הראשון')
         self.assertEqual(n.to_ordinal(1, gender='f'), u'ראשונה')
         self.assertEqual(n.to_ordinal(1, gender='f', definite=True), u'הראשונה')
+        self.assertEqual(n.to_ordinal(17), u'השבעה עשר')
+        self.assertEqual(n.to_ordinal(17, definite=True), u'השבעה עשר')
+        self.assertEqual(n.to_ordinal(17, gender='f'), u'השבע עשרה')
+        self.assertEqual(n.to_ordinal(17, gender='f', definite=True), u'השבע עשרה')
         self.assertEqual(n.to_ordinal(0), u'האפס')
         self.assertEqual(n.to_ordinal(0, definite=True), u'האפס')
         self.assertEqual(n.to_ordinal(0, gender='f'), u'האפס')

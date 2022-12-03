@@ -40,9 +40,8 @@ ONES = {
 
 TENS = {
     0: (u'עשר', u'עשרה', u'עשר', u'עשרת', u'עשירית', u'עשירי'),
-    1: (u'אחת עשרה', u'אחד עשר'),
+    1: (u'עשרה', u'עשר'),
     2: (u'שתים עשרה', u'שנים עשר'),
-    3: (u'עשרה', u'עשר'),
 }
 
 TWENTIES = {
@@ -95,6 +94,8 @@ AND = u'ו'
 
 DEF = u'ה'
 
+MAKAF = '-'
+
 MAXVAL = int(1e66)
 
 
@@ -133,12 +134,12 @@ def int2word(n, gender='f', construct=False, ordinal=False, definite=False):
 
         if i == 0 or x > 10:
             if n2 == 1:
-                if n1 <= 2:
+                if n1 in (0, 2):
                     words.append(
-                        TENS[n1][(gender == 'm' or i > 0) + 2*(construct > ordinal and n1 == 0) + 4*ordinal*(n1 == 0)])
+                        TENS[n1][gender == 'm' or i > 0])
                 else:
                     words.append(
-                        ONES[n1][(gender == 'm' or i > 0)] + ' ' + TENS[3][(gender == 'm' or i > 0)])
+                        ONES[n1][(gender == 'm' or i > 0)] + ' ' + TENS[1][(gender == 'm' or i > 0)])
             elif n1 > 0:
                 words.append(
                         ONES[n1][(gender == 'm' or i > 0) + 2*(construct > ordinal and i == 0) + 4*ordinal*(x < 11)])
@@ -147,7 +148,7 @@ def int2word(n, gender='f', construct=False, ordinal=False, definite=False):
             if x >= 11:
                 words[-1] = words[-1] + ' ' + THOUSANDS[1][0]
             elif n1 == 0:
-                words.append(TENS[n1][3] + ' ' + THOUSANDS[3][construct and n % 1000 == 0])
+                words.append(TENS[0][3] + ' ' + THOUSANDS[3][construct and n % 1000 == 0])
             elif n1 <= 2:
                 words.append(THOUSANDS[n1][0])
             else:
@@ -156,7 +157,7 @@ def int2word(n, gender='f', construct=False, ordinal=False, definite=False):
             if x >= 11:
                 words[-1] = words[-1] + ' ' + LARGE[i-1][construct and n % 1000**i == 0]
             elif n1 == 0:
-                words.append(TENS[n1][1 + 2*(construct and n % 1000**i == 0)] + ' ' + LARGE[i-1][construct and n % 1000**i == 0])
+                words.append(TENS[0][1 + 2*(construct and n % 1000**i == 0)] + ' ' + LARGE[i-1][construct and n % 1000**i == 0])
             elif n1 == 1:
                 words.append(LARGE[i-1][0])
             else:
@@ -263,8 +264,12 @@ class Num2Word_HE(Num2Word_Base):
             gender1 = gender2 = ''
 
         money_str = self.to_cardinal(left, gender=gender1, construct=left == 2)
-        cents_str = self.to_cardinal(right, gender=gender2, construct=right == 2) \
-            if cents else self._cents_terse(right, currency)
+        if cents:
+            cents_str = self.to_cardinal(right, gender=gender2, construct=right == 2)
+        else:
+            cents_str = self._cents_terse(right, currency)
+            if separator.split()[-1] == AND:
+                separator += MAKAF
 
         strings = [
             minus_str,
