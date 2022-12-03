@@ -295,13 +295,13 @@ class Num2WordsHETest(TestCase):
         self.assertEqual(num2words(12.59, lang='he', gender='m'), u'שנים עשר נקודה חמש תשע')
         self.assertEqual(num2words(12.594132, lang='he', gender='m'), u'שנים עשר נקודה חמש תשע ארבע אחת שלוש שתיים')
 
-
-class Num2WordsHETestNotImplementedMethods(TestCase):
-    n = Num2Word_HE()
-
-    def test_large_number(self):
-        with self.assertRaises(OverflowError):
-            num2words(2e66, lang="he")
+    def test_overflow(self):
+        n = Num2Word_HE()
+        num2words(n.MAXVAL - 1, lang="he")
+        num2words(n.MAXVAL - 1, ordinal=True, lang="he")
 
         with self.assertRaises(OverflowError):
-            num2words(2e66, lang="he", ordinal=True)
+            num2words(n.MAXVAL, lang="he")
+
+        with self.assertRaises(OverflowError):
+            num2words(n.MAXVAL, lang="he", ordinal=True)

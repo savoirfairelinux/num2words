@@ -96,7 +96,7 @@ DEF = u'ה'
 
 MAKAF = '-'
 
-MAXVAL = int(1e66)
+MAXVAL = int('1' + '0'*66)
 
 
 def int2word(n, gender='f', construct=False, ordinal=False, definite=False):
