@@ -74,12 +74,12 @@ class Num2WordsHETest(TestCase):
         self.assertEqual(num2words(2000, lang="he", construct=True), u'אלפיים')
         self.assertEqual(num2words(2002, lang="he"), u'אלפיים ושתיים')
         self.assertEqual(num2words(2002, lang="he", construct=True), u'אלפיים ושתי')
-        self.assertEqual(num2words(2100, lang="he"), u'אלפיים ומאה')
-        self.assertEqual(num2words(2100, lang="he", construct=True), u'אלפיים ומאת')
         self.assertEqual(num2words(3000, lang="he"), u'שלושת אלפים')
         self.assertEqual(num2words(3000, lang="he", construct=True), u'שלושת אלפי')
         self.assertEqual(num2words(3001, lang="he"), u'שלושת אלפים ואחת')
         self.assertEqual(num2words(3001, lang="he", construct=True), u'שלושת אלפים ואחת')
+        self.assertEqual(num2words(3100, lang="he"), u'שלושת אלפים ומאה')
+        self.assertEqual(num2words(3100, lang="he", construct=True), u'שלושת אלפים ומאת')
         self.assertEqual(
             num2words(6870, lang="he"), u'ששת אלפים שמונה מאות ושבעים'
         )
@@ -292,7 +292,7 @@ class Num2WordsHETestNotImplementedMethods(TestCase):
 
     def test_large_number(self):
         with self.assertRaises(OverflowError):
-            num2words(2e15, lang="he")
+            num2words(2e66, lang="he")
 
         with self.assertRaises(OverflowError):
-            num2words(2e15, lang="he", ordinal=True)
+            num2words(2e66, lang="he", ordinal=True)
