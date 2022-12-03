@@ -20,7 +20,7 @@ from __future__ import print_function, unicode_literals
 
 from .base import Num2Word_Base
 from .compat import to_s
-from .currency import parse_currency_parts, prefix_currency
+from .currency import parse_currency_parts
 from .utils import get_digits, splitbyx
 
 
@@ -220,7 +220,7 @@ class Num2Word_HE(Num2Word_Base):
 
         return int2word(int(value), gender=gender, ordinal=True, definite=definite)
 
-    def pluralize(self, n, forms, currency=None, is_negative=False, prefer_singular=False):
+    def pluralize(self, n, forms, currency=None, prefer_singular=False):
         assert n == int(n)
         form = 1
         if n == 1 or prefer_singular and (abs(n) > 10 or n == 0 or currency != 'ILS'):
