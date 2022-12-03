@@ -27,28 +27,22 @@ from .utils import get_digits, splitbyx
 ZERO = (u'אפס',)
 
 ONES = {
-    1: (u'אחת', u'אחד', u'ראשונה', u'ראשון'),
-    2: (u'שתיים', u'שניים', u'שנייה', u'שני'),
-    3: (u'שלוש', u'שלושה', u'שלישית', u'שלישי'),
-    4: (u'ארבע', u'ארבעה', u'רביעית', u'רביעי'),
-    5: (u'חמש', u'חמישה', u'חמישית', u'חמישי'),
-    6: (u'שש', u'שישה', u'שישית', u'שישי'),
-    7: (u'שבע', u'שבעה', u'שביעית', u'שביעי'),
-    8: (u'שמונה', u'שמונה', u'שמינית', u'שמיני'),
-    9: (u'תשע', u'תשעה', u'תשיעית', u'תשיעי'),
+    1: (u'אחת', u'אחד', u'אחת', u'אחד', u'ראשונה', u'ראשון'),
+    2: (u'שתיים', u'שניים', u'שתי', u'שני', u'שנייה', u'שני'),
+    3: (u'שלוש', u'שלושה', u'שלוש', u'שלושת', u'שלישית', u'שלישי'),
+    4: (u'ארבע', u'ארבעה', u'ארבע', u'ארבעת', u'רביעית', u'רביעי'),
+    5: (u'חמש', u'חמישה', u'חמש', u'חמשת', u'חמישית', u'חמישי'),
+    6: (u'שש', u'שישה', u'שש', u'ששת', u'שישית', u'שישי'),
+    7: (u'שבע', u'שבעה', u'שבע', u'שבעת', u'שביעית', u'שביעי'),
+    8: (u'שמונה', u'שמונה', u'שמונה', u'שמונת', u'שמינית', u'שמיני'),
+    9: (u'תשע', u'תשעה', u'תשע', u'תשעת', u'תשיעית', u'תשיעי'),
 }
 
 TENS = {
-    0: (u'עשר', u'עשרה', u'עשירית', u'עשירי'),
+    0: (u'עשר', u'עשרה', u'עשר', u'עשרת', u'עשירית', u'עשירי'),
     1: (u'אחת עשרה', u'אחד עשר'),
     2: (u'שתים עשרה', u'שנים עשר'),
-    3: (u'שלוש עשרה', u'שלושה עשר'),
-    4: (u'ארבע עשרה', u'ארבעה עשר'),
-    5: (u'חמש עשרה', u'חמישה עשר'),
-    6: (u'שש עשרה', u'שישה עשר'),
-    7: (u'שבע עשרה', u'שבעה עשר'),
-    8: (u'שמונה עשרה', u'שמונה עשר'),
-    9: (u'תשע עשרה', u'תשעה עשר'),
+    3: (u'עשרה', u'עשר'),
 }
 
 TWENTIES = {
@@ -63,7 +57,7 @@ TWENTIES = {
 }
 
 HUNDRED = {
-    1: (u'מאה',),
+    1: (u'מאה', u'מאת'),
     2: (u'מאתיים',),
     3: (u'מאות',)
 }
@@ -71,27 +65,26 @@ HUNDRED = {
 THOUSANDS = {
     1: (u'אלף',),
     2: (u'אלפיים',),
-    3: (u'שלושת אלפים',),
-    4: (u'ארבעת אלפים',),
-    5: (u'חמשת אלפים',),
-    6: (u'ששת אלפים',),
-    7: (u'שבעת אלפים',),
-    8: (u'שמונת אלפים',),
-    9: (u'תשעת אלפים',),
-    10: (u'עשרת אלפים',),
+    3: (u'אלפים', 'אלפי'),
+}
+
+LARGE = {
+    1: (u'מיליון', u'מיליוני'),
+    2: (u'מיליארד', u'מיליארדי'),
+    3: (u'טריליון', u'טריליוני')
 }
 
 AND = u'ו'
 
 DEF = u'ה'
 
-MAXVAL = 1000000
+MAXVAL = int(1e15)
 
 
-def int2word(n, gender='f', ordinal=False, definite=False):
+def int2word(n, gender='f', construct=False, ordinal=False, definite=False):
     assert n == int(n)
-    if n >= MAXVAL:  # doesn't yet work for numbers this big
-        raise NotImplementedError()
+    if n >= MAXVAL:
+        raise OverflowError('abs(%s) must be less than %s.' % (n, MAXVAL))
 
     if n == 0:
         if ordinal:
@@ -111,7 +104,9 @@ def int2word(n, gender='f', ordinal=False, definite=False):
         n1, n2, n3 = get_digits(x)
 
         if n3 > 0:
-            if n3 <= 2:
+            if construct and i == 0 and x == 100:
+                words.append(HUNDRED[n3][1])
+            elif n3 <= 2:
                 words.append(HUNDRED[n3][0])
             else:
                 words.append(ONES[n3][0] + ' ' + HUNDRED[3][0])
@@ -121,17 +116,34 @@ def int2word(n, gender='f', ordinal=False, definite=False):
 
         if i == 0 or x > 10:
             if n2 == 1:
-                words.append(
-                    TENS[n1][(gender == 'm' or i > 0) + 2 * ordinal * (not n1)])
+                if n1 <= 2:
+                    words.append(
+                        TENS[n1][(gender == 'm' or i > 0) + 2*(construct > ordinal and n1 == 0) + 4*ordinal*(n1 == 0)])
+                else:
+                    words.append(
+                        ONES[n1][(gender == 'm' or i > 0)] + ' ' + TENS[3][(gender == 'f' and i > 0)])
             elif n1 > 0:
                 words.append(
-                    ONES[n1][(gender == 'm' or i > 0) + 2 * ordinal * (x < 11)])
+                        ONES[n1][(gender == 'm' or i > 0) + 2*(construct > ordinal and i == 0) + 4*ordinal*(x < 11)])
 
-        if i > 0:
-            if x < 11:
-                words.append(THOUSANDS[x][0])
-            else:
+        if i == 1:
+            if x >= 11:
                 words[-1] = words[-1] + ' ' + THOUSANDS[1][0]
+            elif n1 == 0:
+                words.append(TENS[n1][3] + ' ' + THOUSANDS[3][construct and n % 1000 == 0])
+            elif n1 <= 2:
+                words.append(THOUSANDS[n1][0])
+            else:
+                words.append(ONES[n1][3] + ' ' + THOUSANDS[3][construct and n % 1000 == 0])
+        elif i > 1:
+            if x >= 11:
+                words[-1] = words[-1] + ' ' + LARGE[i-1][construct and n % 1000**i == 0]
+            elif n1 == 0:
+                words.append(TENS[n1][1 + 2*(construct and n % 1000**i == 0)] + ' ' + LARGE[i-1][construct and n % 1000**i == 0])
+            elif n1 == 1:
+                words.append(LARGE[i-1][0])
+            else:
+                words.append(ONES[n1][1 + 2*(construct and n % 1000**i == 0 or x == 2)] + ' ' + LARGE[i-1][construct and n % 1000**i == 0])
 
         # source: https://hebrew-academy.org.il/2017/01/30/%D7%95-%D7%94%D7%97%D7%99%D7%91%D7%95%D7%A8-%D7%91%D7%9E%D7%A1%D7%A4%D7%A8%D7%99%D7%9D
         if len(words) > 1:
@@ -159,8 +171,8 @@ class Num2Word_HE(Num2Word_Base):
     def setup(self):
         super(Num2Word_HE, self).setup()
 
-        self.negword = u"מינוס"
-        self.pointword = u"נקודה"
+        self.negword = u'מינוס'
+        self.pointword = u'נקודה'
         self.MAXVAL = MAXVAL
 
     def to_cardinal_float(self, value, gender='f'):
@@ -182,9 +194,9 @@ class Num2Word_HE(Num2Word_Base):
             curr = int(post[i])
             out.append(to_s(self.to_cardinal(curr)))
 
-        return " ".join(out)
+        return ' '.join(out)
 
-    def to_cardinal(self, value, gender='f'):
+    def to_cardinal(self, value, gender='f', construct=False):
         try:
             assert int(value) == value
         except (ValueError, TypeError, AssertionError):
@@ -198,7 +210,7 @@ class Num2Word_HE(Num2Word_Base):
         if value >= self.MAXVAL:
             raise OverflowError(self.errmsg_toobig % (value, self.MAXVAL))
 
-        return out + int2word(int(value), gender=gender, ordinal=False)
+        return out + int2word(int(value), gender=gender, construct=construct, ordinal=False)
 
     def to_ordinal(self, value, gender='m', definite=False):
         self.verify_ordinal(value)
@@ -233,8 +245,8 @@ class Num2Word_HE(Num2Word_Base):
         except KeyError:
             gender1 = gender2 = ''
 
-        money_str = self.to_cardinal(left, gender=gender1)
-        cents_str = self.to_cardinal(right, gender=gender2) \
+        money_str = self.to_cardinal(left, gender=gender1, construct=left == 2)
+        cents_str = self.to_cardinal(right, gender=gender2, construct=right == 2) \
             if cents else self._cents_terse(right, currency)
 
         strings = [

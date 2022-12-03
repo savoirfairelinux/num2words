@@ -37,7 +37,9 @@ class Num2WordsHETest(TestCase):
 
     def test_11_to_19(self):
         self.assertEqual(num2words(11, lang="he"), u'אחת עשרה')
+        self.assertEqual(num2words(11, lang="he", gender='m'), u'אחד עשר')
         self.assertEqual(num2words(13, lang="he"), u'שלוש עשרה')
+        self.assertEqual(num2words(13, lang="he", construct=True), u'שלוש עשרה')
         self.assertEqual(num2words(15, lang="he"), u'חמש עשרה')
         self.assertEqual(num2words(16, lang="he"), u'שש עשרה')
         self.assertEqual(num2words(19, lang="he"), u'תשע עשרה')
@@ -53,19 +55,31 @@ class Num2WordsHETest(TestCase):
 
     def test_100_to_999(self):
         self.assertEqual(num2words(100, lang="he"), u'מאה')
+        self.assertEqual(num2words(100, lang="he", construct=True), u'מאת')
         self.assertEqual(num2words(111, lang="he"), u'מאה ואחת עשרה')
+        self.assertEqual(num2words(111, lang="he", construct=True), u'מאה ואחת עשרה')
         self.assertEqual(num2words(150, lang="he"), u'מאה וחמישים')
         self.assertEqual(num2words(196, lang="he"), u'מאה תשעים ושש')
         self.assertEqual(num2words(200, lang="he"), u'מאתיים')
+        self.assertEqual(num2words(200, lang="he", construct=True), u'מאתיים')
         self.assertEqual(num2words(210, lang="he"), u'מאתיים ועשר')
         self.assertEqual(num2words(701, lang="he"), u'שבע מאות ואחת')
 
     def test_1000_to_9999(self):
         self.assertEqual(num2words(1000, lang="he"), u'אלף')
+        self.assertEqual(num2words(1000, lang="he", construct=True), u'אלף')
         self.assertEqual(num2words(1001, lang="he"), u'אלף ואחת')
         self.assertEqual(num2words(1500, lang="he"), u'אלף וחמש מאות')
         self.assertEqual(num2words(2000, lang="he"), u'אלפיים')
+        self.assertEqual(num2words(2000, lang="he", construct=True), u'אלפיים')
+        self.assertEqual(num2words(2002, lang="he"), u'אלפיים ושתיים')
+        self.assertEqual(num2words(2002, lang="he", construct=True), u'אלפיים ושתי')
         self.assertEqual(num2words(2100, lang="he"), u'אלפיים ומאה')
+        self.assertEqual(num2words(2100, lang="he", construct=True), u'אלפיים ומאת')
+        self.assertEqual(num2words(3000, lang="he"), u'שלושת אלפים')
+        self.assertEqual(num2words(3000, lang="he", construct=True), u'שלושת אלפי')
+        self.assertEqual(num2words(3001, lang="he"), u'שלושת אלפים ואחת')
+        self.assertEqual(num2words(3001, lang="he", construct=True), u'שלושת אלפים ואחת')
         self.assertEqual(
             num2words(6870, lang="he"), u'ששת אלפים שמונה מאות ושבעים'
         )
@@ -78,11 +92,14 @@ class Num2WordsHETest(TestCase):
 
     def test_10000_to_99999(self):
         self.assertEqual(num2words(10000, lang="he"), u'עשרת אלפים')
+        self.assertEqual(num2words(10000, lang="he", construct=True), u'עשרת אלפי')
         self.assertEqual(num2words(10001, lang="he"), u'עשרת אלפים ואחת')
+        self.assertEqual(num2words(10001, lang="he", construct=True), u'עשרת אלפים ואחת')
         self.assertEqual(num2words(10999, lang="he"), u'עשרת אלפים תשע מאות תשעים ותשע')
         self.assertEqual(num2words(11000, lang="he"), u'אחד עשר אלף')
         self.assertEqual(num2words(15000, lang="he"), u'חמישה עשר אלף')
         self.assertEqual(num2words(20000, lang="he"), u'עשרים אלף')
+        self.assertEqual(num2words(20000, lang="he", construct=True), u'עשרים אלף')
         self.assertEqual(num2words(21000, lang="he"), u'עשרים ואחד אלף')
         self.assertEqual(num2words(68700, lang="he"), u'שישים ושמונה אלף ושבע מאות')
         self.assertEqual(num2words(73781, lang="he"), u'שבעים ושלושה אלף שבע מאות שמונים ואחת')
@@ -90,6 +107,7 @@ class Num2WordsHETest(TestCase):
 
     def test_100000_to_999999(self):
         self.assertEqual(num2words(100000, lang="he"), u'מאה אלף')
+        self.assertEqual(num2words(100000, lang="he", construct=True), u'מאה אלף')
         self.assertEqual(num2words(100001, lang="he"), u'מאה אלף ואחת')
         self.assertEqual(num2words(199999, lang="he"), u'מאה תשעים ותשעה אלף תשע מאות תשעים ותשע')
         self.assertEqual(num2words(110000, lang="he"), u'מאה ועשרה אלף')
@@ -97,8 +115,64 @@ class Num2WordsHETest(TestCase):
         self.assertEqual(num2words(200000, lang="he"), u'מאתיים אלף')
         self.assertEqual(num2words(210000, lang="he"), u'מאתיים ועשרה אלף')
         self.assertEqual(num2words(687000, lang="he"), u'שש מאות שמונים ושבעה אלף')
+        self.assertEqual(num2words(687000, lang="he", construct=True), u'שש מאות שמונים ושבעה אלף')
         self.assertEqual(num2words(737812, lang="he"), u'שבע מאות שלושים ושבעה אלף שמונה מאות ושתים עשרה')
         self.assertEqual(num2words(999999, lang="he"), u'תשע מאות תשעים ותשעה אלף תשע מאות תשעים ותשע')
+
+    def test_1000000_to_999999999999999(self):
+        self.assertEqual(num2words(1000000, lang="he"), u'מיליון')
+        self.assertEqual(num2words(1000000, lang="he", construct=True), u'מיליון')
+        self.assertEqual(num2words(1000002, lang="he"), u'מיליון ושתיים')
+        self.assertEqual(num2words(1000002, lang="he", construct=True), u'מיליון ושתי')
+        self.assertEqual(num2words(2000000, lang="he"), u'שני מיליון')
+        self.assertEqual(num2words(2000000, lang="he", construct=True), u'שני מיליוני')
+        self.assertEqual(num2words(3000000, lang="he"), u'שלושה מיליון')
+        self.assertEqual(num2words(3000000, lang="he", construct=True), u'שלושת מיליוני')
+        self.assertEqual(num2words(3000002, lang="he"), u'שלושה מיליון ושתיים')
+        self.assertEqual(num2words(3000002, lang="he", construct=True), u'שלושה מיליון ושתי')
+        self.assertEqual(num2words(10000000, lang="he"), u'עשרה מיליון')
+        self.assertEqual(num2words(10000000, lang="he", construct=True), 'עשרת מיליוני')
+        self.assertEqual(num2words(11000000, lang="he"), u'אחד עשר מיליון')
+        self.assertEqual(num2words(11000000, lang="he", construct=True), 'אחד עשר מיליוני')
+
+        self.assertEqual(num2words(1000000000, lang="he"), u'מיליארד')
+        self.assertEqual(num2words(1000000000, lang="he", construct=True), u'מיליארד')
+        self.assertEqual(num2words(1000000002, lang="he"), u'מיליארד ושתיים')
+        self.assertEqual(num2words(1000000002, lang="he", construct=True), u'מיליארד ושתי')
+        self.assertEqual(num2words(2000000000, lang="he"), u'שני מיליארד')
+        self.assertEqual(num2words(2000000000, lang="he", construct=True), u'שני מיליארדי')
+        self.assertEqual(num2words(3000000000, lang="he"), u'שלושה מיליארד')
+        self.assertEqual(num2words(3000000000, lang="he", construct=True), u'שלושת מיליארדי')
+        self.assertEqual(num2words(3000000002, lang="he"), u'שלושה מיליארד ושתיים')
+        self.assertEqual(num2words(3000000002, lang="he", construct=True), u'שלושה מיליארד ושתי')
+        self.assertEqual(num2words(10000000000, lang="he"), u'עשרה מיליארד')
+        self.assertEqual(num2words(10000000000, lang="he", construct=True), 'עשרת מיליארדי')
+        self.assertEqual(num2words(10000000002, lang="he"), u'עשרה מיליארד ושתיים')
+        self.assertEqual(num2words(10000000002, lang="he", construct=True), 'עשרה מיליארד ושתי')
+        self.assertEqual(num2words(11000000000, lang="he"), u'אחד עשר מיליארד')
+        self.assertEqual(num2words(11000000000, lang="he", construct=True), 'אחד עשר מיליארדי')
+
+        self.assertEqual(num2words(1000000000000, lang="he"), u'טריליון')
+        self.assertEqual(num2words(1000000000000, lang="he", construct=True), u'טריליון')
+        self.assertEqual(num2words(1000000000002, lang="he"), u'טריליון ושתיים')
+        self.assertEqual(num2words(1000000000002, lang="he", construct=True), u'טריליון ושתי')
+        self.assertEqual(num2words(2000000000000, lang="he"), u'שני טריליון')
+        self.assertEqual(num2words(2000000000000, lang="he", construct=True), u'שני טריליוני')
+        self.assertEqual(num2words(3000000000000, lang="he"), u'שלושה טריליון')
+        self.assertEqual(num2words(3000000000000, lang="he", construct=True), u'שלושת טריליוני')
+        self.assertEqual(num2words(3000000000002, lang="he"), u'שלושה טריליון ושתיים')
+        self.assertEqual(num2words(3000000000002, lang="he", construct=True), u'שלושה טריליון ושתי')
+        self.assertEqual(num2words(10000000000000, lang="he"), u'עשרה טריליון')
+        self.assertEqual(num2words(10000000000000, lang="he", construct=True), 'עשרת טריליוני')
+        self.assertEqual(num2words(10000000000002, lang="he"), u'עשרה טריליון ושתיים')
+        self.assertEqual(num2words(10000000000002, lang="he", construct=True), 'עשרה טריליון ושתי')
+        self.assertEqual(num2words(11000000000000, lang="he"), u'אחד עשר טריליון')
+        self.assertEqual(num2words(11000000000000, lang="he", construct=True), 'אחד עשר טריליוני')
+
+        self.assertEqual(num2words(999999999999999, lang="he"), u'תשע מאות תשעים ותשעה טריליון תשע מאות תשעים ותשעה מיליארד תשע מאות תשעים ותשעה מיליון תשע מאות תשעים ותשעה אלף תשע מאות תשעים ותשע')
+        self.assertEqual(num2words(999999999999999, lang="he", gender='m'), u'תשע מאות תשעים ותשעה טריליון תשע מאות תשעים ותשעה מיליארד תשע מאות תשעים ותשעה מיליון תשע מאות תשעים ותשעה אלף תשע מאות תשעים ותשעה')
+        self.assertEqual(num2words(999999999999999, lang="he", construct=True), u'תשע מאות תשעים ותשעה טריליון תשע מאות תשעים ותשעה מיליארד תשע מאות תשעים ותשעה מיליון תשע מאות תשעים ותשעה אלף תשע מאות תשעים ותשע')
+        self.assertEqual(num2words(999999999999999, lang="he", gender='m', construct=True), u'תשע מאות תשעים ותשעה טריליון תשע מאות תשעים ותשעה מיליארד תשע מאות תשעים ותשעה מיליון תשע מאות תשעים ותשעה אלף תשע מאות תשעים ותשעת')
 
     def test_pluralize(self):
         n = Num2Word_HE()
@@ -148,6 +222,15 @@ class Num2WordsHETest(TestCase):
         )
         self.assertEqual(
             n.to_currency(-1.01, currency='ILS'), u'מינוס שקל אחד ואגורה אחת'
+        )
+        self.assertEqual(
+            n.to_currency(2.02, currency='ILS'), u'שני שקלים ושתי אגורות'
+        )
+        self.assertEqual(
+            n.to_currency(1002.02, currency='ILS'), u'אלף ושניים שקלים ושתי אגורות'
+        )
+        self.assertEqual(
+            n.to_currency(1000002.02, currency='ILS'), u'מיליון ושניים שקלים ושתי אגורות'
         )
         self.assertEqual(
             n.to_currency(5.05, currency='USD'), u'חמישה דולרים וחמישה סנטים'
@@ -206,7 +289,7 @@ class Num2WordsHETestNotImplementedMethods(TestCase):
 
     def test_large_number(self):
         with self.assertRaises(OverflowError):
-            num2words(2000000, lang="he")
+            num2words(2e15, lang="he")
 
         with self.assertRaises(OverflowError):
-            num2words(2000000, lang="he", ordinal=True)
+            num2words(2e15, lang="he", ordinal=True)
