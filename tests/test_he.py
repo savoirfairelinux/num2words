@@ -42,6 +42,7 @@ class Num2WordsHETest(TestCase):
         self.assertEqual(num2words(13, lang="he", construct=True), u'שלוש עשרה')
         self.assertEqual(num2words(15, lang="he"), u'חמש עשרה')
         self.assertEqual(num2words(16, lang="he"), u'שש עשרה')
+        self.assertEqual(num2words(16, lang="he", gender='m'), u'שישה עשר')
         self.assertEqual(num2words(19, lang="he"), u'תשע עשרה')
 
     def test_20_to_99(self):
@@ -98,6 +99,7 @@ class Num2WordsHETest(TestCase):
         self.assertEqual(num2words(10999, lang="he"), u'עשרת אלפים תשע מאות תשעים ותשע')
         self.assertEqual(num2words(11000, lang="he"), u'אחד עשר אלף')
         self.assertEqual(num2words(15000, lang="he"), u'חמישה עשר אלף')
+        self.assertEqual(num2words(15000, lang="he", gender='m'), u'חמישה עשר אלף')
         self.assertEqual(num2words(20000, lang="he"), u'עשרים אלף')
         self.assertEqual(num2words(20000, lang="he", construct=True), u'עשרים אלף')
         self.assertEqual(num2words(21000, lang="he"), u'עשרים ואחד אלף')

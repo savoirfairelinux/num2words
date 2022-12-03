@@ -138,7 +138,7 @@ def int2word(n, gender='f', construct=False, ordinal=False, definite=False):
                         TENS[n1][(gender == 'm' or i > 0) + 2*(construct > ordinal and n1 == 0) + 4*ordinal*(n1 == 0)])
                 else:
                     words.append(
-                        ONES[n1][(gender == 'm' or i > 0)] + ' ' + TENS[3][(gender == 'f' and i > 0)])
+                        ONES[n1][(gender == 'm' or i > 0)] + ' ' + TENS[3][(gender == 'm' or i > 0)])
             elif n1 > 0:
                 words.append(
                         ONES[n1][(gender == 'm' or i > 0) + 2*(construct > ordinal and i == 0) + 4*ordinal*(x < 11)])
