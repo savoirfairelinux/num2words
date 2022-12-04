@@ -55,7 +55,7 @@ TWENTIES = {
     9: (u'תשעים',),
 }
 
-HUNDRED = {
+HUNDREDS = {
     1: (u'מאה', u'מאת'),
     2: (u'מאתיים',),
     3: (u'מאות',)
@@ -94,55 +94,54 @@ AND = u'ו'
 
 DEF = u'ה'
 
-MAKAF = '-'
-
 MAXVAL = int('1' + '0'*66)
 
 
-def chunk2word(n, i, x, gender='f', construct=False, ordinal=False):
+def chunk2word(i, x, is_last, gender='f', construct=False, ordinal=False):
     words = []
     n1, n2, n3 = get_digits(x)
 
     if n3 > 0:
         if construct and i == 0 and x == 100:
-            words.append(HUNDRED[n3][1])
+            words.append(HUNDREDS[n3][1])
         elif n3 <= 2:
-            words.append(HUNDRED[n3][0])
+            words.append(HUNDREDS[n3][0])
         else:
-            words.append(ONES[n3][0] + ' ' + HUNDRED[3][0])
+            words.append(ONES[n3][0] + ' ' + HUNDREDS[3][0])
 
     if n2 > 1:
         words.append(TWENTIES[n2][0])
 
     if i == 0 or x >= 11:
+        male = gender == 'm' or i > 0
         if n2 == 1:
             if n1 in (0, 2):
-                words.append(TENS[n1][gender == 'm' or i > 0])
+                words.append(TENS[n1][male])
             else:
-                words.append(ONES[n1][(gender == 'm' or i > 0)] + ' ' + TENS[1][(gender == 'm' or i > 0)])
+                words.append(ONES[n1][male] + ' ' + TENS[1][male])
         elif n1 > 0:
-            words.append(ONES[n1][(gender == 'm' or i > 0) + 2*(construct > ordinal and i == 0) + 4*ordinal*(x < 11)])
+            words.append(ONES[n1][male + 2*(construct > ordinal and i == 0) + 4*ordinal*(x < 11)])
 
     if i == 1:
         if x >= 11:
             words[-1] = words[-1] + ' ' + THOUSANDS[1][0]
         elif n1 == 0:
-            words.append(TENS[0][3] + ' ' + THOUSANDS[3][construct and n % 1000**i == 0])
+            words.append(TENS[0][3] + ' ' + THOUSANDS[3][construct and is_last])
         elif n1 <= 2:
             words.append(THOUSANDS[n1][0])
         else:
-            words.append(ONES[n1][3] + ' ' + THOUSANDS[3][construct and n % 1000**i== 0])
+            words.append(ONES[n1][3] + ' ' + THOUSANDS[3][construct and is_last])
 
     elif i > 1:
         if x >= 11:
             words[-1] = words[-1] + ' ' + LARGE[i - 1][
-                construct and n % 1000**i == 0]
+                construct and is_last]
         elif n1 == 0:
-            words.append(TENS[0][1 + 2*(construct and n % 1000**i == 0)] + ' ' + LARGE[i - 1][construct and n % 1000**i == 0])
+            words.append(TENS[0][1 + 2*(construct and is_last)] + ' ' + LARGE[i - 1][construct and is_last])
         elif n1 == 1:
             words.append(LARGE[i - 1][0])
         else:
-            words.append(ONES[n1][1 + 2*(construct and n % 1000**i == 0 or x == 2)] + ' ' + LARGE[i - 1][construct and n % 1000**i == 0])
+            words.append(ONES[n1][1 + 2*(construct and is_last or x == 2)] + ' ' + LARGE[i - 1][construct and is_last])
 
     return words
 
@@ -167,7 +166,8 @@ def int2word(n, gender='f', construct=False, ordinal=False, definite=False):
         if x == 0:
             continue
 
-        words += chunk2word(n, i, x, gender=gender, construct=construct, ordinal=ordinal)
+        is_last = n % 1000**i == 0
+        words += chunk2word(i, x, is_last, gender=gender, construct=construct, ordinal=ordinal)
 
         # source: https://hebrew-academy.org.il/2017/01/30/%D7%95-%D7%94%D7%97%D7%99%D7%91%D7%95%D7%A8-%D7%91%D7%9E%D7%A1%D7%A4%D7%A8%D7%99%D7%9D
         if len(words) > 1:
@@ -192,9 +192,12 @@ class Num2Word_HE(Num2Word_Base):
         'USD': ('m', 'm'),
     }
 
+    def __init__(self, makaf='-'):
+        super(Num2Word_HE, self).__init__()
+        self.makaf = makaf
+
     def setup(self):
         super(Num2Word_HE, self).setup()
-
         self.negword = u'מינוס'
         self.pointword = u'נקודה'
         self.MAXVAL = MAXVAL
@@ -275,7 +278,7 @@ class Num2Word_HE(Num2Word_Base):
         else:
             cents_str = self._cents_terse(right, currency)
             if separator.split()[-1] == AND:
-                separator += MAKAF
+                separator += self.makaf
 
         strings = [
             minus_str,
@@ -289,7 +292,7 @@ class Num2Word_HE(Num2Word_Base):
             strings[1], strings[2] = strings[2], strings[1]
         if right == 1:
             strings[4], strings[5] = strings[5], strings[4]
-        return u'%s%s %s%s%s %s' % tuple(strings) # In Hebrew the separator is along with the following word
+        return u'%s%s %s%s%s %s' % tuple(strings)  # In Hebrew the separator is along with the following word
 
 
 if __name__ == '__main__':
