@@ -27,19 +27,19 @@ from .utils import get_digits, splitbyx
 ZERO = (u'אפס',)
 
 ONES = {
-    1: (u'אחת', u'אחד', u'אחת', u'אחד', u'ראשונה', u'ראשון'),
-    2: (u'שתיים', u'שניים', u'שתי', u'שני', u'שנייה', u'שני'),
-    3: (u'שלוש', u'שלושה', u'שלוש', u'שלושת', u'שלישית', u'שלישי'),
-    4: (u'ארבע', u'ארבעה', u'ארבע', u'ארבעת', u'רביעית', u'רביעי'),
-    5: (u'חמש', u'חמישה', u'חמש', u'חמשת', u'חמישית', u'חמישי'),
-    6: (u'שש', u'שישה', u'שש', u'ששת', u'שישית', u'שישי'),
-    7: (u'שבע', u'שבעה', u'שבע', u'שבעת', u'שביעית', u'שביעי'),
-    8: (u'שמונה', u'שמונה', u'שמונה', u'שמונת', u'שמינית', u'שמיני'),
-    9: (u'תשע', u'תשעה', u'תשע', u'תשעת', u'תשיעית', u'תשיעי'),
+    1: (u'אחת', u'אחד', u'אחת', u'אחד', u'ראשונה', u'ראשון', u'ראשונות', u'ראשונים'),
+    2: (u'שתיים', u'שניים', u'שתי', u'שני', u'שנייה', u'שני', u'שניות', u'שניים'),
+    3: (u'שלוש', u'שלושה', u'שלוש', u'שלושת', u'שלישית', u'שלישי', u'שלישיות', u'שלישיים'),
+    4: (u'ארבע', u'ארבעה', u'ארבע', u'ארבעת', u'רביעית', u'רביעי', u'רביעיות', u'רביעיים'),
+    5: (u'חמש', u'חמישה', u'חמש', u'חמשת', u'חמישית', u'חמישי', u'חמישיות', u'חמישיים'),
+    6: (u'שש', u'שישה', u'שש', u'ששת', u'שישית', u'שישי', u'שישיות', u'שישיים'),
+    7: (u'שבע', u'שבעה', u'שבע', u'שבעת', u'שביעית', u'שביעי', u'שביעיות', u'שביעיים'),
+    8: (u'שמונה', u'שמונה', u'שמונה', u'שמונת', u'שמינית', u'שמיני', u'שמיניות', u'שמיניים'),
+    9: (u'תשע', u'תשעה', u'תשע', u'תשעת', u'תשיעית', u'תשיעי', u'תשיעיות', u'תשיעיים'),
 }
 
 TENS = {
-    0: (u'עשר', u'עשרה', u'עשר', u'עשרת', u'עשירית', u'עשירי'),
+    0: (u'עשר', u'עשרה', u'עשר', u'עשרת', u'עשירית', u'עשירי', u'עשיריות', u'עשיריים'),
     1: (u'עשרה', u'עשר'),
     2: (u'שתים עשרה', u'שנים עשר'),
 }
@@ -97,12 +97,12 @@ DEF = u'ה'
 MAXVAL = int('1' + '0'*66)
 
 
-def chunk2word(i, x, is_last, gender='f', construct=False, ordinal=False):
+def chunk2word(n, i, x, gender='f', construct=False, ordinal=False, plural=False):
     words = []
     n1, n2, n3 = get_digits(x)
 
     if n3 > 0:
-        if construct and i == 0 and x == 100:
+        if construct and n == 100:
             words.append(HUNDREDS[n3][1])
         elif n3 <= 2:
             words.append(HUNDREDS[n3][0])
@@ -114,13 +114,18 @@ def chunk2word(i, x, is_last, gender='f', construct=False, ordinal=False):
 
     if i == 0 or x >= 11:
         male = gender == 'm' or i > 0
+        cop = (2*(construct and i == 0)+4*ordinal+2*plural) * (n < 11)
         if n2 == 1:
-            if n1 in (0, 2):
+            if n1 == 0:
+                words.append(TENS[n1][male + cop])
+            elif n1 == 2:
                 words.append(TENS[n1][male])
             else:
                 words.append(ONES[n1][male] + ' ' + TENS[1][male])
         elif n1 > 0:
-            words.append(ONES[n1][male + 2*(construct > ordinal and i == 0) + 4*ordinal*(x < 11)])
+            words.append(ONES[n1][male + cop])
+
+    is_last = n % 1000 ** i == 0
 
     if i == 1:
         if x >= 11:
@@ -134,8 +139,7 @@ def chunk2word(i, x, is_last, gender='f', construct=False, ordinal=False):
 
     elif i > 1:
         if x >= 11:
-            words[-1] = words[-1] + ' ' + LARGE[i - 1][
-                construct and is_last]
+            words[-1] = words[-1] + ' ' + LARGE[i - 1][construct and is_last]
         elif n1 == 0:
             words.append(TENS[0][1 + 2*(construct and is_last)] + ' ' + LARGE[i - 1][construct and is_last])
         elif n1 == 1:
@@ -146,8 +150,10 @@ def chunk2word(i, x, is_last, gender='f', construct=False, ordinal=False):
     return words
 
 
-def int2word(n, gender='f', construct=False, ordinal=False, definite=False):
+def int2word(n, gender='f', construct=False, ordinal=False, definite=False, plural=False):
     assert n == int(n)
+    assert not construct or not ordinal
+    assert ordinal or (not definite and not plural)
     if n >= MAXVAL:
         raise OverflowError('abs(%s) must be less than %s.' % (n, MAXVAL))
 
@@ -166,8 +172,7 @@ def int2word(n, gender='f', construct=False, ordinal=False, definite=False):
         if x == 0:
             continue
 
-        is_last = n % 1000**i == 0
-        words += chunk2word(i, x, is_last, gender=gender, construct=construct, ordinal=ordinal)
+        words += chunk2word(n, i, x, gender=gender, construct=construct, ordinal=ordinal, plural=plural)
 
         # source: https://hebrew-academy.org.il/2017/01/30/%D7%95-%D7%94%D7%97%D7%99%D7%91%D7%95%D7%A8-%D7%91%D7%9E%D7%A1%D7%A4%D7%A8%D7%99%D7%9D
         if len(words) > 1:
@@ -237,15 +242,15 @@ class Num2Word_HE(Num2Word_Base):
         if value >= self.MAXVAL:
             raise OverflowError(self.errmsg_toobig % (value, self.MAXVAL))
 
-        return out + int2word(int(value), gender=gender, construct=construct, ordinal=False)
+        return out + int2word(int(value), gender=gender, construct=construct)
 
-    def to_ordinal(self, value, gender='m', definite=False):
+    def to_ordinal(self, value, gender='m', definite=False, plural=False):
         self.verify_ordinal(value)
 
         if value >= self.MAXVAL:
             raise OverflowError(self.errmsg_toobig % (value, self.MAXVAL))
 
-        return int2word(int(value), gender=gender, ordinal=True, definite=definite)
+        return int2word(int(value), gender=gender, ordinal=True, definite=definite, plural=plural)
 
     def pluralize(self, n, forms, currency=None, prefer_singular=False):
         assert n == int(n)
