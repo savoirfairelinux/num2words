@@ -23,7 +23,6 @@ from .compat import to_s
 from .currency import parse_currency_parts
 from .utils import get_digits, splitbyx
 
-
 ZERO = (u'אפס',)
 
 ONES = {

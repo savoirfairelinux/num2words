@@ -54,7 +54,7 @@ class CliTestCase(unittest.TestCase):
         self.assertTrue(output.err.startswith('Usage:'))
 
     def test_cli_list_langs(self):
-        """You should be able to list all availabe languages
+        """You should be able to list all available languages
         """
         output = self.cli.run_cmd('--list-languages')
         self.assertEqual(
