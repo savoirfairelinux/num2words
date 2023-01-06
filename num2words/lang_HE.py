@@ -27,19 +27,29 @@ from .utils import get_digits, splitbyx
 ZERO = (u'אפס',)
 
 ONES = {
-    1: (u'אחת', u'אחד', u'אחת', u'אחד', u'ראשונה', u'ראשון', u'ראשונות', u'ראשונים'),
-    2: (u'שתיים', u'שניים', u'שתי', u'שני', u'שנייה', u'שני', u'שניות', u'שניים'),
-    3: (u'שלוש', u'שלושה', u'שלוש', u'שלושת', u'שלישית', u'שלישי', u'שלישיות', u'שלישיים'),
-    4: (u'ארבע', u'ארבעה', u'ארבע', u'ארבעת', u'רביעית', u'רביעי', u'רביעיות', u'רביעיים'),
-    5: (u'חמש', u'חמישה', u'חמש', u'חמשת', u'חמישית', u'חמישי', u'חמישיות', u'חמישיים'),
-    6: (u'שש', u'שישה', u'שש', u'ששת', u'שישית', u'שישי', u'שישיות', u'שישיים'),
-    7: (u'שבע', u'שבעה', u'שבע', u'שבעת', u'שביעית', u'שביעי', u'שביעיות', u'שביעיים'),
-    8: (u'שמונה', u'שמונה', u'שמונה', u'שמונת', u'שמינית', u'שמיני', u'שמיניות', u'שמיניים'),
-    9: (u'תשע', u'תשעה', u'תשע', u'תשעת', u'תשיעית', u'תשיעי', u'תשיעיות', u'תשיעיים'),
+    1: (u'אחת', u'אחד', u'אחת', u'אחד',
+        u'ראשונה', u'ראשון', u'ראשונות', u'ראשונים'),
+    2: (u'שתיים', u'שניים', u'שתי', u'שני',
+        u'שנייה', u'שני', u'שניות', u'שניים'),
+    3: (u'שלוש', u'שלושה', u'שלוש', u'שלושת',
+        u'שלישית', u'שלישי', u'שלישיות', u'שלישיים'),
+    4: (u'ארבע', u'ארבעה', u'ארבע', u'ארבעת',
+        u'רביעית', u'רביעי', u'רביעיות', u'רביעיים'),
+    5: (u'חמש', u'חמישה', u'חמש', u'חמשת',
+        u'חמישית', u'חמישי', u'חמישיות', u'חמישיים'),
+    6: (u'שש', u'שישה', u'שש', u'ששת',
+        u'שישית', u'שישי', u'שישיות', u'שישיים'),
+    7: (u'שבע', u'שבעה', u'שבע', u'שבעת',
+        u'שביעית', u'שביעי', u'שביעיות', u'שביעיים'),
+    8: (u'שמונה', u'שמונה', u'שמונה', u'שמונת',
+        u'שמינית', u'שמיני', u'שמיניות', u'שמיניים'),
+    9: (u'תשע', u'תשעה', u'תשע', u'תשעת',
+        u'תשיעית', u'תשיעי', u'תשיעיות', u'תשיעיים'),
 }
 
 TENS = {
-    0: (u'עשר', u'עשרה', u'עשר', u'עשרת', u'עשירית', u'עשירי', u'עשיריות', u'עשיריים'),
+    0: (u'עשר', u'עשרה', u'עשר', u'עשרת',
+        u'עשירית', u'עשירי', u'עשיריות', u'עשיריים'),
     1: (u'עשרה', u'עשר'),
     2: (u'שתים עשרה', u'שנים עשר'),
 }
@@ -97,7 +107,8 @@ DEF = u'ה'
 MAXVAL = int('1' + '0'*66)
 
 
-def chunk2word(n, i, x, gender='f', construct=False, ordinal=False, plural=False):
+def chunk2word(n, i, x, gender='f', construct=False,
+               ordinal=False, plural=False):
     words = []
     n1, n2, n3 = get_digits(x)
 
@@ -125,32 +136,35 @@ def chunk2word(n, i, x, gender='f', construct=False, ordinal=False, plural=False
         elif n1 > 0:
             words.append(ONES[n1][male + cop])
 
-    is_last = n % 1000 ** i == 0
+    construct_last = construct and (n % 1000 ** i == 0)
 
     if i == 1:
         if x >= 11:
             words[-1] = words[-1] + ' ' + THOUSANDS[1][0]
         elif n1 == 0:
-            words.append(TENS[0][3] + ' ' + THOUSANDS[3][construct and is_last])
+            words.append(TENS[0][3] + ' ' + THOUSANDS[3][construct_last])
         elif n1 <= 2:
             words.append(THOUSANDS[n1][0])
         else:
-            words.append(ONES[n1][3] + ' ' + THOUSANDS[3][construct and is_last])
+            words.append(ONES[n1][3] + ' ' + THOUSANDS[3][construct_last])
 
     elif i > 1:
         if x >= 11:
-            words[-1] = words[-1] + ' ' + LARGE[i - 1][construct and is_last]
+            words[-1] = words[-1] + ' ' + LARGE[i - 1][construct_last]
         elif n1 == 0:
-            words.append(TENS[0][1 + 2*(construct and is_last)] + ' ' + LARGE[i - 1][construct and is_last])
+            words.append(TENS[0][1 + 2*construct_last] + ' ' +
+                         LARGE[i - 1][construct_last])
         elif n1 == 1:
             words.append(LARGE[i - 1][0])
         else:
-            words.append(ONES[n1][1 + 2*(construct and is_last or x == 2)] + ' ' + LARGE[i - 1][construct and is_last])
+            words.append(ONES[n1][1 + 2*(construct_last or x == 2)] + ' ' +
+                         LARGE[i - 1][construct_last])
 
     return words
 
 
-def int2word(n, gender='f', construct=False, ordinal=False, definite=False, plural=False):
+def int2word(n, gender='f', construct=False,
+             ordinal=False, definite=False, plural=False):
     assert n == int(n)
     assert not construct or not ordinal
     assert ordinal or (not definite and not plural)
@@ -172,9 +186,10 @@ def int2word(n, gender='f', construct=False, ordinal=False, definite=False, plur
         if x == 0:
             continue
 
-        words += chunk2word(n, i, x, gender=gender, construct=construct, ordinal=ordinal, plural=plural)
+        words += chunk2word(n, i, x, gender=gender, construct=construct,
+                            ordinal=ordinal, plural=plural)
 
-        # source: https://hebrew-academy.org.il/2017/01/30/%D7%95-%D7%94%D7%97%D7%99%D7%91%D7%95%D7%A8-%D7%91%D7%9E%D7%A1%D7%A4%D7%A8%D7%99%D7%9D
+        # https://hebrew-academy.org.il/2017/01/30/%D7%95-%D7%94%D7%97%D7%99%D7%91%D7%95%D7%A8-%D7%91%D7%9E%D7%A1%D7%A4%D7%A8%D7%99%D7%9D  # noqa
         if len(words) > 1:
             words[-1] = AND + words[-1]
 
@@ -232,7 +247,8 @@ class Num2Word_HE(Num2Word_Base):
         try:
             assert int(value) == value
         except (ValueError, TypeError, AssertionError):
-            return self.to_cardinal_float(value, gender=gender)  # https://hebrew-academy.org.il/2019/12/03/%D7%A2%D7%9C-%D7%94%D7%91%D7%A2%D7%AA-%D7%94%D7%9E%D7%A1%D7%A4%D7%A8-%D7%94%D7%9E%D7%A2%D7%95%D7%A8%D7%91/
+            # https://hebrew-academy.org.il/2019/12/03/%D7%A2%D7%9C-%D7%94%D7%91%D7%A2%D7%AA-%D7%94%D7%9E%D7%A1%D7%A4%D7%A8-%D7%94%D7%9E%D7%A2%D7%95%D7%A8%D7%91  # noqa
+            return self.to_cardinal_float(value, gender=gender)
 
         out = ""
         if value < 0:
@@ -250,17 +266,20 @@ class Num2Word_HE(Num2Word_Base):
         if value >= self.MAXVAL:
             raise OverflowError(self.errmsg_toobig % (value, self.MAXVAL))
 
-        return int2word(int(value), gender=gender, ordinal=True, definite=definite, plural=plural)
+        return int2word(int(value), gender=gender, ordinal=True,
+                        definite=definite, plural=plural)
 
     def pluralize(self, n, forms, currency=None, prefer_singular=False):
         assert n == int(n)
         form = 1
-        if n == 1 or prefer_singular and (abs(n) >= 11 or n == 0 or currency != 'ILS'):
+        if n == 1 or prefer_singular and (
+                abs(n) >= 11 or n == 0 or currency != 'ILS'):
             form = 0
         return forms[form]
 
-    def to_currency(self, val, currency='ILS', cents=True, separator=' ' + AND,
-                    adjective=False, prefer_singular=False, prefer_singular_cents=False):
+    def to_currency(self, val, currency='ILS', cents=True,
+                    separator=' ' + AND, adjective=False,
+                    prefer_singular=False, prefer_singular_cents=False):
         left, right, is_negative = parse_currency_parts(val)
 
         try:
@@ -277,9 +296,11 @@ class Num2Word_HE(Num2Word_Base):
         except KeyError:
             gender1 = gender2 = ''
 
-        money_str = self.to_cardinal(left, gender=gender1, construct=left == 2)
+        money_str = self.to_cardinal(left, gender=gender1,
+                                     construct=left == 2)
         if cents:
-            cents_str = self.to_cardinal(right, gender=gender2, construct=right == 2)
+            cents_str = self.to_cardinal(right, gender=gender2,
+                                         construct=right == 2)
         else:
             cents_str = self._cents_terse(right, currency)
             if separator.split()[-1] == AND:
@@ -288,16 +309,19 @@ class Num2Word_HE(Num2Word_Base):
         strings = [
             minus_str,
             money_str,
-            self.pluralize(left, cr1, currency=currency, prefer_singular=prefer_singular),
+            self.pluralize(left, cr1, currency=currency,
+                           prefer_singular=prefer_singular),
             separator,
             cents_str,
-            self.pluralize(right, cr2, currency=currency, prefer_singular=prefer_singular_cents)
+            self.pluralize(right, cr2, currency=currency,
+                           prefer_singular=prefer_singular_cents)
         ]
         if left == 1:
             strings[1], strings[2] = strings[2], strings[1]
         if right == 1:
             strings[4], strings[5] = strings[5], strings[4]
-        return u'%s%s %s%s%s %s' % tuple(strings)  # In Hebrew the separator is along with the following word
+        # In Hebrew the separator is along with the following word
+        return u'%s%s %s%s%s %s' % tuple(strings)
 
 
 if __name__ == '__main__':
