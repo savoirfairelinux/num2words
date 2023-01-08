@@ -55,9 +55,9 @@ class Num2Word_BR(Num2Word_EU):
         self.negword = "nemet "
         self.pointword = "skej"
         self.errmsg_nonnum = (
-            u"mar ha nemet mar an niver eo, e c'haller treiñ anezho e gerioù."
+            "mar ha nemet mar an niver eo, e c'haller treiñ anezho e gerioù."
         )
-        self.errmsg_toobig = u"nemet an niver a c'haller treiñ e gerioù."
+        self.errmsg_toobig = "nemet an niver a c'haller treiñ e gerioù."
         self.exclude_title = ["ha", "skej", "nemet"]
         self.mid_numwords = [(1000, "mil"), (100, "kant"),
                              (80, "pevar-ugent"), (60, "tri-ugent"),
@@ -68,8 +68,7 @@ class Num2Word_BR(Num2Word_EU):
                              'daouzek', 'unnek', 'dek', 'nav', 'eizh',
                              'seizh', "c'hwec'h", 'pemp', 'pevar', 'tri',
                              'daou', 'unan', 'zero']
-        self.ords = {
-        }
+
 
     def merge(self, curr, next):
         ctext, cnum, ntext, nnum = curr + next
@@ -77,12 +76,6 @@ class Num2Word_BR(Num2Word_EU):
         if cnum == 1:
             if nnum < 1000000:
                 return next
-        else:
-            if (not (cnum - 80) % 100
-                or (not cnum % 100 and cnum < 1000)) \
-                    and nnum < 1000000 \
-                    and ctext[-1] == "s":
-                ctext = ctext[:-1]
         # Mutations:
         if ntext == "kant" and ctext in ["daou", "tri", "pevar", "nav"]:
             ntext = "c'hant"
@@ -114,14 +107,7 @@ class Num2Word_BR(Num2Word_EU):
             return ordinals[value]
         value, scores = _vigesimal(value)
         word = self.to_cardinal(value)
-        for src, repl in self.ords.items():
-            if word.endswith(src):
-                word = word[:-len(src)] + repl
-                break
-        else:
-            if word[-1] == "e":
-                word = word[:-1]
-            word = word + "vet"
+        word = word + "vet"
         if scores:
             and_ = " hag " if scores == 50 else " ha "
             word += and_ + self.to_cardinal(scores)
