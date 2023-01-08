@@ -36,6 +36,7 @@ class Num2WordsNLTest(TestCase):
         )
 
     def test_ordinal_at_crucial_number(self):
+        self.assertEqual(num2words(0, ordinal=True, lang='nl'), "nulde")
         self.assertEqual(num2words(100, ordinal=True, lang='nl'), "honderdste")
         self.assertEqual(
             num2words(1000, ordinal=True, lang='nl'), "duizendste"

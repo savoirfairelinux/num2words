@@ -78,6 +78,7 @@ Besides the numerical argument, there are two main optional arguments.
 * ``en`` (English, default)
 * ``am`` (Amharic)
 * ``ar`` (Arabic)
+* ``az`` (Azerbaijani)
 * ``br`` (Breton)
 * ``cz`` (Czech)
 * ``de`` (German)

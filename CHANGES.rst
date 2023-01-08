@@ -1,6 +1,21 @@
 Changelog
 =========
 
+Version 0.5.12 -- 2022/08/19
+----------------------------
+
+* Support Japanese Reiwa (令和/れいわ) era. (#412)
+* Add basic farsi support (#354)
+* Added Tajik language support (#406)
+* Fix Amharic language support (#465)
+* Fix Hebrew pluralize and implement to_currency (#330)
+* Add support to translate some currencies in italian language (#434)
+* Fix Polish twenties (#345)
+* Add uzs for ru and en (#422)
+* Added support for Esperanto numbers. (#387)
+* [ADD] to ordinal number for Turkish (#468)
+* Fix zeroth in Dutch to nulde fixing (#326)
+
 Version 0.5.11 -- 2022/08/03
 ----------------------------
 
@@ -77,9 +92,9 @@ Version 0.5.7 -- 2018/06/27
 * Add Finnish localization. (#170)
 * Add Japanese localization. (#171)
 * Add belgian-french localization. (#151)
-* Add Czech localization. (#154) 
+* Add Czech localization. (#154)
 * Add Thai localization. (#139)
-* Improve English localization. (#144) 
+* Improve English localization. (#144)
 * Improve Spanish localization. (#167)
 * Improve Italian localization. (#143)
 * Improve documentation. (#155, #145, #174)
