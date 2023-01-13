@@ -80,7 +80,7 @@ TWENTIES = {
     6: ('sześćdziesiąt',),
     7: ('siedemdziesiąt',),
     8: ('osiemdziesiąt',),
-    9: ('dziewięćdzisiąt',),
+    9: ('dziewięćdziesiąt',),
 }
 
 TWENTIES_ORDINALS = {
@@ -154,6 +154,18 @@ class Num2Word_PL(Num2Word_Base):
         ),
         'EUR': (
             ('euro', 'euro', 'euro'), ('cent', 'centy', 'centów')
+        ),
+        'USD': (
+            (
+                'dolar amerykański',
+                'dolary amerykańskie',
+                'dolarów amerykańskich'
+            ),
+            (
+                'cent',
+                'centy',
+                'centów'
+            )
         ),
     }
 

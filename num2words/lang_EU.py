@@ -26,6 +26,7 @@ GENERIC_CENTS = ('cent', 'cents')
 class Num2Word_EU(Num2Word_Base):
     CURRENCY_FORMS = {
         'AUD': (GENERIC_DOLLARS, GENERIC_CENTS),
+        'BYN': (('rouble', 'roubles'), ('kopek', 'kopeks')),
         'CAD': (GENERIC_DOLLARS, GENERIC_CENTS),
         # repalced by EUR
         'EEK': (('kroon', 'kroons'), ('sent', 'senti')),
@@ -44,11 +45,14 @@ class Num2Word_EU(Num2Word_Base):
         'RON': (('leu', 'lei', 'de lei'), ('ban', 'bani', 'de bani')),
         'INR': (('rupee', 'rupees'), ('paisa', 'paise')),
         'HUF': (('forint', 'forint'), ('fillér', 'fillér')),
-        'ISK': (('króna', 'krónur'), ('aur', 'aurar'))
+        'ISK': (('króna', 'krónur'), ('aur', 'aurar')),
+        'UZS': (('sum', 'sums'), ('tiyin', 'tiyins'))
+
     }
 
     CURRENCY_ADJECTIVES = {
         'AUD': 'Australian',
+        'BYN': 'Belarussian',
         'CAD': 'Canadian',
         'EEK': 'Estonian',
         'USD': 'US',
@@ -58,7 +62,8 @@ class Num2Word_EU(Num2Word_Base):
         'RON': 'Romanian',
         'INR': 'Indian',
         'HUF': 'Hungarian',
-        'ISK': 'íslenskar'
+        'ISK': 'íslenskar',
+        'UZS': 'Uzbekistan'
     }
 
     GIGA_SUFFIX = "illiard"
