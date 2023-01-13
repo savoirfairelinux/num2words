@@ -17,7 +17,6 @@
 
 from __future__ import unicode_literals
 
-
 from . import (lang_AM, lang_AR, lang_AZ, lang_CZ, lang_DE, lang_DK, lang_EN,
                lang_EN_IN, lang_EO, lang_ES, lang_ES_CO, lang_ES_NI,
                lang_ES_VE, lang_FA, lang_FI, lang_FR, lang_FR_BE, lang_FR_CH,
