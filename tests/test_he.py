@@ -20,11 +20,14 @@ from __future__ import unicode_literals
 from unittest import TestCase
 
 from num2words import num2words
-from num2words.lang_HE import Num2Word_HE
+from num2words.lang_HE import Num2Word_HE, int2word
 
 
 class Num2WordsHETest(TestCase):
     maxDiff = None
+
+    def test_negative(self):
+        self.assertEqual(num2words(-1, lang="he"), u'מינוס אחת')
 
     def test_0(self):
         self.assertEqual(num2words(0, lang="he"), u'אפס')
@@ -314,6 +317,30 @@ class Num2WordsHETest(TestCase):
             -5.05, currency='ILS', cents=False),
             u'מינוס חמישה שקלים ו-05 אגורות')
         self.assertEqual(n.to_currency(
+            -5.05, currency='ILS', cents=False, separator='ו'),
+            u'מינוס חמישה שקלים ו-05 אגורות')
+        self.assertEqual(n.to_currency(
+            -5.05, currency='ILS', cents=False, separator='ו-'),
+            u'מינוס חמישה שקלים ו-05 אגורות')
+        self.assertEqual(n.to_currency(
+            -5.05, currency='ILS', cents=False, separator=''),
+            u'מינוס חמישה שקלים 05 אגורות')
+        self.assertEqual(n.to_currency(
+            -5.05, currency='ILS', cents=False, separator='ועוד '),
+            u'מינוס חמישה שקלים ועוד 05 אגורות')
+        self.assertEqual(n.to_currency(
+            -5.05, currency='ILS', cents=False, separator=' ו'),
+            u'מינוס חמישה שקלים ו-05 אגורות')
+        self.assertEqual(n.to_currency(
+            -5.05, currency='ILS', cents=False, separator=' ו-'),
+            u'מינוס חמישה שקלים ו-05 אגורות')
+        self.assertEqual(n.to_currency(
+            -5.05, currency='ILS', cents=False, separator=' '),
+            u'מינוס חמישה שקלים 05 אגורות')
+        self.assertEqual(n.to_currency(
+            -5.05, currency='ILS', cents=False, separator=' ועוד '),
+            u'מינוס חמישה שקלים ועוד 05 אגורות')
+        self.assertEqual(n.to_currency(
             1.01, currency='ILS'), u'שקל אחד ואגורה אחת')
         self.assertEqual(n.to_currency(
             -1.01, currency='ILS'), u'מינוס שקל אחד ואגורה אחת')
@@ -334,6 +361,14 @@ class Num2WordsHETest(TestCase):
         self.assertEqual(n.to_currency(
             5.05, currency='USD', prefer_singular=True,
             prefer_singular_cents=True), u'חמישה דולר וחמישה סנט')
+        n.CURRENCY_FORMS['pruta'] = (('פרוטה', 'פרוטות'), ('מאית', 'מאיות'))
+        self.assertEqual(n.to_currency(
+            5.05, currency='pruta'), u'חמש פרוטות וחמש מאיות')
+
+    def test_to_currency_errors(self):
+        n = Num2Word_HE()
+        with self.assertRaises(NotImplementedError):
+            n.to_currency(1, '')
 
     def test_to_cardinal(self):
         n = Num2Word_HE()
@@ -446,6 +481,17 @@ class Num2WordsHETest(TestCase):
         self.assertEqual(num2words(12.594132, lang='he', gender='m'),
                          u'שנים עשר נקודה חמש תשע ארבע אחת שלוש שתיים')
 
+    def test_cardinal_float_precision(self):
+        n = Num2Word_HE()
+        self.assertEqual(n.to_cardinal_float("1.23"), 'אחת נקודה שתיים שלוש')
+        n.precision = 1
+        self.assertEqual(n.to_cardinal_float("1.2"), 'אחת נקודה שתיים')
+
+    def test_error_to_cardinal_float(self):
+        n = Num2Word_HE()
+        with self.assertRaises(TypeError):
+            n.to_cardinal_float("a")
+
     def test_overflow(self):
         n = Num2Word_HE()
         num2words(n.MAXVAL - 1, lang="he")
@@ -456,3 +502,6 @@ class Num2WordsHETest(TestCase):
 
         with self.assertRaises(OverflowError):
             num2words(n.MAXVAL, lang="he", ordinal=True)
+
+        with self.assertRaises(OverflowError):
+            int2word(n.MAXVAL)

@@ -277,9 +277,12 @@ class Num2Word_HE(Num2Word_Base):
         return forms[form]
 
     def to_currency(self, val, currency='ILS', cents=True,
-                    separator=' ' + AND, adjective=False,
+                    separator=AND, adjective=False,
                     prefer_singular=False, prefer_singular_cents=False):
         left, right, is_negative = parse_currency_parts(val)
+
+        if not separator.startswith(' '):
+            separator = ' ' + separator
 
         try:
             cr1, cr2 = self.CURRENCY_FORMS[currency]
@@ -302,7 +305,8 @@ class Num2Word_HE(Num2Word_Base):
                                          construct=right == 2)
         else:
             cents_str = self._cents_terse(right, currency)
-            if separator.split()[-1] == AND:
+            sep_parts = separator.split()
+            if sep_parts and sep_parts[-1] == AND:
                 separator += self.makaf
 
         strings = [
@@ -321,10 +325,3 @@ class Num2Word_HE(Num2Word_Base):
             strings[4], strings[5] = strings[5], strings[4]
         # In Hebrew the separator is along with the following word
         return u'%s%s %s%s%s %s' % tuple(strings)
-
-
-if __name__ == '__main__':
-    yo = Num2Word_HE()
-    nums = [1, 11, 21, 24, 99, 100, 101, 200, 211, 345, 1000, 1011]
-    for num in nums:
-        print(num, yo.to_cardinal(num))
