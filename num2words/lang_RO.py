@@ -21,7 +21,7 @@ from . import lang_EU
 
 
 class Num2Word_RO(lang_EU.Num2Word_EU):
-    GIGA_SUFFIX = "iliard/e"
+    GIGA_SUFFIX = "iliard"
     MEGA_SUFFIX = "ilion"
     # inflection for mi/billion follows different rule
     MEGA_SUFFIX_I = "ilioane"
@@ -91,7 +91,10 @@ class Num2Word_RO(lang_EU.Num2Word_EU):
         else:
             if rnum in self.numwords_inflections:
                 rtext_i = self.inflect(lnum * rnum, rtext, lnum)
-            return ("%s %s" % (ltext, rtext_i), lnum * rnum)
+            if rnum in self.numwords_inflections:
+                return ("%s %s" % (ltext, rtext_i), lnum * rnum)
+            else:
+                return ("%s %s" % (ltext, rtext_i), lnum + rnum)
 
     def to_ordinal(self, value):
         self.verify_ordinal(value)
@@ -126,11 +129,22 @@ class Num2Word_RO(lang_EU.Num2Word_EU):
                 "de " + text[0][:-1] + text[1]
             ]
             result = self.pluralize(side_effect, forms)
-        # mega inflections are different
+
+        # mega & giga inflections are different
+        replace_inflection = None
         if side_effect > 1 and result.endswith(self.MEGA_SUFFIX):
-            result = result.replace(self.MEGA_SUFFIX, self.MEGA_SUFFIX_I)
-        elif side_effect > 1 and result.endswith("iliare"):
-            result = result.replace("iliare", self.GIGA_SUFFIX_I)
+            replace_inflection = (self.MEGA_SUFFIX, self.MEGA_SUFFIX_I)
+        elif side_effect > 1 and result.endswith(self.GIGA_SUFFIX):
+            replace_inflection = (self.GIGA_SUFFIX, self.GIGA_SUFFIX_I)
+
+        if replace_inflection is not None:
+            forms = [
+                result,
+                result.replace(replace_inflection[0], replace_inflection[1]),
+                "de " + result.replace(replace_inflection[0], replace_inflection[1])
+            ]
+            result = self.pluralize(side_effect, forms)
+
         return result
 
     def to_currency(self, val, currency="RON", cents=False, separator=" și",
