@@ -20,66 +20,78 @@ from __future__ import unicode_literals
 from .base import Num2Word_Base
 from .utils import get_digits, splitbyx
 
-ZERO = ('ноль',)
-
-ONES_FEMININE = {
-    1: ('одна',),
-    2: ('две',),
-    3: ('три',),
-    4: ('четыре',),
-    5: ('пять',),
-    6: ('шесть',),
-    7: ('семь',),
-    8: ('восемь',),
-    9: ('девять',),
-}
+ZERO = 'ноль'
 
 ONES = {
-    1: ('один',),
-    2: ('два',),
-    3: ('три',),
-    4: ('четыре',),
-    5: ('пять',),
-    6: ('шесть',),
-    7: ('семь',),
-    8: ('восемь',),
-    9: ('девять',),
+    'f': {
+        1: 'одна',
+        2: 'две',
+        3: 'три',
+        4: 'четыре',
+        5: 'пять',
+        6: 'шесть',
+        7: 'семь',
+        8: 'восемь',
+        9: 'девять',
+    },
+    'm': {
+        1: 'один',
+        2: 'два',
+        3: 'три',
+        4: 'четыре',
+        5: 'пять',
+        6: 'шесть',
+        7: 'семь',
+        8: 'восемь',
+        9: 'девять',
+    },
+    'n': {
+        1: 'одно',
+        2: 'два',
+        3: 'три',
+        4: 'четыре',
+        5: 'пять',
+        6: 'шесть',
+        7: 'семь',
+        8: 'восемь',
+        9: 'девять',
+    }
 }
 
 TENS = {
-    0: ('десять',),
-    1: ('одиннадцать',),
-    2: ('двенадцать',),
-    3: ('тринадцать',),
-    4: ('четырнадцать',),
-    5: ('пятнадцать',),
-    6: ('шестнадцать',),
-    7: ('семнадцать',),
-    8: ('восемнадцать',),
-    9: ('девятнадцать',),
+    0: 'десять',
+    1: 'одиннадцать',
+    2: 'двенадцать',
+    3: 'тринадцать',
+    4: 'четырнадцать',
+    5: 'пятнадцать',
+    6: 'шестнадцать',
+    7: 'семнадцать',
+    8: 'восемнадцать',
+    9: 'девятнадцать',
 }
 
 TWENTIES = {
-    2: ('двадцать',),
-    3: ('тридцать',),
-    4: ('сорок',),
-    5: ('пятьдесят',),
-    6: ('шестьдесят',),
-    7: ('семьдесят',),
-    8: ('восемьдесят',),
-    9: ('девяносто',),
+    2: 'двадцать',
+    3: 'тридцать',
+    4: 'сорок',
+    5: 'пятьдесят',
+    6: 'шестьдесят',
+    7: 'семьдесят',
+    8: 'восемьдесят',
+    9: 'девяносто',
 }
 
 HUNDREDS = {
-    1: ('сто',),
-    2: ('двести',),
-    3: ('триста',),
-    4: ('четыреста',),
-    5: ('пятьсот',),
-    6: ('шестьсот',),
-    7: ('семьсот',),
-    8: ('восемьсот',),
-    9: ('девятьсот',),
+    1: 'сто',
+    2: 'двести',
+    3: 'триста',
+    4: 'четыреста',
+    5: 'пятьсот',
+    6: 'шестьсот',
+    7: 'семьсот',
+    8: 'восемьсот',
+    9: 'девятьсот',
 }
 
 THOUSANDS = {
@@ -136,52 +148,49 @@ class Num2Word_RU(Num2Word_Base):
                      "восемь": "восьмой",
                      "девять": "девятый",
                      "сто": "сотый"}
-        self.ords_feminine = {"один": "",
-                              "одна": "",
-                              "две": "двух",
-                              "три": "трёх",
-                              "четыре": "четырёх",
-                              "пять": "пяти",
-                              "шесть": "шести",
-                              "семь": "семи",
-                              "восемь": "восьми",
-                              "девять": "девяти"}
+        self.ords_adjective = {"один": "",
+                               "одна": "",
+                               "две": "двух",
+                               "три": "трёх",
+                               "четыре": "четырёх",
+                               "пять": "пяти",
+                               "шесть": "шести",
+                               "семь": "семи",
+                               "восемь": "восьми",
+                               "девять": "девяти"}
 
-    def to_cardinal(self, number):
+    def to_cardinal(self, number, gender='m'):
         n = str(number).replace(',', '.')
         if '.' in n:
             left, right = n.split('.')
             leading_zero_count = len(right) - len(right.lstrip('0'))
-            decimal_part = ((ZERO[0] + ' ') * leading_zero_count +
-                            self._int2word(int(right)))
+            decimal_part = ((ZERO + ' ') * leading_zero_count +
+                            self._int2word(int(right), gender))
             return u'%s %s %s' % (
-                self._int2word(int(left)),
+                self._int2word(int(left), gender),
                 self.pointword,
                 decimal_part
             )
         else:
-            return self._int2word(int(n))
+            return self._int2word(int(n), gender)
 
     def pluralize(self, n, forms):
-        if n % 100 < 10 or n % 100 > 20:
-            if n % 10 == 1:
-                form = 0
-            elif 5 > n % 10 > 1:
-                form = 1
-            else:
-                form = 2
-        else:
-            form = 2
-        return forms[form]
+        if n % 100 in (11, 12, 13, 14):
+            return forms[2]
+        if n % 10 == 1:
+            return forms[0]
+        if n % 10 in (2, 3, 4):
+            return forms[1]
+        return forms[2]
 
-    def to_ordinal(self, number):
+    def to_ordinal(self, number, gender='m'):
         self.verify_ordinal(number)
-        outwords = self.to_cardinal(number).split(" ")
+        outwords = self.to_cardinal(number, 'm').split(" ")
         lastword = outwords[-1].lower()
         try:
             if len(outwords) > 1:
-                if outwords[-2] in self.ords_feminine:
-                    outwords[-2] = self.ords_feminine.get(
+                if outwords[-2] in self.ords_adjective:
+                    outwords[-2] = self.ords_adjective.get(
                         outwords[-2], outwords[-2])
                 elif outwords[-2] == 'десять':
                     outwords[-2] = outwords[-2][:-1] + 'и'
@@ -190,8 +199,8 @@ class Num2Word_RU(Num2Word_Base):
                     outwords[-3] = ''
             lastword = self.ords[lastword]
         except KeyError:
-            if lastword[:-3] in self.ords_feminine:
-                lastword = self.ords_feminine.get(
+            if lastword[:-3] in self.ords_adjective:
+                lastword = self.ords_adjective.get(
                     lastword[:-3], lastword) + "сотый"
             elif lastword[-1] == "ь" or lastword[-2] == "т":
                 lastword = lastword[:-1] + "ый"
@@ -208,21 +217,43 @@ class Num2Word_RU(Num2Word_Base):
                 lastword = lastword[:lastword.rfind('н') + 1] + "ный"
             elif lastword[-1] == "д" or lastword[-2] == "д":
                 lastword = lastword[:lastword.rfind('д') + 1] + "ный"
+
+        if gender == 'f':
+            if lastword[-2:] == "ий":
+                lastword = lastword[:-2] + "ья"
+            else:
+                lastword = lastword[:-2] + "ая"
+        if gender == 'n':
+            if lastword[-2:] == "ий":
+                lastword = lastword[:-2] + "ье"
+            else:
+                lastword = lastword[:-2] + "ое"
+
         outwords[-1] = self.title(lastword)
         return " ".join(outwords).strip()
 
     def _money_verbose(self, number, currency):
-        return self._int2word(number, currency == 'UAH')
+        if currency == 'UAH':
+            gender = 'f'
+        else:
+            gender = 'm'
+
+        return self._int2word(number, gender)
 
     def _cents_verbose(self, number, currency):
-        return self._int2word(number, currency in ('UAH', 'RUB', 'BYN'))
+        if currency in ('UAH', 'RUB', 'BYN'):
+            gender = 'f'
+        else:
+            gender = 'm'
 
-    def _int2word(self, n, feminine=False):
+        return self._int2word(number, gender)
+
+    def _int2word(self, n, gender):
         if n < 0:
-            return ' '.join([self.negword, self._int2word(abs(n))])
+            return ' '.join([self.negword, self._int2word(abs(n), gender)])
 
         if n == 0:
-            return ZERO[0]
+            return ZERO
 
         words = []
         chunks = list(splitbyx(str(n), 3))
@@ -236,16 +267,22 @@ class Num2Word_RU(Num2Word_Base):
             n1, n2, n3 = get_digits(x)
 
             if n3 > 0:
-                words.append(HUNDREDS[n3][0])
+                words.append(HUNDREDS[n3])
 
             if n2 > 1:
-                words.append(TWENTIES[n2][0])
+                words.append(TWENTIES[n2])
 
             if n2 == 1:
-                words.append(TENS[n1][0])
+                words.append(TENS[n1])
             elif n1 > 0:
-                ones = ONES_FEMININE if i == 1 or feminine and i == 0 else ONES
-                words.append(ones[n1][0])
+                if i == 0:
+                    ones = ONES[gender]
+                elif i == 1:
+                    ones = ONES['f']    # Thousands is feminine
+                else:
+                    ones = ONES['m']
+
+                words.append(ones[n1])
 
             if i > 0:
                 words.append(self.pluralize(x, THOUSANDS[i]))
