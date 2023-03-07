@@ -80,9 +80,16 @@ class Num2WordsRUTest(TestCase):
         self.assertEqual(num2words(100, lang='ru', gender='f'), "сто")
         self.assertEqual(num2words(101, lang='ru', gender='f'), "сто одна")
         self.assertEqual(num2words(110, lang='ru', gender='f'), "сто десять")
-        self.assertEqual(num2words(115, lang='ru', gender='f'), "сто пятнадцать")
-        self.assertEqual(num2words(122, lang='ru', gender='f'), "сто двадцать две")
-        self.assertEqual(num2words(125.1, lang='ru', gender='f'), 'сто двадцать пять запятая одна')
+        self.assertEqual(
+            num2words(115, lang='ru', gender='f'), "сто пятнадцать"
+        )
+        self.assertEqual(
+            num2words(122, lang='ru', gender='f'), "сто двадцать две"
+        )
+        self.assertEqual(
+            num2words(125.1, lang='ru', gender='f'),
+            'сто двадцать пять запятая одна'
+        )
         self.assertEqual(num2words(-1, lang='ru', gender='f'), "минус одна")
         self.assertEqual(num2words(-100, lang='ru', gender='f'), "минус сто")
 
@@ -93,9 +100,15 @@ class Num2WordsRUTest(TestCase):
         self.assertEqual(num2words(100, lang='ru', gender='n'), "сто")
         self.assertEqual(num2words(101, lang='ru', gender='n'), "сто одно")
         self.assertEqual(num2words(110, lang='ru', gender='n'), "сто десять")
-        self.assertEqual(num2words(115, lang='ru', gender='n'), "сто пятнадцать")
-        self.assertEqual(num2words(122, lang='ru', gender='n'), "сто двадцать два")
-        self.assertEqual(num2words(125.1, lang='ru', gender='n'), 'сто двадцать пять запятая одно')
+        self.assertEqual(
+            num2words(115, lang='ru', gender='n'), "сто пятнадцать"
+        )
+        self.assertEqual(
+            num2words(122, lang='ru', gender='n'),"сто двадцать два"
+        )
+        self.assertEqual(
+            num2words(125.1, lang='ru', gender='n'),
+            'сто двадцать пять запятая одно')
         self.assertEqual(num2words(-1, lang='ru', gender='n'), "минус одно")
         self.assertEqual(num2words(-100, lang='ru', gender='n'), "минус сто")
 
@@ -186,18 +199,40 @@ class Num2WordsRUTest(TestCase):
         )
 
     def test_to_ordinal_feminine(self):
-        self.assertEqual(num2words(1, lang='ru', to='ordinal', gender='f'), 'первая')
-        self.assertEqual(num2words(3, lang='ru', to='ordinal', gender='f'), 'третья')
-        self.assertEqual(num2words(10, lang='ru', to='ordinal', gender='f'), 'десятая')
-        self.assertEqual(num2words(23, lang='ru', to='ordinal', gender='f'), 'двадцать третья')
-        self.assertEqual(num2words(1000, lang='ru', to='ordinal', gender='f'), 'тысячная')
+        self.assertEqual(
+            num2words(1, lang='ru', to='ordinal', gender='f'), 'первая'
+        )
+        self.assertEqual(
+            num2words(3, lang='ru', to='ordinal', gender='f'), 'третья'
+        )
+        self.assertEqual(
+            num2words(10, lang='ru', to='ordinal', gender='f'), 'десятая'
+        )
+        self.assertEqual(
+            num2words(23, lang='ru', to='ordinal', gender='f'),
+            'двадцать третья'
+        )
+        self.assertEqual(
+            num2words(1000, lang='ru', to='ordinal', gender='f'), 'тысячная'
+        )
 
     def test_to_ordinal_neuter(self):
-        self.assertEqual(num2words(1, lang='ru', to='ordinal', gender='n'), 'первое')
-        self.assertEqual(num2words(3, lang='ru', to='ordinal', gender='n'), 'третье')
-        self.assertEqual(num2words(10, lang='ru', to='ordinal', gender='n'), 'десятое')
-        self.assertEqual(num2words(23, lang='ru', to='ordinal', gender='n'), 'двадцать третье')
-        self.assertEqual(num2words(1000, lang='ru', to='ordinal', gender='n'), 'тысячное')
+        self.assertEqual(
+            num2words(1, lang='ru', to='ordinal', gender='n'), 'первое'
+        )
+        self.assertEqual(
+            num2words(3, lang='ru', to='ordinal', gender='n'), 'третье'
+        )
+        self.assertEqual(
+            num2words(10, lang='ru', to='ordinal', gender='n'), 'десятое'
+        )
+        self.assertEqual(
+            num2words(23, lang='ru', to='ordinal', gender='n'),
+            'двадцать третье'
+        )
+        self.assertEqual(
+            num2words(1000, lang='ru', to='ordinal', gender='n'), 'тысячное'
+        )
 
     def test_to_currency(self):
         self.assertEqual(
