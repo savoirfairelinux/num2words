@@ -45,7 +45,9 @@ class Num2Word_EU(Num2Word_Base):
         'RON': (('leu', 'lei', 'de lei'), ('ban', 'bani', 'de bani')),
         'INR': (('rupee', 'rupees'), ('paisa', 'paise')),
         'HUF': (('forint', 'forint'), ('fillér', 'fillér')),
+        'ISK': (('króna', 'krónur'), ('aur', 'aurar')),
         'UZS': (('sum', 'sums'), ('tiyin', 'tiyins'))
+
     }
 
     CURRENCY_ADJECTIVES = {
@@ -60,6 +62,7 @@ class Num2Word_EU(Num2Word_Base):
         'RON': 'Romanian',
         'INR': 'Indian',
         'HUF': 'Hungarian',
+        'ISK': 'íslenskar',
         'UZS': 'Uzbekistan'
     }
 
