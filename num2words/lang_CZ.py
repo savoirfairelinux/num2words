@@ -60,14 +60,14 @@ TWENTIES = {
 
 HUNDREDS = {
     1: ('sto',),
-    2: ('dvěstě',),
-    3: ('třista',),
-    4: ('čtyřista',),
-    5: ('pětset',),
-    6: ('šestset',),
-    7: ('sedmset',),
-    8: ('osmset',),
-    9: ('devětset',),
+    2: ('dvě stě',),
+    3: ('tři sta',),
+    4: ('čtyři sta',),
+    5: ('pět set',),
+    6: ('šest set',),
+    7: ('sedm set',),
+    8: ('osm set',),
+    9: ('devět set',),
 }
 
 THOUSANDS = {
