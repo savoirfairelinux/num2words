@@ -19,6 +19,7 @@ from __future__ import unicode_literals
 
 from . import lang_EN
 
+
 class Num2Word_EN_NG(lang_EN.Num2Word_EN):
 
     CURRENCY_FORMS = {'NGN': (('naira', 'naira'), ('kobo', 'kobo'))}
@@ -26,7 +27,7 @@ class Num2Word_EN_NG(lang_EN.Num2Word_EN):
     CURRENCY_ADJECTIVES = {'NGN': 'Nigerian'}
 
     def to_currency(
-        self, val, currency='NGN', 
+        self, val, currency='NGN',
         kobo=True, separator=',',
         adjective=False
     ):

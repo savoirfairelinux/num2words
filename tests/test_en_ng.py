@@ -22,8 +22,10 @@ from num2words import num2words
 
 class Num2WordsENNGTest(TestCase):
 
-    # only the test for currency is writen as other functions in the Class remains the 
-    # same and have been properly tested in the test test_en which tests the parent class
+    # only the test for currency is writen as other
+    # functions in the Class remains the
+    # same and have been properly tested in the
+    # test test_en which tests the parent class
     # upon which this class inherits
 
     def test_to_currency(self):
@@ -32,60 +34,110 @@ class Num2WordsENNGTest(TestCase):
         separator = ' and'
 
         self.assertEqual(
-            num2words('38.4', lang=language, to='currency', separator=separator,
-                      kobo=False),
+            num2words(
+                '38.4',
+                lang=language,
+                to='currency',
+                separator=separator,
+                kobo=False
+            ),
             "thirty-eight naira and 40 kobo"
         )
         self.assertEqual(
-            num2words('0', lang=language, to='currency', separator=separator,
-                      kobo=False),
+            num2words(
+                '0',
+                lang=language,
+                to='currency',
+                separator=separator,
+                kobo=False
+            ),
             "zero naira and 00 kobo"
         )
 
         self.assertEqual(
-            num2words('1.01', lang=language, to='currency', separator=separator,
-                      kobo=True),
-            "one naira and one cent"
+            num2words(
+                '1.01',
+                lang=language,
+                to='currency',
+                separator=separator,
+                kobo=True
+            ),
+            "one naira and one kobo"
         )
 
         self.assertEqual(
-            num2words('4778.00', lang=language, to='currency', separator=separator,
-                      kobo=True, adjective=True),
+            num2words(
+                '4778.00',
+                lang=language,
+                to='currency',
+                separator=separator,
+                kobo=True, adjective=True
+            ),
             'four thousand, seven hundred and seventy-eight Nigerian naira'
-            ' and zero cents')
+            ' and zero kobo')
 
         self.assertEqual(
-            num2words('4778.00', lang=language, to='currency', separator=separator,
-                      kobo=True),
+            num2words(
+                '4778.00',
+                lang=language,
+                to='currency',
+                separator=separator,
+                kobo=True
+            ),
             'four thousand, seven hundred and seventy-eight naira and'
-            ' zero cents')
+            ' zero kobo')
 
         self.assertEqual(
-            num2words('1.1', lang=language, to='currency', separator=separator,
-                      kobo=True),
+            num2words(
+                '1.1',
+                lang=language,
+                to='currency',
+                separator=separator,
+                kobo=True
+            ),
             "one naira and ten kobo"
         )
 
         self.assertEqual(
-            num2words('158.3', lang=language, to='currency', separator=separator,
-                      kobo=True),
+            num2words(
+                '158.3',
+                lang=language,
+                to='currency',
+                separator=separator,
+                kobo=True
+            ),
             "one hundred and fifty-eight naira and thirty kobo"
         )
 
         self.assertEqual(
-            num2words('2000.00', lang=language, to='currency', separator=separator,
-                      kobo=True),
+            num2words(
+                '2000.00',
+                lang=language,
+                to='currency',
+                separator=separator,
+                kobo=True
+            ),
             "two thousand naira and zero kobo"
         )
 
         self.assertEqual(
-            num2words('4.01', lang=language, to='currency', separator=separator,
-                      kobo=True),
+            num2words(
+                '4.01',
+                lang=language,
+                to='currency',
+                separator=separator,
+                kobo=True
+            ),
             "four naira and one kobo"
         )
 
         self.assertEqual(
-            num2words('2000.00', lang=language, to='currency', separator=separator,
-                      kobo=True),
+            num2words(
+                '2000.00',
+                lang=language,
+                to='currency',
+                separator=separator,
+                kobo=True
+            ),
             "two thousand naira and zero kobo"
         )
