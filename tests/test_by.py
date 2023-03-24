@@ -172,7 +172,7 @@ class Num2WordsBYTest(TestCase):
     def test_to_currency(self):
         self.assertEqual(
             num2words(1.0, lang='by', to='currency', currency='EUR'),
-            'адзін эўра, нуль цэнтаў'
+            'адзін еўра, нуль цэнтаў'
         )
         self.assertEqual(
             num2words(1.0, lang='by', to='currency', currency='RUB'),
@@ -188,7 +188,7 @@ class Num2WordsBYTest(TestCase):
         )
         self.assertEqual(
             num2words(1234.56, lang='by', to='currency', currency='EUR'),
-            'адна тысяча дзвесце трыццаць чатыры эўра, пяцьдзясят шэсць цэнтаў'
+            'адна тысяча дзвесце трыццаць чатыры еўра, пяцьдзясят шэсць цэнтаў'
         )
         self.assertEqual(
             num2words(1234.56, lang='by', to='currency', currency='RUB'),
@@ -205,7 +205,7 @@ class Num2WordsBYTest(TestCase):
         self.assertEqual(
             num2words(10111, lang='by', to='currency', currency='EUR',
                       separator=' і'),
-            'сто адзін эўра і адзінаццаць цэнтаў'
+            'сто адзін еўра і адзінаццаць цэнтаў'
         )
         self.assertEqual(
             num2words(10111, lang='by', to='currency', currency='RUB',
@@ -225,7 +225,7 @@ class Num2WordsBYTest(TestCase):
         self.assertEqual(
             num2words(10121, lang='by', to='currency', currency='EUR',
                       separator=' і'),
-            'сто адзін эўра і дваццаць адзін цэнт'
+            'сто адзін еўра і дваццаць адзін цэнт'
         )
         self.assertEqual(
             num2words(10121, lang='by', to='currency', currency='RUB',
@@ -245,7 +245,7 @@ class Num2WordsBYTest(TestCase):
         self.assertEqual(
             num2words(10122, lang='by', to='currency', currency='EUR',
                       separator=' і'),
-            'сто адзін эўра і дваццаць два цэнты'
+            'сто адзін еўра і дваццаць два цэнты'
         )
         self.assertEqual(
             num2words(10122, lang='by', to='currency', currency='RUB',
@@ -270,7 +270,7 @@ class Num2WordsBYTest(TestCase):
         self.assertEqual(
             num2words(-1251985, lang='by', to='currency', currency='EUR',
                       cents=False),
-            'мінус дванаццаць тысяч пяцьсот дзевятнаццаць эўра, 85 цэнтаў'
+            'мінус дванаццаць тысяч пяцьсот дзевятнаццаць еўра, 85 цэнтаў'
         )
         self.assertEqual(
             num2words(-1251985, lang='by', to='currency', currency='RUB',
@@ -290,7 +290,7 @@ class Num2WordsBYTest(TestCase):
         self.assertEqual(
             num2words('38.4', lang='by', to='currency', separator=' і',
                       cents=False, currency='EUR'),
-            'трыццаць восем эўра і 40 цэнтаў'
+            'трыццаць восем еўра і 40 цэнтаў'
         )
         self.assertEqual(
             num2words('38.4', lang='by', to='currency', separator=' і',
