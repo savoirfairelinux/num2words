@@ -20,6 +20,7 @@
 import re
 from decimal import Decimal
 from math import floor
+from .base import Num2Word_Base
 
 CURRENCY_SR = [("ريال", "ريالان", "ريالات", "ريالاً"),
                ("هللة", "هللتان", "هللات", "هللة")]
@@ -37,7 +38,7 @@ ARABIC_ONES = [
 ]
 
 
-class Num2Word_AR(object):
+class Num2Word_AR(Num2Word_Base):
     errmsg_too_big = "Too large"
     max_num = 10 ** 36
 
@@ -188,11 +189,11 @@ class Num2Word_AR(object):
                 ones = tens % 10
                 tens = (tens / 10) - 2
                 if ones > 0:
-                    if ret_val != "" and tens < 4:
+                    if ret_val != "":
                         ret_val += " و "
 
                     ret_val += self.digit_feminine_status(ones, group_level)
-                if ret_val != "" and ones != 0:
+                if ret_val != "":
                     ret_val += " و "
 
                 ret_val += self.arabicTens[int(tens)]
@@ -229,7 +230,7 @@ class Num2Word_AR(object):
             if group_description != '':
                 if group > 0:
                     if ret_val != "":
-                        ret_val = "{} و {}".format("", ret_val)
+                        ret_val = "{}و {}".format("", ret_val)
                     if number_to_process != 2:
                         if number_to_process % 100 != 1:
                             if 3 <= number_to_process <= 10:
@@ -247,7 +248,10 @@ class Num2Word_AR(object):
                         else:
                             ret_val = "{} {}".format(self.arabicGroup[group],
                                                      ret_val)
-                ret_val = "{} {}".format(group_description, ret_val)
+                if number_to_process != 1:
+                    ret_val = "{} {}".format(group_description, ret_val)
+                if float(self.number) == 1 and self.currency_unit == ('', '', '', ''):
+                    ret_val = "{} {}".format(group_description, ret_val) 
             group += 1
         formatted_number = ""
         if self.arabicPrefixText != "":
@@ -270,7 +274,10 @@ class Num2Word_AR(object):
             elif 11 <= remaining100 <= 99:
                 formatted_number += self.currency_unit[3]
         if self._decimalValue != 0:
-            formatted_number += " {} ".format(self.separator)
+            if self.separator == ',':
+                formatted_number += "{} ".format(self.separator)
+            else:
+                formatted_number += " {} ".format(self.separator)
             formatted_number += decimal_string
 
         if self._decimalValue != 0:
