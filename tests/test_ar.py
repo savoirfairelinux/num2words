@@ -130,4 +130,4 @@ class Num2WordsARTest(TestCase):
             with self.assertRaises(OverflowError) as context:
                 num2words(number, lang='ar')
 
-            self.assertTrue('Too large' in str(context.exception))
+            self.assertTrue('must be less' in str(context.exception))

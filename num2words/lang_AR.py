@@ -38,11 +38,13 @@ ARABIC_ONES = [
 ]
 
 
-class Num2Word_AR(object):
-    errmsg_too_big = "Too large"
-    max_num = 10 ** 36
+class Num2Word_AR(object): # Num2Word_Base ?
+    errmsg_toobig = "abs(%s) must be less than %s."
+    MAXVAL = 1000000000000000050331649 # 10 **36
 
     def __init__(self):
+        super().__init__()
+
         self.number = 0
         self.arabicPrefixText = ""
         self.arabicSuffixText = ""
@@ -96,6 +98,9 @@ class Num2Word_AR(object):
             "", "آلاف", "ملايين", "مليارات", "تريليونات", "كوادريليونات",
             "كوينتليونات", "سكستيليونات"
         ]
+        assert len(self.arabicAppendedGroup) == len(self.arabicGroup)
+        assert len(self.arabicPluralGroups) == len(self.arabicGroup)
+        assert len(self.arabicAppendedTwos) == len(self.arabicTwos)
 
     def number_to_arabic(self, arabic_prefix_text, arabic_suffix_text):
         self.arabicPrefixText = arabic_prefix_text
@@ -163,6 +168,8 @@ class Num2Word_AR(object):
 
         if tens > 0:
             if tens < 20:
+                if int(group_level) >= len(self.arabicTwos):
+                    raise OverflowError(self.errmsg_toobig % (self.number, self.MAXVAL))
                 if tens == 2 and int(hundreds) == 0 and group_level > 0:
                     if self.integer_value in [2000, 2000000, 2000000000,
                                               2000000000000, 2000000000000000,
@@ -237,20 +244,18 @@ class Num2Word_AR(object):
                     if ret_val != "":
                         ret_val = "{}و {}".format("", ret_val)
                     if number_to_process != 2:
+                        if group >= len(self.arabicGroup):
+                            raise OverflowError(self.errmsg_toobig % (self.number, self.MAXVAL))
                         if number_to_process % 100 != 1:
                             if 3 <= number_to_process <= 10:
                                 ret_val = "{} {}".format(
                                     self.arabicPluralGroups[group], ret_val)
                             else:
                                 if ret_val != "":
-                                    if group >= len(self.arabicAppendedGroup):
-                                        raise OverflowError(self.errmsg_too_big)
                                     ret_val = "{} {}".format(
                                         self.arabicAppendedGroup[group],
                                         ret_val)
                                 else:
-                                    if group >= len(self.arabicGroup):
-                                        raise OverflowError(self.errmsg_too_big)
                                     ret_val = "{} {}".format(
                                         self.arabicGroup[group], ret_val)
 
@@ -304,8 +309,8 @@ class Num2Word_AR(object):
         return formatted_number
 
     def validate_number(self, number):
-        if number >= self.max_num:
-            raise OverflowError(self.errmsg_too_big)
+        if number >= self.MAXVAL:
+            raise OverflowError(self.errmsg_toobig % (number, self.MAXVAL))
         return number
 
     def set_currency_prefer(self, currency):
