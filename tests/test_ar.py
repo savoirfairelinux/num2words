@@ -124,7 +124,10 @@ class Num2WordsARTest(TestCase):
         self.assertEqual(num2words(2000, to='year', lang='ar'), 'ألفا')
 
     def test_max_numbers(self):
-        with self.assertRaises(Exception) as context:
-            num2words(10 ** 36, to='year', lang='ar')
 
-        self.assertTrue('Too large' in str(context.exception))
+        for number in 10 ** 36, 123456789123456789123456789, 123456789123456789123456789123456789:
+
+            with self.assertRaises(OverflowError) as context:
+                num2words(number, lang='ar')
+
+            self.assertTrue('Too large' in str(context.exception))

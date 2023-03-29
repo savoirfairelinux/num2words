@@ -18,6 +18,7 @@
 # MA 02110-1301 USA
 
 import re
+import decimal
 from decimal import Decimal
 from math import floor
 
@@ -218,9 +219,14 @@ class Num2Word_AR(object):
 
         while temp_number > Decimal(0):
 
-            number_to_process = int(
-                Decimal(str(temp_number)) % Decimal(str(1000)))
-            temp_number = int(Decimal(temp_number) / Decimal(1000))
+            temp_number_dec = Decimal(str(temp_number))
+            try:
+                number_to_process = int(temp_number_dec % Decimal(str(1000)))
+            except decimal.InvalidOperation: # https://stackoverflow.com/questions/42868278/decimal-invalidoperation-divisionimpossible-for-very-large-numbers
+                decimal.getcontext().prec = len(temp_number_dec.as_tuple().digits)
+                number_to_process = int(temp_number_dec % Decimal(str(1000)))
+
+            temp_number = int(temp_number_dec / Decimal(1000))
 
             group_description = \
                 self.process_arabic_group(number_to_process,
@@ -237,10 +243,14 @@ class Num2Word_AR(object):
                                     self.arabicPluralGroups[group], ret_val)
                             else:
                                 if ret_val != "":
+                                    if group >= len(self.arabicAppendedGroup):
+                                        raise OverflowError(self.errmsg_too_big)
                                     ret_val = "{} {}".format(
                                         self.arabicAppendedGroup[group],
                                         ret_val)
                                 else:
+                                    if group >= len(self.arabicGroup):
+                                        raise OverflowError(self.errmsg_too_big)
                                     ret_val = "{} {}".format(
                                         self.arabicGroup[group], ret_val)
 
