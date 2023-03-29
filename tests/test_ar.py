@@ -97,6 +97,23 @@ class Num2WordsARTest(TestCase):
                          'أربعة و تسعون ألفاً  و مئتان و واحد و ثلاثون')
         self.assertEqual(num2words(1431, to='cardinal', lang='ar'),
                          'واحد ألف  و أربعمائة و واحد و ثلاثون')
+        self.assertEqual(num2words(740, to='cardinal', lang='ar'),
+                         'سبعمائة و أربعون')
+        self.assertEqual(num2words(741, to='cardinal', lang='ar'),
+                        #'سبعة مائة و واحد و أربعون'
+                        'سبعمائة و واحد و أربعون'
+                        )
+        self.assertEqual(num2words(710, to='cardinal', lang='ar'),
+                        'سبعمائة و عشرة')
+        self.assertEqual(num2words(711, to='cardinal', lang='ar'),
+                        # 'سبعة مائة و إحدى عشر'
+                        'سبعمائة و أحد عشر'
+                        )
+        self.assertEqual(num2words(700, to='cardinal', lang='ar'),
+                        'سبعمائة')
+        self.assertEqual(num2words(701, to='cardinal', lang='ar'),
+                        'سبعمائة و واحد')
+        
 
     def test_prefix_and_suffix(self):
         self.assertEqual(num2words(645, to='currency',

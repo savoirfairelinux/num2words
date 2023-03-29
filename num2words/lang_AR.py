@@ -192,7 +192,7 @@ class Num2Word_AR(object):
                         ret_val += " و "
 
                     ret_val += self.digit_feminine_status(ones, group_level)
-                if ret_val != "" and ones != 0:
+                if ret_val != "":
                     ret_val += " و "
 
                 ret_val += self.arabicTens[int(tens)]
