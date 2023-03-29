@@ -37,7 +37,7 @@ class Num2Word_FR(Num2Word_EU):
         self.errmsg_nonnum = (
             u"Seulement des nombres peuvent être convertis en mots."
             )
-        self.errmsg_toobig = u"Nombre trop grand pour être converti en mots."
+        self.errmsg_toobig = u"Nombre trop grand pour être converti en mots (abs(%s) > %s)."
         self.exclude_title = ["et", "virgule", "moins"]
         self.mid_numwords = [(1000, "mille"), (100, "cent"),
                              (80, "quatre-vingts"), (60, "soixante"),

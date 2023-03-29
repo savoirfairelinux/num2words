@@ -44,7 +44,7 @@ class Num2Word_ID():
 
     errmsg_floatord = "Cannot treat float number as ordinal"
     errmsg_negord = "Cannot treat negative number as ordinal"
-    errmsg_toobig = "Too large"
+    errmsg_toobig = "Number is too large to convert to words (abs(%s) > %s)."
     max_num = 10 ** 36
 
     def split_by_koma(self, number):
