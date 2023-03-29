@@ -68,6 +68,8 @@ class Num2WordsARTest(TestCase):
             'واحد مليون دينار و تسع و تسعون فلس')
 
     def test_ordinal(self):
+
+
         self.assertEqual(num2words(1, to='ordinal', lang='ar'), 'اول')
         self.assertEqual(num2words(2, to='ordinal', lang='ar'), 'ثاني')
         self.assertEqual(num2words(3, to='ordinal', lang='ar'), 'ثالث')
@@ -83,6 +85,11 @@ class Num2WordsARTest(TestCase):
         self.assertEqual(
             num2words(923411, to='ordinal_num', lang='ar'),
             'تسعمائة و ثلاثة و عشرون ألفاً و أربعمائة و أحد عشر')
+
+        # See https://github.com/savoirfairelinux/num2words/issues/403
+        self.assertEqual(num2words(23, lang="ar"), 'ثلاثة و عشرون') 
+        self.assertEqual(num2words(23, to='ordinal', lang="ar"), 'ثلاث و عشرون')
+        self.assertEqual(num2words(23, lang="ar"), 'ثلاثة و عشرون')
 
     def test_cardinal(self):
         self.assertEqual(num2words(12, to='cardinal', lang='ar'), 'اثنا عشر')

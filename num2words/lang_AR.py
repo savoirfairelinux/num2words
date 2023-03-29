@@ -354,6 +354,7 @@ class Num2Word_AR(object): # Num2Word_Base ?
         return self.to_ordinal(value).strip()
 
     def to_cardinal(self, number):
+        self.isCurrencyNameFeminine = False
         number = self.validate_number(number)
         minus = ''
         if number < 0:
