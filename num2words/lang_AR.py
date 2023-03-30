@@ -37,8 +37,10 @@ ARABIC_ONES = [
     "تسعة عشر"
 ]
 
+from .base import Num2Word_Base
 
-class Num2Word_AR(object): # Num2Word_Base ?
+
+class Num2Word_AR(Num2Word_Base):
     errmsg_toobig = "abs(%s) must be less than %s."
     MAXVAL = 1000000000000000050331649 # 10 **36
 
