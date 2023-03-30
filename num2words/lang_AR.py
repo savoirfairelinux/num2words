@@ -42,7 +42,7 @@ from .base import Num2Word_Base
 
 class Num2Word_AR(Num2Word_Base):
     errmsg_toobig = "abs(%s) must be less than %s."
-    MAXVAL = 1000000000000000050331649 # 10 **36
+    MAXVAL = 9999999999999999999999999999999999999999999999999  # 1000000000000000050331649 # 10 **36
 
     def __init__(self):
         super().__init__()
@@ -79,26 +79,37 @@ class Num2Word_AR(Num2Word_Base):
         self.arabicHundreds = [
             "", "مائة", "مئتان", "ثلاثمائة", "أربعمائة", "خمسمائة", "ستمائة",
             "سبعمائة", "ثمانمائة", "تسعمائة"
-        ]
+        ] # should be : ["تسعة مائة","ثمانية مائة","سبعة مائة","ستة مائة","خمسة مائة","أربعة مائة","ثلاثة مائة","مئتان","مائة"]
+
         self.arabicAppendedTwos = [
             "مئتا", "ألفا", "مليونا", "مليارا", "تريليونا", "كوادريليونا",
-            "كوينتليونا", "سكستيليونا"
+            "كوينتليونا", "سكستيليونا","سبتيليونا","أوكتيليونا ","نونيليونا",
+            "ديسيليونا","أندسيليونا","دوديسيليونا","تريديسيليونا","كوادريسيليونا",
+            "كوينتينيليونا"
         ]
         self.arabicTwos = [
             "مئتان", "ألفان", "مليونان", "ملياران", "تريليونان",
-            "كوادريليونان", "كوينتليونان", "سكستيليونان"
+            "كوادريليونان", "كوينتليونان", "سكستيليونان","سبتيليونان",
+            "أوكتيليونان ","نونيليونان ","ديسيليونان","أندسيليونان",
+            "دوديسيليونان","تريديسيليونان","كوادريسيليونان","كوينتينيليونان"
         ]
         self.arabicGroup = [
             "مائة", "ألف", "مليون", "مليار", "تريليون", "كوادريليون",
-            "كوينتليون", "سكستيليون"
+            "كوينتليون", "سكستيليون","سبتيليون","أوكتيليون","نونيليون",
+            "ديسيليون","أندسيليون","دوديسيليون","تريديسيليون","كوادريسيليون",
+            "كوينتينيليون"
         ]
         self.arabicAppendedGroup = [
             "", "ألفاً", "مليوناً", "ملياراً", "تريليوناً", "كوادريليوناً",
-            "كوينتليوناً", "سكستيليوناً"
+            "كوينتليوناً", "سكستيليوناً","سبتيليوناً","أوكتيليوناً","نونيليوناً",
+            "ديسيليوناً","أندسيليوناً","دوديسيليوناً","تريديسيليوناً","كوادريسيليوناً",
+            "كوينتينيليوناً"
         ]
         self.arabicPluralGroups = [
             "", "آلاف", "ملايين", "مليارات", "تريليونات", "كوادريليونات",
-            "كوينتليونات", "سكستيليونات"
+            "كوينتليونات", "سكستيليونات","سبتيليونات","أوكتيليونات","نونيليونات",
+            "ديسيليونات","أندسيليونات","دوديسيليونات","تريديسيليونات","كوادريسيليونات",
+            "كوينتينيليونات"
         ]
         assert len(self.arabicAppendedGroup) == len(self.arabicGroup)
         assert len(self.arabicPluralGroups) == len(self.arabicGroup)
@@ -209,8 +220,16 @@ class Num2Word_AR(Num2Word_Base):
 
         return ret_val
 
+    def abs(self, number):
+        return number if number >= 0 else -number
+    
+    def to_str(self, number):
+        integer = int(number)
+        decimal = round((number - integer) * 10**9)
+        return str(integer) + "." + "{:09d}".format(decimal)
+
     def convert(self, value):
-        self.number = "{:.9f}".format(value)
+        self.number = self.to_str(value)
         self.number_to_arabic(self.arabicPrefixText, self.arabicSuffixText)
         return self.convert_to_arabic()
 
@@ -346,7 +365,7 @@ class Num2Word_AR(Num2Word_Base):
         self.currency_unit = ('', '', '', '')
         self.arabicPrefixText = prefix
         self.arabicSuffixText = ""
-        return "{}".format(self.convert(abs(number)).strip())
+        return "{}".format(self.convert(self.abs(number)).strip())
 
     def to_year(self, value):
         value = self.validate_number(value)
@@ -367,4 +386,4 @@ class Num2Word_AR(Num2Word_Base):
         self.arabicPrefixText = ""
         self.arabicSuffixText = ""
         self.arabicOnes = ARABIC_ONES
-        return minus + self.convert(value=abs(number)).strip()
+        return minus + self.convert(value=self.abs(number)).strip()
