@@ -3,6 +3,7 @@
 # Copyright (c) 2013, Savoir-faire Linux inc.  All Rights Reserved.
 # Copyright (c) 2018, Abdullah Alhazmy, Alhazmy13.  All Rights Reserved.
 # Copyright (c) 2020, Hamidreza Kalbasi.  All Rights Reserved.
+# Copyright (c) 2023, Nika Soltani Tehrani.  All Rights Reserved.
 
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -28,10 +29,10 @@ farsiOnes = [
     "دوازده",
     "سیزده",
     "چهارده",
-    "پونزده",
-    "شونزده",
-    "هیفده",
-    "هیجده",
+    "پانزده",
+    "شانزده",
+    "هفده",
+    "هجده",
     "نوزده",
 ]
 
@@ -101,9 +102,9 @@ class Num2Word_FA(object):
         return pre, post, self.precision
 
     def cardinal3(self, number):
-        if (number < 19):
+        if number <= 19:
             return farsiOnes[number]
-        if (number < 100):
+        if number < 100:
             x, y = divmod(number, 10)
             if y == 0:
                 return farsiTens[x]
@@ -118,19 +119,19 @@ class Num2Word_FA(object):
         res = ''
         for b in farsiBig:
             x, y = divmod(x, 1000)
-            if (y == 0):
+            if y == 0:
                 continue
             yx = self.cardinal3(y) + b
             if b == ' هزار' and y == 1:
                 yx = 'هزار'
-            if (res == ''):
+            if res == '':
                 res = yx
             else:
                 res = yx + farsiSeperator + res
         return res
 
     def fractional(self, number, level):
-        if (number == 5):
+        if number == 5:
             return "نیم"
         x = self.cardinalPos(number)
         ld3, lm3 = divmod(level, 3)
@@ -142,20 +143,21 @@ class Num2Word_FA(object):
 
     def to_ordinal(self, number):
         r = self.to_cardinal(number)
-        if (r[-1] == 'ه' and r[-2] == 'س'):
+        if r[-1] == 'ه' and r[-2] == 'س':
             return r[:-1] + 'وم'
         return r + 'م'
 
     def to_year(self, value):
         return self.to_cardinal(value)
 
-    def to_ordinal_num(self, value):
+    @staticmethod
+    def to_ordinal_num(value):
         return str(value)+"م"
 
     def to_cardinal(self, number):
         if number < 0:
             return "منفی " + self.to_cardinal(-number)
-        if (number == 0):
+        if number == 0:
             return "صفر"
         x, y, level = self.float2tuple(number)
         if y == 0:
