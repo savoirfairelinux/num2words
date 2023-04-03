@@ -48,7 +48,7 @@ class Num2WordsESGTTest(test_es.Num2WordsESTest):
     def test_ordinal_num(self):
         for test in test_es.TEST_CASES_ORDINAL_NUM:
             self.assertEqual(
-                num2words(test[0], lang='es', to='ordinal_num'),
+                num2words(test[0], lang='es_GT', to='ordinal_num'),
                 test[1]
             )
 

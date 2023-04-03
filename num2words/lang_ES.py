@@ -206,7 +206,6 @@ class Num2Word_ES(Num2Word_EU):
         'ZRZ': (('zaire', 'zaires'), ('likuta', 'makuta')),
         'ZWL': (GENERIC_DOLLARS, ('céntimo', 'céntimos')),
         'ZWL': (GENERIC_DOLLARS, ('céntimo', 'céntimos')),
-        'GTQ': (('quetzal', 'quetzales'), GENERIC_CENTS),
     }
 
     # //CHECK: Is this sufficient??
