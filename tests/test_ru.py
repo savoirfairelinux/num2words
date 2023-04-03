@@ -115,6 +115,7 @@ class Num2WordsRUTest(TestCase):
 
     def test_floating_point(self):
         self.assertEqual(num2words(5.2, lang='ru'), "пять целых две десятых")
+        self.assertEqual(num2words(5.0, lang='ru'), "пять целых ноль десятых")
         self.assertEqual(num2words(1.001, lang='ru'),
                          "одна целая одна тысячная")
         self.assertEqual(num2words(1.011, lang='ru'),
@@ -200,7 +201,7 @@ class Num2WordsRUTest(TestCase):
         )
         self.assertEqual(
             num2words(21000, lang='ru', to='ordinal'),
-            'двадцатиоднатысячный'
+            'двадцатиоднотысячный'
         )
         self.assertEqual(
             num2words(130000, lang='ru', to='ordinal'),
@@ -350,7 +351,7 @@ class Num2WordsRUTest(TestCase):
             'тысяча двести одиннадцатой')
         self.assertEqual(
             num2words(5121000, lang='ru', to='ordinal', case='i'),
-            'пять миллионов стодвадцатиоднатысячным')
+            'пять миллионов стодвадцатиоднотысячным')
 
     def test_to_currency(self):
         self.assertEqual(

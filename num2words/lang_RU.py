@@ -476,7 +476,7 @@ class Num2Word_RU(Num2Word_Base):
                 if tens == 0 and hundreds == 0:
                     w_ones = None
                 else:
-                    w_ones = get_num_element(ONES, 1, gender='f')
+                    w_ones = get_num_element(ONES, 1, gender='n')
             else:
                 w_ones = get_num_element(ONES, ones, case='g')
 
