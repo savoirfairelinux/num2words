@@ -42,7 +42,7 @@ from .base import Num2Word_Base
 
 class Num2Word_AR(Num2Word_Base):
     errmsg_toobig = "abs(%s) must be less than %s."
-    MAXVAL = 9999999999999999999999999999999999999999999999999  # 1000000000000000050331649 # 10 **36
+    MAXVAL = 10**51 - 1 # 9999999999999999999999999999999999999999999999999  # 1000000000000000050331649 # 10 **36
 
     def __init__(self):
         super().__init__()
@@ -172,12 +172,14 @@ class Num2Word_AR(Num2Word_Base):
         tens = Decimal(group_number) % Decimal(100)
         hundreds = Decimal(group_number) / Decimal(100)
         ret_val = ""
-
+        
         if int(hundreds) > 0:
             if tens == 0 and int(hundreds) == 2:
                 ret_val = "{}".format(self.arabicAppendedTwos[0])
             else:
                 ret_val = "{}".format(self.arabicHundreds[int(hundreds)])
+                if ret_val !=""  and tens != 0:
+                    ret_val += " و "
 
         if tens > 0:
             if tens < 20:
@@ -186,16 +188,14 @@ class Num2Word_AR(Num2Word_Base):
                 if tens == 2 and int(hundreds) == 0 and group_level > 0:
                     if self.integer_value in [2000, 2000000, 2000000000,
                                               2000000000000, 2000000000000000,
-                                              2000000000000000000]:
+                                              2000000000000000000,2000000000000000000000,2000000000000000000000000
+                                              ]:
                         ret_val = "{}".format(
                             self.arabicAppendedTwos[int(group_level)])
                     else:
                         ret_val = "{}".format(
                             self.arabicTwos[int(group_level)])
                 else:
-                    if ret_val != "":
-                        ret_val += " و "
-
                     if tens == 1 and group_level > 0 and hundreds == 0:
                         ret_val += ""
                     elif (tens == 1 or tens == 2) and (
@@ -209,14 +209,12 @@ class Num2Word_AR(Num2Word_Base):
                 ones = tens % 10
                 tens = (tens / 10) - 2
                 if ones > 0:
-                    if ret_val != "" and tens < 4:
-                        ret_val += " و "
-
                     ret_val += self.digit_feminine_status(ones, group_level)
-                if ret_val != "":
+                if ret_val != "" and ones != 0:
                     ret_val += " و "
 
                 ret_val += self.arabicTens[int(tens)]
+        
 
         return ret_val
 
