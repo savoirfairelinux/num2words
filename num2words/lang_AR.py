@@ -17,6 +17,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301 USA
 
+import math
 import re
 import decimal
 from decimal import Decimal
@@ -42,7 +43,7 @@ from .base import Num2Word_Base
 
 class Num2Word_AR(Num2Word_Base):
     errmsg_toobig = "abs(%s) must be less than %s."
-    MAXVAL = 10**51 - 1 # 9999999999999999999999999999999999999999999999999  # 1000000000000000050331649 # 10 **36
+    MAXVAL = 10**51 # 9999999999999999999999999999999999999999999999999  # 1000000000000000050331649 # 10 **36
 
     def __init__(self):
         super().__init__()
@@ -186,10 +187,8 @@ class Num2Word_AR(Num2Word_Base):
                 if int(group_level) >= len(self.arabicTwos):
                     raise OverflowError(self.errmsg_toobig % (self.number, self.MAXVAL))
                 if tens == 2 and int(hundreds) == 0 and group_level > 0:
-                    if self.integer_value in [2000, 2000000, 2000000000,
-                                              2000000000000, 2000000000000000,
-                                              2000000000000000000,2000000000000000000000,2000000000000000000000000
-                                              ]:
+                    pow = int(math.log10(self.integer_value))
+                    if self.integer_value > 10 and pow % 3 == 0 and self.integer_value == 2 * (10 ** pow):
                         ret_val = "{}".format(
                             self.arabicAppendedTwos[int(group_level)])
                     else:
@@ -217,10 +216,12 @@ class Num2Word_AR(Num2Word_Base):
         
 
         return ret_val
-
+    
+    # We use this instead of built-in `abs` function, because `abs` suffers from loss of precision for big numbers
     def abs(self, number):
         return number if number >= 0 else -number
     
+    # We use this instead of `"{:09d}".format(number)`, because the string conversion suffers from loss of precision for big numbers
     def to_str(self, number):
         integer = int(number)
         decimal = round((number - integer) * 10**9)

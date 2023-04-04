@@ -138,7 +138,7 @@ class Num2WordsARTest(TestCase):
 
     def test_max_numbers(self):
 
-        for number in 10**51 - 1 , 10**51:
+        for number in  10**51,10**51 + 2:
                       
             with self.assertRaises(OverflowError) as context:
                 num2words(number, lang='ar')
