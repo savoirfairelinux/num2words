@@ -164,10 +164,9 @@ class Num2Word_AR(Num2Word_Base):
                 return self.arabicFeminineOnes[int(digit)]
             else:
                 return self.arabicOnes[int(digit)]
-
         else:
             return self.arabicOnes[int(digit)]
-
+    
     def process_arabic_group(self, group_number, group_level,
                              remaining_number):
         tens = Decimal(group_number) % Decimal(100)
@@ -195,12 +194,15 @@ class Num2Word_AR(Num2Word_Base):
                         ret_val = "{}".format(
                             self.arabicTwos[int(group_level)])
                 else:
+                    
                     if tens == 1 and group_level > 0 and hundreds == 0:
                         ret_val += ""
                     elif (tens == 1 or tens == 2) and (
                             group_level == 0 or group_level == -1) and \
                             hundreds == 0 and remaining_number == 0:
                         ret_val += ""
+                    elif tens == 1 and group_level > 0:
+                        ret_val += self.arabicGroup[int(group_level)]
                     else:
                         ret_val += self.digit_feminine_status(int(tens),
                                                               group_level)
@@ -263,11 +265,11 @@ class Num2Word_AR(Num2Word_Base):
                 if group > 0:
                     if ret_val != "":
                         ret_val = "{}و {}".format("", ret_val)
-                    if number_to_process != 2:
+                    if number_to_process != 2 and number_to_process != 1:
                         if group >= len(self.arabicGroup):
                             raise OverflowError(self.errmsg_toobig % (self.number, self.MAXVAL))
                         if number_to_process % 100 != 1:
-                            if 3 <= number_to_process <= 10:
+                            if 3 <= number_to_process <= 9:
                                 ret_val = "{} {}".format(
                                     self.arabicPluralGroups[group], ret_val)
                             else:
@@ -278,7 +280,7 @@ class Num2Word_AR(Num2Word_Base):
                                 else:
                                     ret_val = "{} {}".format(
                                         self.arabicGroup[group], ret_val)
-
+                    
                         else:
                             ret_val = "{} {}".format(self.arabicGroup[group],
                                                      ret_val)

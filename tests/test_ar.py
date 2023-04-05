@@ -38,17 +38,17 @@ class Num2WordsARTest(TestCase):
         self.assertEqual(num2words(541, to='currency', lang='ar'),
                          'خمسمائة و واحد و أربعون ريالاً')
         self.assertEqual(num2words(10000, to='currency', lang='ar'),
-                         'عشرة آلاف ريال')
+                         'عشرة ألف ريال')
         self.assertEqual(num2words(20000.12, to='currency', lang='ar'),
                          'عشرون ألف ريال و اثنتا عشرة هللة')
         self.assertEqual(num2words(1000000, to='currency', lang='ar'),
-                         'واحد مليون ريال')
+                         'مليون ريال')
         val = 'تسعمائة و ثلاثة و عشرون ألفاً و أربعمائة و أحد عشر ريالاً'
         self.assertEqual(num2words(923411, to='currency', lang='ar'), val)
         self.assertEqual(num2words(63411, to='currency', lang='ar'),
                          'ثلاثة و ستون ألفاً و أربعمائة و أحد عشر ريالاً')
         self.assertEqual(num2words(1000000.99, to='currency', lang='ar'),
-                         'واحد مليون ريال و تسع و تسعون هللة')
+                         'مليون ريال و تسع و تسعون هللة')
 
     def test_currency_parm(self):
         self.assertEqual(
@@ -65,7 +65,7 @@ class Num2WordsARTest(TestCase):
             'تسعمائة و ثلاثة و عشرون ألفاً و أربعمائة و أحد عشر ريالاً')
         self.assertEqual(
             num2words(1000000.99, to='currency', lang='ar', currency="KWD"),
-            'واحد مليون دينار و تسع و تسعون فلس')
+            'مليون دينار و تسع و تسعون فلس')
 
     def test_ordinal(self):
 
@@ -103,7 +103,7 @@ class Num2WordsARTest(TestCase):
         self.assertEqual(num2words(94231, to='cardinal', lang='ar'),
                          'أربعة و تسعون ألفاً و مئتان و واحد و ثلاثون')
         self.assertEqual(num2words(1431, to='cardinal', lang='ar'),
-                         'واحد ألف و أربعمائة و واحد و ثلاثون')
+                         'ألف و أربعمائة و واحد و ثلاثون')
         self.assertEqual(num2words(740, to='cardinal', lang='ar'),
                          'سبعمائة و أربعون')
         self.assertEqual(num2words(741, to='cardinal', lang='ar'),
@@ -127,6 +127,14 @@ class Num2WordsARTest(TestCase):
         self.assertEqual(num2words(701, to='cardinal', lang='ar'),
                         'سبعمائة و واحد')
         
+        self.assertEqual(num2words(1258888, to='cardinal', lang='ar'),
+                        'مليون و مئتان و ثمانية و خمسون ألفاً و ثمانمائة و ثمانية و ثمانون')
+        
+        self.assertEqual(num2words(1100, to='cardinal', lang='ar'),
+                        'ألف و مائة')
+        
+        self.assertEqual(num2words(1000000521, to='cardinal', lang='ar'),
+                        'مليار و خمسمائة و واحد و عشرون')
 
     def test_prefix_and_suffix(self):
         self.assertEqual(num2words(645, to='currency',
@@ -147,11 +155,13 @@ class Num2WordsARTest(TestCase):
 
     def test_big_numbers(self):
         self.assertEqual(num2words(1000000045000000000000003000000002000000300, to='cardinal', lang='ar'), 
-                         'واحد تريديسيليون و خمسة و أربعون ديسيليوناً و ثلاثة كوينتليونات و ملياران و ثلاثمائة'
+                         'تريديسيليون و خمسة و أربعون ديسيليوناً و ثلاثة كوينتليونات و ملياران و ثلاثمائة'
                          )
         self.assertEqual(num2words(-1000000000000000000000003000000002000000302, to='cardinal', lang='ar'), 
-                         'سالب واحد تريديسيليون و ثلاثة كوينتليونات و ملياران و ثلاثمائة و اثنان'
+                         'سالب تريديسيليون و ثلاثة كوينتليونات و ملياران و ثلاثمائة و اثنان'
                          )
         self.assertEqual(num2words(9999999999999999999999999999999999999999999999992, to='cardinal', lang='ar'), 
                          'تسعة كوينتينيليونات و تسعمائة و تسعة و تسعون كوادريسيليوناً و تسعمائة و تسعة و تسعون تريديسيليوناً و تسعمائة و تسعة و تسعون دوديسيليوناً و تسعمائة و تسعة و تسعون أندسيليوناً و تسعمائة و تسعة و تسعون ديسيليوناً و تسعمائة و تسعة و تسعون نونيليوناً و تسعمائة و تسعة و تسعون أوكتيليوناً و تسعمائة و تسعة و تسعون سبتيليوناً و تسعمائة و تسعة و تسعون سكستيليوناً و تسعمائة و تسعة و تسعون كوينتليوناً و تسعمائة و تسعة و تسعون كوادريليوناً و تسعمائة و تسعة و تسعون تريليوناً و تسعمائة و تسعة و تسعون ملياراً و تسعمائة و تسعة و تسعون مليوناً و تسعمائة و تسعة و تسعون ألفاً و تسعمائة و اثنان و تسعون'                         
                          )
+    
+    
