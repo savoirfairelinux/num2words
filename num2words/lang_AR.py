@@ -269,7 +269,7 @@ class Num2Word_AR(Num2Word_Base):
                         if group >= len(self.arabicGroup):
                             raise OverflowError(self.errmsg_toobig % (self.number, self.MAXVAL))
                         if number_to_process % 100 != 1:
-                            if 3 <= number_to_process <= 9:
+                            if 3 <= number_to_process <= 10:
                                 ret_val = "{} {}".format(
                                     self.arabicPluralGroups[group], ret_val)
                             else:
