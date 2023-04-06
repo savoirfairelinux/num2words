@@ -200,6 +200,10 @@ class Num2WordsRUTest(TestCase):
             'десятитысячный'
         )
         self.assertEqual(
+            num2words(90000, lang='ru', to='ordinal'),
+            'девяностотысячный'
+        )
+        self.assertEqual(
             num2words(21000, lang='ru', to='ordinal'),
             'двадцатиоднотысячный'
         )
@@ -224,6 +228,10 @@ class Num2WordsRUTest(TestCase):
             'сто тридцать пять тысяч сто двадцать первый'
         )
         self.assertEqual(
+            num2words(190000, lang='ru', to='ordinal'),
+            'стодевяностотысячный'
+        )
+        self.assertEqual(
             num2words(1000000, lang='ru', to='ordinal'),
             'миллионный'
         )
@@ -236,8 +244,16 @@ class Num2WordsRUTest(TestCase):
             'пять миллионов стотридцатипятитысячный'
         )
         self.assertEqual(
+            num2words(21000000, lang='ru', to='ordinal'),
+            'двадцатиодномиллионный'
+        )
+        self.assertEqual(
             num2words(1000000000, lang='ru', to='ordinal'),
             'миллиардный'
+        )
+        self.assertEqual(
+            num2words(123456000000, lang='ru', to='ordinal'),
+            'сто двадцать три миллиарда четырёхсотпятидесятишестимиллионный'
         )
 
     def test_to_ordinal_feminine(self):

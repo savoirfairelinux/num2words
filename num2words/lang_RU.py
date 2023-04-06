@@ -460,10 +460,15 @@ class Num2Word_RU(Num2Word_Base):
 
     def __chunk_ordinal_join(self, hundreds, tens, ones, chunk_num, **kwargs):
         words = []
-        if hundreds > 0:
-            words.append(get_num_element(HUNDREDS, hundreds))
 
-        if tens > 1:
+        if hundreds > 1:
+            words.append(get_num_element(HUNDREDS, hundreds, case='g'))
+        elif hundreds == 1:
+            words.append(get_num_element(HUNDREDS, hundreds))   # стО, not стА
+
+        if tens == 9:
+            words.append(get_num_element(TWENTIES, tens))   # девяностО, not А
+        elif tens > 1:
             words.append(get_num_element(TWENTIES, tens, case='g'))
 
         if tens == 1:
@@ -471,7 +476,7 @@ class Num2Word_RU(Num2Word_Base):
         elif ones > 0:
             if chunk_num == 0:
                 w_ones = get_num_element(ONES_ORD, ones, **kwargs)
-            # тысячный, миллионнный и т.д., двадцатиоднамиллионный
+            # тысячный, миллионнный и т.д., двадцатиодномиллионный
             elif chunk_num > 0 and ones == 1 and tens != 1:
                 if tens == 0 and hundreds == 0:
                     w_ones = None
