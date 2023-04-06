@@ -63,7 +63,7 @@ In code there's only one function to use::
     >>> num2words(42, lang='fr')
     quarante-deux
 
-Besides the numerical argument, there are two main optional arguments.
+Besides the numerical argument, there are two main optional arguments, ``to:`` and ``lang:``
 
 **to:** The converter to use. Supported values are:
 
@@ -84,6 +84,7 @@ Besides the numerical argument, there are two main optional arguments.
 * ``dk`` (Danish)
 * ``en_GB`` (English - Great Britain)
 * ``en_IN`` (English - India)
+* ``en_NG`` (English - Nigeria)
 * ``es`` (Spanish)
 * ``es_CO`` (Spanish - Colombia)
 * ``es_VE`` (Spanish - Venezuela)
