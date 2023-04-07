@@ -17,6 +17,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301 USA
 
+from .base import Num2Word_Base
 import math
 import re
 import decimal
@@ -38,12 +39,10 @@ ARABIC_ONES = [
     "تسعة عشر"
 ]
 
-from .base import Num2Word_Base
-
 
 class Num2Word_AR(Num2Word_Base):
     errmsg_toobig = "abs(%s) must be less than %s."
-    MAXVAL = 10**51 # 9999999999999999999999999999999999999999999999999  # 1000000000000000050331649 # 10 **36
+    MAXVAL = 10**51
 
     def __init__(self):
         super().__init__()
@@ -80,36 +79,36 @@ class Num2Word_AR(Num2Word_Base):
         self.arabicHundreds = [
             "", "مائة", "مئتان", "ثلاثمائة", "أربعمائة", "خمسمائة", "ستمائة",
             "سبعمائة", "ثمانمائة", "تسعمائة"
-        ] # should be : ["تسعة مائة","ثمانية مائة","سبعة مائة","ستة مائة","خمسة مائة","أربعة مائة","ثلاثة مائة","مئتان","مائة"]
+        ]  # should be : ["تسعة مائة","ثمانية مائة","سبعة مائة","ستة مائة","خمسة مائة","أربعة مائة","ثلاثة مائة","مئتان","مائة"]
 
         self.arabicAppendedTwos = [
             "مئتا", "ألفا", "مليونا", "مليارا", "تريليونا", "كوادريليونا",
-            "كوينتليونا", "سكستيليونا","سبتيليونا","أوكتيليونا ","نونيليونا",
-            "ديسيليونا","أندسيليونا","دوديسيليونا","تريديسيليونا","كوادريسيليونا",
+            "كوينتليونا", "سكستيليونا", "سبتيليونا", "أوكتيليونا ", "نونيليونا",
+            "ديسيليونا", "أندسيليونا", "دوديسيليونا", "تريديسيليونا", "كوادريسيليونا",
             "كوينتينيليونا"
         ]
         self.arabicTwos = [
             "مئتان", "ألفان", "مليونان", "ملياران", "تريليونان",
-            "كوادريليونان", "كوينتليونان", "سكستيليونان","سبتيليونان",
-            "أوكتيليونان ","نونيليونان ","ديسيليونان","أندسيليونان",
-            "دوديسيليونان","تريديسيليونان","كوادريسيليونان","كوينتينيليونان"
+            "كوادريليونان", "كوينتليونان", "سكستيليونان", "سبتيليونان",
+            "أوكتيليونان ", "نونيليونان ", "ديسيليونان", "أندسيليونان",
+            "دوديسيليونان", "تريديسيليونان", "كوادريسيليونان", "كوينتينيليونان"
         ]
         self.arabicGroup = [
             "مائة", "ألف", "مليون", "مليار", "تريليون", "كوادريليون",
-            "كوينتليون", "سكستيليون","سبتيليون","أوكتيليون","نونيليون",
-            "ديسيليون","أندسيليون","دوديسيليون","تريديسيليون","كوادريسيليون",
+            "كوينتليون", "سكستيليون", "سبتيليون", "أوكتيليون", "نونيليون",
+            "ديسيليون", "أندسيليون", "دوديسيليون", "تريديسيليون", "كوادريسيليون",
             "كوينتينيليون"
         ]
         self.arabicAppendedGroup = [
             "", "ألفاً", "مليوناً", "ملياراً", "تريليوناً", "كوادريليوناً",
-            "كوينتليوناً", "سكستيليوناً","سبتيليوناً","أوكتيليوناً","نونيليوناً",
-            "ديسيليوناً","أندسيليوناً","دوديسيليوناً","تريديسيليوناً","كوادريسيليوناً",
+            "كوينتليوناً", "سكستيليوناً", "سبتيليوناً", "أوكتيليوناً", "نونيليوناً",
+            "ديسيليوناً", "أندسيليوناً", "دوديسيليوناً", "تريديسيليوناً", "كوادريسيليوناً",
             "كوينتينيليوناً"
         ]
         self.arabicPluralGroups = [
             "", "آلاف", "ملايين", "مليارات", "تريليونات", "كوادريليونات",
-            "كوينتليونات", "سكستيليونات","سبتيليونات","أوكتيليونات","نونيليونات",
-            "ديسيليونات","أندسيليونات","دوديسيليونات","تريديسيليونات","كوادريسيليونات",
+            "كوينتليونات", "سكستيليونات", "سبتيليونات", "أوكتيليونات", "نونيليونات",
+            "ديسيليونات", "أندسيليونات", "دوديسيليونات", "تريديسيليونات", "كوادريسيليونات",
             "كوينتينيليونات"
         ]
         assert len(self.arabicAppendedGroup) == len(self.arabicGroup)
@@ -166,25 +165,26 @@ class Num2Word_AR(Num2Word_Base):
                 return self.arabicOnes[int(digit)]
         else:
             return self.arabicOnes[int(digit)]
-    
+
     def process_arabic_group(self, group_number, group_level,
                              remaining_number):
         tens = Decimal(group_number) % Decimal(100)
         hundreds = Decimal(group_number) / Decimal(100)
         ret_val = ""
-        
+
         if int(hundreds) > 0:
             if tens == 0 and int(hundreds) == 2:
                 ret_val = "{}".format(self.arabicAppendedTwos[0])
             else:
                 ret_val = "{}".format(self.arabicHundreds[int(hundreds)])
-                if ret_val !=""  and tens != 0:
+                if ret_val != "" and tens != 0:
                     ret_val += " و "
 
         if tens > 0:
             if tens < 20:
                 if int(group_level) >= len(self.arabicTwos):
-                    raise OverflowError(self.errmsg_toobig % (self.number, self.MAXVAL))
+                    raise OverflowError(self.errmsg_toobig %
+                                        (self.number, self.MAXVAL))
                 if tens == 2 and int(hundreds) == 0 and group_level > 0:
                     pow = int(math.log10(self.integer_value))
                     if self.integer_value > 10 and pow % 3 == 0 and self.integer_value == 2 * (10 ** pow):
@@ -194,7 +194,7 @@ class Num2Word_AR(Num2Word_Base):
                         ret_val = "{}".format(
                             self.arabicTwos[int(group_level)])
                 else:
-                    
+
                     if tens == 1 and group_level > 0 and hundreds == 0:
                         ret_val += ""
                     elif (tens == 1 or tens == 2) and (
@@ -215,14 +215,13 @@ class Num2Word_AR(Num2Word_Base):
                     ret_val += " و "
 
                 ret_val += self.arabicTens[int(tens)]
-        
 
         return ret_val
-    
+
     # We use this instead of built-in `abs` function, because `abs` suffers from loss of precision for big numbers
     def abs(self, number):
         return number if number >= 0 else -number
-    
+
     # We use this instead of `"{:09d}".format(number)`, because the string conversion suffers from loss of precision for big numbers
     def to_str(self, number):
         integer = int(number)
@@ -251,7 +250,7 @@ class Num2Word_AR(Num2Word_Base):
             temp_number_dec = Decimal(str(temp_number))
             try:
                 number_to_process = int(temp_number_dec % Decimal(str(1000)))
-            except decimal.InvalidOperation: # https://stackoverflow.com/questions/42868278/decimal-invalidoperation-divisionimpossible-for-very-large-numbers
+            except decimal.InvalidOperation:  # https://stackoverflow.com/questions/42868278/decimal-invalidoperation-divisionimpossible-for-very-large-numbers
                 decimal.getcontext().prec = len(temp_number_dec.as_tuple().digits)
                 number_to_process = int(temp_number_dec % Decimal(str(1000)))
 
@@ -267,7 +266,8 @@ class Num2Word_AR(Num2Word_Base):
                         ret_val = "{}و {}".format("", ret_val)
                     if number_to_process != 2 and number_to_process != 1:
                         if group >= len(self.arabicGroup):
-                            raise OverflowError(self.errmsg_toobig % (self.number, self.MAXVAL))
+                            raise OverflowError(
+                                self.errmsg_toobig % (self.number, self.MAXVAL))
                         if number_to_process % 100 != 1:
                             if 3 <= number_to_process <= 10:
                                 ret_val = "{} {}".format(
@@ -280,7 +280,7 @@ class Num2Word_AR(Num2Word_Base):
                                 else:
                                     ret_val = "{} {}".format(
                                         self.arabicGroup[group], ret_val)
-                    
+
                         else:
                             ret_val = "{} {}".format(self.arabicGroup[group],
                                                      ret_val)

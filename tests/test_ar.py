@@ -69,7 +69,6 @@ class Num2WordsARTest(TestCase):
 
     def test_ordinal(self):
 
-
         self.assertEqual(num2words(1, to='ordinal', lang='ar'), 'اول')
         self.assertEqual(num2words(2, to='ordinal', lang='ar'), 'ثاني')
         self.assertEqual(num2words(3, to='ordinal', lang='ar'), 'ثالث')
@@ -87,8 +86,9 @@ class Num2WordsARTest(TestCase):
             'تسعمائة و ثلاثة و عشرون ألفاً و أربعمائة و أحد عشر')
 
         # See https://github.com/savoirfairelinux/num2words/issues/403
-        self.assertEqual(num2words(23, lang="ar"), 'ثلاثة و عشرون') 
-        self.assertEqual(num2words(23, to='ordinal', lang="ar"), 'ثلاث و عشرون')
+        self.assertEqual(num2words(23, lang="ar"), 'ثلاثة و عشرون')
+        self.assertEqual(num2words(23, to='ordinal',
+                         lang="ar"), 'ثلاث و عشرون')
         self.assertEqual(num2words(23, lang="ar"), 'ثلاثة و عشرون')
 
     def test_cardinal(self):
@@ -107,34 +107,34 @@ class Num2WordsARTest(TestCase):
         self.assertEqual(num2words(740, to='cardinal', lang='ar'),
                          'سبعمائة و أربعون')
         self.assertEqual(num2words(741, to='cardinal', lang='ar'),
-                        #'سبعة مائة و واحد و أربعون'
-                        'سبعمائة و واحد و أربعون'
-                        )
+                         # 'سبعة مائة و واحد و أربعون'
+                         'سبعمائة و واحد و أربعون'
+                         )
         self.assertEqual(num2words(262, to='cardinal', lang='ar'),
-                        'مئتان و اثنان و ستون'
-                        )
+                         'مئتان و اثنان و ستون'
+                         )
         self.assertEqual(num2words(798, to='cardinal', lang='ar'),
-                        'سبعمائة و ثمانية و تسعون'
-                        )
+                         'سبعمائة و ثمانية و تسعون'
+                         )
         self.assertEqual(num2words(710, to='cardinal', lang='ar'),
-                        'سبعمائة و عشرة')
+                         'سبعمائة و عشرة')
         self.assertEqual(num2words(711, to='cardinal', lang='ar'),
-                        # 'سبعة مائة و إحدى عشر'
-                        'سبعمائة و أحد عشر'
-                        )
+                         # 'سبعة مائة و إحدى عشر'
+                         'سبعمائة و أحد عشر'
+                         )
         self.assertEqual(num2words(700, to='cardinal', lang='ar'),
-                        'سبعمائة')
+                         'سبعمائة')
         self.assertEqual(num2words(701, to='cardinal', lang='ar'),
-                        'سبعمائة و واحد')
-        
+                         'سبعمائة و واحد')
+
         self.assertEqual(num2words(1258888, to='cardinal', lang='ar'),
-                        'مليون و مئتان و ثمانية و خمسون ألفاً و ثمانمائة و ثمانية و ثمانون')
-        
+                         'مليون و مئتان و ثمانية و خمسون ألفاً و ثمانمائة و ثمانية و ثمانون')
+
         self.assertEqual(num2words(1100, to='cardinal', lang='ar'),
-                        'ألف و مائة')
-        
+                         'ألف و مائة')
+
         self.assertEqual(num2words(1000000521, to='cardinal', lang='ar'),
-                        'مليار و خمسمائة و واحد و عشرون')
+                         'مليار و خمسمائة و واحد و عشرون')
 
     def test_prefix_and_suffix(self):
         self.assertEqual(num2words(645, to='currency',
@@ -146,22 +146,20 @@ class Num2WordsARTest(TestCase):
 
     def test_max_numbers(self):
 
-        for number in  10**51,10**51 + 2:
-                      
+        for number in 10**51, 10**51 + 2:
+
             with self.assertRaises(OverflowError) as context:
                 num2words(number, lang='ar')
 
             self.assertTrue('must be less' in str(context.exception))
 
     def test_big_numbers(self):
-        self.assertEqual(num2words(1000000045000000000000003000000002000000300, to='cardinal', lang='ar'), 
+        self.assertEqual(num2words(1000000045000000000000003000000002000000300, to='cardinal', lang='ar'),
                          'تريديسيليون و خمسة و أربعون ديسيليوناً و ثلاثة كوينتليونات و ملياران و ثلاثمائة'
                          )
-        self.assertEqual(num2words(-1000000000000000000000003000000002000000302, to='cardinal', lang='ar'), 
+        self.assertEqual(num2words(-1000000000000000000000003000000002000000302, to='cardinal', lang='ar'),
                          'سالب تريديسيليون و ثلاثة كوينتليونات و ملياران و ثلاثمائة و اثنان'
                          )
-        self.assertEqual(num2words(9999999999999999999999999999999999999999999999992, to='cardinal', lang='ar'), 
-                         'تسعة كوينتينيليونات و تسعمائة و تسعة و تسعون كوادريسيليوناً و تسعمائة و تسعة و تسعون تريديسيليوناً و تسعمائة و تسعة و تسعون دوديسيليوناً و تسعمائة و تسعة و تسعون أندسيليوناً و تسعمائة و تسعة و تسعون ديسيليوناً و تسعمائة و تسعة و تسعون نونيليوناً و تسعمائة و تسعة و تسعون أوكتيليوناً و تسعمائة و تسعة و تسعون سبتيليوناً و تسعمائة و تسعة و تسعون سكستيليوناً و تسعمائة و تسعة و تسعون كوينتليوناً و تسعمائة و تسعة و تسعون كوادريليوناً و تسعمائة و تسعة و تسعون تريليوناً و تسعمائة و تسعة و تسعون ملياراً و تسعمائة و تسعة و تسعون مليوناً و تسعمائة و تسعة و تسعون ألفاً و تسعمائة و اثنان و تسعون'                         
+        self.assertEqual(num2words(9999999999999999999999999999999999999999999999992, to='cardinal', lang='ar'),
+                         'تسعة كوينتينيليونات و تسعمائة و تسعة و تسعون كوادريسيليوناً و تسعمائة و تسعة و تسعون تريديسيليوناً و تسعمائة و تسعة و تسعون دوديسيليوناً و تسعمائة و تسعة و تسعون أندسيليوناً و تسعمائة و تسعة و تسعون ديسيليوناً و تسعمائة و تسعة و تسعون نونيليوناً و تسعمائة و تسعة و تسعون أوكتيليوناً و تسعمائة و تسعة و تسعون سبتيليوناً و تسعمائة و تسعة و تسعون سكستيليوناً و تسعمائة و تسعة و تسعون كوينتليوناً و تسعمائة و تسعة و تسعون كوادريليوناً و تسعمائة و تسعة و تسعون تريليوناً و تسعمائة و تسعة و تسعون ملياراً و تسعمائة و تسعة و تسعون مليوناً و تسعمائة و تسعة و تسعون ألفاً و تسعمائة و اثنان و تسعون'
                          )
-    
-    
