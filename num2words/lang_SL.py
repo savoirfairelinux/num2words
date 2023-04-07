@@ -31,7 +31,9 @@ class Num2Word_SL(Num2Word_EU):
         self.negword = "minus "
         self.pointword = "celih"
         self.errmsg_nonnum = "Only numbers may be converted to words."
-        self.errmsg_toobig = "Number is too large to convert to words (abs(%s) > %s)."
+        self.errmsg_toobig = (
+            "Number is too large to convert to words (abs(%s) > %s)."
+        )
         self.exclude_title = []
 
         self.mid_numwords = [(1000, "tisoč"), (900, "devetsto"),

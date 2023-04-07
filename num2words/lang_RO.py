@@ -34,7 +34,8 @@ class Num2Word_RO(lang_EU.Num2Word_EU):
         self.pointword = "virgulă"
         self.exclude_title = ["și", "virgulă", "minus"]
         self.errmsg_toobig = (
-            "Numărul e prea mare pentru a fi convertit în cuvinte (abs(%s) > %s)."
+            "Numărul e prea mare pentru a \
+fi convertit în cuvinte (abs(%s) > %s)."
         )
         self.mid_numwords = [(1000, "mie/i"), (100, "sută/e"),
                              (90, "nouăzeci"), (80, "optzeci"),
