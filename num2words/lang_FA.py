@@ -78,8 +78,9 @@ farsiSeperator = ' و '
 
 
 class Num2Word_FA(object):
-    errmsg_too_big = "Too large"
-    max_num = 10 ** 36
+    # Those are unused
+    errmsg_toobig = "Too large"
+    MAXNUM = 10 ** 36
 
     def __init__(self):
         self.number = 0
