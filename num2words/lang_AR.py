@@ -122,7 +122,6 @@ class Num2Word_AR(Num2Word_Base):
         self.extract_integer_and_decimal_parts()
 
     def extract_integer_and_decimal_parts(self):
-        re.split('\\.', str(self.number))
         splits = re.split('\\.', str(self.number))
 
         self.integer_value = int(splits[0])
@@ -149,8 +148,9 @@ class Num2Word_AR(Num2Word_Base):
         else:
             result = decimal_part
 
-        for i in range(len(result), self.partPrecision):
-            result += '0'
+        # The following is useless (never happens)
+        # for i in range(len(result), self.partPrecision):
+        #     result += '0'
         return result
 
     def digit_feminine_status(self, digit, group_level):
@@ -158,6 +158,7 @@ class Num2Word_AR(Num2Word_Base):
             if self.isCurrencyPartNameFeminine:
                 return self.arabicFeminineOnes[int(digit)]
             else:
+                # Note: this never happens
                 return self.arabicOnes[int(digit)]
         elif group_level == 0:
             if self.isCurrencyNameFeminine:
@@ -183,9 +184,10 @@ class Num2Word_AR(Num2Word_Base):
 
         if tens > 0:
             if tens < 20:
-                if int(group_level) >= len(self.arabicTwos):
-                    raise OverflowError(self.errmsg_toobig %
-                                        (self.number, self.MAXVAL))
+                # if int(group_level) >= len(self.arabicTwos):
+                #     raise OverflowError(self.errmsg_toobig %
+                #                         (self.number, self.MAXVAL))
+                assert int(group_level) < len(self.arabicTwos)
                 if tens == 2 and int(hundreds) == 0 and group_level > 0:
                     pow = int(math.log10(self.integer_value))
                     if self.integer_value > 10 and pow % 3 == 0 and \
@@ -198,10 +200,13 @@ class Num2Word_AR(Num2Word_Base):
                 else:
 
                     if tens == 1 and group_level > 0 and hundreds == 0:
+                        # Note: this never happens
+                        # (hundreds == 0 only if group_number is 0)
                         ret_val += ""
                     elif (tens == 1 or tens == 2) and (
                             group_level == 0 or group_level == -1) and \
                             hundreds == 0 and remaining_number == 0:
+                        # Note: this never happens (idem)
                         ret_val += ""
                     elif tens == 1 and group_level > 0:
                         ret_val += self.arabicGroup[int(group_level)]
@@ -230,8 +235,10 @@ class Num2Word_AR(Num2Word_Base):
     # precision for big numbers
     def to_str(self, number):
         integer = int(number)
+        if integer == number:
+            return str(integer)
         decimal = round((number - integer) * 10**9)
-        return str(integer) + "." + "{:09d}".format(decimal)
+        return str(integer) + "." + "{:09d}".format(decimal).rstrip("0")
 
     def convert(self, value):
         self.number = self.to_str(value)
@@ -272,10 +279,11 @@ class Num2Word_AR(Num2Word_Base):
                     if ret_val != "":
                         ret_val = "{}و {}".format("", ret_val)
                     if number_to_process != 2 and number_to_process != 1:
-                        if group >= len(self.arabicGroup):
-                            raise OverflowError(
-                                self.errmsg_toobig % (self.number, self.MAXVAL)
-                            )
+                        # if group >= len(self.arabicGroup):
+                        #     raise OverflowError(self.errmsg_toobig %
+                        #                         (self.number, self.MAXVAL)
+                        #     )
+                        assert group < len(self.arabicGroup)
                         if number_to_process % 100 != 1:
                             if 3 <= number_to_process <= 10:
                                 ret_val = "{} {}".format(

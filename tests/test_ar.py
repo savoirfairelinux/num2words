@@ -92,9 +92,31 @@ class Num2WordsARTest(TestCase):
         self.assertEqual(num2words(23, lang="ar"), 'ثلاثة و عشرون')
 
     def test_cardinal(self):
+        self.assertEqual(num2words(0, to='cardinal', lang='ar'), 'صفر')
         self.assertEqual(num2words(12, to='cardinal', lang='ar'), 'اثنا عشر')
+        self.assertEqual(num2words(12.3, to='cardinal', lang='ar'),
+                         'اثنا عشر  , ثلاثون')
+        self.assertEqual(num2words(12.01, to='cardinal', lang='ar'),
+                         'اثنا عشر  , إحدى')
+        self.assertEqual(num2words(12.02, to='cardinal', lang='ar'),
+                         'اثنا عشر  , اثنتان')
+        self.assertEqual(num2words(12.03, to='cardinal', lang='ar'),
+                         'اثنا عشر  , ثلاث')
+        self.assertEqual(num2words(12.34, to='cardinal', lang='ar'),
+                         'اثنا عشر  , أربع و ثلاثون')
+        # Not implemented
+        self.assertEqual(num2words(12.345, to='cardinal', lang='ar'),
+                         num2words(12.34, to='cardinal', lang='ar'))
         self.assertEqual(num2words(-8324, to='cardinal', lang='ar'),
                          'سالب ثمانية آلاف و ثلاثمائة و أربعة و عشرون')
+
+        self.assertEqual(num2words(200, to='cardinal', lang='ar'),
+                         'مئتا')
+        self.assertEqual(num2words(700, to='cardinal', lang='ar'),
+                         'سبعمائة')
+        self.assertEqual(num2words(101010, to='cardinal', lang='ar'),
+                         'مائة و ألف ألف و عشرة')
+
         self.assertEqual(
             num2words(3431.12, to='cardinal', lang='ar'),
             'ثلاثة آلاف و أربعمائة و واحد و ثلاثون  , اثنتا عشرة')
