@@ -88,6 +88,7 @@ Besides the numerical argument, there are two main optional arguments, ``to:`` a
 * ``es`` (Spanish)
 * ``es_CO`` (Spanish - Colombia)
 * ``es_VE`` (Spanish - Venezuela)
+* ``es_GT`` (Spanish - Guatemala)
 * ``eu`` (EURO)
 * ``fa`` (Farsi)
 * ``fi`` (Finnish)
