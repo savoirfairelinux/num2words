@@ -60,7 +60,7 @@ class Num2Word_EO(Num2Word_Base):
         self.pointword = "komo"
         self.errmsg_nonnum = u"Sole nombroj povas esti konvertita en vortojn."
         self.errmsg_toobig = (
-            u"Tro granda nombro por esti konvertita en vortojn."
+            u"Tro granda nombro por esti konvertita en vortojn (abs(%s) > %s)."
         )
         self.exclude_title = ["kaj", "komo", "minus"]
         self.mid_numwords = [(1000, "mil"), (100, "cent"), (90, "naŭdek"),
