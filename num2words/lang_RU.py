@@ -131,6 +131,7 @@ def get_ord_classifier(prefixes, post_groups):
         for num, prefix in prefixes.items()
     }
 
+
 ONES_ORD = {
     3: [['третий', 'третья', 'третье', 'третьи'],
         ['третьего', 'третьей', 'третьего', 'третьих'],
@@ -143,8 +144,8 @@ ONES_ORD.update(
     get_ord_classifier(ONES_ORD_PREFIXES, ONES_ORD_POSTFIXES_GROUPS)
 )
 
-TENS_PREFIXES = {1: 'один', 2: 'две', 3: 'три', 4: 'четыр', 5: 'пят', 6: 'шест',
-                 7: 'сем', 8: 'восем', 9: 'девят'}
+TENS_PREFIXES = {1: 'один', 2: 'две', 3: 'три', 4: 'четыр', 5: 'пят',
+                 6: 'шест', 7: 'сем', 8: 'восем', 9: 'девят'}
 TENS_POSTFIXES = ['надцать', 'надцати', 'надцати', 'надцать', 'надцатью',
                   'надцати']
 TENS = {0: ['десять', 'десяти', 'десяти', 'десять', 'десятью', 'десяти']}
@@ -178,9 +179,10 @@ TWENTIES = {
 }
 
 TWENTIES_ORD_PREFIXES = {2: 'двадцат', 3: 'тридцат', 4: 'сороков',
-                         5: 'пятидесят',6: 'шестидесят', 7: 'семидесят',
+                         5: 'пятидесят', 6: 'шестидесят', 7: 'семидесят',
                          8: 'восьмидесят', 9: 'девяност'}
-TWENTIES_ORD_POSTFIXES_GROUPS = {2: 1, 3: 1, 4: 0, 5: 1, 6: 1, 7: 1, 8: 1, 9: 1}
+TWENTIES_ORD_POSTFIXES_GROUPS = {2: 1, 3: 1, 4: 0, 5: 1, 6: 1, 7: 1, 8: 1,
+                                 9: 1}
 TWENTIES_ORD = get_ord_classifier(TWENTIES_ORD_PREFIXES,
                                   TWENTIES_ORD_POSTFIXES_GROUPS)
 
@@ -272,12 +274,13 @@ class Num2Word_RU(Num2Word_Base):
         self.pointword = ('целая', 'целых', 'целых')
         self.pointword_ord = get_cases("цел", 1)
 
-    def to_cardinal(self, number, case=D_CASE, plural=D_PLURAL, gender=D_GENDER,
-                    animate=D_ANIMATE):
+    def to_cardinal(self, number, case=D_CASE, plural=D_PLURAL,
+                    gender=D_GENDER, animate=D_ANIMATE):
         n = str(number).replace(',', '.')
         if '.' in n:
             left, right = n.split('.')
-            decimal_part = self._int2word(int(right), cardinal=True, gender='f')
+            decimal_part = self._int2word(int(right), cardinal=True,
+                                          gender='f')
             return u'%s %s %s %s' % (
                 self._int2word(int(left), cardinal=True, gender='f'),
                 self.pluralize(int(left), self.pointword),
@@ -286,13 +289,14 @@ class Num2Word_RU(Num2Word_Base):
             )
         else:
             return self._int2word(int(n), cardinal=True, case=case,
-                                  plural=plural, gender=gender, animate=animate)
+                                  plural=plural, gender=gender,
+                                  animate=animate)
 
     def __decimal_bitness(self, n):
-        l = len(n)
         if n[-1] == "1" and n[-2:] != "11":
-            return self._int2word(10 ** l, cardinal=False, gender='f')
-        return self._int2word(10 ** l, cardinal=False, case='g', plural='t')
+            return self._int2word(10 ** len(n), cardinal=False, gender='f')
+        return self._int2word(10 ** len(n), cardinal=False, case='g',
+                              plural=True)
 
     def pluralize(self, n, forms):
         if n % 100 in (11, 12, 13, 14):
@@ -325,19 +329,21 @@ class Num2Word_RU(Num2Word_Base):
         """
         n: number
         feminine: not used - for backward compatibility
-        gender: 'f' - masculine
-                'm' - feminine
-                'n' - neuter
+        cardinal:True - cardinal
+                False - ordinal
         case:   'n' - nominative
                 'g' - genitive
                 'd' - dative
                 'a' - accusative
                 'i' - instrumental
                 'p' - prepositional
+        plural: True - plural
+                False - singular
+        gender: 'f' - masculine
+                'm' - feminine
+                'n' - neuter
         animate: True - animate
                  False - inanimate
-        ordinal: True - ordinal
-                 False - cardinal
         """
         # For backward compatibility
         if feminine:

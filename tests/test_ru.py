@@ -35,7 +35,8 @@ class Num2WordsRUTest(TestCase):
         self.assertEqual(num2words(2012, lang='ru'), "две тысячи двенадцать")
         self.assertEqual(
             num2words(12519.85, lang='ru'),
-            "двенадцать тысяч пятьсот девятнадцать целых восемьдесят пять сотых"
+            "двенадцать тысяч пятьсот девятнадцать целых восемьдесят пять "
+            "сотых"
         )
         self.assertEqual(
             num2words(1234567890, lang='ru'),
@@ -105,7 +106,7 @@ class Num2WordsRUTest(TestCase):
             num2words(115, lang='ru', gender='n'), "сто пятнадцать"
         )
         self.assertEqual(
-            num2words(122, lang='ru', gender='n'),"сто двадцать два"
+            num2words(122, lang='ru', gender='n'), "сто двадцать два"
         )
         self.assertEqual(
             num2words(125.1, lang='ru', gender='n'),
@@ -116,18 +117,21 @@ class Num2WordsRUTest(TestCase):
     def test_floating_point(self):
         self.assertEqual(num2words(5.2, lang='ru'), "пять целых две десятых")
         self.assertEqual(num2words(5.0, lang='ru'), "пять целых ноль десятых")
+        self.assertEqual(num2words(5.10, lang='ru'), "пять целых одна десятая")
+        self.assertEqual(num2words("5.10", lang='ru'),
+                         "пять целых десять сотых")
         self.assertEqual(num2words(1.001, lang='ru'),
                          "одна целая одна тысячная")
         self.assertEqual(num2words(1.011, lang='ru'),
                          "одна целая одиннадцать тысячных")
         self.assertEqual(num2words(10.02, lang='ru'),
-            "десять целых две сотых")
+                         "десять целых две сотых")
         self.assertEqual(num2words(15.007, lang='ru'),
-            "пятнадцать целых семь тысячных")
+                         "пятнадцать целых семь тысячных")
         self.assertEqual(num2words(561.42, lang='ru'),
-            "пятьсот шестьдесят одна целая сорок две сотых")
+                         "пятьсот шестьдесят одна целая сорок две сотых")
         self.assertEqual(num2words(561.00001, lang='ru'),
-            "пятьсот шестьдесят одна целая одна стотысячная")
+                         "пятьсот шестьдесят одна целая одна стотысячная")
 
     def test_to_ordinal(self):
         self.assertEqual(
