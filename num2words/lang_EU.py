@@ -82,6 +82,28 @@ class Num2Word_EU(Num2Word_Base):
     def gen_high_numwords(self, units, tens, lows):
         out = [u + t for t in tens for u in units]
         out.reverse()
+        replacements = [
+            ("novemn", "noven"),    # "novemnonagintillion" becomes "novenonagintillion"
+            ("novemo", "novo"),     # "novemoctogintillion" becomes "novoctogintillion"
+            ("octoo", "octo"),      # "octooctillion" becomes "octoctillion"
+            ("quintd", "quind"),    # "quintdecillion" becomes "quindecillion"
+            ("quintn", "quin"),     # "quintnonagintillion" becomes "quinonagintillion"
+            ("quintq", "quinq"),    # "quintquadragintillion" becomes "quinquadragintillion"
+            ("quints", "quins"),    # "quintsexagintillion" becomes "quinsexagintillion"
+            ("quintt", "quint"),    # "quinttrigintillion" becomes "quintrigintillion"
+            ("quintv", "quinv"),    # "quintvigintillion" becomes "quinvigintillion"
+            ("septenn", "septen"),  # "septennonagintillion" becomes "septenonagintillion"
+            ("septent", "sept"),    # "septtregintillion" becomes "septtregintillion"
+            ("sexn", "sen"),        # "sexnonagintillion" becomes "senonagintillion"
+            ("sexs", "ses"),        # "sexsexagintillion" becomes "sesexagintillion"
+            ("tresd", "tred"),      # "tresdecillion" becomes "tredecillion"
+            ("tresn", "tren"),      # "tresnonagintillion" becomes "trenonagintillion"
+            ("tress", "tres"),      # "tressexagintillion" becomes "tresexagintillion"
+            ("tresv", "trev"),      # "tresvigintillion" becomes "trevigintillion"
+            ("unno", "uno"),        # "unnonagintillion" becomes "unonagintillion"
+        ]
+        for k, v in replacements:
+            out = [o.replace(k, v) for o in out]
         return out + lows
 
     def pluralize(self, n, forms):
@@ -90,7 +112,7 @@ class Num2Word_EU(Num2Word_Base):
 
     def setup(self):
         lows = ["non", "oct", "sept", "sext", "quint", "quadr", "tr", "b", "m"]
-        units = ["", "un", "duo", "tre", "quattuor", "quin", "sex", "sept",
+        units = ["", "un", "duo", "tres", "quattuor", "quint", "sex", "septen",
                  "octo", "novem"]
         tens = ["dec", "vigint", "trigint", "quadragint", "quinquagint",
                 "sexagint", "septuagint", "octogint", "nonagint"]
