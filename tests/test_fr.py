@@ -149,7 +149,7 @@ TEST_CASES_TO_CURRENCY_USD = (
 )
 
 
-class Num2WordsENTest(TestCase):
+class Num2WordsFRTest(TestCase):
     def test_ordinal_special_joins(self):
         # ref https://github.com/savoirfairelinux/num2words/issues/18
         self.assertEqual(
@@ -203,3 +203,10 @@ class Num2WordsENTest(TestCase):
                 num2words(test[0], lang='fr', to='currency', currency='USD'),
                 test[1]
             )
+
+    def test_max_numbers(self):
+
+        with self.assertRaises(OverflowError) as context:
+            num2words(10 ** 700, lang='fr')
+
+        self.assertTrue('trop grand' in str(context.exception))

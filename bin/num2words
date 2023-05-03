@@ -76,13 +76,13 @@ def main():
             sys.stdout.write(os.linesep)
         sys.exit(0)
     if args["--list-converters"]:
-        for lang in get_converters():
-            sys.stdout.write(lang)
+        for cvt in get_converters():
+            sys.stdout.write(cvt)
             sys.stdout.write(os.linesep)
         sys.exit(0)
     try:
         words = num2words.num2words(args['<number>'], lang=args['--lang'], to=args['--to'])
-        sys.stdout.write(words+os.linesep)
+        sys.stdout.write(words + os.linesep)
         sys.exit(0)
     except Exception as err:
         sys.stderr.write(str(args['<number>']))
