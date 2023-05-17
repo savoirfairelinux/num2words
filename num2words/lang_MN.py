@@ -233,8 +233,8 @@ class Num2Word_MN(Num2Word_Base):
             result = result.replace(self.negword, "").strip()
 
         if suffix:
-            result = " ".join([suffix, result])
-        result = " ".join([result, "он"])
+            result = " ".join((suffix, result))
+        result = " ".join((result, "он"))
         return result.replace("нэг мянга", "мянга").replace(
             "мянга он", "мянган он"
         )
