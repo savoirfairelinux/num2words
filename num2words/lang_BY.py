@@ -240,16 +240,16 @@ class Num2Word_BY(Num2Word_Base):
                 lastword = lastword[: lastword.rfind('д') + 1] + 'ны'
 
         if gender == 'f':
-            if lastword[-2:] in ['цi', ]:
+            if lastword[-2:] in ['ці', ]:
                 lastword = lastword[:-2] + 'цяя'
             else:
-                lastword = lastword[:-2] + 'ая'
+                lastword = lastword[:-1] + 'ая'
 
         if gender == 'n':
-            if lastword[-2:] == ['цi', ]:
+            if lastword[-2:] == ['ці', ]:
                 lastword = lastword[:-2] + 'цяе'
             else:
-                lastword = lastword[:-2] + 'ае'
+                lastword = lastword[:-1] + 'ае'
 
         outwords[-1] = self.title(lastword)
         if len(outwords) == 2 and 'адна' in outwords[-2]:
