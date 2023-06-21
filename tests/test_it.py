@@ -263,12 +263,35 @@ class Num2WordsITTest(TestCase):
             "cinquecentosessantasettemilaottocentonovantesimo"
         )
 
-    def test_with_decimals(self):
+    def test_with_floats(self):
         self.assertAlmostEqual(
             num2words(1.0, lang="it"), "uno virgola zero"
         )
         self.assertAlmostEqual(
             num2words(1.1, lang="it"), "uno virgola uno"
+        )
+
+    def test_with_strings(self):
+        for i in range(2002):
+            # Just make sure it doesn't raise an exception
+            num2words(str(i), lang='it', to='cardinal')
+            num2words(str(i), lang='it', to='ordinal')
+        self.assertEqual(num2words('1', lang="it", to='ordinal'), "primo")
+        self.assertEqual(
+            num2words('100', lang="it", to='ordinal'),
+            "centesimo"
+        )
+        self.assertEqual(
+            num2words('1000', lang="it", to='ordinal'),
+            "millesimo"
+        )
+        self.assertEqual(
+            num2words('1234567890123456789012345678', lang="it", to='ordinal'),
+            "un quadriliardo, duecentotrentaquattro quadrilioni, "
+            "cinquecentosessantasette triliardi, ottocentonovanta trilioni, "
+            "centoventitré biliardi, quattrocentocinquantasei bilioni, "
+            "settecentottantanove miliardi, dodici milioni e "
+            "trecentoquarantacinquemilaseicentosettantottesimo"
         )
 
     def test_currency_eur(self):
