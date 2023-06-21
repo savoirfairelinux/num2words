@@ -121,6 +121,10 @@ class Num2WordsBYTest(TestCase):
             'дваццаць трэці'
         )
         self.assertEqual(
+            num2words(23, lang='by', to='ordinal', gender='f'),
+            'дваццаць трэцяя'
+        )
+        self.assertEqual(
             num2words(40, lang='by', to='ordinal'),
             'саракавы'
         )
@@ -144,10 +148,32 @@ class Num2WordsBYTest(TestCase):
             num2words(500, lang='by', to='ordinal'),
             'пяцісоты'
         )
+
+        self.assertEqual(
+            num2words(500, lang='by', to='ordinal', gender='f'),
+            'пяцісотая'
+        )
+
+        self.assertEqual(
+            num2words(500, lang='by', to='ordinal', gender='n'),
+            'пяцісотае'
+        )
+
         self.assertEqual(
             num2words(1000, lang='by', to='ordinal'),
             'тысячны'
         )
+
+        self.assertEqual(
+            num2words(1000, lang='by', to='ordinal', gender='f'),
+            'тысячная'
+        )
+
+        self.assertEqual(
+            num2words(1000, lang='by', to='ordinal', gender='n'),
+            'тысячнае'
+        )
+
         self.assertEqual(
             num2words(1001, lang='by', to='ordinal'),
             'тысяча першы'
