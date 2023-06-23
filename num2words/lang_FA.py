@@ -20,6 +20,7 @@
 
 from decimal import Decimal
 from math import floor
+from .base import Num2Word_Base
 
 farsiOnes = [
     "", "یک", "دو", "سه", "چهار", "پنج", "شش", "هفت", "هشت",
@@ -77,7 +78,7 @@ farsiFracBig = ["", "هزارم", "میلیونیم", "میلیاردیم"]
 farsiSeperator = ' و '
 
 
-class Num2Word_FA(object):
+class Num2Word_FA(Num2Word_Base):
     # Those are unused
     errmsg_toobig = "Too large"
     MAXNUM = 10 ** 36
