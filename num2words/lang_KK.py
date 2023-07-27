@@ -20,53 +20,53 @@ from __future__ import unicode_literals
 from .base import Num2Word_Base
 from .utils import get_digits, splitbyx
 
-ZERO = 'нөл'
+ZERO = "нөл"
 
 ONES = {
-    1: 'бір',
-    2: 'екі',
-    3: 'үш',
-    4: 'төрт',
-    5: 'бес',
-    6: 'алты',
-    7: 'жеті',
-    8: 'сегіз',
-    9: 'тоғыз',
+    1: "бір",
+    2: "екі",
+    3: "үш",
+    4: "төрт",
+    5: "бес",
+    6: "алты",
+    7: "жеті",
+    8: "сегіз",
+    9: "тоғыз",
 }
 
-TEN = 'он'
+TEN = "он"
 
 TWENTIES = {
-    2: 'жиырма',
-    3: 'отыз',
-    4: 'қырық',
-    5: 'елу',
-    6: 'алпыс',
-    7: 'жетпіс',
-    8: 'сексен',
-    9: 'тоқсан',
+    2: "жиырма",
+    3: "отыз",
+    4: "қырық",
+    5: "елу",
+    6: "алпыс",
+    7: "жетпіс",
+    8: "сексен",
+    9: "тоқсан",
 }
 
-HUNDRED = 'жүз'
+HUNDRED = "жүз"
 
 THOUSANDS = {
-    1: 'мың',
-    2: 'миллион',
-    3: 'миллиард',
-    4: 'триллион',
-    5: 'квадриллион',
-    6: 'квинтиллион',
-    7: 'секстиллион',
-    8: 'септиллион',
-    9: 'октиллион',
-    10: 'нониллион',
+    1: "мың",
+    2: "миллион",
+    3: "миллиард",
+    4: "триллион",
+    5: "квадриллион",
+    6: "квинтиллион",
+    7: "секстиллион",
+    8: "септиллион",
+    9: "октиллион",
+    10: "нониллион",
 }
 
 
-class Num2Word_KZ(Num2Word_Base):
+class Num2Word_KK(Num2Word_Base):
     CURRENCY_FORMS = {
-        'USD': ('доллар', 'цент'),
-        'KZT': ('теңге', 'тиын'),
+        "USD": ("доллар", "цент"),
+        "KZT": ("теңге", "тиын"),
     }
 
     def setup(self):
@@ -74,14 +74,14 @@ class Num2Word_KZ(Num2Word_Base):
         self.pointword = "бүтін"
 
     def to_cardinal(self, number):
-        n = str(number).replace(',', '.')
-        if '.' in n:
-            left, right = n.split('.')
-            leading_zero_count = len(right) - len(right.lstrip('0'))
-            return u'%s %s %s' % (
+        n = str(number).replace(",", ".")
+        if "." in n:
+            left, right = n.split(".")
+            leading_zero_count = len(right) - len(right.lstrip("0"))
+            return "%s %s %s" % (
                 self._int2word(int(left)),
                 self.pointword,
-                (ZERO + ' ') * leading_zero_count + self._int2word(int(right))
+                (ZERO + " ") * leading_zero_count + self._int2word(int(right)),
             )
         else:
             return self._int2word(int(n))
@@ -90,11 +90,11 @@ class Num2Word_KZ(Num2Word_Base):
         return form
 
     def _cents_verbose(self, number, currency):
-        return self._int2word(number, currency == 'KZT')
+        return self._int2word(number, currency == "KZT")
 
     def _int2word(self, n, feminine=False):
         if n < 0:
-            return ' '.join([self.negword, self._int2word(abs(n))])
+            return " ".join([self.negword, self._int2word(abs(n))])
 
         if n == 0:
             return ZERO
@@ -126,7 +126,7 @@ class Num2Word_KZ(Num2Word_Base):
             if i > 0:
                 words.append(THOUSANDS[i])
 
-        return ' '.join(words)
+        return " ".join(words)
 
     def to_ordinal(self, number):
         # TODO: Implement to_ordinal

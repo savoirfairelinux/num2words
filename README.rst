@@ -73,15 +73,15 @@ Besides the numerical argument, there are two main optional arguments, ``to:`` a
 * ``year``
 * ``currency``
 
-**lang:** The language in which to convert the number. Supported values are:
+**lang:** The language in which to convert the number, in the ISO 639-1 code format. Supported values are:
 
 * ``en`` (English, default)
 * ``am`` (Amharic)
 * ``ar`` (Arabic)
 * ``az`` (Azerbaijani)
-* ``cz`` (Czech)
+* ``cs`` (Czech)
 * ``de`` (German)
-* ``dk`` (Danish)
+* ``da`` (Danish)
 * ``en_GB`` (English - Great Britain)
 * ``en_IN`` (English - India)
 * ``en_NG`` (English - Nigeria)
@@ -104,7 +104,7 @@ Besides the numerical argument, there are two main optional arguments, ``to:`` a
 * ``ja`` (Japanese)
 * ``kn`` (Kannada)
 * ``ko`` (Korean)
-* ``kz`` (Kazakh)
+* ``kk`` (Kazakh)
 * ``lt`` (Lithuanian)
 * ``lv`` (Latvian)
 * ``no`` (Norwegian)
