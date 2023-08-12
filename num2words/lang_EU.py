@@ -64,7 +64,8 @@ class Num2Word_EU(Num2Word_Base):
         'INR': 'Indian',
         'HUF': 'Hungarian',
         'ISK': 'íslenskar',
-        'UZS': 'Uzbekistan'
+        'UZS': 'Uzbekistan',
+        'SAR': 'Saudi'
     }
 
     GIGA_SUFFIX = "illiard"
