@@ -46,7 +46,8 @@ class Num2Word_EU(Num2Word_Base):
         'INR': (('rupee', 'rupees'), ('paisa', 'paise')),
         'HUF': (('forint', 'forint'), ('fillér', 'fillér')),
         'ISK': (('króna', 'krónur'), ('aur', 'aurar')),
-        'UZS': (('sum', 'sums'), ('tiyin', 'tiyins'))
+        'UZS': (('sum', 'sums'), ('tiyin', 'tiyins')),
+        'SAR': (('saudi riyal', 'saudi riyals'), ('halalah', 'halalas'))
 
     }
 
