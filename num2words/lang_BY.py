@@ -240,8 +240,6 @@ class Num2Word_BY(Num2Word_Base):
                 if lastword[-1] == "ч":
                     lastword = lastword + "ны"
 
-                if "дву" in lastword[-2]:
-                    lastword[-2].replace("дву", "дзву")
 
             elif lastword[-1] == "н" or lastword[-2] == "н":
                 lastword = lastword[: lastword.rfind("н") + 1] + "ны"
@@ -257,8 +255,8 @@ class Num2Word_BY(Num2Word_Base):
                 lastword = lastword[:-1] + "ая"
 
         if gender == "n":
-            if lastword[-2:] == [
-                "ці",
+            if lastword[-2:] in [
+                "ці", "ца"
             ]:
                 lastword = lastword[:-2] + "цяе"
             else:
@@ -269,10 +267,16 @@ class Num2Word_BY(Num2Word_Base):
             outwords[-2] = outwords[-1]
             del outwords[-1]
 
-        if len(outwords) > 1 and "тысяч" in outwords[-1]:
-            outwords[-2] = outwords[-2] + outwords[-1]
+        if len(outwords) > 2 and "тысяч" in outwords[-1]:
+            if 'сорак' in outwords[-3]:
+                outwords[-3] = outwords[-3].replace('сорак', 'сарака')
+            outwords[-3] = outwords[-3] + outwords[-2] + outwords[-1]
+            del outwords[-1]
             del outwords[-1]
 
+        elif len(outwords) > 1 and "тысяч" in outwords[-1]:
+            outwords[-2] = outwords[-2] + outwords[-1]
+            del outwords[-1]
         return " ".join(outwords).strip()
 
     def _money_verbose(self, number, currency):

@@ -95,6 +95,7 @@ class Num2WordsBYTest(TestCase):
     def test_to_ordinal(self):
         self.assertEqual(num2words(1, lang="by", to="ordinal"), "першы")
         self.assertEqual(num2words(5, lang="by", to="ordinal"), "пяты")
+        self.assertEqual(num2words(6, lang="by", to="ordinal"), "шосты")
         self.assertEqual(num2words(10, lang="by", to="ordinal"), "дзясяты")
 
         self.assertEqual(num2words(13, lang="by", to="ordinal"), "трынаццаты")
@@ -105,6 +106,10 @@ class Num2WordsBYTest(TestCase):
         self.assertEqual(
             num2words(23, lang="by", to="ordinal", gender="f"),
             "дваццаць трэцяя",
+        )
+        self.assertEqual(
+            num2words(23, lang="by", to="ordinal", gender="n"),
+            "дваццаць трэцяе",
         )
         self.assertEqual(num2words(40, lang="by", to="ordinal"), "саракавы")
         self.assertEqual(
@@ -143,6 +148,9 @@ class Num2WordsBYTest(TestCase):
         )
         self.assertEqual(
             num2words(10000, lang="by", to="ordinal"), "дзесяцітысячны"
+        )
+        self.assertEqual(
+            num2words(42000, lang="by", to="ordinal"), "саракадвухтысячны"
         )
         self.assertEqual(
             num2words(1000000, lang="by", to="ordinal"), "мільённы"
