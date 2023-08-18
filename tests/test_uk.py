@@ -280,7 +280,8 @@ TEST_CASES_CARDINAL_GENITIVE = (
     (1001, "однієї тисячи одного"),
     (2012, "двох тисяч дванадцяти"),
     (12519, "дванадцяти тисяч п'ятиста дев'ятнадцяти"),
-    (12519.85, "дванадцяти тисяч п'ятиста дев'ятнадцяти кома вісімдесяти п'яти"),
+    (12519.85, "дванадцяти тисяч п'ятиста дев'ятнадцяти "
+        "кома вісімдесяти п'яти"),
     (-260000, "мінус двохста шістдесяти тисяч"),
     (1000000, "одного мільйона"),
     (1000000000, "одного мільярда"),
@@ -376,7 +377,8 @@ TEST_CASES_CARDINAL_DATIVE = (
     (1001, "одній тисячі одному"),
     (2012, "двом тисячам дванадцяти"),
     (12519, "дванадцяти тисячам п'ятистам дев'ятнадцяти"),
-    (12519.85, "дванадцяти тисячам п'ятистам дев'ятнадцяти кома вісімдесяти п'яти"),
+    (12519.85, "дванадцяти тисячам п'ятистам дев'ятнадцяти "
+               "кома вісімдесяти п'яти"),
     (-260000, "мінус двомстам шістдесяти тисячам"),
     (1000000, "одному мільйону"),
     (1000000000, "одному мільярду"),
@@ -568,12 +570,14 @@ TEST_CASES_CARDINAL_INSTRUMENTAL = (
     (1001, "однією тисячею одним"),
     (2012, "двома тисячами дванадцятьма"),
     (12519, "дванадцятьма тисячами п'ятьмастами дев'ятнадцятьма"),
-    (12519.85, "дванадцятьма тисячами п'ятьмастами дев'ятнадцятьма кома вісімдесятьма п'ятьма"),
+    (12519.85, "дванадцятьма тисячами п'ятьмастами дев'ятнадцятьма "
+        "кома вісімдесятьма п'ятьма"),
     (-260000, "мінус двомастами шістдесятьма тисячами"),
     (1000000, "одним мільйоном"),
     (1000000000, "одним мільярдом"),
     (1234567890, "одним мільярдом двомастами тридцятьма чотирма мільйонами "
-                 "п'ятьмастами шістдесятьма сьома тисячами восьмастами дев'яностами"),
+                 "п'ятьмастами шістдесятьма сьома тисячами восьмастами "
+                 "дев'яностами"),
     (1000000000000, "одним трильйоном"),
     (1000000000000000, "одним квадрильйоном"),
     (1000000000000000000, "одним квінтильйоном"),
@@ -589,12 +593,13 @@ TEST_CASES_CARDINAL_INSTRUMENTAL = (
      "дев'ятьма мільярдів восьмастами вісімдесятьма трьома мільйонами "
      "дев'ятьмастами однією тисячею шістьмастами сімдесятьма шістьма"),
     (719094234693663034822824384220291,
-     "сьомастами дев'ятнадцятьма нонільйонів дев'яностами чотирма октильйонами "
-     "двомастами тридцятьма чотирма септильйонами шістьмастами дев'яностами трьома "
-     "секстильйонами шістьмастами шістдесятьма трьома квінтильйонами тридцятьма "
-     "чотирма квадрильйонами восьмастами двадцятьма двома трильйонами восьмастами "
-     "двадцятьма чотирма мільярдами трьомастами вісімдесятьма чотирма мільйонами "
-     "двомастами двадцятьма тисячами двомастами дев'яностами одним")
+     "сьомастами дев'ятнадцятьма нонільйонів дев'яностами чотирма "
+     "октильйонами двомастами тридцятьма чотирма септильйонами шістьмастами "
+     "дев'яностами трьома секстильйонами шістьмастами шістдесятьма трьома "
+     "квінтильйонами тридцятьма чотирма квадрильйонами восьмастами двадцятьма "
+     "двома трильйонами восьмастами двадцятьма чотирма мільярдами трьомастами "
+     "вісімдесятьма чотирма мільйонами двомастами двадцятьма тисячами "
+     "двомастами дев'яностами одним")
 )
 
 TEST_CASES_CARDINAL_LOCATIVE = (
@@ -664,7 +669,8 @@ TEST_CASES_CARDINAL_LOCATIVE = (
     (1001, "одній тисячі одному"),
     (2012, "двох тисячах дванадцяти"),
     (12519, "дванадцяти тисячах п'ятистах дев'ятнадцяти"),
-    (12519.85, "дванадцяти тисячах п'ятистах дев'ятнадцяти кома вісімдесяти п'яти"),
+    (12519.85, "дванадцяти тисячах п'ятистах дев'ятнадцяти "
+        "кома вісімдесяти п'яти"),
     (-260000, "мінус двохстах шістдесяти тисячах"),
     (1000000, "одному мільйоні"),
     (1000000000, "одному мільярді"),
@@ -3025,42 +3031,49 @@ TEST_CASES_TO_CURRENCY_ZMW = (
 
 
 class Num2WordsUKTest(TestCase):
-    
+
     def test_to_cardinal(self):
         for test in TEST_CASES_CARDINAL:
             self.assertEqual(num2words(test[0], lang='uk'), test[1])
 
     def test_to_cardinal_feminine(self):
         for test in TEST_CASES_CARDINAL_FEMININE:
-            self.assertEqual(num2words(test[0], lang='uk', gender='feminine'), test[1])
+            word = num2words(test[0], lang='uk', gender='feminine')
+            self.assertEqual(word, test[1])
 
     def test_to_cardinal_nominative(self):
         for test in TEST_CASES_CARDINAL:
-            self.assertEqual(num2words(test[0], lang='uk', case='nominative'), test[1])
+            word = num2words(test[0], lang='uk', case='nominative')
+            self.assertEqual(word, test[1])
 
     def test_to_cardinal_genitive(self):
         for test in TEST_CASES_CARDINAL_GENITIVE:
-            self.assertEqual(num2words(test[0], lang='uk', case='genitive'), test[1])
+            word = num2words(test[0], lang='uk', case='genitive')
+            self.assertEqual(word, test[1])
 
     def test_to_cardinal_dative(self):
         self.maxDiff = None
         for test in TEST_CASES_CARDINAL_DATIVE:
-            self.assertEqual(num2words(test[0], lang='uk', case='dative'), test[1])
+            word = num2words(test[0], lang='uk', case='dative')
+            self.assertEqual(word, test[1])
 
     def test_to_cardinal_accusative(self):
         self.maxDiff = None
         for test in TEST_CASES_CARDINAL_ACCUSATIVE:
-            self.assertEqual(num2words(test[0], lang='uk', case='accusative'), test[1])
+            word = num2words(test[0], lang='uk', case='accusative')
+            self.assertEqual(word, test[1])
 
     def test_to_cardinal_instrumental(self):
         self.maxDiff = None
         for test in TEST_CASES_CARDINAL_INSTRUMENTAL:
-            self.assertEqual(num2words(test[0], lang='uk', case='instrumental'), test[1])
+            word = num2words(test[0], lang='uk', case='instrumental')
+            self.assertEqual(word, test[1])
 
     def test_to_cardinal_locative(self):
         self.maxDiff = None
         for test in TEST_CASES_CARDINAL_LOCATIVE:
-            self.assertEqual(num2words(test[0], lang='uk', case='locative'), test[1])
+            word = num2words(test[0], lang='uk', case='locative')
+            self.assertEqual(word, test[1])
 
     def test_to_ordinal(self):
         for test in TEST_CASES_ORDINAL:
