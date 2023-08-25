@@ -146,13 +146,13 @@ class Num2Word_IT(Num2Word_EU):
         elif isinstance(number, float):
             string = self.float_to_words(number)
         elif number < 20:
-            string = CARDINAL_WORDS[number]
+            string = CARDINAL_WORDS[int(number)]
         elif number < 100:
-            string = self.tens_to_cardinal(number)
+            string = self.tens_to_cardinal(int(number))
         elif number < 1000:
-            string = self.hundreds_to_cardinal(number)
+            string = self.hundreds_to_cardinal(int(number))
         elif number < 1000000:
-            string = self.thousands_to_cardinal(number)
+            string = self.thousands_to_cardinal(int(number))
         else:
             string = self.big_number_to_cardinal(number)
         return accentuate(string)
@@ -167,9 +167,9 @@ class Num2Word_IT(Num2Word_EU):
         elif number % 1 != 0:
             return self.float_to_words(number, ordinal=True)
         elif number < 20:
-            return ORDINAL_WORDS[number]
+            return ORDINAL_WORDS[int(number)]
         elif is_outside_teens and tens % 10 == 3:
-            # Gets ride of the accent      ~~~~~~~~~~
+            # Gets rid of the accent
             return self.to_cardinal(number)[:-1] + "eesimo"
         elif is_outside_teens and tens % 10 == 6:
             return self.to_cardinal(number) + "esimo"
