@@ -28,7 +28,8 @@ class Num2WordsKKTest(TestCase):
         self.assertEqual(num2words(7, lang="kk"), "жеті")
         self.assertEqual(num2words(23, lang="kk"), "жиырма үш")
         self.assertEqual(num2words(145, lang="kk"), "жүз қырық бес")
-        self.assertEqual(num2words(2869, lang="kk"), "екі мың сегіз жүз алпыс тоғыз")
+        self.assertEqual(num2words(2869, lang="kk"),
+                         "екі мың сегіз жүз алпыс тоғыз")
         self.assertEqual(
             num2words(-789000125, lang="kk"),
             "минус жеті жүз сексен тоғыз миллион жүз жиырма бес",
@@ -42,7 +43,8 @@ class Num2WordsKKTest(TestCase):
         self.assertEqual(num2words(0.7, lang="kk"), "нөл бүтін жеті")
         self.assertEqual(num2words(1.73, lang="kk"), "бір бүтін жетпіс үш")
         self.assertEqual(num2words(10.02, lang="kk"), "он бүтін нөл екі")
-        self.assertEqual(num2words(15.007, lang="kk"), "он бес бүтін нөл нөл жеті")
+        self.assertEqual(num2words(15.007, lang="kk"),
+                         "он бес бүтін нөл нөл жеті")
 
     def test_to_ordinal(self):
         with self.assertRaises(NotImplementedError):

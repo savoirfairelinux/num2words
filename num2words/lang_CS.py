@@ -99,9 +99,8 @@ class Num2Word_CS(Num2Word_Base):
         if "." in n:
             left, right = n.split(".")
             leading_zero_count = len(right) - len(right.lstrip("0"))
-            decimal_part = (ZERO[0] + " ") * leading_zero_count + self._int2word(
-                int(right)
-            )
+            leading_zeros = (ZERO[0] + " ") * leading_zero_count
+            decimal_part = leading_zeros + self._int2word(int(right))
             return "%s %s %s" % (
                 self._int2word(int(left)),
                 self.pointword,

@@ -147,7 +147,10 @@ class Num2Word_DA(lang_EU.Num2Word_EU):
     def to_currency(self, val, longval=True):
         if val // 100 == 1 or val == 1:
             ret = self.to_splitnum(
-                val, hightxt="kr", lowtxt="\xf8re", jointxt="og", longval=longval
+                val, hightxt="kr",
+                lowtxt="\xf8re",
+                jointxt="og",
+                longval=longval
             )
             return "en " + ret[3:]
         return self.to_splitnum(
