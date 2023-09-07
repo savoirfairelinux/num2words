@@ -32,7 +32,9 @@ GENDERS = {
 }
 
 PLURALS = {
-    "hundrað": ("hundrað", "hundruð"),
+    "hundrað": "hundruð",
+    "illjón": "illjónir",
+    "illjarður": "illjarðar"
 }
 
 
@@ -42,8 +44,13 @@ class Num2Word_IS(lang_EU.Num2Word_EU):
     MEGA_SUFFIX = "illjón"
 
     def setup(self):
-        lows = ["okt", "sept", "sext", "kvint", "kvaðr", "tr", "b", "m"]
-        self.high_numwords = self.gen_high_numwords([], [], lows)
+        lows = ["non", "okt", "sept", "sext", "kvint", "kvaðr", "tr", "b", "m"]
+        units = ["", "un", "dúó", "tre", "kvaður", "kvin", "sex", "sept",
+                 "októ", "nóvem"]
+        tens = ["des", "vigint", "trigint", "kvaðragint", "kvinkvagint",
+                "sexagint", "septúagint", "októgint", "nonagint"]
+
+        self.high_numwords = self.gen_high_numwords(units, tens, lows)
 
         self.negword = "mínus "
         self.pointword = "komma"
@@ -54,13 +61,14 @@ class Num2Word_IS(lang_EU.Num2Word_EU):
         self.mid_numwords = [(1000, "þúsund"), (100, "hundrað"),
                              (90, "níutíu"), (80, "áttatíu"), (70, "sjötíu"),
                              (60, "sextíu"), (50, "fimmtíu"), (40, "fjörutíu"),
-                             (30, "þrjátíu")]
-        self.low_numwords = ["tuttugu", "nítján", "átján", "sautján",
+                             (30, "þrjátíu"), (20, "tuttugu")]
+        self.low_numwords = ["nítján", "átján", "sautján",
                              "sextán", "fimmtán", "fjórtán", "þrettán",
                              "tólf", "ellefu", "tíu", "níu", "átta",
                              "sjö", "sex", "fimm", "fjórir", "þrír",
                              "tveir", "einn", "núll"]
-        self.ords = {"einn": "fyrsti",
+        self.ords = {"núll": "núllti",
+                     "einn": "fyrsti",
                      "tveir": "annar",
                      "þrír": "þriðji",
                      "fjórir": "fjórði",
@@ -71,32 +79,19 @@ class Num2Word_IS(lang_EU.Num2Word_EU):
                      "níu": "níundi",
                      "tíu": "tíundi",
                      "ellefu": "ellefti",
-                     "tólf": "tólfti"}
+                     "tólf": "tólfti",
+                     "tuttugu": "tuttugasti",
+                     "þrjátíu": "þrítugasti",
+                     "fjörutíu": "fertugasti",
+                     "fimmtíu": "fimmtugasti",
+                     "sextíu": "sextugasti",
+                     "sjötíu": "sjötugasti",
+                     "áttatíu": "áttugasti",
+                     "níutíu": "nítugasti"}
 
-    def pluralize(self, n, noun):
+    def pluralize(self, n, forms):
         form = 0 if (n % 10 == 1 and n % 100 != 11) else 1
-        if form == 0:
-            return noun
-        elif self.GIGA_SUFFIX in noun:
-            return noun.replace(self.GIGA_SUFFIX, "illjarðar")
-        elif self.MEGA_SUFFIX in noun:
-            return noun.replace(self.MEGA_SUFFIX, "illjónir")
-        elif noun not in PLURALS:
-            return noun
-        return PLURALS[noun][form]
-
-    def genderize(self, adj, noun):
-        last = adj.split()[-1]
-        if last not in GENDERS:
-            return adj
-        gender = KK
-        if "hund" in noun or "þús" in noun:
-            gender = HK
-        elif "illjarð" in noun:
-            gender = KK
-        elif "illjón" in noun:
-            gender = KVK
-        return adj.replace(last, GENDERS[last][gender])
+        return forms[form]
 
     def merge(self, lpair, rpair):
         ltext, lnum = lpair
@@ -105,23 +100,62 @@ class Num2Word_IS(lang_EU.Num2Word_EU):
         if lnum == 1 and rnum < 100:
             return (rtext, rnum)
         elif lnum < rnum:
-            rtext = self.pluralize(lnum, rtext)
-            ltext = self.genderize(ltext, rtext)
+            rtext = self._pluralize(lnum, rtext)
+            ltext = self._genderize(ltext, rtext)
             return ("%s %s" % (ltext, rtext), lnum * rnum)
         elif lnum > rnum and rnum in self.cards:
-            rtext = self.pluralize(lnum, rtext)
-            ltext = self.genderize(ltext, rtext)
+            rtext = self._pluralize(lnum, rtext)
+            ltext = self._genderize(ltext, rtext)
             return ("%s og %s" % (ltext, rtext), lnum + rnum)
         return ("%s %s" % (ltext, rtext), lnum + rnum)
 
     def to_ordinal(self, value):
-        raise NotImplementedError
+        self.verify_ordinal(value)
+        outwords = self.to_cardinal(value).split(" ")
+        if outwords[-1] in self.low_numwords and len(outwords) > 1:
+            outwords[-3] = self._to_ordinal(outwords[-3])
+        outwords[-1] = self._to_ordinal(outwords[-1])
+        return " ".join(outwords)
+
+    def _to_ordinal(self, word):
+        try:
+            return self.ords[word]
+        except KeyError:
+            if word in self.low_numwords:
+                return word + "di"
+            elif self.GIGA_SUFFIX[:-2] in word or word[-2:] == "ir":
+                word = word[:-2]
+            return word + "asti"
 
     def to_ordinal_num(self, value):
-        raise NotImplementedError
+        return "%s." % value
 
     def to_year(self, val, suffix=None, longval=True):
         raise NotImplementedError
 
     def to_currency(self, val, longval=True):
         raise NotImplementedError
+
+    def _pluralize(self, val, singular):
+        if self.GIGA_SUFFIX in singular:
+            suffix = self.GIGA_SUFFIX
+            plural = singular.replace(suffix, PLURALS[suffix])
+        elif self.MEGA_SUFFIX in singular:
+            suffix = self.MEGA_SUFFIX
+            plural = singular.replace(suffix, PLURALS[suffix])
+        else:
+            plural = PLURALS.get(singular, singular)
+        forms = (singular, plural)
+        return self.pluralize(val, forms)
+
+    def _genderize(self, adj, noun):
+        last = adj.split()[-1]
+        if last not in GENDERS:
+            return adj
+        if "hund" in noun or "þús" in noun:
+            gender = HK
+        elif "illjón" in noun:
+            gender = KVK
+        else:
+            gender = KK
+        return adj.replace(last, GENDERS[last][gender])

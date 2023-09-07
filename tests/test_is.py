@@ -42,6 +42,46 @@ class Num2WordsISTest(TestCase):
                          "fjórir milljarðar tvær milljónir tvö hundruð "
                          "þrjátíu og fjögur þúsund fjörutíu og fimm")
 
+    def test_ordinal(self):
+        self.assertEqual(
+            num2words(0, lang='is', to='ordinal'),
+            'núllti'
+        )
+        self.assertEqual(
+            num2words(1, lang='is', to='ordinal'),
+            'fyrsti'
+        )
+        self.assertEqual(
+            num2words(13, lang='is', to='ordinal'),
+            'þrettándi'
+        )
+        self.assertEqual(
+            num2words(22, lang='is', to='ordinal'),
+            'tuttugasti og annar'
+        )
+        self.assertEqual(
+            num2words(12, lang='is', to='ordinal'),
+            'tólfti'
+        )
+        self.assertEqual(
+            num2words(130, lang='is', to='ordinal'),
+            'eitt hundrað og þrítugasti'
+        )
+        self.assertEqual(
+            num2words(1003, lang='is', to='ordinal'),
+            'eitt þúsundasti og þriðji'
+        )
+        self.assertEqual(
+            num2words(2000003, lang='is', to='ordinal'),
+            'tvær milljónasti og þriðji'
+        )
+
+    def test_ordinal_num(self):
+        self.assertEqual(num2words(10, lang='is', to='ordinal_num'), '10.')
+        self.assertEqual(num2words(21, lang='is', to='ordinal_num'), '21.')
+        self.assertEqual(num2words(102, lang='is', to='ordinal_num'), '102.')
+        self.assertEqual(num2words(73, lang='is', to='ordinal_num'), '73.')
+
     def test_cardinal_for_float_number(self):
         self.assertEqual(num2words(12.5, to="cardinal", lang="is"),
                          "tólf komma fimm")
@@ -54,22 +94,9 @@ class Num2WordsISTest(TestCase):
 
     def test_overflow(self):
         with self.assertRaises(OverflowError):
-            num2words("1000000000000000000000000000000000000000000000000000000"
-                      "0000000000000000000000000000000000000000000000000000000"
-                      "0000000000000000000000000000000000000000000000000000000"
-                      "0000000000000000000000000000000000000000000000000000000"
-                      "0000000000000000000000000000000000000000000000000000000"
-                      "00000000000000000000000000000000", lang="is")
+            num2words(10e1000, lang="is")
 
     def test_not_implemented(self):
-        # Ordinals
-        with self.assertRaises(NotImplementedError):
-            num2words(1, to="ordinal", lang="is")
-
-        # Ordinal num
-        with self.assertRaises(NotImplementedError):
-            num2words(1, to="ordinal_num", lang="is")
-
         # Year
         with self.assertRaises(NotImplementedError):
             num2words(1, to="year", lang="is")

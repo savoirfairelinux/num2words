@@ -62,7 +62,7 @@ class Num2Word_EU(Num2Word_Base):
         'RON': 'Romanian',
         'INR': 'Indian',
         'HUF': 'Hungarian',
-        'ISK': 'íslenskar',
+        'ISK': 'Icelandic',
         'UZS': 'Uzbekistan'
     }
 
