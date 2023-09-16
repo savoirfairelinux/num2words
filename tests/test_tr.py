@@ -182,7 +182,16 @@ class Num2WordsTRTest(TestCase):
             {"test": 101101011010.02, "to": "cardinal",
              "expected": u"yüzbirmilyaryüzbirmilyononbirbinonvirgüliki"},
             {"test": 101101011010.2, "to": "cardinal",
-             "expected": u"yüzbirmilyaryüzbirmilyononbirbinonvirgülyirmi"}
+             "expected": u"yüzbirmilyaryüzbirmilyononbirbinonvirgülyirmi"},
+            {"test": 10, "to": "ordinal_num", "expected": u"10uncu"},
+            {"test": 1, "to": "ordinal_num", "expected": u"1inci"},
+            {"test": 3, "to": "ordinal_num", "expected": u"3üncü"},
+            {"test": 6, "to": "ordinal_num", "expected": u"6ıncı"},
+            {"test": -5, "to": "cardinal", "expected": u"eksibeş"},
+            {"test": -55, "to": "cardinal", "expected": u"eksiellibeş"},
+            {"test": -576, "to": "cardinal",
+             "expected": u"eksibeşyüzyetmişaltı"},
+            {"test": -3, "to": "currency", "expected": u"eksiüçlira"},
         ]
         self.assertEqual(num2words(1, True, "tr"), u"birinci")
         self.assertEqual(num2words(2, True, "tr"), u"ikinci")

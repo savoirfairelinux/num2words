@@ -24,11 +24,13 @@ from num2words import num2words
 
 class Num2WordsPLTest(TestCase):
     def test_cardinal(self):
+        self.assertEqual(num2words(90, lang='pl'), "dziewięćdziesiąt")
         self.assertEqual(num2words(100, lang='pl'), "sto")
         self.assertEqual(num2words(101, lang='pl'), "sto jeden")
         self.assertEqual(num2words(110, lang='pl'), "sto dziesięć")
         self.assertEqual(num2words(115, lang='pl'), "sto piętnaście")
         self.assertEqual(num2words(123, lang='pl'), "sto dwadzieścia trzy")
+        self.assertEqual(num2words(400, lang='pl'), "czterysta")
         self.assertEqual(num2words(1000, lang='pl'), "tysiąc")
         self.assertEqual(num2words(1001, lang='pl'), "tysiąc jeden")
         self.assertEqual(num2words(2012, lang='pl'), "dwa tysiące dwanaście")
@@ -52,7 +54,7 @@ class Num2WordsPLTest(TestCase):
         self.assertEqual(
             num2words(1234567890, lang='pl'),
             "miliard dwieście trzydzieści cztery miliony pięćset "
-            "sześćdziesiąt siedem tysięcy osiemset dziewięćdzisiąt"
+            "sześćdziesiąt siedem tysięcy osiemset dziewięćdziesiąt"
         )
         self.assertEqual(
             num2words(10000000001000000100000, lang='pl'),
@@ -62,20 +64,20 @@ class Num2WordsPLTest(TestCase):
             num2words(215461407892039002157189883901676, lang='pl'),
             "dwieście piętnaście kwintylionów czterysta sześćdziesiąt jeden "
             "kwadryliardów czterysta siedem kwadrylionów osiemset "
-            "dziewięćdzisiąt dwa tryliardy trzydzieści dziewięć trylionów "
+            "dziewięćdziesiąt dwa tryliardy trzydzieści dziewięć trylionów "
             "dwa biliardy sto pięćdziesiąt siedem bilionów sto osiemdziesiąt "
             "dziewięć miliardów osiemset osiemdziesiąt trzy miliony "
             "dziewięćset jeden tysięcy sześćset siedemdziesiąt sześć"
         )
         self.assertEqual(
             num2words(719094234693663034822824384220291, lang='pl'),
-            "siedemset dziewiętnaście kwintylionów dziewięćdzisiąt cztery "
+            "siedemset dziewiętnaście kwintylionów dziewięćdziesiąt cztery "
             "kwadryliardy dwieście trzydzieści cztery kwadryliony sześćset "
-            "dziewięćdzisiąt trzy tryliardy sześćset sześćdziesiąt trzy "
+            "dziewięćdziesiąt trzy tryliardy sześćset sześćdziesiąt trzy "
             "tryliony trzydzieści cztery biliardy osiemset dwadzieścia dwa "
             "biliony osiemset dwadzieścia cztery miliardy trzysta "
             "osiemdziesiąt cztery miliony dwieście dwadzieścia "
-            "tysięcy dwieście dziewięćdzisiąt jeden"
+            "tysięcy dwieście dziewięćdziesiąt jeden"
         )
         self.assertEqual(
             num2words(
@@ -94,6 +96,9 @@ class Num2WordsPLTest(TestCase):
         self.assertEqual(num2words(100, lang='pl', to='ordinal'), "setny")
         self.assertEqual(
             num2words(101, lang='pl', to='ordinal'), "sto pierwszy")
+        self.assertEqual(num2words(120, lang='pl', to='ordinal'),
+                         "sto dwudziesty")
+        self.assertEqual(num2words(20, lang='pl', to='ordinal'), "dwudziesty")
         self.assertEqual(num2words(121, lang='pl', to='ordinal'),
                          "sto dwudziesty pierwszy")
         self.assertEqual(
@@ -117,6 +122,10 @@ class Num2WordsPLTest(TestCase):
                                    to='ordinal'), "milion tysięczny")
         self.assertEqual(num2words(1000000, lang='pl',
                                    to='ordinal'), "milionowy")
+
+    def test_to_ordinal_error(self):
+        with self.assertRaises(NotImplementedError):
+            num2words(1.5, lang='pl', to='ordinal')
 
     def test_currency(self):
         self.assertEqual(

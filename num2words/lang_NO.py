@@ -23,6 +23,7 @@ from . import lang_EU
 class Num2Word_NO(lang_EU.Num2Word_EU):
     GIGA_SUFFIX = "illard"
     MEGA_SUFFIX = "illion"
+    CURRENCY_FORMS = {'NOK': (('krone', 'kroner'), ('øre', 'øre'))}
 
     def set_high_numwords(self, high):
         cap = 3 + 6 * len(high)
@@ -50,19 +51,29 @@ class Num2Word_NO(lang_EU.Num2Word_EU):
                              "tolv", "elleve", "ti", "ni", "\xe5tte",
                              "syv", "seks", "fem", "fire", "tre", "to",
                              "en", "null"]
-        self.ords = {"en": "f\xf8rste",
-                     "to": "andre",
-                     "tre": "tredje",
-                     "fire": "fjerde",
-                     "fem": "femte",
-                     "seks": "sjette",
-                     "syv": "syvende",
-                     "\xe5tte": "\xe5ttende",
-                     "ni": "niende",
-                     "ti": "tiende",
-                     "elleve": "ellevte",
-                     "tolv": "tolvte",
-                     "tjue": "tjuende"}
+        self.ords_pl = {"to": "andre",
+                        "tre": "tredje",
+                        "fire": "fjerde",
+                        "fem": "femte",
+                        "seks": "sjette",
+                        "syv": "syvende",
+                        "\xe5tte": "\xe5ttende",
+                        "ni": "niende",
+                        "ti": "tiende",
+                        "elleve": "ellevte",
+                        "tolv": "tolvte",
+                        "fjorten": "fjortende",
+                        "femten": "femtende",
+                        "seksten": "sekstende",
+                        "sytten": "syttende",
+                        "atten": "attende",
+                        "nitten": "nittende",
+                        "tjue": "tjuende",
+                        "hundre": "hundrede",
+                        "tusen": "tusende",
+                        "million": "millionte"}
+        # this needs to be done separately to not block 13-19 to_ordinal
+        self.ords_sg = {"en": "f\xf8rste"}
 
     def merge(self, lpair, rpair):
         ltext, lnum = lpair
@@ -70,32 +81,29 @@ class Num2Word_NO(lang_EU.Num2Word_EU):
         if lnum == 1 and rnum < 100:
             return (rtext, rnum)
         elif 100 > lnum > rnum:
-            return ("%s-%s" % (ltext, rtext), lnum + rnum)
+            return ("%s%s" % (ltext, rtext), lnum + rnum)
         elif lnum >= 100 > rnum:
             return ("%s og %s" % (ltext, rtext), lnum + rnum)
         elif rnum > lnum:
             return ("%s %s" % (ltext, rtext), lnum * rnum)
-        return ("%s, %s" % (ltext, rtext), lnum + rnum)
+        return ("%s %s" % (ltext, rtext), lnum + rnum)
 
     def to_ordinal(self, value):
         self.verify_ordinal(value)
-        outwords = self.to_cardinal(value).split(" ")
-        lastwords = outwords[-1].split("-")
-        lastword = lastwords[-1].lower()
-        try:
-            lastword = self.ords[lastword]
-        except KeyError:
-            if lastword[-2:] == "ti":
-                lastword = lastword + "ende"
-            else:
-                lastword += "de"
-        lastwords[-1] = self.title(lastword)
-        outwords[-1] = "".join(lastwords)
-        return " ".join(outwords)
+        outword = self.to_cardinal(value)
+        for key in self.ords_pl:
+            if outword.endswith(key):
+                outword = outword[:len(outword) - len(key)] + self.ords_pl[key]
+                break
+        for key in self.ords_sg:
+            if outword.endswith(key):
+                outword = outword[:len(outword) - len(key)] + self.ords_sg[key]
+                break
+        return outword
 
     def to_ordinal_num(self, value):
         self.verify_ordinal(value)
-        return "%s%s" % (value, self.to_ordinal(value)[-2:])
+        return str(value) + "."
 
     def to_year(self, val, longval=True):
         if not (val // 100) % 10:
@@ -103,6 +111,12 @@ class Num2Word_NO(lang_EU.Num2Word_EU):
         return self.to_splitnum(val, hightxt="hundre", jointxt="og",
                                 longval=longval)
 
-    def to_currency(self, val, longval=True):
-        return self.to_splitnum(val, hightxt="krone/r", lowtxt="\xf8re/r",
-                                jointxt="og", longval=longval, cents=True)
+    def to_currency(self, val, currency='NOK', cents=True, separator=' og',
+                    adjective=False):
+        result = super(Num2Word_NO, self).to_currency(
+            val, currency=currency, cents=cents, separator=separator,
+            adjective=adjective)
+
+        # do not print "og null øre"
+        result = result.replace(' og null øre', '')
+        return result

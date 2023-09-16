@@ -35,10 +35,9 @@ class Num2WordBaseTest(TestCase):
 
     def test_error_to_cardinal_float(self):
         from num2words.base import Num2Word_Base
+        self.base = Num2Word_Base()
         with self.assertRaises(TypeError):
-            Num2Word_Base.to_cardinal_float(9)
-        with self.assertRaises(TypeError):
-            Num2Word_Base.to_cardinal_float("a")
+            self.base.to_cardinal_float("a")
 
     def test_error_merge(self):
         from num2words.base import Num2Word_Base
