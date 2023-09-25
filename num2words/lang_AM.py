@@ -116,7 +116,7 @@ class Num2Word_AM(lang_EU.Num2Word_EU):
         self.verify_ordinal(value)
         return '%s%s' % (value, self.to_ordinal(value)[-1:])
 
-    def to_currency(self, val, currency='ብር', cents=True, separator=' ከ',
+    def to_currency(self, val, currency='ETB', cents=True, separator=' ከ',
                     adjective=True):
         result = super(Num2Word_AM, self).to_currency(
             val, currency=currency, cents=cents, separator=separator,
