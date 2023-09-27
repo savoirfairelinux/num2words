@@ -31,7 +31,8 @@ CURRENCY_EGP = [("جنيه", "جنيهان", "جنيهات", "جنيهاً"),
                 ("قرش", "قرشان", "قروش", "قرش")]
 CURRENCY_KWD = [("دينار", "ديناران", "دينارات", "ديناراً"),
                 ("فلس", "فلسان", "فلس", "فلس")]
-
+CURRENCY_LBP = [("ليرة" ,"ليرتان" ,"ليرات" ,"ليرة"),
+                ("قرش" ,"قرشان" ,"قروش" ,"قرش")]
 ARABIC_ONES = [
     "", "واحد", "اثنان", "ثلاثة", "أربعة", "خمسة", "ستة", "سبعة", "ثمانية",
     "تسعة",
@@ -358,6 +359,9 @@ class Num2Word_AR(Num2Word_Base):
         elif currency == 'KWD':
             self.currency_unit = CURRENCY_KWD[0]
             self.currency_subunit = CURRENCY_KWD[1]
+        elif currency == 'LBP':
+            self.currency_unit = CURRENCY_LBP[0]
+            self.currency_subunit = CURRENCY_LBP[1]
         else:
             self.currency_unit = CURRENCY_SR[0]
             self.currency_subunit = CURRENCY_SR[1]
