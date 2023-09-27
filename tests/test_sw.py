@@ -111,13 +111,26 @@ class Num2WordsSWTest(TestCase):
         )
         self.assertEqual(
             num2words(911_581_317, lang='sw'),
-            'mia tisa kumi na moja milioni, mia tano themanini na moja elfu, mia tatu kumi na saba',
+            'mia tisa kumi na moja milioni, mia tano themanini na moja elfu, '
+            'mia tatu kumi na saba',
         )
         self.assertEqual(
             num2words(1_911_581_317, lang='sw'),
-            'moja bilioni, mia tisa kumi na moja milioni, mia tano themanini na moja elfu, mia tatu kumi na saba',
+            'moja bilioni, mia tisa kumi na moja milioni, mia tano themanini '
+            'na moja elfu, mia tatu kumi na saba',
         )
         self.assertEqual(
             num2words(882_911_581_317, lang='sw'),
-            'mia nane themanini na mbili bilioni, mia tisa kumi na moja milioni, mia tano themanini na moja elfu, mia tatu kumi na saba',
+            'mia nane themanini na mbili bilioni, mia tisa kumi na moja '
+            'milioni, mia tano themanini na moja elfu, mia tatu kumi na saba',
+        )
+
+    def test_number_to_ordinal(self):
+        self.assertEqual(num2words(1, ordinal=True, lang='sw'), 'kwanza')
+        self.assertEqual(num2words(2, ordinal=True, lang='sw'), 'pili')
+        self.assertEqual(num2words(3, ordinal=True, lang='sw'), 'tatu')
+        self.assertEqual(num2words(9, ordinal=True, lang='sw'), 'tisa')
+        self.assertEqual(num2words(12, ordinal=True, lang='sw'), 'kumi na mbili')
+        self.assertRaises(
+            Exception, 'number must be greater than zero to convert to ordinal'
         )

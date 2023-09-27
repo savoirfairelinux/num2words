@@ -113,20 +113,32 @@ class Num2Word_SW(Num2Word_Base):
                 return f'{ONES[thousands]} elfu na {self.tens_to_cardinal(remainder)}'
             elif thousands < 100:
                 # thousands = 10 - 99
-                return f'{self.tens_to_cardinal(thousands)} elfu na {self.tens_to_cardinal(remainder)}'
+                return (
+                    f'{self.tens_to_cardinal(thousands)} elfu na '
+                    f'{self.tens_to_cardinal(remainder)}'
+                )
             elif thousands < 1000:
                 # thousands = 100 - 999
-                return f'{self.hundreds_to_cardinal(thousands)} elfu, {self.tens_to_cardinal(remainder)}'
+                return (
+                    f'{self.hundreds_to_cardinal(thousands)} elfu, '
+                    f'{self.tens_to_cardinal(remainder)}'
+                )
         elif remainder < 1000:
             if thousands < 10:
                 # thousands = 1 - 9
                 return f'{ONES[thousands]} elfu, {self.hundreds_to_cardinal(remainder)}'
             elif thousands < 100:
                 # thousands = 10 - 99
-                return f'{self.tens_to_cardinal(thousands)} elfu, {self.hundreds_to_cardinal(remainder)}'
+                return (
+                    f'{self.tens_to_cardinal(thousands)} elfu, '
+                    f'{self.hundreds_to_cardinal(remainder)}'
+                )
             else:
                 # thousands = 100 - 999
-                return f'{self.hundreds_to_cardinal(thousands)} elfu, {self.hundreds_to_cardinal(remainder)}'
+                return (
+                    f'{self.hundreds_to_cardinal(thousands)} elfu, '
+                    f'{self.hundreds_to_cardinal(remainder)}'
+                )
 
     def big_number_to_cardinal(self, number):
         digits = [c for c in str(number)]
@@ -180,3 +192,13 @@ class Num2Word_SW(Num2Word_Base):
             # 1_000_000 - Infinity
             string = self.big_number_to_cardinal(int(number))
         return string
+
+    def to_ordinal(self, number):
+        '''Converts number to ordinal.'''
+        if number <= 0:
+            raise Exception('number must be greater than zero to convert to ordinal')
+        if number == 1:
+            return 'kwanza'
+        if number == 2:
+            return 'pili'
+        return self.to_cardinal(number)
