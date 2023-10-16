@@ -240,7 +240,6 @@ class Num2Word_BY(Num2Word_Base):
                 if lastword[-1] == "ч":
                     lastword = lastword + "ны"
 
-
             elif lastword[-1] == "н" or lastword[-2] == "н":
                 lastword = lastword[: lastword.rfind("н") + 1] + "ны"
             elif lastword[-1] == "д" or lastword[-2] == "д":
