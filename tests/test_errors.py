@@ -30,4 +30,4 @@ class Num2WordsErrorsTest(TestCase):
 
     def test_types_NotImplementedError(self):
         with self.assertRaises(NotImplementedError):
-            num2words(100, lang="en", to='babidibibidiboo')
+            num2words(100, lang="en", to='babidibibidiboo!')
