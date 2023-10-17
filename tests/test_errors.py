@@ -27,3 +27,7 @@ class Num2WordsErrorsTest(TestCase):
     def test_NotImplementedError(self):
         with self.assertRaises(NotImplementedError):
             num2words(100, lang="lalala")
+
+    def test_types_NotImplementedError(self):
+        with self.assertRaises(NotImplementedError):
+            num2words(100, lang="en", to='babidibibidiboo!')
