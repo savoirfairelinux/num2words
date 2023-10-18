@@ -1,6 +1,30 @@
 Changelog
 =========
 
+Version 0.5.13 -- 2023/10/18
+---------------------------
+
+* Fix a problem in Brazilian Portuguese code referred to thousands when the hundreds are exact. (#421)
+* Fix issue with the hundreds of millions, billions, ... when the hundreds of those are exact. (#436)
+* Fix negative number problem (#477)
+* Fix lang_DK issues (#366)
+* Norwegian uplift (#484)
+* BYN to EU and RU (#439)
+* Change python3.6 to python3.11 because deprecation in ubuntu 22.04 (#494)
+* Add support for Azerbaijani language (#495)
+* Add Icelandic (#380)
+* Hebrew long-form spelling, gender, ordinals, fractions, maxval=1e66, construct forms (#490)
+* Fix 15, 16, 17, 18, 19 issue (#505)
+* Added support for the Nigerian Naira (#507)
+* Fix several issues with num2words in Arabic (#512)
+* Guatemalan currency support (#510)
+* Fix #508: Handle string inputs in Italian to_ordinal (#518)
+* Add Slovak language support (#533)
+* Add gender and morphological cases support for Ukrainian (#530)
+* Adding genders for Russian language (#503)
+* Lang By Added (#506)
+* Add Saudi Riyal to english (#531)
+
 Version 0.5.12 -- 2022/08/19
 ----------------------------
 
