@@ -91,7 +91,7 @@ TWENTIES_ORDINALS = {
     6: ('sześćdziesiąty', "sześćdziesięcio"),
     7: ('siedemdziesiąty', "siedemdziesięcio"),
     8: ('osiemdziesiąty', "osiemdziesięcio"),
-    9: ('dziewięćdzisiąty', "dziewięćdziesięcio"),
+    9: ('dziewięćdziesiąty', "dziewięćdziesięcio"),
 }
 
 HUNDREDS = {
