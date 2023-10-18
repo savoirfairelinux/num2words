@@ -1,6 +1,45 @@
 Changelog
 =========
 
+Version 0.5.13 -- 2023/10/18
+---------------------------
+
+* Fix a problem in Brazilian Portuguese code referred to thousands when the hundreds are exact. (#421)
+* Fix issue with the hundreds of millions, billions, ... when the hundreds of those are exact. (#436)
+* Fix negative number problem (#477)
+* Fix lang_DK issues (#366)
+* Norwegian uplift (#484)
+* BYN to EU and RU (#439)
+* Change python3.6 to python3.11 because deprecation in ubuntu 22.04 (#494)
+* Add support for Azerbaijani language (#495)
+* Add Icelandic (#380)
+* Hebrew long-form spelling, gender, ordinals, fractions, maxval=1e66, construct forms (#490)
+* Fix 15, 16, 17, 18, 19 issue (#505)
+* Added support for the Nigerian Naira (#507)
+* Fix several issues with num2words in Arabic (#512)
+* Guatemalan currency support (#510)
+* Fix #508: Handle string inputs in Italian to_ordinal (#518)
+* Add Slovak language support (#533)
+* Add gender and morphological cases support for Ukrainian (#530)
+* Adding genders for Russian language (#503)
+* Lang By Added (#506)
+* Add Saudi Riyal to english (#531)
+
+Version 0.5.12 -- 2022/08/19
+----------------------------
+
+* Support Japanese Reiwa (令和/れいわ) era. (#412)
+* Add basic farsi support (#354)
+* Added Tajik language support (#406)
+* Fix Amharic language support (#465)
+* Fix Hebrew pluralize and implement to_currency (#330)
+* Add support to translate some currencies in italian language (#434)
+* Fix Polish twenties (#345)
+* Add uzs for ru and en (#422)
+* Added support for Esperanto numbers. (#387)
+* [ADD] to ordinal number for Turkish (#468)
+* Fix zeroth in Dutch to nulde fixing (#326)
+
 Version 0.5.11 -- 2022/08/03
 ----------------------------
 
@@ -77,9 +116,9 @@ Version 0.5.7 -- 2018/06/27
 * Add Finnish localization. (#170)
 * Add Japanese localization. (#171)
 * Add belgian-french localization. (#151)
-* Add Czech localization. (#154) 
+* Add Czech localization. (#154)
 * Add Thai localization. (#139)
-* Improve English localization. (#144) 
+* Improve English localization. (#144)
 * Improve Spanish localization. (#167)
 * Improve Italian localization. (#143)
 * Improve documentation. (#155, #145, #174)

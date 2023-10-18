@@ -24,11 +24,13 @@ from num2words import num2words
 
 class Num2WordsPLTest(TestCase):
     def test_cardinal(self):
+        self.assertEqual(num2words(90, lang='pl'), "dziewięćdziesiąt")
         self.assertEqual(num2words(100, lang='pl'), "sto")
         self.assertEqual(num2words(101, lang='pl'), "sto jeden")
         self.assertEqual(num2words(110, lang='pl'), "sto dziesięć")
         self.assertEqual(num2words(115, lang='pl'), "sto piętnaście")
         self.assertEqual(num2words(123, lang='pl'), "sto dwadzieścia trzy")
+        self.assertEqual(num2words(400, lang='pl'), "czterysta")
         self.assertEqual(num2words(1000, lang='pl'), "tysiąc")
         self.assertEqual(num2words(1001, lang='pl'), "tysiąc jeden")
         self.assertEqual(num2words(2012, lang='pl'), "dwa tysiące dwanaście")
@@ -94,6 +96,9 @@ class Num2WordsPLTest(TestCase):
         self.assertEqual(num2words(100, lang='pl', to='ordinal'), "setny")
         self.assertEqual(
             num2words(101, lang='pl', to='ordinal'), "sto pierwszy")
+        self.assertEqual(num2words(120, lang='pl', to='ordinal'),
+                         "sto dwudziesty")
+        self.assertEqual(num2words(20, lang='pl', to='ordinal'), "dwudziesty")
         self.assertEqual(num2words(121, lang='pl', to='ordinal'),
                          "sto dwudziesty pierwszy")
         self.assertEqual(
@@ -117,6 +122,10 @@ class Num2WordsPLTest(TestCase):
                                    to='ordinal'), "milion tysięczny")
         self.assertEqual(num2words(1000000, lang='pl',
                                    to='ordinal'), "milionowy")
+
+    def test_to_ordinal_error(self):
+        with self.assertRaises(NotImplementedError):
+            num2words(1.5, lang='pl', to='ordinal')
 
     def test_currency(self):
         self.assertEqual(

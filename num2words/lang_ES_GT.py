@@ -15,19 +15,18 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301 USA
 
-from __future__ import unicode_literals
+from __future__ import print_function, unicode_literals
 
-from unittest import TestCase
-
-from num2words import num2words
+from .lang_ES import Num2Word_ES
 
 
-class Num2WordsErrorsTest(TestCase):
+class Num2Word_ES_GT(Num2Word_ES):
 
-    def test_NotImplementedError(self):
-        with self.assertRaises(NotImplementedError):
-            num2words(100, lang="lalala")
-
-    def test_types_NotImplementedError(self):
-        with self.assertRaises(NotImplementedError):
-            num2words(100, lang="en", to='babidibibidiboo!')
+    def to_currency(self, val, longval=True, old=False):
+        result = self.to_splitnum(val, hightxt="quetzal/es",
+                                  lowtxt="centavo/s",
+                                  divisor=1, jointxt="y",
+                                  longval=longval)
+        # Handle exception, in spanish is "un euro"
+        # and not "uno euro"
+        return result.replace("uno", "un")
