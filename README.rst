@@ -80,6 +80,8 @@ Besides the numerical argument, there are two main optional arguments, ``to:`` a
 * ``ar`` (Arabic)
 * ``az`` (Azerbaijani)
 * ``by`` (Belarusian)
+* ``ce`` (Chechen)
+* ``cy`` (Welsh)
 * ``cz`` (Czech)
 * ``de`` (German)
 * ``dk`` (Danish)
