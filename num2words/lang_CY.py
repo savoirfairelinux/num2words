@@ -16,8 +16,8 @@
 
 from __future__ import unicode_literals
 
-from .lang_EU import Num2Word_EU
 from .currency import parse_currency_parts, prefix_currency
+from .lang_EU import Num2Word_EU
 
 # Welsh numerals differs to many other languages since the counted
 # object does not follow the numeral but is inserted between
@@ -89,12 +89,12 @@ CARDINAL_WORDS = {
     12: [("deuddeg", None), (OBJ, None)],
     13: [("tri", "AM"), (OBJ, None), ("ar ddeg", None)],
     14: [("pedwar", None), (OBJ, None), ("ar ddeg", None)],
-    15: [("pymtheg", None),  (OBJ, None)],
+    15: [("pymtheg", None), (OBJ, None)],
     16: [("un", None), (OBJ, None), ("ar bymtheg", None)],
     17: [("dau", "SM"), (OBJ, None), ("ar bymtheg", None)],
     18: [("deunaw", None), (OBJ, None)],
     19: [("pedwar", None), ("ar bymtheg", None)],
-    }
+}
 
 CARDINAL_WORDS_FEM = {
     # masc, fem, triggers mutation
@@ -118,22 +118,21 @@ CARDINAL_WORDS_FEM = {
     17: [("dwy", "SM"), (OBJ, None), ("ar bymtheg", None)],
     18: [("deunaw", None), (OBJ, None)],
     19: [("pedair", None), ("ar bymtheg", None)],
-    }
+}
 
-
-
-MILLION_WORDS = { 3: ("mil",None),
-                  6: ("miliwn",None),
-                  9: ("biliwn",None),
-                  12: ("triliwn", None),
-                  15: ("cwadriliwn", None),
-                  18: ("cwintiliwn", None),
-                  21: ("secsttiliwn", None),
-                  24: ("septiliwn", None),
-                  27: ("octiliwn", None),
-                  30: ("noniliwn", None),
-                  33: ("dengiliwn", None),
-                  }
+MILLION_WORDS = {
+    3: ("mil", None),
+    6: ("miliwn", None),
+    9: ("biliwn", None),
+    12: ("triliwn", None),
+    15: ("cwadriliwn", None),
+    18: ("cwintiliwn", None),
+    21: ("secsttiliwn", None),
+    24: ("septiliwn", None),
+    27: ("octiliwn", None),
+    30: ("noniliwn", None),
+    33: ("dengiliwn", None),
+}
 
 ORDINAL_WORDS = {
     0: [("dimfed", None), (OBJ, None)],
@@ -151,7 +150,7 @@ ORDINAL_WORDS = {
     12: [("deuddegfed", None), (OBJ, None)],
     13: [("trydydd", None), (OBJ, None), ("ar ddeg", None)],
     14: [("pedwerydd", None), (OBJ, None), ("ar ddeg", None)],
-    15: [("pymthegfed", None),  (OBJ, None)],
+    15: [("pymthegfed", None), (OBJ, None)],
     16: [("unfed", None), (OBJ, None), ("ar bymtheg", None)],
     17: [("ail", "SM"), (OBJ, None), ("ar bymtheg", None)],
     18: [("deunawfed", None), (OBJ, None)],
@@ -173,7 +172,7 @@ ORDINAL_WORDS_FEM = {
     12: [("deuddegfed", None), (OBJ, None)],
     13: [("trydedd", "SM"), (OBJ, None), ("ar ddeg", None)],
     14: [("pedwaredd", "SM"), (OBJ, None), ("ar ddeg", None)],
-    15: [("pymthegfed", None),  (OBJ, None)],
+    15: [("pymthegfed", None), (OBJ, None)],
     16: [("unfed", None), (OBJ, None), ("ar bymtheg", None)],
     17: [("ail", "SM"), (OBJ, None), ("ar bymtheg", None)],
     18: [("deunawfed", None), (OBJ, None)],
@@ -181,39 +180,49 @@ ORDINAL_WORDS_FEM = {
 }
 
 # The script can extrapolate the missing numbers from the base forms.
-STR_TENS = {1: [("ugain", None), (OBJ, None)],
-            2: [("deugain", None), (OBJ, None)],
-            3: [("trigain", None), (OBJ, None)],
-            4: [("pedwar ugain", None), (OBJ, None)],
-            }
+STR_TENS = {
+    1: [("ugain", None), (OBJ, None)],
+    2: [("deugain", None), (OBJ, None)],
+    3: [("trigain", None), (OBJ, None)],
+    4: [("pedwar ugain", None), (OBJ, None)],
+}
 
-ORD_STR_TENS = {1: [("ugainfed", None), (OBJ, None)],
-                2: [("deugainfed", None), (OBJ, None)],
-                3: [("trigainfed", None), (OBJ, None)],
-                4: [("pedwar ugainfed", None), (OBJ, None)]
-                }
-STR_TENS_INFORMAL = {1: ("undeg", None),     2: ("dauddeg", None), 3: ("trideg", None),
-                     4: ("pedwardeg", None), 5: ("pumdeg", None),  6: ("chwedeg", None),
-                     7: ("saithdeg", None),  8: ("wythdeg", None), 9: ("nawdeg", None)
+ORD_STR_TENS = {
+    1: [("ugainfed", None), (OBJ, None)],
+    2: [("deugainfed", None), (OBJ, None)],
+    3: [("trigainfed", None), (OBJ, None)],
+    4: [("pedwar ugainfed", None), (OBJ, None)],
+}
+
+STR_TENS_INFORMAL = {
+    1: ("undeg", None),
+    2: ("dauddeg", None),
+    3: ("trideg", None),
+    4: ("pedwardeg", None),
+    5: ("pumdeg", None),
+    6: ("chwedeg", None),
+    7: ("saithdeg", None),
+    8: ("wythdeg", None),
+    9: ("nawdeg", None),
 }
 
 
-
-GENERIC_DOLLARS = ('dolar', 'dolarau')
-GENERIC_CENTS = ('ceiniog', 'ceiniogau')
+GENERIC_DOLLARS = ("dolar", "dolarau")
+GENERIC_CENTS = ("ceiniog", "ceiniogau")
 
 CURRENCIES_FEM = ["GBP"]
+
 
 class Num2Word_CY(Num2Word_EU):
     CURRENCY_FORMS = {
         # currency code: (sg, pl), (sg, pl)
         # in Welsh a noun after a numeral is ALWAYS in the singular
-        'EUR': (('euro', 'euros'), GENERIC_CENTS),
-        'USD': (GENERIC_DOLLARS, GENERIC_CENTS),
-        'GBP': (('punt', 'punnoedd'), ('ceiniog', 'ceiniogau')),
-        'CNY': (('yuan', 'yuans'), ('ffen', 'ffens')),
+        "EUR": (("euro", "euros"), GENERIC_CENTS),
+        "USD": (GENERIC_DOLLARS, GENERIC_CENTS),
+        "GBP": (("punt", "punnoedd"), ("ceiniog", "ceiniogau")),
+        "CNY": (("yuan", "yuans"), ("ffen", "ffens")),
     }
-    
+
     MINUS_PREFIX_WORD = "meinws "
     FLOAT_INFIX_WORD = " pwynt "
 
@@ -228,18 +237,22 @@ class Num2Word_CY(Num2Word_EU):
             prefix = self.to_ordinal(int(float_number))
         else:
             prefix = self.to_cardinal(int(float_number))
-        float_part = str(float_number).split('.')[1]
+        float_part = str(float_number).split(".")[1]
         postfix = " ".join(
             # Drops the trailing zero and comma
             [self.to_cardinal(int(c)) for c in float_part]
         )
         return prefix + Num2Word_CY.FLOAT_INFIX_WORD + postfix
 
-
-    def hundred_group(self, number, informal=False, gender="masc", ordinal=False):
+    def hundred_group(
+        self, number, informal=False, gender="masc", ordinal=False
+    ):
         hundreds = number // 100
-        until100 = number % 100 # 0 - 99
-        result = [] # list group of number words and mutation info (for the following word)
+        until100 = number % 100  # 0 - 99
+        # list group of number words and mutation info (for the following word)
+        result = (
+            []
+        )
         if gender == "fem":
             CW = CARDINAL_WORDS_FEM
         else:
@@ -253,7 +266,24 @@ class Num2Word_CY(Num2Word_EU):
                 result.extend((CARDINAL_WORDS[hundreds]))
             result.extend([("cant", None), (OBJ, None)])
             if until100:
-                if until100 in [1,8,11,16,20,21,31,36,41,48,61,68,71,81,88,91]:
+                if until100 in [
+                    1,
+                    8,
+                    11,
+                    16,
+                    20,
+                    21,
+                    31,
+                    36,
+                    41,
+                    48,
+                    61,
+                    68,
+                    71,
+                    81,
+                    88,
+                    91,
+                ]:
                     result.append(("ac", None))
                 else:
                     result.append(("a", "AM"))
@@ -274,14 +304,17 @@ class Num2Word_CY(Num2Word_EU):
                     if units == 0:
                         result.extend([("hanner cant", None), (OBJ, None)])
                     elif units == 1:
-                        result.extend([("hanner cant ac un", None), (OBJ, None)])
+                        result.extend(
+                            [("hanner cant ac un", None), (OBJ, None)]
+                        )
                     else:
                         result.append(("hanner cant a", "AM"))
                         result.extend(CW[units])
             else:
-                if (number < 20 and number > 0) or (number == 0 and hundreds == 0):
+                if (number < 20 and number > 0) or (
+                    number == 0 and hundreds == 0
+                ):
                     if gender == "fem":
-                        
                         result.extend(CARDINAL_WORDS_FEM[int(number)])
                     else:
                         result.extend(CARDINAL_WORDS[int(number)])
@@ -293,7 +326,6 @@ class Num2Word_CY(Num2Word_EU):
                         degau = ORD_STR_TENS.get(tens)
                     else:
                         degau = STR_TENS.get(tens)
-                    #print("BBBB", number, tens, degau) #, softmutation(degau))
 
                     if units != 0:
                         if tens > 1:
@@ -310,9 +342,6 @@ class Num2Word_CY(Num2Word_EU):
                         result.extend(degau)
         return result
 
-            
-
-
     def to_ordinal(self, number, informal=False, gender="masc"):
         if number < 20:
             return makestring(ORDINAL_WORDS[number])
@@ -321,10 +350,19 @@ class Num2Word_CY(Num2Word_EU):
         elif number > 100:
             raise NotImplementedError("The given number is too large.")
 
-        return self.to_cardinal(number, informal=False, gender=gender, ordinal=True)
-        
+        return self.to_cardinal(
+            number, informal=False, gender=gender, ordinal=True
+        )
 
-    def to_cardinal(self, number, informal=False, gender="masc", ordinal=False, counted=None, raw=False):
+    def to_cardinal(
+        self,
+        number,
+        informal=False,
+        gender="masc",
+        ordinal=False,
+        counted=None,
+        raw=False,
+    ):
         negative = False
         if number < 0:
             negative = True
@@ -341,35 +379,46 @@ class Num2Word_CY(Num2Word_EU):
             return self.float_to_words(number)
 
         # split in groups of 10**3
-        groups = [] # groups of three digits starting from right (units (1 - 999), thousands, millions, ..
-        lowestgroup = None # find the lowest group of 3 digits > 0 for the ordinals
-        for pot in [3,6,9,12,15,18,21,24,27,30,33,36]:
-            gr = (number % 10**pot) // 10**(pot-3)
+        # groups of three digits starting from right (units (1 - 999),
+        # thousands, millions, ...)
+        groups = (
+            []
+        )
+        lowestgroup = (
+            None  # find the lowest group of 3 digits > 0 for the ordinals
+        )
+        for pot in [3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36]:
+            gr = (number % 10**pot) // 10 ** (pot - 3)
             groups.append((gr, pot))
             if gr and not lowestgroup:
                 lowestgroup = gr
-        #print("groups", groups)
+        # print("groups", groups)
 
         result = []
         if negative:
             result.append(("meinws", None))
-        
-        for gr,pot in reversed(groups):
+
+        for gr, pot in reversed(groups):
             if gr:
-                #print("AAAA", gr, pot, gender)
+                # print("AAAA", gr, pot, gender)
                 if pot == 6:
-                    g = "fem" # mil (1000) is feminine
+                    g = "fem"  # mil (1000) is feminine
                 elif pot == 3:
-                    g = gender # units depend on the following noun
+                    g = gender  # units depend on the following noun
                 else:
-                    g = "masc" # millions etc are masculine
+                    g = "masc"  # millions etc are masculine
                     # "mil" is feminine
                 if gr > 1 or pot == 3:
-                    words = self.hundred_group(gr, informal=informal, gender=g, ordinal = ordinal and (lowestgroup==gr))
+                    words = self.hundred_group(
+                        gr,
+                        informal=informal,
+                        gender=g,
+                        ordinal=ordinal and (lowestgroup == gr),
+                    )
                     result += words
                     # print(">>>> ", words)
                 if pot > 3:
-                    result.append(MILLION_WORDS[pot-3])
+                    result.append(MILLION_WORDS[pot - 3])
         if raw:
             # need to be able trigger correct mutation on currencies
             return result
@@ -381,8 +430,9 @@ class Num2Word_CY(Num2Word_EU):
                     result.extend([("o", "SM"), (counted, None)])
                 return makestring(result)
 
-    def to_currency(self, val, currency='EUR', cents=True, separator=',',
-                    adjective=False):
+    def to_currency(
+        self, val, currency="EUR", cents=True, separator=",", adjective=False
+    ):
         """
         Args:
             val: Numeric value
@@ -400,43 +450,48 @@ class Num2Word_CY(Num2Word_EU):
 
         except KeyError:
             raise NotImplementedError(
-                'Currency code "%s" not implemented for "%s"' %
-                (currency, self.__class__.__name__))
+                'Currency code "%s" not implemented for "%s"'
+                % (currency, self.__class__.__name__)
+            )
 
         if adjective and currency in self.CURRENCY_ADJECTIVES:
             cr1 = prefix_currency(self.CURRENCY_ADJECTIVES[currency], cr1)
 
         minus_str = "%s " % self.negword.strip() if is_negative else ""
         money_str = self._money_verbose(left, currency)
-        cents_str = self._cents_verbose(right, currency) \
-            if cents else self._cents_terse(right, currency)
+        cents_str = (
+            self._cents_verbose(right, currency)
+            if cents
+            else self._cents_terse(right, currency)
+        )
 
         if right == 0:
             # no pence
-            return u'%s%s' % (
+            return "%s%s" % (
                 minus_str,
                 money_str,
-                #self.pluralize(right, cr2)
-                )
+                # self.pluralize(right, cr2)
+            )
         elif left == 0:
             # no pence
-            return u'%s%s' % (
+            return "%s%s" % (
                 minus_str,
                 cents_str,
-                #self.pluralize(right, cr2)
-                )
+                # self.pluralize(right, cr2)
+            )
 
-        return u'%s%s%s %s' % (
+        return "%s%s%s %s" % (
             minus_str,
             money_str,
-            #self.pluralize(left, cr1),
+            # self.pluralize(left, cr1),
             separator,
             cents_str,
-            #self.pluralize(right, cr2)
+            # self.pluralize(right, cr2)
         )
 
     def _money_verbose(self, number, currency):
-        # used in super().to_currency(), we need to add gender here for feminine currenceis
+        # used in super().to_currency(), we need to add gender
+        # here for feminine currencies
         if currency in CURRENCIES_FEM:
             if number > 100:
                 m = self.to_cardinal(number, gender="fem", raw=True)
@@ -450,26 +505,25 @@ class Num2Word_CY(Num2Word_EU):
                 return makestring(m)
             else:
                 if number > 1:
-                    m =  self.to_cardinal(number, gender="fem", raw=True)
+                    m = self.to_cardinal(number, gender="fem", raw=True)
                 else:
                     m = [(OBJ, None)]
                 if currency in self.CURRENCY_FORMS:
                     c = self.CURRENCY_FORMS[currency][0][0]
                 else:
                     c = currency
-                #print("eeeeeeeee", m)
-                #m.append((c, None))
-                #print("fffffffff", m)
+                # print("eeeeeeeee", m)
+                # m.append((c, None))
+                # print("fffffffff", m)
                 return makestring(m, counted=c)
         else:
             return self.to_cardinal(number, raw=True)
-
 
     def _cents_verbose(self, number, currency):
         if number == 0:
             return ""
         elif number > 100:
-            m =  self.to_cardinal(number, raw=True)
+            m = self.to_cardinal(number, raw=True)
             if currency in self.CURRENCY_FORMS:
                 c = self.CURRENCY_FORMS[currency][0][1]
                 m.append(("o", "SM"))
@@ -480,16 +534,13 @@ class Num2Word_CY(Num2Word_EU):
             return makestring(m)
         else:
             if number > 1:
-                m =  self.to_cardinal(number, raw=True)
+                m = self.to_cardinal(number, raw=True)
             else:
                 m = [(OBJ, None)]
             if currency in self.CURRENCY_FORMS:
                 c = self.CURRENCY_FORMS[currency][1][0]
             else:
                 c = currency
-            #print("eeeeeeeee", m)
-            #m.append((c, None))
-            #print("fffffffff", m)
             return makestring(m, counted=c)
 
 
@@ -503,24 +554,26 @@ def makestring(result, counted=None):
                 continue
             else:
                 w = counted
-                counted = None # only first position
+                counted = None  # only first position
         if lastmut:
             out.append(mutate(w, lastmut))
         else:
             out.append(w)
         lastmut = mut
     return " ".join(out)
-        
+
+
 def mutate(word, mutation):
-    #print("uuu", number, word)
+    # print("uuu", number, word)
     if mutation == "SM":
         return softmutation(word)
     elif mutation == "AM":
         return aspiratedmutation(word)
     return word
 
+
 def softmutation(word):
-    #print("SM<<<<%s>" % word)
+    # print("SM<<<<%s>" % word)
     if word[0] == "p" and word[1] != "h":
         return "b" + word[1:]
     elif word[0] == "t" and word[1] != "h":
@@ -542,6 +595,7 @@ def softmutation(word):
     else:
         return word
 
+
 def aspiratedmutation(word):
     if word[0] == "p" and word[1] != "h":
         return "ph" + word[1:]
@@ -551,6 +605,3 @@ def aspiratedmutation(word):
         return "ch" + word[1:]
     else:
         return word
-
-#def omitt_if_zero(number_to_string):
-#    return "" if number_to_string == ZERO else number_to_string

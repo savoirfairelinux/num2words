@@ -52,3 +52,18 @@ e.g.
 
 More inspiration can be found in existing `num2words/lang_NN.py` files
 
+## Code validation
+
+In order to get your contribution merged into the main project, your code must test the validation tests.
+For this install the packages needed to test
+
+```
+pip install -r requirements-test.txt
+```
+
+and run `tox`
+
+```
+tox
+```
+

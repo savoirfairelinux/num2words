@@ -145,7 +145,6 @@ TEST_CASES_CARDINAL = (
     (120, "cant ac ugain"),
     (121, "cant ac un ar hugain"),
     (122, "cant a dau ar hugain"),
-
     (100, "cant"),
     (217, "dau gant a dau ar bymtheg"),
     (334, "tri chant a phedwar ar ddeg ar hugain"),
@@ -154,7 +153,6 @@ TEST_CASES_CARDINAL = (
     (685, "chwech chant a phump a phedwar ugain"),
     (802, "wyth cant a dau"),
     (919, "naw cant a phedwar ar bymtheg"),
-
     (100, "cant"),
     (200, "dau gant"),
     (300, "tri chant"),
@@ -165,11 +163,13 @@ TEST_CASES_CARDINAL = (
     (800, "wyth cant"),
     (900, "naw cant"),
     (1000, "mil"),
-
     (1000, "mil"),
     (12111, "deuddeg mil cant ac un ar ddeg"),
     (23222, "tair ar hugain mil dau gant a dau ar hugain"),
-    (34333, "pedair ar ddeg ar hugain mil tri chant a thri ar ddeg ar hugain"),
+    (
+        34333,
+        "pedair ar ddeg ar hugain mil tri chant a thri ar ddeg ar hugain",
+    ),
     (45444, "pump a deugain mil pedwar cant a phedwar a deugain"),
     (56555, "hanner cant a chwech mil pump cant a hanner a phump"),
     (67666, "saith a thrigain mil chwech chant a chwech a thrigain"),
@@ -178,26 +178,37 @@ TEST_CASES_CARDINAL = (
     (100999, "cant mil naw cant a phedwar ar bymtheg a phedwar ugain"),
     (112110, "cant a deuddeg mil cant a deg"),
     (123221, "cant a thair ar hugain mil dau gant ac un ar hugain"),
-    (134332, "cant a phedair ar ddeg ar hugain mil tri chant a deuddeg ar hugain"),
+    (
+        134332,
+        "cant a phedair ar ddeg ar hugain mil tri chant a deuddeg ar hugain",
+    ),
     (145443, "cant a phump a deugain mil pedwar cant a thri a deugain"),
     (156554, "cant a hanner a chwech mil pump cant a hanner a phedwar"),
-
-
     (123, "cant a thri ar hugain"),
     (2345, "dwy fil tri chant a phump a deugain"),
     (34567, "pedair ar ddeg ar hugain mil pump cant a saith a thrigain"),
     (654321, "chwech chant a hanner a phedair mil tri chant ac un ar hugain"),
-    (7654321, "saith miliwn chwech chant a hanner a phedair mil tri chant ac un ar hugain"),
-    (987654321, "naw cant a saith a phedwar ugain miliwn chwech chant a hanner a phedair mil tri chant ac un ar hugain"),
-    (123456789012, "cant a thri ar hugain biliwn pedwar cant a hanner a chwech miliwn saith cant a naw a phedwar ugain mil deuddeg"),
+    (
+        7654321,
+        "saith miliwn chwech chant a hanner a "
+        "phedair mil tri chant ac un ar hugain",
+    ),
+    (
+        987654321,
+        "naw cant a saith a phedwar ugain miliwn chwech chant a "
+        "hanner a phedair mil tri chant ac un ar hugain",
+    ),
+    (
+        123456789012,
+        "cant a thri ar hugain biliwn pedwar cant a hanner a chwech miliwn "
+        "saith cant a naw a phedwar ugain mil deuddeg",
+    ),
     (2023, "dwy fil tri ar hugain"),
     (-40123, "meinws deugain mil cant a thri ar hugain"),
     (12340000000000000, "deuddeg cwadriliwn tri chant a deugain triliwn"),
     (3000000000000000, "tri chwadriliwn"),
     (2500000000000000000000000000000000, "dau ddengiliwn pump cant noniliwn"),
-
-
-    )
+)
 
 
 TEST_CASES_CARDINAL_FEM = (
@@ -366,21 +377,21 @@ TEST_CASES_ORDINAL = (
     (98, "deunawfed a phedwar ugain"),
     (99, "pedwerydd ar bymtheg a phedwar ugain"),
     (100, "canfed"),
-    )
+)
 
 TEST_CASES_DECIMALS = [
     (123.4567, "cant a thri ar hugain pwynt pedwar pump chwech saith")
-    ]
+]
 
 TEST_CASES_TO_CURRENCY_GBP = (
-    (2.04, 'dwy bunt, pedwar ceiniog'),
-    (3.50, 'tair punt, hanner cant ceiniog'),
-    (2002.15, 'dwy fil dwy o bunnoedd, pymtheg ceiniog'),
+    (2.04, "dwy bunt, pedwar ceiniog"),
+    (3.50, "tair punt, hanner cant ceiniog"),
+    (2002.15, "dwy fil dwy o bunnoedd, pymtheg ceiniog"),
     (100.01, "cant punt, ceiniog"),
     (50.00, "hanner cant punt"),
     (51.00, "hanner cant ac un punt"),
-    (152.50, "cant a hanner a dwy o bunnoedd, hanner cant ceiniog")
-    )
+    (152.50, "cant a hanner a dwy o bunnoedd, hanner cant ceiniog"),
+)
 
 TEST_CASES_COUNTED = [
     (2, "ci", "masc", "dau gi"),
@@ -395,36 +406,42 @@ TEST_CASES_COUNTED = [
     (26, "cath", "fem", "chwech chath ar hugain"),
     (42, "cath", "fem", "dwy gath a deugain"),
     (56, "cath", "fem", "hanner cant a chwech chath"),
+]
 
-    ]
 
 class Num2WordsCYTest(TestCase):
-
     def test_number(self):
         for test in TEST_CASES_CARDINAL:
-            self.assertEqual(num2words(test[0], lang='cy'), test[1])
+            self.assertEqual(num2words(test[0], lang="cy"), test[1])
 
     def test_number_fem(self):
         for test in TEST_CASES_CARDINAL_FEM:
-            self.assertEqual(num2words(test[0], lang='cy', gender="fem"), test[1])
+            self.assertEqual(
+                num2words(test[0], lang="cy", gender="fem"), test[1]
+            )
 
     def test_decimals(self):
         for test in TEST_CASES_DECIMALS:
-            self.assertEqual(num2words(test[0], lang='cy'), test[1])
-
+            self.assertEqual(num2words(test[0], lang="cy"), test[1])
 
     def test_ordinals(self):
         for test in TEST_CASES_ORDINAL:
-            self.assertEqual(num2words(test[0], lang='cy', to="ordinal"), test[1])
+            self.assertEqual(
+                num2words(test[0], lang="cy", to="ordinal"), test[1]
+            )
 
     def test_pounds(self):
         for test in TEST_CASES_TO_CURRENCY_GBP:
-            self.assertEqual(num2words(test[0], lang='cy', to="currency", currency="GBP"), test[1])
-
+            self.assertEqual(
+                num2words(test[0], lang="cy", to="currency", currency="GBP"),
+                test[1],
+            )
 
     def test_counted(self):
         for test in TEST_CASES_COUNTED:
-            self.assertEqual(num2words(test[0], lang='cy', counted=test[1], gender=test[2]), test[3])
-
-
-
+            self.assertEqual(
+                num2words(
+                    test[0], lang="cy", counted=test[1], gender=test[2]
+                ),
+                test[3],
+            )

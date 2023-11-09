@@ -16,266 +16,265 @@
 
 from __future__ import unicode_literals
 
+from .currency import parse_currency_parts
 from .lang_EU import Num2Word_EU
-from .currency import parse_currency_parts, prefix_currency
 
 # Chechen numbers inflect in case if without noun or
 # use a special oblique ending when followed by a counted noun
 # 4, 14, 40 and composites thereof agree in class (gender) with the
 # noun. Chechen has 6 classes which are indicated by the initial
-# letter of 4, 14 and 40. By default it is "д" but it can also be "б", "й" or "в".
+# letter of 4, 14 and 40. By default it is "д" but
+# it can also be "б", "й" or "в".
 # Indicate the needed class prefix as follows
 #   num2words(4, lang='ce', case="abs", clazz="б")
 
 
 CARDINALS = {
     "casenames": {
-        "abs":   "Им.",
-        "gen":   "Род.",
-        "dat":   "Дат.",
-        "erg":   "Эрг;",
+        "abs": "Им.",
+        "gen": "Род.",
+        "dat": "Дат.",
+        "erg": "Эрг;",
         "instr": "Твор.",
-        "mat":   "Вещ.",
-        "comp":  "Сравнит.",
-        "all":   "Местн.",
-        },
-    "casesuffix_cons": { # to be added to numerals with final consonant
-        "gen":   "аннан",
-        "dat":   "анна",
-        "erg":   "амма",
+        "mat": "Вещ.",
+        "comp": "Сравнит.",
+        "all": "Местн.",
+    },
+    "casesuffix_cons": {  # to be added to numerals with final consonant
+        "gen": "аннан",
+        "dat": "анна",
+        "erg": "амма",
         "instr": "анца",
-        "mat":   "аннах",
-        "comp":  "аннал",
-        "all":   "анга",
-        "obl":   "ан",
-        "ORD":   "алгӀа",
+        "mat": "аннах",
+        "comp": "аннал",
+        "all": "анга",
+        "obl": "ан",
+        "ORD": "алгӀа",
     },
-    "casesuffix_voc": {# to be added to numerals with final vowel
-        "gen":   "ннан",
-        "dat":   "нна",
-        "erg":   "мма",
+    "casesuffix_voc": {  # to be added to numerals with final vowel
+        "gen": "ннан",
+        "dat": "нна",
+        "erg": "мма",
         "instr": "нца",
-        "mat":   "ннах",
-        "comp":  "ннал",
-        "all":   "нга",
-        "obl":   "н",
-        "ORD":   "лгӀа",
+        "mat": "ннах",
+        "comp": "ннал",
+        "all": "нга",
+        "obl": "н",
+        "ORD": "лгӀа",
     },
-    0: { "attr": "ноль",
-         "abs": "ноль",
-         "gen":   "нолан",
-        "dat":   "нолана",
-        "erg":   "ноло",
+    0: {
+        "attr": "ноль",
+        "abs": "ноль",
+        "gen": "нолан",
+        "dat": "нолана",
+        "erg": "ноло",
         "instr": "ноланца",
-        "mat":   "ноланах",
-        "comp":  "ноланал",
-        "all":   "ноланга",
+        "mat": "ноланах",
+        "comp": "ноланал",
+        "all": "ноланга",
     },
     1: {
-        "attr":   "цхьа", # in front of nouns in ABS
-        "obl":   "цхьана", # with nouns in other cases than ABS
-        "abs":   "цхьаъ",
-        "gen":   "цхьаннан",
-        "dat":   "цхьанна",
-        "erg":   "цхьамма",
+        "attr": "цхьа",  # in front of nouns in ABS
+        "obl": "цхьана",  # with nouns in other cases than ABS
+        "abs": "цхьаъ",
+        "gen": "цхьаннан",
+        "dat": "цхьанна",
+        "erg": "цхьамма",
         "instr": "цхьаьнца",
-        "mat":   "цхьаннах",
-        "comp":  "цхьаннал",
-        "all":   "цхаьнга",
-        "ORD":   "цхьалгӀа",
-        }, 
+        "mat": "цхьаннах",
+        "comp": "цхьаннал",
+        "all": "цхаьнга",
+        "ORD": "цхьалгӀа",
+    },
     2: {
-        "attr":  "ши", #in front of 100, 1000
-        "obl":   "шина", 
-        "abs":   "шиъ",
-        "gen":   "шиннан",
-        "dat":   "шинна",
-        "erg":   "шимма",
+        "attr": "ши",  # in front of 100, 1000
+        "obl": "шина",
+        "abs": "шиъ",
+        "gen": "шиннан",
+        "dat": "шинна",
+        "erg": "шимма",
         "instr": "шинца",
-        "mat":   "шиннах",
-        "comp":  "шиннал",
-        "all":   "шинга",
-        "ORD":   "шолгӀа",
-        },
+        "mat": "шиннах",
+        "comp": "шиннал",
+        "all": "шинга",
+        "ORD": "шолгӀа",
+    },
     3: {
-        "attr":  "кхо",
-        "obl":   "кхона",
-        "abs":   "кхоъ",
-        "gen":   "кхааннан",
-        "dat":   "кхаанна",
-        "erg":   "кхаамма",
+        "attr": "кхо",
+        "obl": "кхона",
+        "abs": "кхоъ",
+        "gen": "кхааннан",
+        "dat": "кхаанна",
+        "erg": "кхаамма",
         "instr": "кхаанца",
-        "mat":   "кхааннах",
-        "comp":  "кхааннал",
-        "all":   "кхаанга",
-        "ORD":   "кхоалгӀа",
-
-        },
+        "mat": "кхааннах",
+        "comp": "кхааннал",
+        "all": "кхаанга",
+        "ORD": "кхоалгӀа",
+    },
     4: {
-        "attr":  "д*и",
-        "obl":   "д*еа",
-        "abs":   "д*иъ",
-        "gen":   "д*еаннан",
-        "dat":   "д*еанна",
-        "erg":   "д*еамма",
+        "attr": "д*и",
+        "obl": "д*еа",
+        "abs": "д*иъ",
+        "gen": "д*еаннан",
+        "dat": "д*еанна",
+        "erg": "д*еамма",
         "instr": "д*еанца",
-        "mat":   "д*еаннах",
-        "comp":  "д*еаннал",
-        "all":   "д*еанга",
-        "ORD":   "д*оьалгӀа",
-        },
-
+        "mat": "д*еаннах",
+        "comp": "д*еаннал",
+        "all": "д*еанга",
+        "ORD": "д*оьалгӀа",
+    },
     5: {
-        "attr":  "пхи",
-        "obl":   "пхеа",
-        "abs":   "пхиъ",
-        "gen":   "пхеаннан",
-        "dat":   "пхеанна",
-        "erg":   "пхеамма",
+        "attr": "пхи",
+        "obl": "пхеа",
+        "abs": "пхиъ",
+        "gen": "пхеаннан",
+        "dat": "пхеанна",
+        "erg": "пхеамма",
         "instr": "нхеанца",
-        "mat":   "пхеаннах",
-        "comp":  "пхеаннал",
-        "all":   "пхеанга",
-        "ORD":   "пхоьалгӀа",
-        },
-
+        "mat": "пхеаннах",
+        "comp": "пхеаннал",
+        "all": "пхеанга",
+        "ORD": "пхоьалгӀа",
+    },
     6: {
-        "abs":  "ялх",
+        "abs": "ялх",
         "attr": "ялх",
-        "ORD" : "йолхалгӀа",
+        "ORD": "йолхалгӀа",
     },
     7: {
-        "abs":  "ворхӀ",
+        "abs": "ворхӀ",
         "attr": "ворхӀ",
-        "ORD":  "ворхӀалгӀа",
+        "ORD": "ворхӀалгӀа",
     },
     8: {
-        "abs":  "бархӀ",
+        "abs": "бархӀ",
         "attr": "бархӀ",
-        "ORD":  "борхӀалӀа",
+        "ORD": "борхӀалӀа",
     },
     9: {
-        "abs":  "исс",
+        "abs": "исс",
         "attr": "исс",
-        "ORD":  "уьссалгӀа",
+        "ORD": "уьссалгӀа",
     },
     10: {
-        "attr":  "итт",
-        "abs":   "итт",
-        "gen":   "иттаннан",
-        "dat":   "иттанна",
-        "erg":   "иттамма",
+        "attr": "итт",
+        "abs": "итт",
+        "gen": "иттаннан",
+        "dat": "иттанна",
+        "erg": "иттамма",
         "instr": "иттанца",
-        "mat":   "иттаннах",
-        "comp":  "иттаннал",
-        "all":   "иттанга",
-        "ORD":   "уьтталгӀа",
-        },
+        "mat": "иттаннах",
+        "comp": "иттаннал",
+        "all": "иттанга",
+        "ORD": "уьтталгӀа",
+    },
     11: {
-        "abs":  "цхьайтта",
+        "abs": "цхьайтта",
         "attr": "цхьайтта",
-        "ORD":  "цхьайтталгӀа",
-        },
+        "ORD": "цхьайтталгӀа",
+    },
     12: {
-        "abs":  "шийтта",
+        "abs": "шийтта",
         "attr": "шийтта",
-        "ORD":  "шийтталга",
-        },
+        "ORD": "шийтталга",
+    },
     13: {
-        "abs":  "кхойтта",
+        "abs": "кхойтта",
         "attr": "кхойтта",
-        "ORD":  "кхойтталгӀа",
-        },
+        "ORD": "кхойтталгӀа",
+    },
     14: {
-        "abs":  "д*ейтта",
+        "abs": "д*ейтта",
         "attr": "д*ейтта",
-        "ORD":  "д*ейтталгӀа",
-        },
+        "ORD": "д*ейтталгӀа",
+    },
     15: {
-        "abs":  "пхийтта",
+        "abs": "пхийтта",
         "attr": "пхийтта",
-        "ORD":  "пхийтталгӀа",
-        },
+        "ORD": "пхийтталгӀа",
+    },
     16: {
-        "abs":  "ялхитта",
+        "abs": "ялхитта",
         "attr": "ялхитта",
-        "ORD":  "ялхитталгӀа",
-        },
+        "ORD": "ялхитталгӀа",
+    },
     17: {
-        "abs":  "вуьрхӀитта",
+        "abs": "вуьрхӀитта",
         "attr": "вуьрхӀитта",
-        "ORD":  "вуьрхӀитталгӀа",
-        },
+        "ORD": "вуьрхӀитталгӀа",
+    },
     18: {
-        "abs":  "берхӀитта",
+        "abs": "берхӀитта",
         "attr": "берхӀитта",
-        "ORD":  "берхитталӀа",
-        },
+        "ORD": "берхитталӀа",
+    },
     19: {
-        "abs":  "ткъайесна",
+        "abs": "ткъайесна",
         "attr": "ткъайесна",
-        "ORD":  "ткъаесналгӀа",
-        },
+        "ORD": "ткъаесналгӀа",
+    },
     20: {
-        "abs":   "ткъа",
-        "gen":   "ткъаннан",
-        "dat":   "ткъанна",
-        "erg":   "ткъамма",
+        "abs": "ткъа",
+        "gen": "ткъаннан",
+        "dat": "ткъанна",
+        "erg": "ткъамма",
         "instr": "ткъанца",
-        "mat":   "ткъаннах",
-        "comp":  "ткъаннал",
-        "all":   "ткъанга",
-        "attr":  "ткъе",
-        "ORD":   "ткъолгӀа",
-        },
+        "mat": "ткъаннах",
+        "comp": "ткъаннал",
+        "all": "ткъанга",
+        "attr": "ткъе",
+        "ORD": "ткъолгӀа",
+    },
     40: {
-        "abs":  "шовзткъа",
+        "abs": "шовзткъа",
         "attr": "шовзткъе",
-        "ORD":  "шовзткъалгІа",
-        },
+        "ORD": "шовзткъалгІа",
+    },
     60: {
-        "abs":  "кхузткъа",
+        "abs": "кхузткъа",
         "attr": "кхузткъе",
-        "ORD":  "кхузткъалгІа",
-        },
+        "ORD": "кхузткъалгІа",
+    },
     80: {
-        "abs":  "дезткъа",
+        "abs": "дезткъа",
         "attr": "дезткъе",
-        "ORD":  "дезткъалгІа",
-        },
+        "ORD": "дезткъалгІа",
+    },
     100: {
-        "attr":  "бӀе",
-        "abs":   "бӀе",
-        "obl":   "бӀен",
-        "gen":   "бӀеннан",
-        "dat":   "бӀенна",
-        "erg":   "бӀемма",
+        "attr": "бӀе",
+        "abs": "бӀе",
+        "obl": "бӀен",
+        "gen": "бӀеннан",
+        "dat": "бӀенна",
+        "erg": "бӀемма",
         "instr": "бӀенца",
-        "mat":   "бӀеннах",
-        "comp":  "бӀеннал",
-        "all":   "бӀенга",
-        "ORD":   "бІолгІа",
-        },
+        "mat": "бӀеннах",
+        "comp": "бӀеннал",
+        "all": "бӀенга",
+        "ORD": "бІолгІа",
+    },
     1000: {
-        "attr":  "эзар",
-        "abs":   "эзар",
-        "obl":   "эзаран",
-        "gen":   "эзарнан",
-        "dat":   "эзарна",
-        "erg":   "эзарно",
+        "attr": "эзар",
+        "abs": "эзар",
+        "obl": "эзаран",
+        "gen": "эзарнан",
+        "dat": "эзарна",
+        "erg": "эзарно",
         "instr": "эзарнаца",
-        "mat":   "эзарнах",
-        "comp":  "эзарнал",
-        "all":   "эзаранга",
-        "ORD":   "эзарлагІа",
-        },
+        "mat": "эзарнах",
+        "comp": "эзарнал",
+        "all": "эзаранга",
+        "ORD": "эзарлагІа",
+    },
     1000000: {
         "attr": "миллион",
         "abs": "миллион",
         "ORD": "миллионалгІа",
-        }
-    }
-    
+    },
+}
+
 ILLIONS = {
     6: {
         "attr": "миллион",
@@ -331,17 +330,17 @@ ILLIONS = {
 
 
 MINUS = "минус"
-DECIMALPOINT = "запятая" # check !
+DECIMALPOINT = "запятая"  # check !
+
 
 class Num2Word_CE(Num2Word_EU):
     CURRENCY_FORMS = {
         # currency code: (sg, pl), (sg, pl)
-       
-        'EUR': (('Евро', 'Евро'), ("Сент", "Сенташ")), 
-        'RUB': (("Сом", "Сомаш"), ("Кепек", "Кепекаш")),
-        'USD': (("Доллар", "Доллараш"), ("Сент", "Сенташ")),
-        'GBP': (("Фунт", "Фунташ"), ("Пенни", "Пенни"))
-        }
+        "EUR": (("Евро", "Евро"), ("Сент", "Сенташ")),
+        "RUB": (("Сом", "Сомаш"), ("Кепек", "Кепекаш")),
+        "USD": (("Доллар", "Доллараш"), ("Сент", "Сенташ")),
+        "GBP": (("Фунт", "Фунташ"), ("Пенни", "Пенни")),
+    }
 
     def setup(self):
         Num2Word_EU.setup(self)
@@ -350,35 +349,27 @@ class Num2Word_CE(Num2Word_EU):
         pass
 
     def to_ordinal(self, number, clazz="д"):
-        # implement here your code. number is the integer to be transformed into an ordinal
-        # as a word (str)
+        # implement here your code. number is the integer to
+        # be transformed into an ordinal as a word (str)
         # which is returned
         return self.to_cardinal(number, clazz=clazz, case="ORD")
 
     def to_cardinal(self, number, clazz="д", case="abs"):
         if isinstance(number, float):
             entires = self.to_cardinal(int(number))
-            float_part = str(number).split('.')[1]
+            float_part = str(number).split(".")[1]
             postfix = " ".join(
                 # Drops the trailing zero and comma
                 [self.to_cardinal(int(c)) for c in float_part]
-                )
+            )
             return entires + " " + DECIMALPOINT + " " + postfix
 
         elif number < 20:
-            #if case in CARDINALS[number]:
-            #    return CARDINALS[number][case]
-            #else:
-            # add casesuffix to ABS stem
             return self.makecase(number, case, clazz)
-                #if CARDINALS[number]["abs"][-1] in "а":
-                #    return CARDINALS[number]["abs"] + CARDINALS["casesuffix_voc"][case]
-                #else:
-                #    return CARDINALS[number]["abs"] + CARDINALS["casesuffix_cons"][case]
         elif number < 100:
             twens = number // 20
             units = number % 20
-            base = twens*20
+            base = twens * 20
             if units == 0:
                 return self.makecase(number, case, clazz)
             else:
@@ -389,7 +380,9 @@ class Num2Word_CE(Num2Word_EU):
             hundreds = number // 100
             tens = number % 100
             if hundreds > 1:
-                hundert = CARDINALS[hundreds]["attr"].replace("д*", clazz) + " "
+                hundert = (
+                    CARDINALS[hundreds]["attr"].replace("д*", clazz) + " "
+                )
             else:
                 hundert = ""
             if tens != 0:
@@ -405,7 +398,11 @@ class Num2Word_CE(Num2Word_EU):
             else:
                 tcase = case
             if thousands > 1:
-                tausend = self.to_cardinal(thousands, clazz=clazz, case="attr") + " " + CARDINALS[1000][tcase]
+                tausend = (
+                    self.to_cardinal(thousands, clazz=clazz, case="attr")
+                    + " "
+                    + CARDINALS[1000][tcase]
+                )
             else:
                 tausend = self.makecase(1000, tcase, clazz)
 
@@ -417,7 +414,7 @@ class Num2Word_CE(Num2Word_EU):
 
         elif number < 10**34:
             out = []
-            for pot in reversed([6,9,12,15,18,21,24,27,30,33]):
+            for pot in reversed([6, 9, 12, 15, 18, 21, 24, 27, 30, 33]):
                 # 3 digits of billion, trillion etc
                 step = number // 10**pot % 1000
                 if step > 0:
@@ -431,19 +428,26 @@ class Num2Word_CE(Num2Word_EU):
         return "NOT IMPLEMENTED"
 
     def _money_verbose(self, number, currency, case):
-        mcase ="attr"
+        mcase = "attr"
         if case != "abs":
             mcase = "obl"
         return self.to_cardinal(number, case=mcase)
 
     def _cents_verbose(self, number, currency, case):
-        mcase ="attr"
+        mcase = "attr"
         if case != "abs":
             mcase = "obl"
-        return self.to_cardinal(number, case="attr")
+        return self.to_cardinal(number, case=mcase)
 
-    def to_currency(self, val, currency='RUB', cents=True, separator=',',
-                    adjective=False, case="abs"):
+    def to_currency(
+        self,
+        val,
+        currency="RUB",
+        cents=True,
+        separator=",",
+        adjective=False,
+        case="abs",
+    ):
         """
         Args:
             val: Numeric value
@@ -461,49 +465,41 @@ class Num2Word_CE(Num2Word_EU):
             cr1, cr2 = self.CURRENCY_FORMS[currency]
             devise = cr1[0]
             centime = cr2[0]
-            #if case != "abs":
-            #    if devise[-1] in "аеиоуяю":
-            #        devise += CARDINALS["casesuffix_voc"][case]
-            #    else:
-            #        devise += CARDINALS["casesuffix_cons"][case]
-            #    if centime[-1] in "аеиоуяю":
-            #        centime += CARDINALS["casesuffix_voc"][case]
-            #    else:
-            #        centime += CARDINALS["casesuffix_cons"][case]
         except KeyError:
             raise NotImplementedError(
-                'Currency code "%s" not implemented for "%s"' %
-                (currency, self.__class__.__name__))
-
-        #if adjective and currency in self.CURRENCY_ADJECTIVES:
-        #    cr1 = prefix_currency(self.CURRENCY_ADJECTIVES[currency], cr1)
+                'Currency code "%s" not implemented for "%s"'
+                % (currency, self.__class__.__name__)
+            )
 
         minus_str = "%s " % self.negword.strip() if is_negative else ""
         money_str = self._money_verbose(left, currency, case)
-        cents_str = self._cents_verbose(right, currency, case) \
-            if cents else self._cents_terse(right, currency)
-
-
-        
-
-        return u'%s%s %s%s %s %s' % (
-            minus_str,
-            money_str,
-            devise, # always singular
-            separator,
-            cents_str,
-            centime
+        cents_str = (
+            self._cents_verbose(right, currency, case)
+            if cents
+            else self._cents_terse(right, currency)
         )
 
+        return "%s%s %s%s %s %s" % (
+            minus_str,
+            money_str,
+            devise,  # always singular
+            separator,
+            cents_str,
+            centime,
+        )
 
     def makecase(self, number, case, clazz):
-        #print("ZZZZ", number, CARDINALS[number])
+        # print("ZZZZ", number, CARDINALS[number])
         if case in CARDINALS[number]:
             return CARDINALS[number][case].replace("д*", clazz)
         else:
             if CARDINALS[number]["abs"][-1] in "а":
-                return CARDINALS[number]["abs"].replace("д*", clazz) + CARDINALS["casesuffix_voc"][case]
+                return (
+                    CARDINALS[number]["abs"].replace("д*", clazz)
+                    + CARDINALS["casesuffix_voc"][case]
+                )
             else:
-                return CARDINALS[number]["abs"].replace("д*", clazz) + CARDINALS["casesuffix_cons"][case]
-
-
+                return (
+                    CARDINALS[number]["abs"].replace("д*", clazz)
+                    + CARDINALS["casesuffix_cons"][case]
+                )
