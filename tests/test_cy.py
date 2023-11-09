@@ -394,6 +394,7 @@ TEST_CASES_DECIMALS = [
 
 TEST_CASES_TO_CURRENCY_GBP = (
     (0.00, "dim punt"),
+    (0.23, "tri cheiniog ar hugain"),
     (2.04, "dwy bunt, pedwar ceiniog"),
     (3.50, "tair punt, hanner cant ceiniog"),
     (2002.15, "dwy fil dwy o bunnoedd, pymtheg ceiniog"),
@@ -405,6 +406,9 @@ TEST_CASES_TO_CURRENCY_GBP = (
 
 TEST_CASES_COUNTED = [
     (2, "ci", "masc", "dau gi"),
+    (2, "ty", "masc", "dau dy"),
+    (2, "llwy", "fem", "dwy lwy"),
+    (2, "rhaglen", "masc", "dau raglen"),
     (11, "ci", "masc", "un ci ar ddeg"),
     (13, "ci", "masc", "tri chi ar ddeg"),
     (26, "ci", "masc", "chwech chi ar hugain"),
@@ -444,12 +448,20 @@ class Num2WordsCYTest(TestCase):
                 num2words(test[0], lang="cy", to="ordinal"), test[1]
             )
 
+    def test_ordinal_not_implemented(self):
+        with self.assertRaises(NotImplementedError):
+            num2words(101, lang='cy', to="ordinal")
+
     def test_pounds(self):
         for test in TEST_CASES_TO_CURRENCY_GBP:
             self.assertEqual(
                 num2words(test[0], lang="cy", to="currency", currency="GBP"),
                 test[1],
             )
+
+    def test_other_cur(self):
+        with self.assertRaises(NotImplementedError):
+            num2words(10.23, lang="cy", to="currency", currency="DEM"),
 
     def test_counted(self):
         for test in TEST_CASES_COUNTED:

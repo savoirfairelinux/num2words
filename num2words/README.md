@@ -61,9 +61,10 @@ For this install the packages needed to test
 pip install -r requirements-test.txt
 ```
 
-and run `tox`
+run `tox` and `coverage` to check that the code is well formated and all parts of the code are tested
 
 ```
 tox
+python3 -m coverage report -m
 ```
 

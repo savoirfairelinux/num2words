@@ -226,8 +226,8 @@ class Num2Word_CY(Num2Word_EU):
     MINUS_PREFIX_WORD = "meinws "
     FLOAT_INFIX_WORD = " pwynt "
 
-    def setup(self):
-        Num2Word_EU.setup(self)
+#    def setup(self):
+#        Num2Word_EU.setup(self)
 
     def __init__(self):
         pass
@@ -492,57 +492,57 @@ class Num2Word_CY(Num2Word_EU):
     def _money_verbose(self, number, currency):
         # used in super().to_currency(), we need to add gender
         # here for feminine currencies
-        if currency in CURRENCIES_FEM:
-            if number > 100:
-                m = self.to_cardinal(number, gender="fem", raw=True)
-                if currency in self.CURRENCY_FORMS:
-                    c = self.CURRENCY_FORMS[currency][0][1]
-                    m.append(("o", "SM"))
-                    m.append((c, None))
-                else:
-                    c = currency
-                    m.append((c, None))
-                return makestring(m)
-            else:
-                if number > 1:
-                    m = self.to_cardinal(number, gender="fem", raw=True)
-                elif number == 0:
-                    m = self.to_cardinal(number, gender="fem", raw=True)
-                else:
-                    m = [(OBJ, None)]
-                if currency in self.CURRENCY_FORMS:
-                    c = self.CURRENCY_FORMS[currency][0][0]
-                else:
-                    c = currency
-                # print("eeeeeeeee", m)
-                # m.append((c, None))
-                # print("fffffffff", m)
-                return makestring(m, counted=c)
+        # if currency in CURRENCIES_FEM:  # always true in this context
+        if number > 100:
+            m = self.to_cardinal(number, gender="fem", raw=True)
+            # if currency in self.CURRENCY_FORMS:
+            c = self.CURRENCY_FORMS[currency][0][1]
+            m.append(("o", "SM"))
+            m.append((c, None))
+            # else:
+            #    c = currency
+            #    m.append((c, None))
+            return makestring(m)
         else:
-            return self.to_cardinal(number, raw=True)
+            # if number > 1:
+            m = self.to_cardinal(number, gender="fem", raw=True)
+            # elif number == 0:
+            #    m = self.to_cardinal(number, gender="fem", raw=True)
+            # else:
+            #    m = [(OBJ, None)]
+            # if currency in self.CURRENCY_FORMS:
+            c = self.CURRENCY_FORMS[currency][0][0]
+            # else:
+            #    c = currency
+            # print("eeeeeeeee", m)
+            # m.append((c, None))
+            # print("fffffffff", m)
+            return makestring(m, counted=c)
+        # else:
+        #    return self.to_cardinal(number, raw=True)
 
     def _cents_verbose(self, number, currency):
         if number == 0:
             return ""
-        elif number > 100:
-            m = self.to_cardinal(number, raw=True)
-            if currency in self.CURRENCY_FORMS:
-                c = self.CURRENCY_FORMS[currency][0][1]
-                m.append(("o", "SM"))
-                m.append((c, None))
-            else:
-                c = currency
-                m.append((c, None))
-            return makestring(m)
+        # elif number > 100:
+        #     m = self.to_cardinal(number, raw=True)
+        #     # if currency in self.CURRENCY_FORMS:
+        #     c = self.CURRENCY_FORMS[currency][0][1]
+        #     m.append(("o", "SM"))
+        #     m.append((c, None))
+        #     # else:
+        #     #    c = currency
+        #     #    m.append((c, None))
+        #     return makestring(m)
         else:
             if number > 1:
                 m = self.to_cardinal(number, raw=True)
             else:
                 m = [(OBJ, None)]
-            if currency in self.CURRENCY_FORMS:
-                c = self.CURRENCY_FORMS[currency][1][0]
-            else:
-                c = currency
+            # if currency in self.CURRENCY_FORMS:
+            c = self.CURRENCY_FORMS[currency][1][0]
+            # else:
+            #    c = currency
             return makestring(m, counted=c)
 
 
@@ -566,12 +566,12 @@ def makestring(result, counted=None):
 
 
 def mutate(word, mutation):
-    # print("uuu", number, word)
+    # print("uuu", word, mutation)
     if mutation == "SM":
         return softmutation(word)
     elif mutation == "AM":
         return aspiratedmutation(word)
-    return word
+    # return word  # does not occur
 
 
 def softmutation(word):
@@ -584,8 +584,6 @@ def softmutation(word):
         return "g" + word[1:]
     elif word[0] == "b" or word[0] == "m":
         return "f" + word[1:]
-    elif word[0] == "h":
-        return word[1:]
     elif word[0] == "d" and word[1] != "d":
         return "d" + word
     elif word.startswith("ll"):
