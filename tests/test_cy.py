@@ -379,6 +379,14 @@ TEST_CASES_ORDINAL = (
     (100, "canfed"),
 )
 
+TEST_CASES_YEAR = [
+    (1922, "mil naw dau dau"),
+    (1989, "mil naw wyth naw"),
+    (1812, "mil wyth un dau"),
+    (2012, "dwy fil deuddeg"),
+    (2023, "dwy fil tri ar hugain")
+    ]
+
 TEST_CASES_DECIMALS = [
     (123.4567, "cant a thri ar hugain pwynt pedwar pump chwech saith")
 ]
@@ -445,3 +453,5 @@ class Num2WordsCYTest(TestCase):
                 ),
                 test[3],
             )
+
+# TODO 'ordinal_num', 'year'

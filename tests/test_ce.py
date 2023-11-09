@@ -285,7 +285,7 @@ TEST_CASES_YEAR = [
     (1926, "abs", "эзар исс бӀе ткъе ялх"),
 ]
 
-TEST_CASES_DECIMALS = [(123.4567, "бӀе ткъе кхоъ запятая диъ пхиъ ялх ворхӀ")]
+TEST_CASES_DECIMALS = [(123.4567, "бӀе ткъе кхоъ а диъ пхиъ ялх ворхӀ")]
 
 TEST_CASES_MILLIONS = [
     (200020, "ши бӀе эзар ткъа"),
@@ -355,10 +355,12 @@ TEST_CASES_MILLIONS = [
         5600560000000000000000000000000000,
         "пхи квинтиллиард ялх бӀе квинтиллион пхи бӀе кхузткъе квадриллиард",
     ),
+    (10**56, "NOT IMPLEMENTED")
 ]
 
 TEST_CURRENCY = [
-    (143.55, "abs", "бӀе шовзткъе кхо Сом, шовзткъе пхийтта Кепек"),
+    (143.55, "abs", "RUB", "бӀе шовзткъе кхо Сом, шовзткъе пхийтта Кепек"),
+    (243.15, "dat", "RUB", "ши бӀе шовзткъе кхона Сом, пхийттан Кепек"),
 ]
 
 
@@ -380,9 +382,9 @@ class Num2WordsCETest(TestCase):
                 num2words(test[0], lang="ce", to="ordinal", clazz=test[2]),
                 test[3],
             )
-        self.assertEqual(num2words(3, to="ordinal_num", lang='ce'), "3.")
-        self.assertEqual(num2words(5, to="ordinal_num", lang='ce'), "5.")
-        self.assertEqual(num2words(82, to="ordinal_num", lang='ce'), "82.")
+        self.assertEqual(num2words(3, to="ordinal_num", lang='ce'), "3-й")
+        self.assertEqual(num2words(5, to="ordinal_num", lang='ce'), "5-й")
+        self.assertEqual(num2words(82, to="ordinal_num", lang='ce'), "82-й")
 
     def test_year(self):
         for test in TEST_CASES_YEAR:
@@ -397,11 +399,15 @@ class Num2WordsCETest(TestCase):
                     test[0],
                     lang="ce",
                     to="currency",
-                    currency="RUB",
+                    currency=test[2],
                     case=test[1],
                 ),
-                test[2],
+                test[3],
             )
+
+    def test_currency_missing(self):
+        with self.assertRaises(NotImplementedError):
+            num2words(2.45, to="currency", lang='cy', currency="DEM")
 
     def test_decimals(self):
         for test in TEST_CASES_DECIMALS:

@@ -330,7 +330,8 @@ ILLIONS = {
 
 
 MINUS = "минус"
-DECIMALPOINT = "запятая"  # check !
+# DECIMALPOINT = "запятая"  # check !
+DECIMALPOINT = "а"
 
 
 class Num2Word_CE(Num2Word_EU):
@@ -344,9 +345,18 @@ class Num2Word_CE(Num2Word_EU):
 
     def setup(self):
         Num2Word_EU.setup(self)
-
-    def __init__(self):
-        pass
+        self.negword = "минус"
+        self.pointword = "запятая"  # check !
+        # self.errmsg_nonnum = (
+        #    u"Seulement des nombres peuvent être convertis en mots."
+        #    )
+        # self.errmsg_toobig = (
+        #    u"Nombre trop grand pour être converti en mots (abs(%s) > %s)."
+        #    )
+        # self.exclude_title = ["et", "virgule", "moins"]
+        self.mid_numwords = []
+        self.low_numwords = []
+        self.ords = {}
 
     def to_ordinal(self, number, clazz="д"):
         # implement here your code. number is the integer to
@@ -490,7 +500,7 @@ class Num2Word_CE(Num2Word_EU):
 
     def to_ordinal_num(self, number):
         self.verify_ordinal(number)
-        return str(number) + "."
+        return str(number) + "-й"
 
     def to_year(self, year, case="abs"):
         return self.to_cardinal(year, case=case)
