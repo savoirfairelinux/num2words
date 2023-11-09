@@ -279,6 +279,12 @@ TEST_CASES_ORDINAL = [
     (423000, "dat", "д", "ди бӀе ткъе кхо эзарлагІа"),
 ]
 
+TEST_CASES_YEAR = [
+    (1719, "abs", "эзар ворхӀ бӀе ткъайесна"),
+    (1812, "abs", "эзар бархӀ бӀе шийтта"),
+    (1926, "abs", "эзар исс бӀе ткъе ялх"),
+]
+
 TEST_CASES_DECIMALS = [(123.4567, "бӀе ткъе кхоъ запятая диъ пхиъ ялх ворхӀ")]
 
 TEST_CASES_MILLIONS = [
@@ -373,6 +379,15 @@ class Num2WordsCETest(TestCase):
             self.assertEqual(
                 num2words(test[0], lang="ce", to="ordinal", clazz=test[2]),
                 test[3],
+            )
+        self.assertEqual(num2words(3, to="ordinal_num", lang='ce'), "3.")
+        self.assertEqual(num2words(5, to="ordinal_num", lang='ce'), "5.")
+        self.assertEqual(num2words(82, to="ordinal_num", lang='ce'), "82.")
+
+    def test_year(self):
+        for test in TEST_CASES_YEAR:
+            self.assertEqual(
+                num2words(test[0], lang="ce", to="year", case=test[1]), test[2]
             )
 
     def test_currency(self):

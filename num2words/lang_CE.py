@@ -488,6 +488,13 @@ class Num2Word_CE(Num2Word_EU):
             centime,
         )
 
+    def to_ordinal_num(self, number):
+        self.verify_ordinal(number)
+        return str(number) + "."
+
+    def to_year(self, year, case="abs"):
+        return self.to_cardinal(year, case=case)
+
     def makecase(self, number, case, clazz):
         # print("ZZZZ", number, CARDINALS[number])
         if case in CARDINALS[number]:
