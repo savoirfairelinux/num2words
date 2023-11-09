@@ -16,7 +16,7 @@
 
 from __future__ import unicode_literals
 
-from .currency import parse_currency_parts, prefix_currency
+from .currency import parse_currency_parts
 from .lang_EU import Num2Word_EU
 
 # Welsh numerals differs to many other languages since the counted
@@ -232,11 +232,11 @@ class Num2Word_CY(Num2Word_EU):
     def __init__(self):
         pass
 
-    def float_to_words(self, float_number, ordinal=False):
-        if ordinal:
-            prefix = self.to_ordinal(int(float_number))
-        else:
-            prefix = self.to_cardinal(int(float_number))
+    def float_to_words(self, float_number):
+        # if ordinal:
+        #     prefix = self.to_ordinal(int(float_number))
+        # else:
+        prefix = self.to_cardinal(int(float_number))
         float_part = str(float_number).split(".")[1]
         postfix = " ".join(
             # Drops the trailing zero and comma
@@ -288,9 +288,9 @@ class Num2Word_CY(Num2Word_EU):
                 else:
                     result.append(("a", "AM"))
         if until100:
-            if informal:
-                pass
-            elif not ordinal and until100 >= 50 and until100 <= 59:
+            # if informal:
+            #    pass
+            if not ordinal and until100 >= 50 and until100 <= 59:
                 units = number % 10
                 if hundreds > 0:
                     if units == 0:
@@ -454,8 +454,8 @@ class Num2Word_CY(Num2Word_EU):
                 % (currency, self.__class__.__name__)
             )
 
-        if adjective and currency in self.CURRENCY_ADJECTIVES:
-            cr1 = prefix_currency(self.CURRENCY_ADJECTIVES[currency], cr1)
+        # if adjective and currency in self.CURRENCY_ADJECTIVES:
+        #     cr1 = prefix_currency(self.CURRENCY_ADJECTIVES[currency], cr1)
 
         minus_str = "%s " % self.negword.strip() if is_negative else ""
         money_str = self._money_verbose(left, currency)
@@ -473,7 +473,7 @@ class Num2Word_CY(Num2Word_EU):
                 # self.pluralize(right, cr2)
             )
         elif left == 0:
-            # no pence
+            # no pounds
             return "%s%s" % (
                 minus_str,
                 cents_str,
@@ -505,6 +505,8 @@ class Num2Word_CY(Num2Word_EU):
                 return makestring(m)
             else:
                 if number > 1:
+                    m = self.to_cardinal(number, gender="fem", raw=True)
+                elif number == 0:
                     m = self.to_cardinal(number, gender="fem", raw=True)
                 else:
                     m = [(OBJ, None)]

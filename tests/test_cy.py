@@ -154,6 +154,7 @@ TEST_CASES_CARDINAL = (
     (802, "wyth cant a dau"),
     (919, "naw cant a phedwar ar bymtheg"),
     (100, "cant"),
+    (150, "cant a hanner"),
     (200, "dau gant"),
     (300, "tri chant"),
     (400, "pedwar cant"),
@@ -392,6 +393,7 @@ TEST_CASES_DECIMALS = [
 ]
 
 TEST_CASES_TO_CURRENCY_GBP = (
+    (0.00, "dim punt"),
     (2.04, "dwy bunt, pedwar ceiniog"),
     (3.50, "tair punt, hanner cant ceiniog"),
     (2002.15, "dwy fil dwy o bunnoedd, pymtheg ceiniog"),
@@ -427,6 +429,10 @@ class Num2WordsCYTest(TestCase):
             self.assertEqual(
                 num2words(test[0], lang="cy", gender="fem"), test[1]
             )
+
+    def test_number_not_implemented(self):
+        with self.assertRaises(NotImplementedError):
+            num2words(10**66, lang='cy')
 
     def test_decimals(self):
         for test in TEST_CASES_DECIMALS:
