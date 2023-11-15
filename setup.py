@@ -32,6 +32,7 @@ CLASSIFIERS = [
     'Programming Language :: Python :: 3.9',
     'Programming Language :: Python :: 3.10',
     'Programming Language :: Python :: 3.11',
+    'Programming Language :: Python :: 3.12',
     'Topic :: Software Development :: Internationalization',
     'Topic :: Software Development :: Libraries :: Python Modules',
     'Topic :: Software Development :: Localization',
