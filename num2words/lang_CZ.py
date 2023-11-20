@@ -90,7 +90,7 @@ class Num2Word_CZ(Num2Word_Base):
             ('koruna', 'koruny', 'korun'), ('halíř', 'halíře', 'haléřů')
         ),
         'EUR': (
-            ('euro', 'euro', 'euro'), ('cent', 'centy', 'centů')
+            ('euro', 'eura', 'euro'), ('cent', 'centy', 'centů')
         ),
     }
 
