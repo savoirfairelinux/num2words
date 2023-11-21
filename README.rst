@@ -117,6 +117,7 @@ Besides the numerical argument, there are two main optional arguments, ``to:`` a
 * ``sv`` (Swedish)
 * ``ro`` (Romanian)
 * ``ru`` (Russian)
+* ``ta`` (Tamil)
 * ``te`` (Telugu)
 * ``tg`` (Tajik)
 * ``tr`` (Turkish)
