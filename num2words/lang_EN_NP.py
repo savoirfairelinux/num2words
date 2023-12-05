@@ -27,7 +27,7 @@ class Num2Word_EN_NP(Num2Word_EN):
     def set_high_numwords(self, high):
         self.cards[10 ** 17] = "shankha"
         self.cards[10 ** 15] = "padam"
-        self.cards[10 ** 13] = "nil"
+        self.cards[10 ** 13] = "neel"
         self.cards[10 ** 11] = "kharba"
         self.cards[10 ** 9] = "arba"
         self.cards[10 ** 7] = "crore"
