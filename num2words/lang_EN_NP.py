@@ -16,6 +16,7 @@
 # MA 02110-1301 USA
 
 # for Nepalese Number System
+# Added support for Nepali Numbering System by Ajira Group, Nepal support@ajiragroup.com
 
 
 from __future__ import unicode_literals
