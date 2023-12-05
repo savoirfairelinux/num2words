@@ -18,7 +18,7 @@
 from __future__ import unicode_literals
 
 from . import (lang_AM, lang_AR, lang_AZ, lang_BY, lang_CZ, lang_DE, lang_DK,
-               lang_EN, lang_EN_IN, lang_EN_NG, lang_EO, lang_ES, lang_ES_CO,
+               lang_EN, lang_EN_IN, lang_EN_NG, lang_EN_NP, lang_EO, lang_ES, lang_ES_CO,
                lang_ES_GT, lang_ES_NI, lang_ES_VE, lang_FA, lang_FI, lang_FR,
                lang_FR_BE, lang_FR_CH, lang_FR_DZ, lang_HE, lang_HU, lang_ID,
                lang_IS, lang_IT, lang_JA, lang_KN, lang_KO, lang_KZ, lang_LT,
@@ -35,6 +35,7 @@ CONVERTER_CLASSES = {
     'en': lang_EN.Num2Word_EN(),
     'en_IN': lang_EN_IN.Num2Word_EN_IN(),
     'en_NG': lang_EN_NG.Num2Word_EN_NG(),
+    'en_NP': lang_EN_NP.Num2Word_EN_NP(),
     'fa': lang_FA.Num2Word_FA(),
     'fr': lang_FR.Num2Word_FR(),
     'fr_CH': lang_FR_CH.Num2Word_FR_CH(),
