@@ -47,25 +47,25 @@ ONES = {
 }
 
 ONES_ORDINALS = {
-    1: ("перший", "одно"),
-    2: ("другий", "двох"),
-    3: ("третій", "трьох"),
-    4: ("четвертий", "чотирьох"),
-    5: ("п'ятий", "п'яти"),
-    6: ("шостий", "шести"),
-    7: ("сьомий", "семи"),
-    8: ("восьмий", "восьми"),
-    9: ("дев'ятий", "дев'яти"),
-    10: ("десятий", "десяти"),
-    11: ("одинадцятий", "одинадцяти"),
-    12: ("дванадцятий", "дванадцяти"),
-    13: ("тринадцятий", "тринадцяти"),
-    14: ("чотирнадцятий", "чотирнадцяти"),
-    15: ("п'ятнадцятий", "п'ятнадцяти"),
-    16: ("шістнадцятий", "шістнадцяти"),
-    17: ("сімнадцятий", "сімнадцяти"),
-    18: ("вісімнадцятий", "вісімнадцяти"),
-    19: ("дев'ятнадцятий", "дев'ятнадцяти"),
+    1: ("перший", "перша", "одно"),
+    2: ("другий", "друга", "двох"),
+    3: ("третій", "третя", "трьох"),
+    4: ("четвертий", "четверта", "чотирьох"),
+    5: ("п'ятий", "п'ята", "п'яти"),
+    6: ("шостий", "шоста", "шести"),
+    7: ("сьомий", "сьома", "семи"),
+    8: ("восьмий", "восьма", "восьми"),
+    9: ("дев'ятий", "дев'ята", "дев'яти"),
+    10: ("десятий", "десята", "десяти"),
+    11: ("одинадцятий", "одинадцята", "одинадцяти"),
+    12: ("дванадцятий", "дванадцята", "дванадцяти"),
+    13: ("тринадцятий", "тринадцята", "тринадцяти"),
+    14: ("чотирнадцятий", "чотирнадцята", "чотирнадцяти"),
+    15: ("п'ятнадцятий", "п'ятнадцята", "п'ятнадцяти"),
+    16: ("шістнадцятий", "шістнадцята", "шістнадцяти"),
+    17: ("сімнадцятий", "сімнадцята", "сімнадцяти"),
+    18: ("вісімнадцятий", "вісімнадцята", "вісімнадцяти"),
+    19: ("дев'ятнадцятий", "дев'ятнадцята", "дев'ятнадцяти"),
 }
 TENS = {
     0: ('десять',
@@ -182,14 +182,14 @@ TWENTIES = {
 }
 
 TWENTIES_ORDINALS = {
-    2: ("двадцятий", "двадцяти"),
-    3: ("тридцятий", "тридцяти"),
-    4: ("сороковий", "сорока"),
-    5: ("п'ятдесятий", "п'ятдесяти"),
-    6: ("шістдесятий", "шістдесяти"),
-    7: ("сімдесятий", "сімдесяти"),
-    8: ("вісімдесятий", "вісімдесяти"),
-    9: ("дев'яностий", "дев'яности"),
+    2: ("двадцятий", "двадцята", "двадцяти"),
+    3: ("тридцятий", "тридцята", "тридцяти"),
+    4: ("сороковий", "сорокова", "сорока"),
+    5: ("п'ятдесятий", "п'ятдесята", "п'ятдесяти"),
+    6: ("шістдесятий", "шістдесята", "шістдесяти"),
+    7: ("сімдесятий", "сімдесята", "сімдесяти"),
+    8: ("вісімдесятий", "вісімдесята", "вісімдесяти"),
+    9: ("дев'яностий", "дев'яноста", "дев'яности"),
 }
 
 HUNDREDS = {
@@ -250,15 +250,15 @@ HUNDREDS = {
 }
 
 HUNDREDS_ORDINALS = {
-    1: ("сотий", "сто"),
-    2: ("двохсотий", "двохсот"),
-    3: ("трьохсотий", "трьохсот"),
-    4: ("чотирьохсотий", "чотирьохсот"),
-    5: ("п'ятисотий", "п'ятсот"),
-    6: ("шестисотий", "шістсот"),
-    7: ("семисотий", "сімсот"),
-    8: ("восьмисотий", "вісімсот"),
-    9: ("дев'ятисотий", "дев'ятсот"),
+    1: ("сотий", "сота", "сто"),
+    2: ("двохсотий", "двохсота", "двохсот"),
+    3: ("трьохсотий", "трьохсота", "трьохсот"),
+    4: ("чотирьохсотий", "чотирьохсота", "чотирьохсот"),
+    5: ("п'ятисотий", "п'ятисота", "п'ятсот"),
+    6: ("шестисотий", "шестисота", "шістсот"),
+    7: ("семисотий", "семисота", "сімсот"),
+    8: ("восьмисотий", "восьмисота", "вісімсот"),
+    9: ("дев'ятисотий", "дев'ятисота", "дев'ятсот"),
 }
 
 THOUSANDS = {
@@ -335,16 +335,16 @@ THOUSANDS = {
 }
 
 prefixes_ordinal = {
-    1: "тисячний",
-    2: "мільйонний",
-    3: "мільярдний",
-    4: "трильйонний",
-    5: "квадрильйонний",
-    6: "квінтильйонний",
-    7: "секстильйонний",
-    8: "септильйонний",
-    9: "октильйонний",
-    10: "нонільйонний",
+    1: ("тисячний", "тисячна"),
+    2: ("мільйонний", "мільйонна"),
+    3: ("мільярдний", "мільярдна"),
+    4: ("трильйонний", "трильйонна"),
+    5: ("квадрильйонний", "квадрильйонна"),
+    6: ("квінтильйонний", "квінтильйонна"),
+    7: ("секстильйонний", "секстильйонна"),
+    8: ("септильйонний", "септильйонна"),
+    9: ("октильйонний", "октильйонна"),
+    10: ("нонільйонний", "нонільйонна"),
 }
 
 FEMININE_MONEY = ('AOA', 'BAM', 'BDT', 'BWP', 'CZK', 'DKK',
@@ -997,51 +997,56 @@ class Num2Word_UK(Num2Word_Base):
         return self._int2word(number, currency in FEMININE_CENTS)
 
     @staticmethod
-    def last_fragment_to_ordinal(last, words, level):
+    def last_fragment_to_ordinal(last, words, level, gender_index):
         n1, n2, n3 = get_digits(last)
         last_two = n2*10+n1
         if last_two == 0:
             words.append(HUNDREDS_ORDINALS[n3][level])
-        elif level == 1 and last == 1:
+        elif level == 2 and last == 1:
             return
         elif last_two < 20:
-            if level == 0:
+            if level != 2:
                 if n3 > 0:
                     words.append(HUNDREDS[n3][0])
-                words.append(ONES_ORDINALS[last_two][0])
+                words.append(ONES_ORDINALS[last_two][gender_index])
             else:
                 last_fragment_string = ''
                 if n3 > 0:
-                    last_fragment_string += HUNDREDS_ORDINALS[n3][1]
-                last_fragment_string += ONES_ORDINALS[last_two][1]
+                    last_fragment_string += HUNDREDS_ORDINALS[n3][2]
+                last_fragment_string += ONES_ORDINALS[last_two][2]
                 words.append(last_fragment_string)
         elif last_two % 10 == 0:
-            if level == 0:
+            if level != 2:
                 if n3 > 0:
                     words.append(HUNDREDS[n3][0])
-                words.append(TWENTIES_ORDINALS[n2][0])
+                words.append(TWENTIES_ORDINALS[n2][gender_index])
             else:
                 last_fragment_string = ''
                 if n3 > 0:
-                    last_fragment_string += HUNDREDS_ORDINALS[n3][1]
-                last_fragment_string += TWENTIES_ORDINALS[n2][1]
+                    last_fragment_string += HUNDREDS_ORDINALS[n3][2]
+                last_fragment_string += TWENTIES_ORDINALS[n2][2]
                 words.append(last_fragment_string)
         else:
-            if level == 0:
+            if level != 2:
                 if n3 > 0:
                     words.append(HUNDREDS[n3][0])
                 words.append(TWENTIES[n2][0])
-                words.append(ONES_ORDINALS[n1][0])
+                words.append(ONES_ORDINALS[n1][gender_index])
             else:
                 last_fragment_string = ''
                 if n3 > 0:
-                    last_fragment_string += HUNDREDS_ORDINALS[n3][1]
-                last_fragment_string += TWENTIES_ORDINALS[n2][1]
-                last_fragment_string += ONES_ORDINALS[n1][1]
+                    last_fragment_string += HUNDREDS_ORDINALS[n3][2]
+                last_fragment_string += TWENTIES_ORDINALS[n2][2]
+                last_fragment_string += ONES_ORDINALS[n1][2]
                 words.append(last_fragment_string)
 
-    def to_ordinal(self, number):
+    def to_ordinal(self, number, **kwargs):
         self.verify_ordinal(number)
+
+        if 'gender' in kwargs:
+            gender = kwargs['gender'] == 'feminine'
+        else:
+            gender = False
 
         words = []
         fragments = list(splitbyx(str(number), 3))
@@ -1057,11 +1062,12 @@ class Num2Word_UK(Num2Word_Base):
         Num2Word_UK.last_fragment_to_ordinal(
             last,
             words,
-            0 if level == 0 else 1
+            (1 if gender else 0) if level == 0 else 2,
+            1 if gender else 0
         )
         output = " ".join(words)
         if last == 1 and level > 0 and output != "":
             output = output + " "
         if level > 0:
-            output = output + prefixes_ordinal[level]
+            output = output + prefixes_ordinal[level][1 if gender else 0]
         return output
