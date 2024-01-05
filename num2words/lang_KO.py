@@ -95,6 +95,8 @@ class Num2Word_KO(Num2Word_Base):
         self.verify_ordinal(value)
         if value == 1:
             return "첫 번째"
+        if value == 100:
+            return "백 번째"
         outwords = self.to_cardinal(value).split(" ")
         lastwords = outwords[-1].split("백")
         if "십" in lastwords[-1]:
@@ -107,7 +109,8 @@ class Num2Word_KO(Num2Word_Base):
                 pass
             lastwords[-1] = ''.join(ten_one)
         else:
-            lastwords[-1] = self.ords[lastwords[-1]]
+            if lastwords[-1] in self.ords:
+                lastwords[-1] = self.ords[lastwords[-1]]
         outwords[-1] = "백 ".join(lastwords)
         return " ".join(outwords) + " 번째"
 
