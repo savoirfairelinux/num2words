@@ -21,8 +21,8 @@ import math
 from collections import OrderedDict
 from decimal import Decimal
 
-from .compat import to_s
-from .currency import parse_currency_parts, prefix_currency
+from compat import to_s
+from currency import parse_currency_parts, prefix_currency
 
 
 class Num2Word_Base(object):
@@ -39,8 +39,6 @@ class Num2Word_Base(object):
         self.errmsg_floatord = "Cannot treat float %s as ordinal."
         self.errmsg_negord = "Cannot treat negative num %s as ordinal."
         self.errmsg_toobig = "abs(%s) must be less than %s."
-        ## to check in which grammatical case we are 
-        self.rafea = True
         self.setup()
 
         # uses cards
