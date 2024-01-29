@@ -23,7 +23,7 @@ import re
 from decimal import Decimal
 from math import floor
 
-from base import Num2Word_Base
+from .base import Num2Word_Base
 
 CURRENCY_SR = [("ريال", "ريالان", "ريالات", "ريالاً"),
                ("هللة", "هللتان", "هللات", "هللة")]
@@ -421,7 +421,7 @@ class Num2Word_AR(Num2Word_Base):
         self.arabicSuffixText = suffix
         return self.convert(value=value)
 
-    def to_ordinal(self, number, prefix=''):
+    def to_ordinal(self, number, prefix='', rafea=True):
         if number <= 19:
             return "{}".format(self.arabicOrdinal[number])
         if number < 100:
@@ -438,10 +438,10 @@ class Num2Word_AR(Num2Word_Base):
         value = self.validate_number(value)
         return self.to_cardinal(value)
 
-    def to_ordinal_num(self, value):
+    def to_ordinal_num(self, value, rafea=True):
         return self.to_ordinal(value).strip()
 
-    def to_cardinal(self, number):
+    def to_cardinal(self, number, rafea= True):
         self.isCurrencyNameFeminine = False
         number = self.validate_number(number)
         minus = ''
