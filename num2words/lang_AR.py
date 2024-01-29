@@ -23,7 +23,7 @@ import re
 from decimal import Decimal
 from math import floor
 
-from .base import Num2Word_Base
+from base import Num2Word_Base
 
 CURRENCY_SR = [("ريال", "ريالان", "ريالات", "ريالاً"),
                ("هللة", "هللتان", "هللات", "هللة")]

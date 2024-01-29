@@ -108,5 +108,4 @@ def num2words(number, ordinal=False, lang='en', to='cardinal', rafea=True ,**kwa
         return getattr(converter, 'to_{}'.format(to))(number, **kwargs)
 
 
-result_rafea = num2words(20000, lang='ar', rafea=True)
-print(result_rafea)
+
