@@ -455,17 +455,4 @@ class Num2Word_AR(Num2Word_Base):
         self.arabicOnes = ARABIC_ONES
         return minus + self.convert(value=self.abs(number)).strip()
 
-# num = Num2Word_AR()
-# # Example usage:
-# original_word = "مليونا"
-# changed_word = num.change_arabic_word_end(original_word)
-# print(changed_word)
 
-# Example Usage:
-num_converter = Num2Word_AR()
-num_converter.rafea = True  # Set to True for رفع (rafea) case
-result_rafea  = num_converter.convert(value=2000000000000000)
-print(result_rafea)
-num_converter.rafea = False  # Set to False for نصب (nasb) case
-result_nasb = num_converter.convert  (value=2000000000000000)
-print(result_nasb)
