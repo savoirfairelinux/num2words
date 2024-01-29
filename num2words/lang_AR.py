@@ -23,7 +23,7 @@ import re
 from decimal import Decimal
 from math import floor
 
-from base import Num2Word_Base
+from .base import Num2Word_Base
 
 CURRENCY_SR = [("ريال", "ريالان", "ريالات", "ريالاً"),
                ("هللة", "هللتان", "هللات", "هللة")]
@@ -263,14 +263,15 @@ class Num2Word_AR(Num2Word_Base):
                     ret_val += self.digit_feminine_status(ones, group_level)
                 if ret_val != "" and ones != 0:
                     ret_val += " و "
-
-                ret_val += self.arabicTens[int(tens)]
+                # ret_val = "{}".format(
+                #             self.arabicTens[int(group_level)])
+                # ret_val += self.arabicTens[int(tens)]
                 if self.rafea:
                             ret_val = "{}".format(
-                            self.arabicTens[int(group_level)])
+                            self.arabicTens[int(tens)])
                 else:
                     ret_val = "{}".format(
-                    self.change_arabic_word_end(self.arabicTens[int(group_level)]))
+                    self.change_arabic_word_end(self.arabicTens[int(tens)]))
 
         return ret_val
 
@@ -463,8 +464,8 @@ class Num2Word_AR(Num2Word_Base):
 # Example Usage:
 num_converter = Num2Word_AR()
 num_converter.rafea = True  # Set to True for رفع (rafea) case
-result_rafea = num_converter.convert(value=20000)
+result_rafea  = num_converter.convert(value=2000000000000000)
 print(result_rafea)
 num_converter.rafea = False  # Set to False for نصب (nasb) case
-result_nasb = num_converter.convert(value=20000)
+result_nasb = num_converter.convert  (value=2000000000000000)
 print(result_nasb)

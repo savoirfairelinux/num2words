@@ -82,13 +82,14 @@ CONVERTER_CLASSES = {
 CONVERTES_TYPES = ['cardinal', 'ordinal', 'ordinal_num', 'year', 'currency']
 
 
-def num2words(number, ordinal=False, lang='en', to='cardinal', **kwargs):
+def num2words(number, ordinal=False, lang='en', to='cardinal', rafea=True ,**kwargs):
     # We try the full language first
     if lang not in CONVERTER_CLASSES:
         # ... and then try only the first 2 letters
         lang = lang[:2]
     if lang not in CONVERTER_CLASSES:
         raise NotImplementedError()
+    
     converter = CONVERTER_CLASSES[lang]
 
     if isinstance(number, str):
@@ -100,5 +101,12 @@ def num2words(number, ordinal=False, lang='en', to='cardinal', **kwargs):
 
     if to not in CONVERTES_TYPES:
         raise NotImplementedError()
+    
+    if lang == 'ar':
+        return getattr(converter, 'to_{}'.format(to))(number, rafea=rafea, **kwargs)
+    else:
+        return getattr(converter, 'to_{}'.format(to))(number, **kwargs)
 
-    return getattr(converter, 'to_{}'.format(to))(number, **kwargs)
+
+result_rafea = num2words(20000, lang='ar', rafea=True)
+print(result_rafea)
