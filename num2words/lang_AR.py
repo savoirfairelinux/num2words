@@ -188,26 +188,26 @@ class Num2Word_AR(Num2Word_Base):
 
 
     def process_arabic_group(self, group_number, group_level,
-                             remaining_number):
+                             remaining_number, rafea):
         tens = Decimal(group_number) % Decimal(100)
         hundreds = Decimal(group_number) / Decimal(100)
         ret_val = ""
 
         if int(hundreds) > 0:
             if tens == 0 and int(hundreds) == 2:
-                if self.rafea:
+                if rafea:
                             ret_val = "{}".format(
-                            self.arabicAppendedTwos[int(group_level)])
+                            self.arabicAppendedTwos[0])
                 else:
                     ret_val = "{}".format(
-                    self.change_arabic_word_end(self.arabicAppendedTwos[int(group_level)]))
+                    self.change_arabic_word_end(self.arabicAppendedTwos[0]))
             else:
-                if self.rafea:
+                if rafea:
                     ret_val = "{}".format(
-                    self.arabicHundreds[int(group_level)])
+                    self.arabicHundreds[int(hundreds)])
                 else:
                     ret_val = "{}".format(
-                    self.change_arabic_word_end(self.arabicHundreds[int(group_level)]))
+                    self.change_arabic_word_end(self.arabicHundreds[int(hundreds)]))
                     print("returned arabic hundreds",ret_val)
                 if ret_val != "" and tens != 0:
                     ret_val += " و "
@@ -222,14 +222,14 @@ class Num2Word_AR(Num2Word_Base):
                     pow = int(math.log10(self.integer_value))
                     if self.integer_value > 10 and pow % 3 == 0 and \
                             self.integer_value == 2 * (10 ** pow):
-                        if self.rafea:
+                        if rafea:
                             ret_val = "{}".format(
                             self.arabicAppendedTwos[int(group_level)])
                         else:
                             ret_val = "{}".format(
                             self.change_arabic_word_end(self.arabicAppendedTwos[int(group_level)]))
                     else:
-                        if self.rafea:
+                        if rafea:
                             ret_val = "{}".format(
                             self.arabicTwos[int(group_level)])
                         else:
@@ -249,7 +249,7 @@ class Num2Word_AR(Num2Word_Base):
                     elif tens == 1 and group_level > 0:
                         ret_val += self.arabicGroup[int(group_level)]
                     else:
-                        if self.rafea:
+                        if rafea:
                             ret_val += self.digit_feminine_status(int(tens),
                                                               group_level)
                         else:
@@ -266,7 +266,7 @@ class Num2Word_AR(Num2Word_Base):
                 # ret_val = "{}".format(
                 #             self.arabicTens[int(group_level)])
                 # ret_val += self.arabicTens[int(tens)]
-                if self.rafea:
+                if rafea:
                             ret_val = "{}".format(
                             self.arabicTens[int(tens)])
                 else:
@@ -290,12 +290,12 @@ class Num2Word_AR(Num2Word_Base):
         decimal = round((number - integer) * 10**9)
         return str(integer) + "." + "{:09d}".format(decimal).rstrip("0")
 
-    def convert(self, value):
+    def convert(self, value, rafea):
         self.number = self.to_str(value)
         self.number_to_arabic(self.arabicPrefixText, self.arabicSuffixText)
-        return self.convert_to_arabic()
+        return self.convert_to_arabic(rafea)
 
-    def convert_to_arabic(self):
+    def convert_to_arabic(self, rafea):
         temp_number = Decimal(self.number)
 
         if temp_number == Decimal(0):
@@ -303,7 +303,7 @@ class Num2Word_AR(Num2Word_Base):
 
         decimal_string = self.process_arabic_group(self._decimalValue,
                                                    -1,
-                                                   Decimal(0))
+                                                   Decimal(0), rafea=rafea)
         ret_val = ""
         group = 0
 
@@ -323,11 +323,14 @@ class Num2Word_AR(Num2Word_Base):
             group_description = \
                 self.process_arabic_group(number_to_process,
                                           group,
-                                          Decimal(floor(temp_number)))
+                                          Decimal(floor(temp_number)), rafea=rafea)
             if group_description != '':
                 if group > 0:
                     if ret_val != "":
-                        ret_val = "{}و {}".format("", ret_val)
+                        if rafea:
+                            ret_val = "{}و {}".format("", ret_val)
+                        else: 
+                            ret_val = "{}و {}".format("", self.change_arabic_word_end(ret_val))
                     if number_to_process != 2 and number_to_process != 1:
                         # if group >= len(self.arabicGroup):
                         #     raise OverflowError(self.errmsg_toobig %
@@ -336,20 +339,37 @@ class Num2Word_AR(Num2Word_Base):
                         assert group < len(self.arabicGroup)
                         if number_to_process % 100 != 1:
                             if 3 <= number_to_process <= 10:
-                                ret_val = "{} {}".format(
+                                if rafea:
+                                    ret_val = "{} {}".format(
                                     self.arabicPluralGroups[group], ret_val)
+                                else:
+                                     ret_val = "{} {}".format(self.change_arabic_word_end(self.arabicPluralGroups[group], ret_val))
+                                    
                             else:
                                 if ret_val != "":
-                                    ret_val = "{} {}".format(
+                                    if rafea:
+                                        ret_val = "{} {}".format(
                                         self.arabicAppendedGroup[group],
                                         ret_val)
+                                    else:
+                                        ret_val = "{} {}".format(self.change_arabic_word_end(
+                                        self.arabicAppendedGroup[group],
+                                        ret_val))
                                 else:
-                                    ret_val = "{} {}".format(
+                                    if rafea:
+                                        ret_val = "{} {}".format(
                                         self.arabicGroup[group], ret_val)
-
+                                    else:
+                                        ret_val = "{} {}".format(self.change_arabic_word_end(self.arabicGroup[group]), ret_val)
+                                        
                         else:
-                            ret_val = "{} {}".format(self.arabicGroup[group],
+                            if rafea:
+                                ret_val = "{} {}".format(self.arabicGroup[group],
                                                      ret_val)
+                            else:
+                                ret_val = "{} {}".format(self.change_arabic_word_end(self.arabicGroup[group],
+                                                     ret_val))
+                                #########################################
                 ret_val = "{} {}".format(group_description, ret_val)
             group += 1
         formatted_number = ""
@@ -421,6 +441,19 @@ class Num2Word_AR(Num2Word_Base):
         self.arabicSuffixText = suffix
         return self.convert(value=value)
 
+    # def to_ordinal(self, number, prefix='', rafea=True):
+    #     if number <= 19:
+    #         return "{}".format(self.arabicOrdinal[number])
+    #     if number < 100:
+    #         self.isCurrencyNameFeminine = True
+    #     else:
+    #         self.isCurrencyNameFeminine = False
+    #     self.currency_subunit = ('', '', '', '')
+    #     self.currency_unit = ('', '', '', '')
+    #     self.arabicPrefixText = prefix
+    #     self.arabicSuffixText = ""
+    #     return "{}".format(self.convert(self.abs(number)).strip())
+
     def to_ordinal(self, number, prefix='', rafea=True):
         if number <= 19:
             return "{}".format(self.arabicOrdinal[number])
@@ -432,7 +465,14 @@ class Num2Word_AR(Num2Word_Base):
         self.currency_unit = ('', '', '', '')
         self.arabicPrefixText = prefix
         self.arabicSuffixText = ""
-        return "{}".format(self.convert(self.abs(number)).strip())
+
+        # Modify the output based on the value of the rafea argument
+        if rafea:
+            return "Rafea is True: {}".format(self.convert(self.abs(number), rafea).strip())
+
+        else:
+            return "Rafea is False: {}".format(self.convert(self.abs(number), rafea).strip())
+
 
     def to_year(self, value):
         value = self.validate_number(value)
@@ -455,4 +495,11 @@ class Num2Word_AR(Num2Word_Base):
         self.arabicOnes = ARABIC_ONES
         return minus + self.convert(value=self.abs(number)).strip()
 
-
+# Example Usage:
+# num_converter = Num2Word_AR()
+# num_converter.rafea = True  # Set to True for رفع (rafea) case
+# result_rafea = num_converter.convert(value=10000)
+# print(result_rafea)
+# num_converter.rafea = False  # Set to False for نصب (nasb) case
+# result_nasb = num_converter.convert(value=200000)
+# print(result_nasb)

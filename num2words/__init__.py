@@ -25,7 +25,7 @@ from . import (lang_AM, lang_AR, lang_AZ, lang_BY, lang_CZ, lang_DE, lang_DK,
                lang_LV, lang_NL, lang_NO, lang_PL, lang_PT, lang_PT_BR,
                lang_RO, lang_RU, lang_SK, lang_SL, lang_SR, lang_SV, lang_TE,
                lang_TG, lang_TH, lang_TR, lang_UK, lang_VI)
-
+from .lang_AR import Num2Word_AR
 CONVERTER_CLASSES = {
     'am': lang_AM.Num2Word_AM(),
     'ar': lang_AR.Num2Word_AR(),
@@ -103,9 +103,19 @@ def num2words(number, ordinal=False, lang='en', to='cardinal', rafea=True ,**kwa
         raise NotImplementedError()
     
     if lang == 'ar':
+        
+        converter.rafea = rafea
+        converter_value = converter.rafea
+        Num2Word_AR.rafea = rafea
+        if rafea:
+            print(converter_value)
+        else:
+            print(converter_value)
         return getattr(converter, 'to_{}'.format(to))(number, rafea=rafea, **kwargs)
     else:
         return getattr(converter, 'to_{}'.format(to))(number, **kwargs)
 
 
-
+# print("_init_")
+# result= num2words(200000, lang='ar', rafea=False)
+# print(result)
