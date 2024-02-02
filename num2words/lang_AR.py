@@ -493,8 +493,7 @@ class Num2Word_AR(Num2Word_Base):
         self.arabicPrefixText = ""
         self.arabicSuffixText = ""
         self.arabicOnes = ARABIC_ONES
-        return minus + self.convert(value=self.abs(number)).strip()
-
+        return minus + self.convert(self.abs(number), rafea).strip()
 # Example Usage:
 # num_converter = Num2Word_AR()
 # num_converter.rafea = True  # Set to True for رفع (rafea) case
