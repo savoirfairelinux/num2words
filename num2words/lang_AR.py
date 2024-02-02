@@ -468,10 +468,10 @@ class Num2Word_AR(Num2Word_Base):
 
         # Modify the output based on the value of the rafea argument
         if rafea:
-            return "Rafea is True: {}".format(self.convert(self.abs(number), rafea).strip())
+            return "{}".format(self.convert(self.abs(number), rafea).strip())
 
         else:
-            return "Rafea is False: {}".format(self.convert(self.abs(number), rafea).strip())
+            return "{}".format(self.convert(self.abs(number), rafea).strip())
 
 
     def to_year(self, value):

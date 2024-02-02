@@ -107,10 +107,7 @@ def num2words(number, ordinal=False, lang='en', to='cardinal', rafea=True ,**kwa
         converter.rafea = rafea
         converter_value = converter.rafea
         Num2Word_AR.rafea = rafea
-        if rafea:
-            print(converter_value)
-        else:
-            print(converter_value)
+        
         return getattr(converter, 'to_{}'.format(to))(number, rafea=rafea, **kwargs)
     else:
         return getattr(converter, 'to_{}'.format(to))(number, **kwargs)
