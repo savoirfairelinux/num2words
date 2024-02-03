@@ -22,6 +22,7 @@ from .currency import parse_currency_parts
 
 import re
 
+
 class Num2Word_KO(Num2Word_Base):
     CURRENCY_FORMS = {
         'KRW': ('원', None),
@@ -79,7 +80,7 @@ class Num2Word_KO(Num2Word_Base):
                      "칠십": "일흔",
                      "팔십": "여든",
                      "구십": "아흔"}
-        
+
     def merge(self, lpair, rpair):
         ltext, lnum = lpair
         rtext, rnum = rpair
@@ -96,7 +97,8 @@ class Num2Word_KO(Num2Word_Base):
         self.verify_ordinal(value)
         outwords = self.to_cardinal(value).split(" ")
         if value % 100 != 0:
-            re_mid_words = '|'.join('(?<={})'.format(re.escape(delim)) for delim in ['천', '백'])
+            re_mid_words = '|'.join('(?<={})'.format(re.escape(delim)) 
+                for delim in ['천', '백'])
             lastwords = re.split(re_mid_words, outwords[-1])
             if "십" in lastwords[-1]:
                 ten_one = lastwords[-1].split("십")
