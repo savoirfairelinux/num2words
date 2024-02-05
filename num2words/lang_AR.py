@@ -432,14 +432,14 @@ class Num2Word_AR(Num2Word_Base):
             self.currency_unit = CURRENCY_SR[0]
             self.currency_subunit = CURRENCY_SR[1]
 
-    def to_currency(self, value, currency='SR', prefix='', suffix=''):
+    def to_currency(self, value, currency='SR', prefix='', suffix='', rafea=True):
         self.set_currency_prefer(currency)
         self.isCurrencyNameFeminine = False
         self.separator = "و"
         self.arabicOnes = ARABIC_ONES
         self.arabicPrefixText = prefix
         self.arabicSuffixText = suffix
-        return self.convert(value=value)
+        return self.convert(value=value, rafea=rafea)
 
     # def to_ordinal(self, number, prefix='', rafea=True):
     #     if number <= 19:
@@ -474,9 +474,9 @@ class Num2Word_AR(Num2Word_Base):
             return "{}".format(self.convert(self.abs(number), rafea).strip())
 
 
-    def to_year(self, value):
+    def to_year(self, value,rafea=True):
         value = self.validate_number(value)
-        return self.to_cardinal(value)
+        return self.to_cardinal(value, rafea)
 
     def to_ordinal_num(self, value, rafea=True):
         return self.to_ordinal(value).strip()
