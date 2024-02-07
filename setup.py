@@ -79,6 +79,6 @@ setup(
     test_suite='tests',
     classifiers=CLASSIFIERS,
     scripts=['bin/num2words'],
-    install_requires=["docopt-ng>=0.8.0,<0.9.0"],
+    install_requires=["docopt-ng>=0.9.0,<1.0.0"],
     tests_require=['delegator.py'],
 )
