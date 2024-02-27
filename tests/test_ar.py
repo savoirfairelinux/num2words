@@ -182,7 +182,7 @@ class Num2WordsARTest(TestCase):
     def test_big_numbers(self):
         self.assertEqual(
             num2words(1000000045000000000000003000000002000000300,
-                      to='cardinal', lang='ar', rafea=True),
+                      to='cardinal', lang='ar',rafea=True),
             'تريديسيليون و خمسة و أربعون ديسيليوناً\
  و ثلاثة كوينتليونات و ملياران و ثلاثمائة'
         )

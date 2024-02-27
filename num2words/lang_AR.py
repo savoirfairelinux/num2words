@@ -356,19 +356,14 @@ class Num2Word_AR(Num2Word_Base):
                                         self.arabicAppendedGroup[group],
                                         ret_val))
                                 else:
-                                    if rafea:
-                                        ret_val = "{} {}".format(
+                                    ret_val = "{} {}".format(
                                         self.arabicGroup[group], ret_val)
-                                    else:
-                                        ret_val = "{} {}".format(self.change_arabic_word_end(self.arabicGroup[group]), ret_val)
-                                        
+                                     
                         else:
-                            if rafea:
-                                ret_val = "{} {}".format(self.arabicGroup[group],
+                            
+                            ret_val = "{} {}".format(self.arabicGroup[group],
                                                      ret_val)
-                            else:
-                                ret_val = "{} {}".format(self.change_arabic_word_end(self.arabicGroup[group],
-                                                     ret_val))
+                           
                                 #########################################
                 ret_val = "{} {}".format(group_description, ret_val)
             group += 1
