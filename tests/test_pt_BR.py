@@ -53,6 +53,9 @@ class Num2WordsPTBRTest(TestCase):
 
         self.assertEqual(num2words(21, lang='pt_BR'), 'vinte e um')
         self.assertEqual(num2words(22, lang='pt_BR'), 'vinte e dois')
+        self.assertEqual(num2words(23, lang='pt_BR'), 'vinte e três')
+        self.assertEqual(num2words(24, lang='pt_BR'), 'vinte e quatro')
+        self.assertEqual(num2words(25, lang='pt_BR'), 'vinte e cinco')
         self.assertEqual(num2words(35, lang='pt_BR'), 'trinta e cinco')
         self.assertEqual(num2words(99, lang='pt_BR'), 'noventa e nove')
 
