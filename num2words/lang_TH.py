@@ -32,6 +32,7 @@ class Num2Word_TH(Num2Word_Base):
             'THB': (('บาท', 'บาท'), ('สตางค์', 'สตางค์')),
             'USD': (('ดอลลาร์', 'ดอลลาร์'), ('เซนต์', 'เซนต์')),
             'EUR': (('ยูโร', 'ยูโร'), ('เซนต์', 'เซนต์')),
+            'JPY': (('เยน', 'เยน'), ('', ''))
         }
 
         self.high_numwords = []
@@ -165,7 +166,10 @@ class Num2Word_TH(Num2Word_Base):
             raise NotImplementedError(
                 'Currency code "%s" not implemented for "%s"' %
                 (currency, self.__class__.__name__))
-
+        
+        if currency == 'JPY' and len(right_text) > 0:
+            raise ValueError('Currency JPY must not contains any decimal point')
+        
         if right_num == '00':
             if currency == 'THB':
                 result = left_text + cr1[0] + 'ถ้วน'
