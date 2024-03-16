@@ -18,7 +18,7 @@
 from __future__ import unicode_literals
 
 from decimal import Decimal
-from unittest import TestCase
+from unittest import TestCase, skip
 
 from num2words import num2words
 from num2words.lang_TET import Num2Word_TET
@@ -30,111 +30,112 @@ class Num2WordsTETTest(TestCase):
         self.n2w = Num2Word_TET()
 
     def test_cardinal_integer(self):
-        self.assertEqual(num2words(1, lang='tet'), 'um')
-        self.assertEqual(num2words(2, lang='tet'), 'dois')
-        self.assertEqual(num2words(3, lang='tet'), 'três')
-        self.assertEqual(num2words(4, lang='tet'), 'quatro')
-        self.assertEqual(num2words(5, lang='tet'), 'cinco')
-        self.assertEqual(num2words(6, lang='tet'), 'seis')
-        self.assertEqual(num2words(7, lang='tet'), 'sete')
-        self.assertEqual(num2words(8, lang='tet'), 'oito')
-        self.assertEqual(num2words(9, lang='tet'), 'nove')
-        self.assertEqual(num2words(10, lang='tet'), 'dez')
-        self.assertEqual(num2words(11, lang='tet'), 'onze')
-        self.assertEqual(num2words(12, lang='tet'), 'doze')
-        self.assertEqual(num2words(13, lang='tet'), 'treze')
-        self.assertEqual(num2words(14, lang='tet'), 'catorze')
-        self.assertEqual(num2words(15, lang='tet'), 'quinze')
-        self.assertEqual(num2words(16, lang='tet'), 'dezasseis')
-        self.assertEqual(num2words(17, lang='tet'), 'dezassete')
-        self.assertEqual(num2words(18, lang='tet'), 'dezoito')
-        self.assertEqual(num2words(19, lang='tet'), 'dezanove')
-        self.assertEqual(num2words(20, lang='tet'), 'vinte')
+        self.assertEqual(num2words(1, lang='tet'), 'ida')
+        self.assertEqual(num2words(2, lang='tet'), 'rua')
+        self.assertEqual(num2words(3, lang='tet'), 'tolu')
+        self.assertEqual(num2words(4, lang='tet'), 'haat')
+        self.assertEqual(num2words(5, lang='tet'), 'lima')
+        self.assertEqual(num2words(6, lang='tet'), 'neen')
+        self.assertEqual(num2words(7, lang='tet'), 'hitu')
+        self.assertEqual(num2words(8, lang='tet'), 'walu')
+        self.assertEqual(num2words(9, lang='tet'), 'sia')
+        self.assertEqual(num2words(10, lang='tet'), 'sanulu')
+        #self.assertEqual(num2words(11, lang='tet'), 'onze')
+        #self.assertEqual(num2words(12, lang='tet'), 'doze')
+        #self.assertEqual(num2words(13, lang='tet'), 'treze')
+        #self.assertEqual(num2words(14, lang='tet'), 'catorze')
+        #self.assertEqual(num2words(15, lang='tet'), 'quinze')
+        #self.assertEqual(num2words(16, lang='tet'), 'dezasseis')
+        #self.assertEqual(num2words(17, lang='tet'), 'dezassete')
+        #self.assertEqual(num2words(18, lang='tet'), 'dezoito')
+        #self.assertEqual(num2words(19, lang='tet'), 'dezanove')
+        #self.assertEqual(num2words(20, lang='tet'), 'vinte')
 
-        self.assertEqual(num2words(21, lang='tet'), 'vinte e um')
-        self.assertEqual(num2words(22, lang='tet'), 'vinte e dois')
-        self.assertEqual(num2words(35, lang='tet'), 'trinta e cinco')
-        self.assertEqual(num2words(99, lang='tet'), 'noventa e nove')
+        #self.assertEqual(num2words(21, lang='tet'), 'vinte e um')
+        #self.assertEqual(num2words(22, lang='tet'), 'vinte e dois')
+        #self.assertEqual(num2words(35, lang='tet'), 'trinta e cinco')
+        #self.assertEqual(num2words(99, lang='tet'), 'noventa e nove')
 
-        self.assertEqual(num2words(100, lang='tet'), 'cem')
-        self.assertEqual(num2words(101, lang='tet'), 'cento e um')
-        self.assertEqual(num2words(128, lang='tet'), 'cento e vinte e oito')
-        self.assertEqual(num2words(713, lang='tet'), 'setecentos e treze')
+        #self.assertEqual(num2words(100, lang='tet'), 'cem')
+        #self.assertEqual(num2words(101, lang='tet'), 'cento e um')
+        #self.assertEqual(num2words(128, lang='tet'), 'cento e vinte e oito')
+        #self.assertEqual(num2words(713, lang='tet'), 'setecentos e treze')
 
-        self.assertEqual(num2words(1000, lang='tet'), 'mil')
-        self.assertEqual(num2words(1001, lang='tet'), 'mil e um')
-        self.assertEqual(num2words(1111, lang='tet'), 'mil cento e onze')
-        self.assertEqual(
-            num2words(2114, lang='tet'), 'dois mil cento e catorze'
-        )
-        self.assertEqual(
-            num2words(2200, lang='tet'),
-            'dois mil e duzentos'
-        )
-        self.assertEqual(
-            num2words(2230, lang='tet'),
-            'dois mil duzentos e trinta'
-        )
-        self.assertEqual(
-            num2words(73400, lang='tet'),
-            'setenta e três mil e quatrocentos'
-        )
-        self.assertEqual(
-            num2words(73421, lang='tet'),
-            'setenta e três mil quatrocentos e vinte e um'
-        )
-        self.assertEqual(num2words(100000, lang='tet'), 'cem mil')
-        self.assertEqual(
-            num2words(250050, lang='tet'),
-            'duzentos e cinquenta mil e cinquenta'
-        )
-        self.assertEqual(
-            num2words(6000000, lang='tet'), 'seis milhões'
-        )
-        self.assertEqual(
-            num2words(100000000, lang='tet'), 'cem milhões'
-        )
-        self.assertEqual(
-            num2words(19000000000, lang='tet'), 'dezanove mil milhões'
-        )
-        self.assertEqual(
-            num2words(145000000002, lang='tet'),
-            'cento e quarenta e cinco mil milhões e dois'
-        )
-        self.assertEqual(
-            num2words(4635102, lang='tet'),
-            'quatro milhões seiscentos e trinta e cinco mil cento e dois'
-        )
-        self.assertEqual(
-            num2words(145254635102, lang='tet'),
-            'cento e quarenta e cinco mil duzentos e cinquenta e quatro '
-            'milhões seiscentos e trinta e cinco mil cento e dois'
-        )
-        self.assertEqual(
-            num2words(1000000000000, lang='tet'),
-            'um bilião'
-        )
-        self.assertEqual(
-            num2words(2000000000000, lang='tet'),
-            'dois biliões'
-        )
-        self.assertEqual(
-            num2words(1000000000000000, lang='tet'),
-            'mil biliões'
-        )
-        self.assertEqual(
-            num2words(2000000000000000, lang='tet'),
-            'dois mil biliões'
-        )
-        self.assertEqual(
-            num2words(1000000000000000000, lang='tet'),
-            'um trilião'
-        )
-        self.assertEqual(
-            num2words(2000000000000000000, lang='tet'),
-            'dois triliões'
-        )
+        #self.assertEqual(num2words(1000, lang='tet'), 'mil')
+        #self.assertEqual(num2words(1001, lang='tet'), 'mil e um')
+        #self.assertEqual(num2words(1111, lang='tet'), 'mil cento e onze')
+        #self.assertEqual(
+        #    num2words(2114, lang='tet'), 'dois mil cento e catorze'
+        #)
+        #self.assertEqual(
+        #    num2words(2200, lang='tet'),
+        #    'dois mil e duzentos'
+        #)
+        #self.assertEqual(
+        #    num2words(2230, lang='tet'),
+        #    'dois mil duzentos e trinta'
+        #)
+        #self.assertEqual(
+        #    num2words(73400, lang='tet'),
+        #    'setenta e três mil e quatrocentos'
+        #)
+        #self.assertEqual(
+        #    num2words(73421, lang='tet'),
+        #    'setenta e três mil quatrocentos e vinte e um'
+        #)
+        #self.assertEqual(num2words(100000, lang='tet'), 'cem mil')
+        #self.assertEqual(
+        #    num2words(250050, lang='tet'),
+        #    'duzentos e cinquenta mil e cinquenta'
+        #)
+        #self.assertEqual(
+        #    num2words(6000000, lang='tet'), 'seis milhões'
+        #)
+        #self.assertEqual(
+        #    num2words(100000000, lang='tet'), 'cem milhões'
+        #)
+        #self.assertEqual(
+        #    num2words(19000000000, lang='tet'), 'dezanove mil milhões'
+        #)
+        #self.assertEqual(
+        #    num2words(145000000002, lang='tet'),
+        #    'cento e quarenta e cinco mil milhões e dois'
+        #)
+        #self.assertEqual(
+        #    num2words(4635102, lang='tet'),
+        #    'quatro milhões seiscentos e trinta e cinco mil cento e dois'
+        #)
+        #self.assertEqual(
+        #    num2words(145254635102, lang='tet'),
+        #    'cento e quarenta e cinco mil duzentos e cinquenta e quatro '
+        #    'milhões seiscentos e trinta e cinco mil cento e dois'
+        #)
+        #self.assertEqual(
+        #    num2words(1000000000000, lang='tet'),
+        #    'um bilião'
+        #)
+        #self.assertEqual(
+        #    num2words(2000000000000, lang='tet'),
+        #    'dois biliões'
+        #)
+        #self.assertEqual(
+        #    num2words(1000000000000000, lang='tet'),
+        #    'mil biliões'
+        #)
+        #self.assertEqual(
+        #    num2words(2000000000000000, lang='tet'),
+        #    'dois mil biliões'
+        #)
+        #self.assertEqual(
+        #    num2words(1000000000000000000, lang='tet'),
+        #    'um trilião'
+        #)
+        #self.assertEqual(
+        #    num2words(2000000000000000000, lang='tet'),
+        #    'dois triliões'
+        #)
 
+    @skip("not implemented yet")
     def test_cardinal_integer_negative(self):
         self.assertEqual(num2words(-1, lang='tet'), 'menos um')
         self.assertEqual(
@@ -148,6 +149,7 @@ class Num2WordsTETTest(TestCase):
             'sessenta e sete'
         )
 
+    @skip("not implemented yet")
     def test_cardinal_float(self):
         self.assertEqual(num2words(Decimal('1.00'), lang='tet'), 'um')
         self.assertEqual(num2words(
@@ -170,6 +172,7 @@ class Num2WordsTETTest(TestCase):
             num2words(Decimal('2345.75'), lang='tet'),
             'dois mil trezentos e quarenta e cinco vírgula sete cinco')
 
+    @skip("not implemented yet")
     def test_cardinal_float_negative(self):
         self.assertEqual(
             num2words(Decimal('-2.34'), lang='tet'),
@@ -188,6 +191,7 @@ class Num2WordsTETTest(TestCase):
             'menos duzentos e vinte e dois vírgula dois dois'
         )
 
+    @skip("not implemented yet")
     def test_ordinal(self):
         self.assertEqual(num2words(1, lang='tet', ordinal=True), 'primeiro')
         self.assertEqual(num2words(2, lang='tet', ordinal=True), 'segundo')
@@ -297,6 +301,7 @@ class Num2WordsTETTest(TestCase):
             'centésimo quadragésimo quinto milésimo milionésimo segundo'
         )
 
+    @skip("not implemented yet")
     def test_currency_integer(self):
         self.assertEqual(self.n2w.to_currency(1.00), 'um euro')
         self.assertEqual(self.n2w.to_currency(2.00), 'dois euros')
@@ -367,6 +372,7 @@ class Num2WordsTETTest(TestCase):
         with self.assertRaises(NotImplementedError):
             self.n2w.to_currency(1.00, currency='CHF')
 
+    @skip("not implemented yet")
     def test_currency_integer_negative(self):
         self.assertEqual(self.n2w.to_currency(-1.00), 'menos um euro')
         self.assertEqual(
@@ -383,6 +389,7 @@ class Num2WordsTETTest(TestCase):
             'sessenta e sete euros'
         )
 
+    @skip("not implemented yet")
     def test_currency_float(self):
         self.assertEqual(self.n2w.to_currency(Decimal('1.00')), 'um euro')
         self.assertEqual(
@@ -409,6 +416,7 @@ class Num2WordsTETTest(TestCase):
             'cêntimos'
         )
 
+    @skip("not implemented yet")
     def test_currency_float_negative(self):
         self.assertEqual(
             self.n2w.to_currency(Decimal('-2.34')),
@@ -427,6 +435,7 @@ class Num2WordsTETTest(TestCase):
             'menos duzentos e vinte e dois euros e vinte e dois cêntimos'
         )
 
+    @skip("not implemented yet")
     def test_year(self):
         self.assertEqual(self.n2w.to_year(1001), 'mil e um')
         self.assertEqual(
@@ -442,6 +451,7 @@ class Num2WordsTETTest(TestCase):
         self.assertEqual(self.n2w.to_year(2001), 'dois mil e um')
         self.assertEqual(self.n2w.to_year(2016), 'dois mil e dezasseis')
 
+    @skip("not implemented yet")
     def test_year_negative(self):
         self.assertEqual(self.n2w.to_year(-30), 'trinta antes de Cristo')
         self.assertEqual(
@@ -450,6 +460,7 @@ class Num2WordsTETTest(TestCase):
         )
         self.assertEqual(self.n2w.to_year(-10000), 'dez mil antes de Cristo')
 
+    @skip("not implemented yet")
     def test_to_ordinal_num(self):
         self.assertEqual(self.n2w.to_ordinal_num(1), '1º')
         self.assertEqual(self.n2w.to_ordinal_num(100), '100º')

@@ -37,7 +37,7 @@ class Num2Word_TET(Num2Word_EU):
 
     GIGA_SUFFIX = None
     MEGA_SUFFIX = "ilião"
-
+ 
     def setup(self):
         super(Num2Word_TET, self).setup()
         lows = ["quatr", "tr", "b", "m"]
@@ -53,9 +53,9 @@ class Num2Word_TET(Num2Word_EU):
         ]
         self.low_numwords = [
             "vinte", "dezanove", "dezoito", "dezassete", "dezasseis",
-            "quinze", "catorze", "treze", "doze", "onze", "dez",
-            "nove", "oito", "sete", "seis", "cinco", "quatro", "três", "dois",
-            "um", "zero"
+            "quinze", "catorze", "treze", "doze", "onze", "sanulu",
+            "sia", "walu", "hitu", "neen", "lima", "haat", "tolu", "rua",
+            "ida", "zero"
         ]
         self.ords = [
             {
