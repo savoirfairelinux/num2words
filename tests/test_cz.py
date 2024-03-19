@@ -56,17 +56,17 @@ class Num2WordsCZTest(TestCase):
         self.assertEqual(
             num2words(215461407892039002157189883901676, lang='cz'),
             "dvěstě patnáct quintillionů čtyřista šedesát jedna kvadriliard "
-            "čtyřista sedm kvadrilionů osmset devadesát dva triliardy třicet "
+            "čtyři sta sedm kvadrilionů osmset devadesát dva triliardy třicet "
             "devět trilionů dva biliardy sto padesát sedm bilionů sto "
             "osmdesát devět miliard osmset osmdesát tři miliony "
             "devětset jedna tisíc šestset sedmdesát šest"
         )
         self.assertEqual(
             num2words(719094234693663034822824384220291, lang='cz'),
-            "sedmset devatenáct quintillionů devadesát "
+            "sedm set devatenáct quintillionů devadesát "
             "čtyři kvadriliardy dvěstě třicet čtyři "
             "kvadriliony šestset devadesát tři triliardy "
-            "šestset šedesát tři triliony třicet čtyři biliardy osmset "
+            "šest set šedesát tři triliony třicet čtyři biliardy osmset "
             "dvacet dva biliony osmset dvacet čtyři "
             "miliardy třista osmdesát čtyři miliony dvěstě dvacet "
             "tisíc dvěstě devadesát jedna"
