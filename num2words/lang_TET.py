@@ -47,7 +47,7 @@ class Num2Word_TET(Num2Word_EU):
         self.exclude_title = ["e", "vírgula", "menos"]
 
         self.mid_numwords = [
-            (1000, "mil"), (100, "atus"), (90, "sianulu"),
+            (1000, "rihun"), (100, "atus"), (90, "sianulu"),
             (80, "walunulu"), (70, "hitunulu"), (60, "neenulu"),
             (50, "limanulu"), (40, "haatulu"), (30, "tolunulu"),
             (20, "ruanulu")
