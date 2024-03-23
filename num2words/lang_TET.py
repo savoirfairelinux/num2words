@@ -47,13 +47,13 @@ class Num2Word_TET(Num2Word_EU):
         self.exclude_title = ["e", "vírgula", "menos"]
 
         self.mid_numwords = [
-            (1000, "mil"), (100, "cem"), (90, "noventa"),
-            (80, "oitenta"), (70, "setenta"), (60, "sessenta"),
-            (50, "cinquenta"), (40, "quarenta"), (30, "trinta")
+            (1000, "mil"), (100, "atus"), (90, "sianulu"),
+            (80, "walunulu"), (70, "hitunulu"), (60, "neenulu"),
+            (50, "limanulu"), (40, "haatulu"), (30, "tolunulu"),
+            (20, "ruanulu")
         ]
         self.low_numwords = [
-            "vinte", "dezanove", "dezoito", "dezassete", "dezasseis",
-            "quinze", "catorze", "treze", "doze", "onze", "sanulu",
+            "sanulu",
             "sia", "walu", "hitu", "neen", "lima", "haat", "tolu", "rua",
             "ida", "zero"
         ]
@@ -117,33 +117,16 @@ class Num2Word_TET(Num2Word_EU):
     def merge(self, curr, next):
         ctext, cnum, ntext, nnum = curr + next
 
-        if cnum == 1:
-            if nnum < 1000000:
-                return next
-            ctext = "um"
-        elif cnum == 100 and not nnum % 1000 == 0:
-            ctext = "cento"
+        if cnum == 1 and nnum < 100:
+            return next
 
         if nnum < cnum:
-            if cnum < 100:
-                return ("%s e %s" % (ctext, ntext), cnum + nnum)
-            return ("%s e %s" % (ctext, ntext), cnum + nnum)
+            if nnum < 10:
+                return ("%s resin %s" % (ctext, ntext), cnum + nnum)
+            else:
+                return ("%s %s" % (ctext, ntext), cnum + nnum)
 
-        elif (not nnum % 1000000000) and cnum > 1:
-            ntext = ntext[:-4] + "liões"
-        elif (not nnum % 1000000) and cnum > 1:
-            ntext = ntext[:-4] + "lhões"
-        # correct "milião" to "milhão"
-        if ntext == 'milião':
-            ntext = 'milhão'
-        if nnum == 100:
-            ctext = self.hundreds[cnum]
-            ntext = ""
-
-        else:
-            ntext = " " + ntext
-
-        return (ctext + ntext, cnum * nnum)
+        return (ntext + " " + ctext, cnum * nnum)
 
     def to_cardinal(self, value):
         result = super(Num2Word_TET, self).to_cardinal(value)
