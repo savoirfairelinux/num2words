@@ -63,7 +63,7 @@ class Num2WordsTETTest(TestCase):
         self.assertEqual(num2words(114, lang='tet'), 'atus ida sanulu resin haat')
         self.assertEqual(num2words(128, lang='tet'), 'atus ida ruanulu resin walu')
         self.assertEqual(num2words(151, lang='tet'), 'atus ida limanulu resin ida')
-        #self.assertEqual(num2words(713, lang='tet'), 'setecentos e treze')
+        self.assertEqual(num2words(713, lang='tet'), 'atus hitu sanulu resin tolu')
         self.assertEqual(num2words(999, lang='tet'), 'atus sia sianulu resin sia')
 
         self.assertEqual(num2words(1000, lang='tet'), 'rihun ida')
@@ -102,30 +102,30 @@ class Num2WordsTETTest(TestCase):
         #    'cento e quarenta e cinco mil duzentos e cinquenta e quatro '
         #    'milhões seiscentos e trinta e cinco mil cento e dois'
         #)
-        #self.assertEqual(
-        #    num2words(1000000000000, lang='tet'),
-        #    'um bilião'
-        #)
-        #self.assertEqual(
-        #    num2words(2000000000000, lang='tet'),
-        #    'dois biliões'
-        #)
-        #self.assertEqual(
-        #    num2words(1000000000000000, lang='tet'),
-        #    'mil biliões'
-        #)
-        #self.assertEqual(
-        #    num2words(2000000000000000, lang='tet'),
-        #    'dois mil biliões'
-        #)
-        #self.assertEqual(
-        #    num2words(1000000000000000000, lang='tet'),
-        #    'um trilião'
-        #)
-        #self.assertEqual(
-        #    num2words(2000000000000000000, lang='tet'),
-        #    'dois triliões'
-        #)
+        self.assertEqual(
+            num2words(1000000000000, lang='tet'),
+            'billaun ida'
+        )
+        self.assertEqual(
+            num2words(2000000000000, lang='tet'),
+            'billaun rua'
+        )
+        self.assertEqual(
+            num2words(1000000000000000, lang='tet'),
+            'billaun rihun ida'
+        )
+        self.assertEqual(
+            num2words(2000000000000000, lang='tet'),
+            'billaun rihun rua'
+        )
+        self.assertEqual(
+            num2words(1000000000000000000, lang='tet'),
+            'trillaun ida'
+        )
+        self.assertEqual(
+            num2words(2000000000000000000, lang='tet'),
+            'trillaun rua'
+        )
 
     @skip("not implemented yet")
     def test_cardinal_integer_negative(self):
