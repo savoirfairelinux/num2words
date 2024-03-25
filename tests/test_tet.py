@@ -80,15 +80,15 @@ class Num2WordsTETTest(TestCase):
         self.assertEqual(num2words(73421, lang='tet'), 'rihun hitunulu resin tolu atus haat ruanulu resin ida')
         self.assertEqual(num2words(100000, lang='tet'), 'rihun atus ida')
         self.assertEqual(num2words(250050, lang='tet'), 'rihun atus rua limanulu limanulu')
-        #self.assertEqual(
-        #    num2words(6000000, lang='tet'), 'seis milhões'
-        #)
-        #self.assertEqual(
-        #    num2words(100000000, lang='tet'), 'cem milhões'
-        #)
-        #self.assertEqual(
-        #    num2words(19000000000, lang='tet'), 'dezanove mil milhões'
-        #)
+        self.assertEqual(
+            num2words(6000000, lang='tet'), 'milaun neen'
+        )
+        self.assertEqual(
+            num2words(100000000, lang='tet'), 'milaun atus ida'
+        )
+        self.assertEqual(
+            num2words(19000000000, lang='tet'), 'milaun rihun sanulu resin sia'
+        )
         #self.assertEqual(
         #    num2words(145000000002, lang='tet'),
         #    'cento e quarenta e cinco mil milhões e dois'
