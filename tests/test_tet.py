@@ -103,27 +103,27 @@ class Num2WordsTETTest(TestCase):
         )
         self.assertEqual(
             num2words(1000000000000, lang='tet'),
-            'billaun ida'
+            'biliaun ida'
         )
         self.assertEqual(
             num2words(2000000000000, lang='tet'),
-            'billaun rua'
+            'biliaun rua'
         )
         self.assertEqual(
             num2words(1000000000000000, lang='tet'),
-            'billaun rihun ida'
+            'biliaun rihun ida'
         )
         self.assertEqual(
             num2words(2000000000000000, lang='tet'),
-            'billaun rihun rua'
+            'biliaun rihun rua'
         )
         self.assertEqual(
             num2words(1000000000000000000, lang='tet'),
-            'trillaun ida'
+            'triliaun ida'
         )
         self.assertEqual(
             num2words(2000000000000000000, lang='tet'),
-            'trillaun rua'
+            'triliaun rua'
         )
 
     @skip("not implemented yet")
