@@ -143,16 +143,16 @@ class Num2WordsTETTest(TestCase):
     def test_cardinal_float(self):
         self.assertEqual(num2words(Decimal('1.00'), lang='tet'), 'um')
         self.assertEqual(num2words(
-            Decimal('1.01'), lang='tet'), 'um vírgula zero um')
+            Decimal('1.01'), lang='tet'), 'ida vírgula zero ida')
         self.assertEqual(num2words(
-            Decimal('1.035'), lang='tet'), 'um vírgula zero três cinco'
+            Decimal('1.035'), lang='tet'), 'ida vírgula zero tolu lima'
         )
         self.assertEqual(num2words(
-            Decimal('1.35'), lang='tet'), 'um vírgula três cinco'
+            Decimal('1.35'), lang='tet'), 'ida vírgula tolu lima'
         )
         self.assertEqual(
             num2words(Decimal('3.14159'), lang='tet'),
-            'três vírgula um quatro um cinco nove'
+            'tolu vírgula ida haat ida lima sia'
         )
         self.assertEqual(
             num2words(Decimal('101.22'), lang='tet'),
@@ -160,25 +160,27 @@ class Num2WordsTETTest(TestCase):
         )
         self.assertEqual(
             num2words(Decimal('2345.75'), lang='tet'),
-            'dois mil trezentos e quarenta e cinco vírgula sete cinco')
+            'rihun rua atus tolu haatnulu resin lima vírgula hitu lima'
+        )
+
 
     @skip("not implemented yet")
     def test_cardinal_float_negative(self):
         self.assertEqual(
             num2words(Decimal('-2.34'), lang='tet'),
-            'menos dois vírgula três quatro'
+            'menus rua vírgula tolu haat'
         )
         self.assertEqual(
             num2words(Decimal('-9.99'), lang='tet'),
-            'menos nove vírgula nove nove'
+            'menus sia vírgula sia sia'
         )
         self.assertEqual(
             num2words(Decimal('-7.01'), lang='tet'),
-            'menos sete vírgula zero um'
+            'menus hitu vírgula zero ida'
         )
         self.assertEqual(
             num2words(Decimal('-222.22'), lang='tet'),
-            'menos duzentos e vinte e dois vírgula dois dois'
+            'menus atus rua ruanulu resin rua vírgula rua rua'
         )
 
     @skip("not implemented yet")
