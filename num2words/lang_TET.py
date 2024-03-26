@@ -137,8 +137,8 @@ class Num2Word_TET(Num2Word_EU):
         # mil e duzentos" in "cem milhões duzentos mil e duzentos" and not in
         # "cem milhões duzentos mil duzentos"
         for ext in (
-                'mil', 'milhão', 'milhões', 'mil milhões',
-                'bilião', 'biliões', 'mil biliões'):
+                'rihun', 'miliaun','miliaun rihun',
+                'biliaun', 'biliaun rihun'):
             if re.match('.*{} e \\w*entos? (?=.*e)'.format(ext), result):
                 result = result.replace(
                     '{} e'.format(ext), '{}'.format(ext)
@@ -213,8 +213,7 @@ class Num2Word_TET(Num2Word_EU):
         cr1, _ = self.CURRENCY_FORMS[currency]
 
         for ext in (
-                'milhão', 'milhões', 'bilião',
-                'biliões', 'trilião', 'triliões'):
+                'miliaun','biliaun','triliaun'):
             if re.match('.*{} (?={})'.format(ext, cr1[1]), result):
                 result = result.replace(
                     '{}'.format(ext), '{} de'.format(ext), 1
