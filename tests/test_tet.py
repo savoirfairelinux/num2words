@@ -26,7 +26,7 @@ from num2words.lang_TET import Num2Word_TET
 
 class Num2WordsTETTest(TestCase):
     def setUp(self):
-        super(Num2WordsTETTest, self).setUp()
+        super().setUp()
         self.n2w = Num2Word_TET()
 
     def test_cardinal_integer(self):
