@@ -39,7 +39,7 @@ class Num2Word_TET(Num2Word_EU):
     MEGA_SUFFIX = "iliaun"
 
     def setup(self):
-        super(Num2Word_TET, self).setup()
+        super().setup()
         lows = ["quatr", "tr", "b", "m"]
         self.high_numwords = self.gen_high_numwords([], [], lows)
         self.negword = "menos "
@@ -129,7 +129,7 @@ class Num2Word_TET(Num2Word_EU):
         return (ntext + " " + ctext, cnum * nnum)
 
     def to_cardinal(self, value):
-        result = super(Num2Word_TET, self).to_cardinal(value)
+        result = super().to_cardinal(value)
 
         # Transforms "mil e cento e catorze" into "mil cento e catorze"
         # Transforms "cem milhões e duzentos mil e duzentos e dez" em "cem
@@ -203,7 +203,7 @@ class Num2Word_TET(Num2Word_EU):
         # change negword because base.to_currency() does not need space after
         backup_negword = self.negword
         self.negword = self.negword[:-1]
-        result = super(Num2Word_TET, self).to_currency(
+        result = super().to_currency(
             val, currency=currency, cents=cents, separator=separator,
             adjective=adjective)
         # undo the change on negword
