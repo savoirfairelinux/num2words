@@ -42,9 +42,9 @@ class Num2Word_TET(Num2Word_EU):
         super().setup()
         lows = ["quatr", "tr", "b", "m"]
         self.high_numwords = self.gen_high_numwords([], [], lows)
-        self.negword = "menos "
+        self.negword = "menus "
         self.pointword = "vírgula"
-        self.exclude_title = ["e", "vírgula", "menos"]
+        self.exclude_title = ["resin", "vírgula", "menus"]
 
         self.mid_numwords = [
             (1000, "rihun"), (100, "atus"), (90, "sianulu"),
