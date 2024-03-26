@@ -36,7 +36,7 @@ class Num2Word_TET(Num2Word_EU):
     }
 
     GIGA_SUFFIX = None
-    MEGA_SUFFIX = "illaun"
+    MEGA_SUFFIX = "iliaun"
 
     def setup(self):
         super(Num2Word_TET, self).setup()
