@@ -128,16 +128,15 @@ class Num2WordsTETTest(TestCase):
 
     @skip("not implemented yet")
     def test_cardinal_integer_negative(self):
-        self.assertEqual(num2words(-1, lang='tet'), 'menos um')
+        self.assertEqual(num2words(-1, lang='tet'), 'menus ida')
         self.assertEqual(
-            num2words(-256, lang='tet'), 'menos duzentos e cinquenta e seis'
+            num2words(-256, lang='tet'), 'menus atus rua limanulu resin neen'
         )
-        self.assertEqual(num2words(-1000, lang='tet'), 'menos mil')
-        self.assertEqual(num2words(-1000000, lang='tet'), 'menos um milhão')
+        self.assertEqual(num2words(-1000, lang='tet'), 'menus rihun ida')
+        self.assertEqual(num2words(-1000000, lang='tet'), 'menus miliaun ida')
         self.assertEqual(
             num2words(-1234567, lang='tet'),
-            'menos um milhão duzentos e trinta e quatro mil quinhentos e '
-            'sessenta e sete'
+            'menus miliaun ida rihun atus rua tolunulu resin lima atus lima neennulu resin hitu'
         )
 
     @skip("not implemented yet")
