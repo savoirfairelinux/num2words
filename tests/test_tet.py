@@ -408,40 +408,40 @@ class Num2WordsTETTest(TestCase):
 
         )
 
-    @skip("not implemented yet")
+    #@skip("not implemented yet")
     def test_currency_float_negative(self):
         self.assertEqual(
             self.n2w.to_currency(Decimal('-2.34')),
-            'menos dois euros e trinta e quatro cêntimos'
+            'menus rua eurus resin tolunulu resin haat cêntimus'
         )
         self.assertEqual(
             self.n2w.to_currency(Decimal('-9.99')),
-            'menos nove euros e noventa e nove cêntimos'
+            'menus sia eurus resin sianulu resin sia cêntimus'
         )
         self.assertEqual(
             self.n2w.to_currency(Decimal('-7.01')),
-            'menos sete euros e um cêntimo'
+            'menus hitu eurus resin ida cêntimu'
         )
         self.assertEqual(
             self.n2w.to_currency(Decimal('-222.22')),
-            'menos duzentos e vinte e dois euros e vinte e dois cêntimos'
+            'menus atus rua ruanulu resin rua eurus resin ruanulu resin rua cêntimus'
         )
 
-    @skip("not implemented yet")
+    #@skip("not implemented yet")
     def test_year(self):
-        self.assertEqual(self.n2w.to_year(1001), 'mil e um')
+        self.assertEqual(self.n2w.to_year(1001), 'rihun ida resin ida')
         self.assertEqual(
-            self.n2w.to_year(1789), 'mil setecentos e oitenta e nove'
+            self.n2w.to_year(1789), 'rihun ida atus hitu walunulu resin sia'
         )
         self.assertEqual(
-            self.n2w.to_year(1942), 'mil novecentos e quarenta e dois'
+            self.n2w.to_year(1942), 'rihun ida atus sia haatnulu resin rua'
         )
         self.assertEqual(
-            self.n2w.to_year(1984), 'mil novecentos e oitenta e quatro'
+            self.n2w.to_year(1984), 'rihun ida atus sia walunulu resin haat'
         )
-        self.assertEqual(self.n2w.to_year(2000), 'dois mil')
-        self.assertEqual(self.n2w.to_year(2001), 'dois mil e um')
-        self.assertEqual(self.n2w.to_year(2016), 'dois mil e dezasseis')
+        self.assertEqual(self.n2w.to_year(2000), 'rihun rua')
+        self.assertEqual(self.n2w.to_year(2001), 'rihun rua resin ida')
+        self.assertEqual(self.n2w.to_year(2016), 'rihun rua sanulu resin neen')
 
     #@skip("not implemented yet")
     def test_year_negative(self):
