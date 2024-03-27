@@ -141,7 +141,7 @@ class Num2Word_TET(Num2Word_EU):
                 'biliaun', 'biliaun rihun'):
             if re.match('.*{} resin \\w*entus? (?=.*resin)'.format(ext), result):
                 result = result.replace(
-                    '{} resin'.format(ext), '{}'.format(ext)
+                    f'{ext} resin', f'{ext}'
                 )
 
         return result
@@ -216,7 +216,7 @@ class Num2Word_TET(Num2Word_EU):
                 'miliaun','biliaun','triliaun'):
             if re.match('.*{} (?={})'.format(ext, cr1[1]), result):
                 result = result.replace(
-                    '{}'.format(ext), '{}'.format(ext), 1
+                    f'{ext}', f'{ext}', 1
                 )
         # do not print "e zero cêntimos"
         result = result.replace(' resin zero cêntimus', '')
