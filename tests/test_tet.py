@@ -183,114 +183,114 @@ class Num2WordsTETTest(TestCase):
             'menus atus rua ruanulu resin rua vírgula rua rua'
         )
 
-    @skip("not implemented yet")
+    #@skip("not implemented yet")
     def test_ordinal(self):
-        self.assertEqual(num2words(1, lang='tet', ordinal=True), 'primeiro')
-        self.assertEqual(num2words(2, lang='tet', ordinal=True), 'segundo')
-        self.assertEqual(num2words(3, lang='tet', ordinal=True), 'terceiro')
-        self.assertEqual(num2words(4, lang='tet', ordinal=True), 'quarto')
-        self.assertEqual(num2words(5, lang='tet', ordinal=True), 'quinto')
-        self.assertEqual(num2words(6, lang='tet', ordinal=True), 'sexto')
-        self.assertEqual(num2words(7, lang='tet', ordinal=True), 'sétimo')
-        self.assertEqual(num2words(8, lang='tet', ordinal=True), 'oitavo')
-        self.assertEqual(num2words(9, lang='tet', ordinal=True), 'nono')
-        self.assertEqual(num2words(10, lang='tet', ordinal=True), 'décimo')
+        self.assertEqual(num2words(1, lang='tet', ordinal=True), 'primeiru')
+        self.assertEqual(num2words(2, lang='tet', ordinal=True), 'segundu')
+        self.assertEqual(num2words(3, lang='tet', ordinal=True), 'terceiru')
+        self.assertEqual(num2words(4, lang='tet', ordinal=True), 'quartu')
+        self.assertEqual(num2words(5, lang='tet', ordinal=True), 'quintu')
+        self.assertEqual(num2words(6, lang='tet', ordinal=True), 'sextu')
+        self.assertEqual(num2words(7, lang='tet', ordinal=True), 'sétimu')
+        self.assertEqual(num2words(8, lang='tet', ordinal=True), 'oitavu')
+        self.assertEqual(num2words(9, lang='tet', ordinal=True), 'nonu')
+        self.assertEqual(num2words(10, lang='tet', ordinal=True), 'décimu')
         self.assertEqual(
-            num2words(11, lang='tet', ordinal=True), 'décimo primeiro'
+            num2words(11, lang='tet', ordinal=True), 'décimu primeiru'
         )
         self.assertEqual(
-            num2words(12, lang='tet', ordinal=True), 'décimo segundo'
+            num2words(12, lang='tet', ordinal=True), 'décimu segundu'
         )
         self.assertEqual(
-            num2words(13, lang='tet', ordinal=True), 'décimo terceiro'
+            num2words(13, lang='tet', ordinal=True), 'décimu terceiru'
         )
         self.assertEqual(
-            num2words(14, lang='tet', ordinal=True), 'décimo quarto'
+            num2words(14, lang='tet', ordinal=True), 'décimu quartu'
         )
         self.assertEqual(
-            num2words(15, lang='tet', ordinal=True), 'décimo quinto'
+            num2words(15, lang='tet', ordinal=True), 'décimu quintu'
         )
         self.assertEqual(
-            num2words(16, lang='tet', ordinal=True), 'décimo sexto'
+            num2words(16, lang='tet', ordinal=True), 'décimu sextu'
         )
         self.assertEqual(
-            num2words(17, lang='tet', ordinal=True), 'décimo sétimo'
+            num2words(17, lang='tet', ordinal=True), 'décimu sétimu'
         )
         self.assertEqual(
-            num2words(18, lang='tet', ordinal=True), 'décimo oitavo'
+            num2words(18, lang='tet', ordinal=True), 'décimu oitavu'
         )
         self.assertEqual(
-            num2words(19, lang='tet', ordinal=True), 'décimo nono'
+            num2words(19, lang='tet', ordinal=True), 'décimu nonu'
         )
         self.assertEqual(
-            num2words(20, lang='tet', ordinal=True), 'vigésimo'
-        )
-
-        self.assertEqual(
-            num2words(21, lang='tet', ordinal=True), 'vigésimo primeiro'
-        )
-        self.assertEqual(
-            num2words(22, lang='tet', ordinal=True), 'vigésimo segundo'
-        )
-        self.assertEqual(
-            num2words(35, lang='tet', ordinal=True), 'trigésimo quinto'
-        )
-        self.assertEqual(
-            num2words(99, lang='tet', ordinal=True), 'nonagésimo nono'
+            num2words(20, lang='tet', ordinal=True), 'vigésimu'
         )
 
         self.assertEqual(
-            num2words(100, lang='tet', ordinal=True), 'centésimo'
+            num2words(21, lang='tet', ordinal=True), 'vigésimu primeiru'
         )
         self.assertEqual(
-            num2words(101, lang='tet', ordinal=True), 'centésimo primeiro'
+            num2words(22, lang='tet', ordinal=True), 'vigésimu segundu'
+        )
+        self.assertEqual(
+            num2words(35, lang='tet', ordinal=True), 'trigésimu quintu'
+        )
+        self.assertEqual(
+            num2words(99, lang='tet', ordinal=True), 'nonagésimu nonu'
+        )
+
+        self.assertEqual(
+            num2words(100, lang='tet', ordinal=True), 'centésimu'
+        )
+        self.assertEqual(
+            num2words(101, lang='tet', ordinal=True), 'centésimu primeiru'
         )
         self.assertEqual(
             num2words(128, lang='tet', ordinal=True),
-            'centésimo vigésimo oitavo'
+            'centésimu vigésimu oitavu'
         )
         self.assertEqual(
             num2words(713, lang='tet', ordinal=True),
-            'septigentésimo décimo terceiro'
+            'septigentésimu décimu terceiru'
         )
 
         self.assertEqual(
-            num2words(1000, lang='tet', ordinal=True), 'milésimo'
+            num2words(1000, lang='tet', ordinal=True), 'primeiru milésimu'
         )
         self.assertEqual(
-            num2words(1001, lang='tet', ordinal=True), 'milésimo primeiro'
+            num2words(1001, lang='tet', ordinal=True), 'primeiru milésimu primeiru'
         )
         self.assertEqual(
             num2words(1111, lang='tet', ordinal=True),
-            'milésimo centésimo décimo primeiro'
+            'primeiru milésimu centésimu décimu primeiru'
         )
         self.assertEqual(
             num2words(2114, lang='tet', ordinal=True),
-            'segundo milésimo centésimo décimo quarto'
+            'segundu milésimu centésimu décimu quartu'
         )
         self.assertEqual(
             num2words(73421, lang='tet', ordinal=True),
-            'septuagésimo terceiro milésimo quadrigentésimo vigésimo primeiro'
+            'septuagésimu terceiru milésimu quadrigentésimu vigésimu primeiru'
         )
 
         self.assertEqual(
             num2words(100000, lang='tet', ordinal=True),
-            'centésimo milésimo'
+            'centésimu milésimu'
         )
         self.assertEqual(
             num2words(250050, lang='tet', ordinal=True),
-            'ducentésimo quinquagésimo milésimo quinquagésimo'
+            'ducentésimu quinquagésimu milésimu quinquagésimu'
         )
         self.assertEqual(
-            num2words(6000000, lang='tet', ordinal=True), 'sexto milionésimo'
+            num2words(6000000, lang='tet', ordinal=True), 'sextu milionésimu'
         )
         self.assertEqual(
             num2words(19000000000, lang='tet', ordinal=True),
-            'décimo nono milésimo milionésimo'
+            'décimu nonu milésimu milionésimu'
         )
         self.assertEqual(
             num2words(145000000002, lang='tet', ordinal=True),
-            'centésimo quadragésimo quinto milésimo milionésimo segundo'
+            'centésimu quadragésimu quintu milésimu milionésimu segundu'
         )
 
     @skip("not implemented yet")
