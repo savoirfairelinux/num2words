@@ -381,31 +381,31 @@ class Num2WordsTETTest(TestCase):
             'menus miliaun ida rihun atus rua tolunulu resin haat atus lima neenulu resin hitu eurus'
         )
 
-    @skip("not implemented yet")
+    #@skip("not implemented yet")
     def test_currency_float(self):
-        self.assertEqual(self.n2w.to_currency(Decimal('1.00')), 'um euro')
+        self.assertEqual(self.n2w.to_currency(Decimal('1.00')), 'ida euru')
         self.assertEqual(
-            self.n2w.to_currency(Decimal('1.01')), 'um euro e um cêntimo'
+            self.n2w.to_currency(Decimal('1.01')), 'ida euru resin ida cêntimu'
         )
         self.assertEqual(
-            self.n2w.to_currency(Decimal('1.03')), 'um euro e três cêntimos'
+            self.n2w.to_currency(Decimal('1.03')), 'ida euru resin tolu cêntimus'
         )
         self.assertEqual(
             self.n2w.to_currency(Decimal('1.35')),
-            'um euro e trinta e cinco cêntimos'
+            'ida euru resin tolunulu resin lima cêntimus'
         )
         self.assertEqual(
             self.n2w.to_currency(Decimal('3.14')),
-            'três euros e catorze cêntimos'
+            'tolu eurus resin sanulu resin haat cêntimus'
         )
         self.assertEqual(
             self.n2w.to_currency(Decimal('101.22')),
-            'cento e um euros e vinte e dois cêntimos'
+            'atus ida resin ida eurus resin ruanulu resin rua cêntimus'
         )
         self.assertEqual(
             self.n2w.to_currency(Decimal('2345.75')),
-            'dois mil trezentos e quarenta e cinco euros e setenta e cinco '
-            'cêntimos'
+            'rihun rua atus tolu haatnulu resin lima eurus resin hitunulu resin lima cêntimus'
+
         )
 
     @skip("not implemented yet")
