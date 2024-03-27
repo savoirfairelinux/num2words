@@ -365,21 +365,20 @@ class Num2WordsTETTest(TestCase):
         with self.assertRaises(NotImplementedError):
             self.n2w.to_currency(1.00, currency='CHF')
 
-    @skip("not implemented yet")
+    #@skip("not implemented yet")
     def test_currency_integer_negative(self):
-        self.assertEqual(self.n2w.to_currency(-1.00), 'menos um euro')
+        self.assertEqual(self.n2w.to_currency(-1.00), 'menus ida euru')
         self.assertEqual(
             self.n2w.to_currency(-256.00),
-            'menos duzentos e cinquenta e seis euros'
+            'menus atus rua limanulu resin neen eurus'
         )
-        self.assertEqual(self.n2w.to_currency(-1000.00), 'menos mil euros')
+        self.assertEqual(self.n2w.to_currency(-1000.00), 'menus rihun ida eurus')
         self.assertEqual(
-            self.n2w.to_currency(-1000000.00), 'menos um milhão de euros'
+            self.n2w.to_currency(-1000000.00), 'menus miliaun ida eurus'
         )
         self.assertEqual(
             self.n2w.to_currency(-1234567.00),
-            'menos um milhão duzentos e trinta e quatro mil quinhentos e '
-            'sessenta e sete euros'
+            'menus miliaun ida rihun atus rua tolunulu resin haat atus lima neenulu resin hitu eurus'
         )
 
     @skip("not implemented yet")
@@ -453,7 +452,7 @@ class Num2WordsTETTest(TestCase):
         )
         self.assertEqual(self.n2w.to_year(-10000), 'dez mil antes de Cristo')
 
-    @skip("not implemented yet")
+    #@skip("not implemented yet")
     def test_to_ordinal_num(self):
         self.assertEqual(self.n2w.to_ordinal_num(1), '1º')
         self.assertEqual(self.n2w.to_ordinal_num(100), '100º')
