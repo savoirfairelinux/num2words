@@ -22,7 +22,7 @@ import re
 from .lang_EU import Num2Word_EU
 
 DOLLAR = ('dólar', 'dólares')
-CENTS = ('cêntimo', 'cêntimos')
+CENTS = ('cêntimu', 'cêntimus')
 
 
 class Num2Word_TET(Num2Word_EU):
@@ -30,7 +30,7 @@ class Num2Word_TET(Num2Word_EU):
     CURRENCY_FORMS = {
         'AUD': (DOLLAR, CENTS),
         'CAD': (DOLLAR, CENTS),
-        'EUR': (('euro', 'euros'), CENTS),
+        'EUR': (('euru', 'eurus'), CENTS),
         'GBP': (('libra', 'libras'), ('péni', 'pence')),
         'USD': (DOLLAR, CENTS),
     }
