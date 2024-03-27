@@ -443,14 +443,17 @@ class Num2WordsTETTest(TestCase):
         self.assertEqual(self.n2w.to_year(2001), 'dois mil e um')
         self.assertEqual(self.n2w.to_year(2016), 'dois mil e dezasseis')
 
-    @skip("not implemented yet")
+    #@skip("not implemented yet")
     def test_year_negative(self):
-        self.assertEqual(self.n2w.to_year(-30), 'trinta antes de Cristo')
+        self.assertEqual(self.n2w.to_year(-30), 'tolunulu antes Kristu')
         self.assertEqual(
             self.n2w.to_year(-744),
-            'setecentos e quarenta e quatro antes de Cristo'
+            'atus hitu haatnulu resin haat antes Kristu'
         )
-        self.assertEqual(self.n2w.to_year(-10000), 'dez mil antes de Cristo')
+        self.assertEqual(
+            self.n2w.to_year(-10000),
+            'rihun sanulu antes Kristu'
+        )
 
     #@skip("not implemented yet")
     def test_to_ordinal_num(self):
