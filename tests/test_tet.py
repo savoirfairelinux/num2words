@@ -126,7 +126,6 @@ class Num2WordsTETTest(TestCase):
             'triliaun rua'
         )
 
-    #@skip("not implemented yet")
     def test_cardinal_integer_negative(self):
         self.assertEqual(num2words(-1, lang='tet'), 'menus ida')
         self.assertEqual(
@@ -139,7 +138,6 @@ class Num2WordsTETTest(TestCase):
             'menus miliaun ida rihun atus rua tolunulu resin haat atus lima neenulu resin hitu'
         )
 
-    #@skip("not implemented yet")
     def test_cardinal_float(self):
         self.assertEqual(num2words(Decimal('1.00'), lang='tet'), 'ida')
         self.assertEqual(num2words(
@@ -164,7 +162,6 @@ class Num2WordsTETTest(TestCase):
         )
 
 
-    #@skip("not implemented yet")
     def test_cardinal_float_negative(self):
         self.assertEqual(
             num2words(Decimal('-2.34'), lang='tet'),
@@ -183,7 +180,6 @@ class Num2WordsTETTest(TestCase):
             'menus atus rua ruanulu resin rua vírgula rua rua'
         )
 
-    #@skip("not implemented yet")
     def test_ordinal(self):
         self.assertEqual(num2words(1, lang='tet', ordinal=True), 'primeiru')
         self.assertEqual(num2words(2, lang='tet', ordinal=True), 'segundu')
@@ -293,7 +289,6 @@ class Num2WordsTETTest(TestCase):
             'centésimu quadragésimu quintu milésimu milionésimu segundu'
         )
 
-    #@skip("not implemented yet")
     def test_currency_integer(self):
         self.assertEqual(self.n2w.to_currency(1.00), 'ida euru')
         self.assertEqual(self.n2w.to_currency(2.00), 'rua eurus')
@@ -365,7 +360,6 @@ class Num2WordsTETTest(TestCase):
         with self.assertRaises(NotImplementedError):
             self.n2w.to_currency(1.00, currency='CHF')
 
-    #@skip("not implemented yet")
     def test_currency_integer_negative(self):
         self.assertEqual(self.n2w.to_currency(-1.00), 'menus ida euru')
         self.assertEqual(
@@ -381,7 +375,6 @@ class Num2WordsTETTest(TestCase):
             'menus miliaun ida rihun atus rua tolunulu resin haat atus lima neenulu resin hitu eurus'
         )
 
-    #@skip("not implemented yet")
     def test_currency_float(self):
         self.assertEqual(self.n2w.to_currency(Decimal('1.00')), 'ida euru')
         self.assertEqual(
@@ -408,7 +401,6 @@ class Num2WordsTETTest(TestCase):
 
         )
 
-    #@skip("not implemented yet")
     def test_currency_float_negative(self):
         self.assertEqual(
             self.n2w.to_currency(Decimal('-2.34')),
@@ -427,7 +419,6 @@ class Num2WordsTETTest(TestCase):
             'menus atus rua ruanulu resin rua eurus resin ruanulu resin rua cêntimus'
         )
 
-    #@skip("not implemented yet")
     def test_year(self):
         self.assertEqual(self.n2w.to_year(1001), 'rihun ida resin ida')
         self.assertEqual(
@@ -443,7 +434,6 @@ class Num2WordsTETTest(TestCase):
         self.assertEqual(self.n2w.to_year(2001), 'rihun rua resin ida')
         self.assertEqual(self.n2w.to_year(2016), 'rihun rua sanulu resin neen')
 
-    #@skip("not implemented yet")
     def test_year_negative(self):
         self.assertEqual(self.n2w.to_year(-30), 'tolunulu antes Kristu')
         self.assertEqual(
@@ -455,7 +445,6 @@ class Num2WordsTETTest(TestCase):
             'rihun sanulu antes Kristu'
         )
 
-    #@skip("not implemented yet")
     def test_to_ordinal_num(self):
         self.assertEqual(self.n2w.to_ordinal_num(1), '1º')
         self.assertEqual(self.n2w.to_ordinal_num(100), '100º')
