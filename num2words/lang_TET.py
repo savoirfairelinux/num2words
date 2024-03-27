@@ -139,9 +139,9 @@ class Num2Word_TET(Num2Word_EU):
         for ext in (
                 'rihun', 'miliaun','miliaun rihun',
                 'biliaun', 'biliaun rihun'):
-            if re.match('.*{} e \\w*entos? (?=.*e)'.format(ext), result):
+            if re.match('.*{} resin \\w*entus? (?=.*resin)'.format(ext), result):
                 result = result.replace(
-                    '{} e'.format(ext), '{}'.format(ext)
+                    '{} resin'.format(ext), '{}'.format(ext)
                 )
 
         return result
@@ -179,7 +179,7 @@ class Num2Word_TET(Num2Word_EU):
         result = result.strip()
         result = re.sub('\\s+', ' ', result)
 
-        if result.startswith('primeiro') and value != '1':
+        if result.startswith('primeiru') and value != '1':
             # avoiding "primeiro milésimo", "primeiro milionésimo" and so on
             result = result[9:]
 
@@ -195,10 +195,10 @@ class Num2Word_TET(Num2Word_EU):
         # Before changing this function remember this is used by pt-BR
         # so act accordingly
         if val < 0:
-            return self.to_cardinal(abs(val)) + ' antes de Cristo'
+            return self.to_cardinal(abs(val)) + ' antes Kristu'
         return self.to_cardinal(val)
 
-    def to_currency(self, val, currency='EUR', cents=True, separator=' e',
+    def to_currency(self, val, currency='EUR', cents=True, separator=' resin',
                     adjective=False):
         # change negword because base.to_currency() does not need space after
         backup_negword = self.negword
@@ -216,8 +216,8 @@ class Num2Word_TET(Num2Word_EU):
                 'miliaun','biliaun','triliaun'):
             if re.match('.*{} (?={})'.format(ext, cr1[1]), result):
                 result = result.replace(
-                    '{}'.format(ext), '{} de'.format(ext), 1
+                    '{}'.format(ext), '{}'.format(ext), 1
                 )
         # do not print "e zero cêntimos"
-        result = result.replace(' e zero cêntimos', '')
+        result = result.replace(' resin zero cêntimus', '')
         return result

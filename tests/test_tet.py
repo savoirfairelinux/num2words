@@ -255,14 +255,14 @@ class Num2WordsTETTest(TestCase):
         )
 
         self.assertEqual(
-            num2words(1000, lang='tet', ordinal=True), 'primeiru milésimu'
+            num2words(1000, lang='tet', ordinal=True), 'milésimu'
         )
         self.assertEqual(
-            num2words(1001, lang='tet', ordinal=True), 'primeiru milésimu primeiru'
+            num2words(1001, lang='tet', ordinal=True), 'milésimu primeiru'
         )
         self.assertEqual(
             num2words(1111, lang='tet', ordinal=True),
-            'primeiru milésimu centésimu décimu primeiru'
+            'milésimu centésimu décimu primeiru'
         )
         self.assertEqual(
             num2words(2114, lang='tet', ordinal=True),
