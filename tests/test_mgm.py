@@ -180,7 +180,6 @@ class Num2WordsMGMTest(TestCase):
             'menus atusid ru gulru resi ru vírgula ru ru'
         )
 
-    @skip('no yet implemented')
     def test_ordinal(self):
         self.assertEqual(num2words(1, lang='mgm', ordinal=True), 'primeir')
         self.assertEqual(num2words(2, lang='mgm', ordinal=True), 'segund')

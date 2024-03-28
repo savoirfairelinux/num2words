@@ -181,7 +181,7 @@ class Num2Word_MGM(Num2Word_EU):
 
         if result.startswith('primeir') and value != '1':
             # avoiding "primeiro milésimo", "primeiro milionésimo" and so on
-            result = result[9:]
+            result = result[8:]
 
         return result
 
