@@ -6,3 +6,4 @@ dist
 /.tox
 .eggs/
 /venv/
+.venv/
