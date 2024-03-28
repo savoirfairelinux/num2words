@@ -98,9 +98,9 @@ class Num2Word_MGM(Num2Word_EU):
         self.thousand_separators = {
             3: "milésim",
             6: "milionésim",
-            9: "milésimu milionésim",
+            9: "milésim milionésim",
             12: "bilionésim",
-            15: "milésimu bilionésim"
+            15: "milésim bilionésim"
         }
         self.hundreds = {
             1: "atusid",

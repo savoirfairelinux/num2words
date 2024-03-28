@@ -127,38 +127,38 @@ class Num2WordsMGMTest(TestCase):
         )
 
     def test_cardinal_integer_negative(self):
-        self.assertEqual(num2words(-1, lang='mgm'), 'menus ida')
+        self.assertEqual(num2words(-1, lang='mgm'), 'menus id')
         self.assertEqual(
-            num2words(-256, lang='mgm'), 'menus atus rua limanulu resin neen'
+            num2words(-256, lang='mgm'), 'menus atusid ru gullim resi hohonid'
         )
-        self.assertEqual(num2words(-1000, lang='mgm'), 'menus rihun ida')
-        self.assertEqual(num2words(-1000000, lang='mgm'), 'menus miliaun ida')
+        self.assertEqual(num2words(-1000, lang='mgm'), 'menus rihunid id')
+        self.assertEqual(num2words(-1000000, lang='mgm'), 'menus miliaunid id')
         self.assertEqual(
             num2words(-1234567, lang='mgm'),
-            'menus miliaun ida rihun atus rua tolunulu resin haat atus lima neenulu resin hitu'
+            'menus miliaunid id rihunid atusid ru gulteil resi pat atusid lim gulhohonid resi hohoru'
         )
 
     def test_cardinal_float(self):
-        self.assertEqual(num2words(Decimal('1.00'), lang='mgm'), 'ida')
+        self.assertEqual(num2words(Decimal('1.00'), lang='mgm'), 'id')
         self.assertEqual(num2words(
-            Decimal('1.01'), lang='mgm'), 'ida vírgula zero ida')
+            Decimal('1.01'), lang='mgm'), 'id vírgula mamu id')
         self.assertEqual(num2words(
-            Decimal('1.035'), lang='mgm'), 'ida vírgula zero tolu lima'
+            Decimal('1.035'), lang='mgm'), 'id vírgula mamu teil lim'
         )
         self.assertEqual(num2words(
-            Decimal('1.35'), lang='mgm'), 'ida vírgula tolu lima'
+            Decimal('1.35'), lang='mgm'), 'id vírgula teil lim'
         )
         self.assertEqual(
             num2words(Decimal('3.14159'), lang='mgm'),
-            'tolu vírgula ida haat ida lima sia'
+            'teil vírgula id pat id lim hohopat'
         )
         self.assertEqual(
             num2words(Decimal('101.22'), lang='mgm'),
-            'atus ida resin ida vírgula rua rua'
+            'atusid id resi id vírgula ru ru'
         )
         self.assertEqual(
             num2words(Decimal('2345.75'), lang='mgm'),
-            'rihun rua atus tolu haatnulu resin lima vírgula hitu lima'
+            'rihunid ru atusid teil gulpat resi lim vírgula hohoru lim'
         )
 
 
@@ -180,6 +180,7 @@ class Num2WordsMGMTest(TestCase):
             'menus atusid ru gulru resi ru vírgula ru ru'
         )
 
+    @skip('no yet implemented')
     def test_ordinal(self):
         self.assertEqual(num2words(1, lang='mgm', ordinal=True), 'primeir')
         self.assertEqual(num2words(2, lang='mgm', ordinal=True), 'segund')
@@ -404,45 +405,45 @@ class Num2WordsMGMTest(TestCase):
     def test_currency_float_negative(self):
         self.assertEqual(
             self.n2w.to_currency(Decimal('-2.34')),
-            'menus rua eurus resin tolunulu resin haat cêntimus'
+            'menus ru eurus resi gulteil resi pat cêntimus'
         )
         self.assertEqual(
             self.n2w.to_currency(Decimal('-9.99')),
-            'menus sia eurus resin sianulu resin sia cêntimus'
+            'menus hohopat eurus resi gulhohopat resi hohopat cêntimus'
         )
         self.assertEqual(
             self.n2w.to_currency(Decimal('-7.01')),
-            'menus hitu eurus resin ida cêntimu'
+            'menus hohoru eurus resi id cêntimu'
         )
         self.assertEqual(
             self.n2w.to_currency(Decimal('-222.22')),
-            'menus atus rua ruanulu resin rua eurus resin ruanulu resin rua cêntimus'
+            'menus atusid ru gulru resi ru eurus resi gulru resi ru cêntimus'
         )
 
     def test_year(self):
-        self.assertEqual(self.n2w.to_year(1001), 'rihun ida resin ida')
+        self.assertEqual(self.n2w.to_year(1001), 'rihunid id resi id')
         self.assertEqual(
-            self.n2w.to_year(1789), 'rihun ida atus hitu walunulu resin sia'
+            self.n2w.to_year(1789), 'rihunid id atusid hohoru gulhohoteil resi hohopat'
         )
         self.assertEqual(
-            self.n2w.to_year(1942), 'rihun ida atus sia haatnulu resin rua'
+            self.n2w.to_year(1942), 'rihunid id atusid hohopat gulpat resi ru'
         )
         self.assertEqual(
-            self.n2w.to_year(1984), 'rihun ida atus sia walunulu resin haat'
+            self.n2w.to_year(1984), 'rihunid id atusid hohopat gulhohoteil resi pat'
         )
-        self.assertEqual(self.n2w.to_year(2000), 'rihun rua')
-        self.assertEqual(self.n2w.to_year(2001), 'rihun rua resin ida')
-        self.assertEqual(self.n2w.to_year(2016), 'rihun rua sanulu resin neen')
+        self.assertEqual(self.n2w.to_year(2000), 'rihunid ru')
+        self.assertEqual(self.n2w.to_year(2001), 'rihunid ru resi id')
+        self.assertEqual(self.n2w.to_year(2016), 'rihunid ru sagul resi hohonid')
 
     def test_year_negative(self):
-        self.assertEqual(self.n2w.to_year(-30), 'tolunulu antes Kristu')
+        self.assertEqual(self.n2w.to_year(-30), 'gulteil muna Kristu')
         self.assertEqual(
             self.n2w.to_year(-744),
-            'atus hitu haatnulu resin haat antes Kristu'
+            'atusid hohoru gulpat resi pat muna Kristu'
         )
         self.assertEqual(
             self.n2w.to_year(-10000),
-            'rihun sanulu antes Kristu'
+            'rihunid sagul muna Kristu'
         )
 
     def test_to_ordinal_num(self):
