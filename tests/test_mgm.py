@@ -21,271 +21,271 @@ from decimal import Decimal
 from unittest import TestCase, skip
 
 from num2words import num2words
-from num2words.lang_TET import Num2Word_TET
+from num2words.lang_MGM import Num2Word_MGM
 
 
-class Num2WordsTETTest(TestCase):
+class Num2WordsMGMTest(TestCase):
     def setUp(self):
         super().setUp()
-        self.n2w = Num2Word_TET()
+        self.n2w = Num2Word_MGM()
 
     def test_cardinal_integer(self):
-        self.assertEqual(num2words(1, lang='tet'), 'ida')
-        self.assertEqual(num2words(2, lang='tet'), 'rua')
-        self.assertEqual(num2words(3, lang='tet'), 'tolu')
-        self.assertEqual(num2words(4, lang='tet'), 'haat')
-        self.assertEqual(num2words(5, lang='tet'), 'lima')
-        self.assertEqual(num2words(6, lang='tet'), 'neen')
-        self.assertEqual(num2words(7, lang='tet'), 'hitu')
-        self.assertEqual(num2words(8, lang='tet'), 'walu')
-        self.assertEqual(num2words(9, lang='tet'), 'sia')
-        self.assertEqual(num2words(10, lang='tet'), 'sanulu')
-        self.assertEqual(num2words(11, lang='tet'), 'sanulu resin ida')
-        self.assertEqual(num2words(12, lang='tet'), 'sanulu resin rua')
-        self.assertEqual(num2words(13, lang='tet'), 'sanulu resin tolu')
-        self.assertEqual(num2words(14, lang='tet'), 'sanulu resin haat')
-        self.assertEqual(num2words(15, lang='tet'), 'sanulu resin lima')
-        self.assertEqual(num2words(16, lang='tet'), 'sanulu resin neen')
-        self.assertEqual(num2words(17, lang='tet'), 'sanulu resin hitu')
-        self.assertEqual(num2words(18, lang='tet'), 'sanulu resin walu')
-        self.assertEqual(num2words(19, lang='tet'), 'sanulu resin sia')
-        self.assertEqual(num2words(20, lang='tet'), 'ruanulu')
+        self.assertEqual(num2words(1, lang='mgm'), 'id')
+        self.assertEqual(num2words(2, lang='mgm'), 'ru')
+        self.assertEqual(num2words(3, lang='mgm'), 'teil')
+        self.assertEqual(num2words(4, lang='mgm'), 'haat')
+        self.assertEqual(num2words(5, lang='mgm'), 'lima')
+        self.assertEqual(num2words(6, lang='mgm'), 'neen')
+        self.assertEqual(num2words(7, lang='mgm'), 'hitu')
+        self.assertEqual(num2words(8, lang='mgm'), 'walu')
+        self.assertEqual(num2words(9, lang='mgm'), 'sia')
+        self.assertEqual(num2words(10, lang='mgm'), 'sanulu')
+        self.assertEqual(num2words(11, lang='mgm'), 'sanulu resin ida')
+        self.assertEqual(num2words(12, lang='mgm'), 'sanulu resin rua')
+        self.assertEqual(num2words(13, lang='mgm'), 'sanulu resin tolu')
+        self.assertEqual(num2words(14, lang='mgm'), 'sanulu resin haat')
+        self.assertEqual(num2words(15, lang='mgm'), 'sanulu resin lima')
+        self.assertEqual(num2words(16, lang='mgm'), 'sanulu resin neen')
+        self.assertEqual(num2words(17, lang='mgm'), 'sanulu resin hitu')
+        self.assertEqual(num2words(18, lang='mgm'), 'sanulu resin walu')
+        self.assertEqual(num2words(19, lang='mgm'), 'sanulu resin sia')
+        self.assertEqual(num2words(20, lang='mgm'), 'ruanulu')
 
-        self.assertEqual(num2words(21, lang='tet'), 'ruanulu resin ida')
-        self.assertEqual(num2words(22, lang='tet'), 'ruanulu resin rua')
-        self.assertEqual(num2words(35, lang='tet'), 'tolunulu resin lima')
-        self.assertEqual(num2words(99, lang='tet'), 'sianulu resin sia')
+        self.assertEqual(num2words(21, lang='mgm'), 'ruanulu resin ida')
+        self.assertEqual(num2words(22, lang='mgm'), 'ruanulu resin rua')
+        self.assertEqual(num2words(35, lang='mgm'), 'tolunulu resin lima')
+        self.assertEqual(num2words(99, lang='mgm'), 'sianulu resin sia')
 
-        self.assertEqual(num2words(100, lang='tet'), 'atus ida')
-        self.assertEqual(num2words(101, lang='tet'), 'atus ida resin ida')
-        self.assertEqual(num2words(107, lang='tet'), 'atus ida resin hitu')
-        self.assertEqual(num2words(110, lang='tet'), 'atus ida sanulu')
-        self.assertEqual(num2words(114, lang='tet'), 'atus ida sanulu resin haat')
-        self.assertEqual(num2words(128, lang='tet'), 'atus ida ruanulu resin walu')
-        self.assertEqual(num2words(151, lang='tet'), 'atus ida limanulu resin ida')
-        self.assertEqual(num2words(713, lang='tet'), 'atus hitu sanulu resin tolu')
-        self.assertEqual(num2words(999, lang='tet'), 'atus sia sianulu resin sia')
+        self.assertEqual(num2words(100, lang='mgm'), 'atus ida')
+        self.assertEqual(num2words(101, lang='mgm'), 'atus ida resin ida')
+        self.assertEqual(num2words(107, lang='mgm'), 'atus ida resin hitu')
+        self.assertEqual(num2words(110, lang='mgm'), 'atus ida sanulu')
+        self.assertEqual(num2words(114, lang='mgm'), 'atus ida sanulu resin haat')
+        self.assertEqual(num2words(128, lang='mgm'), 'atus ida ruanulu resin walu')
+        self.assertEqual(num2words(151, lang='mgm'), 'atus ida limanulu resin ida')
+        self.assertEqual(num2words(713, lang='mgm'), 'atus hitu sanulu resin tolu')
+        self.assertEqual(num2words(999, lang='mgm'), 'atus sia sianulu resin sia')
 
-        self.assertEqual(num2words(1000, lang='tet'), 'rihun ida')
-        self.assertEqual(num2words(1001, lang='tet'), 'rihun ida resin ida')
-        self.assertEqual(num2words(1011, lang='tet'), 'rihun ida sanulu resin ida')
-        self.assertEqual(num2words(1111, lang='tet'), 'rihun ida atus ida sanulu resin ida')
-        self.assertEqual(num2words(2357, lang='tet'), 'rihun rua atus tolu limanulu resin hitu')
+        self.assertEqual(num2words(1000, lang='mgm'), 'rihun ida')
+        self.assertEqual(num2words(1001, lang='mgm'), 'rihun ida resin ida')
+        self.assertEqual(num2words(1011, lang='mgm'), 'rihun ida sanulu resin ida')
+        self.assertEqual(num2words(1111, lang='mgm'), 'rihun ida atus ida sanulu resin ida')
+        self.assertEqual(num2words(2357, lang='mgm'), 'rihun rua atus tolu limanulu resin hitu')
         self.assertEqual(
-            num2words(2200, lang='tet'),
+            num2words(2200, lang='mgm'),
             'rihun rua atus rua'
         )
-        self.assertEqual(num2words(2230, lang='tet'), 'rihun rua atus rua tolunulu')
-        self.assertEqual(num2words(73400, lang='tet'), 'rihun hitunulu resin tolu atus haat')
-        self.assertEqual(num2words(73421, lang='tet'), 'rihun hitunulu resin tolu atus haat ruanulu resin ida')
-        self.assertEqual(num2words(100000, lang='tet'), 'rihun atus ida')
-        self.assertEqual(num2words(250050, lang='tet'), 'rihun atus rua limanulu limanulu')
+        self.assertEqual(num2words(2230, lang='mgm'), 'rihun rua atus rua tolunulu')
+        self.assertEqual(num2words(73400, lang='mgm'), 'rihun hitunulu resin tolu atus haat')
+        self.assertEqual(num2words(73421, lang='mgm'), 'rihun hitunulu resin tolu atus haat ruanulu resin ida')
+        self.assertEqual(num2words(100000, lang='mgm'), 'rihun atus ida')
+        self.assertEqual(num2words(250050, lang='mgm'), 'rihun atus rua limanulu limanulu')
         self.assertEqual(
-            num2words(6000000, lang='tet'), 'miliaun neen'
+            num2words(6000000, lang='mgm'), 'miliaun neen'
         )
         self.assertEqual(
-            num2words(100000000, lang='tet'), 'miliaun atus ida'
+            num2words(100000000, lang='mgm'), 'miliaun atus ida'
         )
         self.assertEqual(
-            num2words(19000000000, lang='tet'), 'miliaun rihun sanulu resin sia'
+            num2words(19000000000, lang='mgm'), 'miliaun rihun sanulu resin sia'
         )
         self.assertEqual(
-            num2words(145000000002, lang='tet'),
+            num2words(145000000002, lang='mgm'),
             'miliaun rihun atus ida haatnulu resin lima resin rua'
         )
         self.assertEqual(
-            num2words(4635102, lang='tet'),
+            num2words(4635102, lang='mgm'),
             'miliaun haat rihun atus neen tolunulu resin lima atus ida resin rua'
         )
         self.assertEqual(
-            num2words(145254635102, lang='tet'),
+            num2words(145254635102, lang='mgm'),
             'miliaun rihun atus ida haatnulu resin lima atus rua limanulu resin haat rihun atus neen tolunulu resin lima atus ida resin rua'
         )
         self.assertEqual(
-            num2words(1000000000000, lang='tet'),
+            num2words(1000000000000, lang='mgm'),
             'biliaun ida'
         )
         self.assertEqual(
-            num2words(2000000000000, lang='tet'),
+            num2words(2000000000000, lang='mgm'),
             'biliaun rua'
         )
         self.assertEqual(
-            num2words(1000000000000000, lang='tet'),
+            num2words(1000000000000000, lang='mgm'),
             'biliaun rihun ida'
         )
         self.assertEqual(
-            num2words(2000000000000000, lang='tet'),
+            num2words(2000000000000000, lang='mgm'),
             'biliaun rihun rua'
         )
         self.assertEqual(
-            num2words(1000000000000000000, lang='tet'),
+            num2words(1000000000000000000, lang='mgm'),
             'triliaun ida'
         )
         self.assertEqual(
-            num2words(2000000000000000000, lang='tet'),
+            num2words(2000000000000000000, lang='mgm'),
             'triliaun rua'
         )
 
     def test_cardinal_integer_negative(self):
-        self.assertEqual(num2words(-1, lang='tet'), 'menus ida')
+        self.assertEqual(num2words(-1, lang='mgm'), 'menus ida')
         self.assertEqual(
-            num2words(-256, lang='tet'), 'menus atus rua limanulu resin neen'
+            num2words(-256, lang='mgm'), 'menus atus rua limanulu resin neen'
         )
-        self.assertEqual(num2words(-1000, lang='tet'), 'menus rihun ida')
-        self.assertEqual(num2words(-1000000, lang='tet'), 'menus miliaun ida')
+        self.assertEqual(num2words(-1000, lang='mgm'), 'menus rihun ida')
+        self.assertEqual(num2words(-1000000, lang='mgm'), 'menus miliaun ida')
         self.assertEqual(
-            num2words(-1234567, lang='tet'),
+            num2words(-1234567, lang='mgm'),
             'menus miliaun ida rihun atus rua tolunulu resin haat atus lima neenulu resin hitu'
         )
 
     def test_cardinal_float(self):
-        self.assertEqual(num2words(Decimal('1.00'), lang='tet'), 'ida')
+        self.assertEqual(num2words(Decimal('1.00'), lang='mgm'), 'ida')
         self.assertEqual(num2words(
-            Decimal('1.01'), lang='tet'), 'ida vírgula zero ida')
+            Decimal('1.01'), lang='mgm'), 'ida vírgula zero ida')
         self.assertEqual(num2words(
-            Decimal('1.035'), lang='tet'), 'ida vírgula zero tolu lima'
+            Decimal('1.035'), lang='mgm'), 'ida vírgula zero tolu lima'
         )
         self.assertEqual(num2words(
-            Decimal('1.35'), lang='tet'), 'ida vírgula tolu lima'
+            Decimal('1.35'), lang='mgm'), 'ida vírgula tolu lima'
         )
         self.assertEqual(
-            num2words(Decimal('3.14159'), lang='tet'),
+            num2words(Decimal('3.14159'), lang='mgm'),
             'tolu vírgula ida haat ida lima sia'
         )
         self.assertEqual(
-            num2words(Decimal('101.22'), lang='tet'),
+            num2words(Decimal('101.22'), lang='mgm'),
             'atus ida resin ida vírgula rua rua'
         )
         self.assertEqual(
-            num2words(Decimal('2345.75'), lang='tet'),
+            num2words(Decimal('2345.75'), lang='mgm'),
             'rihun rua atus tolu haatnulu resin lima vírgula hitu lima'
         )
 
 
     def test_cardinal_float_negative(self):
         self.assertEqual(
-            num2words(Decimal('-2.34'), lang='tet'),
+            num2words(Decimal('-2.34'), lang='mgm'),
             'menus rua vírgula tolu haat'
         )
         self.assertEqual(
-            num2words(Decimal('-9.99'), lang='tet'),
+            num2words(Decimal('-9.99'), lang='mgm'),
             'menus sia vírgula sia sia'
         )
         self.assertEqual(
-            num2words(Decimal('-7.01'), lang='tet'),
+            num2words(Decimal('-7.01'), lang='mgm'),
             'menus hitu vírgula zero ida'
         )
         self.assertEqual(
-            num2words(Decimal('-222.22'), lang='tet'),
+            num2words(Decimal('-222.22'), lang='mgm'),
             'menus atus rua ruanulu resin rua vírgula rua rua'
         )
 
     def test_ordinal(self):
-        self.assertEqual(num2words(1, lang='tet', ordinal=True), 'primeiru')
-        self.assertEqual(num2words(2, lang='tet', ordinal=True), 'segundu')
-        self.assertEqual(num2words(3, lang='tet', ordinal=True), 'terceiru')
-        self.assertEqual(num2words(4, lang='tet', ordinal=True), 'quartu')
-        self.assertEqual(num2words(5, lang='tet', ordinal=True), 'quintu')
-        self.assertEqual(num2words(6, lang='tet', ordinal=True), 'sextu')
-        self.assertEqual(num2words(7, lang='tet', ordinal=True), 'sétimu')
-        self.assertEqual(num2words(8, lang='tet', ordinal=True), 'oitavu')
-        self.assertEqual(num2words(9, lang='tet', ordinal=True), 'nonu')
-        self.assertEqual(num2words(10, lang='tet', ordinal=True), 'décimu')
+        self.assertEqual(num2words(1, lang='mgm', ordinal=True), 'primeiru')
+        self.assertEqual(num2words(2, lang='mgm', ordinal=True), 'segundu')
+        self.assertEqual(num2words(3, lang='mgm', ordinal=True), 'terceiru')
+        self.assertEqual(num2words(4, lang='mgm', ordinal=True), 'quartu')
+        self.assertEqual(num2words(5, lang='mgm', ordinal=True), 'quintu')
+        self.assertEqual(num2words(6, lang='mgm', ordinal=True), 'sextu')
+        self.assertEqual(num2words(7, lang='mgm', ordinal=True), 'sétimu')
+        self.assertEqual(num2words(8, lang='mgm', ordinal=True), 'oitavu')
+        self.assertEqual(num2words(9, lang='mgm', ordinal=True), 'nonu')
+        self.assertEqual(num2words(10, lang='mgm', ordinal=True), 'décimu')
         self.assertEqual(
-            num2words(11, lang='tet', ordinal=True), 'décimu primeiru'
+            num2words(11, lang='mgm', ordinal=True), 'décimu primeiru'
         )
         self.assertEqual(
-            num2words(12, lang='tet', ordinal=True), 'décimu segundu'
+            num2words(12, lang='mgm', ordinal=True), 'décimu segundu'
         )
         self.assertEqual(
-            num2words(13, lang='tet', ordinal=True), 'décimu terceiru'
+            num2words(13, lang='mgm', ordinal=True), 'décimu terceiru'
         )
         self.assertEqual(
-            num2words(14, lang='tet', ordinal=True), 'décimu quartu'
+            num2words(14, lang='mgm', ordinal=True), 'décimu quartu'
         )
         self.assertEqual(
-            num2words(15, lang='tet', ordinal=True), 'décimu quintu'
+            num2words(15, lang='mgm', ordinal=True), 'décimu quintu'
         )
         self.assertEqual(
-            num2words(16, lang='tet', ordinal=True), 'décimu sextu'
+            num2words(16, lang='mgm', ordinal=True), 'décimu sextu'
         )
         self.assertEqual(
-            num2words(17, lang='tet', ordinal=True), 'décimu sétimu'
+            num2words(17, lang='mgm', ordinal=True), 'décimu sétimu'
         )
         self.assertEqual(
-            num2words(18, lang='tet', ordinal=True), 'décimu oitavu'
+            num2words(18, lang='mgm', ordinal=True), 'décimu oitavu'
         )
         self.assertEqual(
-            num2words(19, lang='tet', ordinal=True), 'décimu nonu'
+            num2words(19, lang='mgm', ordinal=True), 'décimu nonu'
         )
         self.assertEqual(
-            num2words(20, lang='tet', ordinal=True), 'vigésimu'
-        )
-
-        self.assertEqual(
-            num2words(21, lang='tet', ordinal=True), 'vigésimu primeiru'
-        )
-        self.assertEqual(
-            num2words(22, lang='tet', ordinal=True), 'vigésimu segundu'
-        )
-        self.assertEqual(
-            num2words(35, lang='tet', ordinal=True), 'trigésimu quintu'
-        )
-        self.assertEqual(
-            num2words(99, lang='tet', ordinal=True), 'nonagésimu nonu'
+            num2words(20, lang='mgm', ordinal=True), 'vigésimu'
         )
 
         self.assertEqual(
-            num2words(100, lang='tet', ordinal=True), 'centésimu'
+            num2words(21, lang='mgm', ordinal=True), 'vigésimu primeiru'
         )
         self.assertEqual(
-            num2words(101, lang='tet', ordinal=True), 'centésimu primeiru'
+            num2words(22, lang='mgm', ordinal=True), 'vigésimu segundu'
         )
         self.assertEqual(
-            num2words(128, lang='tet', ordinal=True),
+            num2words(35, lang='mgm', ordinal=True), 'trigésimu quintu'
+        )
+        self.assertEqual(
+            num2words(99, lang='mgm', ordinal=True), 'nonagésimu nonu'
+        )
+
+        self.assertEqual(
+            num2words(100, lang='mgm', ordinal=True), 'centésimu'
+        )
+        self.assertEqual(
+            num2words(101, lang='mgm', ordinal=True), 'centésimu primeiru'
+        )
+        self.assertEqual(
+            num2words(128, lang='mgm', ordinal=True),
             'centésimu vigésimu oitavu'
         )
         self.assertEqual(
-            num2words(713, lang='tet', ordinal=True),
+            num2words(713, lang='mgm', ordinal=True),
             'septigentésimu décimu terceiru'
         )
 
         self.assertEqual(
-            num2words(1000, lang='tet', ordinal=True), 'milésimu'
+            num2words(1000, lang='mgm', ordinal=True), 'milésimu'
         )
         self.assertEqual(
-            num2words(1001, lang='tet', ordinal=True), 'milésimu primeiru'
+            num2words(1001, lang='mgm', ordinal=True), 'milésimu primeiru'
         )
         self.assertEqual(
-            num2words(1111, lang='tet', ordinal=True),
+            num2words(1111, lang='mgm', ordinal=True),
             'milésimu centésimu décimu primeiru'
         )
         self.assertEqual(
-            num2words(2114, lang='tet', ordinal=True),
+            num2words(2114, lang='mgm', ordinal=True),
             'segundu milésimu centésimu décimu quartu'
         )
         self.assertEqual(
-            num2words(73421, lang='tet', ordinal=True),
+            num2words(73421, lang='mgm', ordinal=True),
             'septuagésimu terceiru milésimu quadrigentésimu vigésimu primeiru'
         )
 
         self.assertEqual(
-            num2words(100000, lang='tet', ordinal=True),
+            num2words(100000, lang='mgm', ordinal=True),
             'centésimu milésimu'
         )
         self.assertEqual(
-            num2words(250050, lang='tet', ordinal=True),
+            num2words(250050, lang='mgm', ordinal=True),
             'ducentésimu quinquagésimu milésimu quinquagésimu'
         )
         self.assertEqual(
-            num2words(6000000, lang='tet', ordinal=True), 'sextu milionésimu'
+            num2words(6000000, lang='mgm', ordinal=True), 'sextu milionésimu'
         )
         self.assertEqual(
-            num2words(19000000000, lang='tet', ordinal=True),
+            num2words(19000000000, lang='mgm', ordinal=True),
             'décimu nonu milésimu milionésimu'
         )
         self.assertEqual(
-            num2words(145000000002, lang='tet', ordinal=True),
+            num2words(145000000002, lang='mgm', ordinal=True),
             'centésimu quadragésimu quintu milésimu milionésimu segundu'
         )
 
