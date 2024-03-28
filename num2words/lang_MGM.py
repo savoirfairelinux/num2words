@@ -60,47 +60,47 @@ class Num2Word_MGM(Num2Word_EU):
         self.ords = [
             {
                 0: "",
-                1: "primeiru",
-                2: "segundu",
-                3: "terceiru",
-                4: "quartu",
-                5: "quintu",
-                6: "sextu",
-                7: "sétimu",
-                8: "oitavu",
-                9: "nonu",
+                1: "primeir",
+                2: "segund",
+                3: "terceir",
+                4: "quart",
+                5: "quint",
+                6: "sext",
+                7: "sétim",
+                8: "oitav",
+                9: "non",
             },
             {
                 0: "",
-                1: "décimu",
-                2: "vigésimu",
-                3: "trigésimu",
-                4: "quadragésimu",
-                5: "quinquagésimu",
-                6: "sexagésimu",
-                7: "septuagésimu",
-                8: "octogésimu",
-                9: "nonagésimu",
+                1: "décim",
+                2: "vigésim",
+                3: "trigésim",
+                4: "quadragésim",
+                5: "quinquagésim",
+                6: "sexagésim",
+                7: "septuagésim",
+                8: "octogésim",
+                9: "nonagésim",
             },
             {
                 0: "",
-                1: "centésimu",
-                2: "ducentésimu",
-                3: "tricentésimu",
-                4: "quadrigentésimu",
-                5: "quingentésimu",
-                6: "seiscentésimu",
-                7: "septigentésimu",
-                8: "octigentésimu",
-                9: "nongentésimu",
+                1: "centésim",
+                2: "ducentésim",
+                3: "tricentésim",
+                4: "quadrigentésim",
+                5: "quingentésim",
+                6: "seiscentésim",
+                7: "septigentésim",
+                8: "octigentésim",
+                9: "nongentésim",
             },
         ]
         self.thousand_separators = {
-            3: "milésimu",
-            6: "milionésimu",
-            9: "milésimu milionésimu",
-            12: "bilionésimu",
-            15: "milésimu bilionésimu"
+            3: "milésim",
+            6: "milionésim",
+            9: "milésimu milionésim",
+            12: "bilionésim",
+            15: "milésimu bilionésim"
         }
         self.hundreds = {
             1: "atusid",
@@ -179,7 +179,7 @@ class Num2Word_MGM(Num2Word_EU):
         result = result.strip()
         result = re.sub('\\s+', ' ', result)
 
-        if result.startswith('primeiru') and value != '1':
+        if result.startswith('primeir') and value != '1':
             # avoiding "primeiro milésimo", "primeiro milionésimo" and so on
             result = result[9:]
 
@@ -195,7 +195,7 @@ class Num2Word_MGM(Num2Word_EU):
         # Before changing this function remember this is used by pt-BR
         # so act accordingly
         if val < 0:
-            return self.to_cardinal(abs(val)) + ' antes Kristu'
+            return self.to_cardinal(abs(val)) + ' muna Kristu'
         return self.to_cardinal(val)
 
     def to_currency(self, val, currency='EUR', cents=True, separator=' resi',
