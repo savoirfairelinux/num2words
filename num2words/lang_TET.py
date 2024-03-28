@@ -55,7 +55,7 @@ class Num2Word_TET(Num2Word_EU):
         self.low_numwords = [
             "sanulu",
             "sia", "walu", "hitu", "neen", "lima", "haat", "tolu", "rua",
-            "ida", "zero"
+            "ida", "mamuk"
         ]
         self.ords = [
             {
@@ -219,5 +219,5 @@ class Num2Word_TET(Num2Word_EU):
                     f'{ext}', f'{ext}', 1
                 )
         # do not print "e zero cêntimos"
-        result = result.replace(' resin zero cêntimus', '')
+        result = result.replace(' resin mamuk cêntimus', '')
         return result

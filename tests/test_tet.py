@@ -141,9 +141,9 @@ class Num2WordsTETTest(TestCase):
     def test_cardinal_float(self):
         self.assertEqual(num2words(Decimal('1.00'), lang='tet'), 'ida')
         self.assertEqual(num2words(
-            Decimal('1.01'), lang='tet'), 'ida vírgula zero ida')
+            Decimal('1.01'), lang='tet'), 'ida vírgula mamuk ida')
         self.assertEqual(num2words(
-            Decimal('1.035'), lang='tet'), 'ida vírgula zero tolu lima'
+            Decimal('1.035'), lang='tet'), 'ida vírgula mamuk tolu lima'
         )
         self.assertEqual(num2words(
             Decimal('1.35'), lang='tet'), 'ida vírgula tolu lima'
@@ -173,7 +173,7 @@ class Num2WordsTETTest(TestCase):
         )
         self.assertEqual(
             num2words(Decimal('-7.01'), lang='tet'),
-            'menus hitu vírgula zero ida'
+            'menus hitu vírgula mamuk ida'
         )
         self.assertEqual(
             num2words(Decimal('-222.22'), lang='tet'),
