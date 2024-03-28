@@ -290,73 +290,73 @@ class Num2WordsMGMTest(TestCase):
         )
 
     def test_currency_integer(self):
-        self.assertEqual(self.n2w.to_currency(1.00), 'ida euru')
-        self.assertEqual(self.n2w.to_currency(2.00), 'rua eurus')
-        self.assertEqual(self.n2w.to_currency(3.00), 'tolu eurus')
-        self.assertEqual(self.n2w.to_currency(4.00), 'haat eurus')
-        self.assertEqual(self.n2w.to_currency(5.00), 'lima eurus')
-        self.assertEqual(self.n2w.to_currency(6.00), 'neen eurus')
-        self.assertEqual(self.n2w.to_currency(7.00), 'hitu eurus')
-        self.assertEqual(self.n2w.to_currency(8.00), 'walu eurus')
-        self.assertEqual(self.n2w.to_currency(9.00), 'sia eurus')
-        self.assertEqual(self.n2w.to_currency(10.00), 'sanulu eurus')
-        self.assertEqual(self.n2w.to_currency(11.00), 'sanulu resin ida eurus')
-        self.assertEqual(self.n2w.to_currency(12.00), 'sanulu resin rua eurus')
-        self.assertEqual(self.n2w.to_currency(13.00), 'sanulu resin tolu eurus')
-        self.assertEqual(self.n2w.to_currency(14.00), 'sanulu resin haat eurus')
-        self.assertEqual(self.n2w.to_currency(15.00), 'sanulu resin lima eurus')
-        self.assertEqual(self.n2w.to_currency(16.00), 'sanulu resin neen eurus')
-        self.assertEqual(self.n2w.to_currency(17.00), 'sanulu resin hitu eurus')
-        self.assertEqual(self.n2w.to_currency(18.00), 'sanulu resin walu eurus')
-        self.assertEqual(self.n2w.to_currency(19.00), 'sanulu resin sia eurus')
-        self.assertEqual(self.n2w.to_currency(20.00), 'ruanulu eurus')
+        self.assertEqual(self.n2w.to_currency(1.00), 'id euru')
+        self.assertEqual(self.n2w.to_currency(2.00), 'ru eurus')
+        self.assertEqual(self.n2w.to_currency(3.00), 'teil eurus')
+        self.assertEqual(self.n2w.to_currency(4.00), 'pat eurus')
+        self.assertEqual(self.n2w.to_currency(5.00), 'lim eurus')
+        self.assertEqual(self.n2w.to_currency(6.00), 'hohonid eurus')
+        self.assertEqual(self.n2w.to_currency(7.00), 'hohoru eurus')
+        self.assertEqual(self.n2w.to_currency(8.00), 'hohoteil eurus')
+        self.assertEqual(self.n2w.to_currency(9.00), 'hohopat eurus')
+        self.assertEqual(self.n2w.to_currency(10.00), 'sagul eurus')
+        self.assertEqual(self.n2w.to_currency(11.00), 'sagul resi id eurus')
+        self.assertEqual(self.n2w.to_currency(12.00), 'sagul resi ru eurus')
+        self.assertEqual(self.n2w.to_currency(13.00), 'sagul resi teil eurus')
+        self.assertEqual(self.n2w.to_currency(14.00), 'sagul resi pat eurus')
+        self.assertEqual(self.n2w.to_currency(15.00), 'sagul resi lim eurus')
+        self.assertEqual(self.n2w.to_currency(16.00), 'sagul resi hohonid eurus')
+        self.assertEqual(self.n2w.to_currency(17.00), 'sagul resi hohoru eurus')
+        self.assertEqual(self.n2w.to_currency(18.00), 'sagul resi hohoteil eurus')
+        self.assertEqual(self.n2w.to_currency(19.00), 'sagul resi hohopat eurus')
+        self.assertEqual(self.n2w.to_currency(20.00), 'gulru eurus')
 
-        self.assertEqual(self.n2w.to_currency(21.00), 'ruanulu resin ida eurus')
-        self.assertEqual(self.n2w.to_currency(22.00), 'ruanulu resin rua eurus')
-        self.assertEqual(self.n2w.to_currency(35.00), 'tolunulu resin lima eurus')
-        self.assertEqual(self.n2w.to_currency(99.00), 'sianulu resin sia eurus')
+        self.assertEqual(self.n2w.to_currency(21.00), 'gulru resi id eurus')
+        self.assertEqual(self.n2w.to_currency(22.00), 'gulru resi ru eurus')
+        self.assertEqual(self.n2w.to_currency(35.00), 'gulteil resi lim eurus')
+        self.assertEqual(self.n2w.to_currency(99.00), 'gulhohopat resi hohopat eurus')
 
-        self.assertEqual(self.n2w.to_currency(100.00), 'atus ida eurus')
-        self.assertEqual(self.n2w.to_currency(101.00), 'atus ida resin ida eurus')
+        self.assertEqual(self.n2w.to_currency(100.00), 'atusid id eurus')
+        self.assertEqual(self.n2w.to_currency(101.00), 'atusid id resi id eurus')
         self.assertEqual(
-            self.n2w.to_currency(128.00), 'atus ida ruanulu resin walu eurus'
+            self.n2w.to_currency(128.00), 'atusid id gulru resi hohoteil eurus'
         )
         self.assertEqual(
-            self.n2w.to_currency(713.00), 'atus hitu sanulu resin tolu eurus')
+            self.n2w.to_currency(713.00), 'atusid hohoru sagul resi teil eurus')
 
-        self.assertEqual(self.n2w.to_currency(1000.00), 'rihun ida eurus')
-        self.assertEqual(self.n2w.to_currency(1001.00), 'rihun ida resin ida eurus')
+        self.assertEqual(self.n2w.to_currency(1000.00), 'rihunid id eurus')
+        self.assertEqual(self.n2w.to_currency(1001.00), 'rihunid id resi id eurus')
         self.assertEqual(
-            self.n2w.to_currency(1111.00), 'rihun ida atus ida sanulu resin ida eurus')
+            self.n2w.to_currency(1111.00), 'rihunid id atusid id sagul resi id eurus')
         self.assertEqual(
-            self.n2w.to_currency(2114.00), 'rihun rua atus ida sanulu resin haat eurus'
+            self.n2w.to_currency(2114.00), 'rihunid ru atusid id sagul resi pat eurus'
         )
         self.assertEqual(
             self.n2w.to_currency(73421.00),
-            'rihun hitunulu resin tolu atus haat ruanulu resin ida eurus'
+            'rihunid gulhohoru resi teil atusid pat gulru resi id eurus'
         )
 
-        self.assertEqual(self.n2w.to_currency(100000.00), 'rihun atus ida eurus')
+        self.assertEqual(self.n2w.to_currency(100000.00), 'rihunid atusid id eurus')
         self.assertEqual(
             self.n2w.to_currency(250050.00),
-            'rihun atus rua limanulu limanulu eurus'
+            'rihunid atusid ru gullim gullim eurus'
         )
         self.assertEqual(
             self.n2w.to_currency(6000000.00),
-            'miliaun neen eurus'
+            'miliaunid hohonid eurus'
         )
         self.assertEqual(
             self.n2w.to_currency(19000000000.00),
-            'miliaun rihun sanulu resin sia eurus'
+            'miliaunid rihunid sagul resi hohopat eurus'
         )
         self.assertEqual(
             self.n2w.to_currency(145000000002.00),
-            'miliaun rihun atus ida haatnulu resin lima resin rua eurus'
+            'miliaunid rihunid atusid id gulpat resi lim resi ru eurus'
         )
         self.assertEqual(self.n2w.to_currency(1.00, currency='USD'),
-                         'ida dólar')
+                         'id dólar')
         self.assertEqual(self.n2w.to_currency(1.50, currency='USD'),
-                         'ida dólar resin limanulu cêntimus')
+                         'id dólar resi gullim cêntimus')
         with self.assertRaises(NotImplementedError):
             self.n2w.to_currency(1.00, currency='CHF')
 
