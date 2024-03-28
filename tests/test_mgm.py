@@ -165,128 +165,128 @@ class Num2WordsMGMTest(TestCase):
     def test_cardinal_float_negative(self):
         self.assertEqual(
             num2words(Decimal('-2.34'), lang='mgm'),
-            'menus rua vírgula tolu haat'
+            'menus ru vírgula teil pat'
         )
         self.assertEqual(
             num2words(Decimal('-9.99'), lang='mgm'),
-            'menus sia vírgula sia sia'
+            'menus hohopat vírgula hohopat hohopat'
         )
         self.assertEqual(
             num2words(Decimal('-7.01'), lang='mgm'),
-            'menus hitu vírgula zero ida'
+            'menus hohoru vírgula mamu id'
         )
         self.assertEqual(
             num2words(Decimal('-222.22'), lang='mgm'),
-            'menus atus rua ruanulu resin rua vírgula rua rua'
+            'menus atusid ru gulru resi ru vírgula ru ru'
         )
 
     def test_ordinal(self):
-        self.assertEqual(num2words(1, lang='mgm', ordinal=True), 'primeiru')
-        self.assertEqual(num2words(2, lang='mgm', ordinal=True), 'segundu')
-        self.assertEqual(num2words(3, lang='mgm', ordinal=True), 'terceiru')
-        self.assertEqual(num2words(4, lang='mgm', ordinal=True), 'quartu')
-        self.assertEqual(num2words(5, lang='mgm', ordinal=True), 'quintu')
-        self.assertEqual(num2words(6, lang='mgm', ordinal=True), 'sextu')
-        self.assertEqual(num2words(7, lang='mgm', ordinal=True), 'sétimu')
-        self.assertEqual(num2words(8, lang='mgm', ordinal=True), 'oitavu')
-        self.assertEqual(num2words(9, lang='mgm', ordinal=True), 'nonu')
-        self.assertEqual(num2words(10, lang='mgm', ordinal=True), 'décimu')
+        self.assertEqual(num2words(1, lang='mgm', ordinal=True), 'primeir')
+        self.assertEqual(num2words(2, lang='mgm', ordinal=True), 'segund')
+        self.assertEqual(num2words(3, lang='mgm', ordinal=True), 'terceir')
+        self.assertEqual(num2words(4, lang='mgm', ordinal=True), 'quart')
+        self.assertEqual(num2words(5, lang='mgm', ordinal=True), 'quint')
+        self.assertEqual(num2words(6, lang='mgm', ordinal=True), 'sext')
+        self.assertEqual(num2words(7, lang='mgm', ordinal=True), 'sétim')
+        self.assertEqual(num2words(8, lang='mgm', ordinal=True), 'oitav')
+        self.assertEqual(num2words(9, lang='mgm', ordinal=True), 'non')
+        self.assertEqual(num2words(10, lang='mgm', ordinal=True), 'décim')
         self.assertEqual(
-            num2words(11, lang='mgm', ordinal=True), 'décimu primeiru'
+            num2words(11, lang='mgm', ordinal=True), 'décim primeir'
         )
         self.assertEqual(
-            num2words(12, lang='mgm', ordinal=True), 'décimu segundu'
+            num2words(12, lang='mgm', ordinal=True), 'décim segund'
         )
         self.assertEqual(
-            num2words(13, lang='mgm', ordinal=True), 'décimu terceiru'
+            num2words(13, lang='mgm', ordinal=True), 'décim terceir'
         )
         self.assertEqual(
-            num2words(14, lang='mgm', ordinal=True), 'décimu quartu'
+            num2words(14, lang='mgm', ordinal=True), 'décim quart'
         )
         self.assertEqual(
-            num2words(15, lang='mgm', ordinal=True), 'décimu quintu'
+            num2words(15, lang='mgm', ordinal=True), 'décim quint'
         )
         self.assertEqual(
-            num2words(16, lang='mgm', ordinal=True), 'décimu sextu'
+            num2words(16, lang='mgm', ordinal=True), 'décim sext'
         )
         self.assertEqual(
-            num2words(17, lang='mgm', ordinal=True), 'décimu sétimu'
+            num2words(17, lang='mgm', ordinal=True), 'décim sétim'
         )
         self.assertEqual(
-            num2words(18, lang='mgm', ordinal=True), 'décimu oitavu'
+            num2words(18, lang='mgm', ordinal=True), 'décim oitav'
         )
         self.assertEqual(
-            num2words(19, lang='mgm', ordinal=True), 'décimu nonu'
+            num2words(19, lang='mgm', ordinal=True), 'décim non'
         )
         self.assertEqual(
-            num2words(20, lang='mgm', ordinal=True), 'vigésimu'
-        )
-
-        self.assertEqual(
-            num2words(21, lang='mgm', ordinal=True), 'vigésimu primeiru'
-        )
-        self.assertEqual(
-            num2words(22, lang='mgm', ordinal=True), 'vigésimu segundu'
-        )
-        self.assertEqual(
-            num2words(35, lang='mgm', ordinal=True), 'trigésimu quintu'
-        )
-        self.assertEqual(
-            num2words(99, lang='mgm', ordinal=True), 'nonagésimu nonu'
+            num2words(20, lang='mgm', ordinal=True), 'vigésim'
         )
 
         self.assertEqual(
-            num2words(100, lang='mgm', ordinal=True), 'centésimu'
+            num2words(21, lang='mgm', ordinal=True), 'vigésim primeir'
         )
         self.assertEqual(
-            num2words(101, lang='mgm', ordinal=True), 'centésimu primeiru'
+            num2words(22, lang='mgm', ordinal=True), 'vigésim segund'
+        )
+        self.assertEqual(
+            num2words(35, lang='mgm', ordinal=True), 'trigésim quint'
+        )
+        self.assertEqual(
+            num2words(99, lang='mgm', ordinal=True), 'nonagésim non'
+        )
+
+        self.assertEqual(
+            num2words(100, lang='mgm', ordinal=True), 'centésim'
+        )
+        self.assertEqual(
+            num2words(101, lang='mgm', ordinal=True), 'centésim primeir'
         )
         self.assertEqual(
             num2words(128, lang='mgm', ordinal=True),
-            'centésimu vigésimu oitavu'
+            'centésim vigésim oitav'
         )
         self.assertEqual(
             num2words(713, lang='mgm', ordinal=True),
-            'septigentésimu décimu terceiru'
+            'septigentésim décim terceir'
         )
 
         self.assertEqual(
-            num2words(1000, lang='mgm', ordinal=True), 'milésimu'
+            num2words(1000, lang='mgm', ordinal=True), 'milésim'
         )
         self.assertEqual(
-            num2words(1001, lang='mgm', ordinal=True), 'milésimu primeiru'
+            num2words(1001, lang='mgm', ordinal=True), 'milésim primeir'
         )
         self.assertEqual(
             num2words(1111, lang='mgm', ordinal=True),
-            'milésimu centésimu décimu primeiru'
+            'milésim centésim décim primeir'
         )
         self.assertEqual(
             num2words(2114, lang='mgm', ordinal=True),
-            'segundu milésimu centésimu décimu quartu'
+            'segund milésim centésim décim quart'
         )
         self.assertEqual(
             num2words(73421, lang='mgm', ordinal=True),
-            'septuagésimu terceiru milésimu quadrigentésimu vigésimu primeiru'
+            'septuagésim terceir milésim quadrigentésim vigésim primeir'
         )
 
         self.assertEqual(
             num2words(100000, lang='mgm', ordinal=True),
-            'centésimu milésimu'
+            'centésim milésim'
         )
         self.assertEqual(
             num2words(250050, lang='mgm', ordinal=True),
-            'ducentésimu quinquagésimu milésimu quinquagésimu'
+            'ducentésim quinquagésim milésim quinquagésim'
         )
         self.assertEqual(
-            num2words(6000000, lang='mgm', ordinal=True), 'sextu milionésimu'
+            num2words(6000000, lang='mgm', ordinal=True), 'sext milionésim'
         )
         self.assertEqual(
             num2words(19000000000, lang='mgm', ordinal=True),
-            'décimu nonu milésimu milionésimu'
+            'décim non milésim milionésim'
         )
         self.assertEqual(
             num2words(145000000002, lang='mgm', ordinal=True),
-            'centésimu quadragésimu quintu milésimu milionésimu segundu'
+            'centésim quadragésim quint milésim milionésim segund'
         )
 
     def test_currency_integer(self):
