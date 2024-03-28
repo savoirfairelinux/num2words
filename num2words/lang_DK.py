@@ -21,7 +21,7 @@ from . import lang_EU
 
 
 class Num2Word_DK(lang_EU.Num2Word_EU):
-    GIGA_SUFFIX = "illarder"
+    GIGA_SUFFIX = "illiarder"
     MEGA_SUFFIX = "illioner"
 
     def setup(self):
@@ -61,6 +61,7 @@ class Num2Word_DK(lang_EU.Num2Word_EU):
                      "atten": "att",
                      "nitten": "nitt",
                      "tyve": "tyv"}
+        self.ordflag = False
 
     def merge(self, curr, next):
         ctext, cnum, ntext, nnum = curr + next
