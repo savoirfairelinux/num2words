@@ -376,28 +376,28 @@ class Num2WordsMGMTest(TestCase):
         )
 
     def test_currency_float(self):
-        self.assertEqual(self.n2w.to_currency(Decimal('1.00')), 'ida euru')
+        self.assertEqual(self.n2w.to_currency(Decimal('1.00')), 'id euru')
         self.assertEqual(
-            self.n2w.to_currency(Decimal('1.01')), 'ida euru resin ida cêntimu'
+            self.n2w.to_currency(Decimal('1.01')), 'id euru resi id cêntimu'
         )
         self.assertEqual(
-            self.n2w.to_currency(Decimal('1.03')), 'ida euru resin tolu cêntimus'
+            self.n2w.to_currency(Decimal('1.03')), 'id euru resi teil cêntimus'
         )
         self.assertEqual(
             self.n2w.to_currency(Decimal('1.35')),
-            'ida euru resin tolunulu resin lima cêntimus'
+            'id euru resi gulteil resi lim cêntimus'
         )
         self.assertEqual(
             self.n2w.to_currency(Decimal('3.14')),
-            'tolu eurus resin sanulu resin haat cêntimus'
+            'teil eurus resi sagul resi pat cêntimus'
         )
         self.assertEqual(
             self.n2w.to_currency(Decimal('101.22')),
-            'atus ida resin ida eurus resin ruanulu resin rua cêntimus'
+            'atusid id resi id eurus resi gulru resi ru cêntimus'
         )
         self.assertEqual(
             self.n2w.to_currency(Decimal('2345.75')),
-            'rihun rua atus tolu haatnulu resin lima eurus resin hitunulu resin lima cêntimus'
+            'rihunid ru atusid teil gulpat resi lim eurus resi gulhohoru resi lim cêntimus'
 
         )
 
