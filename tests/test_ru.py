@@ -77,6 +77,7 @@ class Num2WordsRUTest(TestCase):
 
     def test_cardinal_feminine(self):
         self.assertEqual(num2words(1, lang='ru', gender='f'), 'одна')
+        self.assertEqual(num2words(1, lang='ru', gender='ж'), 'одна')
         self.assertEqual(num2words(2, lang='ru', gender='f'), 'две')
         self.assertEqual(num2words(3, lang='ru', gender='f'), 'три')
         self.assertEqual(num2words(100, lang='ru', gender='f'), "сто")
@@ -188,8 +189,16 @@ class Num2WordsRUTest(TestCase):
             'тысячный'
         )
         self.assertEqual(
+            num2words(1000, lang='ru', to='ordinal', plural=True),
+            'тысячные'
+        )
+        self.assertEqual(
             num2words(1001, lang='ru', to='ordinal'),
             'тысяча первый'
+        )
+        self.assertEqual(
+            num2words(1001, lang='ru', to='ordinal', plural=True),
+            'тысяча первые'
         )
         self.assertEqual(
             num2words(1060, lang='ru', to='ordinal'),
@@ -222,6 +231,10 @@ class Num2WordsRUTest(TestCase):
         self.assertEqual(
             num2words(135100, lang='ru', to='ordinal'),
             'сто тридцать пять тысяч сотый'
+        )
+        self.assertEqual(
+            num2words(135100, lang='ru', to='ordinal', plural=True),
+            'сто тридцать пять тысяч сотые'
         )
         self.assertEqual(
             num2words(135120, lang='ru', to='ordinal'),
@@ -281,6 +294,10 @@ class Num2WordsRUTest(TestCase):
             num2words(2000000, lang='ru', to='ordinal', gender='f'),
             'двухмиллионная'
         )
+        self.assertEqual(
+            num2words(2000000, lang='ru', to='ordinal', gender='f', plural=True),
+            'двухмиллионные'
+        )
 
     def test_to_ordinal_neuter(self):
         self.assertEqual(
@@ -302,6 +319,10 @@ class Num2WordsRUTest(TestCase):
         self.assertEqual(
             num2words(2000000, lang='ru', to='ordinal', gender='n'),
             'двухмиллионное'
+        )
+        self.assertEqual(
+            num2words(2000000, lang='ru', to='ordinal', gender='n', plural=True),
+            'двухмиллионные'
         )
 
     def test_cardinal_cases(self):
@@ -490,4 +511,9 @@ class Num2WordsRUTest(TestCase):
             num2words(10122, lang='ru', to='currency', currency='UZS',
                       separator=' и'),
             'сто один сум и двадцать два тийина'
+        )
+        self.assertEqual(
+            num2words(1234.56, lang='ru', to='currency', currency='PLN'),
+            'одна тысяча двести тридцать четыре польских злотых, '
+            'пятьдесят шесть грошей'
         )
