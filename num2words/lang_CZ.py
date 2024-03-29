@@ -60,14 +60,14 @@ TWENTIES = {
 
 HUNDREDS = {
     1: ('sto',),
-    2: ('dvěstě',),
-    3: ('třista',),
-    4: ('čtyřista',),
-    5: ('pětset',),
-    6: ('šestset',),
-    7: ('sedmset',),
-    8: ('osmset',),
-    9: ('devětset',),
+    2: ('dvě stě',),
+    3: ('tři sta',),
+    4: ('čtyři sta',),
+    5: ('pět set',),
+    6: ('šest set',),
+    7: ('sedm set',),
+    8: ('osm set',),
+    9: ('devět set',),
 }
 
 THOUSANDS = {
@@ -83,6 +83,68 @@ THOUSANDS = {
     10: ('quintillion', 'quintilliony', 'quintillionů'),  # 10^30
 }
 
+ZERO_ORD = ('nultý',)
+
+ONES_ORD = {
+    1: ('první',),
+    2: ('druhý',),
+    3: ('třetí',),
+    4: ('čtvrtý',),
+    5: ('pátý',),
+    6: ('šestý',),
+    7: ('sedmý',),
+    8: ('osmý',),
+    9: ('devátý',),
+}
+
+TENS_ORD = {
+    0: ('desátý',),
+    1: ('jedenáctý',),
+    2: ('dvanáctý',),
+    3: ('třináctý',),
+    4: ('čtrnáctý',),
+    5: ('patnáctý',),
+    6: ('šestnáctý',),
+    7: ('sedmnáctý',),
+    8: ('osmnáctý',),
+    9: ('devatenáctý',),
+}
+
+TWENTIES_ORD = {
+    2: ('dvacátý',),
+    3: ('třicátý',),
+    4: ('čtyřicátý',),
+    5: ('padesátý',),
+    6: ('šedesátý',),
+    7: ('sedmdesátý',),
+    8: ('osmdesátý',),
+    9: ('devadesátý',),
+}
+
+HUNDREDS_ORD = {
+    1: ('stý',),
+    2: ('dvou stý',),
+    3: ('tří stý',),
+    4: ('čtyř stý',),
+    5: ('pěti stý',),
+    6: ('šesti stý',),
+    7: ('sedmi stý',),
+    8: ('osmi stý',),
+    9: ('devíti stý',),
+}
+
+THOUSANDS_ORD = {
+    1: ('tisící'),  # 10^3
+    2: ('miliontý'),  # 10^6
+    3: ('miliardtý'),  # 10^9
+    4: ('biliontý'),  # 10^12
+    5: ('biliardý'),  # 10^15
+    6: ('triliontý'),  # 10^18
+    7: ('triliardtý'),  # 10^21
+    8: ('kvadriliontý'),  # 10^24
+    9: ('kvadriliardtý'),  # 10^27
+    10: ('quintilliontý'),  # 10^30
+}
 
 class Num2Word_CZ(Num2Word_Base):
     CURRENCY_FORMS = {
@@ -123,7 +185,33 @@ class Num2Word_CZ(Num2Word_Base):
         return forms[form]
 
     def to_ordinal(self, number):
-        raise NotImplementedError()
+        if number == 0:
+            return ZERO_ORD[0]
+        words = []
+        chunks = list(splitbyx(str(number), 3))
+        i = len(chunks)
+        for x in chunks:
+            i -= 1
+
+            if x == 0:
+                continue
+
+            n1, n2, n3 = get_digits(x)
+
+            if n3 > 0:
+                words.append(HUNDREDS_ORD[n3][0])
+
+            if n2 > 1:
+                words.append(TWENTIES_ORD[n2][0])
+
+            if n2 == 1:
+                words.append(TENS_ORD[n1][0])
+            elif n1 > 0 and not (i > 0 and x == 1):
+                words.append(ONES_ORD[n1][0])
+
+            if i > 0:
+                words.append(THOUSANDS_ORD[i])
+        return ' '.join(words)
 
     def _int2word(self, n):
         if n == 0:
