@@ -295,7 +295,8 @@ class Num2WordsRUTest(TestCase):
             'двухмиллионная'
         )
         self.assertEqual(
-            num2words(2000000, lang='ru', to='ordinal', gender='f', plural=True),
+            num2words(2000000, lang='ru', to='ordinal', gender='f',
+                      plural=True),
             'двухмиллионные'
         )
 
@@ -321,7 +322,8 @@ class Num2WordsRUTest(TestCase):
             'двухмиллионное'
         )
         self.assertEqual(
-            num2words(2000000, lang='ru', to='ordinal', gender='n', plural=True),
+            num2words(2000000, lang='ru', to='ordinal', gender='n',
+                      plural=True),
             'двухмиллионные'
         )
 
