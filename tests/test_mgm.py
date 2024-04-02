@@ -290,68 +290,68 @@ class Num2WordsMGMTest(TestCase):
         )
 
     def test_currency_integer(self):
-        self.assertEqual(self.n2w.to_currency(1.00), 'id euru')
-        self.assertEqual(self.n2w.to_currency(2.00), 'ru eurus')
-        self.assertEqual(self.n2w.to_currency(3.00), 'teil eurus')
-        self.assertEqual(self.n2w.to_currency(4.00), 'pat eurus')
-        self.assertEqual(self.n2w.to_currency(5.00), 'lim eurus')
-        self.assertEqual(self.n2w.to_currency(6.00), 'hohonid eurus')
-        self.assertEqual(self.n2w.to_currency(7.00), 'hohoru eurus')
-        self.assertEqual(self.n2w.to_currency(8.00), 'hohoteil eurus')
-        self.assertEqual(self.n2w.to_currency(9.00), 'hohopat eurus')
-        self.assertEqual(self.n2w.to_currency(10.00), 'sagul eurus')
-        self.assertEqual(self.n2w.to_currency(11.00), 'sagul resi id eurus')
-        self.assertEqual(self.n2w.to_currency(12.00), 'sagul resi ru eurus')
-        self.assertEqual(self.n2w.to_currency(13.00), 'sagul resi teil eurus')
-        self.assertEqual(self.n2w.to_currency(14.00), 'sagul resi pat eurus')
-        self.assertEqual(self.n2w.to_currency(15.00), 'sagul resi lim eurus')
-        self.assertEqual(self.n2w.to_currency(16.00), 'sagul resi hohonid eurus')
-        self.assertEqual(self.n2w.to_currency(17.00), 'sagul resi hohoru eurus')
-        self.assertEqual(self.n2w.to_currency(18.00), 'sagul resi hohoteil eurus')
-        self.assertEqual(self.n2w.to_currency(19.00), 'sagul resi hohopat eurus')
-        self.assertEqual(self.n2w.to_currency(20.00), 'gulru eurus')
+        self.assertEqual(self.n2w.to_currency(1.00), 'id dólar')
+        self.assertEqual(self.n2w.to_currency(2.00), 'ru dólares')
+        self.assertEqual(self.n2w.to_currency(3.00), 'teil dólares')
+        self.assertEqual(self.n2w.to_currency(4.00), 'pat dólares')
+        self.assertEqual(self.n2w.to_currency(5.00), 'lim dólares')
+        self.assertEqual(self.n2w.to_currency(6.00), 'hohonid dólares')
+        self.assertEqual(self.n2w.to_currency(7.00), 'hohoru dólares')
+        self.assertEqual(self.n2w.to_currency(8.00), 'hohoteil dólares')
+        self.assertEqual(self.n2w.to_currency(9.00), 'hohopat dólares')
+        self.assertEqual(self.n2w.to_currency(10.00), 'sagul dólares')
+        self.assertEqual(self.n2w.to_currency(11.00), 'sagul resi id dólares')
+        self.assertEqual(self.n2w.to_currency(12.00), 'sagul resi ru dólares')
+        self.assertEqual(self.n2w.to_currency(13.00), 'sagul resi teil dólares')
+        self.assertEqual(self.n2w.to_currency(14.00), 'sagul resi pat dólares')
+        self.assertEqual(self.n2w.to_currency(15.00), 'sagul resi lim dólares')
+        self.assertEqual(self.n2w.to_currency(16.00), 'sagul resi hohonid dólares')
+        self.assertEqual(self.n2w.to_currency(17.00), 'sagul resi hohoru dólares')
+        self.assertEqual(self.n2w.to_currency(18.00), 'sagul resi hohoteil dólares')
+        self.assertEqual(self.n2w.to_currency(19.00), 'sagul resi hohopat dólares')
+        self.assertEqual(self.n2w.to_currency(20.00), 'gulru dólares')
 
-        self.assertEqual(self.n2w.to_currency(21.00), 'gulru resi id eurus')
-        self.assertEqual(self.n2w.to_currency(22.00), 'gulru resi ru eurus')
-        self.assertEqual(self.n2w.to_currency(35.00), 'gulteil resi lim eurus')
-        self.assertEqual(self.n2w.to_currency(99.00), 'gulhohopat resi hohopat eurus')
+        self.assertEqual(self.n2w.to_currency(21.00), 'gulru resi id dólares')
+        self.assertEqual(self.n2w.to_currency(22.00), 'gulru resi ru dólares')
+        self.assertEqual(self.n2w.to_currency(35.00), 'gulteil resi lim dólares')
+        self.assertEqual(self.n2w.to_currency(99.00), 'gulhohopat resi hohopat dólares')
 
-        self.assertEqual(self.n2w.to_currency(100.00), 'atusid id eurus')
-        self.assertEqual(self.n2w.to_currency(101.00), 'atusid id resi id eurus')
+        self.assertEqual(self.n2w.to_currency(100.00), 'atusid id dólares')
+        self.assertEqual(self.n2w.to_currency(101.00), 'atusid id resi id dólares')
         self.assertEqual(
-            self.n2w.to_currency(128.00), 'atusid id gulru resi hohoteil eurus'
+            self.n2w.to_currency(128.00), 'atusid id gulru resi hohoteil dólares'
         )
         self.assertEqual(
-            self.n2w.to_currency(713.00), 'atusid hohoru sagul resi teil eurus')
+            self.n2w.to_currency(713.00), 'atusid hohoru sagul resi teil dólares')
 
-        self.assertEqual(self.n2w.to_currency(1000.00), 'rihunid id eurus')
-        self.assertEqual(self.n2w.to_currency(1001.00), 'rihunid id resi id eurus')
+        self.assertEqual(self.n2w.to_currency(1000.00), 'rihunid id dólares')
+        self.assertEqual(self.n2w.to_currency(1001.00), 'rihunid id resi id dólares')
         self.assertEqual(
-            self.n2w.to_currency(1111.00), 'rihunid id atusid id sagul resi id eurus')
+            self.n2w.to_currency(1111.00), 'rihunid id atusid id sagul resi id dólares')
         self.assertEqual(
-            self.n2w.to_currency(2114.00), 'rihunid ru atusid id sagul resi pat eurus'
+            self.n2w.to_currency(2114.00), 'rihunid ru atusid id sagul resi pat dólares'
         )
         self.assertEqual(
             self.n2w.to_currency(73421.00),
-            'rihunid gulhohoru resi teil atusid pat gulru resi id eurus'
+            'rihunid gulhohoru resi teil atusid pat gulru resi id dólares'
         )
 
-        self.assertEqual(self.n2w.to_currency(100000.00), 'rihunid atusid id eurus')
+        self.assertEqual(self.n2w.to_currency(100000.00), 'rihunid atusid id dólares')
         self.assertEqual(
             self.n2w.to_currency(250050.00),
-            'rihunid atusid ru gullim gullim eurus'
+            'rihunid atusid ru gullim gullim dólares'
         )
         self.assertEqual(
             self.n2w.to_currency(6000000.00),
-            'miliaunid hohonid eurus'
+            'miliaunid hohonid dólares'
         )
         self.assertEqual(
             self.n2w.to_currency(19000000000.00),
-            'miliaunid rihunid sagul resi hohopat eurus'
+            'miliaunid rihunid sagul resi hohopat dólares'
         )
         self.assertEqual(
             self.n2w.to_currency(145000000002.00),
-            'miliaunid rihunid atusid id gulpat resi lim resi ru eurus'
+            'miliaunid rihunid atusid id gulpat resi lim resi ru dólares'
         )
         self.assertEqual(self.n2w.to_currency(1.00, currency='USD'),
                          'id dólar')
@@ -361,62 +361,62 @@ class Num2WordsMGMTest(TestCase):
             self.n2w.to_currency(1.00, currency='CHF')
 
     def test_currency_integer_negative(self):
-        self.assertEqual(self.n2w.to_currency(-1.00), 'menus id euru')
+        self.assertEqual(self.n2w.to_currency(-1.00), 'menus id dólar')
         self.assertEqual(
             self.n2w.to_currency(-256.00),
-            'menus atusid ru gullim resi hohonid eurus'
+            'menus atusid ru gullim resi hohonid dólares'
         )
-        self.assertEqual(self.n2w.to_currency(-1000.00), 'menus rihunid id eurus')
+        self.assertEqual(self.n2w.to_currency(-1000.00), 'menus rihunid id dólares')
         self.assertEqual(
-            self.n2w.to_currency(-1000000.00), 'menus miliaunid id eurus'
+            self.n2w.to_currency(-1000000.00), 'menus miliaunid id dólares'
         )
         self.assertEqual(
             self.n2w.to_currency(-1234567.00),
-            'menus miliaunid id rihunid atusid ru gulteil resi pat atusid lim gulhohonid resi hohoru eurus'
+            'menus miliaunid id rihunid atusid ru gulteil resi pat atusid lim gulhohonid resi hohoru dólares'
         )
 
     def test_currency_float(self):
-        self.assertEqual(self.n2w.to_currency(Decimal('1.00')), 'id euru')
+        self.assertEqual(self.n2w.to_currency(Decimal('1.00')), 'id dólar')
         self.assertEqual(
-            self.n2w.to_currency(Decimal('1.01')), 'id euru resi id cêntimu'
+            self.n2w.to_currency(Decimal('1.01')), 'id dólar resi id cêntimu'
         )
         self.assertEqual(
-            self.n2w.to_currency(Decimal('1.03')), 'id euru resi teil cêntimus'
+            self.n2w.to_currency(Decimal('1.03')), 'id dólar resi teil cêntimus'
         )
         self.assertEqual(
             self.n2w.to_currency(Decimal('1.35')),
-            'id euru resi gulteil resi lim cêntimus'
+            'id dólar resi gulteil resi lim cêntimus'
         )
         self.assertEqual(
             self.n2w.to_currency(Decimal('3.14')),
-            'teil eurus resi sagul resi pat cêntimus'
+            'teil dólares resi sagul resi pat cêntimus'
         )
         self.assertEqual(
             self.n2w.to_currency(Decimal('101.22')),
-            'atusid id resi id eurus resi gulru resi ru cêntimus'
+            'atusid id resi id dólares resi gulru resi ru cêntimus'
         )
         self.assertEqual(
             self.n2w.to_currency(Decimal('2345.75')),
-            'rihunid ru atusid teil gulpat resi lim eurus resi gulhohoru resi lim cêntimus'
+            'rihunid ru atusid teil gulpat resi lim dólares resi gulhohoru resi lim cêntimus'
 
         )
 
     def test_currency_float_negative(self):
         self.assertEqual(
             self.n2w.to_currency(Decimal('-2.34')),
-            'menus ru eurus resi gulteil resi pat cêntimus'
+            'menus ru dólares resi gulteil resi pat cêntimus'
         )
         self.assertEqual(
             self.n2w.to_currency(Decimal('-9.99')),
-            'menus hohopat eurus resi gulhohopat resi hohopat cêntimus'
+            'menus hohopat dólares resi gulhohopat resi hohopat cêntimus'
         )
         self.assertEqual(
             self.n2w.to_currency(Decimal('-7.01')),
-            'menus hohoru eurus resi id cêntimu'
+            'menus hohoru dólares resi id cêntimu'
         )
         self.assertEqual(
             self.n2w.to_currency(Decimal('-222.22')),
-            'menus atusid ru gulru resi ru eurus resi gulru resi ru cêntimus'
+            'menus atusid ru gulru resi ru dólares resi gulru resi ru cêntimus'
         )
 
     def test_year(self):
