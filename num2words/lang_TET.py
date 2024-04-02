@@ -30,7 +30,7 @@ class Num2Word_TET(Num2Word_EU):
     CURRENCY_FORMS = {
         'AUD': (DOLLAR, CENTS),
         'CAD': (DOLLAR, CENTS),
-        'EUR': (('euru', 'eurus'), CENTS),
+        'EUR': (('euro', 'euros'), CENTS),
         'GBP': (('libra', 'libras'), ('péni', 'pence')),
         'USD': (DOLLAR, CENTS),
     }
@@ -198,7 +198,7 @@ class Num2Word_TET(Num2Word_EU):
             return self.to_cardinal(abs(val)) + ' antes Kristu'
         return self.to_cardinal(val)
 
-    def to_currency(self, val, currency='EUR', cents=True, separator=' resin',
+    def to_currency(self, val, currency='USD', cents=True, separator=' resin',
                     adjective=False):
         # change negword because base.to_currency() does not need space after
         backup_negword = self.negword
