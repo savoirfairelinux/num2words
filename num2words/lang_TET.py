@@ -19,10 +19,12 @@ from __future__ import division, unicode_literals
 
 import re
 
+from num2words.currency import parse_currency_parts, prefix_currency
+
 from .lang_EU import Num2Word_EU
 
-DOLLAR = ('dólar', 'dólares')
-CENTS = ('cêntimu', 'cêntimus')
+DOLLAR = ('dolar', 'dolar')
+CENTS = ('sentavu', 'sentavu')
 
 
 class Num2Word_TET(Num2Word_EU):
@@ -31,7 +33,7 @@ class Num2Word_TET(Num2Word_EU):
         'AUD': (DOLLAR, CENTS),
         'CAD': (DOLLAR, CENTS),
         'EUR': (('euro', 'euros'), CENTS),
-        'GBP': (('libra', 'libras'), ('péni', 'pence')),
+        'GBP': (('pound sterling', 'pound sterling'), ('pence', 'pence')),
         'USD': (DOLLAR, CENTS),
     }
 
@@ -198,26 +200,41 @@ class Num2Word_TET(Num2Word_EU):
             return self.to_cardinal(abs(val)) + ' antes Kristu'
         return self.to_cardinal(val)
 
-    def to_currency(self, val, currency='USD', cents=True, separator=' resin',
+    def to_currency(self, val, currency='USD', cents=True,
                     adjective=False):
-        # change negword because base.to_currency() does not need space after
-        backup_negword = self.negword
-        self.negword = self.negword[:-1]
-        result = super().to_currency(
-            val, currency=currency, cents=cents, separator=separator,
-            adjective=adjective)
-        # undo the change on negword
-        self.negword = backup_negword
+        """
+        Args:
+            val: Numeric value
+            currency (str): Currency code
+            cents (bool): Verbose cents
+            adjective (bool): Prefix currency name with adjective
+        Returns:
+            str: Formatted string
 
-        # transforms "milhões euros" em "milhões de euros"
-        cr1, _ = self.CURRENCY_FORMS[currency]
+        """
+        left, right, is_negative = parse_currency_parts(val)
 
-        for ext in (
-                'miliaun','biliaun','triliaun'):
-            if re.match('.*{} (?={})'.format(ext, cr1[1]), result):
-                result = result.replace(
-                    f'{ext}', f'{ext}', 1
-                )
-        # do not print "e zero cêntimos"
-        result = result.replace(' resin mamuk cêntimus', '')
-        return result
+        try:
+            cr1, cr2 = self.CURRENCY_FORMS[currency]
+
+        except KeyError:
+            raise NotImplementedError(
+                'Currency code "%s" not implemented for "%s"' %
+                (currency, self.__class__.__name__))
+
+        if adjective and currency in self.CURRENCY_ADJECTIVES:
+            cr1 = prefix_currency(self.CURRENCY_ADJECTIVES[currency], cr1)
+
+        minus_str = "%s " % self.negword.strip() if is_negative else ""
+        money_str = self._money_verbose(left, currency)
+        cents_str = self._cents_verbose(right, currency) \
+            if cents else self._cents_terse(right, currency)
+
+        return u'%s%s %s %s %s' % (
+            minus_str,
+            self.pluralize(left, cr1),
+            money_str,
+            self.pluralize(right, cr2),
+            cents_str
+        )
+
