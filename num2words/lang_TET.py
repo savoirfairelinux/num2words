@@ -50,13 +50,13 @@ class Num2Word_TET(Num2Word_EU):
 
         self.mid_numwords = [
             (1000, "rihun"), (100, "atus"), (90, "sianulu"),
-            (80, "walunulu"), (70, "hitunulu"), (60, "neenulu"),
+            (80, "ualunulu"), (70, "hitunulu"), (60, "neenulu"),
             (50, "limanulu"), (40, "haatnulu"), (30, "tolunulu"),
             (20, "ruanulu")
         ]
         self.low_numwords = [
             "sanulu",
-            "sia", "walu", "hitu", "neen", "lima", "haat", "tolu", "rua",
+            "sia", "ualu", "hitu", "neen", "lima", "haat", "tolu", "rua",
             "ida", "mamuk"
         ]
         self.ords = [
@@ -112,7 +112,7 @@ class Num2Word_TET(Num2Word_EU):
             5: "atus lima",
             6: "atus neen",
             7: "atus hitu",
-            8: "atus walu",
+            8: "atus ualu",
             9: "atus sia",
         }
 
