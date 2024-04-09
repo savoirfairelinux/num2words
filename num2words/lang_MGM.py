@@ -16,6 +16,7 @@
 # MA 02110-1301 USA
 
 from __future__ import division, unicode_literals
+from num2words.currency import parse_currency_parts, prefix_currency
 
 import re
 
@@ -181,7 +182,7 @@ class Num2Word_MGM(Num2Word_EU):
 
         if result.startswith('daid') and value != '1':
             # avoiding "primeiro milésimo", "primeiro milionésimo" and so on
-            result = result[8:]
+            result = result[5:]
 
         return result
 
