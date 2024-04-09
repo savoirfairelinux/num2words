@@ -108,7 +108,7 @@ Besides the numerical argument, there are two main optional arguments, ``to:`` a
 * ``kz`` (Kazakh)
 * ``lt`` (Lithuanian)
 * ``lv`` (Latvian)
-* ``mgm`` (Mambae)
+* ``mgm`` (Mambae Ermera)
 * ``no`` (Norwegian)
 * ``pl`` (Polish)
 * ``pt`` (Portuguese)
