@@ -49,50 +49,50 @@ class Num2Word_MGM(Num2Word_EU):
 
         self.mid_numwords = [
             (1000, "rihun"), (100, "atus"), (90, "guulhohopaat"),
-            (80, "guulhohoteil"), (70, "guulhohoru"), (60, "guulhohonid"),
-            (50, "guulliim"), (40, "guulpaat"), (30, "guulteil"),
-            (20, "guulru")
+            (80, "guulhohoteul"), (70, "guulhohoruu"), (60, "guulhohoniid"),
+            (50, "guulliim"), (40, "guulpaat"), (30, "guulteul"),
+            (20, "guulruu")
         ]
         self.low_numwords = [
             "saguul",
-            "hohopaat", "hohoteil", "hohoru", "hohonid", "liim", "paat", "teil", "ru",
-            "id", "mamu"
+            "hohopaat", "hohoteul", "hohoruu", "hohoniid", "liim", "paat", "teul", "ruu",
+            "iid", "mamu"
         ]
         self.ords = [
             {
                 0: "",
-                1: "daid",
-                2: "daru",
-                3: "dateil",
+                1: "daiid",
+                2: "daruu",
+                3: "dateul",
                 4: "dapaat",
                 5: "daliim",
-                6: "dahohonid",
-                7: "dahohoru",
-                8: "dahohoteil",
+                6: "dahohoniid",
+                7: "dahohoruu",
+                8: "dahohoteul",
                 9: "dahohopaat",
             },
             {
                 0: "",
                 1: "dasaguul",
-                2: "daguulru",
-                3: "daguulteil",
+                2: "daguulruu",
+                3: "daguulteul",
                 4: "daguulpaat",
                 5: "daguulliim",
-                6: "daguulhohonid",
-                7: "daguulhohoru",
-                8: "daguulhohoteil",
+                6: "daguulhohoniid",
+                7: "daguulhohoruu",
+                8: "daguulhohoteul",
                 9: "daguulhohopaat",
             },
             {
                 0: "",
-                1: "daatusid",
-                2: "daatusru",
-                3: "daatusteil",
+                1: "daatusiid",
+                2: "daatusruu",
+                3: "daatusteul",
                 4: "daatuspaat",
                 5: "daatusliim",
-                6: "daatushohonid",
-                7: "daatushohoru",
-                8: "daatushohoteil",
+                6: "daatushohoniid",
+                7: "daatushohoruu",
+                8: "daatushohoteul",
                 9: "daatushohopaat",
             },
         ]
@@ -104,14 +104,14 @@ class Num2Word_MGM(Num2Word_EU):
             15: "darihun dabiliaun"
         }
         self.hundreds = {
-            1: "atus id",
-            2: "atus ru",
-            3: "atus teil",
+            1: "atus iid",
+            2: "atus ruu",
+            3: "atus teul",
             4: "atus paat",
             5: "atus liim",
-            6: "atus hohonid",
-            7: "atus hohoru",
-            8: "atus hohoteil",
+            6: "atus hohoniid",
+            7: "atus hohoruu",
+            8: "atus hohoteul",
             9: "atus hohopaat",
         }
 
@@ -180,7 +180,7 @@ class Num2Word_MGM(Num2Word_EU):
         result = result.strip()
         result = re.sub('\\s+', ' ', result)
 
-        if result.startswith('daid') and value != '1':
+        if result.startswith('daiid') and value != '1':
             # avoiding "primeiro milésimo", "primeiro milionésimo" and so on
             result = result[5:]
 
