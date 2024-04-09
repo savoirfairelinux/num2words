@@ -21,8 +21,8 @@ import re
 
 from .lang_EU import Num2Word_EU
 
-DOLLAR = ('dólar', 'dólares')
-CENTS = ('cêntimu', 'cêntimus')
+DOLLAR = ('dolar', 'dolar')
+CENTS = ('sentavu', 'sentavu')
 
 
 class Num2Word_MGM(Num2Word_EU):
@@ -31,23 +31,23 @@ class Num2Word_MGM(Num2Word_EU):
         'AUD': (DOLLAR, CENTS),
         'CAD': (DOLLAR, CENTS),
         'EUR': (('euro', 'euros'), CENTS),
-        'GBP': (('libra', 'libras'), ('péni', 'pence')),
+        'GBP': (('pound sterling', 'pound sterling'), ('pence', 'pence')),
         'USD': (DOLLAR, CENTS),
     }
 
     GIGA_SUFFIX = None
-    MEGA_SUFFIX = "iliaunid"
+    MEGA_SUFFIX = "iliaun"
 
     def setup(self):
         super().setup()
-        lows = ["quatr", "tr", "b", "m"]
+        lows = ["kuatr", "tr", "b", "m"]
         self.high_numwords = self.gen_high_numwords([], [], lows)
         self.negword = "menus "
         self.pointword = "vírgula"
         self.exclude_title = ["resi", "vírgula", "menus"]
 
         self.mid_numwords = [
-            (1000, "rihunid"), (100, "atusid"), (90, "gulhohopat"),
+            (1000, "rihun"), (100, "atus"), (90, "gulhohopat"),
             (80, "gulhohoteil"), (70, "gulhohoru"), (60, "gulhohonid"),
             (50, "gullim"), (40, "gulpat"), (30, "gulteil"),
             (20, "gulru")
@@ -60,58 +60,58 @@ class Num2Word_MGM(Num2Word_EU):
         self.ords = [
             {
                 0: "",
-                1: "primeir",
-                2: "segund",
-                3: "terceir",
-                4: "quart",
-                5: "quint",
-                6: "sext",
-                7: "sétim",
-                8: "oitav",
-                9: "non",
+                1: "daid",
+                2: "daru",
+                3: "dateil",
+                4: "dapat",
+                5: "dalim",
+                6: "dahohonid",
+                7: "dahohoru",
+                8: "dahohoteil",
+                9: "dahohopat",
             },
             {
                 0: "",
-                1: "décim",
-                2: "vigésim",
-                3: "trigésim",
-                4: "quadragésim",
-                5: "quinquagésim",
-                6: "sexagésim",
-                7: "septuagésim",
-                8: "octogésim",
-                9: "nonagésim",
+                1: "dasanuluk",
+                2: "daruanuluk",
+                3: "datolunuluk",
+                4: "dahaatnuluk",
+                5: "dalimanuluk",
+                6: "daneenuluk",
+                7: "dahitunuluk",
+                8: "daualunuk",
+                9: "dasianuluk",
             },
             {
                 0: "",
-                1: "centésim",
-                2: "ducentésim",
-                3: "tricentésim",
-                4: "quadrigentésim",
-                5: "quingentésim",
-                6: "seiscentésim",
-                7: "septigentésim",
-                8: "octigentésim",
-                9: "nongentésim",
+                1: "daatusidak",
+                2: "daatusruak",
+                3: "daatustoluk",
+                4: "daatushaat",
+                5: "daatuslimak",
+                6: "daatusneen",
+                7: "daatushituk",
+                8: "daatusualuk",
+                9: "daatussiak",
             },
         ]
         self.thousand_separators = {
-            3: "milésim",
-            6: "milionésim",
-            9: "milésim milionésim",
-            12: "bilionésim",
-            15: "milésim bilionésim"
+            3: "darihun",
+            6: "damiliaun",
+            9: "darihun damiliaun",
+            12: "dabiliaun",
+            15: "darihun dabiliaun"
         }
         self.hundreds = {
-            1: "atusid",
-            2: "atusid ru",
-            3: "atusid teil",
-            4: "atusid pat",
-            5: "atusid lim",
-            6: "atusid hohonid",
-            7: "atusid hohoru",
-            8: "atusid hohoteil",
-            9: "atusid hohopat",
+            1: "atus id",
+            2: "atus ru",
+            3: "atus teil",
+            4: "atus pat",
+            5: "atus lim",
+            6: "atus hohonid",
+            7: "atus hohoru",
+            8: "atus hohoteil",
+            9: "atus hohopat",
         }
 
     def merge(self, curr, next):
@@ -137,8 +137,8 @@ class Num2Word_MGM(Num2Word_EU):
         # mil e duzentos" in "cem milhões duzentos mil e duzentos" and not in
         # "cem milhões duzentos mil duzentos"
         for ext in (
-                'rihunid', 'miliaunid','miliaunid rihunid',
-                'biliaunid', 'biliaunid rihunid'):
+                'rihun', 'miliaun','miliaun rihun',
+                'biliaun', 'biliaun rihun'):
             if re.match('.*{} resi \\w*entus? (?=.*resi)'.format(ext), result):
                 result = result.replace(
                     f'{ext} resi', f'{ext}'
@@ -179,7 +179,7 @@ class Num2Word_MGM(Num2Word_EU):
         result = result.strip()
         result = re.sub('\\s+', ' ', result)
 
-        if result.startswith('primeir') and value != '1':
+        if result.startswith('daid') and value != '1':
             # avoiding "primeiro milésimo", "primeiro milionésimo" and so on
             result = result[8:]
 
@@ -198,26 +198,40 @@ class Num2Word_MGM(Num2Word_EU):
             return self.to_cardinal(abs(val)) + ' muna Kristu'
         return self.to_cardinal(val)
 
-    def to_currency(self, val, currency='USD', cents=True, separator=' resi',
+    def to_currency(self, val, currency='USD', cents=True,
                     adjective=False):
-        # change negword because base.to_currency() does not need space after
-        backup_negword = self.negword
-        self.negword = self.negword[:-1]
-        result = super().to_currency(
-            val, currency=currency, cents=cents, separator=separator,
-            adjective=adjective)
-        # undo the change on negword
-        self.negword = backup_negword
-
-        # transforms "milhões euros" em "milhões de euros"
         cr1, _ = self.CURRENCY_FORMS[currency]
+        """
+        Args:
+            val: Numeric value
+            currency (str): Currency code
+            cents (bool): Verbose cents
+            adjective (bool): Prefix currency name with adjective
+        Returns:
+            str: Formatted string
+        """
+        left, right, is_negative = parse_currency_parts(val)
 
-        for ext in (
-                'miliaunid','biliaunid','triliaunid'):
-            if re.match('.*{} (?={})'.format(ext, cr1[1]), result):
-                result = result.replace(
-                    f'{ext}', f'{ext}', 1
-                )
-        # do not print "e zero cêntimos"
-        result = result.replace(' resi mamu cêntimus', '')
-        return result
+        try:
+            cr1, cr2 = self.CURRENCY_FORMS[currency]
+
+        except KeyError:
+            raise NotImplementedError(
+                'Currency code "%s" not implemented for "%s"' %
+                (currency, self.__class__.__name__))
+
+        if adjective and currency in self.CURRENCY_ADJECTIVES:
+            cr1 = prefix_currency(self.CURRENCY_ADJECTIVES[currency], cr1)
+
+        minus_str = "%s " % self.negword.strip() if is_negative else ""
+        money_str = self._money_verbose(left, currency)
+        cents_str = self._cents_verbose(right, currency) \
+            if cents else self._cents_terse(right, currency)
+
+        return u'%s%s %s %s %s' % (
+            minus_str,
+            self.pluralize(left, cr1),
+            money_str,
+            self.pluralize(right, cr2),
+            cents_str
+        )
