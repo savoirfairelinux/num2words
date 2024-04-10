@@ -109,6 +109,7 @@ Besides the numerical argument, there are two main optional arguments, ``to:`` a
 * ``lt`` (Lithuanian)
 * ``lv`` (Latvian)
 * ``mgm`` (Mambae Ermera)
+* ``mgm-NC`` (Mambae Aileu)
 * ``no`` (Norwegian)
 * ``pl`` (Polish)
 * ``pt`` (Portuguese)
