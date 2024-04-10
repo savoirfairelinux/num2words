@@ -48,14 +48,14 @@ class Num2Word_MGM(Num2Word_EU):
         self.exclude_title = ["resi", "vírgula", "menus"]
 
         self.mid_numwords = [
-            (1000, "rihun"), (100, "atus"), (90, "guulhohopaat"),
-            (80, "guulhohoteul"), (70, "guulhohoruu"), (60, "guulhohoniid"),
-            (50, "guulliim"), (40, "guulpaat"), (30, "guulteul"),
-            (20, "guulruu")
+            (1000, "rihun"), (100, "atus"), (90, "guul hohopaat"),
+            (80, "guul hohoteul"), (70, "guul hohoruu"), (60, "guul hohoniid"),
+            (50, "guul liim"), (40, "guul paat"), (30, "guul teul"),
+            (20, "guul ruu")
         ]
         self.low_numwords = [
             "saguul",
-            "hohopaat", "hohoteul", "hohoruu", "hohoniid", "liim", "paat", "teul", "ruu",
+            "hoho paat", "hoho teul", "hohon ruu", "hohon iid", "liim", "paat", "teul", "ruu",
             "iid", "mamu"
         ]
         self.ords = [
@@ -66,34 +66,34 @@ class Num2Word_MGM(Num2Word_EU):
                 3: "dateul",
                 4: "dapaat",
                 5: "daliim",
-                6: "dahohoniid",
-                7: "dahohoruu",
-                8: "dahohoteul",
-                9: "dahohopaat",
+                6: "dahohon iid",
+                7: "dahohon ruu",
+                8: "dahoho teul",
+                9: "dahoho paat",
             },
             {
                 0: "",
                 1: "dasaguul",
-                2: "daguulruu",
-                3: "daguulteul",
-                4: "daguulpaat",
-                5: "daguulliim",
-                6: "daguulhohoniid",
-                7: "daguulhohoruu",
-                8: "daguulhohoteul",
-                9: "daguulhohopaat",
+                2: "daguul ruu",
+                3: "daguul teul",
+                4: "daguul paat",
+                5: "daguul liim",
+                6: "daguul hohon iid",
+                7: "daguul hohon ruu",
+                8: "daguul hoho teul",
+                9: "daguul hoho paat",
             },
             {
                 0: "",
-                1: "daatusiid",
-                2: "daatusruu",
-                3: "daatusteul",
-                4: "daatuspaat",
-                5: "daatusliim",
-                6: "daatushohoniid",
-                7: "daatushohoruu",
-                8: "daatushohoteul",
-                9: "daatushohopaat",
+                1: "daatus iid",
+                2: "daatus ruu",
+                3: "daatus teul",
+                4: "daatus paat",
+                5: "daatus liim",
+                6: "daatus hohon iid",
+                7: "daatus hohon ruu",
+                8: "daatus hoho teul",
+                9: "daatus hoho paat",
             },
         ]
         self.thousand_separators = {
@@ -109,10 +109,10 @@ class Num2Word_MGM(Num2Word_EU):
             3: "atus teul",
             4: "atus paat",
             5: "atus liim",
-            6: "atus hohoniid",
-            7: "atus hohoruu",
-            8: "atus hohoteul",
-            9: "atus hohopaat",
+            6: "atus hohon iid",
+            7: "atus hohon ruu",
+            8: "atus hoho teul",
+            9: "atus hoho paat",
         }
 
     def merge(self, curr, next):
