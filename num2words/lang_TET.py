@@ -86,15 +86,15 @@ class Num2Word_TET(Num2Word_EU):
             },
             {
                 0: "",
-                1: "daatusidak",
-                2: "daatusruak",
-                3: "daatustoluk",
-                4: "daatushaat",
-                5: "daatuslimak",
-                6: "daatusneen",
-                7: "daatushituk",
-                8: "daatusualuk",
-                9: "daatussiak",
+                1: "daatus idak",
+                2: "daatus ruak",
+                3: "daatus toluk",
+                4: "daatus haat",
+                5: "daatus limak",
+                6: "daatus neen",
+                7: "daatus hituk",
+                8: "daatus ualuk",
+                9: "daatus siak",
             },
         ]
         self.thousand_separators = {
@@ -159,32 +159,10 @@ class Num2Word_TET(Num2Word_EU):
     def to_ordinal(self, value):
         # Before changing this function remember this is used by pt-BR
         # so act accordingly
-        self.verify_ordinal(value)
-
-        result = []
-        value = str(value)
-        thousand_separator = ''
-
-        for idx, char in enumerate(value[::-1]):
-            if idx and idx % 3 == 0:
-                thousand_separator = self.thousand_separators[idx]
-
-            if char != '0' and thousand_separator:
-                # avoiding "segundo milionésimo milésimo" for 6000000,
-                # for instance
-                result.append(thousand_separator)
-                thousand_separator = ''
-
-            result.append(self.ords[idx % 3][int(char)])
-
-        result = ' '.join(result[::-1])
-        result = result.strip()
-        result = re.sub('\\s+', ' ', result)
-
-        if result.startswith('primeiru') and value != '1':
-            # avoiding "primeiro milésimo", "primeiro milionésimo" and so on
-            result = result[9:]
-
+        self.verify_ordinal(number)
+        cardinal =  self.to_cardinal(value)
+        cardinal = cardinal.split()
+        result = " ".join(cardinal)
         return result
 
     def to_ordinal_num(self, value):
