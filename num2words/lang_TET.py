@@ -202,28 +202,32 @@ class Num2Word_TET(Num2Word_EU):
         if num == 1:
             words = 'dahuluk'
         if num in [900, 800, 700, 500, 300, 200, 100]:
-            words = 'da'+words+'k'
+            words = 'dah'+words+'k'
         if num in [600, 400]:
-            words = 'da'+words
+            words = 'dah'+words
 
         words_split = words.split()
         if len(words_split) >= 3 and num < 100:
-            first_word = 'da'+words_split[0]+'k'
+            first_word = 'da'+words_split[0]
             second_word = " ".join(words_split[1:])
-            words = first_word+" "+second_word
-
-        word_first =  'da'+words_split[0]
-        if word_first == 'daatus' and len(words_split) >=3:
-            check_word = words_split[1]
-            if check_word in ['haat', 'neen']:
-                word_second = words_split[1]
+            if 'haat' in second_word or 'neen' in second_word:
+                words = first_word+" "+second_word
             else:
-                word_second = words_split[1]+'k'
-            word_third = " ".join(words_split[2:])
-            words = word_first+" "+word_second+" "+word_third
+                words = first_word+" "+second_word+'k'
 
-        if len(str(num)) >= 4:
-            words = 'da'+words
+        word_first =  'dah'+words_split[0]
+        if word_first == 'dahatus' and len(words_split) >=3:
+            word_second = " ".join(words_split[2:])
+            if 'haat' in word_second or 'neen' in word_second:
+                words = word_first+" "+word_second
+            else:
+                words = word_first+" "+word_second+'k'
+
+        if len(str(num)) > 3:
+            if 'haat' in words or 'neen' in words:
+                words = 'da'+words
+            else:
+                words = 'da'+words+'k'
 
         return self.title(out + words)
 
