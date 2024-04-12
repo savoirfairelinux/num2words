@@ -190,7 +190,7 @@ class Num2Word_TET(Num2Word_EU):
                         else:
                             outs.append(self.clean(elem))
                     else:
-                        outs.append(('da'+str(elem[0]), elem[1]))
+                        outs.append(elem)
             val = outs
         words, num = outs[0]
         if num in [90, 80, 70, 60, 50, 40, 30, 20, 10, 9, 8, 7, 5, 3, 2]:
@@ -199,16 +199,30 @@ class Num2Word_TET(Num2Word_EU):
             words = 'da'+words
         if num == 1:
             words = 'dahuluk'
-        if num in [900, 800, 700, 600, 500, 400, 300, 200, 100]:
-            words = words+'k'
-        liafuan = words.split()
-        liafuan_primeiro =  liafuan[0]
-        if liafuan_primeiro == 'daatus' and len(liafuan) >=3:
-            liafuan_segundo = liafuan[1]+'k'
-            liafuan_terseiro = " ".join(liafuan[2:])
-            words = liafuan_primeiro+" "+liafuan_segundo+" "+lianfuan_terseiro
+        if num in [900, 800, 700, 500, 300, 200, 100]:
+            words = 'da'+words+'k'
+        if num in [600, 400]:
+            words = 'da'+words
 
-        #words, num = self.clean(val)
+        liafuan = words.split()
+        if len(liafuan) >= 3 and num < 100:
+            lia_primeiro = 'da'+liafuan[0]+'k'
+            lia_segundo = " ".join(liafuan[1:])
+            words = lia_primeiro+" "+lia_segundo
+
+        liafuan_primeiro =  'da'+liafuan[0]
+        if liafuan_primeiro == 'daatus' and len(liafuan) >=3:
+            test_lia = liafuan[1]
+            if test_lia in ['haat', 'neen']:
+                liafuan_segundo = liafuan[1]
+            else:
+                liafuan_segundo = liafuan[1]+'k'
+            liafuan_terseiro = " ".join(liafuan[2:])
+            words = liafuan_primeiro+" "+liafuan_segundo+" "+liafuan_terseiro
+
+        if len(str(num)) >= 4:
+            words = 'da'+words
+
         return self.title(out + words)
 
     def to_ordinal_num(self, value):
