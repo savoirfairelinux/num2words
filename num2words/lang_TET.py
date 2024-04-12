@@ -192,7 +192,9 @@ class Num2Word_TET(Num2Word_EU):
                     else:
                         outs.append(elem)
             val = outs
+
         words, num = outs[0]
+
         if num in [90, 80, 70, 60, 50, 40, 30, 20, 10, 9, 8, 7, 5, 3, 2]:
             words = 'da'+words+'k'
         if num in [6,4]:
@@ -204,21 +206,21 @@ class Num2Word_TET(Num2Word_EU):
         if num in [600, 400]:
             words = 'da'+words
 
-        liafuan = words.split()
-        if len(liafuan) >= 3 and num < 100:
-            lia_primeiro = 'da'+liafuan[0]+'k'
-            lia_segundo = " ".join(liafuan[1:])
-            words = lia_primeiro+" "+lia_segundo
+        words_split = words.split()
+        if len(words_split) >= 3 and num < 100:
+            first_word = 'da'+words_split[0]+'k'
+            second_word = " ".join(words_split[1:])
+            words = first_word+" "+second_word
 
-        liafuan_primeiro =  'da'+liafuan[0]
-        if liafuan_primeiro == 'daatus' and len(liafuan) >=3:
-            test_lia = liafuan[1]
-            if test_lia in ['haat', 'neen']:
-                liafuan_segundo = liafuan[1]
+        word_first =  'da'+words_split[0]
+        if word_first == 'daatus' and len(words_split) >=3:
+            check_word = words_split[1]
+            if check_word in ['haat', 'neen']:
+                word_second = words_split[1]
             else:
-                liafuan_segundo = liafuan[1]+'k'
-            liafuan_terseiro = " ".join(liafuan[2:])
-            words = liafuan_primeiro+" "+liafuan_segundo+" "+liafuan_terseiro
+                word_second = words_split[1]+'k'
+            word_third = " ".join(words_split[2:])
+            words = word_first+" "+word_second+" "+word_third
 
         if len(str(num)) >= 4:
             words = 'da'+words
