@@ -159,11 +159,42 @@ class Num2Word_TET(Num2Word_EU):
     def to_ordinal(self, value):
         # Before changing this function remember this is used by pt-BR
         # so act accordingly
-        self.verify_ordinal(number)
-        cardinal =  self.to_cardinal(value)
-        cardinal = cardinal.split()
-        result = " ".join(cardinal)
-        return result
+        self.verify_ordinal(value)
+        try:
+            assert int(value) == value
+        except (ValueError, TypeError, AssertionError):
+            return self.to_cardinal_float(value)
+
+        out = ""
+        if value < 0:
+            value = abs(value)
+            out = "%s " % self.negword.strip()
+
+        if value >= self.MAXVAL:
+            raise OverflowError(self.errmsg_toobig % (value, self.MAXVAL))
+
+        val = self.splitnum(value)
+        outs = val
+        while len(val) != 1:
+            outs = []
+            left, right = val[:2]
+            if isinstance(left, tuple) and isinstance(right, tuple):
+                outs.append(self.merge(left, right))
+                if val[2:]:
+                    outs.append(val[2:])
+            else:
+                for elem in val:
+                    if isinstance(elem, list):
+                        if len(elem) == 1:
+                            outs.append(elem[0])
+                        else:
+                            outs.append(self.clean(elem))
+                    else:
+                        outs.append(('da'+str(elem[0]), elem[1]))
+            val = outs
+        words, num = outs[0]
+        #words, num = self.clean(val)
+        return self.title(out + words)
 
     def to_ordinal_num(self, value):
         # Before changing this function remember this is used by pt-BR
