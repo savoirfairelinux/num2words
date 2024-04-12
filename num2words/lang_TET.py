@@ -193,6 +193,21 @@ class Num2Word_TET(Num2Word_EU):
                         outs.append(('da'+str(elem[0]), elem[1]))
             val = outs
         words, num = outs[0]
+        if num in [90, 80, 70, 60, 50, 40, 30, 20, 10, 9, 8, 7, 5, 3, 2]:
+            words = 'da'+words+'k'
+        if num in [6,4]:
+            words = 'da'+words
+        if num == 1:
+            words = 'dahuluk'
+        if num in [900, 800, 700, 600, 500, 400, 300, 200, 100]:
+            words = words+'k'
+        liafuan = words.split()
+        liafuan_primeiro =  liafuan[0]
+        if liafuan_primeiro == 'daatus' and len(liafuan) >=3:
+            liafuan_segundo = liafuan[1]+'k'
+            liafuan_terseiro = " ".join(liafuan[2:])
+            words = liafuan_primeiro+" "+liafuan_segundo+" "+lianfuan_terseiro
+
         #words, num = self.clean(val)
         return self.title(out + words)
 
