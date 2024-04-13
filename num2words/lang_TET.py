@@ -217,14 +217,14 @@ class Num2Word_TET(Num2Word_EU):
 
         word_first =  'dah'+words_split[0]
         if word_first == 'dahatus' and len(words_split) >=3:
-            word_second = " ".join(words_split[2:])
+            word_second = " ".join(words_split[1:])
             if 'haat' in word_second or 'neen' in word_second:
                 words = word_first+" "+word_second
             else:
                 words = word_first+" "+word_second+'k'
 
         if len(str(num)) > 3:
-            if 'haat' in words or 'neen' in words:
+            if 'haat' in words_split[-1:] or 'neen' in words_split[-1:]:
                 words = 'da'+words
             else:
                 words = 'da'+words+'k'
