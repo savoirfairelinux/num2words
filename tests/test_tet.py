@@ -361,18 +361,18 @@ class Num2WordsTETTest(TestCase):
             self.n2w.to_currency(1.00, currency='CHF')
 
     def test_currency_integer_negative(self):
-        self.assertEqual(self.n2w.to_currency(-1.00), 'menus ida dólar')
+        self.assertEqual(self.n2w.to_currency(-1.00), 'menus dolar ida')
         self.assertEqual(
             self.n2w.to_currency(-256.00),
-            'menus atus rua limanulu resin neen dólares'
+            'menus dolar atus rua limanulu resin neen'
         )
-        self.assertEqual(self.n2w.to_currency(-1000.00), 'menus rihun ida dólares')
+        self.assertEqual(self.n2w.to_currency(-1000.00), 'menus dolar rihun ida')
         self.assertEqual(
-            self.n2w.to_currency(-1000000.00), 'menus miliaun ida dólares'
+            self.n2w.to_currency(-1000000.00), 'menus dolar miliaun ida'
         )
         self.assertEqual(
             self.n2w.to_currency(-1234567.00),
-            'menus miliaun ida rihun atus rua tolunulu resin haat atus lima neenulu resin hitu dólares'
+            'menus dolar miliaun ida rihun atus rua tolunulu resin haat atus lima neenulu resin hitu'
         )
 
     def test_currency_float(self):
