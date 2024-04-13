@@ -404,19 +404,19 @@ class Num2WordsTETTest(TestCase):
     def test_currency_float_negative(self):
         self.assertEqual(
             self.n2w.to_currency(Decimal('-2.34')),
-            'menus rua dólares resin tolunulu resin haat cêntimus'
+            'menus dolar rua sentavu tolunulu resin haat'
         )
         self.assertEqual(
             self.n2w.to_currency(Decimal('-9.99')),
-            'menus sia dólares resin sianulu resin sia cêntimus'
+            'menus dolar sia sentavu sianulu resin sia'
         )
         self.assertEqual(
             self.n2w.to_currency(Decimal('-7.01')),
-            'menus hitu dólares resin ida cêntimu'
+            'menus dolar hitu sentavu ida'
         )
         self.assertEqual(
             self.n2w.to_currency(Decimal('-222.22')),
-            'menus atus rua ruanulu resin rua dólares resin ruanulu resin rua cêntimus'
+            'menus dolar atus rua ruanulu resin rua sentavu ruanulu resin rua'
         )
 
     def test_year(self):
