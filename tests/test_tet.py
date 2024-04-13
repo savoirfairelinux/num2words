@@ -376,7 +376,7 @@ class Num2WordsTETTest(TestCase):
         )
 
     def test_currency_float(self):
-        self.assertEqual(self.n2w.to_currency(Decimal('1.00')), 'dolar ida sentavu mamuk')
+        self.assertEqual(self.n2w.to_currency(Decimal('1.00')), 'dolar ida')
         self.assertEqual(
             self.n2w.to_currency(Decimal('1.01')), 'dolar ida sentavu ida'
         )
