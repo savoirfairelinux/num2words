@@ -376,29 +376,28 @@ class Num2WordsTETTest(TestCase):
         )
 
     def test_currency_float(self):
-        self.assertEqual(self.n2w.to_currency(Decimal('1.00')), 'ida dólar')
+        self.assertEqual(self.n2w.to_currency(Decimal('1.00')), 'dolar ida')
         self.assertEqual(
-            self.n2w.to_currency(Decimal('1.01')), 'ida dólar resin ida cêntimu'
+            self.n2w.to_currency(Decimal('1.01')), 'dolar ida sentavu ida'
         )
         self.assertEqual(
-            self.n2w.to_currency(Decimal('1.03')), 'ida dólar resin tolu cêntimus'
+            self.n2w.to_currency(Decimal('1.03')), 'dolar ida sentavu tolu'
         )
         self.assertEqual(
             self.n2w.to_currency(Decimal('1.35')),
-            'ida dólar resin tolunulu resin lima cêntimus'
+            'dolar ida sentavu tolunulu resin lima'
         )
         self.assertEqual(
             self.n2w.to_currency(Decimal('3.14')),
-            'tolu dólares resin sanulu resin haat cêntimus'
+            'dolar tolu sentavu sanulu resin haat'
         )
         self.assertEqual(
             self.n2w.to_currency(Decimal('101.22')),
-            'atus ida resin ida dólares resin ruanulu resin rua cêntimus'
+            'dolar atus ida resin ida sentavu ruanulu resin rua'
         )
         self.assertEqual(
             self.n2w.to_currency(Decimal('2345.75')),
-            'rihun rua atus tolu haatnulu resin lima dólares resin hitunulu resin lima cêntimus'
-
+            'dolar rihun rua atus tolu haatnulu resin lima sentavu hitunulu resin lima'
         )
 
     def test_currency_float_negative(self):

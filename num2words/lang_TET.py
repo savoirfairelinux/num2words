@@ -274,11 +274,18 @@ class Num2Word_TET(Num2Word_EU):
         cents_str = self._cents_verbose(right, currency) \
             if cents else self._cents_terse(right, currency)
 
-        return u'%s%s %s %s %s' % (
-            minus_str,
-            self.pluralize(left, cr1),
-            money_str,
-            self.pluralize(right, cr2),
-            cents_str
-        )
+        if right == 0:
+            return u'%s%s %s' % (
+                minus_str,
+                self.pluralize(left, cr1),
+                money_str
+            )
+        else:
+            return u'%s%s %s %s %s' % (
+                minus_str,
+                self.pluralize(left, cr1),
+                money_str,
+                self.pluralize(right, cr2),
+                cents_str
+            )
 
