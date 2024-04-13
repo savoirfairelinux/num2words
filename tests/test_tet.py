@@ -361,44 +361,43 @@ class Num2WordsTETTest(TestCase):
             self.n2w.to_currency(1.00, currency='CHF')
 
     def test_currency_integer_negative(self):
-        self.assertEqual(self.n2w.to_currency(-1.00), 'menus ida dólar')
+        self.assertEqual(self.n2w.to_currency(-1.00), 'menus dolar ida')
         self.assertEqual(
             self.n2w.to_currency(-256.00),
-            'menus atus rua limanulu resin neen dólares'
+            'menus dolar atus rua limanulu resin neen'
         )
-        self.assertEqual(self.n2w.to_currency(-1000.00), 'menus rihun ida dólares')
+        self.assertEqual(self.n2w.to_currency(-1000.00), 'menus dolar rihun ida')
         self.assertEqual(
-            self.n2w.to_currency(-1000000.00), 'menus miliaun ida dólares'
+            self.n2w.to_currency(-1000000.00), 'menus dolar miliaun ida'
         )
         self.assertEqual(
             self.n2w.to_currency(-1234567.00),
-            'menus miliaun ida rihun atus rua tolunulu resin haat atus lima neenulu resin hitu dólares'
+            'menus dolar miliaun ida rihun atus rua tolunulu resin haat atus lima neenulu resin hitu'
         )
 
     def test_currency_float(self):
-        self.assertEqual(self.n2w.to_currency(Decimal('1.00')), 'ida dólar')
+        self.assertEqual(self.n2w.to_currency(Decimal('1.00')), 'dolar ida')
         self.assertEqual(
-            self.n2w.to_currency(Decimal('1.01')), 'ida dólar resin ida cêntimu'
+            self.n2w.to_currency(Decimal('1.01')), 'dolar ida sentavu ida'
         )
         self.assertEqual(
-            self.n2w.to_currency(Decimal('1.03')), 'ida dólar resin tolu cêntimus'
+            self.n2w.to_currency(Decimal('1.03')), 'dolar ida sentavu tolu'
         )
         self.assertEqual(
             self.n2w.to_currency(Decimal('1.35')),
-            'ida dólar resin tolunulu resin lima cêntimus'
+            'dolar ida sentavu tolunulu resin lima'
         )
         self.assertEqual(
             self.n2w.to_currency(Decimal('3.14')),
-            'tolu dólares resin sanulu resin haat cêntimus'
+            'dolar tolu sentavu sanulu resin haat'
         )
         self.assertEqual(
             self.n2w.to_currency(Decimal('101.22')),
-            'atus ida resin ida dólares resin ruanulu resin rua cêntimus'
+            'dolar atus ida resin ida sentavu ruanulu resin rua'
         )
         self.assertEqual(
             self.n2w.to_currency(Decimal('2345.75')),
-            'rihun rua atus tolu haatnulu resin lima dólares resin hitunulu resin lima cêntimus'
-
+            'dolar rihun rua atus tolu haatnulu resin lima sentavu hitunulu resin lima'
         )
 
     def test_currency_float_negative(self):
