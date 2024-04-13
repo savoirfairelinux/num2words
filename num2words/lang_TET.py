@@ -59,51 +59,6 @@ class Num2Word_TET(Num2Word_EU):
             "sia", "ualu", "hitu", "neen", "lima", "haat", "tolu", "rua",
             "ida", "mamuk"
         ]
-        self.ords = [
-            {
-                0: "",
-                1: "dahuluk",
-                2: "daruak",
-                3: "datoluk",
-                4: "dahaat",
-                5: "dalimak",
-                6: "daneen",
-                7: "dahituk",
-                8: "daualuk",
-                9: "dasiak",
-            },
-            {
-                0: "",
-                1: "dasanuluk",
-                2: "daruanuluk",
-                3: "datolunuluk",
-                4: "dahaatnuluk",
-                5: "dalimanuluk",
-                6: "daneenuluk",
-                7: "dahitunuluk",
-                8: "daualunuk",
-                9: "dasianuluk",
-            },
-            {
-                0: "",
-                1: "daatus idak",
-                2: "daatus ruak",
-                3: "daatus toluk",
-                4: "daatus haat",
-                5: "daatus limak",
-                6: "daatus neen",
-                7: "daatus hituk",
-                8: "daatus ualuk",
-                9: "daatus siak",
-            },
-        ]
-        self.thousand_separators = {
-            3: "darihun",
-            6: "damiliaun",
-            9: "darihun damiliaun",
-            12: "dabiliaun",
-            15: "darihun dabiliaun"
-        }
         self.hundreds = {
             1: "atus",
             2: "atus rua",
@@ -132,12 +87,6 @@ class Num2Word_TET(Num2Word_EU):
 
     def to_cardinal(self, value):
         result = super().to_cardinal(value)
-
-        # Transforms "mil e cento e catorze" into "mil cento e catorze"
-        # Transforms "cem milhões e duzentos mil e duzentos e dez" em "cem
-        # milhões duzentos mil duzentos e dez" but "cem milhões e duzentos
-        # mil e duzentos" in "cem milhões duzentos mil e duzentos" and not in
-        # "cem milhões duzentos mil duzentos"
         for ext in (
                 'rihun', 'miliaun','miliaun rihun',
                 'biliaun', 'biliaun rihun'):
@@ -148,17 +97,7 @@ class Num2Word_TET(Num2Word_EU):
 
         return result
 
-    # for the ordinal conversion the code is similar to pt_BR code,
-    # although there are other rules that are probably more correct in
-    # Portugal. Concerning numbers from 2000th on, saying "dois
-    # milésimos" instead of "segundo milésimo" (the first number
-    # would be used in the cardinal form instead of the ordinal) is better.
-    # This was not implemented.
-    # source:
-    # https://ciberduvidas.iscte-iul.pt/consultorio/perguntas/a-forma-por-extenso-de-2000-e-de-outros-ordinais/16428
     def to_ordinal(self, value):
-        # Before changing this function remember this is used by pt-BR
-        # so act accordingly
         self.verify_ordinal(value)
         try:
             assert int(value) == value
@@ -232,14 +171,10 @@ class Num2Word_TET(Num2Word_EU):
         return self.title(out + words)
 
     def to_ordinal_num(self, value):
-        # Before changing this function remember this is used by pt-BR
-        # so act accordingly
         self.verify_ordinal(value)
         return "%sº" % (value)
 
     def to_year(self, val, longval=True):
-        # Before changing this function remember this is used by pt-BR
-        # so act accordingly
         if val < 0:
             return self.to_cardinal(abs(val)) + ' antes Kristu'
         return self.to_cardinal(val)
