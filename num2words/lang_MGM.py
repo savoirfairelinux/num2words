@@ -48,14 +48,14 @@ class Num2Word_MGM(Num2Word_EU):
         self.exclude_title = ["resi", "vírgula", "menus"]
 
         self.mid_numwords = [
-            (1000, "rihun"), (100, "atus"), (90, "guul hohopaat"),
-            (80, "guul hohoteul"), (70, "guul hohoruu"), (60, "guul hohoniid"),
-            (50, "guul liim"), (40, "guul paat"), (30, "guul teul"),
+            (1000, "rihun"), (100, "atus"), (90, "guul hoho paat"),
+            (80, "guul hoho teil"), (70, "guul hoho ruu"), (60, "guul hohon iid"),
+            (50, "guul liim"), (40, "guul paat"), (30, "guul teil"),
             (20, "guul ruu")
         ]
         self.low_numwords = [
             "saguul",
-            "hoho paat", "hoho teul", "hohon ruu", "hohon iid", "liim", "paat", "teul", "ruu",
+            "hoho paat", "hoho teil", "hoho ruu", "hohon iid", "liim", "paat", "teil", "ruu",
             "iid", "mamu"
         ]
         self.ords = [
@@ -63,36 +63,36 @@ class Num2Word_MGM(Num2Word_EU):
                 0: "",
                 1: "daiid",
                 2: "daruu",
-                3: "dateul",
+                3: "dateil",
                 4: "dapaat",
                 5: "daliim",
                 6: "dahohon iid",
                 7: "dahohon ruu",
-                8: "dahoho teul",
+                8: "dahoho teil",
                 9: "dahoho paat",
             },
             {
                 0: "",
                 1: "dasaguul",
                 2: "daguul ruu",
-                3: "daguul teul",
+                3: "daguul teil",
                 4: "daguul paat",
                 5: "daguul liim",
                 6: "daguul hohon iid",
                 7: "daguul hohon ruu",
-                8: "daguul hoho teul",
+                8: "daguul hoho teil",
                 9: "daguul hoho paat",
             },
             {
                 0: "",
                 1: "daatus iid",
                 2: "daatus ruu",
-                3: "daatus teul",
+                3: "daatus teil",
                 4: "daatus paat",
                 5: "daatus liim",
                 6: "daatus hohon iid",
                 7: "daatus hohon ruu",
-                8: "daatus hoho teul",
+                8: "daatus hoho teil",
                 9: "daatus hoho paat",
             },
         ]
@@ -106,12 +106,12 @@ class Num2Word_MGM(Num2Word_EU):
         self.hundreds = {
             1: "atus iid",
             2: "atus ruu",
-            3: "atus teul",
+            3: "atus teil",
             4: "atus paat",
             5: "atus liim",
             6: "atus hohon iid",
             7: "atus hohon ruu",
-            8: "atus hoho teul",
+            8: "atus hoho teil",
             9: "atus hoho paat",
         }
 
