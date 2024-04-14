@@ -86,15 +86,15 @@ class Num2Word_TET(Num2Word_EU):
             },
             {
                 0: "",
-                1: "daatusidak",
-                2: "daatusruak",
-                3: "daatustoluk",
-                4: "daatushaat",
-                5: "daatuslimak",
-                6: "daatusneen",
-                7: "daatushituk",
-                8: "daatusualuk",
-                9: "daatussiak",
+                1: "daatus idak",
+                2: "daatus ruak",
+                3: "daatus toluk",
+                4: "daatus haat",
+                5: "daatus limak",
+                6: "daatus neen",
+                7: "daatus hituk",
+                8: "daatus ualuk",
+                9: "daatus siak",
             },
         ]
         self.thousand_separators = {
@@ -160,32 +160,76 @@ class Num2Word_TET(Num2Word_EU):
         # Before changing this function remember this is used by pt-BR
         # so act accordingly
         self.verify_ordinal(value)
+        try:
+            assert int(value) == value
+        except (ValueError, TypeError, AssertionError):
+            return self.to_cardinal_float(value)
 
-        result = []
-        value = str(value)
-        thousand_separator = ''
+        out = ""
+        if value < 0:
+            value = abs(value)
+            out = "%s " % self.negword.strip()
 
-        for idx, char in enumerate(value[::-1]):
-            if idx and idx % 3 == 0:
-                thousand_separator = self.thousand_separators[idx]
+        if value >= self.MAXVAL:
+            raise OverflowError(self.errmsg_toobig % (value, self.MAXVAL))
 
-            if char != '0' and thousand_separator:
-                # avoiding "segundo milionésimo milésimo" for 6000000,
-                # for instance
-                result.append(thousand_separator)
-                thousand_separator = ''
+        val = self.splitnum(value)
+        outs = val
+        while len(val) != 1:
+            outs = []
+            left, right = val[:2]
+            if isinstance(left, tuple) and isinstance(right, tuple):
+                outs.append(self.merge(left, right))
+                if val[2:]:
+                    outs.append(val[2:])
+            else:
+                for elem in val:
+                    if isinstance(elem, list):
+                        if len(elem) == 1:
+                            outs.append(elem[0])
+                        else:
+                            outs.append(self.clean(elem))
+                    else:
+                        outs.append(elem)
+            val = outs
 
-            result.append(self.ords[idx % 3][int(char)])
+        words, num = outs[0]
 
-        result = ' '.join(result[::-1])
-        result = result.strip()
-        result = re.sub('\\s+', ' ', result)
+        if num in [90, 80, 70, 60, 50, 40, 30, 20, 10, 9, 8, 7, 5, 3, 2]:
+            words = 'da'+words+'k'
+        if num in [6,4]:
+            words = 'da'+words
+        if num == 1:
+            words = 'dahuluk'
+        if num in [900, 800, 700, 500, 300, 200, 100]:
+            words = 'dah'+words+'k'
+        if num in [600, 400]:
+            words = 'dah'+words
 
-        if result.startswith('primeiru') and value != '1':
-            # avoiding "primeiro milésimo", "primeiro milionésimo" and so on
-            result = result[9:]
+        words_split = words.split()
+        if len(words_split) >= 3 and num < 100:
+            first_word = 'da'+words_split[0]
+            second_word = " ".join(words_split[1:])
+            if 'haat' in second_word or 'neen' in second_word:
+                words = first_word+" "+second_word
+            else:
+                words = first_word+" "+second_word+'k'
 
-        return result
+        word_first =  'dah'+words_split[0]
+        if word_first == 'dahatus' and len(words_split) >=3:
+            word_second = " ".join(words_split[1:])
+            if 'haat' in word_second or 'neen' in word_second:
+                words = word_first+" "+word_second
+            else:
+                words = word_first+" "+word_second+'k'
+
+        if len(str(num)) > 3:
+            if 'haat' in words_split[-1:] or 'neen' in words_split[-1:]:
+                words = 'da'+words
+            else:
+                words = 'da'+words+'k'
+
+        return self.title(out + words)
 
     def to_ordinal_num(self, value):
         # Before changing this function remember this is used by pt-BR
@@ -230,11 +274,18 @@ class Num2Word_TET(Num2Word_EU):
         cents_str = self._cents_verbose(right, currency) \
             if cents else self._cents_terse(right, currency)
 
-        return u'%s%s %s %s %s' % (
-            minus_str,
-            self.pluralize(left, cr1),
-            money_str,
-            self.pluralize(right, cr2),
-            cents_str
-        )
+        if right == 0:
+            return u'%s%s %s' % (
+                minus_str,
+                self.pluralize(left, cr1),
+                money_str
+            )
+        else:
+            return u'%s%s %s %s %s' % (
+                minus_str,
+                self.pluralize(left, cr1),
+                money_str,
+                self.pluralize(right, cr2),
+                cents_str
+            )
 
