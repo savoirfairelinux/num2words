@@ -146,6 +146,16 @@ class Num2Word_TET(Num2Word_EU):
                     f'{ext} resin', f'{ext}'
                 )
 
+        if int(value) > 100:
+            value_str = str(value)
+            list_number = ['1', '2','3', '4', '5', '6', '7', '8', '9']
+            if value_str[0] in list_number and value_str[-1] in list_number:
+                zero_list = value_str[1:-1]
+                all_zero = all(element == '0' for element in zero_list)
+                if all_zero:
+                    result = result.replace("resin", "")
+                    result = result.replace("  ", " ")
+
         return result
 
     # for the ordinal conversion the code is similar to pt_BR code,
@@ -229,7 +239,20 @@ class Num2Word_TET(Num2Word_EU):
             else:
                 words = 'da'+words+'k'
 
-        return self.title(out + words)
+        result = self.title(out + words)
+
+        if int(value) > 100:
+            value_str = str(value)
+            list_number = ['1', '2','3', '4', '5', '6', '7', '8', '9']
+            if value_str[0] in list_number and value_str[-1] in list_number:
+                zero_list = value_str[1:-1]
+                all_zero = all(element == '0' for element in zero_list)
+                if all_zero:
+                    result = result.replace("resin", "")
+                    result = result.replace("  ", " ")
+
+        return result
+
 
     def to_ordinal_num(self, value):
         # Before changing this function remember this is used by pt-BR

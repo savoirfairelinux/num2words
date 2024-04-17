@@ -57,8 +57,8 @@ class Num2WordsTETTest(TestCase):
         self.assertEqual(num2words(99, lang='tet'), 'sianulu resin sia')
 
         self.assertEqual(num2words(100, lang='tet'), 'atus ida')
-        self.assertEqual(num2words(101, lang='tet'), 'atus ida resin ida')
-        self.assertEqual(num2words(107, lang='tet'), 'atus ida resin hitu')
+        self.assertEqual(num2words(101, lang='tet'), 'atus ida ida')
+        self.assertEqual(num2words(107, lang='tet'), 'atus ida hitu')
         self.assertEqual(num2words(110, lang='tet'), 'atus ida sanulu')
         self.assertEqual(num2words(114, lang='tet'), 'atus ida sanulu resin haat')
         self.assertEqual(num2words(128, lang='tet'), 'atus ida ruanulu resin ualu')
@@ -67,7 +67,7 @@ class Num2WordsTETTest(TestCase):
         self.assertEqual(num2words(999, lang='tet'), 'atus sia sianulu resin sia')
 
         self.assertEqual(num2words(1000, lang='tet'), 'rihun ida')
-        self.assertEqual(num2words(1001, lang='tet'), 'rihun ida resin ida')
+        self.assertEqual(num2words(1001, lang='tet'), 'rihun ida ida')
         self.assertEqual(num2words(1011, lang='tet'), 'rihun ida sanulu resin ida')
         self.assertEqual(num2words(1111, lang='tet'), 'rihun ida atus ida sanulu resin ida')
         self.assertEqual(num2words(2357, lang='tet'), 'rihun rua atus tolu limanulu resin hitu')
@@ -154,7 +154,7 @@ class Num2WordsTETTest(TestCase):
         )
         self.assertEqual(
             num2words(Decimal('101.22'), lang='tet'),
-            'atus ida resin ida vírgula rua rua'
+            'atus ida ida vírgula rua rua'
         )
         self.assertEqual(
             num2words(Decimal('2345.75'), lang='tet'),
@@ -239,7 +239,7 @@ class Num2WordsTETTest(TestCase):
             num2words(100, lang='tet', ordinal=True), 'dahatus idak'
         )
         self.assertEqual(
-            num2words(101, lang='tet', ordinal=True), 'dahatus ida resin idak'
+            num2words(101, lang='tet', ordinal=True), 'dahatus ida idak'
         )
         self.assertEqual(
             num2words(128, lang='tet', ordinal=True),
@@ -254,7 +254,7 @@ class Num2WordsTETTest(TestCase):
             num2words(1000, lang='tet', ordinal=True), 'darihun idak'
         )
         self.assertEqual(
-            num2words(1001, lang='tet', ordinal=True), 'darihun ida resin idak'
+            num2words(1001, lang='tet', ordinal=True), 'darihun ida idak'
         )
         self.assertEqual(
             num2words(1111, lang='tet', ordinal=True),
@@ -317,7 +317,7 @@ class Num2WordsTETTest(TestCase):
         self.assertEqual(self.n2w.to_currency(99.00), 'dolar sianulu resin sia')
 
         self.assertEqual(self.n2w.to_currency(100.00), 'dolar atus ida')
-        self.assertEqual(self.n2w.to_currency(101.00), 'dolar atus ida resin ida')
+        self.assertEqual(self.n2w.to_currency(101.00), 'dolar atus ida ida')
         self.assertEqual(
             self.n2w.to_currency(128.00), 'dolar atus ida ruanulu resin ualu'
         )
@@ -325,7 +325,7 @@ class Num2WordsTETTest(TestCase):
             self.n2w.to_currency(713.00), 'dolar atus hitu sanulu resin tolu')
 
         self.assertEqual(self.n2w.to_currency(1000.00), 'dolar rihun ida')
-        self.assertEqual(self.n2w.to_currency(1001.00), 'dolar rihun ida resin ida')
+        self.assertEqual(self.n2w.to_currency(1001.00), 'dolar rihun ida ida')
         self.assertEqual(
             self.n2w.to_currency(1111.00), 'dolar rihun ida atus ida sanulu resin ida')
         self.assertEqual(
@@ -393,7 +393,7 @@ class Num2WordsTETTest(TestCase):
         )
         self.assertEqual(
             self.n2w.to_currency(Decimal('101.22')),
-            'dolar atus ida resin ida sentavu ruanulu resin rua'
+            'dolar atus ida ida sentavu ruanulu resin rua'
         )
         self.assertEqual(
             self.n2w.to_currency(Decimal('2345.75')),
@@ -419,7 +419,7 @@ class Num2WordsTETTest(TestCase):
         )
 
     def test_year(self):
-        self.assertEqual(self.n2w.to_year(1001), 'rihun ida resin ida')
+        self.assertEqual(self.n2w.to_year(1001), 'rihun ida ida')
         self.assertEqual(
             self.n2w.to_year(1789), 'rihun ida atus hitu ualunulu resin sia'
         )
@@ -430,7 +430,7 @@ class Num2WordsTETTest(TestCase):
             self.n2w.to_year(1984), 'rihun ida atus sia ualunulu resin haat'
         )
         self.assertEqual(self.n2w.to_year(2000), 'rihun rua')
-        self.assertEqual(self.n2w.to_year(2001), 'rihun rua resin ida')
+        self.assertEqual(self.n2w.to_year(2001), 'rihun rua ida')
         self.assertEqual(self.n2w.to_year(2016), 'rihun rua sanulu resin neen')
 
     def test_year_negative(self):
