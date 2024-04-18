@@ -34,6 +34,7 @@ CONVERTER_CLASSES = {
     'by': lang_BY.Num2Word_BY(),
     'ce': lang_CE.Num2Word_CE(),
     'cy': lang_CY.Num2Word_CY(),
+    'cs': lang_CZ.Num2Word_CZ(),
     'cz': lang_CZ.Num2Word_CZ(),
     'en': lang_EN.Num2Word_EN(),
     'en_IN': lang_EN_IN.Num2Word_EN_IN(),
