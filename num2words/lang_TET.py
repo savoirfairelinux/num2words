@@ -47,6 +47,7 @@ class Num2Word_TET(Num2Word_EU):
         self.negword = "menus "
         self.pointword = "vírgula"
         self.exclude_title = ["resin", "vírgula", "menus"]
+        self.count = 0
 
         self.mid_numwords = [
             (1000, "rihun"), (100, "atus"), (90, "sianulu"),
@@ -131,6 +132,10 @@ class Num2Word_TET(Num2Word_EU):
                         zero_list = value_str[1:-1]
                         all_zero = all(element == '0' for element in zero_list)
                         if all_zero:
+                            if self.count >= 1:
+                                self.count += 1
+                                return ("ho %s %s" % (ctext, ntext), cnum + nnum)
+                            self.count += 1
                             return ("%s %s" % (ctext, ntext), cnum + nnum)
 
                 return ("%s resin %s" % (ctext, ntext), cnum + nnum)
