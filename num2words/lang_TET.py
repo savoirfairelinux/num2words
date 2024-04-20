@@ -87,14 +87,6 @@ class Num2Word_TET(Num2Word_EU):
 
     def to_cardinal(self, value):
         result = super().to_cardinal(value)
-        for ext in (
-                'rihun', 'miliaun','miliaun rihun',
-                'biliaun', 'biliaun rihun'):
-            if re.match('.*{} resin \\w*entus? (?=.*resin)'.format(ext), result):
-                result = result.replace(
-                    f'{ext} resin', f'{ext}'
-                )
-
         return result
 
     def to_ordinal(self, value):
