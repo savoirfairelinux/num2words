@@ -42,7 +42,7 @@ class Num2Word_TET(Num2Word_EU):
 
     def setup(self):
         super().setup()
-        lows = ["quatr", "tr", "b", "m"]
+        lows = ["kuatr", "tr", "b", "m"]
         self.high_numwords = self.gen_high_numwords([], [], lows)
         self.negword = "menus "
         self.pointword = "vírgula"
@@ -133,7 +133,7 @@ class Num2Word_TET(Num2Word_EU):
                         all_zero = all(element == '0' for element in zero_list)
                         if all_zero:
                             if self.count >= 1:
-                                self.count += 1
+                                self.count += 0
                                 return ("ho %s %s" % (ctext, ntext), cnum + nnum)
                             self.count += 1
                             return ("%s %s" % (ctext, ntext), cnum + nnum)
@@ -143,6 +143,24 @@ class Num2Word_TET(Num2Word_EU):
                 return ("%s %s" % (ctext, ntext), cnum + nnum)
 
         return (ntext + " " + ctext, cnum * nnum)
+
+    def ho_result(self, result):
+        index = result.find('ho')
+        count_ho = result.count('ho')
+
+        if index != -1 and count_ho >= 2 :
+            index_rihun =  result.find('rihun')
+            if index_rihun != -1:
+                result = result.replace("rihun ho", "ho rihun")
+            lows = ["kuatr", "tr", "b", "m"]
+            MEGA_SUFFIX = "iliaun"
+            for low in lows:
+                result = result.replace(low + MEGA_SUFFIX +" ho", "ho "+ low + MEGA_SUFFIX)
+            remove_first_ho = result.startswith('ho')
+            if remove_first_ho:
+                result = result[3:]
+
+        return result
 
     def to_cardinal(self, value):
         result = super().to_cardinal(value)
@@ -160,7 +178,7 @@ class Num2Word_TET(Num2Word_EU):
                     f'{ext} resin', f'{ext}'
                 )
 
-        return result
+        return self.ho_result(result)
 
     # for the ordinal conversion the code is similar to pt_BR code,
     # although there are other rules that are probably more correct in
@@ -245,7 +263,7 @@ class Num2Word_TET(Num2Word_EU):
 
         result = self.title(out + words)
 
-        return result
+        return self.ho_result(result)
 
 
     def to_ordinal_num(self, value):
