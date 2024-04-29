@@ -147,7 +147,7 @@ class Num2Word_TET(Num2Word_EU):
         index = result.find('ho')
         count_ho = result.count('ho')
 
-        if index != -1 and count_ho >= 2 :
+        if index != -1 and count_ho >= 1 :
             index_rihun =  result.find('rihun')
             if index_rihun != -1:
                 result = result.replace("rihun ho", "ho rihun")
