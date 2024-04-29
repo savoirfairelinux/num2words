@@ -127,8 +127,7 @@ class Num2Word_TET(Num2Word_EU):
             if nnum < 10:
                 value_str = str(cnum + nnum)
                 if int(value_str) > 100:
-                    list_number = ['1', '2','3', '4', '5', '6', '7', '8', '9']
-                    if value_str[0] in list_number and value_str[-1] in list_number:
+                    if value_str[0] != '0' and value_str[-1] != '0':
                         zero_list = value_str[1:-1]
                         all_zero = all(element == '0' for element in zero_list)
                         if all_zero:
