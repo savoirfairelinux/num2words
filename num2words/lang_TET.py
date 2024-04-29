@@ -227,6 +227,8 @@ class Num2Word_TET(Num2Word_EU):
 
         words, num = outs[0]
 
+        words = self.ho_result(words)
+
         if num in [90, 80, 70, 60, 50, 40, 30, 20, 10, 9, 8, 7, 5, 3, 2]:
             words = 'da'+words+'k'
         if num in [6,4]:
@@ -263,7 +265,7 @@ class Num2Word_TET(Num2Word_EU):
 
         result = self.title(out + words)
 
-        return self.ho_result(result)
+        return result
 
 
     def to_ordinal_num(self, value):
