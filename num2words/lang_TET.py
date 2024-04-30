@@ -161,6 +161,25 @@ class Num2Word_TET(Num2Word_EU):
                 result = result[3:]
         return result
 
+    def remove_ho(self, result, value):
+        value_str = str(value)
+        result = self.ho_result(result, value)
+        remove_first_ho = result.startswith('ho')
+        if value <= 109 and remove_first_ho:
+            result = result[3:]
+        if remove_first_ho and value <= 10000:
+            if value > 110:
+                result = result[3:]
+        end_value = value_str[:-4]
+        end_true = end_value.endswith('0')
+        if end_true == False:
+            if value > 100:
+                if value_str[-1] != '0' and value_str[-2] == '0':
+                    result = result.replace("ho", "")
+                    result = result.replace("  ", " ")
+
+        return result
+
     def to_cardinal(self, value):
         result = super().to_cardinal(value)
 
@@ -176,18 +195,7 @@ class Num2Word_TET(Num2Word_EU):
                 result = result.replace(
                     f'{ext} resin', f'{ext}'
                 )
-        value_str = str(value)
-        result = self.ho_result(result, value)
-        remove_first_ho = result.startswith('ho')
-        if value <= 109 and remove_first_ho:
-            result = result[3:]
-        if remove_first_ho and value <= 10000:
-            if value > 110:
-                result = result[3:]
-        end_value = value_str[:-4]
-        if not end_value.endswith('0'):
-            result.replace("ho", "")
-            result.replace("  ", "")
+        result = self.remove_ho(result, value)
 
         return result
 
@@ -238,7 +246,7 @@ class Num2Word_TET(Num2Word_EU):
 
         words, num = outs[0]
 
-        words = self.ho_result(words, value)
+        words = self.remove_ho(words, value)
 
         if num in [90, 80, 70, 60, 50, 40, 30, 20, 10, 9, 8, 7, 5, 3, 2]:
             words = 'da'+words+'k'
