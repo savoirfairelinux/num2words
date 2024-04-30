@@ -143,13 +143,14 @@ class Num2Word_TET(Num2Word_EU):
 
         return (ntext + " " + ctext, cnum * nnum)
 
-    def ho_result(self, result):
+    def ho_result(self, result, value):
         index = result.find('ho')
         count_ho = result.count('ho')
 
         if index != -1 and count_ho >= 1 :
             index_rihun =  result.find('rihun')
-            if index_rihun != -1:
+            value_str = len(str(value))
+            if index_rihun != -1 and value_str > 7:
                 result = result.replace("rihun ho", "ho rihun")
             lows = ["kuatr", "tr", "b", "m"]
             MEGA_SUFFIX = "iliaun"
@@ -158,6 +159,24 @@ class Num2Word_TET(Num2Word_EU):
             remove_first_ho = result.startswith('ho')
             if remove_first_ho:
                 result = result[3:]
+        return result
+
+    def remove_ho(self, result, value):
+        value_str = str(value)
+        result = self.ho_result(result, value)
+        remove_first_ho = result.startswith('ho')
+        if value <= 109 and remove_first_ho:
+            result = result[3:]
+        if remove_first_ho and value <= 10000:
+            if value > 110:
+                result = result[3:]
+        end_value = value_str[:-4]
+        end_true = end_value.endswith('0')
+        if end_true == False:
+            if value > 100:
+                if value_str[-1] != '0' and value_str[-2] == '0':
+                    result = result.replace("ho", "")
+                    result = result.replace("  ", " ")
 
         return result
 
@@ -176,8 +195,9 @@ class Num2Word_TET(Num2Word_EU):
                 result = result.replace(
                     f'{ext} resin', f'{ext}'
                 )
+        result = self.remove_ho(result, value)
 
-        return self.ho_result(result)
+        return result
 
     # for the ordinal conversion the code is similar to pt_BR code,
     # although there are other rules that are probably more correct in
@@ -226,7 +246,7 @@ class Num2Word_TET(Num2Word_EU):
 
         words, num = outs[0]
 
-        words = self.ho_result(words)
+        words = self.remove_ho(words, value)
 
         if num in [90, 80, 70, 60, 50, 40, 30, 20, 10, 9, 8, 7, 5, 3, 2]:
             words = 'da'+words+'k'
