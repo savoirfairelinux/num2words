@@ -79,7 +79,7 @@ Besides the numerical argument, there are two main optional arguments, ``to:`` a
 * ``am`` (Amharic)
 * ``ar`` (Arabic)
 * ``az`` (Azerbaijani)
-* ``by`` (Belarusian)
+* ``be`` (Belarusian)
 * ``ce`` (Chechen)
 * ``cy`` (Welsh)
 * ``cz`` (Czech)
