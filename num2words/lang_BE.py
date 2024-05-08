@@ -94,6 +94,17 @@ TWENTIES = {
     9: "дзевяноста",
 }
 
+TWENTIES_ORD = (
+    ("дваццаць", "дваццаці"),
+    ("трыццаць", "трыццаці"),
+    ("сорак", "сарака"),
+    ("пяцьдзясят", "пяцідзясяці"),
+    ("шэсцьдзясят", "шaсцідзясяці"),
+    ("семдзесят", "сямідзесяці"),
+    ("восемдзесят", "васьмідзесяці"),
+    ("дзевяноста", "дзевяноста"),
+)
+
 HUNDREDS = {
     1: "сто",
     2: "дзвесце",
@@ -120,7 +131,7 @@ THOUSANDS = {
 }
 
 
-class Num2Word_BY(Num2Word_Base):
+class Num2Word_BE(Num2Word_Base):
     CURRENCY_FORMS = {
         "RUB": (
             ("расійскі рубель", "расійскія рублі", "расійскіх рублёў"),
@@ -138,6 +149,7 @@ class Num2Word_BY(Num2Word_Base):
             ("капейка", "капейкі", "капеек"),
         ),
         "UZS": (("сум", "сумы", "сумаў"), ("тыйін", "тыйіны", "тыйінаў")),
+        "PLN": (("злоты", "злотых", "злотых"), ("грош", "грошы", "грошаў")),
     }
 
     def setup(self):
@@ -204,6 +216,8 @@ class Num2Word_BY(Num2Word_Base):
 
     def to_ordinal(self, number, gender="m"):
         self.verify_ordinal(number)
+        if isinstance(gender, bool) and gender:
+            gender = "f"
         outwords = self.to_cardinal(number, gender).split(" ")
         lastword = outwords[-1].lower()
         try:
@@ -223,8 +237,6 @@ class Num2Word_BY(Num2Word_Base):
                 lastword = (
                     self.ords_adjective.get(lastword[:-3], lastword) + "соты"
                 )
-            elif lastword[-5:] == "шэсць":
-                lastword = "шосты"
             elif lastword[-7:] == "дзесяць":
                 lastword = "дзясяты"
             elif lastword[-9:] == "семдзесят":
@@ -242,6 +254,8 @@ class Num2Word_BY(Num2Word_Base):
 
             elif lastword[-1] == "н" or lastword[-2] == "н":
                 lastword = lastword[: lastword.rfind("н") + 1] + "ны"
+            elif lastword[-3:] == "наў":
+                lastword = lastword[: lastword.rfind("н") + 1] + "ны"
             elif lastword[-1] == "д" or lastword[-2] == "д":
                 lastword = lastword[: lastword.rfind("д") + 1] + "ны"
 
@@ -254,9 +268,7 @@ class Num2Word_BY(Num2Word_Base):
                 lastword = lastword[:-1] + "ая"
 
         if gender == "n":
-            if lastword[-2:] in [
-                "ці", "ца"
-            ]:
+            if lastword[-2:] in ["ці", "ца"]:
                 lastword = lastword[:-2] + "цяе"
             else:
                 lastword = lastword[:-1] + "ае"
@@ -266,16 +278,20 @@ class Num2Word_BY(Num2Word_Base):
             outwords[-2] = outwords[-1]
             del outwords[-1]
 
-        if len(outwords) > 2 and "тысяч" in outwords[-1]:
-            if 'сорак' in outwords[-3]:
-                outwords[-3] = outwords[-3].replace('сорак', 'сарака')
-            outwords[-3] = outwords[-3] + outwords[-2] + outwords[-1]
-            del outwords[-1]
-            del outwords[-1]
+        if len(outwords) > 1 and (
+            (any(x[0] in outwords[-1] for x in THOUSANDS.values()))
+            or "тысяч" in outwords[-1]
+        ):
+            new_outwords = []
+            for _w in outwords:
+                replacement = next(
+                    (x for x in TWENTIES_ORD if x[0] in _w), None
+                )
+                if replacement:
+                    _w = _w.replace(replacement[0], replacement[1])
+                new_outwords.append(_w)
+            outwords = ["".join(new_outwords)]
 
-        elif len(outwords) > 1 and "тысяч" in outwords[-1]:
-            outwords[-2] = outwords[-2] + outwords[-1]
-            del outwords[-1]
         return " ".join(outwords).strip()
 
     def _money_verbose(self, number, currency):
@@ -294,8 +310,6 @@ class Num2Word_BY(Num2Word_Base):
         return self._int2word(number, gender)
 
     def _int2word(self, n, gender="m"):
-        if isinstance(gender, bool) and gender:
-            gender = "f"
         if n < 0:
             return " ".join([self.negword, self._int2word(abs(n), gender)])
 
