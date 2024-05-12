@@ -328,7 +328,11 @@ class Num2Word_RU(Num2Word_Base):
         self.pointword_ord = make_ord_cases("цел", 1)
 
     def to_cardinal(self, number, case=D_CASE, plural=D_PLURAL,
-                    gender=D_GENDER, animate=D_ANIMATE):
+                    gender=D_GENDER, animate=D_ANIMATE, feminine=False):
+        # Backward compatibility
+        if feminine:
+            gender = 'f'
+
         n = str(number).replace(',', '.')
         if '.' in n:
             left, right = n.split('.')
@@ -368,7 +372,11 @@ class Num2Word_RU(Num2Word_Base):
         return forms[2]
 
     def to_ordinal(self, number, case=D_CASE, plural=D_PLURAL, gender=D_GENDER,
-                   animate=D_ANIMATE):
+                   animate=D_ANIMATE, feminine=False):
+        # Backward compatibility
+        if feminine:
+            gender = 'f'
+
         self.verify_ordinal(number)
         n = str(number).replace(',', '.')
         return self._int2word(int(n), cardinal=False, case=case, plural=plural,
@@ -384,12 +392,11 @@ class Num2Word_RU(Num2Word_Base):
             return self._int2word(number, gender='f')
         return self._int2word(number, gender='m')
 
-    def _int2word(self, n, feminine=False, cardinal=True, case=D_CASE,
+    def _int2word(self, n, cardinal=True, case=D_CASE,
                   plural=D_PLURAL, gender=D_GENDER, animate=D_ANIMATE):
         """
         Main function
         :param n: number of items
-        :param feminine: not used (for backward compatibility)
         :param cardinal: True(cardinal), False(ordinal)
         :param case: 'n'(nominative), 'g'(genitive), 'd'(dative),
           'a'(accusative),'i'(instrumental), 'p'(prepositional)
@@ -398,10 +405,6 @@ class Num2Word_RU(Num2Word_Base):
         :param animate: True(animate), False(inanimate)
         :return text
         """
-        # For backward compatibility
-        if feminine:
-            gender = 'f'
-
         kwargs = {'case': case, 'plural': plural, 'gender': gender,
                   'animate': animate}
 
@@ -436,7 +439,7 @@ class Num2Word_RU(Num2Word_Base):
                 if i > 0:
                     chunk_words.append(
                         self.pluralize(x, get_thousands_elements(i, case)))
-            # ordinal, not joined like 'двухтысячный'
+            # ordinal, not joined (not like 'двухтысячный')
             elif not (ord_join and rightest_nonzero_chunk_i == i):
                 chunk_words.extend(
                     self.__chunk_ordinal(n3, n2, n1, i, **kwargs)
@@ -447,14 +450,10 @@ class Num2Word_RU(Num2Word_Base):
                         self.pluralize(x, get_thousands_elements(i, t_case)))
             # ordinal, joined
             else:
-                chunk_words.extend(
-                    self.__chunk_ordinal_join(n3, n2, n1, i, **kwargs)
+                chunk_words.append(
+                    self.__chunk_ordinal_joined(n3, n2, n1, **kwargs) +
+                    get_mldir_value(THOUSANDS_ORD, i, **kwargs)
                 )
-                if i > 0:
-                    chunk_words.append(
-                        get_mldir_value(THOUSANDS_ORD, i, **kwargs))
-
-                chunk_words = [''.join(chunk_words)]
 
             words.extend(chunk_words)
 
@@ -517,7 +516,7 @@ class Num2Word_RU(Num2Word_Base):
 
         return words
 
-    def __chunk_ordinal_join(self, hundreds, tens, ones, chunk_num, **kwargs):
+    def __chunk_ordinal_joined(self, hundreds, tens, ones, **kwargs):
         words = []
 
         if hundreds > 1:
@@ -533,10 +532,8 @@ class Num2Word_RU(Num2Word_Base):
         if tens == 1:
             words.append(get_mldir_value(TENS, ones, case='g'))
         elif ones > 0:
-            if chunk_num == 0:
-                w_ones = get_mldir_value(ONES_ORD, ones, **kwargs)
             # тысячный, миллионнный и т.д., двадцатиодномиллионный
-            elif chunk_num > 0 and ones == 1 and tens != 1:
+            if ones == 1 and tens != 1:
                 if tens == 0 and hundreds == 0:
                     w_ones = None
                 else:
@@ -547,4 +544,4 @@ class Num2Word_RU(Num2Word_Base):
             if w_ones:
                 words.append(w_ones)
 
-        return words
+        return ''.join(words)

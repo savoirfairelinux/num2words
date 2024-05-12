@@ -519,3 +519,13 @@ class Num2WordsRUTest(TestCase):
             'одна тысяча двести тридцать четыре польских злотых, '
             'пятьдесят шесть грошей'
         )
+
+    def test_backward_compatibility(self):
+        self.assertEqual(
+            num2words(1, lang='ru', feminine=True),
+            'одна'
+        )
+        self.assertEqual(
+            num2words(1, lang='ru', to='ordinal', feminine=True),
+            'первая'
+        )
