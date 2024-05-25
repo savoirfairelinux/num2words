@@ -24,8 +24,8 @@ from . import (lang_AM, lang_AR, lang_AZ, lang_BY, lang_CE, lang_CY, lang_CZ,
                lang_FR_DZ, lang_HE, lang_HU, lang_ID, lang_IS, lang_IT,
                lang_JA, lang_KN, lang_KO, lang_KZ, lang_LT, lang_LV, lang_NL,
                lang_NO, lang_PL, lang_PT, lang_PT_BR, lang_RO, lang_RU,
-               lang_SK, lang_SL, lang_SR, lang_SV, lang_TE, lang_TET,
-               lang_TG, lang_TH, lang_TR, lang_UK, lang_VI)
+               lang_SK, lang_SL, lang_SR, lang_SV, lang_TE, lang_TET, lang_TG,
+               lang_TH, lang_TR, lang_UK, lang_VI)
 
 CONVERTER_CLASSES = {
     'am': lang_AM.Num2Word_AM(),
