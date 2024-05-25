@@ -18,7 +18,7 @@
 from __future__ import unicode_literals
 
 from decimal import Decimal
-from unittest import TestCase, skip
+from unittest import TestCase
 
 from num2words import num2words
 from num2words.lang_TET import Num2Word_TET
@@ -60,26 +60,62 @@ class Num2WordsTETTest(TestCase):
         self.assertEqual(num2words(101, lang='tet'), 'atus ida ida')
         self.assertEqual(num2words(107, lang='tet'), 'atus ida hitu')
         self.assertEqual(num2words(110, lang='tet'), 'atus ida sanulu')
-        self.assertEqual(num2words(114, lang='tet'), 'atus ida sanulu resin haat')
-        self.assertEqual(num2words(128, lang='tet'), 'atus ida ruanulu resin ualu')
-        self.assertEqual(num2words(151, lang='tet'), 'atus ida limanulu resin ida')
-        self.assertEqual(num2words(713, lang='tet'), 'atus hitu sanulu resin tolu')
-        self.assertEqual(num2words(999, lang='tet'), 'atus sia sianulu resin sia')
+        self.assertEqual(
+            num2words(114, lang='tet'),
+            'atus ida sanulu resin haat'
+        )
+        self.assertEqual(
+            num2words(128, lang='tet'),
+            'atus ida ruanulu resin ualu'
+        )
+        self.assertEqual(
+            num2words(151, lang='tet'),
+            'atus ida limanulu resin ida'
+        )
+        self.assertEqual(
+            num2words(713, lang='tet'),
+            'atus hitu sanulu resin tolu'
+        )
+        self.assertEqual(
+            num2words(999, lang='tet'),
+            'atus sia sianulu resin sia'
+        )
 
         self.assertEqual(num2words(1000, lang='tet'), 'rihun ida')
         self.assertEqual(num2words(1001, lang='tet'), 'rihun ida ida')
-        self.assertEqual(num2words(1011, lang='tet'), 'rihun ida sanulu resin ida')
-        self.assertEqual(num2words(1111, lang='tet'), 'rihun ida atus ida sanulu resin ida')
-        self.assertEqual(num2words(2357, lang='tet'), 'rihun rua atus tolu limanulu resin hitu')
+        self.assertEqual(
+            num2words(1011, lang='tet'),
+            'rihun ida sanulu resin ida'
+        )
+        self.assertEqual(
+            num2words(1111, lang='tet'),
+            'rihun ida atus ida sanulu resin ida'
+        )
+        self.assertEqual(
+            num2words(2357, lang='tet'),
+            'rihun rua atus tolu limanulu resin hitu'
+        )
         self.assertEqual(
             num2words(2200, lang='tet'),
             'rihun rua atus rua'
         )
-        self.assertEqual(num2words(2230, lang='tet'), 'rihun rua atus rua tolunulu')
-        self.assertEqual(num2words(73400, lang='tet'), 'rihun hitunulu resin tolu atus haat')
-        self.assertEqual(num2words(73421, lang='tet'), 'rihun hitunulu resin tolu atus haat ruanulu resin ida')
+        self.assertEqual(
+            num2words(2230, lang='tet'),
+            'rihun rua atus rua tolunulu'
+        )
+        self.assertEqual(
+            num2words(73400, lang='tet'),
+            'rihun hitunulu resin tolu atus haat'
+        )
+        self.assertEqual(
+            num2words(73421, lang='tet'),
+            'rihun hitunulu resin tolu atus haat ruanulu resin ida'
+        )
         self.assertEqual(num2words(100000, lang='tet'), 'rihun atus ida')
-        self.assertEqual(num2words(250050, lang='tet'), 'rihun atus rua limanulu limanulu')
+        self.assertEqual(
+            num2words(250050, lang='tet'),
+            'rihun atus rua limanulu limanulu'
+        )
         self.assertEqual(
             num2words(6000000, lang='tet'), 'miliaun neen'
         )
@@ -87,7 +123,8 @@ class Num2WordsTETTest(TestCase):
             num2words(100000000, lang='tet'), 'miliaun atus ida'
         )
         self.assertEqual(
-            num2words(19000000000, lang='tet'), 'miliaun rihun sanulu resin sia'
+            num2words(19000000000, lang='tet'),
+            'miliaun rihun sanulu resin sia'
         )
         self.assertEqual(
             num2words(145000000002, lang='tet'),
@@ -99,7 +136,8 @@ class Num2WordsTETTest(TestCase):
         )
         self.assertEqual(
             num2words(145254635102, lang='tet'),
-            'miliaun rihun atus ida haatnulu resin lima atus rua limanulu resin haat rihun atus neen tolunulu resin lima atus ida rua'
+            "miliaun rihun atus ida haatnulu resin lima atus rua limanulu \
+resin haat rihun atus neen tolunulu resin lima atus ida rua"
         )
         self.assertEqual(
             num2words(1000000000000, lang='tet'),
@@ -135,7 +173,8 @@ class Num2WordsTETTest(TestCase):
         self.assertEqual(num2words(-1000000, lang='tet'), 'menus miliaun ida')
         self.assertEqual(
             num2words(-1234567, lang='tet'),
-            'menus miliaun ida rihun atus rua tolunulu resin haat atus lima neenulu resin hitu'
+            'menus miliaun ida rihun atus rua tolunulu resin \
+haat atus lima neenulu resin hitu'
         )
 
     def test_cardinal_float(self):
@@ -160,7 +199,6 @@ class Num2WordsTETTest(TestCase):
             num2words(Decimal('2345.75'), lang='tet'),
             'rihun rua atus tolu haatnulu resin lima vírgula hitu lima'
         )
-
 
     def test_cardinal_float_negative(self):
         self.assertEqual(
@@ -302,19 +340,52 @@ class Num2WordsTETTest(TestCase):
         self.assertEqual(self.n2w.to_currency(10.00), 'dolar sanulu')
         self.assertEqual(self.n2w.to_currency(11.00), 'dolar sanulu resin ida')
         self.assertEqual(self.n2w.to_currency(12.00), 'dolar sanulu resin rua')
-        self.assertEqual(self.n2w.to_currency(13.00), 'dolar sanulu resin tolu')
-        self.assertEqual(self.n2w.to_currency(14.00), 'dolar sanulu resin haat')
-        self.assertEqual(self.n2w.to_currency(15.00), 'dolar sanulu resin lima')
-        self.assertEqual(self.n2w.to_currency(16.00), 'dolar sanulu resin neen')
-        self.assertEqual(self.n2w.to_currency(17.00), 'dolar sanulu resin hitu')
-        self.assertEqual(self.n2w.to_currency(18.00), 'dolar sanulu resin ualu')
-        self.assertEqual(self.n2w.to_currency(19.00), 'dolar sanulu resin sia')
+        self.assertEqual(
+            self.n2w.to_currency(13.00),
+            'dolar sanulu resin tolu'
+        )
+        self.assertEqual(
+            self.n2w.to_currency(14.00),
+            'dolar sanulu resin haat'
+        )
+        self.assertEqual(
+            self.n2w.to_currency(15.00),
+            'dolar sanulu resin lima'
+        )
+        self.assertEqual(
+            self.n2w.to_currency(16.00),
+            'dolar sanulu resin neen'
+        )
+        self.assertEqual(
+            self.n2w.to_currency(17.00),
+            'dolar sanulu resin hitu'
+        )
+        self.assertEqual(
+            self.n2w.to_currency(18.00),
+            'dolar sanulu resin ualu'
+        )
+        self.assertEqual(
+            self.n2w.to_currency(19.00),
+            'dolar sanulu resin sia'
+        )
         self.assertEqual(self.n2w.to_currency(20.00), 'dolar ruanulu')
 
-        self.assertEqual(self.n2w.to_currency(21.00), 'dolar ruanulu resin ida')
-        self.assertEqual(self.n2w.to_currency(22.00), 'dolar ruanulu resin rua')
-        self.assertEqual(self.n2w.to_currency(35.00), 'dolar tolunulu resin lima')
-        self.assertEqual(self.n2w.to_currency(99.00), 'dolar sianulu resin sia')
+        self.assertEqual(
+            self.n2w.to_currency(21.00),
+            'dolar ruanulu resin ida'
+        )
+        self.assertEqual(
+            self.n2w.to_currency(22.00),
+            'dolar ruanulu resin rua'
+        )
+        self.assertEqual(
+            self.n2w.to_currency(35.00),
+            'dolar tolunulu resin lima'
+        )
+        self.assertEqual(
+            self.n2w.to_currency(99.00),
+            'dolar sianulu resin sia'
+        )
 
         self.assertEqual(self.n2w.to_currency(100.00), 'dolar atus ida')
         self.assertEqual(self.n2w.to_currency(101.00), 'dolar atus ida ida')
@@ -327,16 +398,22 @@ class Num2WordsTETTest(TestCase):
         self.assertEqual(self.n2w.to_currency(1000.00), 'dolar rihun ida')
         self.assertEqual(self.n2w.to_currency(1001.00), 'dolar rihun ida ida')
         self.assertEqual(
-            self.n2w.to_currency(1111.00), 'dolar rihun ida atus ida sanulu resin ida')
+            self.n2w.to_currency(1111.00),
+            'dolar rihun ida atus ida sanulu resin ida'
+        )
         self.assertEqual(
-            self.n2w.to_currency(2114.00), 'dolar rihun rua atus ida sanulu resin haat'
+            self.n2w.to_currency(2114.00),
+            'dolar rihun rua atus ida sanulu resin haat'
         )
         self.assertEqual(
             self.n2w.to_currency(73421.00),
             'dolar rihun hitunulu resin tolu atus haat ruanulu resin ida'
         )
 
-        self.assertEqual(self.n2w.to_currency(100000.00), 'dolar rihun atus ida')
+        self.assertEqual(
+            self.n2w.to_currency(100000.00),
+            'dolar rihun atus ida'
+        )
         self.assertEqual(
             self.n2w.to_currency(250050.00),
             'dolar rihun atus rua limanulu limanulu'
@@ -366,13 +443,17 @@ class Num2WordsTETTest(TestCase):
             self.n2w.to_currency(-256.00),
             'menus dolar atus rua limanulu resin neen'
         )
-        self.assertEqual(self.n2w.to_currency(-1000.00), 'menus dolar rihun ida')
+        self.assertEqual(
+            self.n2w.to_currency(-1000.00),
+            'menus dolar rihun ida'
+        )
         self.assertEqual(
             self.n2w.to_currency(-1000000.00), 'menus dolar miliaun ida'
         )
         self.assertEqual(
             self.n2w.to_currency(-1234567.00),
-            'menus dolar miliaun ida rihun atus rua tolunulu resin haat atus lima neenulu resin hitu'
+            'menus dolar miliaun ida rihun atus rua tolunulu \
+resin haat atus lima neenulu resin hitu'
         )
 
     def test_currency_float(self):
@@ -397,7 +478,8 @@ class Num2WordsTETTest(TestCase):
         )
         self.assertEqual(
             self.n2w.to_currency(Decimal('2345.75')),
-            'dolar rihun rua atus tolu haatnulu resin lima sentavu hitunulu resin lima'
+            'dolar rihun rua atus tolu haatnulu resin \
+lima sentavu hitunulu resin lima'
         )
 
     def test_currency_float_negative(self):
