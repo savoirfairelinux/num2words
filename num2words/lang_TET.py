@@ -42,11 +42,12 @@ class Num2Word_TET(Num2Word_EU):
 
     def setup(self):
         super().setup()
-        lows = ["quatr", "tr", "b", "m"]
+        lows = ["kuatr", "tr", "b", "m"]
         self.high_numwords = self.gen_high_numwords([], [], lows)
         self.negword = "menus "
         self.pointword = "vírgula"
         self.exclude_title = ["resin", "vírgula", "menus"]
+        self.count = 0
 
         self.mid_numwords = [
             (1000, "rihun"), (100, "atus"), (90, "sianulu"),
@@ -79,14 +80,77 @@ class Num2Word_TET(Num2Word_EU):
 
         if nnum < cnum:
             if nnum < 10:
+                value_str = str(cnum + nnum)
+                if int(value_str) > 100:
+                    if value_str[0] != '0' and value_str[-1] != '0':
+                        zero_list = value_str[1:-1]
+                        all_zero = all(element == '0' for element in zero_list)
+                        if all_zero:
+                            if self.count >= 1:
+                                self.count += 0
+                                return ("ho %s %s" % (ctext, ntext), cnum + nnum)
+                            self.count += 1
+                            return ("%s %s" % (ctext, ntext), cnum + nnum)
+
                 return ("%s resin %s" % (ctext, ntext), cnum + nnum)
             else:
                 return ("%s %s" % (ctext, ntext), cnum + nnum)
 
         return (ntext + " " + ctext, cnum * nnum)
 
+    def ho_result(self, result, value):
+        index = result.find('ho')
+        count_ho = result.count('ho')
+
+        if index != -1 and count_ho >= 1 :
+            index_rihun =  result.find('rihun')
+            value_str = len(str(value))
+            if index_rihun != -1 and value_str > 7:
+                result = result.replace("rihun ho", "ho rihun")
+            lows = ["kuatr", "tr", "b", "m"]
+            MEGA_SUFFIX = "iliaun"
+            for low in lows:
+                result = result.replace(low + MEGA_SUFFIX +" ho", "ho "+ low + MEGA_SUFFIX)
+            remove_first_ho = result.startswith('ho')
+            if remove_first_ho:
+                result = result[3:]
+        return result
+
+    def remove_ho(self, result, value):
+        value_str = str(value)
+        result = self.ho_result(result, value)
+        remove_first_ho = result.startswith('ho')
+        if value <= 109 and remove_first_ho:
+            result = result[3:]
+        if remove_first_ho and value <= 10000:
+            if value > 110:
+                result = result[3:]
+        end_value = value_str[:-4]
+        end_true = end_value.endswith('0')
+        if end_true == False:
+            if value > 100:
+                if value_str[-1] != '0' and value_str[-2] == '0':
+                    result = result.replace("ho", "")
+                    result = result.replace("  ", " ")
+
+        return result
+
     def to_cardinal(self, value):
         result = super().to_cardinal(value)
+
+        # Transforms "mil e cento e catorze" into "mil cento e catorze"
+        # Transforms "cem milhões e duzentos mil e duzentos e dez" em "cem
+        # milhões duzentos mil duzentos e dez" but "cem milhões e duzentos
+        # mil e duzentos" in "cem milhões duzentos mil e duzentos" and not in
+        # "cem milhões duzentos mil duzentos"
+        for ext in (
+                'rihun', 'miliaun','miliaun rihun',
+                'biliaun', 'biliaun rihun'):
+            if re.match('.*{} resin \\w*entus? (?=.*resin)'.format(ext), result):
+                result = result.replace(
+                    f'{ext} resin', f'{ext}'
+                )
+        result = self.remove_ho(result, value)
         return result
 
     def to_ordinal(self, value):
@@ -126,6 +190,8 @@ class Num2Word_TET(Num2Word_EU):
 
         words, num = outs[0]
 
+        words = self.remove_ho(words, value)
+
         if num in [90, 80, 70, 60, 50, 40, 30, 20, 10, 9, 8, 7, 5, 3, 2]:
             words = 'da'+words+'k'
         if num in [6,4]:
@@ -160,7 +226,10 @@ class Num2Word_TET(Num2Word_EU):
             else:
                 words = 'da'+words+'k'
 
-        return self.title(out + words)
+        result = self.title(out + words)
+
+        return result
+
 
     def to_ordinal_num(self, value):
         self.verify_ordinal(value)
