@@ -88,7 +88,10 @@ class Num2Word_TET(Num2Word_EU):
                         if all_zero:
                             if self.count >= 1:
                                 self.count += 0
-                                return ("ho %s %s" % (ctext, ntext), cnum + nnum)
+                                return (
+                                    "ho %s %s" % (ctext, ntext),
+                                    cnum + nnum
+                                )
                             self.count += 1
                             return ("%s %s" % (ctext, ntext), cnum + nnum)
 
@@ -102,15 +105,16 @@ class Num2Word_TET(Num2Word_EU):
         index = result.find('ho')
         count_ho = result.count('ho')
 
-        if index != -1 and count_ho >= 1 :
-            index_rihun =  result.find('rihun')
+        if index != -1 and count_ho >= 1:
+            index_rihun = result.find('rihun')
             value_str = len(str(value))
             if index_rihun != -1 and value_str > 7:
                 result = result.replace("rihun ho", "ho rihun")
             lows = ["kuatr", "tr", "b", "m"]
             MEGA_SUFFIX = "iliaun"
             for low in lows:
-                result = result.replace(low + MEGA_SUFFIX +" ho", "ho "+ low + MEGA_SUFFIX)
+                result = result.replace(
+                    low + MEGA_SUFFIX + " ho", "ho " + low + MEGA_SUFFIX)
             remove_first_ho = result.startswith('ho')
             if remove_first_ho:
                 result = result[3:]
@@ -127,7 +131,7 @@ class Num2Word_TET(Num2Word_EU):
                 result = result[3:]
         end_value = value_str[:-4]
         end_true = end_value.endswith('0')
-        if end_true == False:
+        if end_true is False:
             if value > 100:
                 if value_str[-1] != '0' and value_str[-2] == '0':
                     result = result.replace("ho", "")
@@ -144,9 +148,12 @@ class Num2Word_TET(Num2Word_EU):
         # mil e duzentos" in "cem milhões duzentos mil e duzentos" and not in
         # "cem milhões duzentos mil duzentos"
         for ext in (
-                'rihun', 'miliaun','miliaun rihun',
+                'rihun', 'miliaun', 'miliaun rihun',
                 'biliaun', 'biliaun rihun'):
-            if re.match('.*{} resin \\w*entus? (?=.*resin)'.format(ext), result):
+            if re.match(
+                '.*{} resin \\w*entus? (?=.*resin)'.format(ext),
+                result
+            ):
                 result = result.replace(
                     f'{ext} resin', f'{ext}'
                 )
@@ -194,7 +201,7 @@ class Num2Word_TET(Num2Word_EU):
 
         if num in [90, 80, 70, 60, 50, 40, 30, 20, 10, 9, 8, 7, 5, 3, 2]:
             words = 'da'+words+'k'
-        if num in [6,4]:
+        if num in [6, 4]:
             words = 'da'+words
         if num == 1:
             words = 'dahuluk'
@@ -212,8 +219,8 @@ class Num2Word_TET(Num2Word_EU):
             else:
                 words = first_word+" "+second_word+'k'
 
-        word_first =  'dah'+words_split[0]
-        if word_first == 'dahatus' and len(words_split) >=3:
+        word_first = 'dah'+words_split[0]
+        if word_first == 'dahatus' and len(words_split) >= 3:
             word_second = " ".join(words_split[1:])
             if 'haat' in word_second or 'neen' in word_second:
                 words = word_first+" "+word_second
@@ -229,7 +236,6 @@ class Num2Word_TET(Num2Word_EU):
         result = self.title(out + words)
 
         return result
-
 
     def to_ordinal_num(self, value):
         self.verify_ordinal(value)
@@ -284,4 +290,3 @@ class Num2Word_TET(Num2Word_EU):
                 self.pluralize(right, cr2),
                 cents_str
             )
-
