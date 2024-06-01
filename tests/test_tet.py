@@ -18,6 +18,7 @@
 from __future__ import unicode_literals
 
 from decimal import Decimal
+import decimal
 from unittest import TestCase
 
 from num2words import num2words
@@ -219,6 +220,10 @@ haat atus lima neenulu resin hitu'
         )
 
     def test_ordinal(self):
+        with self.assertRaises(decimal.InvalidOperation):
+            num2words("hello", lang='tet', ordinal=True)
+        with self.assertRaises(TypeError):
+            num2words(5.1, lang='tet', ordinal=True)
         self.assertEqual(num2words(1, lang='tet', ordinal=True), 'dahuluk')
         self.assertEqual(num2words(2, lang='tet', ordinal=True), 'daruak')
         self.assertEqual(num2words(3, lang='tet', ordinal=True), 'datoluk')
