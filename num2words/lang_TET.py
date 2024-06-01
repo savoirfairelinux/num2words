@@ -17,9 +17,8 @@
 
 from __future__ import division, unicode_literals
 
-import re
 
-from num2words.currency import parse_currency_parts, prefix_currency
+from num2words.currency import parse_currency_parts
 
 from .lang_EU import Num2Word_EU
 
@@ -156,9 +155,6 @@ class Num2Word_TET(Num2Word_EU):
         if value < 0:
             value = abs(value)
             out = "%s " % self.negword.strip()
-
-        if value >= self.MAXVAL:
-            raise OverflowError(self.errmsg_toobig % (value, self.MAXVAL))
 
         val = self.splitnum(value)
         outs = val
