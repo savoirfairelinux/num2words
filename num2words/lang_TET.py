@@ -19,7 +19,7 @@ from __future__ import division, unicode_literals
 
 import re
 
-from num2words.currency import parse_currency_parts, prefix_currency
+from num2words.currency import parse_currency_parts
 
 from .lang_EU import Num2Word_EU
 
