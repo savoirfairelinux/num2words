@@ -152,10 +152,6 @@ class Num2Word_TET(Num2Word_EU):
             return self.to_cardinal_float(value)
 
         out = ""
-        if value < 0:
-            value = abs(value)
-            out = "%s " % self.negword.strip()
-
         val = self.splitnum(value)
         outs = val
         while len(val) != 1:
