@@ -81,18 +81,17 @@ class Num2Word_TET(Num2Word_EU):
             if nnum < 10:
                 value_str = str(cnum + nnum)
                 if int(value_str) > 100:
-                    if value_str[0] != '0' and value_str[-1] != '0':
-                        zero_list = value_str[1:-1]
-                        all_zero = all(element == '0' for element in zero_list)
-                        if all_zero:
-                            if self.count >= 1:
-                                self.count += 0
-                                return (
-                                    "ho %s %s" % (ctext, ntext),
-                                    cnum + nnum
-                                )
-                            self.count += 1
-                            return ("%s %s" % (ctext, ntext), cnum + nnum)
+                    zero_list = value_str[1:-1]
+                    all_zero = all(element == '0' for element in zero_list)
+                    if all_zero:
+                        if self.count >= 1:
+                            self.count += 0
+                            return (
+                                "ho %s %s" % (ctext, ntext),
+                                cnum + nnum
+                            )
+                        self.count += 1
+                        return ("%s %s" % (ctext, ntext), cnum + nnum)
 
                 return ("%s resin %s" % (ctext, ntext), cnum + nnum)
             else:
