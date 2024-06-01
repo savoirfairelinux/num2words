@@ -246,8 +246,7 @@ class Num2Word_TET(Num2Word_EU):
             return self.to_cardinal(abs(val)) + ' antes Kristu'
         return self.to_cardinal(val)
 
-    def to_currency(self, val, currency='USD', cents=True,
-                    adjective=False):
+    def to_currency(self, val, currency='USD', cents=True):
         """
         Args:
             val: Numeric value
@@ -267,9 +266,6 @@ class Num2Word_TET(Num2Word_EU):
             raise NotImplementedError(
                 'Currency code "%s" not implemented for "%s"' %
                 (currency, self.__class__.__name__))
-
-        if adjective and currency in self.CURRENCY_ADJECTIVES:
-            cr1 = prefix_currency(self.CURRENCY_ADJECTIVES[currency], cr1)
 
         minus_str = "%s " % self.negword.strip() if is_negative else ""
         money_str = self._money_verbose(left, currency)

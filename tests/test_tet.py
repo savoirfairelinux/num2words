@@ -280,8 +280,15 @@ haat atus lima neenulu resin hitu'
             num2words(101, lang='tet', ordinal=True), 'dahatus ida idak'
         )
         self.assertEqual(
+            num2words(106, lang='tet', ordinal=True), 'dahatus ida neen'
+        )
+        self.assertEqual(
             num2words(128, lang='tet', ordinal=True),
             'dahatus ida ruanulu resin ualuk'
+        )
+        self.assertEqual(
+            num2words(600, lang='tet', ordinal=True),
+            'dahatus neen'
         )
         self.assertEqual(
             num2words(713, lang='tet', ordinal=True),
