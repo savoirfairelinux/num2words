@@ -142,23 +142,8 @@ class Num2Word_TET(Num2Word_EU):
     def to_cardinal(self, value):
         result = super().to_cardinal(value)
 
-        # Transforms "mil e cento e catorze" into "mil cento e catorze"
-        # Transforms "cem milhões e duzentos mil e duzentos e dez" em "cem
-        # milhões duzentos mil duzentos e dez" but "cem milhões e duzentos
-        # mil e duzentos" in "cem milhões duzentos mil e duzentos" and not in
-        # "cem milhões duzentos mil duzentos"
-        for ext in (
-                'rihun', 'miliaun', 'miliaun rihun',
-                'biliaun', 'biliaun rihun'):
-            if re.match(
-                '.*{} resin \\w*entus? (?=.*resin)'.format(ext),
-                result
-            ):
-                result = result.replace(
-                    f'{ext} resin', f'{ext}'
-                )
-        result = self.remove_ho(result, value)
-        return result
+        results = self.remove_ho(result, value)
+        return results
 
     def to_ordinal(self, value):
         self.verify_ordinal(value)
