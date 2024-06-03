@@ -123,12 +123,6 @@ class Num2Word_TET(Num2Word_EU):
     def remove_ho(self, result, value):
         value_str = str(value)
         result = self.ho_result(result, value)
-        remove_first_ho = result.startswith('ho')
-        if value <= 109 and remove_first_ho:
-            result = result[3:]
-        if remove_first_ho and value <= 10000:
-            if value > 110:
-                result = result[3:]
         end_value = value_str[:-4]
         end_true = end_value.endswith('0')
         if end_true is False:
