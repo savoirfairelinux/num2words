@@ -139,11 +139,6 @@ class Num2Word_TET(Num2Word_EU):
 
     def to_ordinal(self, value):
         self.verify_ordinal(value)
-        try:
-            assert int(value) == value
-        except (ValueError, TypeError, AssertionError):
-            return self.to_cardinal_float(value)
-
         out = ""
         val = self.splitnum(value)
         outs = val
