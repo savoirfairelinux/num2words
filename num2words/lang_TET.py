@@ -17,9 +17,8 @@
 
 from __future__ import division, unicode_literals
 
-import re
 
-from num2words.currency import parse_currency_parts, prefix_currency
+from num2words.currency import parse_currency_parts
 
 from .lang_EU import Num2Word_EU
 
@@ -82,18 +81,17 @@ class Num2Word_TET(Num2Word_EU):
             if nnum < 10:
                 value_str = str(cnum + nnum)
                 if int(value_str) > 100:
-                    if value_str[0] != '0' and value_str[-1] != '0':
-                        zero_list = value_str[1:-1]
-                        all_zero = all(element == '0' for element in zero_list)
-                        if all_zero:
-                            if self.count >= 1:
-                                self.count += 0
-                                return (
-                                    "ho %s %s" % (ctext, ntext),
-                                    cnum + nnum
-                                )
-                            self.count += 1
-                            return ("%s %s" % (ctext, ntext), cnum + nnum)
+                    zero_list = value_str[1:-1]
+                    all_zero = all(element == '0' for element in zero_list)
+                    if all_zero:
+                        if self.count >= 1:
+                            self.count += 0
+                            return (
+                                "ho %s %s" % (ctext, ntext),
+                                cnum + nnum
+                            )
+                        self.count += 1
+                        return ("%s %s" % (ctext, ntext), cnum + nnum)
 
                 return ("%s resin %s" % (ctext, ntext), cnum + nnum)
             else:
@@ -136,23 +134,8 @@ class Num2Word_TET(Num2Word_EU):
     def to_cardinal(self, value):
         result = super().to_cardinal(value)
 
-        # Transforms "mil e cento e catorze" into "mil cento e catorze"
-        # Transforms "cem milhões e duzentos mil e duzentos e dez" em "cem
-        # milhões duzentos mil duzentos e dez" but "cem milhões e duzentos
-        # mil e duzentos" in "cem milhões duzentos mil e duzentos" and not in
-        # "cem milhões duzentos mil duzentos"
-        for ext in (
-                'rihun', 'miliaun', 'miliaun rihun',
-                'biliaun', 'biliaun rihun'):
-            if re.match(
-                '.*{} resin \\w*entus? (?=.*resin)'.format(ext),
-                result
-            ):
-                result = result.replace(
-                    f'{ext} resin', f'{ext}'
-                )
-        result = self.remove_ho(result, value)
-        return result
+        results = self.remove_ho(result, value)
+        return results
 
     def to_ordinal(self, value):
         self.verify_ordinal(value)
@@ -162,13 +145,6 @@ class Num2Word_TET(Num2Word_EU):
             return self.to_cardinal_float(value)
 
         out = ""
-        if value < 0:
-            value = abs(value)
-            out = "%s " % self.negword.strip()
-
-        if value >= self.MAXVAL:
-            raise OverflowError(self.errmsg_toobig % (value, self.MAXVAL))
-
         val = self.splitnum(value)
         outs = val
         while len(val) != 1:
@@ -240,8 +216,7 @@ class Num2Word_TET(Num2Word_EU):
             return self.to_cardinal(abs(val)) + ' antes Kristu'
         return self.to_cardinal(val)
 
-    def to_currency(self, val, currency='USD', cents=True,
-                    adjective=False):
+    def to_currency(self, val, currency='USD', cents=True):
         """
         Args:
             val: Numeric value
@@ -261,9 +236,6 @@ class Num2Word_TET(Num2Word_EU):
             raise NotImplementedError(
                 'Currency code "%s" not implemented for "%s"' %
                 (currency, self.__class__.__name__))
-
-        if adjective and currency in self.CURRENCY_ADJECTIVES:
-            cr1 = prefix_currency(self.CURRENCY_ADJECTIVES[currency], cr1)
 
         minus_str = "%s " % self.negword.strip() if is_negative else ""
         money_str = self._money_verbose(left, currency)
