@@ -17,8 +17,8 @@
 
 from __future__ import unicode_literals
 
-from decimal import Decimal
 import decimal
+from decimal import Decimal
 from unittest import TestCase
 
 from num2words import num2words

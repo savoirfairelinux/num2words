@@ -17,7 +17,6 @@
 
 from __future__ import division, unicode_literals
 
-
 from num2words.currency import parse_currency_parts
 
 from .lang_EU import Num2Word_EU
