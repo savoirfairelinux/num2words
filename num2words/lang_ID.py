@@ -16,9 +16,10 @@
 # MA 02110-1301 USA
 
 from __future__ import print_function, unicode_literals
+from .base import Num2Word_Base
 
 
-class Num2Word_ID():
+class Num2Word_ID(Num2Word_Base):
     BASE = {0: [],
             1: ["satu"],
             2: ["dua"],
@@ -96,7 +97,7 @@ class Num2Word_ID():
         else:
             spelling = (
                 self.ratus(first_block[0][0]) + self.puluh(first_block[0][1:3])
-                )
+            )
 
         word_blocks += (first_block[0], spelling),
 
