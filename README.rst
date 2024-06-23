@@ -109,6 +109,8 @@ Besides the numerical argument, there are two main optional arguments, ``to:`` a
 * ``kn`` (Kannada)
 * ``ko`` (Korean)
 * ``kz`` (Kazakh)
+* ``ckb`` (Central Kurdish)
+* ``ku`` (Kurdish)
 * ``lt`` (Lithuanian)
 * ``lv`` (Latvian)
 * ``no`` (Norwegian)
