@@ -218,8 +218,10 @@ class Num2Word_CA(Num2Word_EU):
         self.negword = "menys "
         self.pointword = "punt"
         self.errmsg_nonnum = "type(%s) no és [long, int, float]"
-        self.errmsg_floatord = "El float %s no pot ser tractat com un" " ordinal."
-        self.errmsg_negord = "El número negatiu %s no pot ser tractat" " com un ordinal."
+        self.errmsg_floatord = "El float %s no pot ser tractat com un" \
+            " ordinal."
+        self.errmsg_negord = "El número negatiu %s no pot ser tractat" \
+            " com un ordinal."
         self.errmsg_toobig = "abs(%s) ha de ser inferior a %s."
         self.gender_stem = "è"
         self.exclude_title = ["i", "menys", "punt"]
@@ -357,7 +359,17 @@ class Num2Word_CA(Num2Word_EU):
         }
 
         self.ords_2 = {1: "1r", 2: "2n", 3: "3r", 4: "4t"}
-        self.ords_3 = {1: "unè", 2: "dosè", 3: "tresè", 4: "quatrè", 5: "cinquè", 6: "sisè", 7: "setè", 8: "vuitè", 9: "novè"}
+        self.ords_3 = {
+            1: "unè",
+            2: "dosè",
+            3: "tresè",
+            4: "quatrè",
+            5: "cinquè",
+            6: "sisè",
+            7: "setè",
+            8: "vuitè",
+            9: "novè",
+        }
 
     def merge(self, curr, next):
         ctext, cnum, ntext, nnum = curr + next
@@ -397,7 +409,8 @@ class Num2Word_CA(Num2Word_EU):
             text = "%s%s%s" % (self.ords[20], "-i-", self.ords_3[frac])
         elif value < 100:
             dec = (value // 10) * 10
-            text = "%s%s%s%s" % (self.ords[dec], "a", "-", self.ords_3[value - dec])
+            text = "%s%s%s%s" % (self.ords[dec], "a",
+                                 "-", self.ords_3[value - dec])
         elif value == 1e2:
             text = "%s%s" % (self.ords[value], self.gender_stem)
         elif value < 2e2:
@@ -405,19 +418,22 @@ class Num2Word_CA(Num2Word_EU):
             text = "%s %s" % (self.ords[cen], self.to_ordinal(value - cen))
         elif value < 1e3:
             cen = (value // 100) * 100
-            text = "%s%s %s" % (self.ords[cen], "s", self.to_ordinal(value - cen))
+            text = "%s%s %s" % (self.ords[cen], "s",
+                                self.to_ordinal(value - cen))
         elif value == 1e3:
             text = "%s%s" % (self.ords[value], self.gender_stem)
         elif value < 1e6:
             dec = 1000 ** int(math.log(int(value), 1000))
             high_part, low_part = divmod(value, dec)
             cardinal = self.to_cardinal(high_part) if high_part != 1 else ""
-            text = "%s %s %s" % (cardinal, self.ords[dec], self.to_ordinal(low_part))
+            text = "%s %s %s" % (cardinal, self.ords[dec],
+                                 self.to_ordinal(low_part))
         elif value < 1e18:
             dec = 1000 ** int(math.log(int(value), 1000))
             high_part, low_part = divmod(value, dec)
             cardinal = self.to_cardinal(high_part) if high_part != 1 else ""
-            text = "%s%s%s %s" % (cardinal, self.ords[dec], self.gender_stem, self.to_ordinal(low_part))
+            text = "%s%s%s %s" % (cardinal, self.ords[dec],
+                                  self.gender_stem, self.to_ordinal(low_part))
         else:
             part1 = self.to_cardinal(value)
             text = "%s%s" % (part1[:-1], "onè")
@@ -434,9 +450,11 @@ class Num2Word_CA(Num2Word_EU):
         result = super(Num2Word_CA, self).to_cardinal(number)
         return result
 
-    def to_currency(self, val, currency="EUR", cents=True, separator=" amb", adjective=False):
+    def to_currency(self, val, currency="EUR", cents=True,
+                    separator=" amb", adjective=False):
         result = super(Num2Word_CA, self).to_currency(
-            val, currency=currency, cents=cents, separator=separator, adjective=adjective
+            val, currency=currency, cents=cents,
+            separator=separator, adjective=adjective
         )
         list_result = result.split(separator + " ")
 

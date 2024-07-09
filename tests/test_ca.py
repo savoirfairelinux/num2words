@@ -158,7 +158,8 @@ TEST_CASES_TO_CURRENCY_GBP = (
 class TestNum2WordsCA(TestCase):
     def _test_cases(self, cases, lang="ca", to="cardinal", **kwargs):
         for case in cases:
-            self.assertEqual(num2words(case[0], lang=lang, to=to, **kwargs), case[1])
+            self.assertEqual(num2words(case[0], lang=lang,
+                                       to=to, **kwargs), case[1])
 
     def test_cardinal(self):
         self._test_cases(TEST_CASES_CARDINAL)
@@ -173,10 +174,13 @@ class TestNum2WordsCA(TestCase):
         self._test_cases(TEST_CASES_TO_CURRENCY, to="currency", currency="EUR")
 
     def test_currency_esp(self):
-        self._test_cases(TEST_CASES_TO_CURRENCY_ESP, to="currency", currency="ESP")
+        self._test_cases(TEST_CASES_TO_CURRENCY_ESP,
+                         to="currency", currency="ESP")
 
     def test_currency_usd(self):
-        self._test_cases(TEST_CASES_TO_CURRENCY_USD, to="currency", currency="USD")
+        self._test_cases(TEST_CASES_TO_CURRENCY_USD,
+                         to="currency", currency="USD")
 
     def test_currency_gbp(self):
-        self._test_cases(TEST_CASES_TO_CURRENCY_GBP, to="currency", currency="GBP")
+        self._test_cases(TEST_CASES_TO_CURRENCY_GBP,
+                         to="currency", currency="GBP")
