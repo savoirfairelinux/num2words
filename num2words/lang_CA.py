@@ -446,10 +446,6 @@ class Num2Word_CA(Num2Word_EU):
         else:
             return self.ords_2[value]
 
-    def to_cardinal(self, number):
-        result = super(Num2Word_CA, self).to_cardinal(number)
-        return result
-
     def to_currency(self, val, currency="EUR", cents=True,
                     separator=" amb", adjective=False):
         result = super(Num2Word_CA, self).to_currency(
