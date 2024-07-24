@@ -1,5 +1,5 @@
-num2words - Convert numbers to words in multiple languages
-==========================================================
+num2words library - Convert numbers to words in multiple languages
+==================================================================
 
 .. image:: https://img.shields.io/pypi/v/num2words.svg
    :target: https://pypi.python.org/pypi/num2words
@@ -51,7 +51,7 @@ Command line::
     $ num2words 24,120.10 -l es
     veinticuatro mil ciento veinte punto uno
     $num2words 2.14 -l es --to currency
-    dos euros con catorce centimos
+    dos euros con catorce céntimos
 
 In code there's only one function to use::
 
@@ -63,7 +63,7 @@ In code there's only one function to use::
     >>> num2words(42, lang='fr')
     quarante-deux
 
-Besides the numerical argument, there are two main optional arguments.
+Besides the numerical argument, there are two main optional arguments, ``to:`` and ``lang:``
 
 **to:** The converter to use. Supported values are:
 
@@ -76,26 +76,39 @@ Besides the numerical argument, there are two main optional arguments.
 **lang:** The language in which to convert the number. Supported values are:
 
 * ``en`` (English, default)
+* ``am`` (Amharic)
 * ``ar`` (Arabic)
+* ``az`` (Azerbaijani)
+* ``by`` (Belarusian)
+* ``ce`` (Chechen)
+* ``cy`` (Welsh)
 * ``cz`` (Czech)
 * ``de`` (German)
 * ``dk`` (Danish)
 * ``en_GB`` (English - Great Britain)
 * ``en_IN`` (English - India)
+* ``en_NG`` (English - Nigeria)
 * ``es`` (Spanish)
 * ``es_CO`` (Spanish - Colombia)
+* ``es_CR`` (Spanish - Costa Rica)
 * ``es_VE`` (Spanish - Venezuela)
+* ``es_GT`` (Spanish - Guatemala)
 * ``eu`` (EURO)
+* ``fa`` (Farsi)
 * ``fi`` (Finnish)
 * ``fr`` (French)
 * ``fr_CH`` (French - Switzerland)
 * ``fr_BE`` (French - Belgium)
 * ``fr_DZ`` (French - Algeria)
 * ``he`` (Hebrew)
+* ``hu`` (Hungarian)
 * ``id`` (Indonesian)
+* ``is`` (Icelandic)
 * ``it`` (Italian)
 * ``ja`` (Japanese)
+* ``kn`` (Kannada)
 * ``ko`` (Korean)
+* ``kz`` (Kazakh)
 * ``lt`` (Lithuanian)
 * ``lv`` (Latvian)
 * ``no`` (Norwegian)
@@ -104,9 +117,11 @@ Besides the numerical argument, there are two main optional arguments.
 * ``pt_BR`` (Portuguese - Brazilian)
 * ``sl`` (Slovene)
 * ``sr`` (Serbian)
+* ``sv`` (Swedish)
 * ``ro`` (Romanian)
 * ``ru`` (Russian)
-* ``sl`` (Slovene)
+* ``te`` (Telugu)
+* ``tg`` (Tajik)
 * ``tr`` (Turkish)
 * ``th`` (Thai)
 * ``vi`` (Vietnamese)

@@ -44,8 +44,8 @@ class Num2Word_ID():
 
     errmsg_floatord = "Cannot treat float number as ordinal"
     errmsg_negord = "Cannot treat negative number as ordinal"
-    errmsg_toobig = "Too large"
-    max_num = 10 ** 36
+    errmsg_toobig = "Number is too large to convert to words (abs(%s) > %s)."
+    MAXVAL = 10 ** 36
 
     def split_by_koma(self, number):
         return str(number).split('.')
@@ -169,8 +169,8 @@ class Num2Word_ID():
         return ' '.join(word_list) + float_part
 
     def to_cardinal(self, number):
-        if number >= self.max_num:
-            raise OverflowError(self.errmsg_toobig % (number, self.max_num))
+        if number >= self.MAXVAL:
+            raise OverflowError(self.errmsg_toobig % (number, self.MAXVAL))
         minus = ''
         if number < 0:
             minus = 'min '

@@ -335,6 +335,7 @@ ERA_START = [
     (1912, ("大正", "たいしょう")),
     (1926, ("昭和", "しょうわ")),
     (1989, ("平成", "へいせい")),
+    (2019, ("令和", "れいわ")),
 ]
 
 
@@ -491,7 +492,7 @@ class Num2Word_JA(Num2Word_Base):
 
         return fmt % (era_name, era_year_words)
 
-    def to_currency(self, val, currency="JPY", cents=False, seperator="",
+    def to_currency(self, val, currency="JPY", cents=False, separator="",
                     adjective=False, reading=False, prefer=None):
         left, right, is_negative = parse_currency_parts(
             val, is_int_with_cents=cents)
