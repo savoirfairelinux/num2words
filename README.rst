@@ -121,6 +121,7 @@ Besides the numerical argument, there are two main optional arguments, ``to:`` a
 * ``ro`` (Romanian)
 * ``ru`` (Russian)
 * ``te`` (Telugu)
+* ``tet`` (Tetum)
 * ``tg`` (Tajik)
 * ``tr`` (Turkish)
 * ``th`` (Thai)
