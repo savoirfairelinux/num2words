@@ -109,23 +109,45 @@ class Num2WordsARTest(TestCase):
         self.assertEqual(num2words(0, to='cardinal', lang='ar', rafea=True), 'صفر')
         self.assertEqual(num2words(12, to='cardinal', lang='ar', rafea=True), 'اثنا عشر')
         self.assertEqual(num2words(12, to='cardinal', lang='ar', rafea=False), 'اثني عشر')
-        self.assertEqual(num2words(12.3, to='cardinal', lang='ar', rafea=True),'اثنا عشر  , ثلاثون')
-        self.assertEqual(num2words(12.3, to='cardinal', lang='ar', rafea=False),'اثني عشر  , ثلاثين')
-        self.assertEqual(num2words(12.01, to='cardinal', lang='ar', rafea=True), 'اثنا عشر  , إحدى')
-        self.assertEqual(num2words(12.01, to='cardinal', lang='ar', rafea=False), 'اثني عشر  , إحدى')
+        self.assertEqual(num2words(12.3, to='cardinal', lang='ar', rafea=True), 'اثنا عشر , ثلاثة اجزاء من العشر')
+        self.assertEqual(num2words(12.3, to='cardinal', lang='ar', rafea=False), 'اثني عشر , ثلاثة اجزاء من العشر')
+
+        self.assertEqual(num2words(12.01, to='cardinal', lang='ar', rafea=True), 'اثنا عشر , جزء واحد من المئة')
+        self.assertEqual(num2words(12.01, to='cardinal', lang='ar', rafea=False), 'اثني عشر , جزء واحد من المئة')
+
+        self.assertEqual(num2words(12.02, to='cardinal', lang='ar', rafea=True), 'اثنا عشر , جزآن من المئة')
+        self.assertEqual(num2words(12.02, to='cardinal', lang='ar', rafea=False), 'اثني عشر , جزآن من المئة')
+
+        self.assertEqual(num2words(12.03, to='cardinal', lang='ar', rafea=True), 'اثنا عشر , ثلاثة اجزاء من المئة')
+        self.assertEqual(num2words(12.03, to='cardinal', lang='ar', rafea=False), 'اثني عشر , ثلاثة اجزاء من المئة')
+
+        self.assertEqual(num2words(12.34, to='cardinal', lang='ar', rafea=True), 'اثنا عشر , أربعة وثلاثون جزءاً من المئة')
+        self.assertEqual(num2words(12.34, to='cardinal', lang='ar', rafea=False), 'اثني عشر , أربعة وثلاثين جزءاً من المئة')
+
+        # Testing with more complex numbers
+        self.assertEqual(num2words(637.5, to='cardinal', lang='ar', rafea=True), 'ستمائة وسبعة وثلاثون , خمسة اجزاء من العشر')
+        self.assertEqual(num2words(637.5, to='cardinal', lang='ar', rafea=False), 'ستمائة وسبعة وثلاثين , خمسة اجزاء من العشر')
+
+        self.assertEqual(num2words(12.345, to='cardinal', lang='ar', rafea=True), 'اثنا عشر , ثلاثمائة وخمسة وأربعون جزءاً من الألف')
+        self.assertEqual(num2words(12.345, to='cardinal', lang='ar', rafea=False), 'اثني عشر , ثلاثمائة وخمسة وأربعين جزءاً من الألف')
+        
+        # self.assertEqual(num2words(12.3, to='cardinal', lang='ar', rafea=True),'اثنا عشر  , ثلاثون')
+        # self.assertEqual(num2words(12.3, to='cardinal', lang='ar', rafea=False),'اثني عشر  , ثلاثين')
+        # self.assertEqual(num2words(12.01, to='cardinal', lang='ar', rafea=True), 'اثنا عشر  , إحدى')
+        # self.assertEqual(num2words(12.01, to='cardinal', lang='ar', rafea=False), 'اثني عشر  , إحدى')
        
-        self.assertEqual(num2words(12.02, to='cardinal', lang='ar', rafea=True), 'اثنا عشر  , اثنتان')
-        self.assertEqual(num2words(12.02, to='cardinal', lang='ar', rafea=False), 'اثني عشر  , اثنتين')
+        # self.assertEqual(num2words(12.02, to='cardinal', lang='ar', rafea=True), 'اثنا عشر  , اثنتان')
+        # self.assertEqual(num2words(12.02, to='cardinal', lang='ar', rafea=False), 'اثني عشر  , اثنتين')
 
-        self.assertEqual(num2words(12.03, to='cardinal', lang='ar', rafea=True), 'اثنا عشر  , ثلاث')
-        self.assertEqual(num2words(12.03, to='cardinal', lang='ar', rafea=False), 'اثني عشر  , ثلاث')
+        # self.assertEqual(num2words(12.03, to='cardinal', lang='ar', rafea=True), 'اثنا عشر  , ثلاث')
+        # self.assertEqual(num2words(12.03, to='cardinal', lang='ar', rafea=False), 'اثني عشر  , ثلاث')
 
-        self.assertEqual(num2words(12.34, to='cardinal', lang='ar', rafea=True), 'اثنا عشر  , أربع و ثلاثون')
-        self.assertEqual(num2words(12.34, to='cardinal', lang='ar', rafea=False), 'اثني عشر  , أربع و ثلاثين')
+        # self.assertEqual(num2words(12.34, to='cardinal', lang='ar', rafea=True), 'اثنا عشر  , أربع و ثلاثون')
+        # self.assertEqual(num2words(12.34, to='cardinal', lang='ar', rafea=False), 'اثني عشر  , أربع و ثلاثين')
 
-        # Not implemented
-        self.assertEqual(num2words(12.345, to='cardinal', lang='ar', rafea=True),num2words(12.345, to='cardinal', lang='ar', rafea=True))
-        self.assertEqual(num2words(12.345, to='cardinal', lang='ar', rafea=True),num2words(12.345, to='cardinal', lang='ar', rafea=True))
+        # # Not implemented
+        # self.assertEqual(num2words(12.345, to='cardinal', lang='ar', rafea=True),num2words(12.345, to='cardinal', lang='ar', rafea=True))
+        # self.assertEqual(num2words(12.345, to='cardinal', lang='ar', rafea=True),num2words(12.345, to='cardinal', lang='ar', rafea=True))
 
         self.assertEqual(num2words(-8324, to='cardinal', lang='ar', rafea=True),'سالب ثمانية آلاف و ثلاثمائة و أربعة و عشرون')
         self.assertEqual(num2words(-8324, to='cardinal', lang='ar', rafea=False),'سالب ثمانية آلاف و ثلاثمائة و أربعة و عشرين')
