@@ -21,60 +21,60 @@ from num2words import num2words
 
 class Num2WordsKUTest(TestCase):
     def test_and_join_199(self):
-        self.assertEqual(num2words(199, lang='ku'), "سەد و نەوەت و نۆ")
+        self.assertEqual(num2words(199, lang='ku'), "sed û nod û neh")
 
     def test_ordinal(self):
         self.assertEqual(
             num2words(0, lang='ku', to='ordinal'),
-            'سفرەم'
+            'sifiryem'
         )
         self.assertEqual(
             num2words(1, lang='ku', to='ordinal'),
-            'یەکەم'
+            'Yekyem'
         )
         self.assertEqual(
             num2words(13, lang='ku', to='ordinal'),
-            'سێزدم'
+            'sêzdehyem'
         )
         self.assertEqual(
             num2words(23, lang='ku', to='ordinal'),
-            'بیست و سێەم'
+            'bîst û sêyem'
         )
 
     def test_cardinal(self):
-        self.assertEqual(num2words(130000, lang='ku'), "سەد و سی هەزار")
-        self.assertEqual(num2words(242, lang='ku'), "دوو سەد و چل و دوو")
-        self.assertEqual(num2words(800, lang='ku'), "هەشت سەد")
-        self.assertEqual(num2words(-203, lang='ku'), "سالب دوو سەد و سێ")
+        self.assertEqual(num2words(130000, lang='ku'), "sed û sî hezar")
+        self.assertEqual(num2words(242, lang='ku'), "du sed û çil û du")
+        self.assertEqual(num2words(800, lang='ku'), "heşt sed")
+        self.assertEqual(num2words(-203, lang='ku'), "negatîf du sed û sê")
 
 
     def test_year(self):
         self.assertEqual(num2words(1398, lang='ku', to='year'),
-                         "ساڵی هەزار و سێ سەد و نەوەت و هەشت")
+                         "sala hezar û sê sed û nod û heşt")
         self.assertEqual(num2words(1399, lang='ku', to='year'),
-                         "ساڵی هەزار و سێ سەد و نەوەت و نۆ")
+                         "sala hezar û sê sed û nod û neh")
         self.assertEqual(
-            num2words(1400, lang='ku', to='year'), "ساڵی هەزار و چوار سەد")
+            num2words(1400, lang='ku', to='year'), "sala hezar û çar sed")
 
     def test_currency(self):
         self.assertEqual(
-            num2words(1000, lang='ku', to='currency'), 'هەزار دینار')
+            num2words(1000, lang='ku', to='currency'), 'hezar lira')
         self.assertEqual(
             num2words(1500000, lang='ku', to='currency'),
-            'پازدە ملیۆن و پێنج سەد هەزار دینار'
+            'Yek milyon û pênc sed hezar lira'
         )
 
     def test_ordinal_num(self):
-        self.assertEqual(num2words(10, lang='ku', to='ordinal_num'), '10م')
-        self.assertEqual(num2words(21, lang='ku', to='ordinal_num'), '21م')
-        self.assertEqual(num2words(102, lang='ku', to='ordinal_num'), '102م')
-        self.assertEqual(num2words(73, lang='ku', to='ordinal_num'), '73م')
+        self.assertEqual(num2words(10, lang='ku', to='ordinal_num'), '10yem')
+        self.assertEqual(num2words(21, lang='ku', to='ordinal_num'), '21yem')
+        self.assertEqual(num2words(102, lang='ku', to='ordinal_num'), '102yem')
+        self.assertEqual(num2words(73, lang='ku', to='ordinal_num'), '73yem')
 
     def test_cardinal_for_float_number(self):
-        self.assertEqual(num2words(12.5, lang='ku'), "دوازدە پۆینت پێنج")
-        self.assertEqual(num2words(0.75, lang='ku'), "سفر پۆینت حەفتا و پێنج")
+        self.assertEqual(num2words(12.5, lang='ku'), "dwanzdeh point pênc")
+        self.assertEqual(num2words(0.75, lang='ku'), "sifir point heftê û pênc")
         self.assertEqual(num2words(12.51, lang='ku'),
-                         "دوازدە پۆینت پەنجا و یەک")
+                         "dwanzdeh point pêncî û Yek")
 
     def test_overflow(self):
         with self.assertRaises(OverflowError):

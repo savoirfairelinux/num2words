@@ -48,8 +48,11 @@ class Num2Word_KU(object):
     MAXNUM = 10 ** 36
 
     @staticmethod
-    def float_to_tuple(value: Union[int, float, Decimal]) -> tuple[int, int, int]:
+    def float2tuple(value: Union[int, float, Decimal]) -> tuple[int, int, int]:
+        if value is None:
+            raise ValueError("Value cannot be None")
         pre = int(value)
+        # Simple way of finding decimal places to update the precision
         precision = abs(Decimal(str(value)).as_tuple().exponent)
         post = abs(value - pre) * 10**precision
         if abs(round(post) - post) < 0.01:
@@ -97,8 +100,6 @@ class Num2Word_KU(object):
     def fractional(number: int, level: int) -> str:
         if number < 0:
             raise ValueError("Number cannot be negative")
-        if number == 5:
-            return "nîv"
         x = Num2Word_KU.cardinal_pos(number)
         ld3, lm3 = divmod(level, 3)
         ltext = (Num2Word_KU.FRAC[lm3] + " " + Num2Word_KU.FRAC_BIG[ld3]).strip()
@@ -130,19 +131,35 @@ class Num2Word_KU(object):
         if value is None:
             raise ValueError("Value cannot be None")
         return str(value)+"yem"
-
-    @staticmethod
-    def to_cardinal(number: Union[int, float, Decimal]) -> str:
+    def _int2word(number):
         if number is None:
             raise ValueError("Value cannot be None")
         if number < 0:
             return "negatîf " + Num2Word_KU.to_cardinal(-number)
         if number == 0:
             return "sifir"
-        x, y, level = Num2Word_KU.float_to_tuple(number)
+        x, y, level = Num2Word_KU.float2tuple(number)
         if y == 0:
             return Num2Word_KU.cardinal_pos(x)
         if x == 0:
             return Num2Word_KU.fractional(y, level)
         return Num2Word_KU.cardinal_pos(x) + Num2Word_KU.SEPARATOR + Num2Word_KU.fractional(y, level)
+    
+    @staticmethod
+    def to_cardinal(number):
+        n = str(number).replace(',', '.')
+        if '.' in n:
+            left, right = n.split('.')
+            leading_zero_count = len(right) - len(right.lstrip('0'))
+            decimal_part = (("sifir" + ' ') * leading_zero_count +
+                            Num2Word_KU._int2word(int(right)))
+            return '%s%s %s' % (
+                Num2Word_KU._int2word(int(left)),
+                " point",
+                decimal_part
+            )
+        else:
+            return "%s" % ( Num2Word_KU._int2word(int(n)))
+        
+    
 

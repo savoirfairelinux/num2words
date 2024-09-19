@@ -125,8 +125,6 @@ class Num2Word_CKB(object):
     def fractional(number: int, level: int) -> str:
         if number < 0:
             raise ValueError("Number cannot be negative")
-        if number == 5:
-            return "نیوە"
         x = Num2Word_CKB.cardinalPos(number)
         ld3, lm3 = divmod(level, 3)
         ltext = (Num2Word_CKB.SORANI_FRAC[lm3] + " " + Num2Word_CKB.SORANI_FRAC_BIG[ld3]).strip()
@@ -142,9 +140,11 @@ class Num2Word_CKB(object):
     def to_ordinal(number: int) -> str:
         if number < 0:
             raise ValueError("Number cannot be negative")
+        if number == 0:
+            return "سفر"
         r = Num2Word_CKB.to_cardinal(number)
-        if r[-1] == 'ه' and r[-2] == 'س':
-            return r[:-1] + 'وم'
+        if r[-1] == 'ک':
+            return r + 'ەم'
         return r + 'یەم'
 
     @staticmethod
@@ -158,9 +158,7 @@ class Num2Word_CKB(object):
         if value is None:
             raise ValueError("Value cannot be None")
         return str(value)+"یەم"
-
-    @staticmethod
-    def to_cardinal(number: Union[int, float, Decimal]) -> str:
+    def _int2word(number):
         if number is None:
             raise ValueError("Value cannot be None")
         if number < 0:
@@ -172,5 +170,23 @@ class Num2Word_CKB(object):
             return Num2Word_CKB.cardinalPos(x)
         if x == 0:
             return Num2Word_CKB.fractional(y, level)
-        return Num2Word_CKB.cardinalPos(x) + Num2Word_CKB.SORANI_SEPERATOR + Num2Word_CKB.fractional(y, level)
+        return Num2Word_CKB.cardinalPos(x) + Num2Word_CKB.SEPARATOR + Num2Word_CKB.fractional(y, level)
+
+    @staticmethod
+    def to_cardinal(number):
+        n = str(number).replace(',', '.')
+        if '.' in n:
+            left, right = n.split('.')
+            leading_zero_count = len(right) - len(right.lstrip('0'))
+            decimal_part = (("سفر" + ' ') * leading_zero_count +
+                            Num2Word_CKB._int2word(int(right)))
+            return '%s%s %s' % (
+                Num2Word_CKB._int2word(int(left)),
+                " پۆینت",
+                decimal_part
+            )
+        else:
+            return "%s" % ( Num2Word_CKB._int2word(int(n)))
+        
+
 
