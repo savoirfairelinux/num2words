@@ -50,12 +50,9 @@ Examples:
 """
 
 from __future__ import print_function, unicode_literals
-
 import os
 import sys
-
 from docopt import docopt
-
 import num2words
 
 __version__ = "0.5.13"
