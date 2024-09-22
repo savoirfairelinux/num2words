@@ -15,11 +15,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301 USA
 
-from __future__ import division, unicode_literals
 
-import re
-
-from num2words.currency import parse_currency_parts, prefix_currency
+from num2words.currency import parse_currency_parts
 
 from .lang_EU import Num2Word_EU
 
@@ -42,11 +39,12 @@ class Num2Word_TET(Num2Word_EU):
 
     def setup(self):
         super().setup()
-        lows = ["quatr", "tr", "b", "m"]
+        lows = ["kuatr", "tr", "b", "m"]
         self.high_numwords = self.gen_high_numwords([], [], lows)
         self.negword = "menus "
         self.pointword = "vírgula"
         self.exclude_title = ["resin", "vírgula", "menus"]
+        self.count = 0
 
         self.mid_numwords = [
             (1000, "rihun"), (100, "atus"), (90, "sianulu"),
@@ -59,51 +57,6 @@ class Num2Word_TET(Num2Word_EU):
             "sia", "ualu", "hitu", "neen", "lima", "haat", "tolu", "rua",
             "ida", "mamuk"
         ]
-        self.ords = [
-            {
-                0: "",
-                1: "dahuluk",
-                2: "daruak",
-                3: "datoluk",
-                4: "dahaat",
-                5: "dalimak",
-                6: "daneen",
-                7: "dahituk",
-                8: "daualuk",
-                9: "dasiak",
-            },
-            {
-                0: "",
-                1: "dasanuluk",
-                2: "daruanuluk",
-                3: "datolunuluk",
-                4: "dahaatnuluk",
-                5: "dalimanuluk",
-                6: "daneenuluk",
-                7: "dahitunuluk",
-                8: "daualunuk",
-                9: "dasianuluk",
-            },
-            {
-                0: "",
-                1: "daatus idak",
-                2: "daatus ruak",
-                3: "daatus toluk",
-                4: "daatus haat",
-                5: "daatus limak",
-                6: "daatus neen",
-                7: "daatus hituk",
-                8: "daatus ualuk",
-                9: "daatus siak",
-            },
-        ]
-        self.thousand_separators = {
-            3: "darihun",
-            6: "damiliaun",
-            9: "darihun damiliaun",
-            12: "dabiliaun",
-            15: "darihun dabiliaun"
-        }
         self.hundreds = {
             1: "atus",
             2: "atus rua",
@@ -124,55 +77,67 @@ class Num2Word_TET(Num2Word_EU):
 
         if nnum < cnum:
             if nnum < 10:
+                value_str = str(cnum + nnum)
+                if int(value_str) > 100:
+                    zero_list = value_str[1:-1]
+                    all_zero = all(element == '0' for element in zero_list)
+                    if all_zero:
+                        if self.count >= 1:
+                            self.count += 0
+                            return (
+                                "ho %s %s" % (ctext, ntext),
+                                cnum + nnum
+                            )
+                        self.count += 1
+                        return ("%s %s" % (ctext, ntext), cnum + nnum)
+
                 return ("%s resin %s" % (ctext, ntext), cnum + nnum)
             else:
                 return ("%s %s" % (ctext, ntext), cnum + nnum)
 
         return (ntext + " " + ctext, cnum * nnum)
 
-    def to_cardinal(self, value):
-        result = super().to_cardinal(value)
+    def ho_result(self, result, value):
+        index = result.find('ho')
+        count_ho = result.count('ho')
 
-        # Transforms "mil e cento e catorze" into "mil cento e catorze"
-        # Transforms "cem milhões e duzentos mil e duzentos e dez" em "cem
-        # milhões duzentos mil duzentos e dez" but "cem milhões e duzentos
-        # mil e duzentos" in "cem milhões duzentos mil e duzentos" and not in
-        # "cem milhões duzentos mil duzentos"
-        for ext in (
-                'rihun', 'miliaun','miliaun rihun',
-                'biliaun', 'biliaun rihun'):
-            if re.match('.*{} resin \\w*entus? (?=.*resin)'.format(ext), result):
+        if index != -1 and count_ho >= 1:
+            index_rihun = result.find('rihun')
+            value_str = len(str(value))
+            if index_rihun != -1 and value_str > 7:
+                result = result.replace("rihun ho", "ho rihun")
+            lows = ["kuatr", "tr", "b", "m"]
+            MEGA_SUFFIX = "iliaun"
+            for low in lows:
                 result = result.replace(
-                    f'{ext} resin', f'{ext}'
-                )
+                    low + MEGA_SUFFIX + " ho", "ho " + low + MEGA_SUFFIX)
+            remove_first_ho = result.startswith('ho')
+            if remove_first_ho:
+                result = result[3:]
+        return result
+
+    def remove_ho(self, result, value):
+        value_str = str(value)
+        result = self.ho_result(result, value)
+        end_value = value_str[:-4]
+        end_true = end_value.endswith('0')
+        if end_true is False:
+            if value > 100:
+                if value_str[-1] != '0' and value_str[-2] == '0':
+                    result = result.replace("ho", "")
+                    result = result.replace("  ", " ")
 
         return result
 
-    # for the ordinal conversion the code is similar to pt_BR code,
-    # although there are other rules that are probably more correct in
-    # Portugal. Concerning numbers from 2000th on, saying "dois
-    # milésimos" instead of "segundo milésimo" (the first number
-    # would be used in the cardinal form instead of the ordinal) is better.
-    # This was not implemented.
-    # source:
-    # https://ciberduvidas.iscte-iul.pt/consultorio/perguntas/a-forma-por-extenso-de-2000-e-de-outros-ordinais/16428
+    def to_cardinal(self, value):
+        result = super().to_cardinal(value)
+
+        results = self.remove_ho(result, value)
+        return results
+
     def to_ordinal(self, value):
-        # Before changing this function remember this is used by pt-BR
-        # so act accordingly
         self.verify_ordinal(value)
-        try:
-            assert int(value) == value
-        except (ValueError, TypeError, AssertionError):
-            return self.to_cardinal_float(value)
-
         out = ""
-        if value < 0:
-            value = abs(value)
-            out = "%s " % self.negword.strip()
-
-        if value >= self.MAXVAL:
-            raise OverflowError(self.errmsg_toobig % (value, self.MAXVAL))
-
         val = self.splitnum(value)
         outs = val
         while len(val) != 1:
@@ -195,9 +160,11 @@ class Num2Word_TET(Num2Word_EU):
 
         words, num = outs[0]
 
+        words = self.remove_ho(words, value)
+
         if num in [90, 80, 70, 60, 50, 40, 30, 20, 10, 9, 8, 7, 5, 3, 2]:
             words = 'da'+words+'k'
-        if num in [6,4]:
+        if num in [6, 4]:
             words = 'da'+words
         if num == 1:
             words = 'dahuluk'
@@ -215,8 +182,8 @@ class Num2Word_TET(Num2Word_EU):
             else:
                 words = first_word+" "+second_word+'k'
 
-        word_first =  'dah'+words_split[0]
-        if word_first == 'dahatus' and len(words_split) >=3:
+        word_first = 'dah'+words_split[0]
+        if word_first == 'dahatus' and len(words_split) >= 3:
             word_second = " ".join(words_split[1:])
             if 'haat' in word_second or 'neen' in word_second:
                 words = word_first+" "+word_second
@@ -229,23 +196,20 @@ class Num2Word_TET(Num2Word_EU):
             else:
                 words = 'da'+words+'k'
 
-        return self.title(out + words)
+        result = self.title(out + words)
+
+        return result
 
     def to_ordinal_num(self, value):
-        # Before changing this function remember this is used by pt-BR
-        # so act accordingly
         self.verify_ordinal(value)
         return "%sº" % (value)
 
     def to_year(self, val, longval=True):
-        # Before changing this function remember this is used by pt-BR
-        # so act accordingly
         if val < 0:
             return self.to_cardinal(abs(val)) + ' antes Kristu'
         return self.to_cardinal(val)
 
-    def to_currency(self, val, currency='USD', cents=True,
-                    adjective=False):
+    def to_currency(self, val, currency='USD', cents=True):
         """
         Args:
             val: Numeric value
@@ -266,9 +230,6 @@ class Num2Word_TET(Num2Word_EU):
                 'Currency code "%s" not implemented for "%s"' %
                 (currency, self.__class__.__name__))
 
-        if adjective and currency in self.CURRENCY_ADJECTIVES:
-            cr1 = prefix_currency(self.CURRENCY_ADJECTIVES[currency], cr1)
-
         minus_str = "%s " % self.negword.strip() if is_negative else ""
         money_str = self._money_verbose(left, currency)
         cents_str = self._cents_verbose(right, currency) \
@@ -288,4 +249,3 @@ class Num2Word_TET(Num2Word_EU):
                 self.pluralize(right, cr2),
                 cents_str
             )
-
