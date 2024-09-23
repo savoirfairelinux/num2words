@@ -16,9 +16,10 @@
 # MA 02110-1301 USA
 
 from __future__ import division, unicode_literals
-from num2words.currency import parse_currency_parts, prefix_currency
 
 import re
+
+from num2words.currency import parse_currency_parts, prefix_currency
 
 from .lang_EU import Num2Word_EU
 
@@ -49,14 +50,14 @@ class Num2Word_MGM(Num2Word_EU):
 
         self.mid_numwords = [
             (1000, "rihun"), (100, "atus"), (90, "guul hoho paat"),
-            (80, "guul hoho teil"), (70, "guul hoho ruu"), (60, "guul hohon iid"),
-            (50, "guul liim"), (40, "guul paat"), (30, "guul teil"),
-            (20, "guul ruu")
+            (80, "guul hoho teil"), (70, "guul hoho ruu"),
+            (60, "guul hohon iid"), (50, "guul liim"), (40, "guul paat"),
+            (30, "guul teil"), (20, "guul ruu")
         ]
         self.low_numwords = [
             "saguul",
-            "hoho paat", "hoho teil", "hoho ruu", "hohon iid", "liim", "paat", "teil", "ruu",
-            "iid", "mamu"
+            "hoho paat", "hoho teil", "hoho ruu", "hohon iid",
+            "liim", "paat", "teil", "ruu", "iid", "mamu"
         ]
         self.hundreds = {
             1: "atus iid",
@@ -88,7 +89,7 @@ class Num2Word_MGM(Num2Word_EU):
         result = super().to_cardinal(value)
 
         for ext in (
-                'rihun', 'miliaun','miliaun rihun',
+                'rihun', 'miliaun', 'miliaun rihun',
                 'biliaun', 'biliaun rihun'):
             if re.match('.*{} resi \\w*entus? (?=.*resi)'.format(ext), result):
                 result = result.replace(
