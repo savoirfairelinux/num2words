@@ -47,7 +47,7 @@ class Num2Word_AR(Num2Word_Base):
 
     def __init__(self):
         super().__init__()
-
+        
         self.number = 0
         self.arabicPrefixText = ""
         self.arabicSuffixText = ""
@@ -61,6 +61,7 @@ class Num2Word_AR(Num2Word_Base):
         self.separator = 'و'
         ## to check in which grammatical case we are 
         self.rafea = True
+        self.flag = False
         self.arabicOnes = ARABIC_ONES
         self.arabicFeminineOnes = [
             "", "إحدى", "اثنتان", "ثلاث", "أربع", "خمس", "ست", "سبع", "ثمان",
@@ -128,34 +129,35 @@ class Num2Word_AR(Num2Word_Base):
         self.integer_value = int(splits[0])
         if len(splits) > 1:
             self._decimalValue = int(self.decimal_value(splits[1]))
-            print("extract_integer_and_decimal_parts",self.decimal_value)
+            # print("extract_integer_and_decimal_parts",self.decimal_value)
         else:
             self._decimalValue = 0
 
     def decimal_value(self, decimal_part):
 
-        if self.partPrecision is not len(decimal_part):
-            decimal_part_length = len(decimal_part)
+        # if self.partPrecision is not len(decimal_part):
+        #     decimal_part_length = len(decimal_part)
 
-            decimal_part_builder = decimal_part
-            for i in range(0, self.partPrecision - decimal_part_length):
-                decimal_part_builder += '0'
-            decimal_part = decimal_part_builder
+        #     decimal_part_builder = decimal_part
+        #     for i in range(0, self.partPrecision - decimal_part_length):
+        #         decimal_part_builder += '0'
+        #     decimal_part = decimal_part_builder
 
-            if len(decimal_part) <= self.partPrecision:
-                dec = len(decimal_part)
-            else:
-                dec = self.partPrecision
-            result = decimal_part[0: dec]
-        else:
-            result = decimal_part
+        #     if len(decimal_part) <= self.partPrecision:
+        #         dec = len(decimal_part)
+        #     else:
+        #         dec = self.partPrecision
+        #     result = decimal_part[0: dec]
+        # else:
+        result = decimal_part
 
         # The following is useless (never happens)
         # for i in range(len(result), self.partPrecision):
         #     result += '0'
         return result
 
-    def digit_feminine_status(self, digit, group_level, rafea=True):
+    def digit_feminine_status(self, digit, group_level, currencyPartName = True,rafea=True):
+        self.isCurrencyPartNameFeminine = currencyPartName
         if group_level == -1:
             if self.isCurrencyPartNameFeminine:
                 conversion = self.arabicFeminineOnes[int(digit)]
@@ -180,7 +182,7 @@ class Num2Word_AR(Num2Word_Base):
 
 
     def change_arabic_word_end(self,word):
-        if word == "ثمان":
+        if word == "ثمان" or word == "مليون":
             return word
         # Check if the word ends with "ان" and replace with "ين"
         if word.endswith("ان"):
@@ -217,9 +219,9 @@ class Num2Word_AR(Num2Word_Base):
                 else:
                     ret_val = "{}".format(
                     self.change_arabic_word_end(self.arabicHundreds[int(hundreds)]))
-                    print("returned arabic hundreds",ret_val)
+                    # print("returned arabic hundreds",ret_val)
                 if ret_val != "" and tens != 0:
-                    ret_val += " و "
+                    ret_val += " و"
 
         if tens > 0:
             if tens < 20:
@@ -264,10 +266,10 @@ class Num2Word_AR(Num2Word_Base):
                     else:
                         if rafea:
                             ret_val += self.digit_feminine_status(int(tens),
-                                                              group_level,rafea)
+                                                              group_level,False, rafea)
                         else:
                             ret_val += self.change_arabic_word_end(self.digit_feminine_status(int(tens),
-                                                              group_level, rafea))
+                                                              group_level,False, rafea))
                     
                 #     else:
                 #         if tens >= 20:
@@ -310,9 +312,19 @@ class Num2Word_AR(Num2Word_Base):
                     ones = tens % 10
                     tens = (tens // 10) - 2  # Tens is decremented because array starts at 20
                     if ones > 0:
-                        ret_val += self.digit_feminine_status(ones, group_level, rafea)
+                        if group_level == -1:
+                            if rafea:
+                                ret_val += self.digit_feminine_status(ones, group_level, False,rafea)
+                            else:
+                                ret_val += self.change_arabic_word_end(self.digit_feminine_status(ones, group_level, False,rafea))
+                        else:
+                            if rafea:
+                                ret_val += self.digit_feminine_status(ones, group_level, rafea)
+                            else:
+                                ret_val += self.change_arabic_word_end(self.digit_feminine_status(ones, group_level, rafea))
+
                     if ret_val != "" and ones != 0:
-                        ret_val += " و "
+                        ret_val += " و"
                     if rafea:
                         ret_val += self.arabicTens[int(tens)]
                     else:
@@ -333,73 +345,79 @@ class Num2Word_AR(Num2Word_Base):
         if integer == number:
             return str(integer)
         decimal = round((number - integer) * 10**9)
-        print("decimal in to str", decimal)
-        print("returned decimal string{:09d}".format(decimal).rstrip("0"))
+        # print("decimal in to str", decimal)
+        # print("returned decimal string{:09d}".format(decimal).rstrip("0"))
         return str(integer) + "." + "{:09d}".format(decimal).rstrip("0")
 
 
     def convert(self, value, rafea):
-        print(f"Converting value: {value}")
+        # print(f"Converting value: {value}")
 
         self.number = self.to_str(value)
-        print(f"Converted number: {self.number}")
+        # print(f"Converted number: {self.number}")
   
-        x = self.number_to_arabic(self.arabicPrefixText, self.arabicSuffixText)
+        self.number_to_arabic(self.arabicPrefixText, self.arabicSuffixText)
         # print("x",x)
         return self.convert_to_arabic(rafea)
 
     def convert_fraction_to_text(self, number_str, number,rafea= False):
-        print("convert to fraction function in")
+        if self.flag:
+            return number_str
+        # print("convert to fraction function in")
         # decimal_value = self.extract_integer_and_decimal_parts()
         # number = int(decimal_value)
         # number_str = str(number)
-        print("number",self.to_str(number))
+        # print("number",self.to_str(number))
         number_converted = str(number)
         decimalPart = number_converted.split(".")
-        print("decimalPart", decimalPart)
-        print(len(decimalPart))
+        # print("decimalPart", decimalPart)
+        # print(len(decimalPart))
+        
         if len(decimalPart) > 1:
-                decimalPart = decimalPart[1]
-                decimalPart = int(decimalPart)
+                decimalPart_length = len(str(decimalPart[1]))
+                decimalPart = int(decimalPart[1])
                 
                 if decimalPart != 0:
                     decimalPart = int(decimalPart)
-                    print(number)
+                    # print(number)
 
-                    if decimalPart % 10 == decimalPart:
-                        
-                        if decimalPart == 2:
+                    if decimalPart_length == 1:
+                        if decimalPart == 1:
+                            return f"جزءاً {number_str} من العشر"
+                        elif decimalPart == 2:
                             if self.rafea == True:
-                                    return f"{number_str} جزءان من العشر"
+                                    return f"جزءان من العشر"
                             else:
-                                    return f"{number_str} جزئين من العشر"
-                        elif 3<decimalPart<10:
+                                    return f"جزئين من العشر"
+                        elif 3<=decimalPart<10:
                             
                             return f"{number_str} أجزاء من العشر"
-                        
+                        # impossible case, just to close if case 
                         else:
                             return f"{number_str} جزءاً من العشر"
-                    elif decimalPart % 100 == decimalPart:
-
-                        if decimalPart == 2:
+                    elif decimalPart_length == 2:
+                        if decimalPart == 1:
+                            return f"جزءاً {number_str} من المئة"
+                        elif decimalPart == 2:
                             if self.rafea == True:
-                                    return f"{number_str} جزءان من المئة"
+                                    return f"جزءان من المئة"
                             else:
-                                    return f"{number_str} جزئين من المئة"
-                        elif 3<decimalPart<10:
+                                    return f"جزئين من المئة"
+                        elif 3<=decimalPart<10:
                             
                             return f"{number_str} أجزاء من المئة"
                         
                         else:
                             return f"{number_str} جزءاً من المئة"
-                    if decimalPart % 1000 == decimalPart:
-                        
+                    elif decimalPart_length == 3:
+                        if decimalPart == 1:
+                            return f"جزءاً {number_str} من اﻷلف"
                         if decimalPart == 2:
                             if self.rafea == True:
-                                    return f"{number_str} جزءان من اﻷلف"
+                                    return f"جزءان من اﻷلف"
                             else:
-                                    return f"{number_str} جزئين من اﻷلف"
-                        elif 3<decimalPart<10:
+                                    return f"جزئين من اﻷلف"
+                        elif 3<=decimalPart<10:
                             
                             return f"{number_str} أجزاء من اﻷلف"
                         
@@ -413,25 +431,25 @@ class Num2Word_AR(Num2Word_Base):
 
     def convert_to_arabic(self, rafea):
         temp_number = Decimal(self.number)
-        print("temp_number",temp_number)
+        # print("temp_number",temp_number)
         if temp_number == Decimal(0):
             return "صفر"
 
         decimal_string = self.process_arabic_group(self._decimalValue,
                                                    -1,
                                                    Decimal(0), rafea=rafea)
-        print("decimal string before", decimal_string)
+        # print("decimal string before", decimal_string)
         # print(self.process_arabic_group(self._decimalValue,
-        #                                            -1,
-        #   
-        #                                         Decimal(0), rafea=rafea))
+                                                #    -1,
+          
+                                                # Decimal(0), rafea=rafea))
         decimal_string = self.convert_fraction_to_text(decimal_string, temp_number,rafea=rafea)
         
         if decimal_string == "اثنتا عشرة جزءاً من المئة":
             if not rafea:
                 decimal_string = "اثنتي عشرة جزءاً من المئة"
         
-        print("decimal_string",decimal_string)
+        # print("decimal_string",decimal_string)
         ret_val = ""
         group = 0
 
@@ -456,9 +474,9 @@ class Num2Word_AR(Num2Word_Base):
                 if group > 0:
                     if ret_val != "":
                         if rafea:
-                            ret_val = "{}و {}".format("", ret_val)
+                            ret_val = "و{}".format(ret_val)
                         else: 
-                            ret_val = "{}و {}".format("", self.change_arabic_word_end(ret_val))
+                            ret_val = "و{}".format(self.change_arabic_word_end(ret_val))
                     if number_to_process != 2 and number_to_process != 1:
                         # if group >= len(self.arabicGroup):
                         #     raise OverflowError(self.errmsg_toobig %
@@ -528,7 +546,7 @@ class Num2Word_AR(Num2Word_Base):
             elif 11 <= remaining100 <= 99:
                 formatted_number += self.currency_unit[3]
         if self._decimalValue != 0:
-            formatted_number += " {} ".format(self.separator)
+            formatted_number += "{}".format(self.separator)
             if decimal_string:
                 formatted_number += decimal_string
 
@@ -580,7 +598,7 @@ class Num2Word_AR(Num2Word_Base):
     #         if rafea:
     #             self.currency_unit = CURRENCY_SR[0]
     #             self.currency_subunit = CURRENCY_SR[1]
-    #             print(self.currency_unit, self.currency_subunit)
+    #             # print(self.currency_unit, self.currency_subunit)
     #         else:
     #             self.currency_unit = CURRENCY_SR[0]
     #             self.change_arabic_word_end(self.currency_unit)
@@ -607,21 +625,24 @@ class Num2Word_AR(Num2Word_Base):
     #     # print("suffix",suffix)
     #     if rafea:
     #         self.arabicSuffixText = suffix
-    #         print("suffix_rafea",suffix)
+    #         # print("suffix_rafea",suffix)
     #     else:
     #         self.arabicSuffixText = suffix
-    #         print("suffix",suffix)
+    #         # print("suffix",suffix)
     #         # self.change_arabic_word_end(self.arabicSuffixText)
     #     # print(self.arabicSuffixText)
     #     return self.convert(value=value, rafea=rafea)
     def to_currency(self, value, currency='SR', prefix='', suffix='', rafea=True):
         self.set_currency_prefer(currency)
         self.isCurrencyNameFeminine = False
-        self.separator = "و"
+        self.separator = " و"
         self.arabicOnes = ARABIC_ONES
         self.arabicPrefixText = prefix
         self.arabicSuffixText = suffix
+        self.flag = True
+        
         return self.convert(value=value, rafea=rafea)
+
 
     # def to_ordinal(self, number, prefix='', rafea=True):
     #     if number <= 19:
@@ -669,6 +690,7 @@ class Num2Word_AR(Num2Word_Base):
         minus = ''
         if number < 0:
             minus = 'سالب '
+        # separator in case of decimal is ',' self.separator
         self.separator = ','
         self.currency_subunit = ('', '', '', '')
         self.currency_unit = ('', '', '', '')
@@ -677,12 +699,12 @@ class Num2Word_AR(Num2Word_Base):
         self.arabicOnes = ARABIC_ONES
         return minus + self.convert(value=self.abs(number), rafea=rafea).strip()
 # Example Usage:
-num_converter = Num2Word_AR()
-num_converter.rafea = False  # Set to True for رفع (rafea) case
-result_rafea = num_converter.convert(12.345,rafea = False)
-# print(result_rafea)
+# num_converter = Num2Word_AR()
+# num_converter.rafea = False  # Set to True for رفع (rafea) case
+# result_rafea = num_converter.convert(12.345,rafea = False)
+# # print(result_rafea)
 # num_converter.rafea = False  # Set to False for نصب (nasb) case
 # result_nasb = num_converter.convert(value=200000)
-# print(result_nasb)
+# # print(result_nasb)
 
 
