@@ -110,10 +110,13 @@ class Num2Word_SR(Num2Word_Base):
         n = str(number).replace(',', '.')
         if '.' in n:
             left, right = n.split('.')
+            leading_zero_count = len(right) - len(right.lstrip('0'))
+            decimal_part = ((ZERO[0] + ' ') * leading_zero_count +
+                            self._int2word(int(right), feminine))
             return u'%s %s %s' % (
                 self._int2word(int(left), feminine),
                 self.pointword,
-                self._int2word(int(right), feminine)
+                decimal_part
             )
         else:
             return self._int2word(int(n), feminine)
@@ -173,14 +176,14 @@ class Num2Word_SR(Num2Word_Base):
 
         return ' '.join(words)
 
-    def to_currency(self, val, currency='EUR', cents=True, seperator=',',
+    def to_currency(self, val, currency='EUR', cents=True, separator=',',
                     adjective=False):
         """
         Args:
             val: Numeric value
             currency (str): Currency code
             cents (bool): Verbose cents
-            seperator (str): Cent seperator
+            separator (str): Cent separator
             adjective (bool): Prefix currency name with adjective
         Returns:
             str: Formatted string
@@ -210,7 +213,7 @@ class Num2Word_SR(Num2Word_Base):
             minus_str,
             self.to_cardinal(left, feminine=cr1[-1]),
             self.pluralize(left, cr1),
-            seperator,
+            separator,
             cents_str,
             self.pluralize(right, cr2)
         )

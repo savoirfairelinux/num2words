@@ -17,10 +17,20 @@
 
 from __future__ import print_function, unicode_literals
 
+import re
+
 from .lang_EU import Num2Word_EU
 
 
 class Num2Word_DE(Num2Word_EU):
+    CURRENCY_FORMS = {
+        'EUR': (('Euro', 'Euro'), ('Cent', 'Cent')),
+        'GBP': (('Pfund', 'Pfund'), ('Penny', 'Pence')),
+        'USD': (('Dollar', 'Dollar'), ('Cent', 'Cent')),
+        'CNY': (('Yuan', 'Yuan'), ('Jiao', 'Fen')),
+        'DEM': (('Mark', 'Mark'), ('Pfennig', 'Pfennig')),
+    }
+
     GIGA_SUFFIX = "illiarde"
     MEGA_SUFFIX = "illion"
 
@@ -45,7 +55,7 @@ class Num2Word_DE(Num2Word_EU):
         self.errmsg_toobig = "Die Zahl %s muss kleiner als %s sein."
         self.exclude_title = []
 
-        lows = ["non", "okt", "sept", "sext", "quint", "quadr", "tr", "b", "m"]
+        lows = ["Non", "Okt", "Sept", "Sext", "Quint", "Quadr", "Tr", "B", "M"]
         units = ["", "un", "duo", "tre", "quattuor", "quin", "sex", "sept",
                  "okto", "novem"]
         tens = ["dez", "vigint", "trigint", "quadragint", "quinquagint",
@@ -107,7 +117,7 @@ class Num2Word_DE(Num2Word_EU):
 
     def to_ordinal(self, value):
         self.verify_ordinal(value)
-        outword = self.to_cardinal(value)
+        outword = self.to_cardinal(value).lower()
         for key in self.ords:
             if outword.endswith(key):
                 outword = outword[:len(outword) - len(key)] + self.ords[key]
@@ -118,6 +128,13 @@ class Num2Word_DE(Num2Word_EU):
         # Exception: "hundertste" is usually preferred over "einhundertste"
         if res == "eintausendste" or res == "einhundertste":
             res = res.replace("ein", "", 1)
+        # ... similarly for "millionste" etc.
+        res = re.sub(r'eine ([a-z]+(illion|illiard)ste)$',
+                     lambda m: m.group(1), res)
+        # Ordinals involving "Million" etc. are written without a space.
+        # see https://de.wikipedia.org/wiki/Million#Sprachliches
+        res = re.sub(r' ([a-z]+(illion|illiard)ste)$',
+                     lambda m: m.group(1), res)
 
         return res
 
@@ -125,22 +142,13 @@ class Num2Word_DE(Num2Word_EU):
         self.verify_ordinal(value)
         return str(value) + "."
 
-    def to_currency(self, val, longval=True, old=False):
-        hightxt = "Euro"
-        lowtxt = "Cent"
-        if old:
-            hightxt = "Mark"
-            lowtxt = "Pfennig/e"
-
-        cents = int(round(val*100))
-        res = self.to_splitnum(cents, hightxt=hightxt, lowtxt=lowtxt,
-                               jointxt="und", longval=longval)
-
+    def to_currency(self, val, currency='EUR', cents=True, separator=' und',
+                    adjective=False):
+        result = super(Num2Word_DE, self).to_currency(
+            val, currency=currency, cents=cents, separator=separator,
+            adjective=adjective)
         # Handle exception, in german is "ein Euro" and not "eins Euro"
-        if res.startswith("eins "):
-            res = res.replace("eins ", "ein ", 1)
-
-        return res
+        return result.replace("eins ", "ein ")
 
     def to_year(self, val, longval=True):
         if not (val // 100) % 10:

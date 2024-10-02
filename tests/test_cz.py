@@ -33,6 +33,14 @@ class Num2WordsCZTest(TestCase):
         self.assertEqual(num2words(1001, lang='cz'), "tisíc jedna")
         self.assertEqual(num2words(2012, lang='cz'), "dva tisíce dvanáct")
         self.assertEqual(
+            num2words(10.02, lang='cz'),
+            "deset celá nula dva"
+        )
+        self.assertEqual(
+            num2words(15.007, lang='cz'),
+            "patnáct celá nula nula sedm"
+        )
+        self.assertEqual(
             num2words(12519.85, lang='cz'),
             "dvanáct tisíc pětset devatenáct celá osmdesát pět"
         )
@@ -84,11 +92,11 @@ class Num2WordsCZTest(TestCase):
             "tisíc dvěstě třicet čtyři koruny, padesát šest haléřů")
         self.assertEqual(
             num2words(101.11, lang='cz', to='currency', currency='EUR',
-                      seperator=' a'),
+                      separator=' a'),
             "sto jedna euro a jedenáct centů")
         self.assertEqual(
             num2words(101.21, lang='cz', to='currency', currency='CZK',
-                      seperator=' a'),
+                      separator=' a'),
             "sto jedna korun a dvacet jedna haléřů"
         )
         self.assertEqual(
@@ -97,7 +105,7 @@ class Num2WordsCZTest(TestCase):
         )
         self.assertEqual(
             num2words(123.50, lang='cz', to='currency', currency='CZK',
-                      seperator=' a'),
+                      separator=' a'),
             "sto dvacet tři koruny a padesát haléřů"
         )
         self.assertEqual(
