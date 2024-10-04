@@ -83,7 +83,7 @@ THOUSANDS = {
     9: ('девет хиляди'),
 }
 
-class Num2Word_SR(Num2Word_Base):
+class Num2Word_BG(Num2Word_Base):
     CURRENCY_FORMS = {
         'BGN': (
             ('лев', 'лева', 'лева', True),
