@@ -32,7 +32,7 @@ CONVERTER_CLASSES = {
     'ar': lang_AR.Num2Word_AR(),
     'az': lang_AZ.Num2Word_AZ(),
     'be': lang_BE.Num2Word_BE(),
-    'bg': lang_BE.Num2Word_BG(),
+    'bg': lang_BG.Num2Word_BG(),
     'ca': lang_CA.Num2Word_CA(),
     'ce': lang_CE.Num2Word_CE(),
     'cy': lang_CY.Num2Word_CY(),
