@@ -25,7 +25,7 @@ class NumberTooLargeError(Exception):
     pass
 
 
-class Number2BN:
+class Number2Word_BN:
 
     def __init__(self):
         self.ranking = ['', 'প্রথম', 'দ্বিতীয়', 'তৃতীয়', 'চতুর্থ', 'পঞ্চম', 'ষষ্ঠ', 'সপ্তম', 'অষ্টম', 'নবম', 'দশম']
