@@ -17,7 +17,6 @@
 
 
 from decimal import Decimal
-from math import floor
 
 
 class NumberTooLargeError(Exception):
@@ -25,7 +24,7 @@ class NumberTooLargeError(Exception):
     pass
 
 
-class Number2Word_BN:
+class Num2Word_BN:
 
     def __init__(self):
         self.ranking = ['', 'প্রথম', 'দ্বিতীয়', 'তৃতীয়', 'চতুর্থ', 'পঞ্চম', 'ষষ্ঠ', 'সপ্তম', 'অষ্টম', 'নবম', 'দশম']
@@ -48,36 +47,41 @@ class Number2Word_BN:
         self.hazar = ' হাজার '
         self.lakh = ' লাখ '
         self.koti = ' কোটি '
-        self.dosomik_word = None
-        self.MAX_NUMBER = 9_999_999_999_999_999
+        self._max_number = 9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+
+    @property
+    def max_number(self):
+        return self._max_number
 
     @staticmethod
-    def str_to_decimal_number(value):
-        return Decimal(abs(value))
+    def str_to_number(number):
+        return abs(Decimal(str(number)))
 
     @staticmethod
-    def parse_number(value):
-        number = int(value)
+    def parse_number(number):
+        dosomik = str(number - int(number)).split('.')[1:]
+        dosomik_str = ''.join(dosomik) if dosomik else 0
+        return int(number), int(dosomik_str)
 
-        # get max 9 decimal places from number
-        precision = abs(Decimal(str(value)).as_tuple().exponent) if abs(
-            Decimal(str(value)).as_tuple().exponent) < 10 else 9
-        dosomik = abs(value - number) * 10 ** precision
+    @staticmethod
+    def parse_paisa(number):
+        # 1-99 for paisa count so two digits are valid.
+        paisa = str(number - int(number)).split('.')[1:]
+        paisa_str = ''.join(paisa) if paisa else 0
 
-        if abs(round(dosomik) - dosomik) < 0.01:
-            dosomik = int(round(dosomik))
-        else:
-            dosomik = int(floor(dosomik))
-        return number, dosomik, precision
+        # this is need, when we parse to decimal it removes trailing 0 .
+        if paisa_str:
+            paisa_str = str(int(paisa_str) * 100)[:2]
+        return int(number), int(paisa_str)
 
     def _is_smaller_than_max_number(self, number):
-        if self.MAX_NUMBER >= number:
+        if self._max_number >= number:
             return True
-        raise NumberTooLargeError(f'Too Large number maximum value={self.MAX_NUMBER}')
+        raise NumberTooLargeError(f'Too Large number maximum value={self._max_number}')
 
-    def _dosomik_to_bengali_word(self, number: str):
+    def _dosomik_to_bengali_word(self, number):
         word = ''
-        for i in number:
+        for i in str(number):
             word += ' ' + self.akok[int(i)]
         return word
 
@@ -112,19 +116,28 @@ class Number2Word_BN:
 
         return words.strip()
 
-    def to_currency(self, val, cents=True):
-        self._is_smaller_than_max_number(val)
+    def to_currency(self, val):
+        """
+        This function represent a number to word in bangla taka and paisa.
+        example:
+        1 = এক টাকা,
+        101 = একশত এক টাকা,
+        9999.15 = নয় হাজার নয়শত নিরানব্বই টাকা পনের পয়সা
+        and so on.
+        """
 
-        number = self.str_to_decimal_number(val)
-        number, decimal_part, precision = self.parse_number(number)
+        dosomik_word = None
+        number = self.str_to_number(val)
+        number, decimal_part = self.parse_paisa(number)
+        self._is_smaller_than_max_number(number)
 
-        if decimal_part > 0 and cents:
-            self.dosomik_word = f' দশমিক{self._dosomik_to_bengali_word(str(decimal_part))} পয়সা'
+        if decimal_part > 0:
+            dosomik_word = f' {self._number_to_bengali_word(decimal_part)} পয়সা'
 
         words = f'{self._number_to_bengali_word(number)} টাকা'
 
-        if self.dosomik_word:
-            return (words + self.dosomik_word).strip()
+        if dosomik_word:
+            return (words + dosomik_word).strip()
         return words.strip()
 
     def to_cardinal(self, number):
@@ -137,18 +150,18 @@ class Number2Word_BN:
         and so on.
         """
 
+        dosomik_word = None
+        number = self.str_to_number(number)
+        number, decimal_part = self.parse_number(number)
         self._is_smaller_than_max_number(number)
 
-        number = self.str_to_decimal_number(number)
-        number, decimal_part, precision = self.parse_number(number)
-
         if decimal_part > 0:
-            self.dosomik_word = f' দশমিক{self._dosomik_to_bengali_word(str(decimal_part))}'
+            dosomik_word = f' দশমিক{self._dosomik_to_bengali_word(decimal_part)}'
 
         words = self._number_to_bengali_word(number)
 
-        if self.dosomik_word:
-            return (words + self.dosomik_word).strip()
+        if dosomik_word:
+            return (words + dosomik_word).strip()
         return words.strip()
 
     def to_ordinal(self, number):
