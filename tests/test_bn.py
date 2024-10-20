@@ -17,6 +17,7 @@
 
 from __future__ import unicode_literals
 
+from decimal import Decimal
 from unittest import TestCase
 
 from num2words import num2words
@@ -333,3 +334,32 @@ class Num2WordsBNTest(TestCase):
             num2words(
                 99999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999991,  # noqa: E501
                 lang="bn")
+
+    def test_is_smaller_than_max_number(self):
+        n = Num2Word_BN()
+        self.assertEqual(n._is_smaller_than_max_number(55555), True)
+
+    def test_is_smaller_than_max_number_error(self):
+        with self.assertRaises(NumberTooLargeError):
+            n = Num2Word_BN()
+            n._is_smaller_than_max_number(99999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999)  # noqa: E501
+
+    def test_parse_number(self):
+        n = Num2Word_BN()
+        self.assertEqual(n.parse_number(Decimal(3.25)), (3, 25))
+        self.assertEqual(n.parse_number(Decimal(300.2550)),
+                         (300, 2549999999999954525264911353588104248046875))
+
+    def test_parse_paisa(self):
+        n = Num2Word_BN()
+        self.assertEqual(n.parse_paisa(Decimal(3.25)), (3, 25))
+        self.assertEqual(n.parse_paisa(300.2550), (300, 25))
+        self.assertEqual(n.parse_paisa(100.5), (100, 50))
+
+    def test_number_to_bengali_word(self):
+        n = Num2Word_BN()
+        self.assertEqual(n._number_to_bengali_word(3), "তিন")
+        self.assertEqual(n._number_to_bengali_word(2550),
+                         "দুই হাজার পাঁচশত পঞ্চাশ")
+        self.assertEqual(n._number_to_bengali_word(9999999999999999),
+                         "নিরানব্বই কোটি নিরানব্বই লাখ নিরানব্বই হাজার নয়শত নিরানব্বই কোটি নিরানব্বই লাখ নিরানব্বই হাজার নয়শত নিরানব্বই")  # noqa: E501
