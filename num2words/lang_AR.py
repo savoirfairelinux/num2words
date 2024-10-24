@@ -31,6 +31,8 @@ CURRENCY_EGP = [("جنيه", "جنيهان", "جنيهات", "جنيهاً"),
                 ("قرش", "قرشان", "قروش", "قرش")]
 CURRENCY_KWD = [("دينار", "ديناران", "دينارات", "ديناراً"),
                 ("فلس", "فلسان", "فلس", "فلس")]
+CURRENCY_TND = [("دينار", "ديناران", "دينارات", "ديناراً"),
+                ("مليماً", "ميلمان", "مليم", "مليم")]
 
 ARABIC_ONES = [
     "", "واحد", "اثنان", "ثلاثة", "أربعة", "خمسة", "ستة", "سبعة", "ثمانية",
@@ -352,7 +354,11 @@ class Num2Word_AR(Num2Word_Base):
         return number
 
     def set_currency_prefer(self, currency):
-        if currency == 'EGP':
+        if currency == 'TND':
+            self.currency_unit = CURRENCY_TND[0]
+            self.currency_subunit = CURRENCY_TND[1]
+            self.partPrecision = 3
+        elif currency == 'EGP':
             self.currency_unit = CURRENCY_EGP[0]
             self.currency_subunit = CURRENCY_EGP[1]
         elif currency == 'KWD':
