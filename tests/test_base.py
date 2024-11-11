@@ -62,3 +62,7 @@ class Num2WordBaseTest(TestCase):
             self.base.title("one"),
             "one"
             )
+
+    def test_set_high_numwords_not_implemented(self):
+        with self.assertRaises(NotImplementedError):
+            self.base.set_high_numwords(['cent', 'novemnonagint', 'octononagint'])
