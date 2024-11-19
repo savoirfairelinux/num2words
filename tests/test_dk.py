@@ -20,6 +20,7 @@ from __future__ import unicode_literals
 from unittest import TestCase
 
 from num2words import num2words
+from num2words.lang_DK import Num2Word_DK
 
 
 class Num2WordsDKTest(TestCase):
@@ -35,3 +36,10 @@ class Num2WordsDKTest(TestCase):
         self.assertEqual(num2words(8, to="cardinal", lang="dk"), "otte")
         self.assertEqual(num2words(18, to="cardinal", lang="dk"), "atten")
         self.assertEqual(num2words(45, to="cardinal", lang="dk"), "femogfyrre")
+
+    def test_to_ordinal_num(self):
+        num2words_dk = Num2Word_DK()
+        self.assertEqual(num2words_dk.to_ordinal_num(1), "1te")
+        self.assertEqual(num2words_dk.to_ordinal_num(2), "2en")
+        self.assertEqual(num2words_dk.to_ordinal_num(5), "5te")
+        self.assertEqual(num2words_dk.to_ordinal_num(10), "10ende")
