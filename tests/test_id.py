@@ -51,6 +51,20 @@ class Num2WordsIDTest(TestCase):
             num2words(-0.234, lang='id'), "min nol koma dua tiga empat"
         )
 
+    def test_to_currency(self):
+        self.assertEqual(
+            num2words('110000', lang='id', to='currency'),
+            "seratus sepuluh ribu rupiah"
+        )
+        self.assertEqual(
+            num2words('9023110000', lang='id', to='currency'),
+            "sembilan miliar dua puluh tiga juta seratus sepuluh ribu rupiah"
+        )
+        self.assertEqual(
+            num2words(0, lang='id', to='currency'),
+            "nol rupiah"
+        )
+
     def test_ordinal_for_natural_number(self):
         self.assertEqual(num2words(1, ordinal=True, lang='id'), "pertama")
         self.assertEqual(num2words(10, ordinal=True, lang='id'), "kesepuluh")
