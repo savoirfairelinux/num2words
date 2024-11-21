@@ -15,87 +15,170 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301 USA
 
+# Code modified from function đọc số thành chữ, số lớn bao nhiêu cũng cân tất obtained from https://daynhauhoc.com/t/share-code-doc-so-thanh-chu-so-lon-bao-nhieu-cung-can-tat/62701/18
+# Thank to tntxtnt.
+# Cảm ơn anh rất nhiều.
+
 from __future__ import unicode_literals
+from .base import Num2Word_Base
+from .compat import to_s
+from .currency import parse_currency_parts
 
-to_19 = (u'không', u'một', u'hai', u'ba', u'bốn', u'năm', u'sáu',
-         u'bảy', u'tám', u'chín', u'mười', u'mười một', u'mười hai',
-         u'mười ba', u'mười bốn', u'mười lăm', u'mười sáu', u'mười bảy',
-         u'mười tám', u'mười chín')
-tens = (u'hai mươi', u'ba mươi', u'bốn mươi', u'năm mươi',
-        u'sáu mươi', u'bảy mươi', u'tám mươi', u'chín mươi')
-denom = ('',
-         u'nghìn', u'triệu', u'tỷ', u'nghìn tỷ', u'trăm nghìn tỷ',
-         'Quintillion', 'Sextillion', 'Septillion', 'Octillion', 'Nonillion',
-         'Decillion', 'Undecillion', 'Duodecillion', 'Tredecillion',
-         'Quattuordecillion', 'Sexdecillion', 'Septendecillion',
-         'Octodecillion', 'Novemdecillion', 'Vigintillion')
+class Num2Word_VI(Num2Word_Base):
 
+    CURRENCY_FORMS = {
+        'VND': ('đồng', 'xu'),
+        'USD': ('đô la Mỹ', 'xu Mỹ'),
+    }
 
-class Num2Word_VI(object):
+    def __init__(self, mươi='mươi', nghìn='nghìn', tư='bốn', lăm='lăm', linh='lẻ', tỷ='tỷ', đọc_số_rỗng=True):
+        self.chữ_số = ('không', 'một', 'hai', 'ba', 'bốn', 'năm', 'sáu', 'bảy', 'tám', 'chín', 'mười')
+        self.mươi = mươi
+        self.trăm = 'trăm'
+        self.nghìn = nghìn
+        self.triệu = 'triệu'
+        self.tỷ = tỷ
+        self.mốt = 'mốt'
+        self.tư = tư
+        self.lăm = lăm
+        self.linh = linh
+        self.đọc_số_rỗng = đọc_số_rỗng
+        self.negword = "âm "
+        self.pointword = "phẩy"
+        self.is_title = False
+        self.precision = 2
+        
+    def to_vn_str(self, s):
+        return self._arbitrary(s.lstrip('0'))
+    def _int(self, c):
+        return ord(c) - ord('0') if c else 0
+    def _LT1e2(self, s):
+        if len(s) <= 1: return self.chữ_số[self._int(s)]
+        if s[0] == '1':
+            ret = self.chữ_số[10]
+        else:
+            ret = self.chữ_số[self._int(s[0])]
+            if self.mươi: ret += ' ' + self.mươi
+            elif s[1] == '0': ret += ' mươi'
+        if s[1] != '0':
+            ret += ' '
+            if   s[1] == '1' and s[0] != '1': ret += self.mốt
+            elif s[1] == '4' and s[0] != '1': ret += self.tư
+            elif s[1] == '5': ret += self.lăm
+            else: ret += self.chữ_số[self._int(s[1])]
+        return ret
+    def _LT1e3(self, s):
+        if len(s) <= 2: return self._LT1e2(s)
+        if s == '000': return ''
+        ret = self.chữ_số[self._int(s[0])] + ' ' + self.trăm
+        if s[1] != '0':
+            ret += ' ' + self._LT1e2(s[1:])
+        elif s[2] != '0':
+            ret += ' ' + self.linh + ' ' + self.chữ_số[self._int(s[2])]
+        return ret
+    def _LT1e9(self, s):
+        if len(s) <= 3: return self._LT1e3(s)
+        if s == '000000' or s == '000000000': return ''
+        mid = len(s) % 3 if len(s) % 3 else 3
+        left, right = self._LT1e3(s[:mid]), self._LT1e9(s[mid:])
+        hang = self.nghìn if len(s) <= 6 else self.triệu
+        if not left:
+            if not self.đọc_số_rỗng: return right
+            else: return self.chữ_số[0] + ' ' + hang + ' ' + right
+        if not right: return left + ' ' + hang
+        return left + ' ' + hang + ' ' + right
+    def _arbitrary(self, s):
+        if len(s) <= 9: return self._LT1e9(s)
+        mid = len(s) % 9 if len(s) % 9 else 9
+        left, right = self._LT1e9(s[:mid]), self._arbitrary(s[mid:])
+        hang = ' '.join([self.tỷ] * ((len(s) - mid) // 9))
+        if not left:
+            if not self.đọc_số_rỗng: return right
+            elif right: return self.chữ_số[0] + ' ' + hang + ' ' + right
+            else: return right
+        if not right: return left + ' ' + hang
+        return left + ' ' + hang + ' ' + right
+        
+    def str_to_number(self, number):
+        # No need because this code run on string
+        return self.to_vn_str(number)
+        
+    def number_to_tr(self, number):
+        # This code run on string not number
+        number_str = str(number)
+        return self.to_vn_str(number_str)
+        
+    def to_cardinal(self, value):
+        try:
+            assert int(value) == value
+        except (ValueError, TypeError, AssertionError):
+            return self.to_cardinal_float(value)
 
-    def _convert_nn(self, val):
-        if val < 20:
-            return to_19[val]
-        for (dcap, dval) in ((k, 20 + (10 * v)) for (v, k) in enumerate(tens)):
-            if dval + 10 > val:
-                if val % 10:
-                    a = u'lăm'
-                    if to_19[val % 10] == u'một':
-                        a = u'mốt'
-                    else:
-                        a = to_19[val % 10]
-                    if to_19[val % 10] == u'năm':
-                        a = u'lăm'
-                    return dcap + ' ' + a
-                return dcap
+        out = ""
+        if value < 0:
+            value = abs(value)
+            out = self.negword
 
-    def _convert_nnn(self, val):
-        word = ''
-        (mod, rem) = (val % 100, val // 100)
-        if rem > 0:
-            word = to_19[rem] + u' trăm'
-            if mod > 0:
-                word = word + ' '
-        if mod > 0 and mod < 10:
-            if mod == 5:
-                word = word != '' and word + u'lẻ năm' or word + u'năm'
-            else:
-                word = word != '' and word + u'lẻ ' \
-                    + self._convert_nn(mod) or word + self._convert_nn(mod)
-        if mod >= 10:
-            word = word + self._convert_nn(mod)
-        return word
+        words = self.number_to_tr(value)
+        return self.title(out + words)
+        
+    def to_cardinal_float(self, value):
+        try:
+            float(value) == value
+        except (ValueError, TypeError, AssertionError, AttributeError):
+            raise TypeError(self.errmsg_nonnum % value)
 
-    def vietnam_number(self, val):
-        if val < 100:
-            return self._convert_nn(val)
-        if val < 1000:
-            return self._convert_nnn(val)
-        for (didx, dval) in ((v - 1, 1000 ** v) for v in range(len(denom))):
-            if dval > val:
-                mod = 1000 ** didx
-                lval = val // mod
-                r = val - (lval * mod)
+        pre, post = self.float2tuple(float(value))
 
-                ret = self._convert_nnn(lval) + u' ' + denom[didx]
-                if 99 >= r > 0:
-                    ret = self._convert_nnn(lval) + u' ' + denom[didx] + u' lẻ'
-                if r > 0:
-                    ret = ret + ' ' + self.vietnam_number(r)
-                return ret
+        out = [self.to_cardinal(pre)]
+        
+        if self.precision:
+            out.append(self.title(self.pointword))
 
-    def number_to_text(self, number):
-        number = '%.2f' % number
-        the_list = str(number).split('.')
-        start_word = self.vietnam_number(int(the_list[0]))
-        final_result = start_word
-        if len(the_list) > 1 and int(the_list[1]) > 0:
-            end_word = self.vietnam_number(int(the_list[1]))
-            final_result = final_result + ' phẩy ' + end_word
-        return final_result
+        # 2 decimal places
+        if post < 100:
+            out.append(self.to_cardinal(post))
 
-    def to_cardinal(self, number):
-        return self.number_to_text(number)
+        # Maybe change to 2 decimal places only if it needed
+        if post > 100:
+            post = str(post)
+            post = '0' * (self.precision - len(post)) + post
 
-    def to_ordinal(self, number):
-        return self.to_cardinal(number)
+            for i in range(self.precision):
+                curr = int(post[i])
+                out.append(to_s(self.to_cardinal(curr)))
+
+        return " ".join(out)
+        
+    def to_currency(self, number, currency="VND", cents=False, separator=',',
+                    adjective=False):
+        left, right, is_negative = parse_currency_parts(
+            number, is_int_with_cents=cents)
+
+        try:
+            cr1, cr2 = self.CURRENCY_FORMS[currency]
+            if (cents or right) and not cr2:
+                raise ValueError('Decimals not supported for "%s"' % currency)
+        except KeyError:
+            raise NotImplementedError(
+                'Currency code "%s" not implemented for "%s"' %
+                (currency, self.__class__.__name__))
+
+        minus_str = self.negword if is_negative else ""
+        return '%s%s %s%s %s' % (
+            minus_str,
+            ' '.join(self.to_cardinal(left).split()),
+            cr1,
+            ' ' + self.to_cardinal(right)
+            if cr2 else '',
+            cr2 if cr2 else '',
+        )
+
+    def to_year(self, val, suffix=None, longval=True):
+        if val < 0:
+            val = abs(val)
+            suffix = 'TCN' if not suffix else suffix
+        high, low = (val // 100, val % 100)
+        valtext = 'Năm ' + self.to_cardinal(val)
+        return (valtext if not suffix
+                else "%s %s" % (valtext, suffix))
