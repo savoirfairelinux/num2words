@@ -99,7 +99,7 @@ class Num2Word_Base(object):
         """Detach minus and return it as symbol with new num_str."""
         if num_str.startswith('-'):
             # Extra spacing to compensate if there is no minus.
-            return '%s ' % self.negword, num_str[1:]
+            return '%s ' % self.negword.strip(), num_str[1:]
         return '', num_str
 
     def str_to_number(self, value):
@@ -114,7 +114,7 @@ class Num2Word_Base(object):
         out = ""
         if value < 0:
             value = abs(value)
-            out = self.negword
+            out = "%s " % self.negword.strip()
 
         if value >= self.MAXVAL:
             raise OverflowError(self.errmsg_toobig % (value, self.MAXVAL))
@@ -297,7 +297,7 @@ class Num2Word_Base(object):
         if adjective and currency in self.CURRENCY_ADJECTIVES:
             cr1 = prefix_currency(self.CURRENCY_ADJECTIVES[currency], cr1)
 
-        minus_str = "%s " % self.negword if is_negative else ""
+        minus_str = "%s " % self.negword.strip() if is_negative else ""
         money_str = self._money_verbose(left, currency)
         cents_str = self._cents_verbose(right, currency) \
             if cents else self._cents_terse(right, currency)

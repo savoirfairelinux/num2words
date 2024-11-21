@@ -91,7 +91,7 @@ TWENTIES_ORDINALS = {
     6: ('sześćdziesiąty', "sześćdziesięcio"),
     7: ('siedemdziesiąty', "siedemdziesięcio"),
     8: ('osiemdziesiąty', "osiemdziesięcio"),
-    9: ('dziewięćdzisiąty', "dziewięćdziesięcio"),
+    9: ('dziewięćdziesiąty', "dziewięćdziesięcio"),
 }
 
 HUNDREDS = {
@@ -154,6 +154,18 @@ class Num2Word_PL(Num2Word_Base):
         ),
         'EUR': (
             ('euro', 'euro', 'euro'), ('cent', 'centy', 'centów')
+        ),
+        'USD': (
+            (
+                'dolar amerykański',
+                'dolary amerykańskie',
+                'dolarów amerykańskich'
+            ),
+            (
+                'cent',
+                'centy',
+                'centów'
+            )
         ),
     }
 

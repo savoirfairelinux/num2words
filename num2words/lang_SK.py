@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-# Copyright (c) 2003, Taro Ogawa.  All Rights Reserved.
 # Copyright (c) 2013, Savoir-faire Linux inc.  All Rights Reserved.
 
 # This library is free software; you can redistribute it and/or
@@ -23,80 +22,77 @@ from .utils import get_digits, splitbyx
 ZERO = ('nula',)
 
 ONES = {
-    1: ('jedna',),
-    2: ('dva',),
-    3: ('tři',),
-    4: ('čtyři',),
-    5: ('pět',),
-    6: ('šest',),
-    7: ('sedm',),
-    8: ('osm',),
-    9: ('devět',),
+    1: ('jeden', 'jeden', set()),
+    2: ('dva', 'dve', {1, 3, 5, 7, 9}),
+    3: ('tri', 'tri', set()),
+    4: ('štyri', 'štyri', set()),
+    5: ('päť', 'päť', set()),
+    6: ('šesť', 'šesť', set()),
+    7: ('sedem', 'sedem', set()),
+    8: ('osem', 'osem', set()),
+    9: ('deväť', 'deväť', set()),
 }
 
 TENS = {
-    0: ('deset',),
-    1: ('jedenáct',),
-    2: ('dvanáct',),
-    3: ('třináct',),
-    4: ('čtrnáct',),
-    5: ('patnáct',),
-    6: ('šestnáct',),
-    7: ('sedmnáct',),
-    8: ('osmnáct',),
-    9: ('devatenáct',),
+    0: ('desať',),
+    1: ('jedenásť',),
+    2: ('dvanásť',),
+    3: ('trinásť',),
+    4: ('štrnásť',),
+    5: ('pätnásť',),
+    6: ('šestnásť',),
+    7: ('sedemnásť',),
+    8: ('osemnásť',),
+    9: ('devätnásť',),
 }
 
 TWENTIES = {
-    2: ('dvacet',),
-    3: ('třicet',),
-    4: ('čtyřicet',),
-    5: ('padesát',),
-    6: ('šedesát',),
-    7: ('sedmdesát',),
-    8: ('osmdesát',),
-    9: ('devadesát',),
+    2: ('dvadsať',),
+    3: ('tridsať',),
+    4: ('štyridsať',),
+    5: ('päťdesiat',),
+    6: ('šesťdesiat',),
+    7: ('sedemdesiat',),
+    8: ('osemdesiat',),
+    9: ('deväťdesiat',),
 }
 
 HUNDREDS = {
     1: ('sto',),
-    2: ('dvěstě',),
-    3: ('třista',),
-    4: ('čtyřista',),
-    5: ('pětset',),
-    6: ('šestset',),
-    7: ('sedmset',),
-    8: ('osmset',),
-    9: ('devětset',),
+    2: ('dvesto',),
+    3: ('tristo',),
+    4: ('štyristo',),
+    5: ('päťsto',),
+    6: ('šesťsto',),
+    7: ('sedemsto',),
+    8: ('osemsto',),
+    9: ('deväťsto',),
 }
 
 THOUSANDS = {
-    1: ('tisíc', 'tisíce', 'tisíc'),  # 10^3
-    2: ('milion', 'miliony', 'milionů'),  # 10^6
-    3: ('miliarda', 'miliardy', 'miliard'),  # 10^9
-    4: ('bilion', 'biliony', 'bilionů'),  # 10^12
-    5: ('biliarda', 'biliardy', 'biliard'),  # 10^15
-    6: ('trilion', 'triliony', 'trilionů'),  # 10^18
-    7: ('triliarda', 'triliardy', 'triliard'),  # 10^21
-    8: ('kvadrilion', 'kvadriliony', 'kvadrilionů'),  # 10^24
-    9: ('kvadriliarda', 'kvadriliardy', 'kvadriliard'),  # 10^27
-    10: ('quintillion', 'quintilliony', 'quintillionů'),  # 10^30
+    1: ('tisíc', 'tisíc', 'tisíc'),  # 10^3
+    2: ('milión', 'milióny', 'miliónov'),  # 10^6
+    3: ('miliarda', 'miliardy', 'miliárd'),  # 10^9
+    4: ('bilión', 'bilióny', 'biliónov'),  # 10^12
+    5: ('biliarda', 'biliardy', 'biliárd'),  # 10^15
+    6: ('trilión', 'trilióny', 'triliónov'),  # 10^18
+    7: ('triliarda', 'triliardy', 'triliárd'),  # 10^21
+    8: ('kvadrilión', 'kvadrilióny', 'kvadriliónov'),  # 10^24
+    9: ('kvadriliarda', 'kvadriliardy', 'kvadriliárd'),  # 10^27
+    10: ('kvintilión', 'kvintillióny', 'kvintiliónov'),  # 10^30
 }
 
 
-class Num2Word_CZ(Num2Word_Base):
+class Num2Word_SK(Num2Word_Base):
     CURRENCY_FORMS = {
-        'CZK': (
-            ('koruna', 'koruny', 'korun'), ('halíř', 'halíře', 'haléřů')
-        ),
         'EUR': (
-            ('euro', 'euro', 'euro'), ('cent', 'centy', 'centů')
+            ('euro', 'eurá', 'eur'), ('cent', 'centy', 'centov')
         ),
     }
 
     def setup(self):
         self.negword = "mínus"
-        self.pointword = "celá"
+        self.pointword = "celých"
 
     def to_cardinal(self, number):
         n = str(number).replace(',', '.')
@@ -116,13 +112,13 @@ class Num2Word_CZ(Num2Word_Base):
     def pluralize(self, n, forms):
         if n == 1:
             form = 0
-        elif 5 > n % 10 > 1 and (n % 100 < 10 or n % 100 > 20):
+        elif 0 < n < 5:
             form = 1
         else:
             form = 2
         return forms[form]
 
-    def to_ordinal(self, number):
+    def to_ordinal(self, value):
         raise NotImplementedError()
 
     def _int2word(self, n):
@@ -140,18 +136,25 @@ class Num2Word_CZ(Num2Word_Base):
 
             n1, n2, n3 = get_digits(x)
 
+            word_chunk = []
+
             if n3 > 0:
-                words.append(HUNDREDS[n3][0])
+                word_chunk.append(HUNDREDS[n3][0])
 
             if n2 > 1:
-                words.append(TWENTIES[n2][0])
+                word_chunk.append(TWENTIES[n2][0])
 
             if n2 == 1:
-                words.append(TENS[n1][0])
+                word_chunk.append(TENS[n1][0])
             elif n1 > 0 and not (i > 0 and x == 1):
-                words.append(ONES[n1][0])
-
+                if n2 == 0 and n3 == 0 and i in ONES[n1][2]:
+                    word_chunk.append(ONES[n1][1])
+                else:
+                    word_chunk.append(ONES[n1][0])
+            if i > 1 and word_chunk:
+                word_chunk.append(' ')
             if i > 0:
-                words.append(self.pluralize(x, THOUSANDS[i]))
+                word_chunk.append(self.pluralize(x, THOUSANDS[i]))
+            words.append(''.join(word_chunk))
 
-        return ' '.join(words)
+        return ' '.join(words[:-1]) + ''.join(words[-1:])

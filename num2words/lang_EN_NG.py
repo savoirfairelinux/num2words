@@ -17,17 +17,21 @@
 
 from __future__ import unicode_literals
 
-from unittest import TestCase
-
-from num2words import num2words
+from . import lang_EN
 
 
-class Num2WordsErrorsTest(TestCase):
+class Num2Word_EN_NG(lang_EN.Num2Word_EN):
 
-    def test_NotImplementedError(self):
-        with self.assertRaises(NotImplementedError):
-            num2words(100, lang="lalala")
+    CURRENCY_FORMS = {'NGN': (('naira', 'naira'), ('kobo', 'kobo'))}
 
-    def test_types_NotImplementedError(self):
-        with self.assertRaises(NotImplementedError):
-            num2words(100, lang="en", to='babidibibidiboo!')
+    CURRENCY_ADJECTIVES = {'NGN': 'Nigerian'}
+
+    def to_currency(
+        self, val, currency='NGN',
+        kobo=True, separator=',',
+        adjective=False
+    ):
+        result = super(Num2Word_EN_NG, self).to_currency(
+            val, currency=currency, cents=kobo, separator=separator,
+            adjective=adjective)
+        return result

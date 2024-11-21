@@ -2742,7 +2742,7 @@ class Num2WordsESTest(TestCase):
     def test_currency_qtq(self):
         for test in TEST_CASES_TO_CURRENCY_GTQ:
             self.assertEqual(
-                num2words(test[0], lang='es', to='currency', currency='QTQ'),
+                num2words(test[0], lang='es', to='currency', currency='GTQ'),
                 test[1]
             )
 
