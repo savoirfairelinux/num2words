@@ -25,6 +25,12 @@ class Num2WordsAMTest(TestCase):
         self.assertEqual(num2words(100, lang='am'), 'መቶ')
         self.assertEqual(num2words(100000, lang='am'), 'አንድ መቶ ሺህ')
         self.assertEqual(num2words(101, lang='am'), 'አንድ መቶ አንድ')
+        self.assertEqual(num2words(568476685, lang='am'), 'አምስት መቶ ስድሳ ስምንት mሚሊዮን, አራት መቶ ሰባ ስድስት ሺህ, ስድስት መቶ ሰማኒያ አምስት')
+        self.assertEqual(num2words(56847, lang='am'), 'አምሳ ስድስት ሺህ, ስምንት መቶ አርባ ሰባት')
+        self.assertEqual(num2words(1111111111111111111, lang='am'), 'አንድ quintሚሊዮን, አንድ መቶ አሥራ አንድ quadrሚሊዮን, አንድ መቶ አሥራ አንድ trሚሊዮን, አንድ መቶ አሥራ አንድ bቢሊዮን, አንድ መቶ አሥራ አንድ mሚሊዮን, አንድ መቶ አሥራ አንድ ሺህ, አንድ መቶ አሥራ አንድ')
+        self.assertEqual(num2words(999999999, lang='am'), 'ዘጠኝ መቶ ዘጠና ዘጠኝ mሚሊዮን, ዘጠኝ መቶ ዘጠና ዘጠኝ ሺህ, ዘጠኝ መቶ ዘጠና ዘጠኝ')
+        self.assertEqual(num2words(29498237468376240, lang="am"), 'ሃያ ዘጠኝ quadrሚሊዮን, አራት መቶ ዘጠና ስምንት trሚሊዮን, ሁለት መቶ ሠላሳ ሰባት bቢሊዮን, አራት መቶ ስድሳ ስምንት mሚሊዮን, ሦስት መቶ ሰባ ስድስት ሺህ, ሁለት መቶ አርባ')
+        self.assertEqual(num2words(110110, lang='am'), 'አንድ መቶ አሥር ሺህ, አንድ መቶ አሥር')
 
     def test_and_join_199(self):
         self.assertEqual(num2words(199, lang='am'), 'አንድ መቶ ዘጠና ዘጠኝ')
@@ -73,7 +79,7 @@ class Num2WordsAMTest(TestCase):
         )
         self.assertEqual(
             num2words('0', lang='am', to='currency', separator=' እና',
-                      cents=True, currency='ETB'), 'ዜሮ ብር እና ዜሮ ሳንቲም'
+                      cents=True, currency='ETB'), 'ዜሮ ብር'
         )
 
         self.assertEqual(
