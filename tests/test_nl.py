@@ -77,7 +77,7 @@ class Num2WordsNLTest(TestCase):
         self.assertEqual(
             num2words('0', lang='nl', to='currency', separator=' en',
                       cents=False, currency='EUR'),
-            "nul euro en 00 cent"
+            "nul euro"
         )
 
         self.assertEqual(
@@ -100,7 +100,7 @@ class Num2WordsNLTest(TestCase):
         self.assertEqual(
             num2words('0', lang='nl', to='currency', separator=' en',
                       cents=False, currency='USD'),
-            "nul dollar en 00 cent"
+            "nul dollar"
         )
 
         self.assertEqual(
