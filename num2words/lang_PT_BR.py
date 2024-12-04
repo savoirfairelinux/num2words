@@ -34,6 +34,9 @@ class Num2Word_PT_BR(lang_PT.Num2Word_PT):
         self.low_numwords[3] = 'dezessete'
         self.low_numwords[4] = 'dezesseis'
 
+        lows = ["quatr", "tr", "b", "m"]
+        self.high_numwords = self.gen_high_numwords([], [], lows)
+
         self.thousand_separators = {
             3: "milésimo",
             6: "milionésimo",
