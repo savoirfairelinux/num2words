@@ -83,10 +83,26 @@ class Num2WordsPTTest(TestCase):
             num2words(73421, lang='pt'),
             'setenta e três mil quatrocentos e vinte e um'
         )
-        self.assertEqual(num2words(100000, lang='pt'), 'cem mil')
+        self.assertEqual(
+            num2words(100000, lang='pt'), 
+            'cem mil'
+        )
+        self.assertEqual(
+            num2words(1000014, lang='pt'),
+            'um milhão e catorze'
+        )
+        self.assertEqual(
+            num2words(1001000, lang='pt'), 
+            'um milhão e mil'
+        )
+
         self.assertEqual(
             num2words(250050, lang='pt'),
             'duzentos e cinquenta mil e cinquenta'
+        )
+        self.assertEqual(
+            num2words(4000014, lang='pt'),
+            'quatro milhões e catorze'
         )
         self.assertEqual(
             num2words(6000000, lang='pt'), 'seis milhões'
@@ -107,7 +123,7 @@ class Num2WordsPTTest(TestCase):
         )
         self.assertEqual(
             num2words(145254635102, lang='pt'),
-            'cento e quarenta e cinco mil duzentos e cinquenta e quatro '
+            'cento e quarenta e cinco mil milhões duzentos e cinquenta e quatro '
             'milhões seiscentos e trinta e cinco mil cento e dois'
         )
         self.assertEqual(
@@ -134,6 +150,26 @@ class Num2WordsPTTest(TestCase):
             num2words(2000000000000000000, lang='pt'),
             'dois triliões'
         )
+        self.assertEqual(
+            num2words(1000000000000000000000000001, lang='pt'),
+            'mil quatriliões e um'
+        )
+        self.assertEqual(
+            num2words(11111111111111111111111111111, lang='pt'),
+            'onze mil quatriliões e cento e onze quatriliões '
+            'e cento e onze mil triliões e cento e onze triliões '
+            'e cento e onze mil biliões cento e onze biliões cento e onze '
+            'mil milhões cento e onze milhões cento e onze mil cento e onze'
+        )
+        self.assertEqual(
+            num2words(500000000000000000000000000, lang='pt'),
+            'quinhentos quatriliões'
+        )
+        self.assertEqual(
+            num2words(900000000000000000000000000009, lang='pt'),
+            'novecentos mil quatriliões e nove'
+        )
+
 
     def test_cardinal_integer_negative(self):
         self.assertEqual(num2words(-1, lang='pt'), 'menos um')

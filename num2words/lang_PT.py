@@ -38,9 +38,17 @@ class Num2Word_PT(Num2Word_EU):
     GIGA_SUFFIX = None
     MEGA_SUFFIX = "ilião"
 
+    def set_high_numwords(self, high):
+        max = 3 + 3 * len(high)
+        for word, n in zip(high, range(max, 3, -3)):
+            if n % 6 == 0:
+                self.cards[10 ** n] = word + self.MEGA_SUFFIX 
+            else:
+                self.cards[10 ** n] = "mil " + word + self.MEGA_SUFFIX
+            
     def setup(self):
         super(Num2Word_PT, self).setup()
-        lows = ["quatr", "tr", "b", "m"]
+        lows = ["quatr", "quatr", "tr", "tr", "b", "b", "m", "m"]
         self.high_numwords = self.gen_high_numwords([], [], lows)
         self.negword = "menos "
         self.pointword = "vírgula"
@@ -120,7 +128,11 @@ class Num2Word_PT(Num2Word_EU):
         if cnum == 1:
             if nnum < 1000000:
                 return next
-            ctext = "um"
+            if nnum < 1000000 or "mil " not in ntext:
+                ctext = "um"
+            else:
+                ctext = ""
+
         elif cnum == 100 and not nnum % 1000 == 0:
             ctext = "cento"
 
@@ -129,13 +141,15 @@ class Num2Word_PT(Num2Word_EU):
                 return ("%s e %s" % (ctext, ntext), cnum + nnum)
             return ("%s e %s" % (ctext, ntext), cnum + nnum)
 
-        elif (not nnum % 1000000000) and cnum > 1:
+        elif ((not nnum % 1000000000) and cnum > 1) or ctext == "":
             ntext = ntext[:-4] + "liões"
         elif (not nnum % 1000000) and cnum > 1:
             ntext = ntext[:-4] + "lhões"
         # correct "milião" to "milhão"
         if ntext == 'milião':
             ntext = 'milhão'
+        elif 'miliões' in ntext:
+            ntext = ntext.replace('miliões', 'milhões')
         if nnum == 100:
             ctext = self.hundreds[cnum]
             ntext = ""
@@ -143,7 +157,7 @@ class Num2Word_PT(Num2Word_EU):
         else:
             ntext = " " + ntext
 
-        return (ctext + ntext, cnum * nnum)
+        return ((ctext + ntext).strip(), cnum * nnum)
 
     def to_cardinal(self, value):
         result = super(Num2Word_PT, self).to_cardinal(value)
