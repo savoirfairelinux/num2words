@@ -215,7 +215,7 @@ class Num2Word_ES(Num2Word_EU):
         max = 3 + 3 * len(high)
         for word, n in zip(high, range(max, 3, -3)):
             if n % 6 == 0:
-                self.cards[10 ** n] = word + self.MEGA_SUFFIX 
+                self.cards[10 ** n] = word + self.MEGA_SUFFIX
             else:
                 self.cards[10 ** n] = "mil " + word + self.MEGA_SUFFIX
 
@@ -294,11 +294,14 @@ class Num2Word_ES(Num2Word_EU):
         if nnum < cnum:
             if cnum == 1000000000 and nnum > 1:
                 ctext = ctext[:-3] + "lones"
-            elif cnum < 100: 
+            elif cnum < 100:
                 return "%s y %s" % (ctext, ntext), cnum + nnum
             return "%s %s" % (ctext, ntext), cnum + nnum
 
-        if (nnum % 1000000 == 0 and cnum > 1) or (nnum >= 1000000000 and "mil " in ntext):
+        is_mil_multiple = nnum % 1000000 == 0 and cnum > 1
+        contains_mil = nnum >= 1000000000 and "mil " in ntext
+
+        if is_mil_multiple or contains_mil:
             ntext = ntext[:-3] + "lones"
 
         if nnum == 100:

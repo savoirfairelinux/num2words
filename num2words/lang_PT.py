@@ -42,10 +42,10 @@ class Num2Word_PT(Num2Word_EU):
         max = 3 + 3 * len(high)
         for word, n in zip(high, range(max, 3, -3)):
             if n % 6 == 0:
-                self.cards[10 ** n] = word + self.MEGA_SUFFIX 
+                self.cards[10 ** n] = word + self.MEGA_SUFFIX
             else:
                 self.cards[10 ** n] = "mil " + word + self.MEGA_SUFFIX
-            
+
     def setup(self):
         super(Num2Word_PT, self).setup()
         lows = ["quatr", "quatr", "tr", "tr", "b", "b", "m", "m"]
