@@ -20,6 +20,7 @@ from __future__ import division, print_function, unicode_literals
 from unittest import TestCase
 
 from num2words import num2words
+from num2words.lang_JA import rendaku_merge_pairs
 
 
 def n2j(*args, **kwargs):
@@ -196,3 +197,20 @@ class Num2WordsJATest(TestCase):
                          "きげんぜんきゅうじゅうくねん")
         self.assertEqual(n2j(1375, to="year"), "天授元年")
         self.assertEqual(n2j(1375, to="year", prefer=["えいわ"]), "永和元年")
+
+    def test_rendaku_merge_pairs(self):
+        self.assertEqual(rendaku_merge_pairs(("はち", 8), ("ちょう", 10**12)),
+                         ("はっちょう", 8 * 10**12))
+        self.assertEqual(rendaku_merge_pairs(("じゅう", 10), ("ちょう", 10**12)),
+                         ("じゅっちょう", 10 * 10**12))
+
+        self.assertEqual(rendaku_merge_pairs(("いち", 1), ("けい", 10**16)),
+                         ("いっけい", 1 * 10**16))
+        self.assertEqual(rendaku_merge_pairs(("ろく", 6), ("けい", 10**16)),
+                         ("ろっけい", 6 * 10**16))
+        self.assertEqual(rendaku_merge_pairs(("はち", 8), ("けい", 10**16)),
+                         ("はっけい", 8 * 10**16))
+        self.assertEqual(rendaku_merge_pairs(("じゅう", 10), ("けい", 10**16)),
+                         ("じゅっけい", 10 * 10**16))
+        self.assertEqual(rendaku_merge_pairs(("ひゃく", 100), ("けい", 10**16)),
+                         ("ひゃっけい", 100 * 10**16))
