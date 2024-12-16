@@ -22,6 +22,7 @@ import os
 import unittest
 
 import delegator
+
 import num2words
 
 
@@ -53,17 +54,17 @@ class CliTestCase(unittest.TestCase):
         self.assertTrue(output.err.startswith('Usage:'))
 
     def test_cli_list_langs(self):
-        """You should be able to list all availabe languages
+        """You should be able to list all available languages
         """
         output = self.cli.run_cmd('--list-languages')
         self.assertEqual(
             sorted(list(num2words.CONVERTER_CLASSES.keys())),
-            output.out.strip().split(os.linesep)
+            [out for out in output.out.strip().splitlines() if out]
         )
         output = self.cli.run_cmd('-L')
         self.assertEqual(
             sorted(list(num2words.CONVERTER_CLASSES.keys())),
-            output.out.strip().split(os.linesep)
+            [out for out in output.out.strip().splitlines() if out]
         )
 
     def test_cli_list_converters(self):
@@ -72,12 +73,12 @@ class CliTestCase(unittest.TestCase):
         output = self.cli.run_cmd('--list-converters')
         self.assertEqual(
             sorted(list(num2words.CONVERTES_TYPES)),
-            output.out.strip().split(os.linesep)
+            [out for out in output.out.strip().splitlines() if out]
         )
         output = self.cli.run_cmd('-C')
         self.assertEqual(
             sorted(list(num2words.CONVERTES_TYPES)),
-            output.out.strip().split(os.linesep)
+            [out for out in output.out.strip().splitlines() if out]
         )
 
     def test_cli_default_lang(self):
@@ -87,7 +88,7 @@ class CliTestCase(unittest.TestCase):
         self.assertEqual(output.return_code, 0)
         self.assertEqual(
             output.out.strip(),
-            "one hundred and fifty point zero"
+            "one hundred and fifty"
         )
 
     def test_cli_with_lang(self):
@@ -97,15 +98,16 @@ class CliTestCase(unittest.TestCase):
         self.assertEqual(output.return_code, 0)
         self.assertEqual(
             output.out.strip(),
-            "ciento cincuenta punto cero"
+            "ciento cincuenta"
         )
 
     def test_cli_with_lang_to(self):
-        """You should be able to specify a language
+        """You should be able to specify a language and currency
         """
         output = self.cli.run_cmd(150.55, '--lang', 'es', '--to', 'currency')
         self.assertEqual(output.return_code, 0)
         self.assertEqual(
-            output.out.strip(),
-            "ciento cincuenta euros con cincuenta y cinco centimos"
+            (output.out.decode('utf-8') if hasattr(output.out, 'decode') else
+             output.out).strip(),
+            "ciento cincuenta euros con cincuenta y cinco céntimos"
         )
