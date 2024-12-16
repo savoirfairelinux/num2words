@@ -66,6 +66,12 @@ class Num2WordsARTest(TestCase):
         self.assertEqual(
             num2words(1000000.99, to='currency', lang='ar', currency="KWD"),
             'مليون دينار و تسع و تسعون فلس')
+        self.assertEqual(
+            num2words(1000.42, to='currency', lang='ar', currency="TND"),
+            'ألف دينار و أربعمائة و عشرون مليم')
+        self.assertEqual(
+            num2words(123.21, to='currency', lang='ar', currency="TND"),
+            'مائة و ثلاثة و عشرون ديناراً و مئتان و عشر مليمات')
 
     def test_ordinal(self):
 
