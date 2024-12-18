@@ -90,6 +90,7 @@ Besides the numerical argument, there are two main optional arguments, ``to:`` a
 * ``en_GB`` (English - Great Britain)
 * ``en_IN`` (English - India)
 * ``en_NG`` (English - Nigeria)
+* ``en_NP`` (English - Nepal)
 * ``es`` (Spanish)
 * ``es_CO`` (Spanish - Colombia)
 * ``es_CR`` (Spanish - Costa Rica)
