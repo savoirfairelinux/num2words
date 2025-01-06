@@ -1,6 +1,23 @@
 Changelog
 =========
 
+Version 0.5.14 -- 2024/12/16
+----------------------------
+
+* Fixed a typo in PL (#466)
+* Run tests against Python 3.12 (#544)
+* ADD num2words: es_CR language (#565)
+* New languages: Welsh (Celtic) and Chechen (Nakho-Dagestanian) (#543)
+* Add catalan language support (#581)
+* Adding Tetum Language (#576)
+* FIX ISO code for Belarusian language is be, not by. (#574)
+* Add test to improve coverage (#595)
+* Added Bangla language support to num2word for Bangladesh. (#589)
+* Czech language ISO 639-1 code fix (#587)
+* Added support for Tunisian Dinar  (#593)
+* Change danish language code to DA (#596)
+
+
 Version 0.5.13 -- 2023/10/18
 ---------------------------
 
