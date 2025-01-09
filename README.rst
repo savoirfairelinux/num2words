@@ -103,6 +103,7 @@ Besides the numerical argument, there are two main optional arguments, ``to:`` a
 * ``fr_CH`` (French - Switzerland)
 * ``fr_DZ`` (French - Algeria)
 * ``he`` (Hebrew)
+* ``hi`` (Hindi)
 * ``hu`` (Hungarian)
 * ``id`` (Indonesian)
 * ``is`` (Icelandic)
