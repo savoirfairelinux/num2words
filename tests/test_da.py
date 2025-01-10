@@ -20,18 +20,26 @@ from __future__ import unicode_literals
 from unittest import TestCase
 
 from num2words import num2words
+from num2words.lang_DA import Num2Word_DA
 
 
 class Num2WordsDKTest(TestCase):
     def test_ordinal(self):
-        self.assertEqual(num2words(1, to="ordinal", lang="dk"), "første")
-        self.assertEqual(num2words(5, to="ordinal", lang="dk"), "femte")
+        self.assertEqual(num2words(1, to="ordinal", lang="da"), "første")
+        self.assertEqual(num2words(5, to="ordinal", lang="da"), "femte")
 
     def test_cardinal(self):
-        self.assertEqual(num2words(0, to="cardinal", lang="dk"), "nul")
-        self.assertEqual(num2words(1, to="cardinal", lang="dk"), "et")
-        self.assertEqual(num2words(2, to="cardinal", lang="dk"), "to")
-        self.assertEqual(num2words(5, to="cardinal", lang="dk"), "fem")
-        self.assertEqual(num2words(8, to="cardinal", lang="dk"), "otte")
-        self.assertEqual(num2words(18, to="cardinal", lang="dk"), "atten")
-        self.assertEqual(num2words(45, to="cardinal", lang="dk"), "femogfyrre")
+        self.assertEqual(num2words(0, to="cardinal", lang="da"), "nul")
+        self.assertEqual(num2words(1, to="cardinal", lang="da"), "et")
+        self.assertEqual(num2words(2, to="cardinal", lang="da"), "to")
+        self.assertEqual(num2words(5, to="cardinal", lang="da"), "fem")
+        self.assertEqual(num2words(8, to="cardinal", lang="da"), "otte")
+        self.assertEqual(num2words(18, to="cardinal", lang="da"), "atten")
+        self.assertEqual(num2words(45, to="cardinal", lang="da"), "femogfyrre")
+
+    def test_to_ordinal_num(self):
+        num2words_dk = Num2Word_DA()
+        self.assertEqual(num2words_dk.to_ordinal_num(1), "1te")
+        self.assertEqual(num2words_dk.to_ordinal_num(2), "2en")
+        self.assertEqual(num2words_dk.to_ordinal_num(5), "5te")
+        self.assertEqual(num2words_dk.to_ordinal_num(10), "10ende")

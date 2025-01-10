@@ -65,4 +65,24 @@ class Num2WordBaseTest(TestCase):
 
     def test_set_high_numwords_not_implemented(self):
         with self.assertRaises(NotImplementedError):
-            self.base.set_high_numwords(['cent', 'novemnonagint'])
+            self.base.set_high_numwords()
+
+    def test_to_ordinal_num(self):
+        from num2words.base import Num2Word_Base
+        self.base = Num2Word_Base()
+        self.assertEqual(
+            self.base.to_ordinal_num(1),
+            1
+        )
+        self.assertEqual(
+            self.base.to_ordinal_num(100),
+            100
+        )
+        self.assertEqual(
+            self.base.to_ordinal_num(1000),
+            1000
+        )
+
+    def test_pluralize_not_implemented(self):
+        with self.assertRaises(NotImplementedError):
+            self.base.pluralize(n=None, forms=None)
