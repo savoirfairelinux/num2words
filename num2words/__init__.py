@@ -18,14 +18,15 @@
 from __future__ import unicode_literals
 
 from . import (lang_AM, lang_AR, lang_AZ, lang_BE, lang_BN, lang_CA, lang_CE,
-               lang_CS, lang_CY, lang_DE, lang_DK, lang_EN, lang_EN_IN,
+               lang_CS, lang_CY, lang_DA, lang_DE, lang_EN, lang_EN_IN,
                lang_EN_NG, lang_EO, lang_ES, lang_ES_CO, lang_ES_CR,
                lang_ES_GT, lang_ES_NI, lang_ES_VE, lang_FA, lang_FI, lang_FR,
-               lang_FR_BE, lang_FR_CH, lang_FR_DZ, lang_HE, lang_HU, lang_ID,
-               lang_IS, lang_IT, lang_JA, lang_KN, lang_KO, lang_KZ, lang_LT,
-               lang_LV, lang_NL, lang_NO, lang_PL, lang_PT, lang_PT_BR,
-               lang_RO, lang_RU, lang_SK, lang_SL, lang_SR, lang_SV, lang_TE,
-               lang_TET, lang_TG, lang_TH, lang_TR, lang_UK, lang_VI)
+               lang_FR_BE, lang_FR_CH, lang_FR_DZ, lang_HE, lang_HI, lang_HU,
+               lang_ID, lang_IS, lang_IT, lang_JA, lang_KN, lang_KO, lang_KZ,
+               lang_LT, lang_LV, lang_NL, lang_NO, lang_PL, lang_PT,
+               lang_PT_BR, lang_RO, lang_RU, lang_SK, lang_SL, lang_SR,
+               lang_SV, lang_TE, lang_TET, lang_TG, lang_TH, lang_TR, lang_UK,
+               lang_VI)
 
 CONVERTER_CLASSES = {
     'am': lang_AM.Num2Word_AM(),
@@ -69,7 +70,7 @@ CONVERTER_CLASSES = {
     'sr': lang_SR.Num2Word_SR(),
     'sv': lang_SV.Num2Word_SV(),
     'no': lang_NO.Num2Word_NO(),
-    'dk': lang_DK.Num2Word_DK(),
+    'da': lang_DA.Num2Word_DA(),
     'pt': lang_PT.Num2Word_PT(),
     'pt_BR': lang_PT_BR.Num2Word_PT_BR(),
     'he': lang_HE.Num2Word_HE(),
@@ -84,6 +85,7 @@ CONVERTER_CLASSES = {
     'tet': lang_TET.Num2Word_TET(),
     'hu': lang_HU.Num2Word_HU(),
     'is': lang_IS.Num2Word_IS(),
+    'hi': lang_HI.Num2Word_HI(),
 }
 
 CONVERTES_TYPES = ['cardinal', 'ordinal', 'ordinal_num', 'year', 'currency']

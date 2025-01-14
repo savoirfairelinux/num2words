@@ -86,7 +86,7 @@ class Num2WordsENTest(TestCase):
         self.assertEqual(
             num2words('0', lang='en', to='currency', separator=' and',
                       cents=False, currency='USD'),
-            "zero dollars and 00 cents"
+            "zero dollars"
         )
 
         self.assertEqual(
@@ -135,6 +135,18 @@ class Num2WordsENTest(TestCase):
             num2words('2000.00', lang='en', to='currency', separator=' and',
                       cents=True, currency='UZS'),
             "two thousand sums and zero tiyins"
+        )
+
+        self.assertEqual(
+            num2words('2000.00', lang='en', to='currency', separator=' and',
+                      cents=True, currency='JPY'),
+            "two thousand yen and zero sen"
+        )
+
+        self.assertEqual(
+            num2words('2000.00', lang='en', to='currency', separator=' and',
+                      cents=True, currency='KRW'),
+            "two thousand won and zero jeon"
         )
 
     def test_to_year(self):

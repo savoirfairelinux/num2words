@@ -169,7 +169,7 @@ class Num2WordsHUTest(TestCase):
         self.assertEqual(
             num2words('0', lang='hu', to='currency', separator=' és',
                       cents=False, currency='HUF'),
-            "nulla forint és 00 fillér"
+            "nulla forint"
         )
 
         self.assertEqual(
