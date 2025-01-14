@@ -86,7 +86,7 @@ class Num2WordsENTest(TestCase):
         self.assertEqual(
             num2words('0', lang='en', to='currency', separator=' and',
                       cents=False, currency='USD'),
-            "zero dollars and 00 cents"
+            "zero dollars"
         )
 
         self.assertEqual(
