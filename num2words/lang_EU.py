@@ -26,6 +26,7 @@ GENERIC_CENTS = ('cent', 'cents')
 class Num2Word_EU(Num2Word_Base):
     CURRENCY_FORMS = {
         'AUD': (GENERIC_DOLLARS, GENERIC_CENTS),
+        'BYN': (('rouble', 'roubles'), ('kopek', 'kopeks')),
         'CAD': (GENERIC_DOLLARS, GENERIC_CENTS),
         # repalced by EUR
         'EEK': (('kroon', 'kroons'), ('sent', 'senti')),
@@ -41,11 +42,20 @@ class Num2Word_EU(Num2Word_Base):
         'NOK': (('krone', 'kroner'), ('øre', 'øre')),
         'PLN': (('zloty', 'zlotys', 'zlotu'), ('grosz', 'groszy')),
         'MXN': (('peso', 'pesos'), GENERIC_CENTS),
-        'RON': (('leu', 'lei'), ('ban', 'bani')),
+        'RON': (('leu', 'lei', 'de lei'), ('ban', 'bani', 'de bani')),
+        'INR': (('rupee', 'rupees'), ('paisa', 'paise')),
+        'HUF': (('forint', 'forint'), ('fillér', 'fillér')),
+        'ISK': (('króna', 'krónur'), ('aur', 'aurar')),
+        'UZS': (('sum', 'sums'), ('tiyin', 'tiyins')),
+        'SAR': (('saudi riyal', 'saudi riyals'), ('halalah', 'halalas')),
+        'JPY': (('yen', 'yen'), ('sen', 'sen')),
+        'KRW': (('won', 'won'), ('jeon', 'jeon')),
+
     }
 
     CURRENCY_ADJECTIVES = {
         'AUD': 'Australian',
+        'BYN': 'Belarusian',
         'CAD': 'Canadian',
         'EEK': 'Estonian',
         'USD': 'US',
@@ -53,6 +63,13 @@ class Num2Word_EU(Num2Word_Base):
         'NOK': 'Norwegian',
         'MXN': 'Mexican',
         'RON': 'Romanian',
+        'INR': 'Indian',
+        'HUF': 'Hungarian',
+        'ISK': 'íslenskar',
+        'UZS': 'Uzbekistan',
+        'SAR': 'Saudi',
+        'JPY': 'Japanese',
+        'KRW': 'Korean',
     }
 
     GIGA_SUFFIX = "illiard"
