@@ -113,6 +113,7 @@ TEST_CASES_ORDINAL_NUM = (
 )
 
 TEST_CASES_TO_CURRENCY = (
+    (100, 'un euro'),
     (1.00, 'un euro con cero céntimos'),
     (1.01, 'un euro con un céntimo'),
     (2.00, 'dos euros con cero céntimos'),
@@ -125,6 +126,7 @@ TEST_CASES_TO_CURRENCY = (
 )
 
 TEST_CASES_TO_CURRENCY_ESP = (
+    (100, 'una peseta'),
     (1.00, 'una peseta con cero céntimos'),
     (1.01, 'una peseta con un céntimo'),
     (2.00, 'dos pesetas con cero céntimos'),
@@ -137,6 +139,7 @@ TEST_CASES_TO_CURRENCY_ESP = (
 )
 
 TEST_CASES_TO_CURRENCY_USD = (
+    (100, 'un dólar'),
     (1.00, 'un dólar con cero centavos'),
     (2.00, 'dos dólares con cero centavos'),
     (8.00, 'ocho dólares con cero centavos'),
@@ -148,6 +151,7 @@ TEST_CASES_TO_CURRENCY_USD = (
 )
 
 TEST_CASES_TO_CURRENCY_PEN = (
+    (100, 'un sol'),
     (1.00, 'un sol con cero céntimos'),
     (2.00, 'dos soles con cero céntimos'),
     (8.00, 'ocho soles con cero céntimos'),
@@ -159,6 +163,7 @@ TEST_CASES_TO_CURRENCY_PEN = (
 )
 
 TEST_CASES_TO_CURRENCY_CRC = (
+    (100, 'un colón'),
     (1.00, 'un colón con cero centavos'),
     (2.00, 'dos colones con cero centavos'),
     (8.00, 'ocho colones con cero centavos'),
@@ -172,6 +177,7 @@ TEST_CASES_TO_CURRENCY_CRC = (
 )
 
 TEST_CASES_TO_CURRENCY_GBP = (
+    (100, 'una libra'),
     (1.00, 'una libra con cero peniques'),
     (1.01, 'una libra con un penique'),
     (2.00, 'dos libras con cero peniques'),
@@ -186,6 +192,7 @@ TEST_CASES_TO_CURRENCY_GBP = (
 )
 
 TEST_CASES_TO_CURRENCY_RUB = (
+    (100, 'un rublo'),
     (1.00, 'un rublo con cero kopeykas'),
     (2.00, 'dos rublos con cero kopeykas'),
     (8.00, 'ocho rublos con cero kopeykas'),
@@ -199,6 +206,7 @@ TEST_CASES_TO_CURRENCY_RUB = (
 )
 
 TEST_CASES_TO_CURRENCY_SEK = (
+    (100, 'una corona'),
     (1.00, 'una corona con cero öre'),
     (2.00, 'dos coronas con cero öre'),
     (8.00, 'ocho coronas con cero öre'),
@@ -212,6 +220,7 @@ TEST_CASES_TO_CURRENCY_SEK = (
 )
 
 TEST_CASES_TO_CURRENCY_NOK = (
+    (100, 'una corona'),
     (1.00, 'una corona con cero øre'),
     (2.00, 'dos coronas con cero øre'),
     (8.00, 'ocho coronas con cero øre'),
@@ -225,6 +234,7 @@ TEST_CASES_TO_CURRENCY_NOK = (
 )
 
 TEST_CASES_TO_CURRENCY_PLN = (
+    (100, 'un zloty'),
     (1.00, 'un zloty con cero groszy'),
     (2.00, 'dos zlotys con cero groszy'),
     (8.00, 'ocho zlotys con cero groszy'),
@@ -238,6 +248,7 @@ TEST_CASES_TO_CURRENCY_PLN = (
 )
 
 TEST_CASES_TO_CURRENCY_MXN = (
+    (100, 'un peso'),
     (1.00, 'un peso con cero centavos'),
     (2.00, 'dos pesos con cero centavos'),
     (8.00, 'ocho pesos con cero centavos'),
@@ -251,6 +262,7 @@ TEST_CASES_TO_CURRENCY_MXN = (
 )
 
 TEST_CASES_TO_CURRENCY_RON = (
+    (100, 'un leu'),
     (1.00, 'un leu con cero bani'),
     (2.00, 'dos leus con cero bani'),
     (8.00, 'ocho leus con cero bani'),
@@ -264,6 +276,7 @@ TEST_CASES_TO_CURRENCY_RON = (
 )
 
 TEST_CASES_TO_CURRENCY_INR = (
+    (100, 'una rupia'),
     (1.00, 'una rupia con cero paisas'),
     (2.00, 'dos rupias con cero paisas'),
     (8.00, 'ocho rupias con cero paisas'),
@@ -277,6 +290,7 @@ TEST_CASES_TO_CURRENCY_INR = (
 )
 
 TEST_CASES_TO_CURRENCY_HUF = (
+    (100, 'un florín'),
     (1.00, 'un florín con cero fillér'),
     (2.00, 'dos florines con cero fillér'),
     (8.00, 'ocho florines con cero fillér'),
@@ -290,6 +304,7 @@ TEST_CASES_TO_CURRENCY_HUF = (
 )
 
 TEST_CASES_TO_CURRENCY_FRF = (
+    (100, 'un franco'),
     (1.00, 'un franco con cero céntimos'),
     (2.00, 'dos francos con cero céntimos'),
     (8.00, 'ocho francos con cero céntimos'),
@@ -303,6 +318,7 @@ TEST_CASES_TO_CURRENCY_FRF = (
 )
 
 TEST_CASES_TO_CURRENCY_CNY = (
+    (100, 'un yuan'),
     (1.00, 'un yuan con cero jiaos'),
     (2.00, 'dos yuanes con cero jiaos'),
     (8.00, 'ocho yuanes con cero jiaos'),
@@ -316,6 +332,7 @@ TEST_CASES_TO_CURRENCY_CNY = (
 )
 
 TEST_CASES_TO_CURRENCY_CZK = (
+    (100, 'una corona'),
     (1.00, 'una corona con cero haléř'),
     (2.00, 'dos coronas con cero haléř'),
     (8.00, 'ocho coronas con cero haléř'),
@@ -329,6 +346,7 @@ TEST_CASES_TO_CURRENCY_CZK = (
 )
 
 TEST_CASES_TO_CURRENCY_NIO = (
+    (100, 'un córdoba'),
     (1.00, 'un córdoba con cero centavos'),
     (2.00, 'dos córdobas con cero centavos'),
     (8.00, 'ocho córdobas con cero centavos'),
@@ -342,6 +360,7 @@ TEST_CASES_TO_CURRENCY_NIO = (
 )
 
 TEST_CASES_TO_CURRENCY_VES = (
+    (100, 'un bolívar'),
     (1.00, 'un bolívar con cero céntimos'),
     (2.00, 'dos bolívares con cero céntimos'),
     (8.00, 'ocho bolívares con cero céntimos'),
@@ -355,6 +374,7 @@ TEST_CASES_TO_CURRENCY_VES = (
 )
 
 TEST_CASES_TO_CURRENCY_BRL = (
+    (100, 'un real'),
     (1.00, 'un real con cero centavos'),
     (2.00, 'dos reales con cero centavos'),
     (8.00, 'ocho reales con cero centavos'),
@@ -368,6 +388,7 @@ TEST_CASES_TO_CURRENCY_BRL = (
 )
 
 TEST_CASES_TO_CURRENCY_JPY = (
+    (100, 'un yen'),
     (1.00, 'un yen con cero sen'),
     (2.00, 'dos yenes con cero sen'),
     (8.00, 'ocho yenes con cero sen'),
@@ -381,6 +402,7 @@ TEST_CASES_TO_CURRENCY_JPY = (
 )
 
 TEST_CASES_TO_CURRENCY_KRW = (
+    (100, 'un won'),
     (1.00, 'un won con cero jeon'),
     (2.00, 'dos wones con cero jeon'),
     (8.00, 'ocho wones con cero jeon'),
@@ -394,6 +416,7 @@ TEST_CASES_TO_CURRENCY_KRW = (
 )
 
 TEST_CASES_TO_CURRENCY_KPW = (
+    (100, 'un won'),
     (1.00, 'un won con cero chon'),
     (2.00, 'dos wones con cero chon'),
     (8.00, 'ocho wones con cero chon'),
@@ -407,6 +430,7 @@ TEST_CASES_TO_CURRENCY_KPW = (
 )
 
 TEST_CASES_TO_CURRENCY_TRY = (
+    (100, 'una lira'),
     (1.00, 'una lira con cero kuruş'),
     (2.00, 'dos liras con cero kuruş'),
     (8.00, 'ocho liras con cero kuruş'),
@@ -420,6 +444,7 @@ TEST_CASES_TO_CURRENCY_TRY = (
 )
 
 TEST_CASES_TO_CURRENCY_ZAR = (
+    (100, 'un rand'),
     (1.00, 'un rand con cero céntimos'),
     (2.00, 'dos rands con cero céntimos'),
     (8.00, 'ocho rands con cero céntimos'),
@@ -433,6 +458,7 @@ TEST_CASES_TO_CURRENCY_ZAR = (
 )
 
 TEST_CASES_TO_CURRENCY_KZT = (
+    (100, 'un tenge'),
     (1.00, 'un tenge con cero tïın'),
     (2.00, 'dos tenges con cero tïın'),
     (8.00, 'ocho tenges con cero tïın'),
@@ -446,6 +472,7 @@ TEST_CASES_TO_CURRENCY_KZT = (
 )
 
 TEST_CASES_TO_CURRENCY_UAH = (
+    (100, 'un hryvnia'),
     (1.00, 'un hryvnia con cero kopiykas'),
     (2.00, 'dos hryvnias con cero kopiykas'),
     (8.00, 'ocho hryvnias con cero kopiykas'),
@@ -459,6 +486,7 @@ TEST_CASES_TO_CURRENCY_UAH = (
 )
 
 TEST_CASES_TO_CURRENCY_THB = (
+    (100, 'un baht'),
     (1.00, 'un baht con cero satang'),
     (2.00, 'dos bahts con cero satang'),
     (8.00, 'ocho bahts con cero satang'),
@@ -472,6 +500,7 @@ TEST_CASES_TO_CURRENCY_THB = (
 )
 
 TEST_CASES_TO_CURRENCY_AED = (
+    (100, 'un dirham'),
     (1.00, 'un dirham con cero fils'),
     (2.00, 'dos dirhams con cero fils'),
     (8.00, 'ocho dirhams con cero fils'),
@@ -485,6 +514,7 @@ TEST_CASES_TO_CURRENCY_AED = (
 )
 
 TEST_CASES_TO_CURRENCY_AFN = (
+    (100, 'un afghani'),
     (1.00, 'un afghani con cero puls'),
     (2.00, 'dos afghanis con cero puls'),
     (8.00, 'ocho afghanis con cero puls'),
@@ -498,6 +528,7 @@ TEST_CASES_TO_CURRENCY_AFN = (
 )
 
 TEST_CASES_TO_CURRENCY_ALL = (
+    (100, 'un lek '),
     (1.00, 'un lek  con cero qindarka'),
     (2.00, 'dos leke con cero qindarka'),
     (8.00, 'ocho leke con cero qindarka'),
@@ -511,6 +542,7 @@ TEST_CASES_TO_CURRENCY_ALL = (
 )
 
 TEST_CASES_TO_CURRENCY_AMD = (
+    (100, 'un dram'),
     (1.00, 'un dram con cero lumas'),
     (2.00, 'dos drams con cero lumas'),
     (8.00, 'ocho drams con cero lumas'),
@@ -524,6 +556,7 @@ TEST_CASES_TO_CURRENCY_AMD = (
 )
 
 TEST_CASES_TO_CURRENCY_ANG = (
+    (100, 'un florín'),
     (1.00, 'un florín con cero centavos'),
     (2.00, 'dos florines con cero centavos'),
     (8.00, 'ocho florines con cero centavos'),
@@ -537,6 +570,7 @@ TEST_CASES_TO_CURRENCY_ANG = (
 )
 
 TEST_CASES_TO_CURRENCY_AOA = (
+    (100, 'un kwanza'),
     (1.00, 'un kwanza con cero céntimos'),
     (2.00, 'dos kwanzas con cero céntimos'),
     (8.00, 'ocho kwanzas con cero céntimos'),
@@ -550,6 +584,7 @@ TEST_CASES_TO_CURRENCY_AOA = (
 )
 
 TEST_CASES_TO_CURRENCY_AWG = (
+    (100, 'un florín'),
     (1.00, 'un florín con cero centavos'),
     (2.00, 'dos florines con cero centavos'),
     (8.00, 'ocho florines con cero centavos'),
@@ -563,6 +598,7 @@ TEST_CASES_TO_CURRENCY_AWG = (
 )
 
 TEST_CASES_TO_CURRENCY_AZN = (
+    (100, 'un manat'),
     (1.00, 'un manat con cero qəpik'),
     (2.00, 'dos manat con cero qəpik'),
     (8.00, 'ocho manat con cero qəpik'),
@@ -576,6 +612,7 @@ TEST_CASES_TO_CURRENCY_AZN = (
 )
 
 TEST_CASES_TO_CURRENCY_BDT = (
+    (100, 'un taka'),
     (1.00, 'un taka con cero paisas'),
     (2.00, 'dos takas con cero paisas'),
     (8.00, 'ocho takas con cero paisas'),
@@ -589,6 +626,7 @@ TEST_CASES_TO_CURRENCY_BDT = (
 )
 
 TEST_CASES_TO_CURRENCY_BGN = (
+    (100, 'un lev'),
     (1.00, 'un lev con cero stotinki'),
     (2.00, 'dos leva con cero stotinki'),
     (8.00, 'ocho leva con cero stotinki'),
@@ -602,6 +640,7 @@ TEST_CASES_TO_CURRENCY_BGN = (
 )
 
 TEST_CASES_TO_CURRENCY_BHD = (
+    (100, 'un dinar'),
     (1.00, 'un dinar con cero fils'),
     (2.00, 'dos dinares con cero fils'),
     (8.00, 'ocho dinares con cero fils'),
@@ -615,6 +654,7 @@ TEST_CASES_TO_CURRENCY_BHD = (
 )
 
 TEST_CASES_TO_CURRENCY_BOB = (
+    (100, 'un boliviano'),
     (1.00, 'un boliviano con cero centavos'),
     (2.00, 'dos bolivianos con cero centavos'),
     (8.00, 'ocho bolivianos con cero centavos'),
@@ -628,6 +668,7 @@ TEST_CASES_TO_CURRENCY_BOB = (
 )
 
 TEST_CASES_TO_CURRENCY_BTN = (
+    (100, 'un ngultrum'),
     (1.00, 'un ngultrum con cero chetrum'),
     (2.00, 'dos ngultrum con cero chetrum'),
     (8.00, 'ocho ngultrum con cero chetrum'),
@@ -641,6 +682,7 @@ TEST_CASES_TO_CURRENCY_BTN = (
 )
 
 TEST_CASES_TO_CURRENCY_BWP = (
+    (100, 'un pula'),
     (1.00, 'un pula con cero thebes'),
     (2.00, 'dos pulas con cero thebes'),
     (8.00, 'ocho pulas con cero thebes'),
@@ -654,6 +696,7 @@ TEST_CASES_TO_CURRENCY_BWP = (
 )
 
 TEST_CASES_TO_CURRENCY_BYN = (
+    (100, 'un rublo'),
     (1.00, 'un rublo con cero kópeks'),
     (2.00, 'dos rublos con cero kópeks'),
     (8.00, 'ocho rublos con cero kópeks'),
@@ -667,6 +710,7 @@ TEST_CASES_TO_CURRENCY_BYN = (
 )
 
 TEST_CASES_TO_CURRENCY_BYR = (
+    (100, 'un rublo'),
     (1.00, 'un rublo con cero kópeks'),
     (2.00, 'dos rublos con cero kópeks'),
     (8.00, 'ocho rublos con cero kópeks'),
@@ -680,6 +724,7 @@ TEST_CASES_TO_CURRENCY_BYR = (
 )
 
 TEST_CASES_TO_CURRENCY_BZD = (
+    (100, 'un dólar'),
     (1.00, 'un dólar con cero céntimos'),
     (2.00, 'dos dólares con cero céntimos'),
     (8.00, 'ocho dólares con cero céntimos'),
@@ -693,6 +738,7 @@ TEST_CASES_TO_CURRENCY_BZD = (
 )
 
 TEST_CASES_TO_CURRENCY_CVE = (
+    (100, 'un escudo'),
     (1.00, 'un escudo con cero centavos'),
     (2.00, 'dos escudos con cero centavos'),
     (8.00, 'ocho escudos con cero centavos'),
@@ -706,6 +752,7 @@ TEST_CASES_TO_CURRENCY_CVE = (
 )
 
 TEST_CASES_TO_CURRENCY_CYP = (
+    (100, 'una libra'),
     (1.00, 'una libra con cero céntimos'),
     (2.00, 'dos libras con cero céntimos'),
     (8.00, 'ocho libras con cero céntimos'),
@@ -719,6 +766,7 @@ TEST_CASES_TO_CURRENCY_CYP = (
 )
 
 TEST_CASES_TO_CURRENCY_DKK = (
+    (100, 'una corona'),
     (1.00, 'una corona con cero øre'),
     (2.00, 'dos coronas con cero øre'),
     (8.00, 'ocho coronas con cero øre'),
@@ -732,6 +780,7 @@ TEST_CASES_TO_CURRENCY_DKK = (
 )
 
 TEST_CASES_TO_CURRENCY_DZD = (
+    (100, 'un dinar'),
     (1.00, 'un dinar con cero céntimos'),
     (2.00, 'dos dinares con cero céntimos'),
     (8.00, 'ocho dinares con cero céntimos'),
@@ -745,6 +794,7 @@ TEST_CASES_TO_CURRENCY_DZD = (
 )
 
 TEST_CASES_TO_CURRENCY_ECS = (
+    (100, 'un sucre'),
     (1.00, 'un sucre con cero centavos'),
     (2.00, 'dos sucres con cero centavos'),
     (8.00, 'ocho sucres con cero centavos'),
@@ -758,6 +808,7 @@ TEST_CASES_TO_CURRENCY_ECS = (
 )
 
 TEST_CASES_TO_CURRENCY_EGP = (
+    (100, 'una libra'),
     (1.00, 'una libra con cero piastras'),
     (2.00, 'dos libras con cero piastras'),
     (8.00, 'ocho libras con cero piastras'),
@@ -772,6 +823,7 @@ TEST_CASES_TO_CURRENCY_EGP = (
 )
 
 TEST_CASES_TO_CURRENCY_ERN = (
+    (100, 'un nakfa'),
     (1.00, 'un nakfa con cero céntimos'),
     (2.00, 'dos nakfas con cero céntimos'),
     (8.00, 'ocho nakfas con cero céntimos'),
@@ -785,6 +837,7 @@ TEST_CASES_TO_CURRENCY_ERN = (
 )
 
 TEST_CASES_TO_CURRENCY_ETB = (
+    (100, 'un birr'),
     (1.00, 'un birr con cero céntimos'),
     (2.00, 'dos birrs con cero céntimos'),
     (8.00, 'ocho birrs con cero céntimos'),
@@ -798,6 +851,7 @@ TEST_CASES_TO_CURRENCY_ETB = (
 )
 
 TEST_CASES_TO_CURRENCY_FKP = (
+    (100, 'una libra'),
     (1.00, 'una libra con cero peniques'),
     (2.00, 'dos libras con cero peniques'),
     (8.00, 'ocho libras con cero peniques'),
@@ -811,6 +865,7 @@ TEST_CASES_TO_CURRENCY_FKP = (
 )
 
 TEST_CASES_TO_CURRENCY_GEL = (
+    (100, 'un lari'),
     (1.00, 'un lari con cero tetris'),
     (2.00, 'dos laris con cero tetris'),
     (8.00, 'ocho laris con cero tetris'),
@@ -824,6 +879,7 @@ TEST_CASES_TO_CURRENCY_GEL = (
 )
 
 TEST_CASES_TO_CURRENCY_GHS = (
+    (100, 'un cedi'),
     (1.00, 'un cedi con cero pesewas'),
     (2.00, 'dos cedis con cero pesewas'),
     (8.00, 'ocho cedis con cero pesewas'),
@@ -837,6 +893,7 @@ TEST_CASES_TO_CURRENCY_GHS = (
 )
 
 TEST_CASES_TO_CURRENCY_GMD = (
+    (100, 'un dalasi'),
     (1.00, 'un dalasi con cero bututs'),
     (2.00, 'dos dalasis con cero bututs'),
     (8.00, 'ocho dalasis con cero bututs'),
@@ -850,6 +907,7 @@ TEST_CASES_TO_CURRENCY_GMD = (
 )
 
 TEST_CASES_TO_CURRENCY_GTQ = (
+    (100, 'un quetzal'),
     (1.00, 'un quetzal con cero centavos'),
     (2.00, 'dos quetzales con cero centavos'),
     (8.00, 'ocho quetzales con cero centavos'),
@@ -863,6 +921,7 @@ TEST_CASES_TO_CURRENCY_GTQ = (
 )
 
 TEST_CASES_TO_CURRENCY_HNL = (
+    (100, 'un lempira'),
     (1.00, 'un lempira con cero centavos'),
     (2.00, 'dos lempiras con cero centavos'),
     (8.00, 'ocho lempiras con cero centavos'),
@@ -876,6 +935,7 @@ TEST_CASES_TO_CURRENCY_HNL = (
 )
 
 TEST_CASES_TO_CURRENCY_HRK = (
+    (100, 'un kuna'),
     (1.00, 'un kuna con cero lipas'),
     (2.00, 'dos kunas con cero lipas'),
     (8.00, 'ocho kunas con cero lipas'),
@@ -889,6 +949,7 @@ TEST_CASES_TO_CURRENCY_HRK = (
 )
 
 TEST_CASES_TO_CURRENCY_HTG = (
+    (100, 'un gourde'),
     (1.00, 'un gourde con cero céntimos'),
     (2.00, 'dos gourdes con cero céntimos'),
     (8.00, 'ocho gourdes con cero céntimos'),
@@ -902,6 +963,7 @@ TEST_CASES_TO_CURRENCY_HTG = (
 )
 
 TEST_CASES_TO_CURRENCY_IDR = (
+    (100, 'una rupia'),
     (1.00, 'una rupia con cero céntimos'),
     (2.00, 'dos rupias con cero céntimos'),
     (8.00, 'ocho rupias con cero céntimos'),
@@ -915,6 +977,7 @@ TEST_CASES_TO_CURRENCY_IDR = (
 )
 
 TEST_CASES_TO_CURRENCY_ILS = (
+    (100, 'un séquel'),
     (1.00, 'un séquel con cero agoras'),
     (2.00, 'dos séqueles con cero agoras'),
     (8.00, 'ocho séqueles con cero agoras'),
@@ -928,6 +991,7 @@ TEST_CASES_TO_CURRENCY_ILS = (
 )
 
 TEST_CASES_TO_CURRENCY_IQD = (
+    (100, 'un dinar'),
     (1.00, 'un dinar con cero fils'),
     (2.00, 'dos dinares con cero fils'),
     (8.00, 'ocho dinares con cero fils'),
@@ -941,6 +1005,7 @@ TEST_CASES_TO_CURRENCY_IQD = (
 )
 
 TEST_CASES_TO_CURRENCY_IRR = (
+    (100, 'un rial'),
     (1.00, 'un rial con cero dinares'),
     (2.00, 'dos riales con cero dinares'),
     (8.00, 'ocho riales con cero dinares'),
@@ -954,6 +1019,7 @@ TEST_CASES_TO_CURRENCY_IRR = (
 )
 
 TEST_CASES_TO_CURRENCY_ISK = (
+    (100, 'una corona'),
     (1.00, 'una corona con cero aurar'),
     (2.00, 'dos coronas con cero aurar'),
     (8.00, 'ocho coronas con cero aurar'),
@@ -967,6 +1033,7 @@ TEST_CASES_TO_CURRENCY_ISK = (
 )
 
 TEST_CASES_TO_CURRENCY_ITL = (
+    (100, 'una lira'),
     (1.00, 'una lira con cero céntimos'),
     (2.00, 'dos liras con cero céntimos'),
     (8.00, 'ocho liras con cero céntimos'),
@@ -980,6 +1047,7 @@ TEST_CASES_TO_CURRENCY_ITL = (
 )
 
 TEST_CASES_TO_CURRENCY_JOD = (
+    (100, 'un dinar'),
     (1.00, 'un dinar con cero piastras'),
     (2.00, 'dos dinares con cero piastras'),
     (8.00, 'ocho dinares con cero piastras'),
@@ -993,6 +1061,7 @@ TEST_CASES_TO_CURRENCY_JOD = (
 )
 
 TEST_CASES_TO_CURRENCY_KES = (
+    (100, 'un chelín'),
     (1.00, 'un chelín con cero céntimos'),
     (2.00, 'dos chelines con cero céntimos'),
     (8.00, 'ocho chelines con cero céntimos'),
@@ -1006,6 +1075,7 @@ TEST_CASES_TO_CURRENCY_KES = (
 )
 
 TEST_CASES_TO_CURRENCY_KGS = (
+    (100, 'un som'),
     (1.00, 'un som con cero tyiyn'),
     (2.00, 'dos som con cero tyiyn'),
     (8.00, 'ocho som con cero tyiyn'),
@@ -1019,6 +1089,7 @@ TEST_CASES_TO_CURRENCY_KGS = (
 )
 
 TEST_CASES_TO_CURRENCY_KHR = (
+    (100, 'un riel'),
     (1.00, 'un riel con cero céntimos'),
     (2.00, 'dos rieles con cero céntimos'),
     (8.00, 'ocho rieles con cero céntimos'),
@@ -1032,6 +1103,7 @@ TEST_CASES_TO_CURRENCY_KHR = (
 )
 
 TEST_CASES_TO_CURRENCY_KWD = (
+    (100, 'un dinar'),
     (1.00, 'un dinar con cero fils'),
     (2.00, 'dos dinares con cero fils'),
     (8.00, 'ocho dinares con cero fils'),
@@ -1045,6 +1117,7 @@ TEST_CASES_TO_CURRENCY_KWD = (
 )
 
 TEST_CASES_TO_CURRENCY_LAK = (
+    (100, 'un kip'),
     (1.00, 'un kip con cero att'),
     (2.00, 'dos kips con cero att'),
     (8.00, 'ocho kips con cero att'),
@@ -1058,6 +1131,7 @@ TEST_CASES_TO_CURRENCY_LAK = (
 )
 
 TEST_CASES_TO_CURRENCY_LKR = (
+    (100, 'una rupia'),
     (1.00, 'una rupia con cero céntimos'),
     (2.00, 'dos rupias con cero céntimos'),
     (8.00, 'ocho rupias con cero céntimos'),
@@ -1071,6 +1145,7 @@ TEST_CASES_TO_CURRENCY_LKR = (
 )
 
 TEST_CASES_TO_CURRENCY_LSL = (
+    (100, 'un loti'),
     (1.00, 'un loti con cero céntimos'),
     (2.00, 'dos lotis con cero céntimos'),
     (8.00, 'ocho lotis con cero céntimos'),
@@ -1084,6 +1159,7 @@ TEST_CASES_TO_CURRENCY_LSL = (
 )
 
 TEST_CASES_TO_CURRENCY_LTL = (
+    (100, 'un lita'),
     (1.00, 'un lita con cero céntimos'),
     (2.00, 'dos litas con cero céntimos'),
     (8.00, 'ocho litas con cero céntimos'),
@@ -1097,6 +1173,7 @@ TEST_CASES_TO_CURRENCY_LTL = (
 )
 
 TEST_CASES_TO_CURRENCY_LVL = (
+    (100, 'un lat'),
     (1.00, 'un lat con cero céntimos'),
     (2.00, 'dos lats con cero céntimos'),
     (8.00, 'ocho lats con cero céntimos'),
@@ -1110,6 +1187,7 @@ TEST_CASES_TO_CURRENCY_LVL = (
 )
 
 TEST_CASES_TO_CURRENCY_LYD = (
+    (100, 'un dinar'),
     (1.00, 'un dinar con cero dírhams'),
     (2.00, 'dos dinares con cero dírhams'),
     (8.00, 'ocho dinares con cero dírhams'),
@@ -1123,6 +1201,7 @@ TEST_CASES_TO_CURRENCY_LYD = (
 )
 
 TEST_CASES_TO_CURRENCY_MAD = (
+    (100, 'un dírham'),
     (1.00, 'un dírham con cero céntimos'),
     (2.00, 'dos dirhams con cero céntimos'),
     (8.00, 'ocho dirhams con cero céntimos'),
@@ -1136,6 +1215,7 @@ TEST_CASES_TO_CURRENCY_MAD = (
 )
 
 TEST_CASES_TO_CURRENCY_MDL = (
+    (100, 'un leu'),
     (1.00, 'un leu con cero bani'),
     (2.00, 'dos lei con cero bani'),
     (8.00, 'ocho lei con cero bani'),
@@ -1149,6 +1229,7 @@ TEST_CASES_TO_CURRENCY_MDL = (
 )
 
 TEST_CASES_TO_CURRENCY_MGA = (
+    (100, 'un ariary'),
     (1.00, 'un ariary con cero iraimbilanja'),
     (2.00, 'dos ariaris con cero iraimbilanja'),
     (8.00, 'ocho ariaris con cero iraimbilanja'),
@@ -1162,6 +1243,7 @@ TEST_CASES_TO_CURRENCY_MGA = (
 )
 
 TEST_CASES_TO_CURRENCY_MKD = (
+    (100, 'un denar'),
     (1.00, 'un denar con cero denis'),
     (2.00, 'dos denares con cero denis'),
     (8.00, 'ocho denares con cero denis'),
@@ -1175,6 +1257,7 @@ TEST_CASES_TO_CURRENCY_MKD = (
 )
 
 TEST_CASES_TO_CURRENCY_MMK = (
+    (100, 'un kiat'),
     (1.00, 'un kiat con cero pyas'),
     (2.00, 'dos kiats con cero pyas'),
     (8.00, 'ocho kiats con cero pyas'),
@@ -1188,6 +1271,7 @@ TEST_CASES_TO_CURRENCY_MMK = (
 )
 
 TEST_CASES_TO_CURRENCY_MNT = (
+    (100, 'un tugrik'),
     (1.00, 'un tugrik con cero möngö'),
     (2.00, 'dos tugriks con cero möngö'),
     (8.00, 'ocho tugriks con cero möngö'),
@@ -1201,6 +1285,7 @@ TEST_CASES_TO_CURRENCY_MNT = (
 )
 
 TEST_CASES_TO_CURRENCY_MOP = (
+    (100, 'un pataca'),
     (1.00, 'un pataca con cero avos'),
     (2.00, 'dos patacas con cero avos'),
     (8.00, 'ocho patacas con cero avos'),
@@ -1214,6 +1299,7 @@ TEST_CASES_TO_CURRENCY_MOP = (
 )
 
 TEST_CASES_TO_CURRENCY_MRO = (
+    (100, 'un ouguiya'),
     (1.00, 'un ouguiya con cero khoums'),
     (2.00, 'dos ouguiyas con cero khoums'),
     (8.00, 'ocho ouguiyas con cero khoums'),
@@ -1227,6 +1313,7 @@ TEST_CASES_TO_CURRENCY_MRO = (
 )
 
 TEST_CASES_TO_CURRENCY_MRU = (
+    (100, 'un ouguiya'),
     (1.00, 'un ouguiya con cero khoums'),
     (2.00, 'dos ouguiyas con cero khoums'),
     (8.00, 'ocho ouguiyas con cero khoums'),
@@ -1240,6 +1327,7 @@ TEST_CASES_TO_CURRENCY_MRU = (
 )
 
 TEST_CASES_TO_CURRENCY_MUR = (
+    (100, 'una rupia'),
     (1.00, 'una rupia con cero céntimos'),
     (2.00, 'dos rupias con cero céntimos'),
     (8.00, 'ocho rupias con cero céntimos'),
@@ -1253,6 +1341,7 @@ TEST_CASES_TO_CURRENCY_MUR = (
 )
 
 TEST_CASES_TO_CURRENCY_MVR = (
+    (100, 'un rufiyaa'),
     (1.00, 'un rufiyaa con cero laari'),
     (2.00, 'dos rufiyaas con cero laari'),
     (8.00, 'ocho rufiyaas con cero laari'),
@@ -1266,6 +1355,7 @@ TEST_CASES_TO_CURRENCY_MVR = (
 )
 
 TEST_CASES_TO_CURRENCY_MWK = (
+    (100, 'un kuacha'),
     (1.00, 'un kuacha con cero tambalas'),
     (2.00, 'dos kuachas con cero tambalas'),
     (8.00, 'ocho kuachas con cero tambalas'),
@@ -1279,6 +1369,7 @@ TEST_CASES_TO_CURRENCY_MWK = (
 )
 
 TEST_CASES_TO_CURRENCY_MYR = (
+    (100, 'un ringgit'),
     (1.00, 'un ringgit con cero céntimos'),
     (2.00, 'dos ringgit con cero céntimos'),
     (8.00, 'ocho ringgit con cero céntimos'),
@@ -1292,6 +1383,7 @@ TEST_CASES_TO_CURRENCY_MYR = (
 )
 
 TEST_CASES_TO_CURRENCY_MZN = (
+    (100, 'un metical'),
     (1.00, 'un metical con cero centavos'),
     (2.00, 'dos metical con cero centavos'),
     (8.00, 'ocho metical con cero centavos'),
@@ -1305,6 +1397,7 @@ TEST_CASES_TO_CURRENCY_MZN = (
 )
 
 TEST_CASES_TO_CURRENCY_NGN = (
+    (100, 'un naira'),
     (1.00, 'un naira con cero kobo'),
     (2.00, 'dos nairas con cero kobo'),
     (8.00, 'ocho nairas con cero kobo'),
@@ -1318,6 +1411,7 @@ TEST_CASES_TO_CURRENCY_NGN = (
 )
 
 TEST_CASES_TO_CURRENCY_NPR = (
+    (100, 'una rupia'),
     (1.00, 'una rupia con cero paisas'),
     (2.00, 'dos rupias con cero paisas'),
     (8.00, 'ocho rupias con cero paisas'),
@@ -1331,6 +1425,7 @@ TEST_CASES_TO_CURRENCY_NPR = (
 )
 
 TEST_CASES_TO_CURRENCY_OMR = (
+    (100, 'un rial'),
     (1.00, 'un rial con cero baisa'),
     (2.00, 'dos riales con cero baisa'),
     (8.00, 'ocho riales con cero baisa'),
@@ -1344,6 +1439,7 @@ TEST_CASES_TO_CURRENCY_OMR = (
 )
 
 TEST_CASES_TO_CURRENCY_PAB = (
+    (100, 'un balboa'),
     (1.00, 'un balboa con cero centésimos'),
     (2.00, 'dos balboas con cero centésimos'),
     (8.00, 'ocho balboas con cero centésimos'),
@@ -1357,6 +1453,7 @@ TEST_CASES_TO_CURRENCY_PAB = (
 )
 
 TEST_CASES_TO_CURRENCY_PGK = (
+    (100, 'un kina'),
     (1.00, 'un kina con cero toea'),
     (2.00, 'dos kinas con cero toea'),
     (8.00, 'ocho kinas con cero toea'),
@@ -1370,6 +1467,7 @@ TEST_CASES_TO_CURRENCY_PGK = (
 )
 
 TEST_CASES_TO_CURRENCY_PKR = (
+    (100, 'una rupia'),
     (1.00, 'una rupia con cero paisas'),
     (2.00, 'dos rupias con cero paisas'),
     (8.00, 'ocho rupias con cero paisas'),
@@ -1383,6 +1481,7 @@ TEST_CASES_TO_CURRENCY_PKR = (
 )
 
 TEST_CASES_TO_CURRENCY_PLZ = (
+    (100, 'un zloty'),
     (1.00, 'un zloty con cero groszy'),
     (2.00, 'dos zlotys con cero groszy'),
     (8.00, 'ocho zlotys con cero groszy'),
@@ -1396,6 +1495,7 @@ TEST_CASES_TO_CURRENCY_PLZ = (
 )
 
 TEST_CASES_TO_CURRENCY_PYG = (
+    (100, 'un guaraní'),
     (1.00, 'un guaraní con cero céntimos'),
     (2.00, 'dos guaranís con cero céntimos'),
     (8.00, 'ocho guaranís con cero céntimos'),
@@ -1409,6 +1509,7 @@ TEST_CASES_TO_CURRENCY_PYG = (
 )
 
 TEST_CASES_TO_CURRENCY_QAR = (
+    (100, 'un rial'),
     (1.00, 'un rial con cero dírhams'),
     (2.00, 'dos riales con cero dírhams'),
     (8.00, 'ocho riales con cero dírhams'),
@@ -1422,6 +1523,7 @@ TEST_CASES_TO_CURRENCY_QAR = (
 )
 
 TEST_CASES_TO_CURRENCY_RSD = (
+    (100, 'un dinar'),
     (1.00, 'un dinar con cero para'),
     (2.00, 'dos dinares con cero para'),
     (8.00, 'ocho dinares con cero para'),
@@ -1435,6 +1537,7 @@ TEST_CASES_TO_CURRENCY_RSD = (
 )
 
 TEST_CASES_TO_CURRENCY_RUR = (
+    (100, 'un rublo'),
     (1.00, 'un rublo con cero kopeks'),
     (2.00, 'dos rublos con cero kopeks'),
     (8.00, 'ocho rublos con cero kopeks'),
@@ -1448,6 +1551,7 @@ TEST_CASES_TO_CURRENCY_RUR = (
 )
 
 TEST_CASES_TO_CURRENCY_SAR = (
+    (100, 'un riyal'),
     (1.00, 'un riyal con cero halalas'),
     (2.00, 'dos riales con cero halalas'),
     (8.00, 'ocho riales con cero halalas'),
@@ -1461,6 +1565,7 @@ TEST_CASES_TO_CURRENCY_SAR = (
 )
 
 TEST_CASES_TO_CURRENCY_SCR = (
+    (100, 'una rupia'),
     (1.00, 'una rupia con cero céntimos'),
     (2.00, 'dos rupias con cero céntimos'),
     (8.00, 'ocho rupias con cero céntimos'),
@@ -1474,6 +1579,7 @@ TEST_CASES_TO_CURRENCY_SCR = (
 )
 
 TEST_CASES_TO_CURRENCY_SHP = (
+    (100, 'una libra'),
     (1.00, 'una libra con cero peniques'),
     (2.00, 'dos libras con cero peniques'),
     (8.00, 'ocho libras con cero peniques'),
@@ -1487,6 +1593,7 @@ TEST_CASES_TO_CURRENCY_SHP = (
 )
 
 TEST_CASES_TO_CURRENCY_SKK = (
+    (100, 'una corona'),
     (1.00, 'una corona con cero haliers'),
     (2.00, 'dos coronas con cero haliers'),
     (8.00, 'ocho coronas con cero haliers'),
@@ -1500,6 +1607,7 @@ TEST_CASES_TO_CURRENCY_SKK = (
 )
 
 TEST_CASES_TO_CURRENCY_SLL = (
+    (100, 'una leona'),
     (1.00, 'una leona con cero céntimos'),
     (2.00, 'dos leonas con cero céntimos'),
     (8.00, 'ocho leonas con cero céntimos'),
@@ -1513,6 +1621,7 @@ TEST_CASES_TO_CURRENCY_SLL = (
 )
 
 TEST_CASES_TO_CURRENCY_STD = (
+    (100, 'un dobra'),
     (1.00, 'un dobra con cero céntimos'),
     (2.00, 'dos dobras con cero céntimos'),
     (8.00, 'ocho dobras con cero céntimos'),
@@ -1526,6 +1635,7 @@ TEST_CASES_TO_CURRENCY_STD = (
 )
 
 TEST_CASES_TO_CURRENCY_SVC = (
+    (100, 'un colón'),
     (1.00, 'un colón con cero centavos'),
     (2.00, 'dos colones con cero centavos'),
     (8.00, 'ocho colones con cero centavos'),
@@ -1539,6 +1649,7 @@ TEST_CASES_TO_CURRENCY_SVC = (
 )
 
 TEST_CASES_TO_CURRENCY_SZL = (
+    (100, 'un lilangeni'),
     (1.00, 'un lilangeni con cero céntimos'),
     (2.00, 'dos emalangeni con cero céntimos'),
     (8.00, 'ocho emalangeni con cero céntimos'),
@@ -1552,6 +1663,7 @@ TEST_CASES_TO_CURRENCY_SZL = (
 )
 
 TEST_CASES_TO_CURRENCY_TJS = (
+    (100, 'un somoni'),
     (1.00, 'un somoni con cero dirames'),
     (2.00, 'dos somonis con cero dirames'),
     (8.00, 'ocho somonis con cero dirames'),
@@ -1565,6 +1677,7 @@ TEST_CASES_TO_CURRENCY_TJS = (
 )
 
 TEST_CASES_TO_CURRENCY_TMT = (
+    (100, 'un manat'),
     (1.00, 'un manat con cero tenge'),
     (2.00, 'dos manat con cero tenge'),
     (8.00, 'ocho manat con cero tenge'),
@@ -1578,6 +1691,7 @@ TEST_CASES_TO_CURRENCY_TMT = (
 )
 
 TEST_CASES_TO_CURRENCY_TND = (
+    (100, 'un dinar'),
     (1.00, 'un dinar con cero milésimos'),
     (2.00, 'dos dinares con cero milésimos'),
     (8.00, 'ocho dinares con cero milésimos'),
@@ -1591,6 +1705,7 @@ TEST_CASES_TO_CURRENCY_TND = (
 )
 
 TEST_CASES_TO_CURRENCY_TOP = (
+    (100, 'un paanga'),
     (1.00, 'un paanga con cero céntimos'),
     (2.00, 'dos paangas con cero céntimos'),
     (8.00, 'ocho paangas con cero céntimos'),
@@ -1607,6 +1722,7 @@ wordamount = "{} {}".format("cuatro mil ciento cincuenta",
                             "nuevos dólares con ochenta y tres céntimos")
 
 TEST_CASES_TO_CURRENCY_TWD = (
+    (100, 'un nuevo dólar'),
     (1.00, 'un nuevo dólar con cero céntimos'),
     (2.00, 'dos nuevos dólares con cero céntimos'),
     (8.00, 'ocho nuevos dólares con cero céntimos'),
@@ -1619,6 +1735,7 @@ TEST_CASES_TO_CURRENCY_TWD = (
 )
 
 TEST_CASES_TO_CURRENCY_TZS = (
+    (100, 'un chelín'),
     (1.00, 'un chelín con cero céntimos'),
     (2.00, 'dos chelines con cero céntimos'),
     (8.00, 'ocho chelines con cero céntimos'),
@@ -1632,6 +1749,7 @@ TEST_CASES_TO_CURRENCY_TZS = (
 )
 
 TEST_CASES_TO_CURRENCY_UAG = (
+    (100, 'un hryvnia'),
     (1.00, 'un hryvnia con cero kopiykas'),
     (2.00, 'dos hryvnias con cero kopiykas'),
     (8.00, 'ocho hryvnias con cero kopiykas'),
@@ -1645,6 +1763,7 @@ TEST_CASES_TO_CURRENCY_UAG = (
 )
 
 TEST_CASES_TO_CURRENCY_UGX = (
+    (100, 'un chelín'),
     (1.00, 'un chelín con cero céntimos'),
     (2.00, 'dos chelines con cero céntimos'),
     (8.00, 'ocho chelines con cero céntimos'),
@@ -1658,6 +1777,7 @@ TEST_CASES_TO_CURRENCY_UGX = (
 )
 
 TEST_CASES_TO_CURRENCY_UYU = (
+    (100, 'un peso'),
     (1.00, 'un peso con cero centésimos'),
     (2.00, 'dos pesos con cero centésimos'),
     (8.00, 'ocho pesos con cero centésimos'),
@@ -1671,6 +1791,7 @@ TEST_CASES_TO_CURRENCY_UYU = (
 )
 
 TEST_CASES_TO_CURRENCY_UZS = (
+    (100, 'un sum'),
     (1.00, 'un sum con cero tiyin'),
     (2.00, 'dos sum con cero tiyin'),
     (8.00, 'ocho sum con cero tiyin'),
@@ -1687,6 +1808,7 @@ wordamount = "{} {}".format("cuatro mil ciento cincuenta",
                             "bolívares fuertes con ochenta y tres céntimos")
 
 TEST_CASES_TO_CURRENCY_VEF = (
+    (100, 'un bolívar fuerte'),
     (1.00, 'un bolívar fuerte con cero céntimos'),
     (2.00, 'dos bolívares fuertes con cero céntimos'),
     (8.00, 'ocho bolívares fuertes con cero céntimos'),
@@ -1699,6 +1821,7 @@ TEST_CASES_TO_CURRENCY_VEF = (
 )
 
 TEST_CASES_TO_CURRENCY_VND = (
+    (100, 'un dong'),
     (1.00, 'un dong con cero xu'),
     (2.00, 'dos dongs con cero xu'),
     (8.00, 'ocho dongs con cero xu'),
@@ -1712,6 +1835,7 @@ TEST_CASES_TO_CURRENCY_VND = (
 )
 
 TEST_CASES_TO_CURRENCY_VUV = (
+    (100, 'un vatu'),
     (1.00, 'un vatu con cero nenhum'),
     (2.00, 'dos vatu con cero nenhum'),
     (8.00, 'ocho vatu con cero nenhum'),
@@ -1725,6 +1849,7 @@ TEST_CASES_TO_CURRENCY_VUV = (
 )
 
 TEST_CASES_TO_CURRENCY_WST = (
+    (100, 'un tala'),
     (1.00, 'un tala con cero centavos'),
     (2.00, 'dos tala con cero centavos'),
     (8.00, 'ocho tala con cero centavos'),
@@ -1738,6 +1863,7 @@ TEST_CASES_TO_CURRENCY_WST = (
 )
 
 TEST_CASES_TO_CURRENCY_XAF = (
+    (100, 'un franco CFA'),
     (1.00, 'un franco CFA con cero céntimos'),
     (2.00, 'dos francos CFA con cero céntimos'),
     (8.00, 'ocho francos CFA con cero céntimos'),
@@ -1751,6 +1877,7 @@ TEST_CASES_TO_CURRENCY_XAF = (
 )
 
 TEST_CASES_TO_CURRENCY_XPF = (
+    (100, 'un franco CFP'),
     (1.00, 'un franco CFP con cero céntimos'),
     (2.00, 'dos francos CFP con cero céntimos'),
     (8.00, 'ocho francos CFP con cero céntimos'),
@@ -1764,6 +1891,7 @@ TEST_CASES_TO_CURRENCY_XPF = (
 )
 
 TEST_CASES_TO_CURRENCY_YER = (
+    (100, 'un rial'),
     (1.00, 'un rial con cero fils'),
     (2.00, 'dos riales con cero fils'),
     (8.00, 'ocho riales con cero fils'),
@@ -1777,6 +1905,7 @@ TEST_CASES_TO_CURRENCY_YER = (
 )
 
 TEST_CASES_TO_CURRENCY_YUM = (
+    (100, 'un dinar'),
     (1.00, 'un dinar con cero para'),
     (2.00, 'dos dinares con cero para'),
     (8.00, 'ocho dinares con cero para'),
@@ -1790,6 +1919,7 @@ TEST_CASES_TO_CURRENCY_YUM = (
 )
 
 TEST_CASES_TO_CURRENCY_ZMW = (
+    (100, 'un kwacha'),
     (1.00, 'un kwacha con cero ngwee'),
     (2.00, 'dos kwachas con cero ngwee'),
     (8.00, 'ocho kwachas con cero ngwee'),
@@ -1803,6 +1933,7 @@ TEST_CASES_TO_CURRENCY_ZMW = (
 )
 
 TEST_CASES_TO_CURRENCY_ZRZ = (
+    (100, 'un zaire'),
     (1.00, 'un zaire con cero makuta'),
     (2.00, 'dos zaires con cero makuta'),
     (8.00, 'ocho zaires con cero makuta'),
