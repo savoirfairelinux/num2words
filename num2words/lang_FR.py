@@ -25,8 +25,17 @@ class Num2Word_FR(Num2Word_EU):
         'EUR': (('euro', 'euros'), ('centime', 'centimes')),
         'USD': (('dollar', 'dollars'), ('cent', 'cents')),
         'FRF': (('franc', 'francs'), ('centime', 'centimes')),
+        'CAD': (('dollar', 'dollars'), ('cent', 'cents')),
+        'AUD': (('dollar', 'dollars'), ('cent', 'cents')),
+        'NZD': (('dollar', 'dollars'), ('cent', 'cents')),
+        'HKD': (('dollar', 'dollars'), ('cent', 'cents')),
         'GBP': (('livre', 'livres'), ('penny', 'pence')),
         'CNY': (('yuan', 'yuans'), ('fen', 'jiaos')),
+        'JPY': (('yen', 'yens'), ('sen', 'sen')),
+        'INR': (('roupie', 'roupies'), ('paisa', 'paisas')),
+        'RUB': (('rouble', 'roubles'), ('kopeck', 'kopecks')),
+        'KRW': (('won', 'wons'), ('jeon', 'jeons')),
+        'MXN': (('peso', 'pesos'), ('centavo', 'centavos')),
     }
 
     def setup(self):
