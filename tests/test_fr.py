@@ -148,6 +148,116 @@ TEST_CASES_TO_CURRENCY_USD = (
     (100.00, 'cent dollars et zéro cents'),
 )
 
+TEST_CASES_TO_CURRENCY_CAD = (
+    (1.00, 'un dollar et zéro cents'),
+    (2.01, 'deux dollars et un cent'),
+    (8.10, 'huit dollars et dix cents'),
+    (12.26, 'douze dollars et vingt-six cents'),
+    (21.29, 'vingt et un dollars et vingt-neuf cents'),
+    (81.25, 'quatre-vingt-un dollars et vingt-cinq cents'),
+    (100.00, 'cent dollars et zéro cents'),
+)
+
+TEST_CASES_TO_CURRENCY_AUD = (
+    (1.00, 'un dollar et zéro cents'),
+    (2.01, 'deux dollars et un cent'),
+    (8.10, 'huit dollars et dix cents'),
+    (12.26, 'douze dollars et vingt-six cents'),
+    (21.29, 'vingt et un dollars et vingt-neuf cents'),
+    (81.25, 'quatre-vingt-un dollars et vingt-cinq cents'),
+    (100.00, 'cent dollars et zéro cents'),
+)
+
+TEST_CASES_TO_CURRENCY_NZD = (
+    (1.00, 'un dollar et zéro cents'),
+    (2.01, 'deux dollars et un cent'),
+    (8.10, 'huit dollars et dix cents'),
+    (12.26, 'douze dollars et vingt-six cents'),
+    (21.29, 'vingt et un dollars et vingt-neuf cents'),
+    (81.25, 'quatre-vingt-un dollars et vingt-cinq cents'),
+    (100.00, 'cent dollars et zéro cents'),
+)
+
+TEST_CASES_TO_CURRENCY_HKD = (
+    (1.00, 'un dollar et zéro cents'),
+    (2.01, 'deux dollars et un cent'),
+    (8.10, 'huit dollars et dix cents'),
+    (12.26, 'douze dollars et vingt-six cents'),
+    (21.29, 'vingt et un dollars et vingt-neuf cents'),
+    (81.25, 'quatre-vingt-un dollars et vingt-cinq cents'),
+    (100.00, 'cent dollars et zéro cents'),
+)
+
+TEST_CASES_TO_CURRENCY_GBP = (
+    (1.00, 'un livre et zéro pence'),
+    (2.01, 'deux livres et un penny'),
+    (8.10, 'huit livres et dix pence'),
+    (12.26, 'douze livres et vingt-six pence'),
+    (21.29, 'vingt et un livres et vingt-neuf pence'),
+    (81.25, 'quatre-vingt-un livres et vingt-cinq pence'),
+    (100.00, 'cent livres et zéro pence'),
+)
+
+TEST_CASES_TO_CURRENCY_CNY = (
+    (1.00, 'un yuan et zéro jiaos'),
+    (2.01, 'deux yuans et un fen'),
+    (8.10, 'huit yuans et dix jiaos'),
+    (12.26, 'douze yuans et vingt-six jiaos'),
+    (21.29, 'vingt et un yuans et vingt-neuf jiaos'),
+    (81.25, 'quatre-vingt-un yuans et vingt-cinq jiaos'),
+    (100.00, 'cent yuans et zéro jiaos'),
+)
+
+TEST_CASES_TO_CURRENCY_JPY = (
+    (1.00, 'un yen et zéro sen'),
+    (2.01, 'deux yens et un sen'),
+    (8.10, 'huit yens et dix sen'),
+    (12.26, 'douze yens et vingt-six sen'),
+    (21.29, 'vingt et un yens et vingt-neuf sen'),
+    (81.25, 'quatre-vingt-un yens et vingt-cinq sen'),
+    (100.00, 'cent yens et zéro sen'),
+)
+
+TEST_CASES_TO_CURRENCY_INR = (
+    (1.00, 'un roupie et zéro paisas'),
+    (2.01, 'deux roupies et un paisa'),
+    (8.10, 'huit roupies et dix paisas'),
+    (12.26, 'douze roupies et vingt-six paisas'),
+    (21.29, 'vingt et un roupies et vingt-neuf paisas'),
+    (81.25, 'quatre-vingt-un roupies et vingt-cinq paisas'),
+    (100.00, 'cent roupies et zéro paisas'),
+)
+
+TEST_CASES_TO_CURRENCY_RUB = (
+    (1.00, 'un rouble et zéro kopecks'),
+    (2.01, 'deux roubles et un kopeck'),
+    (8.10, 'huit roubles et dix kopecks'),
+    (12.26, 'douze roubles et vingt-six kopecks'),
+    (21.29, 'vingt et un roubles et vingt-neuf kopecks'),
+    (81.25, 'quatre-vingt-un roubles et vingt-cinq kopecks'),
+    (100.00, 'cent roubles et zéro kopecks'),
+)
+
+TEST_CASES_TO_CURRENCY_KRW = (
+    (1.00, 'un won et zéro jeons'),
+    (2.01, 'deux wons et un jeon'),
+    (8.10, 'huit wons et dix jeons'),
+    (12.26, 'douze wons et vingt-six jeons'),
+    (21.29, 'vingt et un wons et vingt-neuf jeons'),
+    (81.25, 'quatre-vingt-un wons et vingt-cinq jeons'),
+    (100.00, 'cent wons et zéro jeons'),
+)
+
+TEST_CASES_TO_CURRENCY_MXN = (
+    (1.00, 'un peso et zéro centavos'),
+    (2.01, 'deux pesos et un centavo'),
+    (8.10, 'huit pesos et dix centavos'),
+    (12.26, 'douze pesos et vingt-six centavos'),
+    (21.29, 'vingt et un pesos et vingt-neuf centavos'),
+    (81.25, 'quatre-vingt-un pesos et vingt-cinq centavos'),
+    (100.00, 'cent pesos et zéro centavos'),
+)
+
 
 class Num2WordsFRTest(TestCase):
     def test_ordinal_special_joins(self):
@@ -201,6 +311,83 @@ class Num2WordsFRTest(TestCase):
         for test in TEST_CASES_TO_CURRENCY_USD:
             self.assertEqual(
                 num2words(test[0], lang='fr', to='currency', currency='USD'),
+                test[1]
+            )
+
+    def test_currency_cad(self):
+        for test in TEST_CASES_TO_CURRENCY_CAD:
+            self.assertEqual(
+                num2words(test[0], lang='fr', to='currency', currency='CAD'),
+                test[1]
+            )
+
+    def test_currency_aud(self):
+        for test in TEST_CASES_TO_CURRENCY_AUD:
+            self.assertEqual(
+                num2words(test[0], lang='fr', to='currency', currency='AUD'),
+                test[1]
+            )
+
+    def test_currency_nzd(self):
+        for test in TEST_CASES_TO_CURRENCY_NZD:
+            self.assertEqual(
+                num2words(test[0], lang='fr', to='currency', currency='NZD'),
+                test[1]
+            )
+
+    def test_currency_hkd(self):
+        for test in TEST_CASES_TO_CURRENCY_HKD:
+            self.assertEqual(
+                num2words(test[0], lang='fr', to='currency', currency='HKD'),
+                test[1]
+            )
+
+    def test_currency_gbp(self):
+        for test in TEST_CASES_TO_CURRENCY_GBP:
+            self.assertEqual(
+                num2words(test[0], lang='fr', to='currency', currency='GBP'),
+                test[1]
+            )
+
+    def test_currency_cny(self):
+        for test in TEST_CASES_TO_CURRENCY_CNY:
+            self.assertEqual(
+                num2words(test[0], lang='fr', to='currency', currency='CNY'),
+                test[1]
+            )
+
+    def test_currency_jpy(self):
+        for test in TEST_CASES_TO_CURRENCY_JPY:
+            self.assertEqual(
+                num2words(test[0], lang='fr', to='currency', currency='JPY'),
+                test[1]
+            )
+
+    def test_currency_inr(self):
+        for test in TEST_CASES_TO_CURRENCY_INR:
+            self.assertEqual(
+                num2words(test[0], lang='fr', to='currency', currency='INR'),
+                test[1]
+            )
+
+    def test_currency_rub(self):
+        for test in TEST_CASES_TO_CURRENCY_RUB:
+            self.assertEqual(
+                num2words(test[0], lang='fr', to='currency', currency='RUB'),
+                test[1]
+            )
+
+    def test_currency_krw(self):
+        for test in TEST_CASES_TO_CURRENCY_KRW:
+            self.assertEqual(
+                num2words(test[0], lang='fr', to='currency', currency='KRW'),
+                test[1]
+            )
+
+    def test_currency_mxn(self):
+        for test in TEST_CASES_TO_CURRENCY_MXN:
+            self.assertEqual(
+                num2words(test[0], lang='fr', to='currency', currency='MXN'),
                 test[1]
             )
 
