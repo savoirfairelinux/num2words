@@ -100,14 +100,14 @@ class Num2Word_Base(object):
     def str_to_number(self, value):
         return Decimal(value)
 
-    def to_cardinal(self, value):
+    def to_cardinal(self, value, negative_value_flag=False):
         try:
             assert int(value) == value
         except (ValueError, TypeError, AssertionError):
             return self.to_cardinal_float(value)
 
         out = ""
-        if value < 0:
+        if value < 0 or negative_value_flag == True:
             value = abs(value)
             out = "%s " % self.negword.strip()
 
@@ -142,12 +142,18 @@ class Num2Word_Base(object):
         except (ValueError, TypeError, AssertionError, AttributeError):
             raise TypeError(self.errmsg_nonnum % value)
 
+        # adding following condition to handle all negative float values including values between -1 to 0 for example "-0.01"
+        negative_value_flag = False
+        if value < 0:
+            value = abs(value)
+            negative_value_flag = True
+
         pre, post = self.float2tuple(float(value))
 
         post = str(post)
         post = '0' * (self.precision - len(post)) + post
 
-        out = [self.to_cardinal(pre)]
+        out = [self.to_cardinal(pre, negative_value_flag)]
         if self.precision:
             out.append(self.title(self.pointword))
 
