@@ -51,7 +51,7 @@ class Num2WordsENNGTest(TestCase):
                 separator=separator,
                 kobo=False
             ),
-            "zero naira and 00 kobo"
+            "zero naira"
         )
 
         self.assertEqual(

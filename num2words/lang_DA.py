@@ -20,12 +20,12 @@ from __future__ import division, print_function, unicode_literals
 from . import lang_EU
 
 
-class Num2Word_DK(lang_EU.Num2Word_EU):
+class Num2Word_DA(lang_EU.Num2Word_EU):
     GIGA_SUFFIX = "illiarder"
     MEGA_SUFFIX = "illioner"
 
     def setup(self):
-        super(Num2Word_DK, self).setup()
+        super(Num2Word_DA, self).setup()
 
         self.negword = "minus "
         self.pointword = "komma"

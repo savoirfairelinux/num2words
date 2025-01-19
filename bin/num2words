@@ -58,7 +58,7 @@ from docopt import docopt
 
 import num2words
 
-__version__ = "0.5.13"
+__version__ = "0.5.14"
 __license__ = "LGPL"
 
 
