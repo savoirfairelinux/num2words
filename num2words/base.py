@@ -19,7 +19,7 @@ from __future__ import unicode_literals
 
 import math
 from collections import OrderedDict
-from decimal import Decimal
+from decimal import Decimal, getcontext
 
 from .compat import to_s
 from .currency import parse_currency_parts, prefix_currency
@@ -66,6 +66,10 @@ class Num2Word_Base(object):
             self.cards[n] = word
 
     def splitnum(self, value):
+        oldcontext = getcontext().prec
+        if isinstance(value, Decimal):
+            getcontext().prec = len(str(value))
+
         for elem in self.cards:
             if elem > value:
                 continue
@@ -88,6 +92,7 @@ class Num2Word_Base(object):
             if mod:
                 out.append(self.splitnum(mod))
 
+            getcontext().prec = oldcontext
             return out
 
     def parse_minus(self, num_str):
