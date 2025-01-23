@@ -1851,6 +1851,7 @@ class Num2WordsESTest(TestCase):
                 num2words(test[0], lang='es', ordinal=True, gender='f'),
                 test[1]
             )
+
     def test_ordinal_num(self):
         for test in TEST_CASES_ORDINAL_NUM:
             self.assertEqual(
