@@ -224,7 +224,7 @@ class Num2Word_ES(Num2Word_EU):
             " como un ordinal."
         self.errmsg_toobig = (
             "abs(%s) deber ser inferior a %s."
-            )
+        )
         self.gender_stem = "o"
         self.exclude_title = ["y", "menos", "punto"]
         self.mid_numwords = [(1000, "mil"), (100, "cien"), (90, "noventa"),
@@ -250,7 +250,7 @@ class Num2Word_ES(Num2Word_EU):
                      10: "décim",
                      20: "vigésim",
                      30: "trigésim",
-                     40: "quadragésim",
+                     40: "cuadragésim",
                      50: "quincuagésim",
                      60: "sexagésim",
                      70: "septuagésim",
@@ -302,29 +302,35 @@ class Num2Word_ES(Num2Word_EU):
 
         return (ctext + ntext, cnum * nnum)
 
-    def to_ordinal(self, value):
+    def to_ordinal(self, value, gender='m'):
+        gender_stem = 'a' if gender == 'f' else 'o'
+
         self.verify_ordinal(value)
         if value == 0:
             text = ""
         elif value <= 10:
-            text = "%s%s" % (self.ords[value], self.gender_stem)
-        elif value <= 12:
+            text = "%s%s" % (self.ords[value], gender_stem)
+        # According to RAE recommendations, simple forms are preferred up to 30
+        # Ortography for sobreesdrújulas
+        elif value <= 29:
+            gender_stem = 'o'
+            dec = (value // 10) * 10
             text = (
-                "%s%s%s" % (self.ords[10], self.gender_stem,
-                            self.to_ordinal(value - 10))
-                    )
+                "%s%s%s" % (self.ords[dec].replace('é', 'e'), gender_stem,
+                            self.to_ordinal(value % 10, gender))
+            )
         elif value <= 100:
             dec = (value // 10) * 10
             text = (
-                "%s%s %s" % (self.ords[dec], self.gender_stem,
-                             self.to_ordinal(value - dec))
-                    )
+                "%s%s %s" % (self.ords[dec], gender_stem,
+                             self.to_ordinal(value - dec, gender))
+            )
         elif value <= 1e3:
             cen = (value // 100) * 100
             text = (
-                "%s%s %s" % (self.ords[cen], self.gender_stem,
-                             self.to_ordinal(value - cen))
-                    )
+                "%s%s %s" % (self.ords[cen], gender_stem,
+                             self.to_ordinal(value - cen, gender))
+            )
         elif value < 1e18:
             # Round down to the nearest 1e(3n)
             # dec contains the following:
@@ -341,16 +347,18 @@ class Num2Word_ES(Num2Word_EU):
 
             cardinal = self.to_cardinal(high_part) if high_part != 1 else ""
             text = (
-                "%s%s%s %s" % (cardinal, self.ords[dec], self.gender_stem,
-                               self.to_ordinal(low_part))
-                    )
+                "%s%s%s %s" % (cardinal, self.ords[dec], gender_stem,
+                               self.to_ordinal(low_part, gender=gender))
+            )
         else:
             text = self.to_cardinal(value)
-        return text.strip()
+        # Handle exception: it's not "decimooctavo" but "decimoctavo"
+        return text.strip().replace('oo', 'o')
 
-    def to_ordinal_num(self, value):
+    def to_ordinal_num(self, value, gender='m'):
+        gender_stem = 'a' if gender == 'f' else 'o'
         self.verify_ordinal(value)
-        return "%s%s" % (value, "º" if self.gender_stem == 'o' else "ª")
+        return "%s%s" % (value, "º" if gender_stem == 'o' else "ª")
 
     def to_currency(self, val, currency='EUR', cents=True, separator=' con',
                     adjective=False):
