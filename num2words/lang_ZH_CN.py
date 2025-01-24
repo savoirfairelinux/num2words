@@ -22,7 +22,7 @@ from .base import Num2Word_Base
 #Support any [int string] type of number
 #Only MAX 15 numbers for float types are supported,!han 15 numbers not accurate!!!
 #If you have any questions, please contact:icn.bing@gmail.com
-class Num2Word_ZH(Num2Word_Base):
+class Num2Word_ZH_CN(Num2Word_Base):
     CURRENCY_FORMS = {
         'CNY': ('元', ('角', '分')),
         'USD': ('美元', '美分'),
@@ -234,17 +234,16 @@ class Num2Word_ZH(Num2Word_Base):
         self.errmsg_floatord = "Cannot treat float %s as ordinal|year."
         self.errmsg_negord = "Cannot treat negative num %s as ordinal|year."
         self.precision = 2
-        self.negword = "負"
-        self.pointword = "點"
-        self.exclude_title = [self.negword, self.pointword]
+        self.negword = "负"
+        self.pointword = "点"
         self.high_numwords = [
-            '億',
-            '萬'
+            '亿',
+            '万'
             ]
         self.mid_numwords = [
-            (1000,  '千'),
-            (100,   '百'),
-            (10,    '十')
+            (1000,'千'),
+            (100,'百'),
+            (10,'十')
             ]
         self.low_numwords = [
             "九",
@@ -260,27 +259,27 @@ class Num2Word_ZH(Num2Word_Base):
             ]
         
     CAP_map = [
-        ("千", "仟"),
-        ("百", "佰"),
+        ("千", "仟"), 
+        ("百", "佰"),  
         ("十", "拾"),
         ("九", "玖"),
         ("八", "捌"),
         ("七", "柒"),
-        ("六", "陸"),
+        ("六", "陆"),
         ("五", "伍"),
         ("四", "肆"),
         ("三", "叁"),
-        ("二", "貳"),
+        ("二", "贰"),
         ("一", "壹"),
-        ("元", "圓"),
+        ("元", "圆"),
     ]
     REP_map = [
         ('零千','零'),
         ('零百','零'),
         ('零十','零'),
         ('零零','零'),
-        ('零萬','萬'),
-        ('零億','億'),
-        ('億萬','億')
+        ('零万','万'),
+        ('零亿','亿'),
+        ('亿万','亿')
         ]
 

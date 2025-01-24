@@ -132,7 +132,10 @@ Besides the numerical argument, there are two main optional arguments, ``to:`` a
 * ``th`` (Thai)
 * ``uk`` (Ukrainian)
 * ``vi`` (Vietnamese)
-* ``zh_TW`` (Chinese - Taiwan)
+* ``zh`` (Chinese - Traditional)
+* ``zh_CN`` (Chinese - Simplified / Mainland China)
+* ``zh_TW`` (Chinese - Traditional / Taiwan)
+* ``zh_HK`` (Chinese - Traditional / Hong Kong)
 
 You can supply values like ``fr_FR``; if the country doesn't exist but the
 language does, the code will fall back to the base language (i.e. ``fr``). If
