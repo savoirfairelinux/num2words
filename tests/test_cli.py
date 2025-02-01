@@ -20,8 +20,7 @@ from __future__ import unicode_literals
 
 import os
 import unittest
-
-import delegator
+import subprocess
 
 import num2words
 
@@ -35,8 +34,11 @@ class CliCaller(object):
 
     def run_cmd(self, *args):
         cmd_list = self.cmd_list + [str(arg) for arg in args]
-        cmd = " ".join(cmd_list)
-        return delegator.run(cmd)
+        p = subprocess.run(cmd_list, capture_output=True, check=False)
+        p.return_code = p.returncode
+        p.out = p.stdout.decode('utf-8')
+        p.err = p.stderr.decode('utf-8')
+        return p
 
 
 class CliTestCase(unittest.TestCase):
