@@ -112,28 +112,34 @@ class Num2WordsZHTest(TestCase):
         
     def test_ordinal_num(self):
         self.assertEqual(n2zh(120, to="ordinal_num"), "第120")
-
+        
     def test_currency(self):
+        self.assertEqual(n2zh('0', to="currency", capital=True),
+                        "零圓整")
+        self.assertEqual(n2zh(5.00, to="currency", capital=True),
+                        "伍圓整")
         self.assertEqual(n2zh('0', to="currency"),
-                         "零元整")
+                        "零元")
         self.assertEqual(n2zh(5.00, to="currency"),
-                         "伍圆整")
+                        "五元")
+        self.assertEqual(n2zh(10.05, to="currency", capital=True),
+                        "壹拾圓零伍分")
         self.assertEqual(n2zh(10.05, to="currency"),
-                         "壹拾圆零伍分")
-        self.assertEqual(n2zh(12.12, to="currency"),
-                         "壹拾贰圆壹角贰分")
-        self.assertEqual(n2zh(1235678, to="currency"),
-                         "壹佰贰拾叁万伍仟陆佰柒拾捌圆整")
-        self.assertEqual(n2zh('1234567890.123', to="currency"),
-                         "壹拾贰亿叁仟肆佰伍拾陆万柒仟捌佰玖拾圆壹角贰分")
-        self.assertEqual(n2zh(67890.126, to="currency", capital=False),
-                         "六万七千八百九十元一角三分")
+                        "十元零五毫")
+        self.assertEqual(n2zh(12.12, to="currency", capital=True),
+                        "壹拾貳圓壹角貳分")
+        self.assertEqual(n2zh(1235678, to="currency", capital=True),
+                        "壹佰貳拾叁萬伍仟陸佰柒拾捌圓整")
+        self.assertEqual(n2zh('1234567890.123', to="currency", capital=True),
+                        "壹拾貳億叁仟肆佰伍拾陸萬柒仟捌佰玖拾圓壹角貳分")
+        self.assertEqual(n2zh(67890.126, to="currency"),
+                        "六萬七千八百九十元一角三分")
+        self.assertEqual(n2zh(987654.3, to="currency", currency = 'USD', capital=True),
+                        "美元玖拾捌萬柒仟陸佰伍拾肆圓叁角")
         self.assertEqual(n2zh(987654.3, to="currency", currency = 'USD'),
-                         "玖拾捌万柒仟陆佰伍拾肆美圆叁拾美分")
-        self.assertEqual(n2zh(1234.26, to="currency", currency = 'USD', capital=False),
-                         "一千二百三十四美元二十六美分")
-        self.assertEqual(n2zh(314.87, to="currency", currency = 'EUR', capital=False),
-                         "三百一十四欧元八十七分")
+                        "美元九十八萬七千六百五十四元三角")
+        self.assertEqual(n2zh(135.79, to="currency", currency = 'EUR'),
+                        "歐元一百三十五元七角九分")
         
     def test_year(self):
         self.assertEqual(n2zh(2020, to="year"), "二〇二〇年")

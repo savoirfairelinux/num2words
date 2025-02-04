@@ -16,10 +16,9 @@
 # MA 02110-1301 USA
 
 from __future__ import division, print_function, unicode_literals
+from .lang_ZH import Num2Word_ZH
 
-from .base import Num2Word_Base
 from .compat import strtype, to_s
-from .currency import parse_currency_parts, prefix_currency
 
 
 def select_text(text, reading=False, prefer=None):
@@ -41,10 +40,10 @@ def select_text(text, reading=False, prefer=None):
     return text
 
 
-class Num2Word_ZH_TW(Num2Word_Base):
-    CURRENCY_FORMS = {
-        "NTD": (("元", "ㄩㄢˊ"), ()),
-    }
+class Num2Word_ZH_TW(Num2Word_ZH):
+    # CURRENCY_FORMS = {
+    #     "NTD": (("元", "ㄩㄢˊ"), ()),
+    # }
 
     MAXVAL = 10**73
 
@@ -213,35 +212,20 @@ class Num2Word_ZH_TW(Num2Word_Base):
         suffix = "ㄋㄧㄢˊ" if reading is True else "年"
         return "%s%s%s" % (prefix, year_words, suffix)
 
-    def to_currency(self, val, currency="NTD", cents=False, separator="",
-                    adjective=False, reading=False, prefer=None):
-        left, right, is_negative = parse_currency_parts(
-            val, is_int_with_cents=cents)
+    def to_currency_float(self, value, capital):
+        cents = "%02d" % value
+        out = ""
+        
+        if int(cents) > 0:
+            if not (int(cents[0]) == 0 and capital):
+                out += self.cards[int(cents[0])][0][0]
+            if int(cents[0]) > 0:
+                out += self.CURRENCY_FLOATS[0]
+            if int(cents[1]) > 0:
+                out += self.cards[int(cents[1])][0][0] + self.CURRENCY_FLOATS[1]
 
-        try:
-            cr1, cr2 = self.CURRENCY_FORMS[currency]
-            if (cents or abs(val) != left) and not cr2:
-                raise ValueError('Decimals not supported for "%s"' % currency)
-        except KeyError:
-            raise NotImplementedError(
-                'Currency code "%s" not implemented for "%s"' %
-                (currency, self.__class__.__name__))
-
-        if adjective and currency in self.CURRENCY_ADJECTIVES:
-            cr1 = prefix_currency(self.CURRENCY_ADJECTIVES[currency], cr1)
-
-        minus_str = self.negword if is_negative else ("", "")
-        minus_str = minus_str[1] if reading is True else minus_str[0]
-
-        return "%s%s%s%s%s" % (
-            minus_str,
-            self.to_cardinal(left, reading=reading, prefer=prefer),
-            cr1[1] if reading is True else cr1[0],
-            self.to_cardinal(right, reading=reading, prefer=prefer)
-            if cr2 else "",
-            (cr2[1] if reading is True else cr2[0]) if cr2 else "",
-        )
-
+        return out
+    
     def splitnum(self, value, reading, prefer):
         for elem in self.cards:
             if elem > value:

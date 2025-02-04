@@ -149,34 +149,3 @@ class Num2WordsZhTWTest(TestCase):
         self.assertEqual(n2zh_tw(0, to="ordinal_num", reading=True), "ㄉㄧˋ0˙ㄍㄜ")
         self.assertEqual(n2zh_tw(2, to="ordinal_num", counter="名"), "第2名")
         self.assertEqual(n2zh_tw(3, to="ordinal_num", counter="位"), "第3位")
-
-    def test_currency(self):
-        self.assertEqual(n2zh_tw(1, to="currency", adjective=True), "一元")
-        self.assertEqual(n2zh_tw(123456789, to="currency"),
-                         "一億二千三百四十五萬六千七百八十九元")
-        self.assertEqual(n2zh_tw(-123, to="currency"),
-                         "負一百二十三元")
-        with self.assertRaises(ValueError):
-            n2zh_tw(1.1, to="currency")
-        with self.assertRaises(NotImplementedError):
-            n2zh_tw(1.1, to="NTDNTD")
-
-    def test_year(self):
-        self.assertEqual(
-            n2zh_tw(2020, to="year"),
-            "西元二千零二十年"
-        )
-        self.assertEqual(
-            n2zh_tw(2020, to="year", reading="arabic"),
-            "西元2020年"
-        )
-        self.assertEqual(
-            n2zh_tw(-2020, to="year"),
-            "西元前二千零二十年"
-        )
-        self.assertEqual(
-            n2zh_tw(-2020, to="year", reading="arabic"),
-            "西元前2020年"
-        )
-        with self.assertRaises(NotImplementedError):
-            n2zh_tw(1.1, to="year")

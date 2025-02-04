@@ -18,16 +18,33 @@
 from __future__ import division, print_function, unicode_literals
 from decimal import Decimal
 from .base import Num2Word_Base
-#-------------数字转中文字符 Number to Chinese character----------by icn.bing@gmail.com-
-#Support any [int string] type of number
-#Only MAX 15 numbers for float types are supported,!han 15 numbers not accurate!!!
-#If you have any questions, please contact:icn.bing@gmail.com
+
+from .currency import parse_currency_parts
+
 class Num2Word_ZH(Num2Word_Base):
+    CURRENCY_FLOATS = ["角", "分"]
+
     CURRENCY_FORMS = {
-        'CNY': ('元', ('角', '分')),
-        'USD': ('美元', '美分'),
-        'EUR': ('欧元', '分')
-        }
+        "XXX": "元", # Generic dollar
+        "CNY": "人民幣",
+        "NTD": "新台幣",
+        "HKD": "港幣",
+        "MOP": "澳門幣",
+        "SGD": "新加坡元",
+        "MYR": "馬來西亞令吉",
+        "USD": "美元",
+        "EUR": "歐元",
+        "GBP": "英鎊",
+        "JPY": "日元",
+        "CHF": "瑞士法郎",
+        "CAD": "加元",
+        "AUD": "澳幣",
+        "NZD": "紐西蘭元",
+        "THB": "泰銖",
+        "KRW": "韓元",
+    }
+
+    cheque_suffix = "正"
     
     def set_high_numwords(self, high):
         max = 4 * len(high)
@@ -164,62 +181,68 @@ class Num2Word_ZH(Num2Word_Base):
         self.verify_ordinal(value)
         return self.num_to_base(value).replace('零', '〇')+'年'
 
-    def to_currency(self, value, currency='CNY', capital=True):
-        #Only 2 decimal places are supported
-        #More than [0.00] digits are rounded 
+    def to_currency(self, val, currency='XXX', cents=False, separator="",
+                    adjective=False, capital=False):
         """
         Args:
             val: Numeric value
             currency (str): Currency code
+            # cents (bool): Verbose cents
+            # separator (str): Cent separator
+            # adjective (bool): Prefix currency name with adjective
             capital (bool): Select the capital form of a Chinese numeral
         Returns:
-            str: 
+            str: Formatted string
 
+        Handles whole numbers and decimal numbers differently
         """
-        if not isinstance(value, str):
-            value  = self.num_to_str(value)
+        left, right, is_negative = parse_currency_parts(val, is_int_with_cents=False)
+
         try:
             cr = self.CURRENCY_FORMS[currency]
+            # Not Applicable: ValueError('Decimals not supported for "%s"' % currency)
+            # CURRENCY_FLOATS are the generic terms for demicals
         except KeyError:
             raise NotImplementedError(
                 'Currency code "%s" not implemented for "%s"' %
                 (currency, self.__class__.__name__))
-        out = ''
-        if '.' not in value:
-            out = out + self.to_cardinal(value) + cr[0] + '整'
-        else:
-            out = out + self.to_currency_float(value,currency, capital)
-            
+        
+        # CURRENCY_ADJECTIVES are not implemented
+        minus_str = self.negword if is_negative else ""
+        money_str = self._money_verbose(left, currency)
+        # has_decimal is not implemented
+
+        out = minus_str + money_str
+        out += cr if currency == "XXX" else self.CURRENCY_FORMS["XXX"]
+
+        cents_str = self.to_currency_float(right, capital)
+        if len(cents_str) > 0:
+            out += cents_str
+        elif capital: # Only add "整" in capital format
+            out += self.cheque_suffix
+
         if capital:
             out = self.zh_to_cap(out)
+        else:
+            out = out.replace("一十", "十")
+
+        if currency != "XXX": # Currency forms are not affected by capitalization
+            out = cr + out
 
         return  out
     
-    def to_currency_float(self, value, currency, capital):
+    def to_currency_float(self, value, capital):
+        cents = "%02d" % value
+        out = ""
+        
+        if int(cents) > 0:
+            if not (int(cents[0]) == 0 and capital):
+                out += self.cards[int(cents[0])]
+            if int(cents[0]) > 0:
+                out += self.CURRENCY_FLOATS[0]
+            if int(cents[1]) > 0:
+                out += self.cards[int(cents[1])] + self.CURRENCY_FLOATS[1]
 
-        cr = self.CURRENCY_FORMS[currency]
-        out = ''
-        pre, post = self.float2tuple(value)
-        if len(post) == 1:
-            post = post+'0'
-        elif len(post) > 2 and int(post[2]) >= 5:
-            post = format(int(post[:2]) + 1, '02d')
-        else:
-            post = post[:2]
-        if post == '00':
-            return self.to_currency(pre, currency, capital)
-        if pre != '0':
-            out = self.to_cardinal(pre) + cr[0]
-        if currency == 'CNY':          
-            for i in range(2):
-                curr = int(post[i])
-                out = out + self.cards[curr]
-                if curr != 0:
-                    out = out + cr[1][i]
-            out = out.lstrip('零圆元').rstrip('零')
-        else:
-            out = out + self.to_cardinal(int(post)) + cr[1] 
-            out = out.strip('零欧美圆元')
         return out
 
     def zh_to_cap(self,value):
@@ -230,17 +253,32 @@ class Num2Word_ZH(Num2Word_Base):
                 out = out.replace(cap_w[0],cap_w[1])
         return out
     def setup(self):
-        self.errmsg_nonnum = "The value (%s) no them a number,don't Decimal to [long, int, float]"
-        self.errmsg_floatord = "Cannot treat float %s as ordinal|year."
-        self.errmsg_negord = "Cannot treat negative num %s as ordinal|year."
         self.precision = 2
         self.negword = "負"
         self.pointword = "點"
         self.exclude_title = [self.negword, self.pointword]
         self.high_numwords = [
-            '億',
-            '萬'
-            ]
+            "萬",       # 10 ** 4
+            "億",       # 10 ** 8
+            "兆",       # 10 ** 12
+            "京",       # 10 ** 16
+            "垓",       # 10 ** 20
+            "秭",       # 10 ** 24
+            "穣",       # 10 ** 28
+            "溝",       # 10 ** 32
+            "澗",       # 10 ** 36
+            "正",       # 10 ** 40
+            "載",       # 10 ** 44
+            "極",       # 10 ** 48
+            "恆河沙",   # 10 ** 52
+            "阿僧祇",   # 10 ** 56
+            "那由他",   # 10 ** 60
+            "不可思議", # 10 ** 64
+            "無量",     # 10 ** 68
+            "不可說",   # 10 ** 72
+        ]
+        self.high_numwords.reverse()
+        
         self.mid_numwords = [
             (1000,  '千'),
             (100,   '百'),
@@ -273,6 +311,7 @@ class Num2Word_ZH(Num2Word_Base):
         ("二", "貳"),
         ("一", "壹"),
         ("元", "圓"),
+        ("正", "整"),
     ]
     REP_map = [
         ('零千','零'),
@@ -282,5 +321,5 @@ class Num2Word_ZH(Num2Word_Base):
         ('零萬','萬'),
         ('零億','億'),
         ('億萬','億')
-        ]
+    ]
 
