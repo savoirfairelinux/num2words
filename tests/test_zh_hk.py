@@ -37,9 +37,9 @@ class Num2WordsZHTest(TestCase):
         self.assertEqual(n2zh_hk(5.00, to="currency"),
                         "五元")
         self.assertEqual(n2zh_hk(10.05, to="currency", capital=True),
-                        "壹拾圓零伍分")
+                        "壹拾圓伍分")
         self.assertEqual(n2zh_hk(10.05, to="currency"),
-                        "十元零五毫")
+                        "十元零五仙")
         self.assertEqual(n2zh_hk(12.12, to="currency", capital=True),
                         "壹拾貳圓壹角貳分")
         self.assertEqual(n2zh_hk(1235678, to="currency", capital=True),
@@ -47,7 +47,7 @@ class Num2WordsZHTest(TestCase):
         self.assertEqual(n2zh_hk('1234567890.123', to="currency", capital=True),
                         "壹拾貳億叁仟肆佰伍拾陸萬柒仟捌佰玖拾圓壹角貳分")
         self.assertEqual(n2zh_hk(67890.126, to="currency"),
-                        "六萬七千八百九十元一角三分")
+                        "六萬七千八百九十元一毫三仙")
         self.assertEqual(n2zh_hk(987654.3, to="currency", currency = 'USD', capital=True),
                         "美元玖拾捌萬柒仟陸佰伍拾肆圓叁角")
         self.assertEqual(n2zh_hk(987654.3, to="currency", currency = 'USD'),

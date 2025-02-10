@@ -51,20 +51,6 @@ class Num2Word_ZH(Num2Word_Base):
         for word, n in zip(high, range(max, 0, -4)):
             self.cards[10 ** n] = word
 
-    def str_to_number(self, value):
-        # delete [,'] char, 
-        # return:string
-        if ',' in value:
-            value = value.replace(',', '' )
-        elif '\'' in value:
-            value = value.replace('\'','')
-        # verify the value if it is a number!
-        try:
-           value = Decimal(value)
-        except Exception as e:
-            raise TypeError(self.errmsg_nonnum % value)
-        # Processing the beginning and end [0 .]
-        return str(value)
     def num_to_str(self, value):
         #[int float] to string
         #return:string
@@ -78,52 +64,42 @@ class Num2Word_ZH(Num2Word_Base):
                 raise  TypeError('the float (%s) lens than 16,\
                 dot not suppurt,use [string] to suppurt' % value)
         return value
-    def to_cardinal(self, value, capital = False):
-        if not isinstance(value, str):
-            value  = self.num_to_str(value)
-        try:
-            assert '.' not in value
-        except (ValueError, TypeError, AssertionError):
-            return self.to_cardinal_float(value, capital)
-       
-        out = ""
-        if value[0] == '-':
-            value = value[1:]
-            out = self.negword
-        val = self.splitnum(value)
-        out = out + val
-        if capital:
-            out = self.zh_to_cap(out)
-        return out
+    
+    def to_cardinal(self, value, capital=False, stuff_zero=2):
+        self.capital = capital
+        self.stuff_zero = stuff_zero
 
-    def to_cardinal_float(self, value, capital = False):
+        out = super().to_cardinal(value)
+        out = self.zh_to_cap(out, capital)
+        return out.replace(" ", "")
 
-        pre, post = self.float2tuple(value)
+    def to_cardinal_float(self, value):
+        out = super().to_cardinal_float(value)
+        out = self.zh_to_cap(out, self.capital)
+        return out.replace(" ", "")
 
-        out = self.to_cardinal(pre) + (self.pointword) + self.num_to_base(post)
-        if capital:
-            out = self.zh_to_cap(out)
-        return out
-    def splitnum(self, value):
-        #string
-        #int(value) >= 0
-        out = ''
-        value = value[::-1]
-        val_bit = 1
-        for num in value:
-            i = int(num)
-            x, y = divmod(val_bit, 4) 
-            if y != 0:
-                n = y
-            elif x % 2 != 0:
-                n = 4
-            else:
-                n = 8
-            out = out + self.cards[i] + self.cards[10**n]
-            val_bit = val_bit + 1
-        out = out[-2::-1]
-        out = self.clean(out)
-        return out
+    def merge(self, lpair, rpair):
+        ltext, lnum = lpair
+        rtext, rnum = rpair
+        # ignore lpair if lnum is 1 and rnum is less than 10
+        if lnum == 1 and rnum < 10:
+            return (rtext, rnum)
+        # stuff_zero logic between discontinous numbers
+        # http://www.hkame.org.hk/uploaded_files/magazine/15/271.pdf
+        with_zero = ("%s%s%s" % (ltext, self.low_numwords[-1], rtext), lnum + rnum)
+        no_zero = ("%s%s" % (ltext, rtext), lnum + rnum)
+        if len(str(lnum)) - len(str(rnum)) > 1:
+            if self.stuff_zero == 1: # 凡「零」必讀 All discontinous numbers
+                return with_zero
+            elif self.stuff_zero == 2: # Discontinous high numbers
+                if len(str(lnum)) - len(str(rnum)) > 1 and len(str(rnum)) % 4 != 0:
+                    return with_zero
+                return no_zero
+            elif self.stuff_zero == 3: # 凡「零」不讀 No zeros
+                return no_zero
+        elif rnum > lnum:
+            return ("%s%s" % (ltext, rtext), lnum * rnum)
+        return no_zero
     
     def num_to_base(self, value):
         if not isinstance(value, str):
@@ -134,25 +110,6 @@ class Num2Word_ZH(Num2Word_Base):
             out = out + self.cards[x]
         return out
     
-    def float2tuple(self, value):
-        if not isinstance(value, str):
-            value  = self.num_to_str(value)
-        if '.' in value:
-            pre, post = str(value).split('.')
-            return pre , post
-        else:
-            raise  TypeError('The value (%s) no them a float number' % value) 
-
-    def clean(self, value):
-        #clear chars in REP_map 
-        out = value
-        for rep_w in self.REP_map:
-            while rep_w[0] in out:
-                out = out.replace(rep_w[0],rep_w[1])
-        if len(out) > 1 and out[-1] == '零':
-            out = out [:-1]
-        return out
-
     def verify_ordinal(self, value):
         if '.' in value:
             raise TypeError(self.errmsg_floatord % value)
@@ -209,7 +166,7 @@ class Num2Word_ZH(Num2Word_Base):
         
         # CURRENCY_ADJECTIVES are not implemented
         minus_str = self.negword if is_negative else ""
-        money_str = self._money_verbose(left, currency)
+        money_str = self.to_cardinal(left, capital)
         # has_decimal is not implemented
 
         out = minus_str + money_str
@@ -221,11 +178,7 @@ class Num2Word_ZH(Num2Word_Base):
         elif capital: # Only add "整" in capital format
             out += self.cheque_suffix
 
-        if capital:
-            out = self.zh_to_cap(out)
-        else:
-            out = out.replace("一十", "十")
-
+        out = self.zh_to_cap(out, capital)
         if currency != "XXX": # Currency forms are not affected by capitalization
             out = cr + out
 
@@ -245,13 +198,20 @@ class Num2Word_ZH(Num2Word_Base):
 
         return out
 
-    def zh_to_cap(self,value):
-        #Select the capital form of a Chinese numeral
+    def zh_to_cap(self, value, capital):
+        """
+        Select the capital form of a Chinese numeral
+        """
         out = value
-        for cap_w in self.CAP_map:
-            if cap_w[0] in out:
-                out = out.replace(cap_w[0],cap_w[1])
+        if capital:
+            for cap_w in self.CAP_map:
+                if cap_w[0] in out:
+                    out = out.replace(cap_w[0],cap_w[1])
+            return out
+        elif out.startswith("一十"):
+            out = out[1:]
         return out
+    
     def setup(self):
         self.precision = 2
         self.negword = "負"
@@ -313,13 +273,3 @@ class Num2Word_ZH(Num2Word_Base):
         ("元", "圓"),
         ("正", "整"),
     ]
-    REP_map = [
-        ('零千','零'),
-        ('零百','零'),
-        ('零十','零'),
-        ('零零','零'),
-        ('零萬','萬'),
-        ('零億','億'),
-        ('億萬','億')
-    ]
-

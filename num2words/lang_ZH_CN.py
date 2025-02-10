@@ -19,11 +19,6 @@ from __future__ import division, print_function, unicode_literals
 from decimal import Decimal
 from .lang_ZH import Num2Word_ZH
 
-#-------------数字转中文字符 Number to Chinese character----------by icn.bing@gmail.com-
-#Support any [int string] type of number
-#Only MAX 15 numbers for float types are supported,!han 15 numbers not accurate!!!
-#If you have any questions, please contact:icn.bing@gmail.com
-
 class Num2Word_ZH_CN(Num2Word_ZH):
     CURRENCY_FORMS = {
         "XXX": "元", # Generic dollar
@@ -47,8 +42,8 @@ class Num2Word_ZH_CN(Num2Word_ZH):
     
     def setup(self):
         super().setup()
-        self.negword = "負"
-        self.pointword = "點"
+        self.negword = "负"
+        self.pointword = "点"
         self.exclude_title = [self.negword, self.pointword]
         self.high_numwords = [
             "万",       # 10 ** 4
@@ -73,7 +68,7 @@ class Num2Word_ZH_CN(Num2Word_ZH):
         self.high_numwords.reverse()
         
     CAP_map = [
-        ("千", "仟"), 
+        ("千", "仟"),
         ("百", "佰"),  
         ("十", "拾"),
         ("九", "玖"),
