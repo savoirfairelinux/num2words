@@ -148,6 +148,9 @@ class Num2Word_Base(object):
         post = '0' * (self.precision - len(post)) + post
 
         out = [self.to_cardinal(pre)]
+        if value < 0 and pre == 0:
+            out = [self.negword.strip()] + out
+
         if self.precision:
             out.append(self.title(self.pointword))
 
