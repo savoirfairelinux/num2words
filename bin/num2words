@@ -16,8 +16,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301 USA
 
-"""num2words: convert numbers into words.
-
+"""\
 Usage:
     num2words [options] <number>
     num2words --list-languages
@@ -50,9 +49,11 @@ Examples:
 """
 
 from __future__ import print_function, unicode_literals
+
+import argparse
 import os
 import sys
-from docopt import docopt
+
 import num2words
 
 __version__ = "0.5.14"
@@ -67,27 +68,69 @@ def get_converters():
     return sorted(list(num2words.CONVERTES_TYPES))
 
 
-def main():
-    version = "{}=={}".format(os.path.basename(__file__), __version__)
-    args = docopt(__doc__, argv=None, help=True, version=version, options_first=False)
-    if args["--list-languages"]:
-        for lang in get_languages():
-            sys.stdout.write(lang)
-            sys.stdout.write(os.linesep)
-        sys.exit(0)
-    if args["--list-converters"]:
-        for cvt in get_converters():
-            sys.stdout.write(cvt)
-            sys.stdout.write(os.linesep)
-        sys.exit(0)
+class HelpFormatter(argparse.RawTextHelpFormatter):
+    def add_usage(self, *a, **b):
+        super().add_usage(*a, prefix='')    # default: 'usage: '
+
+    def format_usage(self, *a, **b):
+        return __doc__
+
+    def add_arguments(self, *a, **b):
+        # don't repeat arguments
+        pass
+
+
+def _list_lang(args):
+    for lang in get_languages():
+        sys.stdout.write(lang)
+        sys.stdout.write(os.linesep)
+    sys.exit(0)
+
+
+def _list_conv(args):
+    for cvt in get_converters():
+        sys.stdout.write(cvt)
+        sys.stdout.write(os.linesep)
+    sys.exit(0)
+
+
+def _num(args):
     try:
-        words = num2words.num2words(args['<number>'], lang=args['--lang'], to=args['--to'])
+        words = num2words.num2words(args.number, lang=args.lang, to=args.to)
         sys.stdout.write(words + os.linesep)
         sys.exit(0)
     except Exception as err:
-        sys.stderr.write(str(args['<number>']))
+        sys.stderr.write(str(args.number))
         sys.stderr.write(str(err) + os.linesep)
         sys.stderr.write(__doc__)
+        sys.exit(1)
+
+def main():
+    version = "{}=={}".format(os.path.basename(__file__), __version__)
+
+    parser = argparse.ArgumentParser(
+                prog='num2words',
+                description='convert numbers into words',
+                usage=__doc__,
+                formatter_class=HelpFormatter)
+
+    parser.add_argument('-l', '--lang', type=str, default='en')
+    parser.add_argument('-t', '--to', type=str, default='cardinal')
+    parser.add_argument('number', type=str, nargs='?')
+
+    parser.add_argument('-L', '--list-languages', action='store_true')
+    parser.add_argument('-C', '--list-converters', action='store_true')
+    parser.add_argument('-v', '--version', action='version', version=version)
+
+    args = parser.parse_args()
+    if args.list_languages:
+        _list_lang(args)
+    elif args.list_converters:
+        _list_conv(args)
+    elif args.number is not None:
+        _num(args)
+    else:
+        parser.print_help(file=sys.stderr)
         sys.exit(1)
 
 
