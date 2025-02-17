@@ -62,7 +62,7 @@ def find_version(fname):
 
 setup(
     name=PACKAGE_NAME,
-    version=find_version("bin/num2words"),
+    version=find_version("num2words/__main__.py"),
     description='Modules to convert numbers to words. Easily extensible.',
     long_description=LONG_DESC,
     long_description_content_type="text/markdown",
@@ -78,7 +78,9 @@ setup(
     packages=find_packages(exclude=['tests']),
     test_suite='tests',
     classifiers=CLASSIFIERS,
-    scripts=['bin/num2words'],
+    entry_points = {
+        'console_scripts': ['num2words=num2words.__main__:main'],
+    },
     install_requires=["docopt>=0.6.2"],
     tests_require=['delegator.py'],
 )
