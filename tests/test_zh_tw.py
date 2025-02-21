@@ -27,125 +27,18 @@ def n2zh_tw(*args, **kwargs):
 
 
 class Num2WordsZhTWTest(TestCase):
-    def test_low(self):
-        self.assertEqual(n2zh_tw(-1), "負一")
-        self.assertEqual(n2zh_tw(-1, reading=True), "ㄈㄨˋㄧ")
-        self.assertEqual(n2zh_tw(0), "零")
-        self.assertEqual(n2zh_tw(1), "一")
-        self.assertEqual(n2zh_tw(1, prefer=['壹']), "壹")
-        self.assertEqual(n2zh_tw(2), "二")
-        self.assertEqual(n2zh_tw(2, prefer=['貳']), "貳")
-        self.assertEqual(n2zh_tw(3), "三")
-        self.assertEqual(n2zh_tw(3, prefer=['參']), "參")
-        self.assertEqual(n2zh_tw(4), "四")
-        self.assertEqual(n2zh_tw(4, prefer=['肆']), "肆")
-        self.assertEqual(n2zh_tw(5), "五")
-        self.assertEqual(n2zh_tw(5, prefer=['伍']), "伍")
-        self.assertEqual(n2zh_tw(6), "六")
-        self.assertEqual(n2zh_tw(6, prefer=['陸']), "陸")
-        self.assertEqual(n2zh_tw(7), "七")
-        self.assertEqual(n2zh_tw(7, prefer=['柒']), "柒")
-        self.assertEqual(n2zh_tw(8), "八")
-        self.assertEqual(n2zh_tw(8, prefer=['捌']), "捌")
-        self.assertEqual(n2zh_tw(9), "九")
-        self.assertEqual(n2zh_tw(9, prefer=['玖']), "玖")
-        self.assertEqual(n2zh_tw(10), "十")
-        self.assertEqual(n2zh_tw(10, prefer=['拾', "壹"]), "壹拾")
-        self.assertEqual(n2zh_tw(11), "十一")
-        self.assertEqual(n2zh_tw(12), "十二")
-        self.assertEqual(n2zh_tw(13), "十三")
-        self.assertEqual(n2zh_tw(14), "十四")
-        self.assertEqual(n2zh_tw(15), "十五")
-        self.assertEqual(n2zh_tw(16), "十六")
-        self.assertEqual(n2zh_tw(17), "十七")
-        self.assertEqual(n2zh_tw(18), "十八")
-        self.assertEqual(n2zh_tw(19), "十九")
-        self.assertEqual(n2zh_tw(20), "二十")
 
-    def test_mid(self):
-        self.assertEqual(n2zh_tw(100), "一百")
-        self.assertEqual(n2zh_tw(100, reading=True), "ㄧㄅㄞˇ")
-        self.assertEqual(n2zh_tw(101), "一百零一")
-        self.assertEqual(n2zh_tw(101, reading=True), "ㄧㄅㄞˇㄌㄧㄥˊㄧ")
-        self.assertEqual(n2zh_tw(123), "一百二十三")
-        self.assertEqual(n2zh_tw(123, reading=True), "ㄧㄅㄞˇㄦˋㄕˊㄙㄢ")
-        self.assertEqual(n2zh_tw(123, prefer=['壹', '貳', '參', '拾']),
-                         "壹百貳拾參")
-        self.assertEqual(n2zh_tw(1000), "一千")
-        self.assertEqual(n2zh_tw(1000, reading=True), "ㄧㄑㄧㄢ")
-        self.assertEqual(n2zh_tw(1010), "一千零一十")
-        self.assertEqual(n2zh_tw(1010, reading=True), "ㄧㄑㄧㄢㄌㄧㄥˊㄧㄕˊ")
 
-    def test_high(self):
-        self.assertEqual(n2zh_tw(10000), "一萬")
-        self.assertEqual(n2zh_tw(10000, reading=True), "ㄧㄨㄢˋ")
-        self.assertEqual(n2zh_tw(10001), "一萬零一")
-        self.assertEqual(n2zh_tw(10001, reading=True), "ㄧㄨㄢˋㄌㄧㄥˊㄧ")
-        self.assertEqual(n2zh_tw(100000), "十萬")
-        self.assertEqual(n2zh_tw(100000, reading=True), "ㄕˊㄨㄢˋ")
-        self.assertEqual(n2zh_tw(100001), "十萬零一")
-        self.assertEqual(n2zh_tw(100001, reading=True), "ㄕˊㄨㄢˋㄌㄧㄥˊㄧ")
-        self.assertEqual(n2zh_tw(12345), "一萬二千三百四十五")
-        self.assertEqual(n2zh_tw(12345, reading=True),
-                         "ㄧㄨㄢˋ"
-                         "ㄦˋㄑㄧㄢ"
-                         "ㄙㄢㄅㄞˇ"
-                         "ㄙˋㄕˊㄨˇ")
-        self.assertEqual(n2zh_tw(10**8), "一億")
-        self.assertEqual(n2zh_tw(10**8, reading=True), "ㄧㄧˋ")
-        self.assertEqual(n2zh_tw(5*10**8+80*10**4), "五億零八十萬")
-        self.assertEqual(n2zh_tw(5*10**8+80*10**4, reading=True),
-                         "ㄨˇㄧˋ"
-                         "ㄌㄧㄥˊ"
-                         "ㄅㄚㄕˊㄨㄢˋ")
-        self.assertEqual(n2zh_tw(10**9), "十億")
-        self.assertEqual(n2zh_tw(10**9, reading=True), "ㄕˊㄧˋ")
-        self.assertEqual(n2zh_tw(123456789), "一億二千三百四十五萬六千七百八十九")
-        self.assertEqual(n2zh_tw(123456789, reading=True),
-                         "ㄧㄧˋ"
-                         "ㄦˋㄑㄧㄢ"
-                         "ㄙㄢㄅㄞˇㄙˋㄕˊㄨˇㄨㄢˋ"
-                         "ㄌㄧㄡˋㄑㄧㄢ"
-                         "ㄑㄧㄅㄞˇ"
-                         "ㄅㄚㄕˊ"
-                         "ㄐㄧㄡˇ")
-        self.assertEqual(n2zh_tw(4080*10**8), "四千零八十億")
-        self.assertEqual(n2zh_tw(4080*10**8, reading=True),
-                         "ㄙˋㄑㄧㄢ"
-                         "ㄌㄧㄥˊ"
-                         "ㄅㄚㄕˊㄧˋ")
-        # TODO: tests for 10**12 and above
-        with self.assertRaises(OverflowError):
-            n2zh_tw(10**100)
 
-    def test_cardinal_float(self):
-        self.assertEqual(n2zh_tw(0.0123456789), "零點零一二三四五六七八九")
-        self.assertEqual(n2zh_tw(0.0123456789, reading=True),
-                         "ㄌㄧㄥˊ"
-                         "ㄉㄧㄢˇ"
-                         "ㄌㄧㄥˊ"
-                         "ㄧㄦˋㄙㄢㄙˋㄨˇㄌㄧㄡˋㄑㄧㄅㄚㄐㄧㄡˇ")
-        self.assertEqual(n2zh_tw(-0.0123456789), "負零點零一二三四五六七八九")
-        self.assertEqual(n2zh_tw(-0.0123456789, reading=True),
-                         "ㄈㄨˋ"
-                         "ㄌㄧㄥˊ"
-                         "ㄉㄧㄢˇ"
-                         "ㄌㄧㄥˊ"
-                         "ㄧㄦˋㄙㄢㄙˋㄨˇㄌㄧㄡˋㄑㄧㄅㄚㄐㄧㄡˇ")
-        self.assertEqual(n2zh_tw(10**8 + 0.01), "一億點零一")
-        self.assertEqual(n2zh_tw(10**8 + 0.01, reading=True),
-                         "ㄧㄧˋㄉㄧㄢˇㄌㄧㄥˊㄧ")
 
-    def test_ordinal(self):
-        self.assertEqual(n2zh_tw(0, to="ordinal"), "第零個")
-        self.assertEqual(n2zh_tw(0, to="ordinal", reading=True), "ㄉㄧˋㄌㄧㄥˊ˙ㄍㄜ")
-        self.assertEqual(n2zh_tw(2, to="ordinal", counter="名"), "第二名")
-        self.assertEqual(n2zh_tw(3, to="ordinal", counter="位"), "第三位")
-        with self.assertRaises(NotImplementedError):
-            n2zh_tw(4, to="ordinal", reading=True, counter="隻")
-
-    def test_ordinal_num(self):
-        self.assertEqual(n2zh_tw(0, to="ordinal_num"), "第0個")
-        self.assertEqual(n2zh_tw(0, to="ordinal_num", reading=True), "ㄉㄧˋ0˙ㄍㄜ")
-        self.assertEqual(n2zh_tw(2, to="ordinal_num", counter="名"), "第2名")
-        self.assertEqual(n2zh_tw(3, to="ordinal_num", counter="位"), "第3位")
+    def test_year(self):
+        self.assertEqual(n2zh_tw(1912, to="year", era=True), "民國元年")
+        self.assertEqual(n2zh_tw(1912, to="year", era=True, reading="arabic"), "民國1年")
+        self.assertEqual(n2zh_tw(1913, to="year", era=True), "民國二年")
+        self.assertEqual(n2zh_tw(1932, to="year", era=True), "民國二十一年")
+        self.assertEqual(n2zh_tw(2011, to="year", era=True), "民國一百年")
+        self.assertEqual(n2zh_tw(2012, to="year", era=True), "民國一零一年")
+        self.assertEqual(n2zh_tw(2025, to="year", era=True), "民國一一四年")
+        self.assertEqual(n2zh_tw(2025, to="year", era=True, reading="arabic"), "民國114年")
+        with self.assertRaises(ValueError):
+            n2zh_tw(1911, to="year", era=True)

@@ -118,15 +118,17 @@ class Num2WordsZHTest(TestCase):
         self.assertEqual(n2zh(10**8 + 0.01, capital=True),"壹億點零壹")
 
     def test_ordinal(self):
-        self.assertEqual(n2zh(0, to="ordinal"), "第〇")
+        self.assertEqual(n2zh(0, to="ordinal"), "第零")
         self.assertEqual(n2zh(2, to="ordinal"), "第二")
         self.assertEqual(n2zh(10, to="ordinal"), "第十")
         self.assertEqual(n2zh(11, to="ordinal"), "第十一")
         self.assertEqual(n2zh('19', to="ordinal"), "第十九")
-        self.assertEqual(n2zh(109, to="ordinal"), "第一百〇九")
-        self.assertEqual(n2zh(100909, to="ordinal"), "第十萬〇九百〇九")
+        self.assertEqual(n2zh(109, to="ordinal"), "第一百零九")
+        self.assertEqual(n2zh(2, to="ordinal", counter="名"), "第二名")
+        self.assertEqual(n2zh(3, to="ordinal", counter="位"), "第三位")
         
     def test_ordinal_num(self):
+        self.assertEqual(n2zh(1.5, to="ordinal_num"), "第1.5")
         self.assertEqual(n2zh(120, to="ordinal_num"), "第120")
         
     def test_currency(self):
@@ -158,5 +160,9 @@ class Num2WordsZHTest(TestCase):
                         "歐元一百三十五元七角九分")
         
     def test_year(self):
-        self.assertEqual(n2zh(2020, to="year"), "二〇二〇年")
-        
+        self.assertEqual(n2zh(2020, to="year"), "二零二零年")
+        self.assertEqual(n2zh(2020.0, to="year"), "二零二零年")
+        self.assertEqual(n2zh(2020, to="year", capital=True), "公元二零二零年")
+        self.assertEqual(n2zh(-1, to="year"), "公元前一年")
+        with self.assertRaises(TypeError):
+            n2zh(2020.1, to="year")

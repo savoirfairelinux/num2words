@@ -45,6 +45,7 @@ class Num2Word_ZH(Num2Word_Base):
     }
 
     cheque_suffix = "正"
+    year_prefix = "公元"
     
     def set_high_numwords(self, high):
         max = 4 * len(high)
@@ -100,44 +101,29 @@ class Num2Word_ZH(Num2Word_Base):
         elif rnum > lnum:
             return ("%s%s" % (ltext, rtext), lnum * rnum)
         return no_zero
-    
-    def num_to_base(self, value):
-        if not isinstance(value, str):
-            value  = self.num_to_str(value)
+        
+    def to_ordinal(self, value, counter=""):
+        self.verify_ordinal(value)
+        base = self.to_cardinal(value)
+        return "%s%s%s" % ("第", base, counter)
+
+    def to_ordinal_num(self, value, counter=""):
+        return "%s%s%s" % ("第", value, counter)
+
+    def to_year(self, value, capital=False, prefer=None):
+        if not value == int(value):
+            raise TypeError(self.errmsg_floatyear % value)
+        
         out = ''
-        for i in range(len(value)):
-            x = int(value[i])
-            out = out + self.cards[x]
-        return out
+        if value < 0:
+            out = self.year_prefix + "前"
+        elif capital:
+            out = self.year_prefix
+        
+        value = str(abs(int(value)))
+        
+        return out + "".join([self.cards[int(s)] for s in value]) + '年'
     
-    def verify_ordinal(self, value):
-        if '.' in value:
-            raise TypeError(self.errmsg_floatord % value)
-        if '-' in value:
-            raise TypeError(self.errmsg_negord % value)
-
-    def to_ordinal(self, value):
-        if not isinstance(value, str):
-            value  = self.num_to_str(value)
-        self.verify_ordinal(value)
-        out = self.to_cardinal(value).replace('零', '〇')
-        if len(out) >= 2 and out[0] == '一' and out[1] == '十':
-            out = out[1:]
-        out = '第' + out
-        return out
-
-    def to_ordinal_num(self, value):
-        if not isinstance(value, str):
-            value  = self.num_to_str(value)
-        self.verify_ordinal(value)
-        return '第' + value
-
-    def to_year(self, value, **kwargs):
-        if not isinstance(value, str):
-            value  = self.num_to_str(value)
-        self.verify_ordinal(value)
-        return self.num_to_base(value).replace('零', '〇')+'年'
-
     def to_currency(self, val, currency='XXX', cents=False, separator="",
                     adjective=False, capital=False):
         """
@@ -217,6 +203,8 @@ class Num2Word_ZH(Num2Word_Base):
         self.negword = "負"
         self.pointword = "點"
         self.exclude_title = [self.negword, self.pointword]
+        self.errmsg_floatyear = "Cannot treat float %s as year."
+
         self.high_numwords = [
             "萬",       # 10 ** 4
             "億",       # 10 ** 8
