@@ -81,6 +81,12 @@ class Num2WordsPTBRTest(TestCase):
             num2words(6000000, lang='pt_BR'), 'seis milhões'
         )
         self.assertEqual(
+            num2words(100000000, lang='pt_BR'), 'cem milhões'
+        )
+        self.assertEqual(
+            num2words(100000000000, lang='pt_BR'), 'cem bilhões'
+        )
+        self.assertEqual(
             num2words(19000000000, lang='pt_BR'), 'dezenove bilhões'
         )
         self.assertEqual(
