@@ -90,14 +90,30 @@ TEST_CASES_CARDINAL = (
 TEST_CASES_ORDINAL = (
     (1, 'primero'),
     (8, 'octavo'),
-    (12, 'décimosegundo'),
-    (14, 'décimo cuarto'),
-    (28, 'vigésimo octavo'),
+    (12, 'decimosegundo'),
+    (14, 'decimocuarto'),
+    (28, 'vigesimoctavo'),
+    (48, 'cuadragésimo octavo'),
     (100, 'centésimo'),
     (1000, 'milésimo'),
-    (12345, 'docemilésimo tricentésimo quadragésimo quinto'),
+    (12345, 'docemilésimo tricentésimo cuadragésimo quinto'),
     (1000000, 'millonésimo'),
     (1000000000000000, 'cuadrillonésimo'),
+    (1000000000000000000, 'un trillón')  # over 1e18 is not supported
+)
+
+TEST_CASES_ORDINAL_FEM = (
+    (1, 'primera'),
+    (8, 'octava'),
+    (12, 'decimosegunda'),
+    (14, 'decimocuarta'),
+    (28, 'vigesimoctava'),
+    (48, 'cuadragésima octava'),
+    (100, 'centésima'),
+    (1000, 'milésima'),
+    (12345, 'docemilésima tricentésima cuadragésima quinta'),
+    (1000000, 'millonésima'),
+    (1000000000000000, 'cuadrillonésima'),
     (1000000000000000000, 'un trillón')  # over 1e18 is not supported
 )
 
@@ -1826,6 +1842,13 @@ class Num2WordsESTest(TestCase):
         for test in TEST_CASES_ORDINAL:
             self.assertEqual(
                 num2words(test[0], lang='es', ordinal=True),
+                test[1]
+            )
+
+    def test_ordinal_fem(self):
+        for test in TEST_CASES_ORDINAL_FEM:
+            self.assertEqual(
+                num2words(test[0], lang='es', ordinal=True, gender='f'),
                 test[1]
             )
 
