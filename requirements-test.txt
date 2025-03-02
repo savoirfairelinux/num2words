@@ -4,4 +4,3 @@ flake8-copyright
 isort
 pep8<1.6
 coverage
-delegator.py
