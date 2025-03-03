@@ -76,6 +76,9 @@ class Num2Word_ZH_TW(Num2Word_ZH):
         post = '0' * (self.precision - len(post)) + post
 
         out = [self.to_cardinal(pre, reading=reading, prefer=prefer)]
+        if value < 0 and pre == 0:
+            out = [self.select_text(self.negword).strip()] + out
+
         if self.precision:
             out.append(self.select_text(self.title(self.pointword)))
 

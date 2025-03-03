@@ -89,14 +89,13 @@ class Num2WordsZhTWTest(TestCase):
                          "ㄉㄧㄢˇ"
                          "ㄌㄧㄥˊ"
                          "ㄧㄦˋㄙㄢㄙˋㄨˇㄌㄧㄡˋㄑㄧㄅㄚㄐㄧㄡˇ")
-        # Fixed in PR #622
-        # self.assertEqual(n2zh_tw(-0.0123456789), "負零點零一二三四五六七八九")
-        # self.assertEqual(n2zh_tw(-0.0123456789, reading=True),
-        #                  "ㄈㄨˋ"
-        #                  "ㄌㄧㄥˊ"
-        #                  "ㄉㄧㄢˇ"
-        #                  "ㄌㄧㄥˊ"
-        #                  "ㄧㄦˋㄙㄢㄙˋㄨˇㄌㄧㄡˋㄑㄧㄅㄚㄐㄧㄡˇ")
+        self.assertEqual(n2zh_tw(-0.0123456789), "負零點零一二三四五六七八九")
+        self.assertEqual(n2zh_tw(-0.0123456789, reading=True),
+                         "ㄈㄨˋ"
+                         "ㄌㄧㄥˊ"
+                         "ㄉㄧㄢˇ"
+                         "ㄌㄧㄥˊ"
+                         "ㄧㄦˋㄙㄢㄙˋㄨˇㄌㄧㄡˋㄑㄧㄅㄚㄐㄧㄡˇ")
         self.assertEqual(n2zh_tw(10**8 + 0.01), "一億點零一")
         self.assertEqual(n2zh_tw(10**8 + 0.01, reading=True),
                          "ㄧㄧˋㄉㄧㄢˇㄌㄧㄥˊㄧ")

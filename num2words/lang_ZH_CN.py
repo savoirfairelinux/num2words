@@ -16,7 +16,6 @@
 # MA 02110-1301 USA
 
 from __future__ import division, print_function, unicode_literals
-from decimal import Decimal
 from .lang_ZH import Num2Word_ZH
 
 class Num2Word_ZH_CN(Num2Word_ZH):

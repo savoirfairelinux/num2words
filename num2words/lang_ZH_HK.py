@@ -18,7 +18,6 @@
 from __future__ import division, print_function, unicode_literals
 from .lang_ZH import Num2Word_ZH
 
-
 class Num2Word_ZH_HK(Num2Word_ZH):
     CURRENCY_FLOATS_CHILD = ["毫", "仙"]
     

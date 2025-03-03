@@ -16,11 +16,9 @@
 # MA 02110-1301 USA
 
 from __future__ import division, print_function, unicode_literals
-from decimal import Decimal
 from .base import Num2Word_Base
 
 from .currency import parse_currency_parts
-
 from .compat import strtype, to_s
 
 class Num2Word_ZH(Num2Word_Base):
@@ -56,33 +54,17 @@ class Num2Word_ZH(Num2Word_Base):
         max = 4 * len(high)
         for word, n in zip(high, range(max, 0, -4)):
             self.cards[10 ** n] = word
-
-    def num_to_str(self, value):
-        #[int float] to string
-        #return:string
-        if not isinstance(value, str):
-            val  = str(value)
-            if isinstance(value, int):
-                return val
-            elif 'e' not in str(value) and len(str(value)) < 16:
-                return val
-            else:
-                raise  TypeError('the float (%s) lens than 16,\
-                dot not suppurt,use [string] to suppurt' % value)
-        return value
     
     def to_cardinal(self, value, stuff_zero=2, reading=False, prefer=None):
         self.stuff_zero = stuff_zero
         self.set_str_selection(reading, prefer)
 
-        out = super().to_cardinal(value)
-        out = self.zh_to_cap(out, reading == "capital")
-        return out.replace(" ", "")
+        out = super().to_cardinal(value).replace(" ", "")
+        return self.zh_to_cap(out, reading == "capital")
 
     def to_cardinal_float(self, value):
-        out = super().to_cardinal_float(value)
-        out = self.zh_to_cap(out, self.capital)
-        return out.replace(" ", "")
+        out = super().to_cardinal_float(value).replace(" ", "")
+        return self.zh_to_cap(out, self.capital)
 
     def merge(self, lpair, rpair):
         ltext, lnum = lpair
@@ -167,33 +149,28 @@ class Num2Word_ZH(Num2Word_Base):
         money_str = self.to_cardinal(left, reading=reading, prefer=prefer)
         # has_decimal is not implemented
 
-        out = minus_str + money_str
-        out += cr if currency == "XXX" else self.CURRENCY_FORMS["XXX"]
-
+        if currency == "XXX":
+            cr_pre, cr_post = ("", cr)
+        else:
+            cr_pre, cr_post = (cr, self.CURRENCY_FORMS["XXX"])
         cents_str = self.to_currency_float(right, reading=reading, prefer=prefer)
-        if len(cents_str) > 0:
-            out += cents_str
-        elif reading == "capital": # Only add "整" in capital format
-            out += self.cheque_suffix
+        # Only add "整" in capital format
+        cheque = self.cheque_suffix if len(cents_str) == 0 and reading == "capital" else ""
 
-        out = self.zh_to_cap(out, reading == "capital")
-        if currency != "XXX": # Currency forms are not affected by capitalization
-            out = cr + out
-
-        return  out
+        return cr_pre + "".join([self.zh_to_cap(self.select_text(c), reading == "capital") \
+                         for c in [minus_str, money_str, cr_post, *cents_str, cheque]])
     
     def to_currency_float(self, value, reading=False, prefer=None):
-        self.set_str_selection(reading, prefer)
         cents = "%02d" % value
-        out = ""
+        out = []
         
         if int(cents) > 0:
             if not (int(cents[0]) == 0 and reading=="capital"):
-                out += self.select_text(self.cards[int(cents[0])])
+                out += [self.cards[int(cents[0])]]
             if int(cents[0]) > 0:
-                out += self.CURRENCY_FLOATS[0]
+                out += [self.CURRENCY_FLOATS[0]]
             if int(cents[1]) > 0:
-                out += self.select_text(self.cards[int(cents[1])]) + self.CURRENCY_FLOATS[1]
+                out += [self.cards[int(cents[1])], self.CURRENCY_FLOATS[1]]
 
         return out
 
@@ -284,6 +261,8 @@ class Num2Word_ZH(Num2Word_Base):
             alternatives ('ㄧ' or '壹')"""
         if isinstance(text, strtype):
             return text
+        if len(text) == 0:
+            return ''
         # Check if reading is provided
         if all(isinstance(item, tuple) for item in text):
             if self.reading == True:
