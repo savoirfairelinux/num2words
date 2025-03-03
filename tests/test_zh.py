@@ -86,12 +86,18 @@ class Num2WordsZHTest(TestCase):
         self.assertEqual(n2zh(10000), "一萬")
         self.assertEqual(n2zh('10000', reading="capital"), "壹萬")
         self.assertEqual(n2zh(12345), "一萬二千三百四十五")
-        self.assertEqual(n2zh('12345', reading="capital"),"壹萬貳仟叁佰肆拾伍")
+        self.assertEqual(n2zh('12345', reading="capital"), "壹萬貳仟叁佰肆拾伍")
         self.assertEqual(n2zh(10**8), "一億")
         self.assertEqual(n2zh(10**8, reading="capital"), "壹億")
         self.assertEqual(n2zh(1234567890), "十二億三千四百五十六萬七千八百九十")
-        self.assertEqual(n2zh(1234567890, reading="capital"),"壹拾貳億叁仟肆佰伍拾陸萬柒仟捌佰玖拾")
-        self.assertEqual(n2zh(12345678901234567890), "一千二百三十四京五千六百七十八兆九千零一十二億三千四百五十六萬七千八百九十")
+        self.assertEqual(
+            n2zh(
+                1234567890,
+                reading="capital"),
+            "壹拾貳億叁仟肆佰伍拾陸萬柒仟捌佰玖拾")
+        self.assertEqual(
+            n2zh(12345678901234567890),
+            "一千二百三十四京五千六百七十八兆九千零一十二億三千四百五十六萬七千八百九十")
         self.assertEqual(n2zh(120078900500090), "一百二十兆零七百八十九億零五十萬零九十")
         with self.assertRaises(OverflowError):
             n2zh(10**100)
@@ -114,10 +120,10 @@ class Num2WordsZHTest(TestCase):
         self.assertEqual(n2zh(102003040000000, stuff_zero=3), "一百二兆三十億四千萬")
 
     def test_cardinal_float(self):
-        self.assertEqual(n2zh(0.123456789),"零點一二三四五六七八九")
+        self.assertEqual(n2zh(0.123456789), "零點一二三四五六七八九")
         # self.assertEqual(n2zh('10.012345678901234567890123456789'),"一十點零一二三四五六七八九零一二三四五六七八九零一二三四五六七八九")
         self.assertEqual(n2zh(10**8 + 0.01), "一億點零一")
-        self.assertEqual(n2zh(10**8 + 0.01, reading="capital"),"壹億點零壹")
+        self.assertEqual(n2zh(10**8 + 0.01, reading="capital"), "壹億點零壹")
 
     def test_ordinal(self):
         self.assertEqual(n2zh(0, to="ordinal"), "第零")
@@ -128,45 +134,60 @@ class Num2WordsZHTest(TestCase):
         self.assertEqual(n2zh(109, to="ordinal"), "第一百零九")
         self.assertEqual(n2zh(2, to="ordinal", counter="名"), "第二名")
         self.assertEqual(n2zh(3, to="ordinal", counter="位"), "第三位")
-        
+
     def test_ordinal_num(self):
         self.assertEqual(n2zh(1.5, to="ordinal_num"), "第1.5")
         self.assertEqual(n2zh(120, to="ordinal_num"), "第120")
-        
+
     def test_currency(self):
         self.assertEqual(n2zh('0', to="currency", reading="capital"),
-                        "零圓整")
+                         "零圓整")
         self.assertEqual(n2zh(5.00, to="currency", reading="capital"),
-                        "伍圓整")
+                         "伍圓整")
         self.assertEqual(n2zh('0', to="currency"),
-                        "零元")
+                         "零元")
         self.assertEqual(n2zh(5.00, to="currency"),
-                        "五元")
+                         "五元")
         self.assertEqual(n2zh(10.05, to="currency", reading="capital"),
-                        "壹拾圓伍分")
+                         "壹拾圓伍分")
         self.assertEqual(n2zh(10.05, to="currency"),
-                        "十元零五分")
+                         "十元零五分")
         self.assertEqual(n2zh(12.12, to="currency", reading="capital"),
-                        "壹拾貳圓壹角貳分")
+                         "壹拾貳圓壹角貳分")
         self.assertEqual(n2zh(1235678, to="currency", reading="capital"),
-                        "壹佰貳拾叁萬伍仟陸佰柒拾捌圓整")
-        self.assertEqual(n2zh('1234567890.123', to="currency", reading="capital"),
-                        "壹拾貳億叁仟肆佰伍拾陸萬柒仟捌佰玖拾圓壹角貳分")
+                         "壹佰貳拾叁萬伍仟陸佰柒拾捌圓整")
+        self.assertEqual(
+            n2zh(
+                '1234567890.123',
+                to="currency",
+                reading="capital"),
+            "壹拾貳億叁仟肆佰伍拾陸萬柒仟捌佰玖拾圓壹角貳分")
         self.assertEqual(n2zh(67890.126, to="currency"),
-                        "六萬七千八百九十元一角三分")
-        self.assertEqual(n2zh(987654.3, to="currency", currency = 'USD', reading="capital"),
-                        "美元玖拾捌萬柒仟陸佰伍拾肆圓叁角")
-        self.assertEqual(n2zh(987654.3, to="currency", currency = 'USD'),
-                        "美元九十八萬七千六百五十四元三角")
-        self.assertEqual(n2zh(135.79, to="currency", currency = 'EUR'),
-                        "歐元一百三十五元七角九分")
-        
+                         "六萬七千八百九十元一角三分")
+        self.assertEqual(
+            n2zh(
+                987654.3,
+                to="currency",
+                currency='USD',
+                reading="capital"),
+            "美元玖拾捌萬柒仟陸佰伍拾肆圓叁角")
+        self.assertEqual(n2zh(987654.3, to="currency", currency='USD'),
+                         "美元九十八萬七千六百五十四元三角")
+        self.assertEqual(n2zh(135.79, to="currency", currency='EUR'),
+                         "歐元一百三十五元七角九分")
+
     def test_year(self):
         self.assertEqual(n2zh(2020, to="year", prefer=["〇"]), "二〇二〇年")
         self.assertEqual(n2zh(2020, to="year"), "二零二零年")
         self.assertEqual(n2zh(2020.0, to="year"), "二零二零年")
         self.assertEqual(n2zh(2020, to="year", reading="capital"), "公元二零二零年")
-        self.assertEqual(n2zh(2020, to="year", reading="capital", prefer=["西元"]), "西元二零二零年")
+        self.assertEqual(
+            n2zh(
+                2020,
+                to="year",
+                reading="capital",
+                prefer=["西元"]),
+            "西元二零二零年")
         self.assertEqual(n2zh(-1, to="year"), "公元前一年")
         self.assertEqual(n2zh(-1, to="year", prefer=["西元"]), "西元前一年")
         with self.assertRaises(TypeError):

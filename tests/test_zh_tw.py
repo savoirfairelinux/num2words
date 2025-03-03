@@ -60,8 +60,8 @@ class Num2WordsZhTWTest(TestCase):
                          "ㄙˋㄕˊㄨˇ")
         self.assertEqual(n2zh_tw(10**8), "一億")
         self.assertEqual(n2zh_tw(10**8, reading=True), "ㄧㄧˋ")
-        self.assertEqual(n2zh_tw(5*10**8+80*10**4), "五億零八十萬")
-        self.assertEqual(n2zh_tw(5*10**8+80*10**4, reading=True),
+        self.assertEqual(n2zh_tw(5 * 10**8 + 80 * 10**4), "五億零八十萬")
+        self.assertEqual(n2zh_tw(5 * 10**8 + 80 * 10**4, reading=True),
                          "ㄨˇㄧˋ"
                          "ㄌㄧㄥˊ"
                          "ㄅㄚㄕˊㄨㄢˋ")
@@ -76,8 +76,8 @@ class Num2WordsZhTWTest(TestCase):
                          "ㄑㄧㄅㄞˇ"
                          "ㄅㄚㄕˊ"
                          "ㄐㄧㄡˇ")
-        self.assertEqual(n2zh_tw(4080*10**8), "四千零八十億")
-        self.assertEqual(n2zh_tw(4080*10**8, reading=True),
+        self.assertEqual(n2zh_tw(4080 * 10**8), "四千零八十億")
+        self.assertEqual(n2zh_tw(4080 * 10**8, reading=True),
                          "ㄙˋㄑㄧㄢ"
                          "ㄌㄧㄥˊ"
                          "ㄅㄚㄕˊㄧˋ")
@@ -103,7 +103,13 @@ class Num2WordsZhTWTest(TestCase):
     def test_ordinal(self):
         self.assertEqual(n2zh_tw(0, to="ordinal"), "第零")
         self.assertEqual(n2zh_tw(0, to="ordinal", reading=True), "ㄉㄧˋㄌㄧㄥˊ")
-        self.assertEqual(n2zh_tw(0, to="ordinal", counter="個", reading=True), "ㄉㄧˋㄌㄧㄥˊ˙ㄍㄜ")
+        self.assertEqual(
+            n2zh_tw(
+                0,
+                to="ordinal",
+                counter="個",
+                reading=True),
+            "ㄉㄧˋㄌㄧㄥˊ˙ㄍㄜ")
         self.assertEqual(n2zh_tw(2, to="ordinal", counter="名"), "第二名")
         self.assertEqual(n2zh_tw(3, to="ordinal", counter="位"), "第三位")
         with self.assertRaises(NotImplementedError):
@@ -111,16 +117,34 @@ class Num2WordsZhTWTest(TestCase):
 
     def test_ordinal_num(self):
         self.assertEqual(n2zh_tw(0, to="ordinal_num", reading=True), "ㄉㄧˋ0")
-        self.assertEqual(n2zh_tw(0, to="ordinal_num", counter="個", reading=True), "ㄉㄧˋ0˙ㄍㄜ")
+        self.assertEqual(
+            n2zh_tw(
+                0,
+                to="ordinal_num",
+                counter="個",
+                reading=True),
+            "ㄉㄧˋ0˙ㄍㄜ")
 
     def test_year(self):
         self.assertEqual(n2zh_tw(1912, to="year", era=True), "民國元年")
-        self.assertEqual(n2zh_tw(1912, to="year", era=True, reading="arabic"), "民國1年")
+        self.assertEqual(
+            n2zh_tw(
+                1912,
+                to="year",
+                era=True,
+                reading="arabic"),
+            "民國1年")
         self.assertEqual(n2zh_tw(1913, to="year", era=True), "民國二年")
         self.assertEqual(n2zh_tw(1932, to="year", era=True), "民國二十一年")
         self.assertEqual(n2zh_tw(2011, to="year", era=True), "民國一百年")
         self.assertEqual(n2zh_tw(2012, to="year", era=True), "民國一零一年")
         self.assertEqual(n2zh_tw(2025, to="year", era=True), "民國一一四年")
-        self.assertEqual(n2zh_tw(2025, to="year", era=True, reading="arabic"), "民國114年")
+        self.assertEqual(
+            n2zh_tw(
+                2025,
+                to="year",
+                era=True,
+                reading="arabic"),
+            "民國114年")
         with self.assertRaises(ValueError):
             n2zh_tw(1911, to="year", era=True)

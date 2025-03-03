@@ -18,9 +18,10 @@
 from __future__ import division, print_function, unicode_literals
 from .lang_ZH import Num2Word_ZH
 
+
 class Num2Word_ZH_CN(Num2Word_ZH):
     CURRENCY_FORMS = {
-        "XXX": "元", # Generic dollar
+        "XXX": "元",  # Generic dollar
         "CNY": "人民币",
         "NTD": "新台币",
         "HKD": "港币",
@@ -38,7 +39,7 @@ class Num2Word_ZH_CN(Num2Word_ZH):
         "THB": "泰铢",
         "KRW": "韩元",
     }
-    
+
     def setup(self):
         super().setup()
         self.negword = "负"
@@ -60,15 +61,15 @@ class Num2Word_ZH_CN(Num2Word_ZH):
             "恒河沙",   # 10 ** 52
             "阿僧祇",   # 10 ** 56
             "那由他",   # 10 ** 60
-            "不可思议", # 10 ** 64
+            "不可思议",  # 10 ** 64
             "无量",     # 10 ** 68
             "不可说",   # 10 ** 72
         ]
         self.high_numwords.reverse()
-        
+
     CAP_map = [
         ("千", "仟"),
-        ("百", "佰"),  
+        ("百", "佰"),
         ("十", "拾"),
         ("九", "玖"),
         ("八", "捌"),
