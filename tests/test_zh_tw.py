@@ -81,6 +81,8 @@ class Num2WordsZhTWTest(TestCase):
                          "ㄙˋㄑㄧㄢ"
                          "ㄌㄧㄥˊ"
                          "ㄅㄚㄕˊㄧˋ")
+        with self.assertRaises(OverflowError):
+            n2zh_tw(10**100)
 
     def test_cardinal_float(self):
         self.assertEqual(n2zh_tw(0.0123456789), "零點零一二三四五六七八九")
@@ -124,6 +126,8 @@ class Num2WordsZhTWTest(TestCase):
                 counter="個",
                 reading=True),
             "ㄉㄧˋ0˙ㄍㄜ")
+        with self.assertRaises(NotImplementedError):
+            n2zh_tw(4, to="ordinal_num", reading=True, counter="隻")
 
     def test_year(self):
         self.assertEqual(n2zh_tw(1912, to="year", era=True), "民國元年")
@@ -148,3 +152,7 @@ class Num2WordsZhTWTest(TestCase):
             "民國114年")
         with self.assertRaises(ValueError):
             n2zh_tw(1911, to="year", era=True)
+
+        self.assertEqual(n2zh_tw(2020, to="year"), "二零二零年")
+        with self.assertRaises(TypeError):
+            n2zh_tw(2020.1, to="year", era=True)

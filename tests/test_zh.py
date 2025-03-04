@@ -175,6 +175,8 @@ class Num2WordsZHTest(TestCase):
                          "美元九十八萬七千六百五十四元三角")
         self.assertEqual(n2zh(135.79, to="currency", currency='EUR'),
                          "歐元一百三十五元七角九分")
+        with self.assertRaises(NotImplementedError):
+            n2zh(10, to="currency", currency='ABC')
 
     def test_year(self):
         self.assertEqual(n2zh(2020, to="year", prefer=["〇"]), "二〇二〇年")
