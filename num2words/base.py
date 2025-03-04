@@ -147,6 +147,9 @@ class Num2Word_Base(object):
         post = '0' * (self.precision - len(post)) + post
 
         out = [self.to_cardinal(pre)]
+        if value < 0 and pre == 0:
+            out = [self.negword.strip()] + out
+
         if self.precision:
             out.append(self.title(self.pointword))
 
@@ -277,6 +280,7 @@ class Num2Word_Base(object):
         Returns:
             str: Formatted string
 
+        Handles whole numbers and decimal numbers differently
         """
         left, right, is_negative = parse_currency_parts(val)
 
@@ -293,17 +297,31 @@ class Num2Word_Base(object):
 
         minus_str = "%s " % self.negword.strip() if is_negative else ""
         money_str = self._money_verbose(left, currency)
-        cents_str = self._cents_verbose(right, currency) \
-            if cents else self._cents_terse(right, currency)
 
-        return u'%s%s %s%s %s %s' % (
-            minus_str,
-            money_str,
-            self.pluralize(left, cr1),
-            separator,
-            cents_str,
-            self.pluralize(right, cr2)
-        )
+        # Explicitly check if input has decimal point or non-zero cents
+        has_decimal = isinstance(val, float) or str(val).find('.') != -1
+
+        # Only include cents if:
+        # 1. Input has decimal point OR
+        # 2. Cents are non-zero
+        if has_decimal or right > 0:
+            cents_str = self._cents_verbose(right, currency) \
+                if cents else self._cents_terse(right, currency)
+
+            return u'%s%s %s%s %s %s' % (
+                minus_str,
+                money_str,
+                self.pluralize(left, cr1),
+                separator,
+                cents_str,
+                self.pluralize(right, cr2)
+            )
+        else:
+            return u'%s%s %s' % (
+                minus_str,
+                money_str,
+                self.pluralize(left, cr1)
+            )
 
     def setup(self):
         pass

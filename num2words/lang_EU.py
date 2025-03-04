@@ -47,13 +47,15 @@ class Num2Word_EU(Num2Word_Base):
         'HUF': (('forint', 'forint'), ('fillér', 'fillér')),
         'ISK': (('króna', 'krónur'), ('aur', 'aurar')),
         'UZS': (('sum', 'sums'), ('tiyin', 'tiyins')),
-        'SAR': (('saudi riyal', 'saudi riyals'), ('halalah', 'halalas'))
+        'SAR': (('saudi riyal', 'saudi riyals'), ('halalah', 'halalas')),
+        'JPY': (('yen', 'yen'), ('sen', 'sen')),
+        'KRW': (('won', 'won'), ('jeon', 'jeon')),
 
     }
 
     CURRENCY_ADJECTIVES = {
         'AUD': 'Australian',
-        'BYN': 'Belarussian',
+        'BYN': 'Belarusian',
         'CAD': 'Canadian',
         'EEK': 'Estonian',
         'USD': 'US',
@@ -65,7 +67,9 @@ class Num2Word_EU(Num2Word_Base):
         'HUF': 'Hungarian',
         'ISK': 'íslenskar',
         'UZS': 'Uzbekistan',
-        'SAR': 'Saudi'
+        'SAR': 'Saudi',
+        'JPY': 'Japanese',
+        'KRW': 'Korean',
     }
 
     GIGA_SUFFIX = "illiard"
