@@ -90,7 +90,7 @@ CONVERTER_CLASSES = {
 
 CONVERTES_TYPES = ['cardinal', 'ordinal', 'ordinal_num', 'year', 'currency']
 
-
+from lang_AR import Num2Word_AR
 def num2words(number, ordinal=False, lang='en', to='cardinal', rafea=True,**kwargs):
     # We try the full language first
     if lang not in CONVERTER_CLASSES:
