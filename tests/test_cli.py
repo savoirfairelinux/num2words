@@ -57,6 +57,8 @@ class CliTestCase(unittest.TestCase):
         """You should be able to list all available languages
         """
         output = self.cli.run_cmd('--list-languages')
+        print("output",output.out)
+        print("keys",sorted(list(num2words.CONVERTER_CLASSES.keys())))
         self.assertEqual(
             sorted(list(num2words.CONVERTER_CLASSES.keys())),
             [out for out in output.out.strip().splitlines() if out]

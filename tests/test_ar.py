@@ -70,10 +70,10 @@ class Num2WordsARTest(TestCase):
             'مليون دينار وتسعة وتسعون فلس')
         self.assertEqual(
             num2words(1000.42, to='currency', lang='ar', currency="TND"),
-            'ألف دينار و أربعمائة و عشرون مليم')
+            "ألف دينار واثنان وأربعون مليم")
         self.assertEqual(
             num2words(123.21, to='currency', lang='ar', currency="TND"),
-            'مائة و ثلاثة و عشرون ديناراً و مئتان و عشر مليمات')
+            'مائة وثلاثة وعشرون ديناراً وواحد وعشرون مليم')
 
     def test_ordinal(self):
         # Test cases where 'rafea' is True
