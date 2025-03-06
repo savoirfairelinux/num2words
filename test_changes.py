@@ -2,8 +2,7 @@ from num2words import num2words
 from num2words.lang_AR import Num2Word_AR
 
 
-result_rafea = num2words(12.01,
-                      to='cardinal', lang='ar', rafea=True)
+result_rafea = num2words(12.01, to='cardinal', lang='ar', rafea=True)
 # num2words(12.22,lang='ar', rafea=False)
 print(result_rafea)
 # from decimal import Decimal

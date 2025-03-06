@@ -61,8 +61,7 @@ class Num2Word_AR(Num2Word_Base):
         self.isCurrencyPartNameFeminine = True
         self.isCurrencyNameFeminine = False
         self.separator = 'و'
-        ## to check in which grammatical case we are 
-        self.rafea = True
+        self.rafea = True        # to check in which grammatical case we are in
         self.flag = False
         self.arabicOnes = ARABIC_ONES
         self.arabicFeminineOnes = [
@@ -158,7 +157,7 @@ class Num2Word_AR(Num2Word_Base):
         #     result += '0'
         return result
 
-    def digit_feminine_status(self, digit, group_level, currencyPartName = True,rafea=True):
+    def digit_feminine_status(self, digit, group_level, currencyPartName= True,rafea=True):
         self.isCurrencyPartNameFeminine = currencyPartName
         if group_level == -1:
             if self.isCurrencyPartNameFeminine:
@@ -173,8 +172,7 @@ class Num2Word_AR(Num2Word_Base):
                 conversion = self.arabicOnes[int(digit)]
         else:
             conversion = self.arabicOnes[int(digit)]
-            # Change "اثنا" to "اثني"
-            
+            # Change "اثنا" to "اثني"            
         if not rafea:
             if conversion == "اثنا عشر":
                 conversion = "اثني عشر"

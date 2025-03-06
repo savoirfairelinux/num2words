@@ -197,7 +197,7 @@ class Num2WordsARTest(TestCase):
         self.assertEqual(num2words(1258888, to='cardinal', lang='ar', rafea=True), 'مليون ومئتان وثمانية وخمسون ألفاً وثمانمائة وثمانية وثمانون')
         self.assertEqual(num2words(1258888, to='cardinal', lang='ar', rafea=False), 'مليون ومئتين وثمانية وخمسين ألفاً وثمانمائة وثمانية وثمانين')
 
-        self.assertEqual(num2words(1100, to='cardinal', lang='ar', rafea=True),'ألف ومائة')
+        self.assertEqual(num2words(1100, to='cardinal', lang='ar', rafea=True), 'ألف ومائة')
         self.assertEqual(num2words(1000000521, to='cardinal', lang='ar', rafea=True),'مليار وخمسمائة وواحد وعشرون')
         self.assertEqual(num2words(1000000521, to='cardinal', lang='ar', rafea=False),'مليار وخمسمائة وواحد وعشرين')
 
