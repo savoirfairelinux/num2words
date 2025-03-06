@@ -27,6 +27,7 @@ from . import (lang_AM, lang_AR, lang_AZ, lang_BE, lang_BN, lang_CA, lang_CE,
                lang_PT_BR, lang_RO, lang_RU, lang_SK, lang_SL, lang_SR,
                lang_SV, lang_TE, lang_TET, lang_TG, lang_TH, lang_TR, lang_UK,
                lang_VI)
+from num2words.lang_AR import Num2Word_AR
 
 CONVERTER_CLASSES = {
     'am': lang_AM.Num2Word_AM(),
@@ -90,14 +91,15 @@ CONVERTER_CLASSES = {
 
 CONVERTES_TYPES = ['cardinal', 'ordinal', 'ordinal_num', 'year', 'currency']
 
-
-def num2words(number, ordinal=False, lang='en', to='cardinal', **kwargs):
+def num2words(number, ordinal=False, lang='en', 
+            to='cardinal', rafea=True , **kwargs):
     # We try the full language first
     if lang not in CONVERTER_CLASSES:
         # ... and then try only the first 2 letters
         lang = lang[:2]
     if lang not in CONVERTER_CLASSES:
         raise NotImplementedError()
+    
     converter = CONVERTER_CLASSES[lang]
 
     if isinstance(number, str):
@@ -109,5 +111,16 @@ def num2words(number, ordinal=False, lang='en', to='cardinal', **kwargs):
 
     if to not in CONVERTES_TYPES:
         raise NotImplementedError()
+    
+    if lang == 'ar':
+        converter.rafea = rafea
+        converter_value = converter.rafea
+        Num2Word_AR.rafea = rafea        
+        return getattr(converter, 'to_{}'.format(to))(number, rafea=rafea, **kwargs)
+    else:
+        return getattr(converter, 'to_{}'.format(to))(number, **kwargs)
 
-    return getattr(converter, 'to_{}'.format(to))(number, **kwargs)
+
+# print("_init_")
+# result= num2words(200000, lang='ar', rafea=False)
+# print(result)

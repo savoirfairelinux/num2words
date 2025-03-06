@@ -39,7 +39,6 @@ class Num2Word_Base(object):
         self.errmsg_floatord = "Cannot treat float %s as ordinal."
         self.errmsg_negord = "Cannot treat negative num %s as ordinal."
         self.errmsg_toobig = "abs(%s) must be less than %s."
-
         self.setup()
 
         # uses cards
