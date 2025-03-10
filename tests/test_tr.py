@@ -200,3 +200,7 @@ class Num2WordsTRTest(TestCase):
                           lang=testlang,
                           to=casedata["to"]),
                 casedata["expected"])
+
+    def test_cardinal_float(self):
+        self.assertNotEqual(
+            num2words(0.12, lang="tr"), num2words(-0.12, lang="tr"))
