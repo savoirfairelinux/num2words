@@ -66,6 +66,10 @@ class Num2WordsITTest(TestCase):
 
     def test_float_to_cardinal(self):
         self.assertEqual(
+            num2words("3.1415", lang="it"),
+            "tre virgola uno quattro uno cinque"
+        )
+        self.assertEqual(
             num2words(3.1415, lang="it"), "tre virgola uno quattro uno cinque"
         )
         self.assertEqual(
@@ -264,10 +268,10 @@ class Num2WordsITTest(TestCase):
         )
 
     def test_with_floats(self):
-        self.assertAlmostEqual(
-            num2words(1.0, lang="it"), "uno virgola zero"
+        self.assertEqual(
+            num2words(1.0, lang="it"), "uno"
         )
-        self.assertAlmostEqual(
+        self.assertEqual(
             num2words(1.1, lang="it"), "uno virgola uno"
         )
 

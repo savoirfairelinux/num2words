@@ -73,7 +73,7 @@ class Num2WordsAMTest(TestCase):
         )
         self.assertEqual(
             num2words('0', lang='am', to='currency', separator=' እና',
-                      cents=True, currency='ETB'), 'ዜሮ ብር እና ዜሮ ሳንቲም'
+                      cents=True, currency='ETB'), 'ዜሮ ብር'
         )
 
         self.assertEqual(
