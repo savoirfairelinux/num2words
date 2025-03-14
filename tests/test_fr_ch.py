@@ -32,8 +32,8 @@ TEST_CASES_CARDINAL = (
     (7232, 'sept mille deux cents trente-deux'),
     (8569, 'huit mille cinq cents soixante-neuf'),
     (9539, 'neuf mille cinq cents trente-neuf'),
-    (1000000, 'un millions'),
-    (1000001, 'un millions un'),
+    (1000000, 'un million'),
+    (1000001, 'un million un'),
     (4000000, 'quatre millions'),
     (10000000000000, 'dix billions'),
     (100000000000000, 'cent billions'),
@@ -50,9 +50,9 @@ TEST_CASES_ORDINAL = (
     (28, 'vingt-huitième'),
     (100, 'centième'),
     (1000, 'millième'),
-    (1000000, 'un millionsième'),
-    (1000000000000000, 'un billiardsième'),
-    (1000000000000000000, 'un trillionsième')  # over 1e18 is not supported
+    (1000000, 'un millionième'), # Ref: https://www.dictionnaire-academie.fr/article/A9M2188
+    (1000000000000000, 'un billiardième'), # Réf: https://www.dictionnaire-academie.fr/article/A9M2177
+    (1000000000000000000, 'un trillionième')  # over 1e18 is not supported
 )
 
 TEST_CASES_TO_CURRENCY_EUR = (
