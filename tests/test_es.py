@@ -175,16 +175,15 @@ TEST_CASES_TO_CURRENCY_PEN = (
 )
 
 TEST_CASES_TO_CURRENCY_CRC = (
-    (1.00, 'un colón con cero centavos'),
-    (2.00, 'dos colones con cero centavos'),
-    (8.00, 'ocho colones con cero centavos'),
-    (12.00, 'doce colones con cero centavos'),
-    (21.00, 'veintiún colones con cero centavos'),
-    (81.25, 'ochenta y un colones con veinticinco centavos'),
-    (350.90, 'trescientos cincuenta colones con noventa centavos'),
-    (100.00, 'cien colones con cero centavos'),
-    (4150.83,
-        'cuatro mil ciento cincuenta colones con ochenta y tres centavos'),
+    (1.00, 'un colón con cero céntimos'),
+    (2.00, 'dos colones con cero céntimos'),
+    (8.00, 'ocho colones con cero céntimos'),
+    (12.00, 'doce colones con cero céntimos'),
+    (21.00, 'veintiún colones con cero céntimos'),
+    (81.25, 'ochenta y un colones con veinticinco céntimos'),
+    (350.90, 'trescientos cincuenta colones con noventa céntimos'),
+    (100.00, 'cien colones con cero céntimos'),
+    (4150.83, 'cuatro mil ciento cincuenta colones con ochenta y tres céntimos'),
 )
 
 TEST_CASES_TO_CURRENCY_GBP = (
