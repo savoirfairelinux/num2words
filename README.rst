@@ -112,6 +112,7 @@ Besides the numerical argument, there are two main optional arguments, ``to:`` a
 * ``kn`` (Kannada)
 * ``ko`` (Korean)
 * ``kz`` (Kazakh)
+* ``mn`` (Mongolian)
 * ``lt`` (Lithuanian)
 * ``lv`` (Latvian)
 * ``nl`` (Dutch)
