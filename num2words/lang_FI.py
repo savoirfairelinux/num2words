@@ -682,10 +682,10 @@ class Num2Word_FI(lang_EU.Num2Word_EU):
             suffix = suffix or " ennen ajanlaskun alkua"
         return self.to_cardinal(val).replace(" ", "") + suffix
 
-    def to_currency(self, val, currency="EUR", cents=True, seperator=" ja",
+    def to_currency(self, val, currency="EUR", cents=True, separator=" ja",
                     adjective=False):
         return super(Num2Word_FI, self).to_currency(
-            val, currency=currency, cents=cents, seperator=seperator,
+            val, currency=currency, cents=cents, separator=separator,
             adjective=adjective)
 
     def splitnum(self, value, options):

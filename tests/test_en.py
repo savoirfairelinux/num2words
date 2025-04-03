@@ -27,8 +27,16 @@ class Num2WordsENTest(TestCase):
 
     def test_ordinal(self):
         self.assertEqual(
+            num2words(0, lang='en', to='ordinal'),
+            'zeroth'
+        )
+        self.assertEqual(
             num2words(1, lang='en', to='ordinal'),
             'first'
+        )
+        self.assertEqual(
+            num2words(13, lang='en', to='ordinal'),
+            'thirteenth'
         )
         self.assertEqual(
             num2words(22, lang='en', to='ordinal'),
@@ -54,6 +62,8 @@ class Num2WordsENTest(TestCase):
         self.assertEqual(num2words(73, lang='en', to='ordinal_num'), '73rd')
 
     def test_cardinal_for_float_number(self):
+        self.assertEqual(num2words(0.12), "zero point one two")
+        self.assertEqual(num2words(-0.12), "minus zero point one two")
         # issue 24
         self.assertEqual(num2words(12.5), "twelve point five")
         self.assertEqual(num2words(12.51), "twelve point five one")
@@ -71,56 +81,74 @@ class Num2WordsENTest(TestCase):
 
     def test_to_currency(self):
         self.assertEqual(
-            num2words('38.4', lang='en', to='currency', seperator=' and',
+            num2words('38.4', lang='en', to='currency', separator=' and',
                       cents=False, currency='USD'),
             "thirty-eight dollars and 40 cents"
         )
         self.assertEqual(
-            num2words('0', lang='en', to='currency', seperator=' and',
+            num2words('0', lang='en', to='currency', separator=' and',
                       cents=False, currency='USD'),
-            "zero dollars and 00 cents"
+            "zero dollars"
         )
 
         self.assertEqual(
-            num2words('1.01', lang='en', to='currency', seperator=' and',
+            num2words('1.01', lang='en', to='currency', separator=' and',
                       cents=True, currency='USD'),
             "one dollar and one cent"
         )
 
         self.assertEqual(
-            num2words('4778.00', lang='en', to='currency', seperator=' and',
+            num2words('4778.00', lang='en', to='currency', separator=' and',
                       cents=True, currency='USD', adjective=True),
             'four thousand, seven hundred and seventy-eight US dollars'
             ' and zero cents')
 
         self.assertEqual(
-            num2words('4778.00', lang='en', to='currency', seperator=' and',
+            num2words('4778.00', lang='en', to='currency', separator=' and',
                       cents=True, currency='USD'),
             'four thousand, seven hundred and seventy-eight dollars and'
             ' zero cents')
 
         self.assertEqual(
-            num2words('1.1', lang='en', to='currency', seperator=' and',
+            num2words('1.1', lang='en', to='currency', separator=' and',
                       cents=True, currency='MXN'),
             "one peso and ten cents"
         )
 
         self.assertEqual(
-            num2words('158.3', lang='en', to='currency', seperator=' and',
+            num2words('158.3', lang='en', to='currency', separator=' and',
                       cents=True, currency='MXN'),
             "one hundred and fifty-eight pesos and thirty cents"
         )
 
         self.assertEqual(
-            num2words('2000.00', lang='en', to='currency', seperator=' and',
+            num2words('2000.00', lang='en', to='currency', separator=' and',
                       cents=True, currency='MXN'),
             "two thousand pesos and zero cents"
         )
 
         self.assertEqual(
-            num2words('4.01', lang='en', to='currency', seperator=' and',
+            num2words('4.01', lang='en', to='currency', separator=' and',
                       cents=True, currency='MXN'),
             "four pesos and one cent"
+        )
+
+        self.assertEqual(
+            num2words('2000.00', lang='en', to='currency', separator=' and',
+                      cents=True, currency='UZS'),
+            "two thousand sums and zero tiyins"
+        )
+
+        self.assertEqual(
+            num2words('2000.00', lang='en', to='currency', separator=' and',
+                      cents=True, currency='JPY'),
+            "two thousand yen and zero sen"
+        )
+
+        self.assertEqual(
+            num2words('2000.00', lang='en', to='currency', separator=' and',
+                      cents=True, currency='KRW'),
+            "two thousand won and zero jeon"
         )
 
     def test_to_year(self):
