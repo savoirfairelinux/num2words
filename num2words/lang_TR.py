@@ -455,6 +455,8 @@ class Num2Word_TR(Num2Word_Base):
 
         if self.integers_to_read[0] == "0":
             wrd = self.ZERO + wrd
+            if abs(value) != value:
+                wrd = self.negword.strip() + wrd
         else:
             wrd = self.to_cardinal(int(self.integers_to_read[0])) + wrd
         return wrd
