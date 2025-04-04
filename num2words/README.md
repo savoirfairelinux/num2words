@@ -8,7 +8,7 @@ This class must be a subclass of `Num2Word_EU` and implement at least the follow
 ```
 to_cardinal(self, number)
 to_ordinal(self, number)
-``
+```
 
 To integrate your language into the `num2words` module, add the name of  your file
 to the import list in [num2words/__init__.py](num2words/__init__.py) (top of the file),
