@@ -77,6 +77,7 @@ class Num2WordsRUTest(TestCase):
 
     def test_cardinal_feminine(self):
         self.assertEqual(num2words(1, lang='ru', gender='f'), 'одна')
+        self.assertEqual(num2words(1, lang='ru', gender='ж'), 'одна')
         self.assertEqual(num2words(2, lang='ru', gender='f'), 'две')
         self.assertEqual(num2words(3, lang='ru', gender='f'), 'три')
         self.assertEqual(num2words(100, lang='ru', gender='f'), "сто")
