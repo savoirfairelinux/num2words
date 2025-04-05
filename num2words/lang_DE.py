@@ -27,7 +27,16 @@ class Num2Word_DE(Num2Word_EU):
         'EUR': (('Euro', 'Euro'), ('Cent', 'Cent')),
         'GBP': (('Pfund', 'Pfund'), ('Penny', 'Pence')),
         'USD': (('Dollar', 'Dollar'), ('Cent', 'Cent')),
-        'CNY': (('Yuan', 'Yuan'), ('Jiao', 'Fen')),
+        'CAD': (('Dollar', 'Dollar'), ('Cent', 'Cent')),
+        'AUD': (('Dollar', 'Dollar'), ('Cent', 'Cent')),
+        'NZD': (('Dollar', 'Dollar'), ('Cent', 'Cent')),
+        'HKD': (('Dollar', 'Dollar'), ('Cent', 'Cent')),
+        'CNY': (('Yuan', 'Yuan'), ('Fen', 'Fen')),
+        'JPY': (('Yen', 'Yen'), ('Sen', 'Sen')),
+        'INR': (('Rupie', 'Rupien'), ('Paisa', 'Paisa')),
+        'RUB': (('Rubel', 'Rubel'), ('Kopeke', 'Kopeken')),
+        'KRW': (('Won', 'Won'), ('Jeon', 'Jeon')),
+        'MXN': (('Peso', 'Pesos'), ('Centavo', 'Centavos')),
         'DEM': (('Mark', 'Mark'), ('Pfennig', 'Pfennig')),
     }
 
