@@ -480,6 +480,8 @@ class Num2WordsHETest(TestCase):
             12.59, lang='he', gender='m'), u'שנים עשר נקודה חמש תשע')
         self.assertEqual(num2words(12.594132, lang='he', gender='m'),
                          u'שנים עשר נקודה חמש תשע ארבע אחת שלוש שתיים')
+        self.assertNotEqual(
+            num2words(0.12, lang='he'), num2words(-0.12, lang='he'))
 
     def test_cardinal_float_precision(self):
         n = Num2Word_HE()

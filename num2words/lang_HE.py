@@ -233,6 +233,9 @@ class Num2Word_HE(Num2Word_Base):
         post = '0'*(self.precision - len(post)) + post
 
         out = [self.to_cardinal(pre, gender=gender)]
+        if float(value) < 0 and pre == 0:
+            out = [self.negword.strip()] + out
+
         if self.precision:
             out.append(self.title(self.pointword))
 

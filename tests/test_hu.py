@@ -150,6 +150,8 @@ class Num2WordsHUTest(TestCase):
                          "tizenkettő egész ötvenkilenc század")
         self.assertEqual(num2words(12.005, lang='hu'),
                          "tizenkettő egész öt ezred")
+        self.assertNotEqual(
+            num2words(0.12, lang='hu'), num2words(-0.12, lang='hu'))
 
     def test_overflow(self):
         with self.assertRaises(OverflowError):
