@@ -18,8 +18,8 @@
 from __future__ import unicode_literals
 
 from .base import Num2Word_Base
-from .utils import get_digits, splitbyx
 from .currency import parse_currency_parts
+from .utils import get_digits, splitbyx
 
 ZERO = 'тэг'
 
