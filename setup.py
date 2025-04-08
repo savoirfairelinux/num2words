@@ -27,8 +27,12 @@ CLASSIFIERS = [
     'Intended Audience :: Developers',
     'License :: OSI Approved :: GNU Library or Lesser General Public License '
     '(LGPL)',
-    'Programming Language :: Python :: 2.7',
-    'Programming Language :: Python :: 3',
+    'Programming Language :: Python :: 3.8',
+    'Programming Language :: Python :: 3.9',
+    'Programming Language :: Python :: 3.10',
+    'Programming Language :: Python :: 3.11',
+    'Programming Language :: Python :: 3.12',
+    'Programming Language :: Python :: 3.13',
     'Topic :: Software Development :: Internationalization',
     'Topic :: Software Development :: Libraries :: Python Modules',
     'Topic :: Software Development :: Localization',
@@ -61,11 +65,12 @@ setup(
     version=find_version("bin/num2words"),
     description='Modules to convert numbers to words. Easily extensible.',
     long_description=LONG_DESC,
+    long_description_content_type="text/markdown",
     license='LGPL',
     author='Taro Ogawa <tso at users sourceforge net>',
     author_email='tos@users.sourceforge.net',
     maintainer='Savoir-faire Linux inc.',
-    maintainer_email='istvan.szalai@savoirfairelinux.com',
+    maintainer_email='support@savoirfairelinux.com',
     keywords=' number word numbers words convert conversion i18n '
              'localisation localization internationalisation '
              'internationalization',
