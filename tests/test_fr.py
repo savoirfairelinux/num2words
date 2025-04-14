@@ -46,16 +46,17 @@ TEST_CASES_CARDINAL = (
     (67, 'soixante-sept'),
     (70, 'soixante-dix'),
     (79, 'soixante-dix-neuf'),
+    (80, 'quatre-vingts'), # an -s appears here
     (89, 'quatre-vingt-neuf'),
     (95, 'quatre-vingt-quinze'),
     (100, 'cent'),
     (101, 'cent un'),
     (199, 'cent quatre-vingt-dix-neuf'),
+    (200, 'deux cents'),
     (203, 'deux cent trois'),
     (287, 'deux cent quatre-vingt-sept'),
     (300.42, 'trois cents virgule quatre deux'),
     (356, 'trois cent cinquante-six'),
-    (400, 'quatre cents'),
     (434, 'quatre cent trente-quatre'),
     (578, 'cinq cent soixante-dix-huit'),
     (689, 'six cent quatre-vingt-neuf'),
@@ -93,11 +94,16 @@ TEST_CASES_CARDINAL = (
 
 TEST_CASES_ORDINAL = (
     (1, 'premier'),
+    (2, 'deuxième), # "second" is a correct alternative
+    (4, 'quatrième'), # the -e in "quatre" disappears
+    (5, 'cinquième'), # an additional "-u-" appears
     (8, 'huitième'),
     (12, 'douzième'),
     (14, 'quatorzième'),
     (28, 'vingt-huitième'),
+    (80, 'quatre-vingtième'), # the -s of "quatre-vingts" disappears
     (100, 'centième'),
+    (200, 'deux centième'), # the -s of "deux cents" disappears
     (1000, 'millième'),
     (1000000, 'un millionième'),
     (1000000000000000, 'un billiardième'),
@@ -106,7 +112,7 @@ TEST_CASES_ORDINAL = (
 
 TEST_CASES_ORDINAL_NUM = (
     (1, '1er'),
-    (8, '8me'),
+    (8, '8me'), # I frown upon "-me". Standard is "-ième" or "-e"
     (11, '11me'),
     (12, '12me'),
     (14, '14me'),
