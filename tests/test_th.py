@@ -146,6 +146,10 @@ class TestNumWord(TestCase):
             num2words(100, lang='th', to='currency', currency='EUR'),
             "หนึ่งร้อยยูโร"
         )
+        self.assertEqual(
+            num2words(100, lang='th', to='currency', currency='JPY'),
+            "หนึ่งร้อยเยน"
+        )
 
     def test_currency_decimal(self):
         self.assertEqual(
@@ -171,6 +175,9 @@ class TestNumWord(TestCase):
             num2words(100.24, lang='th', to='currency', currency='EUR'),
             "หนึ่งร้อยยูโรยี่สิบสี่เซนต์"
         )
+        
+        with self.assertRaises(ValueError):
+            num2words(100.24, lang='th', to='currency', currency='JPY')
 
     def test_negative(self):
         self.assertEqual(num2words(-10, lang='th'), "ติดลบสิบ")
