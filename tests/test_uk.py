@@ -21,6 +21,11 @@ from unittest import TestCase
 
 from num2words import num2words
 
+# In case if you don't sure how it should be written, please consult 
+# https://mon.gov.ua/storage/app/media/zagalna%20serednya/%202019.pdf
+# See § 105 in this document, 
+# or look at this website http://pravopys.net/sections/70/
+
 TEST_CASES_CARDINAL = (
     (1, "один"),
     (2, "два"),
