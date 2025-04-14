@@ -270,3 +270,19 @@ class Num2Word_PL(Num2Word_Base):
                 words.append(self.pluralize(x, THOUSANDS[i]))
 
         return ' '.join(words)
+
+    def to_currency(
+            self,
+            val,
+            currency='PLN',
+            cents=True,
+            seperator=',',
+            adjective=False
+    ):
+        return super(Num2Word_PL, self).to_currency(
+            val,
+            currency=currency,
+            cents=cents,
+            seperator=seperator,
+            adjective=adjective
+        )
