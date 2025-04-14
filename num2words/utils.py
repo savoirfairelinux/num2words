@@ -33,3 +33,11 @@ def splitbyx(n, x, format_int=True):
 def get_digits(n):
     a = [int(x) for x in reversed(list(('%03d' % n)[-3:]))]
     return a
+
+
+def represents_int(s):
+    try:
+        int(s)
+        return True
+    except ValueError:
+        return False
