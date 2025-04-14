@@ -131,7 +131,7 @@ class Num2Word_KN(Num2Word_EU):
 
         self.mid_numwords = [(100, "ನೂರು")]
 
-        self.high_numwords = [(7, "ಕೋಟಿ"), (5, "ಒಂದು ಲಕ್ಷ"), (3, "ಸಾವಿರ")]
+        self.high_numwords = [(7, "ಕೋಟಿ"), (5, "ಲಕ್ಷ"), (3, "ಸಾವಿರ")]
 
         self.pointword = "ಬಿಂದು"
 
