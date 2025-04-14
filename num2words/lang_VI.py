@@ -17,6 +17,7 @@
 
 from __future__ import unicode_literals
 
+negword = "âm "
 to_19 = (u'không', u'một', u'hai', u'ba', u'bốn', u'năm', u'sáu',
          u'bảy', u'tám', u'chín', u'mười', u'mười một', u'mười hai',
          u'mười ba', u'mười bốn', u'mười lăm', u'mười sáu', u'mười bảy',
@@ -86,9 +87,13 @@ class Num2Word_VI(object):
 
     def number_to_text(self, number):
         number = '%.2f' % number
+        final_result = ''
+        if number.startswith('-'):
+            number = number[1:]
+            final_result += negword
         the_list = str(number).split('.')
         start_word = self.vietnam_number(int(the_list[0]))
-        final_result = start_word
+        final_result += start_word
         if len(the_list) > 1 and int(the_list[1]) > 0:
             end_word = self.vietnam_number(int(the_list[1]))
             final_result = final_result + ' phẩy ' + end_word
