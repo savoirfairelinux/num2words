@@ -364,6 +364,26 @@ class Num2WordsPTTest(TestCase):
                          'um dólar')
         self.assertEqual(self.n2w.to_currency(1.50, currency='USD'),
                          'um dólar e cinquenta cêntimos')
+        self.assertEqual(self.n2w.to_currency(1.50, currency='CAD'),
+                         'um dólar e cinquenta cêntimos')
+        self.assertEqual(self.n2w.to_currency(1.50, currency='AUD'),
+                         'um dólar e cinquenta cêntimos')
+        self.assertEqual(self.n2w.to_currency(1.50, currency='NZD'),
+                         'um dólar e cinquenta cêntimos')
+        self.assertEqual(self.n2w.to_currency(1.50, currency='HKD'),
+                         'um dólar e cinquenta cêntimos')
+        self.assertEqual(self.n2w.to_currency(1.50, currency='CNY'),
+                         'um yuan e cinquenta fen')
+        self.assertEqual(self.n2w.to_currency(1.50, currency='JPY'),
+                         'um iene e cinquenta sen')
+        self.assertEqual(self.n2w.to_currency(1.50, currency='INR'),
+                         'um rupia e cinquenta paisas')
+        self.assertEqual(self.n2w.to_currency(1.50, currency='RUB'),
+                         'um rublo e cinquenta copeques')
+        self.assertEqual(self.n2w.to_currency(1.50, currency='KRW'),
+                         'um won e cinquenta jeons')
+        self.assertEqual(self.n2w.to_currency(1.50, currency='MXN'),
+                         'um peso e cinquenta centavos')
         with self.assertRaises(NotImplementedError):
             self.n2w.to_currency(1.00, currency='CHF')
 
