@@ -43,7 +43,7 @@ class Num2Word_SV(lang_EU.Num2Word_EU):
 
         self.mid_numwords = [(1000, "tusen"), (100, "hundra"),
                              (90, "nittio"), (80, "åttio"), (70, "sjuttio"),
-                             (60, "sextio"), (50, "femtio"), (40, "förtio"),
+                             (60, "sextio"), (50, "femtio"), (40, "fyrtio"),
                              (30, "trettio")]
         self.low_numwords = ["tjugo", "nitton", "arton", "sjutton",
                              "sexton", "femton", "fjorton", "tretton",
