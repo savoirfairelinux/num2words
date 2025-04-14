@@ -16,6 +16,7 @@
 # MA 02110-1301 USA
 
 from __future__ import unicode_literals
+from decimal import Decimal
 
 to_19 = (u'không', u'một', u'hai', u'ba', u'bốn', u'năm', u'sáu',
          u'bảy', u'tám', u'chín', u'mười', u'mười một', u'mười hai',
@@ -93,6 +94,9 @@ class Num2Word_VI(object):
             end_word = self.vietnam_number(int(the_list[1]))
             final_result = final_result + ' phẩy ' + end_word
         return final_result
+
+    def str_to_number(self, value):
+        return Decimal(value)
 
     def to_cardinal(self, number):
         return self.number_to_text(number)
