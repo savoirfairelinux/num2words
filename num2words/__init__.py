@@ -24,10 +24,10 @@ from . import (lang_AM, lang_AR, lang_AZ, lang_BE, lang_BN, lang_CA, lang_CE,
                lang_ES_GT, lang_ES_NI, lang_ES_VE, lang_FA, lang_FI, lang_FR,
                lang_FR_BE, lang_FR_CH, lang_FR_DZ, lang_HE, lang_HI, lang_HU,
                lang_ID, lang_IS, lang_IT, lang_JA, lang_KN, lang_KO, lang_KZ,
-               lang_LT, lang_LV, lang_MGM, lang_NL, lang_NO, lang_PL, lang_PT,
+               lang_LT, lang_LV, lang_MGM, lang_MN, lang_NL, lang_NO, lang_PL, lang_PT,
                lang_PT_BR, lang_RO, lang_RU, lang_SK, lang_SL, lang_SR,
                lang_SV, lang_TE, lang_TET, lang_TG, lang_TH, lang_TR, lang_UK,
-               lang_VI)
+               lang_VI, lang_ZH, lang_ZH_CN, lang_ZH_HK, lang_ZH_TW)
 
 
 CONVERTER_CLASSES = {
@@ -62,6 +62,7 @@ CONVERTER_CLASSES = {
     'kn': lang_KN.Num2Word_KN(),
     'ko': lang_KO.Num2Word_KO(),
     'kz': lang_KZ.Num2Word_KZ(),
+    'mn': lang_MN.Num2Word_MN(),
     'lt': lang_LT.Num2Word_LT(),
     'lv': lang_LV.Num2Word_LV(),
     'pl': lang_PL.Num2Word_PL(),
@@ -89,6 +90,10 @@ CONVERTER_CLASSES = {
     'hu': lang_HU.Num2Word_HU(),
     'is': lang_IS.Num2Word_IS(),
     'hi': lang_HI.Num2Word_HI(),
+    'zh': lang_ZH.Num2Word_ZH(),
+    'zh_CN': lang_ZH_CN.Num2Word_ZH_CN(),
+    'zh_TW': lang_ZH_TW.Num2Word_ZH_TW(),
+    'zh_HK': lang_ZH_HK.Num2Word_ZH_HK(),
 }
 
 CONVERTES_TYPES = ['cardinal', 'ordinal', 'ordinal_num', 'year', 'currency']
