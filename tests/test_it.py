@@ -100,25 +100,49 @@ class Num2WordsITTest(TestCase):
     def test_1_to_10(self):
         self.assertEqual(num2words(1, lang="it"), "uno")
         self.assertEqual(num2words(2, lang="it"), "due")
+        self.assertEqual(num2words(3, lang="it"), "tre")
+        self.assertEqual(num2words(4, lang="it"), "quattro")
+        self.assertEqual(num2words(5, lang="it"), "cinque")
+        self.assertEqual(num2words(6, lang="it"), "sei")
         self.assertEqual(num2words(7, lang="it"), "sette")
+        self.assertEqual(num2words(8, lang="it"), "otto")
+        self.assertEqual(num2words(9, lang="it"), "nove")
         self.assertEqual(num2words(10, lang="it"), "dieci")
 
     def test_11_to_19(self):
         self.assertEqual(num2words(11, lang="it"), "undici")
+        self.assertEqual(num2words(12, lang="it"), "dodici")
         self.assertEqual(num2words(13, lang="it"), "tredici")
+        self.assertEqual(num2words(14, lang="it"), "quattordici")
         self.assertEqual(num2words(15, lang="it"), "quindici")
         self.assertEqual(num2words(16, lang="it"), "sedici")
+        self.assertEqual(num2words(17, lang="it"), "diciassette")
+        self.assertEqual(num2words(18, lang="it"), "diciotto")
         self.assertEqual(num2words(19, lang="it"), "diciannove")
 
     def test_20_to_99(self):
         self.assertEqual(num2words(20, lang="it"), "venti")
         self.assertEqual(num2words(21, lang="it"), "ventuno")
+        self.assertEqual(num2words(22, lang="it"), "ventidue")
         self.assertEqual(num2words(23, lang="it"), "ventitré")
+        self.assertEqual(num2words(24, lang="it"), "ventiquattro")
+        self.assertEqual(num2words(25, lang="it"), "venticinque")
+        self.assertEqual(num2words(26, lang="it"), "ventisei")
+        self.assertEqual(num2words(27, lang="it"), "ventisette")
         self.assertEqual(num2words(28, lang="it"), "ventotto")
+        self.assertEqual(num2words(29, lang="it"), "ventinove")
+        self.assertEqual(num2words(30, lang="it"), "trenta")
         self.assertEqual(num2words(31, lang="it"), "trentuno")
+        self.assertEqual(num2words(32, lang="it"), "trentadue")
+        self.assertEqual(num2words(33, lang="it"), "trentatré")
         self.assertEqual(num2words(40, lang="it"), "quaranta")
+        self.assertEqual(num2words(50, lang="it"), "cinquanta")
         self.assertEqual(num2words(66, lang="it"), "sessantasei")
+        self.assertEqual(num2words(70, lang="it"), "settanta")
+        self.assertEqual(num2words(81, lang="it"), "ottantuno")
+        self.assertEqual(num2words(88, lang="it"), "ottantotto")
         self.assertEqual(num2words(92, lang="it"), "novantadue")
+        self.assertEqual(num2words(99, lang="it"), "novantanove")
 
     def test_100_to_999(self):
         self.assertEqual(num2words(100, lang="it"), "cento")
@@ -151,6 +175,18 @@ class Num2WordsITTest(TestCase):
             num2words(523456, lang="it"),
             "cinquecentoventitremilaquattrocentocinquantasei"
         )
+
+    def test_ending_in_18(self):
+        self.assertEqual(num2words(118, lang="it"), "centodiciotto")
+        self.assertEqual(num2words(218, lang="it"), "duecentodiciotto")
+        self.assertEqual(num2words(318, lang="it"), "trecentodiciotto")
+        self.assertEqual(num2words(418, lang="it"), "quattrocentodiciotto")
+        self.assertEqual(num2words(518, lang="it"), "cinquecentodiciotto")
+        self.assertEqual(num2words(618, lang="it"), "seicentodiciotto")
+        self.assertEqual(num2words(718, lang="it"), "settecentodiciotto")
+        self.assertEqual(num2words(818, lang="it"), "ottocentodiciotto")
+        self.assertEqual(num2words(918, lang="it"), "novecentodiciotto")
+
 
     def test_big(self):
         self.assertEqual(num2words(1000000, lang="it"), "un milione")
