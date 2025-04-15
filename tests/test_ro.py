@@ -90,20 +90,88 @@ class Num2WordsROTest(TestCase):
 
     def test_big_numbers(self):
         self.assertEqual(
+            num2words(12500, lang="ro"),
+            u"douăsprezece mii cinci sute"
+        )
+        self.assertEqual(
+            num2words(21750, lang="ro"),
+            u"douăzeci și unu de mii șapte sute cincizeci"
+        )
+        self.assertEqual(
             num2words(1000000, lang="ro"),
             u"un milion"
+        )
+        self.assertEqual(
+            num2words(2000000, lang="ro"),
+            u"două milioane"
+        )
+        self.assertEqual(
+            num2words(33000000, lang="ro"),
+            u"treizeci și trei de milioane"
         )
         self.assertEqual(
             num2words(1000000000, lang="ro"),
             u"un miliard"
         )
         self.assertEqual(
-            num2words(33000000, lang="ro"),
-            u"treizeci și trei milioane"
+            num2words(2000000000, lang="ro"),
+            u"două miliarde"
+        )
+        self.assertEqual(
+            num2words(12000000000, lang="ro"),
+            u"douăsprezece miliarde"
+        )
+        self.assertEqual(
+            num2words(33000000000, lang="ro"),
+            u"treizeci și trei de miliarde"
         )
         self.assertEqual(
             num2words(247000000000, lang="ro"),
             u"două sute patruzeci și șapte de miliarde"
+        )
+        self.assertEqual(
+            num2words(123456, lang="ro"),
+            u"o sută douăzeci și trei de mii patru sute cincizeci și șase"
+        )
+        self.assertEqual(
+            num2words(1234567, lang="ro"),
+            u"un milion două sute treizeci și patru de mii cinci sute șaizeci"
+            u" și șapte"
+        )
+        self.assertEqual(
+            num2words(9234567, lang="ro"),
+            u"nouă milioane două sute treizeci și patru de mii cinci sute"
+            u" șaizeci și șapte"
+        )
+        self.assertEqual(
+            num2words(19234567, lang="ro"),
+            u"nouăsprezece milioane două sute treizeci și patru de mii cinci"
+            u" sute șaizeci și șapte"
+        )
+        self.assertEqual(
+            num2words(319234567, lang="ro"),
+            u"trei sute nouăsprezece milioane două sute treizeci și patru de"
+            u" mii cinci sute șaizeci și șapte"
+        )
+        self.assertEqual(
+            num2words(320234567, lang="ro"),
+            u"trei sute douăzeci de milioane două sute treizeci și patru de mii"
+            u" cinci sute șaizeci și șapte"
+        )
+        self.assertEqual(
+            num2words(1319234567, lang="ro"),
+            u"un miliard trei sute nouăsprezece milioane două sute treizeci și"
+            u" patru de mii cinci sute șaizeci și șapte"
+        )
+        self.assertEqual(
+            num2words(7319234567, lang="ro"),
+            u"șapte miliarde trei sute nouăsprezece milioane două sute treizeci"
+            u" și patru de mii cinci sute șaizeci și șapte"
+        )
+        self.assertEqual(
+            num2words(27319234567, lang="ro"),
+            u"douăzeci și șapte de miliarde trei sute nouăsprezece milioane"
+            u" două sute treizeci și patru de mii cinci sute șaizeci și șapte"
         )
 
     def test_overflow(self):
@@ -154,7 +222,7 @@ class Num2WordsROTest(TestCase):
             u'optzeci de mii de lei')
         self.assertEqual(
             num2words(123456789, lang='ro', to='currency'),
-            u'una sută douăzeci și trei milioane patru sute '
+            u'una sută douăzeci și trei de milioane patru sute '
             u'cincizeci și șase de mii șapte sute optzeci și nouă de lei')
 
     def test_to_year(self):
@@ -192,4 +260,4 @@ class Num2WordsROTest(TestCase):
         self.assertEqual(num2words(1, lang='ro', to='year', suffix='d.Hr.'),
                          u'unu d.Hr.')
         self.assertEqual(num2words(-66000000, lang='ro', to='year'),
-                         u'șaizeci și șase milioane î.Hr.')
+                         u'șaizeci și șase de milioane î.Hr.')
