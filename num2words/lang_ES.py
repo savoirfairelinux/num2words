@@ -397,18 +397,19 @@ class Num2Word_ES(Num2Word_EU):
 
         # "CENTS" PART (list_result[1])
 
-        # Feminine "cents" ("una piastra", "veintiuna piastras"...)
-        if currency in CENTS_UNA:
+        if len(list_result) > 1:
+            # Feminine "cents" ("una piastra", "veintiuna piastras"...)
+            if currency in CENTS_UNA:
 
-            # "una piastra", "veintiuna piastras", "treinta y una piastras"...
-            list_result[1] = list_result[1].replace("uno", "una")
+                # "una piastra", "veintiuna piastras", "treinta y una piastras"
+                list_result[1] = list_result[1].replace("uno", "una")
 
-        # Masc.: Correct orthography for the specific case of "veintiún":
-        list_result[1] = list_result[1].replace("veintiuno", "veintiún")
+            # Masc.: Correct orthography for the specific case of "veintiún":
+            list_result[1] = list_result[1].replace("veintiuno", "veintiún")
 
-        # Masculine "cents": general case ("un centavo", "treinta y un
-        # centavos"...):
-        list_result[1] = list_result[1].replace("uno", "un")
+            # Masculine "cents": general case ("un centavo", "treinta y un
+            # centavos"...):
+            list_result[1] = list_result[1].replace("uno", "un")
 
         # join back "dollars" part with "cents" part
         result = (separator + " ").join(list_result)
