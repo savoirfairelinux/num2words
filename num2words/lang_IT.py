@@ -201,13 +201,16 @@ class Num2Word_IT(Num2Word_EU):
 
 
 def phonetic_contraction(string):
+    # Skip contraction if string contains "diciotto" to avoid breaking it
+    if "diciotto" in string:
+        return string
+
     return (string
-            .replace("oo", "o")  # ex. "centootto"
-            .replace("ao", "o")  # ex. "settantaotto"
-            .replace("io", "o")  # ex. "ventiotto"
-            .replace("au", "u")  # ex. "trentauno"
-            .replace("iu", "u")  # ex. "ventiunesimo"
-            )
+            .replace("oo", "o")   # centootto → centotto
+            .replace("ao", "o")   # settantaotto → settantotto
+            .replace("io", "o")   # ventiotto → ventotto
+            .replace("au", "u")   # trentauno → trentuno
+            .replace("iu", "u"))  # ventiuno → ventuno
 
 
 def exponent_length_to_string(exponent_length):
