@@ -188,7 +188,3 @@ class Num2WordsLBTest(TestCase):
     def test_year_bc(self):
         self.assertEqual(num2words(-44, to='year', lang='lb'),
                          'véieravéierzeg viru Christus')
-
-
-if __name__ == '__main__':
-    unittest.main()
