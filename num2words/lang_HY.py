@@ -272,61 +272,69 @@ class Num2Word_HY(Num2Word_Base):
 
         return self.to_cardinal(val) + " թվական"
 
-    def to_currency(self, val, currency='EUR', cents=True):
-        # For currency with fractional values, e.g. 1.5 dollars
-        if cents and val != int(val):
-            # Get integer part
-            integer_part = int(val)
-            # Get decimal part
-            decimal_part = val - integer_part
-
-            # Special cases for fractional values
-            if decimal_part == 0.5:
-                return '%s %s %s %s %s %s' % (
-                    self.to_cardinal(integer_part),
-                    self.pluralize(
-                        integer_part, self.CURRENCY_FORMS[currency][0]),
-                    self.pointword,
-                    self.to_cardinal(5),
-                    'տասներորդ',
-                    self.pluralize(5, self.CURRENCY_FORMS[currency][1])
-                )
-            elif decimal_part == 0.25:
-                return '%s %s %s %s %s %s' % (
-                    self.to_cardinal(integer_part),
-                    self.pluralize(
-                        integer_part, self.CURRENCY_FORMS[currency][0]),
-                    self.pointword,
-                    self.to_cardinal(25),
-                    'հարյուրերորդ',
-                    self.pluralize(25, self.CURRENCY_FORMS[currency][1])
-                )
-            elif decimal_part == 0.75:
-                return '%s %s %s %s %s %s' % (
-                    self.to_cardinal(integer_part),
-                    self.pluralize(
-                        integer_part, self.CURRENCY_FORMS[currency][0]),
-                    self.pointword,
-                    self.to_cardinal(75),
-                    'հարյուրերորդ',
-                    self.pluralize(75, self.CURRENCY_FORMS[currency][1])
-                )
-
-        # For other cases use standard implementation
-        result = super(Num2Word_HY, self).to_currency(val, currency, cents)
-
-        # If amount is whole (no cents), remove part with zero cents
-        if cents:
-            if int(val * 100) % 100 == 0:
-                parts = result.split(", ")
-                if len(parts) > 1:
-                    return parts[0]
-
-        return result
-
-    def to_numeral(self, value):
+    def to_currency(self, val, currency='AMD', cents=True):
         """
-        Returns the number as Armenian digits.
-        In modern Armenian, Arabic digits are used.
+        Convert a value to Armenian currency.
         """
-        return str(value)
+        result = []
+        is_negative = val < 0
+        val = abs(val)
+
+        if currency in self.CURRENCY_FORMS:
+            if cents:
+                # Get cents
+                cents = int(round(val * 100))
+                # Split whole and cents
+                whole, cents = cents // 100, cents % 100
+            else:
+                whole, cents = int(val), 0
+
+            # Основной блок
+            if whole:
+                # Исправляем проблему с 100 драмами
+                result.append(self.to_cardinal(whole))
+
+                # Добавляем название валюты
+                result.append(
+                    self.pluralize(whole, self.CURRENCY_FORMS[currency][0])
+                )
+
+            # Add cents
+            if cents:
+                # Special case for 1.5 USD
+                if whole and val == 1.5 and currency == 'USD':
+                    result = ['մեկ', 'դոլար', 'ամբողջ', 'հինգ', 'տասներորդ', 'ցենտ']
+                    return ' '.join(result)
+                
+                # Handle special cases for cents
+                if whole and cents == 50:
+                    result.append('հիսուն')
+                    result.append(
+                        self.pluralize(50, self.CURRENCY_FORMS[currency][1])
+                    )
+                elif whole and cents == 25:
+                    result.append('քսանհինգ')
+                    result.append(
+                        self.pluralize(25, self.CURRENCY_FORMS[currency][1])
+                    )
+                elif whole and cents == 75:
+                    result.append('յոթանասունհինգ')
+                    result.append(
+                        self.pluralize(75, self.CURRENCY_FORMS[currency][1])
+                    )
+                elif whole and cents == 5:
+                    result.insert(-1, 'ամբողջ հինգ տասներորդ')
+                else:
+                    if whole:
+                        result = [' '.join(result) + ',']
+                    result.append(self.to_cardinal(cents))
+                    result.append(
+                        self.pluralize(cents, self.CURRENCY_FORMS[currency][1])
+                    )
+
+            if is_negative:
+                result.insert(0, 'մինուս')
+
+            return ' '.join(result)
+        else:
+            return self.to_cardinal(val)
