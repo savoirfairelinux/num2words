@@ -63,11 +63,20 @@ class Num2WordsHYTest(TestCase):
         self.assertEqual(num2words(5, lang='hy', to='ordinal'), 'հինգերորդ')
         self.assertEqual(num2words(9, lang='hy', to='ordinal'), 'իններորդ')
         self.assertEqual(num2words(10, lang='hy', to='ordinal'), 'տասներորդ')
-        self.assertEqual(num2words(11, lang='hy', to='ordinal'), 'տասնմեկերորդ')
-        self.assertEqual(num2words(12, lang='hy', to='ordinal'), 'տասներկուերորդ')
+        self.assertEqual(
+            num2words(11, lang='hy', to='ordinal'),
+            'տասնմեկերորդ'
+        )
+        self.assertEqual(
+            num2words(12, lang='hy', to='ordinal'),
+            'տասներկուերորդ'
+        )
         self.assertEqual(num2words(20, lang='hy', to='ordinal'), 'քսաներորդ')
         self.assertEqual(num2words(21, lang='hy', to='ordinal'), 'քսան առաջին')
-        self.assertEqual(num2words(101, lang='hy', to='ordinal'), 'հարյուր մեկերորդ')
+        self.assertEqual(
+            num2words(101, lang='hy', to='ordinal'),
+            'հարյուր մեկերորդ'
+        )
 
     def test_ordinal_num(self):
         self.assertEqual(num2words(1, lang='hy', to='ordinal_num'), '1-րդ')
@@ -93,6 +102,15 @@ class Num2WordsHYTest(TestCase):
         )
 
     def test_year(self):
-        self.assertEqual(num2words(2020, lang='hy', to='year'), 'երկու հազար քսան թվական')
-        self.assertEqual(num2words(1990, lang='hy', to='year'), 'հազար ինը հարյուր իննսուն թվական')
-        self.assertEqual(num2words(-44, lang='hy', to='year'), 'քառասուն չորս թվականից առաջ')
+        self.assertEqual(
+            num2words(2020, lang='hy', to='year'),
+            'երկու հազար քսան թվական'
+        )
+        self.assertEqual(
+            num2words(1990, lang='hy', to='year'),
+            'հազար ինը հարյուր իննսուն թվական'
+        )
+        self.assertEqual(
+            num2words(-44, lang='hy', to='year'),
+            'քառասուն չորս թվականից առաջ'
+        )
