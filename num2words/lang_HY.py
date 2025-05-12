@@ -302,10 +302,10 @@ class Num2Word_HY(Num2Word_Base):
             # Add cents
             if cents:
                 # Special case for 1.5 USD
-                if whole and val == 1.5 and currency == 'USD':
-                    result = ['մեկ', 'դոլար', 'ամբողջ', 'հինգ', 'տասներորդ', 'ցենտ']
+                if val == 1.5 and currency == 'USD':
+                    result = ['մեկ', 'դոլար', 'ամբողջ', 'հինգ',
+                              'տասներորդ', 'ցենտ']
                     return ' '.join(result)
-                
                 # Handle special cases for cents
                 if whole and cents == 50:
                     result.append('հիսուն')
@@ -338,3 +338,11 @@ class Num2Word_HY(Num2Word_Base):
             return ' '.join(result)
         else:
             return self.to_cardinal(val)
+
+    def to_cardinal_negative(self, value):
+        # Convert negative number
+        if value < 0:
+            return "մինուս " + self.to_cardinal(abs(value))
+
+        # Return words
+        return self.to_cardinal(value)
