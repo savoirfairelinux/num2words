@@ -484,62 +484,38 @@ class Num2WordsHYTest(TestCase):
                     self.assertTrue(isinstance(result[0], str))
                     self.assertTrue(isinstance(result[1], int))
 
-    def test_uncovered_lines(self):
-        """Тесты для покрытия ранее непокрытых строк."""
-        converter = Num2Word_HY()
-
-        # Тест строки 183: спец. случай для чисел < 10 и сотен
-        # Создаем конкретные примеры сценариев ветвления
         result1 = converter.merge(("հինգ հարյուր", 500), ("երկու", 2))
         self.assertEqual(result1[0], "հինգ հարյուր երկու")
         self.assertEqual(result1[1], 502)
-
-        # Дополнительный тест для строки 183
         result2 = converter.merge(("վեց հարյուր", 600), ("չորս", 4))
         self.assertEqual(result2[0], "վեց հարյուր չորս")
         self.assertEqual(result2[1], 604)
 
-        # Альтернативный подход для строки 183
         for snum, nnum in [(500, 5), (800, 8), (900, 9)]:
             val = converter.merge(
                 (f"base_{snum}", snum), (f"num_{nnum}", nnum)
             )
             self.assertEqual(val[1], snum + nnum)
-
-        # Тестирование строки 211 (миллиарды - тест с prefix != 2)
-        # Явное тестирование ветвления для миллиардов
         for prefix in [3, 4, 5]:
             value = prefix * 1000000000
             result = converter.to_cardinal(value)
             expected_start = converter.to_cardinal(prefix)
             self.assertTrue(result.startswith(expected_start))
             self.assertIn("միլիարդ", result)
-
-        # Тестирование строки 222 (конвертация 'հազար միլիոն' в 'միլիարդ')
-        # Используем более сложную строку и вызов функции to_cardinal
         result_big = converter.to_cardinal(1000000000)
-        # Проверяем, что в результате нет строки "հազար միլիոն"
         self.assertNotIn("հազար միլիոն", result_big)
         self.assertIn("միլիարդ", result_big)
-
-        # Фиктивное создание строки для проверки замены
         test_str_with_pattern = "test հազար միլիոն suffix"
         result_replace = test_str_with_pattern.replace(
             "հազար միլիոն", "միլիարդ"
         )
         self.assertEqual(result_replace, "test միլիարդ suffix")
 
-        # Тестирование строки 270 (года, не входящие в диапазон 1000-1999)
-        # Тестируем несколько разных значений
         for year in [100, 500, 2000, 3000]:
             result_year = converter.to_year(year)
             expected = converter.to_cardinal(year) + " թվական"
             self.assertEqual(result_year, expected)
-
-        # Тестирование строк 344-348: отрицательное число
         result_neg = converter.to_cardinal_negative(-42)
         self.assertTrue(result_neg.startswith("մինուս"))
-
-        # Тестирование положительного числа в to_cardinal_negative
         result_pos = converter.to_cardinal_negative(42)
         self.assertFalse(result_pos.startswith("մինուս"))
