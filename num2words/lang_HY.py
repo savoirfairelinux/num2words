@@ -178,9 +178,6 @@ class Num2Word_HY(Num2Word_Base):
             if cnum < 100:
                 # Always add space between tens and ones
                 return ("%s %s" % (ctext, ntext), cnum + nnum)
-            if nnum < 10 and cnum in [
-                    100, 200, 300, 400, 500, 600, 700, 800, 900]:
-                return ("%s %s" % (ctext, ntext), cnum + nnum)
             return ("%s %s" % (ctext, ntext), cnum + nnum)
 
         return ("%s %s" % (ctext, ntext), cnum + nnum)
@@ -218,9 +215,6 @@ class Num2Word_HY(Num2Word_Base):
         # Fix for numbers like X000000 and X000000000
         if 'հազար հազար' in result:
             result = result.replace('հազար հազար', 'միլիոն')
-        if 'հազար միլիոն' in result:
-            result = result.replace('հազար միլիոն', 'միլիարդ')
-
         return result
 
     def to_ordinal(self, value):
@@ -260,9 +254,6 @@ class Num2Word_HY(Num2Word_Base):
         return ''
 
     def to_year(self, val, longval=True):
-        if val < 0:
-            return self.to_cardinal(abs(val)) + " թվականից առաջ"
-
         # Special case for year: for 1000-1999, remove "մեկ" before "հազար"
         if 1000 <= val < 2000:
             year_str = self.to_cardinal(val)

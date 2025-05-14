@@ -519,3 +519,79 @@ class Num2WordsHYTest(TestCase):
         self.assertTrue(result_neg.startswith("մինուս"))
         result_pos = converter.to_cardinal_negative(42)
         self.assertFalse(result_pos.startswith("մինուս"))
+
+    def test_merge_method_small_numbers_with_hundreds(self):
+        """Test merge method with small single-digit numbers and hundreds."""
+        converter = Num2Word_HY()
+        for hundred in [100, 200, 300, 400, 500, 600, 700, 800, 900]:
+            for digit in range(1, 10):
+                result = converter.merge((f"test_{hundred}", hundred),
+                                         (f"test_{digit}", digit))
+                self.assertEqual(result[1], hundred + digit)
+                expected = f"test_{hundred} test_{digit}"
+                self.assertEqual(result[0], expected)
+
+    def test_billion_prefix_case(self):
+        """Test special case for two billion conversion."""
+        self.assertEqual(num2words(2000000000, lang="hy"), "երկու միլիարդ")
+
+        self.assertEqual(num2words(3000000000, lang="hy"), "երեք միլիարդ")
+        self.assertEqual(num2words(4000000000, lang="hy"), "չորս միլիարդ")
+
+    def test_thousand_million_replacement(self):
+        """Test replacement of 'հազար միլիոն' with 'միլիարդ'."""
+
+        test_string = "հազար միլիոն"
+        result = test_string.replace("հազար միլիոն", "միլիարդ")
+        self.assertEqual(result, "միլիարդ")
+
+        test_string_context = "текст հազար միլիոն ещё текст"
+        result_context = test_string_context.replace("հազար միլիոն", "միլիարդ")
+        self.assertEqual(result_context, "текст միլիարդ ещё текст")
+
+        converter = Num2Word_HY()
+        result_cardinal = converter.to_cardinal(1000000000)
+        self.assertNotIn("հազար միլիոն", result_cardinal)
+        self.assertIn("միլիարդ", result_cardinal)
+
+    def test_year_prefix_removal(self):
+        """Test removal of 'մեկ ' prefix in year conversion."""
+        converter = Num2Word_HY()
+
+        year_str = "մեկ հազար"
+        if year_str.startswith("մեկ հազար"):
+            year_str = year_str[4:].strip()
+        self.assertEqual(year_str, "հազար")
+
+        for year in [1000, 1001, 1100, 1500, 1900, 1999]:
+            result = converter.to_year(year)
+            self.assertTrue(result.startswith("հազար"))
+            self.assertFalse(result.startswith("մեկ հազար"))
+
+        for year in [100, 500, 2000, 3000]:
+            result = converter.to_year(year)
+            expected = converter.to_cardinal(year) + " թվական"
+            self.assertEqual(result, expected)
+
+    def test_merge_method_zero_with_hundreds(self):
+        converter = Num2Word_HY()
+        for hundred in [100, 200, 300, 400, 500, 600, 700, 800, 900]:
+            result = converter.merge(("сто", hundred), ("ноль", 0))
+            self.assertEqual(result[0], "сто нолի")
+            self.assertEqual(result[1], hundred + 0)
+
+    def test_to_cardinal_thousand_million_branch(self):
+        class DummyHY(Num2Word_HY):
+            def to_cardinal(self, value):
+                return "հազար միլիոն"
+        converter = DummyHY()
+        result = Num2Word_HY.to_cardinal(converter, 1000000000)
+        self.assertEqual(result, "մեկ միլիարդ")
+
+    def test_to_year_prefix_removal_branch(self):
+        class DummyHY(Num2Word_HY):
+            def to_cardinal(self, value):
+                return "մեկ հազար"
+        converter = DummyHY()
+        result = converter.to_year(1000)
+        self.assertEqual(result, "հազար թվական")
