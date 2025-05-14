@@ -559,10 +559,7 @@ class Num2WordsHYTest(TestCase):
         converter = Num2Word_HY()
 
         year_str = "մեկ հազար"
-        if year_str.startswith("մեկ հազար"):
-            year_str = year_str[4:].strip()
-        self.assertEqual(year_str, "հազար")
-
+        
         for year in [1000, 1001, 1100, 1500, 1900, 1999]:
             result = converter.to_year(year)
             self.assertTrue(result.startswith("հազար"))
@@ -581,10 +578,7 @@ class Num2WordsHYTest(TestCase):
             self.assertEqual(result[1], hundred + 0)
 
     def test_to_cardinal_thousand_million_branch(self):
-        class DummyHY(Num2Word_HY):
-            def to_cardinal(self, value):
-                return "հազար միլիոն"
-        converter = DummyHY()
+        converter = Num2Word_HY()
         result = Num2Word_HY.to_cardinal(converter, 1000000000)
         self.assertEqual(result, "մեկ միլիարդ")
 
