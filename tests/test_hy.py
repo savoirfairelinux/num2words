@@ -43,7 +43,7 @@ class Num2WordsHYTest(TestCase):
         self.assertEqual(num2words(15, lang="hy"), "տասնհինգ")
         self.assertEqual(num2words(19, lang="hy"), "տասնինը")
         self.assertEqual(num2words(20, lang="hy"), "քսան")
-        self.assertEqual(num2words(21, lang="hy"), "քսան մեկ")
+        self.assertEqual(num2words(21, lang="hy"), "քսանմեկ")
         self.assertEqual(num2words(30, lang="hy"), "երեսուն")
         self.assertEqual(num2words(50, lang="hy"), "հիսուն")
         self.assertEqual(num2words(99, lang="hy"), "իննսուն ինը")
@@ -73,9 +73,9 @@ class Num2WordsHYTest(TestCase):
         self.assertEqual(num2words(4000000000, lang="hy"), "չորս միլիարդ")
 
         # Special cases for merge method
-        self.assertEqual(num2words(142, lang="hy"), "հարյուր քառասուն երկու")
+        self.assertEqual(num2words(142, lang="hy"), "հարյուր քառասուներկու")
         self.assertEqual(
-            num2words(100042, lang="hy"), "հարյուր հազար քառասուն երկու"
+            num2words(100042, lang="hy"), "հարյուր հազար քառասուներկու"
         )
 
         # Specific scenarios in to_cardinal
@@ -133,7 +133,7 @@ class Num2WordsHYTest(TestCase):
         )
         self.assertEqual(
             num2words(222, lang="hy", to="ordinal"),
-            "երկու հարյուր քսան երկուերորդ",
+            "երկու հարյուր քսաներկուերորդ",
         )
 
         # Large ordinal numbers
@@ -206,7 +206,7 @@ class Num2WordsHYTest(TestCase):
         )
         self.assertEqual(
             num2words(100.42, lang="hy", to="currency", currency="USD"),
-            "հարյուր դոլար, քառասուն երկու ցենտ",
+            "հարյուր դոլար, քառասուներկու ցենտ",
         )
 
         # Special cases with cents
@@ -222,7 +222,7 @@ class Num2WordsHYTest(TestCase):
         # Negative values
         self.assertEqual(
             num2words(-1.42, lang="hy", to="currency", currency="USD"),
-            "մինուս մեկ դոլար, քառասուն երկու ցենտ",
+            "մինուս մեկ դոլար, քառասուներկու ցենտ",
         )
 
         # Fractional values without whole part
@@ -595,3 +595,12 @@ class Num2WordsHYTest(TestCase):
         converter = DummyHY()
         result = converter.to_year(1000)
         self.assertEqual(result, "հազար թվական")
+
+    def test_cardinal_million_grouping(self):
+        converter = Num2Word_HY()
+        result = converter.to_cardinal(10455397)
+        expected = (
+            "տասը միլիոն չորս հարյուր հիսունհինգ հազար "
+            "երեք հարյուր իննսուն յոթ"
+        )
+        self.assertEqual(result, expected)

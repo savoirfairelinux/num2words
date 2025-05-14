@@ -176,8 +176,9 @@ class Num2Word_HY(Num2Word_Base):
 
         if nnum < 100:
             if cnum < 100:
-                # Always add space between tens and ones
-                return ("%s %s" % (ctext, ntext), cnum + nnum)
+                if ctext == 'իննսուն':
+                    return (ctext + ' ' + ntext, cnum + nnum)
+                return (ctext + ntext, cnum + nnum)
             return ("%s %s" % (ctext, ntext), cnum + nnum)
 
         return ("%s %s" % (ctext, ntext), cnum + nnum)
@@ -190,16 +191,20 @@ class Num2Word_HY(Num2Word_Base):
         if value == 1000:
             return 'հազար'
 
-        # For millions and billions
-        if value == 1000000:
-            return 'մեկ միլիոն'
-        elif value % 1000000 == 0 and value < 1000000000:
-            prefix = value // 1000000
-            if prefix == 2:
-                return 'երկու միլիոն'
+        if value >= 1000000 and value < 1000000000:
+            millions = value // 1000000
+            rest = value % 1000000
+            if millions == 1:
+                millions_part = 'մեկ միլիոն'
+            elif millions == 2:
+                millions_part = 'երկու միլիոն'
             else:
-                return '%s միլիոն' % self.to_cardinal(prefix)
+                millions_part = '%s միլիոն' % self.to_cardinal(millions)
+            if rest == 0:
+                return millions_part
+            return '%s %s' % (millions_part, self.to_cardinal(rest))
 
+        # For billions
         if value == 1000000000:
             return 'մեկ միլիարդ'
         elif value % 1000000000 == 0 and value < 10**12:
