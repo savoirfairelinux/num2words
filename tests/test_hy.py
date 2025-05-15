@@ -558,8 +558,6 @@ class Num2WordsHYTest(TestCase):
         """Test removal of 'մեկ ' prefix in year conversion."""
         converter = Num2Word_HY()
 
-        year_str = "մեկ հազար"
-        
         for year in [1000, 1001, 1100, 1500, 1900, 1999]:
             result = converter.to_year(year)
             self.assertTrue(result.startswith("հազար"))
