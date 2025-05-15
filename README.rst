@@ -105,6 +105,7 @@ Besides the numerical argument, there are two main optional arguments, ``to:`` a
 * ``he`` (Hebrew)
 * ``hi`` (Hindi)
 * ``hu`` (Hungarian)
+* ``hy`` (Armenian)
 * ``id`` (Indonesian)
 * ``is`` (Icelandic)
 * ``it`` (Italian)
