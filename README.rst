@@ -132,6 +132,7 @@ Besides the numerical argument, there are two main optional arguments, ``to:`` a
 * ``tr`` (Turkish)
 * ``th`` (Thai)
 * ``uk`` (Ukrainian)
+* ``uz`` (Uzbek)
 * ``vi`` (Vietnamese)
 * ``zh`` (Chinese - Traditional)
 * ``zh_CN`` (Chinese - Simplified / Mainland China)
