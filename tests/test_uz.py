@@ -113,6 +113,7 @@ TEST_CASES_CARDINAL = (
      "sakkiz yuz yigirma ikki trillion sakkiz yuz yigirma toʻrt milliard uch yuz sakson toʻrt "
      "million ikki yuz yigirma ming ikki yuz toʻqson bir"),
 )
+
 TEST_CASES_TO_CURRENCY_UZS = (
     (0.00, "nol soʻm, nol tiyin"),
     (1.00, "bir soʻm, nol tiyin"),
@@ -125,5 +126,80 @@ TEST_CASES_TO_CURRENCY_UZS = (
     (10000.99, "oʻn ming soʻm, toʻqson toʻqqiz tiyin"),
     (200_000.0, "ikki yuz ming soʻm, nol tiyin"),
     (10_000_000.0, "oʻn million soʻm, nol tiyin"),
-    (10222.0, "oʻn ming ikki yuz yigirma ikki soʻm, nol tiyin"),
+    (1_000_000_000.0, "bir milliard soʻm, nol tiyin"),
+    (10_000_000_000.0, "oʻn milliard soʻm, nol tiyin"),
+    (10_101_101_101.101, "oʻn milliard bir yuz bir million bir yuz bir ming bir yuz bir soʻm, oʻn tiyin"),
+    (77_777_777.77, "yetmish yetti million yetti yuz yetmish yetti ming yetti yuz yetmish yetti soʻm, yetmish yetti tiyin"),
 )
+
+TEST_CASES_ORDINAL = (
+    (1, "birinchi"),
+    (2, "ikkinchi"),
+    (3, "uchinchi"),
+    (4, "toʻrtinchi"),
+    (5, "beshinchi"),
+    (6, "oltinchi"),
+    (7, "yettinchi"),
+    (8, "sakkizinchi"),
+    (9, "toʻqqizinchi"),
+    (10, "oʻninchi"),
+    (11, "oʻn birinchi"),
+    (12, "oʻn ikkinchi"),
+    (20, "yigirmanchi"),
+    (21, "yigirma birinchi"),
+    (30, "oʻttizinchi"),
+    (40, "qirqinchi"),
+    (50, "ellikinchi"),
+    (60, "oltmishinchi"),
+    (70, "yetmishinchi"),
+    (80, "saksoninchi"),
+    (90, "toʻqsoninchi"),
+    (100, "bir yuzinchi"),
+    (101, "bir yuz birinchi"),
+    (200, "ikki yuzinchi"),
+    (1000, "bir minginchi"),
+    (1001, "bir ming birinchi"),
+    (1945, "bir ming toʻqqiz yuz qirq beshinchi"),
+    (1990, "bir ming toʻqqiz yuz toʻqsoninchi"),
+    (1991, "bir ming toʻqqiz yuz toʻqson birinchi"),
+    (2019, "ikki ming oʻn toʻqqizinchi"),
+    (2025, "ikki ming yigirma beshinchi"),
+    (3333, "uch ming uch yuz oʻttiz uchinchi"),
+    (3456, "uch ming toʻrt yuz ellik oltinchi"),
+    (11111, "oʻn bir ming bir yuz oʻn birinchi"),
+    (222222, "ikki yuz yigirma ikki ming ikki yuz yigirma ikkinchi"),
+    (1000000, "bir millioninchi"),
+    (1000001, "bir million birinchi"),
+    (1001001, "bir million bir ming birinchi"),
+    (1101010, "bir million bir yuz oʻn ming oʻninchi"),
+    (2002002, "ikki million ikki ming ikkinchi"),
+    (70707070, "yetmish million yetti yuz yetti ming yetmishinchi"),
+    (777777777, 
+    "yetti yuz yetmish yetti million yetti yuz "
+    "yetmish yetti ming yetti yuz yetmish yettinchi"),
+    (1234567890, 
+    "bir milliard ikki yuz oʻttiz toʻrt million "
+    "besh yuz oltmish yetti ming sakkiz yuz toʻqsoninchi"),
+    (99999999999999999, 
+     "toʻqqiz yuz toʻqson toʻqqiz trillion toʻqqiz yuz "
+     "toʻqson toʻqqiz milliard toʻqqiz yuz toʻqson toʻqqiz million "
+     "toʻqqiz yuz toʻqson toʻqqiz ming toʻqqiz yuz toʻqson toʻqqizinchi"),
+    (12345678900987654321, 
+     "oʻn ikki kvadrillion uch yuz qirq besh trillion "
+    "yett yuz sakson yetti milliard toʻqqiz yuz toʻqqiz million "
+    "sakson yetti ming toʻrt yuz oʻttiz birinchi"),
+)
+
+class TestNum2WordsUZ(TestCase):
+
+    def test_cardinal(self):
+        for number, expected in TEST_CASES_CARDINAL:
+            self.assertEqual(num2words(number, lang='uz'), expected)
+
+    def test_currency(self):
+        for number, expected in TEST_CASES_TO_CURRENCY_UZS:
+            self.assertEqual(num2words(number, lang='uz', to='currency'), expected)
+
+    def test_ordinal(self):
+        for number, expected in TEST_CASES_ORDINAL:
+            self.assertEqual(num2words(number, lang='uz', to='ordinal'), expected)

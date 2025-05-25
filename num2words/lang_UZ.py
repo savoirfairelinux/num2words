@@ -64,11 +64,29 @@ THOUSANDS = {
 
 class Num2Word_UZ(Num2Word_Base):
     CURRENCY_FORMS = {
-        'USD': ('dollar', 'sent'),
-        'UZS': ('soʻm', 'tiyin'),
-        'RUB': ('rubl', 'kopek'),
-        'EUR': ('yevro', 'sent'),
-        'GBP': ('funt', 'pens'),
+        'USD': ('dollar', 'sent'),                  # AQSh (Amerika Qo‘shma Shtatlari)
+        'UZS': ('soʻm', 'tiyin'),                   # Oʻzbekiston
+        'RUB': ('rubl', 'kopek'),                   # Rossiya
+        'EUR': ('yevro', 'sent'),                   # Yevro hududi (Yevropa Ittifoqi davlatlari)
+        'GBP': ('funt', 'pens'),                    # Buyuk Britaniya
+        'KZT': ('tenge', 'tiyin'),                  # Qozogʻiston
+        'TJS': ('somoniy', 'diram'),                # Tojikiston
+        'CNY': ('yuan', 'feni'),                    # Xitoy
+        'JPY': ('yen', 'sen'),                      # Yaponiya
+        'KRW': ('von', 'chon'),                     # Janubiy Koreya
+        'TRY': ('lira', 'kuruş'),                   # Turkiya
+        'INR': ('rupiy', 'paysa'),                  # Hindiston
+        'SAR': ('riyal', 'halala'),                 # Saudiya Arabistoni
+        'CHF': ('frank', 'rappen'),                 # Shveytsariya
+        'AFN': ('afgʻoniy', 'pul'),                 # Afgʻoniston
+        'BRL': ('real', 'sentavo'),                 # Braziliya
+        'IRR': ('rial', 'dinor'),                   # Eron
+        'IDR': ('rupiya', 'sen'),                   # Indoneziya
+        'TMT': ('manat', 'tenge'),                  # Turkmaniston
+        'KGS': ('som', 'tiyin'),                    # Qirgʻiziston
+        'EGP': ('misr funti', 'piastr'),            # Misr
+        'AED': ('dirham', 'fils'),                  # Birlashgan Arab Amirliklari (BAA)
+        'KWD': ('quvayt dinori', 'fils'),           # Quvayt
     }
 
     def setup(self):
@@ -130,4 +148,55 @@ class Num2Word_UZ(Num2Word_Base):
         return ' '.join(words)
 
     def to_ordinal(self, number):
-        raise NotImplementedError()
+        """
+        Convert number to ordinal word in Uzbek.
+        For example:
+          1 -> birinchi
+          2 -> ikkinchi
+          3 -> uchinchi
+          4 -> toʻrtinchi
+          10 -> oʻninchi
+          21 -> yigirmanchi birinchi (note: complex ordinals may need improvements)
+        """
+        if not isinstance(number, int):
+            raise ValueError("Ordinal conversion supports integers only")
+
+        if number == 0:
+            return ZERO  # nol is zero, ordinal form is not common
+
+        # Get the cardinal form as list of words
+        cardinal_words = self._int2word(number).split()
+
+        # Uzbek ordinal suffixes vary depending on last digit.
+        # We'll handle common base words with special forms:
+        special_ordinals = {
+            'bir': 'birinchi',
+            'ikki': 'ikkinchi',
+            'uch': 'uchinchi',
+            'toʻrt': 'toʻrtinchi',
+            'besh': 'beshinchi',
+            'olti': 'oltinchi',
+            'yetti': 'yettinchi',
+            'sakkiz': 'sakkizinchi',
+            'toʻqqiz': 'toʻqqizinchi',
+            'oʻn': 'oʻninchi',
+            'yigirma': 'yigirmanchi',
+            'oʻttiz': 'oʻttizinchi',
+            'qirq': 'qirqinchi',
+            'ellik': 'ellikinchi',
+            'oltmish': 'oltmishinchi',
+            'yetmish': 'yetmishinchi',
+            'sakson': 'saksoninchi',
+            'toʻqson': 'toʻqsoninchi',
+            'bir yuz': 'bir yuzinchi',
+        }
+
+        last_word = cardinal_words[-1]
+
+        if last_word in special_ordinals:
+            cardinal_words[-1] = special_ordinals[last_word]
+        else:
+            # For compound words or words not in dictionary, just add 'inchi'
+            cardinal_words[-1] = last_word + 'inchi'
+
+        return ' '.join(cardinal_words)
