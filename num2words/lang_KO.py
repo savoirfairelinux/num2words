@@ -93,7 +93,7 @@ class Num2Word_KO(Num2Word_Base):
 
     def to_ordinal(self, value):
         self.verify_ordinal(value)
-        if(value == 1):
+        if value == 1:
             return "첫 번째"
         outwords = self.to_cardinal(value).split(" ")
         lastwords = outwords[-1].split("백")
@@ -123,7 +123,7 @@ class Num2Word_KO(Num2Word_Base):
         return ("%s년" % valtext if not suffix
                 else "%s %s년" % (suffix, valtext))
 
-    def to_currency(self, val, currency="KRW", cents=False, seperator="",
+    def to_currency(self, val, currency="KRW", cents=False, separator="",
                     adjective=False):
         left, right, is_negative = parse_currency_parts(
             val, is_int_with_cents=cents)

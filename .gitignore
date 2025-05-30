@@ -4,3 +4,6 @@ dist
 .idea/
 *.egg-info
 /.tox
+.eggs/
+/venv/
+.venv/

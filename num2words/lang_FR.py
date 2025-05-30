@@ -21,6 +21,14 @@ from .lang_EU import Num2Word_EU
 
 
 class Num2Word_FR(Num2Word_EU):
+    CURRENCY_FORMS = {
+        'EUR': (('euro', 'euros'), ('centime', 'centimes')),
+        'USD': (('dollar', 'dollars'), ('cent', 'cents')),
+        'FRF': (('franc', 'francs'), ('centime', 'centimes')),
+        'GBP': (('livre', 'livres'), ('penny', 'pence')),
+        'CNY': (('yuan', 'yuans'), ('fen', 'jiaos')),
+    }
+
     def setup(self):
         Num2Word_EU.setup(self)
 
@@ -29,7 +37,9 @@ class Num2Word_FR(Num2Word_EU):
         self.errmsg_nonnum = (
             u"Seulement des nombres peuvent être convertis en mots."
             )
-        self.errmsg_toobig = u"Nombre trop grand pour être converti en mots."
+        self.errmsg_toobig = (
+            u"Nombre trop grand pour être converti en mots (abs(%s) > %s)."
+            )
         self.exclude_title = ["et", "virgule", "moins"]
         self.mid_numwords = [(1000, "mille"), (100, "cent"),
                              (80, "quatre-vingts"), (60, "soixante"),
@@ -89,13 +99,12 @@ class Num2Word_FR(Num2Word_EU):
     def to_ordinal_num(self, value):
         self.verify_ordinal(value)
         out = str(value)
-        out += {"1": "er"}.get(out[-1], "me")
+        out += "er" if value == 1 else "me"
         return out
 
-    def to_currency(self, val, longval=True, old=False):
-        hightxt = "euro/s"
-        if old:
-            hightxt = "franc/s"
-        cents = int(round(val*100))
-        return self.to_splitnum(cents, hightxt=hightxt, lowtxt="centime/s",
-                                divisor=100, jointxt="et", longval=longval)
+    def to_currency(self, val, currency='EUR', cents=True, separator=' et',
+                    adjective=False):
+        result = super(Num2Word_FR, self).to_currency(
+            val, currency=currency, cents=cents, separator=separator,
+            adjective=adjective)
+        return result

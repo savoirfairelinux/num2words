@@ -22,7 +22,10 @@ from .lang_EU import Num2Word_EU
 
 class Num2Word_NL(Num2Word_EU):
     CURRENCY_FORMS = {
-        'EUR': (('euro', 'euros'), ('cent', 'cents')),
+        'EUR': (('euro', 'euro'), ('cent', 'cent')),
+        'GBP': (('pond', 'pond'), ('penny', 'pence')),
+        'USD': (('dollar', 'dollar'), ('cent', 'cent')),
+        'CNY': (('yuan', 'yuan'), ('jiao', 'fen')),
     }
 
     GIGA_SUFFIX = "iljard"
@@ -73,7 +76,10 @@ class Num2Word_NL(Num2Word_EU):
                              "zes", "vijf", "vier", "drie", "twee", "één",
                              "nul"]
 
-        self.ords = {"één": "eerst",
+        # Wiktionary says it is "nulde", not "nulte" or "nule"
+        # https://en.wiktionary.org/wiki/nulde
+        self.ords = {"nul": "nuld",
+                     "één": "eerst",
                      "twee": "tweed",
                      "drie": "derd",
                      "vier": "vierd",
@@ -132,7 +138,7 @@ class Num2Word_NL(Num2Word_EU):
 
     def to_ordinal_num(self, value):
         self.verify_ordinal(value)
-        return str(value) + "."
+        return str(value) + "e"
 
     def pluralize(self, n, forms):
         """

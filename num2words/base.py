@@ -94,8 +94,11 @@ class Num2Word_Base(object):
         """Detach minus and return it as symbol with new num_str."""
         if num_str.startswith('-'):
             # Extra spacing to compensate if there is no minus.
-            return '%s ' % self.negword, num_str[1:]
+            return '%s ' % self.negword.strip(), num_str[1:]
         return '', num_str
+
+    def str_to_number(self, value):
+        return Decimal(value)
 
     def to_cardinal(self, value):
         try:
@@ -106,7 +109,7 @@ class Num2Word_Base(object):
         out = ""
         if value < 0:
             value = abs(value)
-            out = self.negword
+            out = "%s " % self.negword.strip()
 
         if value >= self.MAXVAL:
             raise OverflowError(self.errmsg_toobig % (value, self.MAXVAL))
@@ -136,7 +139,7 @@ class Num2Word_Base(object):
     def to_cardinal_float(self, value):
         try:
             float(value) == value
-        except (ValueError, TypeError, AssertionError):
+        except (ValueError, TypeError, AssertionError, AttributeError):
             raise TypeError(self.errmsg_nonnum % value)
 
         pre, post = self.float2tuple(float(value))
@@ -145,6 +148,9 @@ class Num2Word_Base(object):
         post = '0' * (self.precision - len(post)) + post
 
         out = [self.to_cardinal(pre)]
+        if value < 0 and pre == 0:
+            out = [self.negword.strip()] + out
+
         if self.precision:
             out.append(self.title(self.pointword))
 
@@ -254,24 +260,28 @@ class Num2Word_Base(object):
         """
         raise NotImplementedError
 
+    def _money_verbose(self, number, currency):
+        return self.to_cardinal(number)
+
     def _cents_verbose(self, number, currency):
         return self.to_cardinal(number)
 
     def _cents_terse(self, number, currency):
         return "%02d" % number
 
-    def to_currency(self, val, currency='EUR', cents=True, seperator=',',
+    def to_currency(self, val, currency='EUR', cents=True, separator=',',
                     adjective=False):
         """
         Args:
             val: Numeric value
             currency (str): Currency code
             cents (bool): Verbose cents
-            seperator (str): Cent seperator
+            separator (str): Cent separator
             adjective (bool): Prefix currency name with adjective
         Returns:
             str: Formatted string
 
+        Handles whole numbers and decimal numbers differently
         """
         left, right, is_negative = parse_currency_parts(val)
 
@@ -286,18 +296,33 @@ class Num2Word_Base(object):
         if adjective and currency in self.CURRENCY_ADJECTIVES:
             cr1 = prefix_currency(self.CURRENCY_ADJECTIVES[currency], cr1)
 
-        minus_str = "%s " % self.negword if is_negative else ""
-        cents_str = self._cents_verbose(right, currency) \
-            if cents else self._cents_terse(right, currency)
+        minus_str = "%s " % self.negword.strip() if is_negative else ""
+        money_str = self._money_verbose(left, currency)
 
-        return u'%s%s %s%s %s %s' % (
-            minus_str,
-            self.to_cardinal(left),
-            self.pluralize(left, cr1),
-            seperator,
-            cents_str,
-            self.pluralize(right, cr2)
-        )
+        # Explicitly check if input has decimal point or non-zero cents
+        has_decimal = isinstance(val, float) or str(val).find('.') != -1
+
+        # Only include cents if:
+        # 1. Input has decimal point OR
+        # 2. Cents are non-zero
+        if has_decimal or right > 0:
+            cents_str = self._cents_verbose(right, currency) \
+                if cents else self._cents_terse(right, currency)
+
+            return u'%s%s %s%s %s %s' % (
+                minus_str,
+                money_str,
+                self.pluralize(left, cr1),
+                separator,
+                cents_str,
+                self.pluralize(right, cr2)
+            )
+        else:
+            return u'%s%s %s' % (
+                minus_str,
+                money_str,
+                self.pluralize(left, cr1)
+            )
 
     def setup(self):
         pass

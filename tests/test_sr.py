@@ -87,6 +87,14 @@ class Num2WordsSRTest(TestCase):
     def test_floating_point(self):
         self.assertEqual("pet zapeta dva", num2words(5.2, lang='sr'))
         self.assertEqual(
+            num2words(10.02, lang='sr'),
+            "deset zapeta nula dva"
+        )
+        self.assertEqual(
+            num2words(15.007, lang='sr'),
+            "petnaest zapeta nula nula sedam"
+        )
+        self.assertEqual(
             "petsto šezdeset jedan zapeta četrdeset dva",
             num2words(561.42, lang='sr')
         )
@@ -203,7 +211,7 @@ class Num2WordsSRTest(TestCase):
                 lang='sr',
                 to='currency',
                 currency='EUR',
-                seperator=' i'
+                separator=' i'
             )
         )
         self.assertEqual(
@@ -213,18 +221,18 @@ class Num2WordsSRTest(TestCase):
                 lang='sr',
                 to='currency',
                 currency='RUB',
-                seperator=' i'
+                separator=' i'
             )
         )
         self.assertEqual(
             'sto jedna rublja i dvadeset dve kopejke',
             num2words(10122, lang='sr', to='currency', currency='RUB',
-                      seperator=' i')
+                      separator=' i')
         )
         self.assertEqual(
             'sto jedan evro i dvadeset jedan cent',
             num2words(10121, lang='sr', to='currency', currency='EUR',
-                      seperator=' i'),
+                      separator=' i'),
         )
         self.assertEqual(
             'minus dvanaest hiljada petsto devetnaest evra, 85 centi',
@@ -238,6 +246,6 @@ class Num2WordsSRTest(TestCase):
         )
         self.assertEqual(
             "trideset osam evra i 40 centi",
-            num2words('38.4', lang='sr', to='currency', seperator=' i',
+            num2words('38.4', lang='sr', to='currency', separator=' i',
                       cents=False, currency='EUR'),
         )

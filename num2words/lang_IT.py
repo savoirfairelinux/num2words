@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (c) 2003, Taro Ogawa.  All Rights Reserved.
-# Copyright (c) 2013, Savoir-faire Linux inc.  All Rights Reserved.
+# Copyright (c) 2018-2019, Filippo Costa.  All Rights Reserved.
 
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -16,6 +15,8 @@
 # MA 02110-1301 USA
 
 from __future__ import unicode_literals
+
+from .lang_EU import Num2Word_EU
 
 # Globals
 # -------
@@ -44,55 +45,26 @@ EXPONENT_PREFIXES = [
 ]
 
 
-# Utils
-# =====
-
-def phonetic_contraction(string):
-    return (string
-            .replace("oo", "o")  # ex. "centootto"
-            .replace("ao", "o")  # ex. "settantaotto"
-            .replace("io", "o")  # ex. "ventiotto"
-            .replace("au", "u")  # ex. "trentauno"
-            )
-
-
-def exponent_length_to_string(exponent_length):
-    # We always assume `exponent` to be a multiple of 3. If it's not true, then
-    # Num2Word_IT.big_number_to_cardinal did something wrong.
-    prefix = EXPONENT_PREFIXES[exponent_length // 6]
-    if exponent_length % 6 == 0:
-        return prefix + "ilione"
-    else:
-        return prefix + "iliardo"
-
-
-def accentuate(string):
-    # This is inefficient: it may do several rewritings when deleting
-    # half-sentence accents. However, it is the easiest method and speed is
-    # not crucial (duh), so...
-    return " ".join(
-        # Deletes half-sentence accents and accentuates the last "tre"
-        [w.replace("tré", "tre")[:-3] + "tré"
-         # We shouldn't accentuate a single "tre": is has to be a composite
-         # word.                ~~~~~~~~~~
-         if w[-3:] == "tre" and len(w) > 3
-         # Deletes half-sentence accents anyway
-         #     ~~~~~~~~~~~~~~~~~~~~~~
-         else w.replace("tré", "tre")
-         for w in string.split()
-         ])
-
-
-def omitt_if_zero(number_to_string):
-    return "" if number_to_string == ZERO else number_to_string
+GENERIC_DOLLARS = ('dollaro', 'dollari')
+GENERIC_CENTS = ('centesimo', 'centesimi')
+CURRENCIES_UNA = ('GBP')
 
 
 # Main class
 # ==========
 
-class Num2Word_IT:
+class Num2Word_IT(Num2Word_EU):
+    CURRENCY_FORMS = {
+        'EUR': (('euro', 'euro'), GENERIC_CENTS),
+        'USD': (GENERIC_DOLLARS, GENERIC_CENTS),
+        'GBP': (('sterlina', 'sterline'), ('penny', 'penny')),
+        'CNY': (('yuan', 'yuan'), ('fen', 'fen')),
+    }
     MINUS_PREFIX_WORD = "meno "
     FLOAT_INFIX_WORD = " virgola "
+
+    def setup(self):
+        Num2Word_EU.setup(self)
 
     def __init__(self):
         pass
@@ -171,16 +143,16 @@ class Num2Word_IT:
     def to_cardinal(self, number):
         if number < 0:
             string = Num2Word_IT.MINUS_PREFIX_WORD + self.to_cardinal(-number)
-        elif isinstance(number, float):
+        elif int(number) != number:
             string = self.float_to_words(number)
         elif number < 20:
-            string = CARDINAL_WORDS[number]
+            string = CARDINAL_WORDS[int(number)]
         elif number < 100:
-            string = self.tens_to_cardinal(number)
+            string = self.tens_to_cardinal(int(number))
         elif number < 1000:
-            string = self.hundreds_to_cardinal(number)
+            string = self.hundreds_to_cardinal(int(number))
         elif number < 1000000:
-            string = self.thousands_to_cardinal(number)
+            string = self.thousands_to_cardinal(int(number))
         else:
             string = self.big_number_to_cardinal(number)
         return accentuate(string)
@@ -195,9 +167,9 @@ class Num2Word_IT:
         elif number % 1 != 0:
             return self.float_to_words(number, ordinal=True)
         elif number < 20:
-            return ORDINAL_WORDS[number]
+            return ORDINAL_WORDS[int(number)]
         elif is_outside_teens and tens % 10 == 3:
-            # Gets ride of the accent      ~~~~~~~~~~
+            # Gets rid of the accent
             return self.to_cardinal(number)[:-1] + "eesimo"
         elif is_outside_teens and tens % 10 == 6:
             return self.to_cardinal(number) + "esimo"
@@ -206,3 +178,64 @@ class Num2Word_IT:
             if string[-3:] == "mil":
                 string += "l"
             return string + "esimo"
+
+    def to_currency(self, val, currency='EUR', cents=True, separator=' e',
+                    adjective=False):
+        result = super(Num2Word_IT, self).to_currency(
+            val, currency=currency, cents=cents, separator=separator,
+            adjective=adjective)
+        # Handle exception. In italian language is "un euro",
+        # "un dollaro" etc. (not "uno euro", "uno dollaro").
+        # There is an exception, some currencies need "una":
+        # e.g. "una sterlina"
+        if currency in CURRENCIES_UNA:
+            list_result = result.split(" ")
+            if list_result[0] == "uno":
+                list_result[0] = list_result[0].replace("uno", "una")
+                result = " ".join(list_result)
+        result = result.replace("uno", "un")
+        return result
+
+# Utils
+# =====
+
+
+def phonetic_contraction(string):
+    return (string
+            .replace("oo", "o")  # ex. "centootto"
+            .replace("ao", "o")  # ex. "settantaotto"
+            .replace("io", "o")  # ex. "ventiotto"
+            .replace("au", "u")  # ex. "trentauno"
+            .replace("iu", "u")  # ex. "ventiunesimo"
+            )
+
+
+def exponent_length_to_string(exponent_length):
+    # We always assume `exponent` to be a multiple of 3. If it's not true, then
+    # Num2Word_IT.big_number_to_cardinal did something wrong.
+    prefix = EXPONENT_PREFIXES[exponent_length // 6]
+    if exponent_length % 6 == 0:
+        return prefix + "ilione"
+    else:
+        return prefix + "iliardo"
+
+
+def accentuate(string):
+    # This is inefficient: it may do several rewritings when deleting
+    # half-sentence accents. However, it is the easiest method and speed is
+    # not crucial (duh), so...
+    return " ".join(
+        # Deletes half-sentence accents and accentuates the last "tre"
+        [w.replace("tré", "tre")[:-3] + "tré"
+         # We shouldn't accentuate a single "tre": is has to be a composite
+         # word.                ~~~~~~~~~~
+         if w[-3:] == "tre" and len(w) > 3
+         # Deletes half-sentence accents anyway
+         #     ~~~~~~~~~~~~~~~~~~~~~~
+         else w.replace("tré", "tre")
+         for w in string.split()
+         ])
+
+
+def omitt_if_zero(number_to_string):
+    return "" if number_to_string == ZERO else number_to_string

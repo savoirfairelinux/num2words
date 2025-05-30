@@ -1,5 +1,5 @@
-num2words - Convert numbers to words in multiple languages
-==========================================================
+num2words library - Convert numbers to words in multiple languages
+==================================================================
 
 .. image:: https://img.shields.io/pypi/v/num2words.svg
    :target: https://pypi.python.org/pypi/num2words
@@ -51,7 +51,7 @@ Command line::
     $ num2words 24,120.10 -l es
     veinticuatro mil ciento veinte punto uno
     $num2words 2.14 -l es --to currency
-    dos euros con catorce centimos
+    dos euros con catorce céntimos
 
 In code there's only one function to use::
 
@@ -63,7 +63,7 @@ In code there's only one function to use::
     >>> num2words(42, lang='fr')
     quarante-deux
 
-Besides the numerical argument, there are two main optional arguments.
+Besides the numerical argument, there are two main optional arguments, ``to:`` and ``lang:``
 
 **to:** The converter to use. Supported values are:
 
@@ -76,42 +76,68 @@ Besides the numerical argument, there are two main optional arguments.
 **lang:** The language in which to convert the number. Supported values are:
 
 * ``en`` (English, default)
+* ``am`` (Amharic)
 * ``ar`` (Arabic)
-* ``cz`` (Czech)
+* ``az`` (Azerbaijani)
+* ``be`` (Belarusian)
+* ``bn`` (Bangladeshi)
+* ``ca`` (Catalan)
+* ``ce`` (Chechen)
+* ``cs`` (Czech)
+* ``cy`` (Welsh)
+* ``da`` (Danish)
 * ``de`` (German)
-* ``dk`` (Danish)
 * ``en_GB`` (English - Great Britain)
 * ``en_IN`` (English - India)
+* ``en_NG`` (English - Nigeria)
 * ``es`` (Spanish)
 * ``es_CO`` (Spanish - Colombia)
+* ``es_CR`` (Spanish - Costa Rica)
+* ``es_GT`` (Spanish - Guatemala)
 * ``es_VE`` (Spanish - Venezuela)
 * ``eu`` (EURO)
+* ``fa`` (Farsi)
 * ``fi`` (Finnish)
 * ``fr`` (French)
-* ``fr_CH`` (French - Switzerland)
 * ``fr_BE`` (French - Belgium)
+* ``fr_CH`` (French - Switzerland)
 * ``fr_DZ`` (French - Algeria)
 * ``he`` (Hebrew)
+* ``hi`` (Hindi)
+* ``hu`` (Hungarian)
+* ``hy`` (Armenian)
 * ``id`` (Indonesian)
+* ``is`` (Icelandic)
 * ``it`` (Italian)
 * ``ja`` (Japanese)
+* ``kn`` (Kannada)
 * ``ko`` (Korean)
+* ``kz`` (Kazakh)
+* ``mn`` (Mongolian)
 * ``lt`` (Lithuanian)
 * ``lv`` (Latvian)
+* ``nl`` (Dutch)
 * ``no`` (Norwegian)
 * ``pl`` (Polish)
 * ``pt`` (Portuguese)
 * ``pt_BR`` (Portuguese - Brazilian)
-* ``sl`` (Slovene)
-* ``sr`` (Serbian)
 * ``ro`` (Romanian)
 * ``ru`` (Russian)
 * ``sl`` (Slovene)
+* ``sk`` (Slovak)
+* ``sr`` (Serbian)
+* ``sv`` (Swedish)
+* ``te`` (Telugu)
+* ``tet`` (Tetum)
+* ``tg`` (Tajik)
 * ``tr`` (Turkish)
 * ``th`` (Thai)
-* ``vi`` (Vietnamese)
-* ``nl`` (Dutch)
 * ``uk`` (Ukrainian)
+* ``vi`` (Vietnamese)
+* ``zh`` (Chinese - Traditional)
+* ``zh_CN`` (Chinese - Simplified / Mainland China)
+* ``zh_TW`` (Chinese - Traditional / Taiwan)
+* ``zh_HK`` (Chinese - Traditional / Hong Kong)
 
 You can supply values like ``fr_FR``; if the country doesn't exist but the
 language does, the code will fall back to the base language (i.e. ``fr``). If
