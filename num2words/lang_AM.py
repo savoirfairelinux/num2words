@@ -98,6 +98,8 @@ class Num2Word_AM(lang_EU.Num2Word_EU):
             return '%s %s' % (ltext, rtext), lnum + rnum
         elif rnum > lnum:
             return '%s %s' % (ltext, rtext), lnum * rnum
+        # Default case: safely add if nothing else matches
+        return '%s %s' % (ltext, rtext), lnum + rnum
 
     def to_ordinal(self, value):
         self.verify_ordinal(value)
