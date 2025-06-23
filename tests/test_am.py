@@ -92,3 +92,17 @@ class Num2WordsAMTest(TestCase):
                          'አንድ ሺህ ስድሳ ስድስት')
         self.assertEqual(num2words(1865, lang='am', to='year'),
                          'አሥራ ስምንት መቶ ስድሳ አምስት')
+        
+    def test_cardinal_trigger_merge_success(self):
+        try:
+            num2words(1210, lang='am')
+        except Exception as e:
+            self.fail(f"num2words(1210, lang='am') raised an unexpected exception: {e}")
+
+    def test_cardinal_large_numbers_success(self):
+        try:
+            num2words(1000000, lang='am')
+            num2words(1000000000, lang='am')
+        except Exception as e:
+            self.fail(f"num2words(large number, lang='am') raised an unexpected exception: {e}")
+
