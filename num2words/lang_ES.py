@@ -35,7 +35,7 @@ class Num2Word_ES(Num2Word_EU):
     CURRENCY_FORMS = {
         'EUR': (('euro', 'euros'), ('céntimo', 'céntimos')),
         'ESP': (('peseta', 'pesetas'), ('céntimo', 'céntimos')),
-        'USD': (GENERIC_DOLLARS, GENERIC_CENTS),
+        'USD': (('dólar', 'dólares'), ('centavo', 'centavos')),
         'PEN': (('sol', 'soles'), ('céntimo', 'céntimos')),
         'CRC': (('colón', 'colones'), GENERIC_CENTS),
         'AUD': (GENERIC_DOLLARS, GENERIC_CENTS),
