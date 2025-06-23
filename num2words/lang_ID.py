@@ -17,8 +17,9 @@
 
 from __future__ import print_function, unicode_literals
 
+from .base import Num2Word_Base
 
-class Num2Word_ID():
+class Num2Word_ID(Num2Word_Base):
     BASE = {0: [],
             1: ["satu"],
             2: ["dua"],
@@ -47,10 +48,10 @@ class Num2Word_ID():
     errmsg_toobig = "Number is too large to convert to words (abs(%s) > %s)."
     MAXVAL = 10 ** 36
 
-    def split_by_koma(self, number):
+    def split_by_comma(self, number):
         return str(number).split('.')
 
-    def split_by_3(self, number):
+    def split_by_three(self, number):
         """
         starting here, it groups the number by three from the tail
         '1234567' -> (('1',),('234',),('567',))
@@ -175,10 +176,10 @@ class Num2Word_ID():
         if number < 0:
             minus = 'min '
         float_word = ''
-        n = self.split_by_koma(abs(number))
+        n = self.split_by_comma(abs(number))
         if len(n) == 2:
             float_word = self.spell_float(n[1])
-        return minus + self.join(self.spell(self.split_by_3(n[0])), float_word)
+        return minus + self.join(self.spell(self.split_by_three(n[0])), float_word)
 
     def to_ordinal(self, number):
         self.verify_ordinal(number)
