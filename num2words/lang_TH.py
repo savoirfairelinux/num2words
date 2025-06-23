@@ -17,9 +17,9 @@
 
 from __future__ import unicode_literals
 
-from num2words.base import Num2Word_Base
-from num2words.currency import parse_currency_parts
-from num2words.utils import splitbyx
+from .base import Num2Word_Base
+from .currency import parse_currency_parts
+from .utils import splitbyx
 
 
 class Num2Word_TH(Num2Word_Base):
