@@ -208,12 +208,19 @@ class Num2Word_ES(Num2Word_EU):
         'ZWL': (GENERIC_DOLLARS, ('céntimo', 'céntimos')),
     }
 
-    # //CHECK: Is this sufficient??
     GIGA_SUFFIX = None
     MEGA_SUFFIX = "illón"
 
+    def set_high_numwords(self, high):
+        max = 3 + 3 * len(high)
+        for word, n in zip(high, range(max, 3, -3)):
+            if n % 6 == 0:
+                self.cards[10 ** n] = word + self.MEGA_SUFFIX
+            else:
+                self.cards[10 ** n] = "mil " + word + self.MEGA_SUFFIX
+
     def setup(self):
-        lows = ["cuatr", "tr", "b", "m"]
+        lows = ["cuatr", "cuatr", "tr", "tr", "b", "b", "m", "m"]
         self.high_numwords = self.gen_high_numwords([], [], lows)
         self.negword = "menos "
         self.pointword = "punto"
@@ -277,15 +284,24 @@ class Num2Word_ES(Num2Word_EU):
         if cnum == 1:
             if nnum < 1000000:
                 return next
-            ctext = "un"
+            if nnum >= 1000000000 and "mil " in ntext:
+                ctext = ""
+            else:
+                ctext = "un"
         elif cnum == 100 and not nnum % 1000 == 0:
             ctext += "t" + self.gender_stem
 
         if nnum < cnum:
-            if cnum < 100:
+            if cnum == 1000000000 and nnum > 1:
+                ctext = ctext[:-3] + "lones"
+            elif cnum < 100:
                 return "%s y %s" % (ctext, ntext), cnum + nnum
             return "%s %s" % (ctext, ntext), cnum + nnum
-        elif (not nnum % 1000000) and cnum > 1:
+
+        is_mil_multiple = nnum % 1000000 == 0 and cnum > 1
+        contains_mil = nnum >= 1000000000 and "mil " in ntext
+
+        if is_mil_multiple or contains_mil:
             ntext = ntext[:-3] + "lones"
 
         if nnum == 100:
@@ -300,6 +316,10 @@ class Num2Word_ES(Num2Word_EU):
         else:
             ntext = " " + ntext
 
+        if ctext == "":
+            result = " ".join([ctext, ntext])
+            result = result.strip()
+            return (result, cnum * nnum)
         return (ctext + ntext, cnum * nnum)
 
     def to_ordinal(self, value, gender='m'):
