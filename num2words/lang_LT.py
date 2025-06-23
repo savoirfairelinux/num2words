@@ -79,10 +79,10 @@ THOUSANDS = {
     4: ('trilijonas', 'trilijonai', 'trilijonų'),
     5: ('kvadrilijonas', 'kvadrilijonai', 'kvadrilijonų'),
     6: ('kvintilijonas', 'kvintilijonai', 'kvintilijonų'),
-    7: ('sikstilijonas', 'sikstilijonai', 'sikstilijonų'),
+    7: ('sekstilijonas', 'sekstilijonai', 'sekstilijonų'),
     8: ('septilijonas', 'septilijonai', 'septilijonų'),
     9: ('oktilijonas', 'oktilijonai', 'oktilijonų'),
-    10: ('naintilijonas', 'naintilijonai', 'naintilijonų'),
+    10: ('nonilijonas', 'nonilijonai', 'nonilijonų'),
 }
 
 GENERIC_CENTS = ('centas', 'centai', 'centų')
