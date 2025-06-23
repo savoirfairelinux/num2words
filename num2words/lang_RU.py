@@ -22,8 +22,8 @@ from .utils import get_digits, splitbyx
 
 GENDER_PLURAL_INDEXES = {
     'm': 0, 'masculine': 0, 'м': 0, 'мужской': 0,
-    'f': 1, 'feminine': 1, 'ж': 0, 'женский': 0,
-    'n': 2, 'neuter': 2, 'с': 0, 'средний': 0,
+    'f': 1, 'feminine': 1, 'ж': 1, 'женский': 1,
+    'n': 2, 'neuter': 2, 'с': 2, 'средний': 2,
     'p': 3, 'plural': 3
 }
 CASE_INDEXES = {
