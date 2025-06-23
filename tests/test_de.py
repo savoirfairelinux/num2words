@@ -52,7 +52,7 @@ TEST_CASES_TO_CURRENCY_GBP = (
 )
 
 TEST_CASES_TO_CURRENCY_DEM = (
-    (1.00, 'ein Mark und null Pfennig'),
+    (1.00, 'eine Mark und null Pfennig'), # in contrast to Euro, Dollar & Pound, "die Mark" is feminine
     (2.01, 'zwei Mark und ein Pfennig'),
     (8.10, 'acht Mark und zehn Pfennig'),
     (12.26, 'zwölf Mark und sechsundzwanzig Pfennig'),
