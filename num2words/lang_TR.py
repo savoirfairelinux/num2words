@@ -852,5 +852,10 @@ class Num2Word_TR(Num2Word_Base):
         if len(valueparts) == 1:
             return valueparts[0] + self.CURRENCY_UNIT
         if len(valueparts) == 2:
+             if not valueparts[0] == self.ZERO[0]:
+                return self.CURRENCY_UNIT[0].join(valueparts) + \
+                   self.CURRENCY_SUBUNIT[0]
+            else:
+                return valueparts[1] + self.CURRENCY_SUBUNIT[0]
             return self.CURRENCY_UNIT.join(valueparts) + \
                    self.CURRENCY_SUBUNIT
