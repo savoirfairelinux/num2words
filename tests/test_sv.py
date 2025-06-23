@@ -39,9 +39,9 @@ class Num2WordsSVTest(TestCase):
         self.assertEqual(num2words(3, to="cardinal", lang="sv"), "tre")
         self.assertEqual(num2words(5, to="cardinal", lang="sv"), "fem")
         self.assertEqual(num2words(18, to="cardinal", lang="sv"), "arton")
-        self.assertEqual(num2words(45, to="cardinal", lang="sv"), "förtiofem")
+        self.assertEqual(num2words(45, to="cardinal", lang="sv"), "fyrtiofem")
         self.assertEqual(num2words(1345, to="cardinal", lang="sv"),
-                         "etttusen trehundraförtiofem")
+                         "etttusen trehundrafyrtiofem")
         self.assertEqual(num2words(4435, to="cardinal", lang="sv"),
                          "fyratusen fyrahundratrettiofem")
         self.assertEqual(num2words(1004135, to="cardinal", lang="sv"),
