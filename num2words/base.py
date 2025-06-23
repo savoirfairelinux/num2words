@@ -23,6 +23,7 @@ from decimal import Decimal
 
 from .compat import to_s
 from .currency import parse_currency_parts, prefix_currency
+from .utils import represents_int
 
 
 class Num2Word_Base(object):
@@ -102,7 +103,7 @@ class Num2Word_Base(object):
 
     def to_cardinal(self, value):
         try:
-            assert int(value) == value
+            assert represents_int(value.__str__())
         except (ValueError, TypeError, AssertionError):
             return self.to_cardinal_float(value)
 
