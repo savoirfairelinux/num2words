@@ -30,8 +30,16 @@ class Num2Word_PT(Num2Word_EU):
     CURRENCY_FORMS = {
         'AUD': (DOLLAR, CENTS),
         'CAD': (DOLLAR, CENTS),
+        'NZD': (DOLLAR, CENTS),
+        'HKD': (DOLLAR, CENTS),
         'EUR': (('euro', 'euros'), CENTS),
         'GBP': (('libra', 'libras'), ('péni', 'pence')),
+        'CNY': (('yuan', 'yuans'), ('fen', 'fen')),
+        'JPY': (('iene', 'ienes'), ('sen', 'sen')),
+        'INR': (('rupia', 'rupias'), ('paisa', 'paisas')),
+        'RUB': (('rublo', 'rublos'), ('copeque', 'copeques')),
+        'KRW': (('won', 'wons'), ('jeon', 'jeons')),
+        'MXN': (('peso', 'pesos'), ('centavo', 'centavos')),
         'USD': (DOLLAR, CENTS),
     }
 
