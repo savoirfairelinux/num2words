@@ -129,14 +129,13 @@ class Num2Word_DE(Num2Word_EU):
         if res == "eintausendste" or res == "einhundertste":
             res = res.replace("ein", "", 1)
         # ... similarly for "millionste" etc.
-        res = re.sub(r'eine ([a-z]+(illion|illiard)ste)$',
-                     lambda m: m.group(1), res)
         # Ordinals involving "Million" etc. are written without a space.
         # see https://de.wikipedia.org/wiki/Million#Sprachliches
-        res = re.sub(r' ([a-z]+(illion|illiard)ste)$',
-                     lambda m: m.group(1), res)
-
-        return res
+        return re.sub(
+          r'(?:eine)? ([a-z]+(illion|illiard)ste)$',
+          r'\1',
+          res
+        )
 
     def to_ordinal_num(self, value):
         self.verify_ordinal(value)
