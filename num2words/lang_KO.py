@@ -97,18 +97,17 @@ class Num2Word_KO(Num2Word_Base):
             return "첫 번째"
         outwords = self.to_cardinal(value).split(" ")
         lastwords = outwords[-1].split("백")
-        if "십" in lastwords[-1]:
-            ten_one = lastwords[-1].split("십")
-            ten_one[0] = self.ords[ten_one[0] + "십"]
-            try:
-                ten_one[1] = self.ords[ten_one[1]]
+        idx = -1 if len(lastwords) == 1 else 1
+        if "십" in lastwords[idx]:
+            ten_one = lastwords[idx].split("십")
+            ten_one[0] = self.ords.get((ten_one[0] or "일") + "십", ten_one[0] + "십")
+            if len(ten_one) > 1 and ten_one[1]:
+                ten_one[1] = self.ords.get(ten_one[1], ten_one[1])
                 ten_one[0] = ten_one[0].replace("스무", "스물")
-            except KeyError:
-                pass
-            lastwords[-1] = ''.join(ten_one)
+            lastwords[idx] = ''.join(ten_one)
         else:
-            lastwords[-1] = self.ords[lastwords[-1]]
-        outwords[-1] = "백 ".join(lastwords)
+            lastwords[idx] = self.ords.get(lastwords[idx], lastwords[idx])
+        outwords[-1] = "백".join(lastwords)
         return " ".join(outwords) + " 번째"
 
     def to_ordinal_num(self, value):
