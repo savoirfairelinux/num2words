@@ -84,6 +84,69 @@ THOUSANDS = {
 }
 
 
+ORDINAL_ONES = {
+    0: 'nultý',
+    1: 'první',
+    2: 'druhý',
+    3: 'třetí',
+    4: 'čtvrtý',
+    5: 'pátý',
+    6: 'šestý',
+    7: 'sedmý',
+    8: 'osmý',
+    9: 'devátý',
+}
+
+ORDINAL_TENS = {
+    0: 'desátý',
+    1: 'jedenáctý',
+    2: 'dvanáctý',
+    3: 'třináctý',
+    4: 'čtrnáctý',
+    5: 'patnáctý',
+    6: 'šestnáctý',
+    7: 'sedmnáctý',
+    8: 'osmnáctý',
+    9: 'devatenáctý',
+}
+
+ORDINAL_TWENTIES = {
+    2: 'dvacátý',
+    3: 'třicátý',
+    4: 'čtyřicátý',
+    5: 'padesátý',
+    6: 'šedesátý',
+    7: 'sedmdesátý',
+    8: 'osmdesátý',
+    9: 'devadesátý',
+}
+
+ORDINAL_HUNDREDS = {
+    1: 'stý',
+    2: 'dvoustý',
+    3: 'třístý',
+    4: 'čtyřstý',
+    5: 'pětistý',
+    6: 'šestistý',
+    7: 'sedmistý',
+    8: 'osmistý',
+    9: 'devítistý',
+}
+
+ORDINAL_THOUSANDS = {
+    1: 'tisící',
+    2: 'miliontý',
+    3: 'miliardtý',
+    4: 'biliontý',
+    5: 'biliardtý',
+    6: 'triliontý',
+    7: 'triliardtý',
+    8: 'kvadriliontý',
+    9: 'kvadriliardtý',
+    10: 'quintilliontý',
+}
+
+
 class Num2Word_CS(Num2Word_Base):
     CURRENCY_FORMS = {
         'CZK': (
@@ -97,6 +160,20 @@ class Num2Word_CS(Num2Word_Base):
     def setup(self):
         self.negword = "mínus"
         self.pointword = "celá"
+
+        self.word_to_ordinal = {}
+        self.word_to_ordinal[ZERO[0]] = ORDINAL_ONES[0]
+        for key, value in ONES.items():
+            self.word_to_ordinal[value[0]] = ORDINAL_ONES[key]
+        for key, value in TENS.items():
+            self.word_to_ordinal[value[0]] = ORDINAL_TENS[key]
+        for key, value in TWENTIES.items():
+            self.word_to_ordinal[value[0]] = ORDINAL_TWENTIES[key]
+        for key, value in HUNDREDS.items():
+            self.word_to_ordinal[value[0]] = ORDINAL_HUNDREDS[key]
+        for key, value in THOUSANDS.items():
+            for form in value:
+                self.word_to_ordinal[form] = ORDINAL_THOUSANDS[key]
 
     def to_cardinal(self, number):
         n = str(number).replace(',', '.')
@@ -123,7 +200,33 @@ class Num2Word_CS(Num2Word_Base):
         return forms[form]
 
     def to_ordinal(self, number):
-        raise NotImplementedError()
+        self.verify_ordinal(number)
+
+        if number < 10:
+            return ORDINAL_ONES[number]
+        if number < 20:
+            return ORDINAL_TENS[number - 10]
+        if number < 100:
+            tens, ones = divmod(number, 10)
+            if ones == 0:
+                return ORDINAL_TWENTIES[tens]
+            return TWENTIES[tens][0] + ' ' + ORDINAL_ONES[ones]
+
+        # exact hundreds
+        if number < 1000 and number % 100 == 0:
+            return ORDINAL_HUNDREDS[number // 100]
+
+        # other numbers
+        cardinal = self._int2word(number)
+        words = cardinal.split()
+
+        # replace the last number word with ordinal
+        for i in range(len(words) - 1, -1, -1):
+            if words[i] in self.word_to_ordinal:
+                words[i] = self.word_to_ordinal[words[i]]
+                break
+
+        return ' '.join(words)
 
     def _int2word(self, n):
         if n == 0:
