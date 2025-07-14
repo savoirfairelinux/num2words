@@ -138,6 +138,7 @@ class Num2WordsJATest(TestCase):
         self.assertEqual(n2j(10**8 + 0.01), "一億点零一")
         self.assertEqual(n2j(10**8 + 0.01, reading=True),
                          "いちおくてんれいいち")
+        self.assertNotEqual(n2j(0.12), n2j(-0.12))
 
     def test_ordinal(self):
         self.assertEqual(n2j(0, to="ordinal"), "零番目")
