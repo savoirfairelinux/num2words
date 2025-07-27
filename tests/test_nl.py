@@ -53,9 +53,27 @@ class Num2WordsNLTest(TestCase):
 
     def test_cardinal_at_some_numbers(self):
         self.assertEqual(num2words(82, lang='nl'), u'twee\xebntachtig')
-        self.assertEqual(num2words(1013, lang='nl'), "duizenddertien")
+        self.assertEqual(num2words(1013, lang='nl'), "duizend dertien")
         self.assertEqual(num2words(2000000, lang='nl'), "twee miljoen")
         self.assertEqual(num2words(4000000000, lang='nl'), "vier miljard")
+
+    def test_cardinal_at_thousands(self):
+        self.assertEqual(
+            num2words(2222, lang='nl'),
+            "tweeduizend tweehonderdtweeëntwintig"
+        )
+        self.assertEqual(
+            num2words(1001, lang='nl'),
+            "duizend één"
+        )
+        self.assertEqual(
+            num2words(1000, lang='nl'),
+            "duizend"
+        )
+        self.assertEqual(
+            num2words(4532, lang='nl'),
+            "vierduizend vijfhonderdtweeëndertig"
+        )
 
     def test_cardinal_for_decimal_number(self):
         self.assertEqual(
@@ -89,7 +107,7 @@ class Num2WordsNLTest(TestCase):
         self.assertEqual(
             num2words('4778.00', lang='nl', to='currency', separator=' en',
                       cents=True, currency='EUR'),
-            'vierduizendzevenhonderdachtenzeventig euro en nul cent')
+            'vierduizend zevenhonderdachtenzeventig euro en nul cent')
 
     def test_to_currency_usd(self):
         self.assertEqual(
@@ -112,7 +130,7 @@ class Num2WordsNLTest(TestCase):
         self.assertEqual(
             num2words('4778.00', lang='nl', to='currency', separator=' en',
                       cents=True, currency='USD'),
-            'vierduizendzevenhonderdachtenzeventig dollar en nul cent')
+            'vierduizend zevenhonderdachtenzeventig dollar en nul cent')
 
     def test_pluralize(self):
         n = Num2Word_NL()
@@ -127,6 +145,6 @@ class Num2WordsNLTest(TestCase):
 
     def test_to_year(self):
         self.assertEqual(num2words(2018, lang='nl', to='year'),
-                         'tweeduizendachttien')
+                         'tweeduizend achttien')
         self.assertEqual(num2words(2100, lang='nl', to='year'),
                          'eenentwintig honderd')

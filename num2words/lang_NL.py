@@ -120,7 +120,7 @@ class Num2Word_NL(Num2Word_EU):
                 else:
                     ntext += "en"
                 ntext, ctext = ctext, ntext  # + "en"
-            elif cnum >= 10 ** 6:
+            elif cnum >= 10 ** 3:
                 ctext += " "
             val = cnum + nnum
 
