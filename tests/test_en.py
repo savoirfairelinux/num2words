@@ -62,6 +62,8 @@ class Num2WordsENTest(TestCase):
         self.assertEqual(num2words(73, lang='en', to='ordinal_num'), '73rd')
 
     def test_cardinal_for_float_number(self):
+        self.assertEqual(num2words(0.12), "zero point one two")
+        self.assertEqual(num2words(-0.12), "minus zero point one two")
         # issue 24
         self.assertEqual(num2words(12.5), "twelve point five")
         self.assertEqual(num2words(12.51), "twelve point five one")
