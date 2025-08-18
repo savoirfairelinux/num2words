@@ -29,9 +29,7 @@ import num2words
 class CliCaller(object):
 
     def __init__(self):
-        self.cmd = os.path.realpath(os.path.join(os.path.dirname(__file__),
-                                    "..", "bin", "num2words"))
-        self.cmd_list = ["python", self.cmd]
+        self.cmd_list = ["python", '-m', 'num2words']
 
     def run_cmd(self, *args):
         cmd_list = self.cmd_list + [str(arg) for arg in args]
