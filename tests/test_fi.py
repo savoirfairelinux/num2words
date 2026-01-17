@@ -2760,3 +2760,10 @@ class Num2WordsFITest(TestCase):
         self.assertEqual(
             n2f(150, to="currency", currency="FIM", adjective=True),
             "yksi Suomen markka ja viisikymmentä penniä")
+
+    def test_negative_decimals(self):
+        # Comprehensive test for negative decimals including -0.4
+        self.assertEqual(num2words(-0.4, lang="fi"), "miinus nolla pilkku neljä")
+        self.assertEqual(num2words(-0.5, lang="fi"), "miinus nolla pilkku viisi")
+        self.assertEqual(num2words(-1.4, lang="fi"), "miinus yksi pilkku neljä")
+        self.assertEqual(num2words(-10.25, lang="fi"), "miinus kymmenen pilkku kaksi viisi")

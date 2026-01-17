@@ -68,3 +68,10 @@ class Num2WordsSVTest(TestCase):
             num2words(1235, to="ordinal_num", lang="sv")
         self.assertTrue("'ordinal_num' is not implemented for swedish language"
                         in str(context.exception))
+
+    def test_negative_decimals(self):
+        # Comprehensive test for negative decimals including -0.4
+        self.assertEqual(num2words(-0.4, lang="sv"), "minus noll komma fyra")
+        self.assertEqual(num2words(-0.5, lang="sv"), "minus noll komma fem")
+        self.assertEqual(num2words(-1.4, lang="sv"), "minus ett komma fyra")
+        self.assertEqual(num2words(-10.25, lang="sv"), "minus tio komma två fem")

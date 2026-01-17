@@ -249,3 +249,9 @@ class Num2WordsSRTest(TestCase):
             num2words('38.4', lang='sr', to='currency', separator=' i',
                       cents=False, currency='EUR'),
         )
+
+    def test_negative_decimals(self):
+        # Comprehensive test for negative decimals including -0.4
+        self.assertEqual(num2words(-0.4, lang="sr"), "minus nula zapeta četiri")
+        self.assertEqual(num2words(-0.5, lang="sr"), "minus nula zapeta pet")
+        self.assertEqual(num2words(-1.4, lang="sr"), "minus jedan zapeta četiri")

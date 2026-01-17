@@ -282,15 +282,20 @@ class Num2Word_RU(Num2Word_Base):
                     gender=D_GENDER, animate=D_ANIMATE):
         n = str(number).replace(',', '.')
         if '.' in n:
-            left, right = n.split('.')
+            is_negative = n.startswith('-')
+            abs_n = n[1:] if is_negative else n
+            left, right = abs_n.split('.')
             decimal_part = self._int2word(int(right), cardinal=True,
                                           gender='f')
-            return u'%s %s %s %s' % (
+            result = u'%s %s %s %s' % (
                 self._int2word(int(left), cardinal=True, gender='f'),
                 self.pluralize(int(left), self.pointword),
                 decimal_part,
                 self.__decimal_bitness(right)
             )
+            if is_negative:
+                result = self.negword + ' ' + result
+            return result
         else:
             return self._int2word(int(n), cardinal=True, case=case,
                                   plural=plural, gender=gender,

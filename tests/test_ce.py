@@ -412,3 +412,9 @@ class Num2WordsCETest(TestCase):
     def test_decimals(self):
         for test in TEST_CASES_DECIMALS:
             self.assertEqual(num2words(test[0], lang="ce"), test[1])
+
+    def test_negative_decimals(self):
+        # Comprehensive test for negative decimals including -0.4
+        self.assertEqual(num2words(-0.4, lang="ce"), "минус ноль а диъ")
+        self.assertEqual(num2words(-0.5, lang="ce"), "минус ноль а пхиъ")
+        self.assertEqual(num2words(-1.4, lang="ce"), "минус цхьаъ а диъ")

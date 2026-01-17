@@ -505,3 +505,9 @@ class Num2WordsHETest(TestCase):
 
         with self.assertRaises(OverflowError):
             int2word(n.MAXVAL)
+
+    def test_negative_decimals(self):
+        # Comprehensive test for negative decimals including -0.4
+        self.assertEqual(num2words(-0.4, lang="he"), "מינוס אפס נקודה ארבע")
+        self.assertEqual(num2words(-0.5, lang="he"), "מינוס אפס נקודה חמש")
+        self.assertEqual(num2words(-1.4, lang="he"), "מינוס אחת נקודה ארבע")

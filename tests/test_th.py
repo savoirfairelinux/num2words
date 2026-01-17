@@ -206,3 +206,10 @@ class TestNumWord(TestCase):
                          ['54321'])
         self.assertEqual(n2wTH.split_six(str(1234567)),
                          ['765432', '1'])
+
+    def test_negative_decimals(self):
+        # Comprehensive test for negative decimals including -0.4
+        self.assertEqual(num2words(-0.4, lang="th"), "ติดลบศูนย์จุดสี่")
+        self.assertEqual(num2words(-0.5, lang="th"), "ติดลบศูนย์จุดห้า")
+        self.assertEqual(num2words(-1.4, lang="th"), "ติดลบหนึ่งจุดสี่")
+        self.assertEqual(num2words(-10.25, lang="th"), "ติดลบสิบจุดสองห้า")

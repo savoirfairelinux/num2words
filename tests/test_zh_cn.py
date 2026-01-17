@@ -97,3 +97,10 @@ class Num2WordsZHTest(TestCase):
                          "美元九十八万七千六百五十四元三角")
         self.assertEqual(n2zh_cn(135.79, to="currency", currency='EUR'),
                          "欧元一百三十五元七角九分")
+
+    def test_negative_decimals(self):
+        # Comprehensive test for negative decimals including -0.4
+        self.assertEqual(num2words(-0.4, lang="zh_CN"), "负零点四")
+        self.assertEqual(num2words(-0.5, lang="zh_CN"), "负零点五")
+        self.assertEqual(num2words(-1.4, lang="zh_CN"), "负一点四")
+        self.assertEqual(num2words(-10.25, lang="zh_CN"), "负一十点二五")

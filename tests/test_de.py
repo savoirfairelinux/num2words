@@ -168,3 +168,11 @@ class Num2WordsDETest(TestCase):
     def test_year_before_2000(self):
         self.assertEqual(num2words(1780, to='year', lang='de'),
                          'siebzehnhundertachtzig')
+
+    def test_negative_decimals(self):
+        # Comprehensive test for negative decimals including -0.4
+        self.assertEqual(num2words(-0.4, lang="de"), "minus null Komma vier")
+        self.assertEqual(num2words(-0.5, lang="de"), "minus null Komma fünf")
+        self.assertEqual(num2words(-0.04, lang="de"), "minus null Komma null vier")
+        self.assertEqual(num2words(-1.4, lang="de"), "minus eins Komma vier")
+        self.assertEqual(num2words(-10.25, lang="de"), "minus zehn Komma zwei fünf")

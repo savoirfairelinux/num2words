@@ -184,3 +184,9 @@ class Num2WordsLTTest(TestCase):
             'vienas tūkstantis vienas šimtas dvidešimt du rubliai, '
             'dvidešimt dvi kapeikos'
         )
+
+    def test_negative_decimals(self):
+        # Comprehensive test for negative decimals including -0.4
+        self.assertEqual(num2words(-0.4, lang="lt"), "minus nulis kablelis keturi")
+        self.assertEqual(num2words(-0.5, lang="lt"), "minus nulis kablelis penki")
+        self.assertEqual(num2words(-1.4, lang="lt"), "minus vienas kablelis keturi")

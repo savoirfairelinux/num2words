@@ -214,3 +214,10 @@ class Num2WordsJATest(TestCase):
                          ("じゅっけい", 10 * 10**16))
         self.assertEqual(rendaku_merge_pairs(("ひゃく", 100), ("けい", 10**16)),
                          ("ひゃっけい", 100 * 10**16))
+
+    def test_negative_decimals(self):
+        # Comprehensive test for negative decimals including -0.4
+        self.assertEqual(num2words(-0.4, lang="ja"), "マイナス零点四")
+        self.assertEqual(num2words(-0.5, lang="ja"), "マイナス零点五")
+        self.assertEqual(num2words(-1.4, lang="ja"), "マイナス一点四")
+        self.assertEqual(num2words(-10.25, lang="ja"), "マイナス十点二五")

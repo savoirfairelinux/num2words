@@ -453,3 +453,11 @@ class Num2WordsPTTest(TestCase):
     def test_to_ordinal_num(self):
         self.assertEqual(self.n2w.to_ordinal_num(1), '1º')
         self.assertEqual(self.n2w.to_ordinal_num(100), '100º')
+
+    def test_negative_decimals(self):
+        # Comprehensive test for negative decimals including -0.4
+        self.assertEqual(num2words(-0.4, lang="pt"), "menos zero vírgula quatro")
+        self.assertEqual(num2words(-0.5, lang="pt"), "menos zero vírgula cinco")
+        self.assertEqual(num2words(-0.04, lang="pt"), "menos zero vírgula zero quatro")
+        self.assertEqual(num2words(-1.4, lang="pt"), "menos um vírgula quatro")
+        self.assertEqual(num2words(-10.25, lang="pt"), "menos dez vírgula dois cinco")

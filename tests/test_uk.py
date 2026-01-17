@@ -3983,3 +3983,10 @@ class Num2WordsUKTest(TestCase):
                           currency="ZMW"),
                 test[1]
             )
+
+    def test_negative_decimals(self):
+        # Comprehensive test for negative decimals including -0.4
+        self.assertEqual(num2words(-0.4, lang="uk"), "мінус нуль кома чотири")
+        self.assertEqual(num2words(-0.5, lang="uk"), "мінус нуль кома п'ять")
+        self.assertEqual(num2words(-1.4, lang="uk"), "мінус один кома чотири")
+        self.assertEqual(num2words(-10.25, lang="uk"), "мінус десять кома двадцять п'ять")

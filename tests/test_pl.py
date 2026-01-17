@@ -167,3 +167,11 @@ class Num2WordsPLTest(TestCase):
             num2words(1950, lang='pl', to='currency', cents=False),
             "dziewiętnaście euro, 50 centów"
         )
+
+    def test_negative_decimals(self):
+        # Comprehensive test for negative decimals including -0.4
+        self.assertEqual(num2words(-0.4, lang="pl"), "minus zero przecinek cztery")
+        self.assertEqual(num2words(-0.5, lang="pl"), "minus zero przecinek pięć")
+        self.assertEqual(num2words(-0.04, lang="pl"), "minus zero przecinek zero cztery")
+        self.assertEqual(num2words(-1.4, lang="pl"), "minus jeden przecinek cztery")
+        self.assertEqual(num2words(-10.25, lang="pl"), "minus dziesięć przecinek dwadzieścia pięć")

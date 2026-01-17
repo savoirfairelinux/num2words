@@ -79,3 +79,9 @@ class Num2WordsKZTest(TestCase):
             "тоғыз жүз сексен жеті миллион алты жүз елу төрт мың "
             "үш жүз жиырма бір теңге, он екі тиын",
         )
+
+    def test_negative_decimals(self):
+        # Comprehensive test for negative decimals including -0.4
+        self.assertEqual(num2words(-0.4, lang="kz"), "минус нөл бүтін төрт")
+        self.assertEqual(num2words(-0.5, lang="kz"), "минус нөл бүтін бес")
+        self.assertEqual(num2words(-1.4, lang="kz"), "минус бір бүтін төрт")

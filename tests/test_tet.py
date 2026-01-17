@@ -539,3 +539,9 @@ lima sentavu hitunulu resin lima'
     def test_to_ordinal_num(self):
         self.assertEqual(self.n2w.to_ordinal_num(1), '1º')
         self.assertEqual(self.n2w.to_ordinal_num(100), '100º')
+
+    def test_negative_decimals(self):
+        # Comprehensive test for negative decimals including -0.4
+        self.assertEqual(num2words(-0.4, lang="tet"), "menus mamuk vírgula haat")
+        self.assertEqual(num2words(-0.5, lang="tet"), "menus mamuk vírgula lima")
+        self.assertEqual(num2words(-1.4, lang="tet"), "menus ida vírgula haat")

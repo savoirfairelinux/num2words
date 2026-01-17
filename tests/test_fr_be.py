@@ -127,3 +127,9 @@ class Num2WordsENTest(TestCase):
                 num2words(test[0], lang=LANG, to='currency', currency='FRF'),
                 test[1]
             )
+
+    def test_negative_decimals(self):
+        # Comprehensive test for negative decimals including -0.4
+        self.assertEqual(num2words(-0.4, lang="fr_BE"), "moins zéro virgule quatre")
+        self.assertEqual(num2words(-0.5, lang="fr_BE"), "moins zéro virgule cinq")
+        self.assertEqual(num2words(-1.4, lang="fr_BE"), "moins un virgule quatre")

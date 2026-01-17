@@ -399,3 +399,11 @@ class Num2WordsPTBRTest(TestCase):
             'setecentos e quarenta e quatro antes de Cristo'
         )
         self.assertEqual(self.n2w.to_year(-10000), 'dez mil antes de Cristo')
+
+    def test_negative_decimals(self):
+        # Comprehensive test for negative decimals including -0.4
+        self.assertEqual(num2words(-0.4, lang="pt_BR"), "menos zero vírgula quatro")
+        self.assertEqual(num2words(-0.5, lang="pt_BR"), "menos zero vírgula cinco")
+        self.assertEqual(num2words(-0.04, lang="pt_BR"), "menos zero vírgula zero quatro")
+        self.assertEqual(num2words(-1.4, lang="pt_BR"), "menos um vírgula quatro")
+        self.assertEqual(num2words(-10.25, lang="pt_BR"), "menos dez vírgula dois cinco")

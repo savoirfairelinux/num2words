@@ -3055,3 +3055,12 @@ class Num2WordsESTest(TestCase):
                 num2words(test[0], lang='es', to='currency', currency='ZWL'),
                 test[1]
             )
+    
+    def test_negative_decimals(self):
+        # Comprehensive test for negative decimals including -0.4
+        self.assertEqual(num2words(-0.4, lang='es'), "menos cero punto cuatro")
+        self.assertEqual(num2words(-0.5, lang='es'), "menos cero punto cinco")
+        self.assertEqual(num2words(-0.04, lang='es'), "menos cero punto cero cuatro")
+        self.assertEqual(num2words(-1.4, lang='es'), "menos uno punto cuatro")
+        self.assertEqual(num2words(-10.25, lang='es'), "menos diez punto dos cinco")
+        self.assertEqual(num2words(-0.001, lang='es'), "menos cero punto cero cero uno")

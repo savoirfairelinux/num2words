@@ -491,3 +491,10 @@ class Num2WordsRUTest(TestCase):
                       separator=' и'),
             'сто один сум и двадцать два тийина'
         )
+
+    def test_negative_decimals(self):
+        # Comprehensive test for negative decimals including -0.4
+        self.assertEqual(num2words(-0.4, lang="ru"), "минус ноль целых четыре десятых")
+        self.assertEqual(num2words(-0.5, lang="ru"), "минус ноль целых пять десятых")
+        self.assertEqual(num2words(-1.4, lang="ru"), "минус одна целая четыре десятых")
+        self.assertEqual(num2words(-10.25, lang="ru"), "минус десять целых двадцать пять сотых")

@@ -43,3 +43,10 @@ class Num2WordsDKTest(TestCase):
         self.assertEqual(num2words_dk.to_ordinal_num(2), "2en")
         self.assertEqual(num2words_dk.to_ordinal_num(5), "5te")
         self.assertEqual(num2words_dk.to_ordinal_num(10), "10ende")
+
+    def test_negative_decimals(self):
+        # Comprehensive test for negative decimals including -0.4
+        self.assertEqual(num2words(-0.4, lang="da"), "minus nul komma fire")
+        self.assertEqual(num2words(-0.5, lang="da"), "minus nul komma fem")
+        self.assertEqual(num2words(-1.4, lang="da"), "minus et komma fire")
+        self.assertEqual(num2words(-10.25, lang="da"), "minus ti komma to fem")

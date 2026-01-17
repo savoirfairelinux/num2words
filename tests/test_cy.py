@@ -473,3 +473,9 @@ class Num2WordsCYTest(TestCase):
             )
 
 # TODO 'ordinal_num', 'year'
+
+    def test_negative_decimals(self):
+        # Comprehensive test for negative decimals including -0.4
+        self.assertEqual(num2words(-0.4, lang="cy"), "meinws dim pwynt pedwar")
+        self.assertEqual(num2words(-0.5, lang="cy"), "meinws dim pwynt pump")
+        self.assertEqual(num2words(-1.4, lang="cy"), "meinws un pwynt pedwar")

@@ -184,3 +184,10 @@ class TestNum2WordsCA(TestCase):
     def test_currency_gbp(self):
         self._test_cases(TEST_CASES_TO_CURRENCY_GBP,
                          to="currency", currency="GBP")
+
+    def test_negative_decimals(self):
+        # Comprehensive test for negative decimals including -0.4
+        self.assertEqual(num2words(-0.4, lang="ca"), "menys zero punt quatre")
+        self.assertEqual(num2words(-0.5, lang="ca"), "menys zero punt cinc")
+        self.assertEqual(num2words(-1.4, lang="ca"), "menys un punt quatre")
+        self.assertEqual(num2words(-10.25, lang="ca"), "menys deu punt dos cinc")

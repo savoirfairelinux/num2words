@@ -68,3 +68,9 @@ class Num2WordsTETest(TestCase):
         self.assertEqual(num2words(16, lang="te", to='ordinal_num'), u"16వ")
         self.assertEqual(num2words(113, lang="te", to='ordinal_num'),
                          u"113వ")
+
+    def test_negative_decimals(self):
+        # Comprehensive test for negative decimals including -0.4
+        self.assertEqual(num2words(-0.4, lang="te"), "(-) సున్న బిందువు  నాలుగు")
+        self.assertEqual(num2words(-0.5, lang="te"), "(-) సున్న బిందువు  అయిదు")
+        self.assertEqual(num2words(-1.4, lang="te"), "(-) ఒకటి బిందువు  నాలుగు")

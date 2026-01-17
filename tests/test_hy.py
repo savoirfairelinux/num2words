@@ -596,3 +596,9 @@ class Num2WordsHYTest(TestCase):
             "երեք հարյուր իննսուն յոթ"
         )
         self.assertEqual(result, expected)
+
+    def test_negative_decimals(self):
+        # Comprehensive test for negative decimals including -0.4
+        self.assertEqual(num2words(-0.4, lang="hy"), "մինուս զրո ամբողջ չորս")
+        self.assertEqual(num2words(-0.5, lang="hy"), "մինուս զրո ամբողջ հինգ")
+        self.assertEqual(num2words(-1.4, lang="hy"), "մինուս մեկ ամբողջ չորս")

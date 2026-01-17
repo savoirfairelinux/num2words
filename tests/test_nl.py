@@ -130,3 +130,11 @@ class Num2WordsNLTest(TestCase):
                          'tweeduizendachttien')
         self.assertEqual(num2words(2100, lang='nl', to='year'),
                          'eenentwintig honderd')
+
+    def test_negative_decimals(self):
+        # Comprehensive test for negative decimals including -0.4
+        self.assertEqual(num2words(-0.4, lang="nl"), "min nul komma vier")
+        self.assertEqual(num2words(-0.5, lang="nl"), "min nul komma vijf")
+        self.assertEqual(num2words(-0.04, lang="nl"), "min nul komma nul vier")
+        self.assertEqual(num2words(-1.4, lang="nl"), "min één komma vier")
+        self.assertEqual(num2words(-10.25, lang="nl"), "min tien komma twee vijf")

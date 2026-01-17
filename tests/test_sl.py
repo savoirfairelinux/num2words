@@ -206,3 +206,9 @@ class Num2WordsSLTest(TestCase):
 
     def test_ordinal_for_floating_numbers(self):
         self.assertRaises(TypeError, num2words, 2.453, ordinal=True, lang='sl')
+
+    def test_negative_decimals(self):
+        # Comprehensive test for negative decimals including -0.4
+        self.assertEqual(num2words(-0.4, lang="sl"), "minus nič celih štiri")
+        self.assertEqual(num2words(-0.5, lang="sl"), "minus nič celih pet")
+        self.assertEqual(num2words(-1.4, lang="sl"), "minus ena celih štiri")

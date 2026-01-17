@@ -187,7 +187,9 @@ class Num2Word_BE(Num2Word_Base):
     def to_cardinal(self, number, gender="m"):
         n = str(number).replace(",", ".")
         if "." in n:
-            left, right = n.split(".")
+            is_negative = n.startswith('-')
+            abs_n = n[1:] if is_negative else n
+            left, right = abs_n.split(".")
             if set(right) == {"0"}:
                 leading_zero_count = 0
             else:
@@ -196,9 +198,12 @@ class Num2Word_BE(Num2Word_Base):
             decimal_part = (ZERO + " ") * leading_zero_count + self._int2word(
                 int(right), gender
             )
-            return "{} {} {}".format(
+            result = "{} {} {}".format(
                 self._int2word(int(left), gender), self.pointword, decimal_part
             )
+            if is_negative:
+                result = self.negword + " " + result
+            return result
         else:
             return self._int2word(int(n), gender)
 

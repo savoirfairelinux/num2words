@@ -210,3 +210,9 @@ class Num2WordsARTest(TestCase):
  و تسعمائة و تسعة و تسعون ملياراً و تسعمائة و تسعة و تسعون مليوناً\
  و تسعمائة و تسعة و تسعون ألفاً و تسعمائة و اثنان و تسعون'
         )
+
+    def test_negative_decimals(self):
+        # Comprehensive test for negative decimals including -0.4
+        self.assertEqual(num2words(-0.4, lang="ar"), "سالب , أربعون")
+        self.assertEqual(num2words(-0.5, lang="ar"), "سالب , خمسون")
+        self.assertEqual(num2words(-1.4, lang="ar"), "سالب واحد  , أربعون")

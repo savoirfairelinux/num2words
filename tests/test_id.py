@@ -60,3 +60,10 @@ class Num2WordsIDTest(TestCase):
 
     def test_ordinal_for_floating_number(self):
         self.assertRaises(TypeError, num2words, 3.243, ordinal=True, lang='id')
+
+    def test_negative_decimals(self):
+        # Comprehensive test for negative decimals including -0.4
+        self.assertEqual(num2words(-0.4, lang="id"), "min nol koma empat")
+        self.assertEqual(num2words(-0.5, lang="id"), "min nol koma lima")
+        self.assertEqual(num2words(-1.4, lang="id"), "min satu koma empat")
+        self.assertEqual(num2words(-10.25, lang="id"), "min sepuluh koma dua lima")

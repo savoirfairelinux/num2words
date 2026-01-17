@@ -57,3 +57,10 @@ class Num2WordsESVETest(test_es.Num2WordsESTest):
                 num2words(test[0], lang='es_VE', to='currency', old=True),
                 test[1]
             )
+
+    def test_negative_decimals(self):
+        # Comprehensive test for negative decimals including -0.4
+        self.assertEqual(num2words(-0.4, lang="es_VE"), "menos cero punto cuatro")
+        self.assertEqual(num2words(-0.5, lang="es_VE"), "menos cero punto cinco")
+        self.assertEqual(num2words(-1.4, lang="es_VE"), "menos uno punto cuatro")
+        self.assertEqual(num2words(-10.25, lang="es_VE"), "menos diez punto dos cinco")

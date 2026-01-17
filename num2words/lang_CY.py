@@ -233,16 +233,24 @@ class Num2Word_CY(Num2Word_EU):
         pass
 
     def float_to_words(self, float_number):
+        # Check if negative
+        is_negative = float_number < 0
+        abs_float = abs(float_number)
+        
         # if ordinal:
-        #     prefix = self.to_ordinal(int(float_number))
+        #     prefix = self.to_ordinal(int(abs_float))
         # else:
-        prefix = self.to_cardinal(int(float_number))
-        float_part = str(float_number).split(".")[1]
+        prefix = self.to_cardinal(int(abs_float))
+        float_part = str(abs_float).split(".")[1]
         postfix = " ".join(
             # Drops the trailing zero and comma
             [self.to_cardinal(int(c)) for c in float_part]
         )
-        return prefix + Num2Word_CY.FLOAT_INFIX_WORD + postfix
+        result = prefix + Num2Word_CY.FLOAT_INFIX_WORD + postfix
+        
+        if is_negative:
+            result = "meinws " + result
+        return result
 
     def hundred_group(
         self, number, informal=False, gender="masc", ordinal=False
@@ -363,6 +371,10 @@ class Num2Word_CY(Num2Word_EU):
         counted=None,
         raw=False,
     ):
+        # Handle floats first, including negative floats
+        if isinstance(number, float):
+            return self.float_to_words(number)
+            
         negative = False
         if number < 0:
             negative = True
@@ -374,9 +386,6 @@ class Num2Word_CY(Num2Word_EU):
                 return makestring(CARDINAL_WORDS[0])
         elif not number < 999 * 10**33:
             raise NotImplementedError("The given number is too large.")
-
-        elif isinstance(number, float):
-            return self.float_to_words(number)
 
         # split in groups of 10**3
         # groups of three digits starting from right (units (1 - 999),

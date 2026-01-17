@@ -69,6 +69,15 @@ class Num2WordsENTest(TestCase):
         self.assertEqual(num2words(12.51), "twelve point five one")
         self.assertEqual(num2words(12.53), "twelve point five three")
         self.assertEqual(num2words(12.59), "twelve point five nine")
+    
+    def test_negative_decimals(self):
+        # Comprehensive test for negative decimals including -0.4
+        self.assertEqual(num2words(-0.4), "minus zero point four")
+        self.assertEqual(num2words(-0.5), "minus zero point five")
+        self.assertEqual(num2words(-0.04), "minus zero point zero four")
+        self.assertEqual(num2words(-1.4), "minus one point four")
+        self.assertEqual(num2words(-10.25), "minus ten point two five")
+        self.assertEqual(num2words(-0.001), "minus zero point zero zero one")
 
     def test_overflow(self):
         with self.assertRaises(OverflowError):

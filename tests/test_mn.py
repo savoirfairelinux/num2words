@@ -150,3 +150,9 @@ class Num2WordsMNTest(TestCase):
             num2words(6000.0, lang='mn', to="currency", currency="USD"),
             "зургаан мянган Америк доллар",
         )
+
+    def test_negative_decimals(self):
+        # Comprehensive test for negative decimals including -0.4
+        self.assertEqual(num2words(-0.4, lang="mn"), "хасах тэг, аравны дөрөв")
+        self.assertEqual(num2words(-0.5, lang="mn"), "хасах тэг, аравны тав")
+        self.assertEqual(num2words(-1.4, lang="mn"), "хасах нэг, аравны дөрөв")

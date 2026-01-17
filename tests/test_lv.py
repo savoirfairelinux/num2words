@@ -160,3 +160,9 @@ class Num2WordsLVTest(TestCase):
             num2words(561.42, lang='lv'),
             "pieci simti sešdesmit viens komats četrdesmit divi"
         )
+
+    def test_negative_decimals(self):
+        # Comprehensive test for negative decimals including -0.4
+        self.assertEqual(num2words(-0.4, lang="lv"), "mīnus nulle komats četri")
+        self.assertEqual(num2words(-0.5, lang="lv"), "mīnus nulle komats pieci")
+        self.assertEqual(num2words(-1.4, lang="lv"), "mīnus viens komats četri")

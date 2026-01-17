@@ -116,3 +116,9 @@ class Num2WordsTGTest(TestCase):
             num2words("100", lang="tg", to="ordinal_num"),
             "100ум",
         )
+
+    def test_negative_decimals(self):
+        # Comprehensive test for negative decimals including -0.4
+        self.assertEqual(num2words(-0.4, lang="tg"), "минус сифр нуқта чор")
+        self.assertEqual(num2words(-0.5, lang="tg"), "минус сифр нуқта панҷ")
+        self.assertEqual(num2words(-1.4, lang="tg"), "минус як нуқта чор")

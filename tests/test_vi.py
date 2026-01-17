@@ -137,3 +137,10 @@ class Num2WordsVITest(TestCase):
             num2words(1000101017, lang="vi"),
             "một tỷ một trăm lẻ một nghìn lẻ mười bảy"
         )
+
+    def test_negative_decimals(self):
+        # Comprehensive test for negative decimals including -0.4
+        self.assertEqual(num2words(-0.4, lang="vi"), "âm không phẩy bốn mươi")
+        self.assertEqual(num2words(-0.5, lang="vi"), "âm không phẩy năm mươi")
+        self.assertEqual(num2words(-1.4, lang="vi"), "âm một phẩy bốn mươi")
+        self.assertEqual(num2words(-10.25, lang="vi"), "âm mười phẩy hai mươi lăm")

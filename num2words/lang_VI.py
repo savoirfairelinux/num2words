@@ -85,6 +85,8 @@ class Num2Word_VI(object):
                 return ret
 
     def number_to_text(self, number):
+        is_negative = number < 0
+        number = abs(number)
         number = '%.2f' % number
         the_list = str(number).split('.')
         start_word = self.vietnam_number(int(the_list[0]))
@@ -92,6 +94,8 @@ class Num2Word_VI(object):
         if len(the_list) > 1 and int(the_list[1]) > 0:
             end_word = self.vietnam_number(int(the_list[1]))
             final_result = final_result + ' phẩy ' + end_word
+        if is_negative:
+            final_result = 'âm ' + final_result
         return final_result
 
     def to_cardinal(self, number):

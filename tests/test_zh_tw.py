@@ -156,3 +156,9 @@ class Num2WordsZhTWTest(TestCase):
         self.assertEqual(n2zh_tw(2020, to="year"), "二零二零年")
         with self.assertRaises(TypeError):
             n2zh_tw(2020.1, to="year", era=True)
+
+    def test_negative_decimals(self):
+        # Comprehensive test for negative decimals including -0.4
+        self.assertEqual(num2words(-0.4, lang="zh_TW"), "負零點四")
+        self.assertEqual(num2words(-0.5, lang="zh_TW"), "負零點五")
+        self.assertEqual(num2words(-1.4, lang="zh_TW"), "負一點四")

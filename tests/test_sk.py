@@ -96,3 +96,9 @@ class Num2WordsSKTest(TestCase):
             num2words(19.50, lang='sk', to='currency', cents=False),
             "devätnásť eur, 50 centov"
         )
+
+    def test_negative_decimals(self):
+        # Comprehensive test for negative decimals including -0.4
+        self.assertEqual(num2words(-0.4, lang="sk"), "mínus nula celých štyri")
+        self.assertEqual(num2words(-0.5, lang="sk"), "mínus nula celých päť")
+        self.assertEqual(num2words(-1.4, lang="sk"), "mínus jeden celých štyri")

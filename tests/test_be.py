@@ -399,3 +399,9 @@ class Num2WordsBYTest(TestCase):
             "дзевяць тысяч дзевяцьсот дзевяноста дзевяць злотых, "
             "трыццаць дзевяць грошаў",
         )
+
+    def test_negative_decimals(self):
+        # Comprehensive test for negative decimals including -0.4
+        self.assertEqual(num2words(-0.4, lang="be"), "мінус нуль коска чатыры")
+        self.assertEqual(num2words(-0.5, lang="be"), "мінус нуль коска пяць")
+        self.assertEqual(num2words(-1.4, lang="be"), "мінус адзін коска чатыры")

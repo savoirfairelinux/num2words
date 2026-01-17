@@ -56,6 +56,9 @@ class NumberTooLargeError(Exception):
 
 
 class Num2Word_BN:
+    
+    def __init__(self):
+        self.negword = "ঋণাত্মক"  # Bengali word for "negative"
 
     @staticmethod
     def str_to_number(number):
@@ -155,6 +158,13 @@ class Num2Word_BN:
         and so on.
         """
 
+        # Check for negative before conversion
+        is_negative = False
+        if isinstance(number, (int, float, Decimal)) and number < 0:
+            is_negative = True
+        elif isinstance(number, str) and number.strip().startswith('-'):
+            is_negative = True
+
         dosomik_word = None
         number = self.str_to_number(number)
         number, decimal_part = self.parse_number(number)
@@ -166,8 +176,13 @@ class Num2Word_BN:
         words = self._number_to_bengali_word(number)
 
         if dosomik_word:
-            return (words + dosomik_word).strip()
-        return words.strip()
+            result = (words + dosomik_word).strip()
+        else:
+            result = words.strip()
+            
+        if is_negative:
+            result = self.negword + ' ' + result
+        return result
 
     def to_ordinal(self, number):
         return self.to_cardinal(number)

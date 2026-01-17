@@ -92,3 +92,9 @@ class Num2WordsAMTest(TestCase):
                          'አንድ ሺህ ስድሳ ስድስት')
         self.assertEqual(num2words(1865, lang='am', to='year'),
                          'አሥራ ስምንት መቶ ስድሳ አምስት')
+
+    def test_negative_decimals(self):
+        # Comprehensive test for negative decimals including -0.4
+        self.assertEqual(num2words(-0.4, lang="am"), "አሉታዊ ዜሮ ነጥብ አራት")
+        self.assertEqual(num2words(-0.5, lang="am"), "አሉታዊ ዜሮ ነጥብ አምስት")
+        self.assertEqual(num2words(-1.4, lang="am"), "አሉታዊ አንድ ነጥብ አራት")

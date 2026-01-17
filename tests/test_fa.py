@@ -107,3 +107,9 @@ class Num2WordsFATest(TestCase):
                       "0000000000000000000000000000000000000000000000000000000"
                       "0000000000000000000000000000000000000000000000000000000"
                       "00000000000000000000000000000000")
+
+    def test_negative_decimals(self):
+        # Comprehensive test for negative decimals including -0.4
+        self.assertEqual(num2words(-0.4, lang="fa"), "منفی چهار دهم")
+        self.assertEqual(num2words(-0.5, lang="fa"), "منفی نیم")
+        self.assertEqual(num2words(-1.4, lang="fa"), "منفی یک و چهار دهم")

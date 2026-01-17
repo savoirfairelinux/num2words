@@ -925,16 +925,21 @@ class Num2Word_UK(Num2Word_Base):
 
         n = str(number).replace(',', '.')
         if '.' in n:
-            left, right = n.split('.')
+            is_negative = n.startswith('-')
+            abs_n = n[1:] if is_negative else n
+            left, right = abs_n.split('.')
             leading_zero_count = len(right) - len(right.lstrip('0'))
             right_side = self._int2word(int(right), gender, morphological_case)
             decimal_part = ((ZERO[0] + ' ') * leading_zero_count +
                             right_side)
-            return u'%s %s %s' % (
+            result = u'%s %s %s' % (
                 self._int2word(int(left), gender, morphological_case),
                 self.pointword,
                 decimal_part
             )
+            if is_negative:
+                result = self.negword + ' ' + result
+            return result
         else:
             return self._int2word(int(n), gender, morphological_case)
 

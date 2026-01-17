@@ -200,3 +200,10 @@ class Num2WordsTRTest(TestCase):
                           lang=testlang,
                           to=casedata["to"]),
                 casedata["expected"])
+
+    def test_negative_decimals(self):
+        # Comprehensive test for negative decimals including -0.4
+        self.assertEqual(num2words(-0.4, lang="tr"), "eksi sıfırvirgülkırk")
+        self.assertEqual(num2words(-0.5, lang="tr"), "eksi sıfırvirgülelli")
+        self.assertEqual(num2words(-1.4, lang="tr"), "eksi birvirgülkırk")
+        self.assertEqual(num2words(-10.25, lang="tr"), "eksi onvirgülyirmibeş")

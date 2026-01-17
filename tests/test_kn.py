@@ -71,3 +71,9 @@ class Num2WordsKNTest(TestCase):
                          u"16ಹದಿನಾರನೇ")
         self.assertEqual(num2words(113, lang="kn", to='ordinal_num'),
                          u"113ಒಂದು ನೂರ ಹದಿಮೂರನೇ")
+
+    def test_negative_decimals(self):
+        # Comprehensive test for negative decimals including -0.4
+        self.assertEqual(num2words(-0.4, lang="kn"), "(-) ಸೊನ್ನೆ ಬಿಂದು ನಾಲ್ಕು")
+        self.assertEqual(num2words(-0.5, lang="kn"), "(-) ಸೊನ್ನೆ ಬಿಂದು ಐದು")
+        self.assertEqual(num2words(-1.4, lang="kn"), "(-) ಒಂದು ಬಿಂದು ನಾಲ್ಕು")

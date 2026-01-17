@@ -210,3 +210,11 @@ class Num2WordsFRTest(TestCase):
             num2words(10 ** 700, lang='fr')
 
         self.assertTrue('trop grand' in str(context.exception))
+
+    def test_negative_decimals(self):
+        # Comprehensive test for negative decimals including -0.4
+        self.assertEqual(num2words(-0.4, lang="fr"), "moins zéro virgule quatre")
+        self.assertEqual(num2words(-0.5, lang="fr"), "moins zéro virgule cinq")
+        self.assertEqual(num2words(-0.04, lang="fr"), "moins zéro virgule zéro quatre")
+        self.assertEqual(num2words(-1.4, lang="fr"), "moins un virgule quatre")
+        self.assertEqual(num2words(-10.25, lang="fr"), "moins dix virgule deux cinq")

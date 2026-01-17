@@ -151,21 +151,26 @@ class Num2Word_MN(Num2Word_Base):
     def to_cardinal(self, value, all_suffixed=False):
         n = str(value).replace(',', '.')
         if '.' in n:
-            left, right = n.split('.')
+            is_negative = n.startswith('-')
+            abs_n = n[1:] if is_negative else n
+            left, right = abs_n.split('.')
 
             # Бутархай хэсэг нь тэг бол бүхэл тоо шиг хувирна
             if int(right) == 0:
-                return self._int2word(int(left), all_suffixed=all_suffixed)
+                return self._int2word(int(n), all_suffixed=all_suffixed)
 
             fractional_length = len(right)
             if fractional_length > 6:
                 raise NotImplementedError()
 
-            return '%s, %s %s' % (
+            result = '%s, %s %s' % (
                 self._int2word(int(left), all_suffixed=all_suffixed),
                 POINT_WORDS[fractional_length],
                 self._int2word(int(right), all_suffixed=all_suffixed)
             )
+            if is_negative:
+                result = self.negword + ' ' + result
+            return result
         else:
             return self._int2word(int(n), all_suffixed=all_suffixed)
 

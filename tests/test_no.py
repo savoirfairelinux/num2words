@@ -83,3 +83,10 @@ class Num2WordsNOTest(TestCase):
                          "en hundre og trettifem kroner")
         self.assertEqual(num2words(135.59, to="currency", lang="no"),
                          "en hundre og trettifem kroner og femtini øre")
+
+    def test_negative_decimals(self):
+        # Comprehensive test for negative decimals including -0.4
+        self.assertEqual(num2words(-0.4, lang="no"), "minus null komma fire")
+        self.assertEqual(num2words(-0.5, lang="no"), "minus null komma fem")
+        self.assertEqual(num2words(-1.4, lang="no"), "minus en komma fire")
+        self.assertEqual(num2words(-10.25, lang="no"), "minus ti komma to fem")

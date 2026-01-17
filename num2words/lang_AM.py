@@ -76,6 +76,10 @@ class Num2Word_AM(lang_EU.Num2Word_EU):
         except (ValueError, TypeError, AssertionError):
             return self.to_cardinal_float(value)
 
+        # Handle negative integers
+        if value < 0:
+            return self.negword + self.to_cardinal(-value)
+
         out = ''
         if value >= self.MAXVAL:
             raise OverflowError(self.errmsg_toobig % (value, self.MAXVAL))

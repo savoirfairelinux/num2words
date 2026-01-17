@@ -318,3 +318,11 @@ class Num2WordsITTest(TestCase):
                 num2words(test[0], lang='it', to='currency', currency='GBP'),
                 test[1]
             )
+
+    def test_negative_decimals(self):
+        # Comprehensive test for negative decimals including -0.4
+        self.assertEqual(num2words(-0.4, lang="it"), "meno zero virgola quattro")
+        self.assertEqual(num2words(-0.5, lang="it"), "meno zero virgola cinque")
+        self.assertEqual(num2words(-0.04, lang="it"), "meno zero virgola zero quattro")
+        self.assertEqual(num2words(-1.4, lang="it"), "meno uno virgola quattro")
+        self.assertEqual(num2words(-10.25, lang="it"), "meno dieci virgola due cinque")

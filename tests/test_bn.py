@@ -363,3 +363,9 @@ class Num2WordsBNTest(TestCase):
                          "দুই হাজার পাঁচশত পঞ্চাশ")
         self.assertEqual(n._number_to_bengali_word(9999999999999999),
                          "নিরানব্বই কোটি নিরানব্বই লাখ নিরানব্বই হাজার নয়শত নিরানব্বই কোটি নিরানব্বই লাখ নিরানব্বই হাজার নয়শত নিরানব্বই")  # noqa: E501
+
+    def test_negative_decimals(self):
+        # Comprehensive test for negative decimals including -0.4
+        self.assertEqual(num2words(-0.4, lang="bn"), "ঋণাত্মক শূন্য দশমিক চার")
+        self.assertEqual(num2words(-0.5, lang="bn"), "ঋণাত্মক শূন্য দশমিক পাঁচ")
+        self.assertEqual(num2words(-1.4, lang="bn"), "ঋণাত্মক এক দশমিক চার")

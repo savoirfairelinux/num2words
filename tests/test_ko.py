@@ -91,3 +91,10 @@ class Num2WordsKOTest(TestCase):
         cases = [(1, "1 번째"), (101, "101 번째"), (25, "25 번째")]
         for num, out in cases:
             self.assertEqual(n2k(num, to="ordinal_num"), out)
+
+    def test_negative_decimals(self):
+        # Comprehensive test for negative decimals including -0.4
+        self.assertEqual(num2words(-0.4, lang="ko"), "마이너스 영 점 사")
+        self.assertEqual(num2words(-0.5, lang="ko"), "마이너스 영 점 오")
+        self.assertEqual(num2words(-1.4, lang="ko"), "마이너스 일 점 사")
+        self.assertEqual(num2words(-10.25, lang="ko"), "마이너스 십 점 이 오")

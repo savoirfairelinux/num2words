@@ -141,3 +141,10 @@ class Num2WordsENNGTest(TestCase):
             ),
             "two thousand naira and zero kobo"
         )
+
+    def test_negative_decimals(self):
+        # Comprehensive test for negative decimals including -0.4
+        self.assertEqual(num2words(-0.4, lang="en_NG"), "minus zero point four")
+        self.assertEqual(num2words(-0.5, lang="en_NG"), "minus zero point five")
+        self.assertEqual(num2words(-1.4, lang="en_NG"), "minus one point four")
+        self.assertEqual(num2words(-10.25, lang="en_NG"), "minus ten point two five")

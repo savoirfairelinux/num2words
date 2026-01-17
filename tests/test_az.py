@@ -287,3 +287,9 @@ class Num2WordAZTest(TestCase):
                 number, lang=self.lang, currency='AZN', to='currency')
 
             self.assertEqual(actual, expected)
+
+    def test_negative_decimals(self):
+        # Comprehensive test for negative decimals including -0.4
+        self.assertEqual(num2words(-0.4, lang="az"), "mənfi sıfır nöqtə dörd")
+        self.assertEqual(num2words(-0.5, lang="az"), "mənfi sıfır nöqtə beş")
+        self.assertEqual(num2words(-1.4, lang="az"), "mənfi bir nöqtə dörd")

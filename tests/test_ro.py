@@ -193,3 +193,10 @@ class Num2WordsROTest(TestCase):
                          u'unu d.Hr.')
         self.assertEqual(num2words(-66000000, lang='ro', to='year'),
                          u'șaizeci și șase milioane î.Hr.')
+
+    def test_negative_decimals(self):
+        # Comprehensive test for negative decimals including -0.4
+        self.assertEqual(num2words(-0.4, lang="ro"), "minus zero virgulă patru")
+        self.assertEqual(num2words(-0.5, lang="ro"), "minus zero virgulă cinci")
+        self.assertEqual(num2words(-1.4, lang="ro"), "minus unu virgulă patru")
+        self.assertEqual(num2words(-10.25, lang="ro"), "minus zece virgulă doi cinci")

@@ -299,3 +299,9 @@ class Num2WordsHITest(TestCase):
                 words,
                 msg="failing number %s" % number,
             )
+
+    def test_negative_decimals(self):
+        # Comprehensive test for negative decimals including -0.4
+        self.assertEqual(num2words(-0.4, lang="hi"), "माइनस शून्य दशमलव चार")
+        self.assertEqual(num2words(-0.5, lang="hi"), "माइनस शून्य दशमलव पाँच")
+        self.assertEqual(num2words(-1.4, lang="hi"), "माइनस एक दशमलव चार")

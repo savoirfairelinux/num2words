@@ -366,13 +366,18 @@ class Num2Word_CE(Num2Word_EU):
 
     def to_cardinal(self, number, clazz="д", case="abs"):
         if isinstance(number, float):
-            entires = self.to_cardinal(int(number))
-            float_part = str(number).split(".")[1]
+            negative = number < 0
+            abs_number = abs(number)
+            entires = self.to_cardinal(int(abs_number))
+            float_part = str(abs_number).split(".")[1]
             postfix = " ".join(
                 # Drops the trailing zero and comma
                 [self.to_cardinal(int(c)) for c in float_part]
             )
-            return entires + " " + DECIMALPOINT + " " + postfix
+            result = entires + " " + DECIMALPOINT + " " + postfix
+            if negative:
+                result = self.negword + " " + result
+            return result
 
         elif number < 20:
             return self.makecase(number, case, clazz)
