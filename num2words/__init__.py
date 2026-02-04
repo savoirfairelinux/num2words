@@ -19,14 +19,15 @@ from __future__ import unicode_literals
 
 from . import (lang_AM, lang_AR, lang_AZ, lang_BE, lang_BN, lang_CA, lang_CE,
                lang_CS, lang_CY, lang_DA, lang_DE, lang_EN, lang_EN_IN,
-               lang_EN_NG, lang_EO, lang_ES, lang_ES_CO, lang_ES_CR,
-               lang_ES_GT, lang_ES_NI, lang_ES_VE, lang_FA, lang_FI, lang_FR,
-               lang_FR_BE, lang_FR_CH, lang_FR_DZ, lang_HE, lang_HI, lang_HU,
-               lang_HY, lang_ID, lang_IS, lang_IT, lang_JA, lang_KN, lang_KO,
-               lang_KZ, lang_LT, lang_LV, lang_MN, lang_NL, lang_NO, lang_PL,
-               lang_PT, lang_PT_BR, lang_RO, lang_RU, lang_SK, lang_SL,
-               lang_SR, lang_SV, lang_TE, lang_TET, lang_TG, lang_TH, lang_TR,
-               lang_UK, lang_VI, lang_ZH, lang_ZH_CN, lang_ZH_HK, lang_ZH_TW)
+               lang_EN_NE, lang_EN_NG, lang_EO, lang_ES, lang_ES_CO,
+               lang_ES_CR, lang_ES_GT, lang_ES_NI, lang_ES_VE, lang_FA,
+               lang_FI, lang_FR, lang_FR_BE, lang_FR_CH, lang_FR_DZ, lang_HE,
+               lang_HI, lang_HU, lang_HY, lang_ID, lang_IS, lang_IT, lang_JA,
+               lang_KN, lang_KO, lang_KZ, lang_LT, lang_LV, lang_MN, lang_NE,
+               lang_NL, lang_NO, lang_PL, lang_PT, lang_PT_BR, lang_RO,
+               lang_RU, lang_SK, lang_SL, lang_SR, lang_SV, lang_TE, lang_TET,
+               lang_TG, lang_TH, lang_TR, lang_UK, lang_VI, lang_ZH,
+               lang_ZH_CN, lang_ZH_HK, lang_ZH_TW)
 
 CONVERTER_CLASSES = {
     'am': lang_AM.Num2Word_AM(),
@@ -42,6 +43,7 @@ CONVERTER_CLASSES = {
     'de': lang_DE.Num2Word_DE(),
     'en': lang_EN.Num2Word_EN(),
     'en_IN': lang_EN_IN.Num2Word_EN_IN(),
+    'en_NE': lang_EN_NE.Num2Word_EN_NE(),
     'en_NG': lang_EN_NG.Num2Word_EN_NG(),
     'eo': lang_EO.Num2Word_EO(),
     'es': lang_ES.Num2Word_ES(),
@@ -70,6 +72,7 @@ CONVERTER_CLASSES = {
     'lt': lang_LT.Num2Word_LT(),
     'lv': lang_LV.Num2Word_LV(),
     'mn': lang_MN.Num2Word_MN(),
+    'ne': lang_NE.Num2Word_NE(),
     'nl': lang_NL.Num2Word_NL(),
     'no': lang_NO.Num2Word_NO(),
     'pl': lang_PL.Num2Word_PL(),
