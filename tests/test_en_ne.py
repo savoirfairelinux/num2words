@@ -40,29 +40,59 @@ class Num2WordsENNETest(TestCase):
 
     def test_intermediate_values(self):
         # Test intermediate values to ensure proper grouping
-        self.assertEqual(num2words(150000, lang="en_NE"), "one lakh, fifty thousand")
-        self.assertEqual(num2words(250000, lang="en_NE"), "two lakh, fifty thousand")
-        self.assertEqual(num2words(1250000, lang="en_NE"), "twelve lakh, fifty thousand")
-        self.assertEqual(num2words(15000000, lang="en_NE"), "one crore, fifty lakh")
-        self.assertEqual(num2words(12345567, lang="en_NE"), "one crore, twenty-three lakh, forty-five thousand, five hundred and sixty-seven")
-        self.assertEqual(num2words(125000000, lang="en_NE"), "twelve crore, fifty lakh")
-        
+        self.assertEqual(
+            num2words(150000, lang="en_NE"),
+            "one lakh, fifty thousand"
+        )
+        self.assertEqual(
+            num2words(250000, lang="en_NE"),
+            "two lakh, fifty thousand"
+        )
+        self.assertEqual(
+            num2words(1250000, lang="en_NE"),
+            "twelve lakh, fifty thousand"
+        )
+        self.assertEqual(
+            num2words(15000000, lang="en_NE"),
+            "one crore, fifty lakh"
+        )
+        self.assertEqual(
+            num2words(12345567, lang="en_NE"),
+            "one crore, twenty-three lakh, forty-five thousand, "
+            "five hundred and sixty-seven"
+        )
+        self.assertEqual(
+            num2words(125000000, lang="en_NE"), "twelve crore, "
+            "fifty lakh"
+        )
+
     def test_small_numbers(self):
         # Ensure small numbers still work correctly
         self.assertEqual(num2words(0, lang="en_NE"), "zero")
         self.assertEqual(num2words(1, lang="en_NE"), "one")
         self.assertEqual(num2words(99, lang="en_NE"), "ninety-nine")
-        self.assertEqual(num2words(999, lang="en_NE"), "nine hundred and ninety-nine")
-        self.assertEqual(num2words(9999, lang="en_NE"), "nine thousand, nine hundred and ninety-nine")
-        self.assertEqual(num2words(99999, lang="en_NE"), "ninety-nine thousand, nine hundred and ninety-nine")
+        self.assertEqual(
+            num2words(999, lang="en_NE"),
+            "nine hundred and ninety-nine"
+        )
+        self.assertEqual(
+            num2words(9999, lang="en_NE"),
+            "nine thousand, nine hundred and ninety-nine"
+        )
+        self.assertEqual(
+            num2words(99999, lang="en_NE"),
+            "ninety-nine thousand, nine hundred and ninety-nine"
+        )
 
     def test_complex_values(self):
         # Real-world complex numbers
         self.assertEqual(
-            num2words(12345678, lang="en_NE"), 
-            "one crore, twenty-three lakh, forty-five thousand, six hundred and seventy-eight"
+            num2words(12345678, lang="en_NE"),
+            "one crore, twenty-three lakh, forty-five thousand, "
+            "six hundred and seventy-eight"
         )
         self.assertEqual(
             num2words(987654321, lang="en_NE"),
-            "ninety-eight crore, seventy-six lakh, fifty-four thousand, three hundred and twenty-one"
+            "ninety-eight crore, seventy-six lakh, "
+            "fifty-four thousand, three hundred and twenty-one"
         )

@@ -21,7 +21,6 @@ from num2words import num2words
 
 
 class Num2WordsNETest(TestCase):
-    
     def test_zero(self):
         self.assertEqual(num2words(0, lang='ne'), 'शून्य')
 
@@ -62,7 +61,7 @@ class Num2WordsNETest(TestCase):
         self.assertEqual(num2words(67, lang='ne'), 'सतसट्ठी')
         self.assertEqual(num2words(68, lang='ne'), 'अठसट्ठी')
         self.assertEqual(num2words(69, lang='ne'), 'उनन्सत्तरी')
-    
+
     def test_seventies(self):
         """Test numbers 70-79"""
         self.assertEqual(num2words(70, lang='ne'), 'सत्तरी')
@@ -75,7 +74,7 @@ class Num2WordsNETest(TestCase):
         self.assertEqual(num2words(77, lang='ne'), 'सतहत्तर')
         self.assertEqual(num2words(78, lang='ne'), 'अठहत्तर')
         self.assertEqual(num2words(79, lang='ne'), 'उनासी')
-    
+
     def test_hundreds(self):
         """Test hundreds"""
         self.assertEqual(num2words(100, lang='ne'), 'एक सय')
@@ -96,13 +95,15 @@ class Num2WordsNETest(TestCase):
         self.assertEqual(num2words(2000, lang='ne'), 'दुई हजार')
         self.assertEqual(num2words(5000, lang='ne'), 'पाँच हजार')
         self.assertEqual(num2words(50000, lang='ne'), 'पचास हजार')
-        self.assertEqual(num2words(99999, lang='ne'), 'उनान्सय हजार नौ सय उनान्सय')
+        self.assertEqual(
+            num2words(99999, lang='ne'), 'उनान्सय हजार नौ सय उनान्सय')
 
     def test_thousands_with_remainder(self):
         self.assertEqual(num2words(1001, lang='ne'), 'एक हजार एक')
         self.assertEqual(num2words(1234, lang='ne'), 'एक हजार दुई सय चौतिस')
         self.assertEqual(num2words(5678, lang='ne'), 'पाँच हजार छ सय अठहत्तर')
-        self.assertEqual(num2words(99999, lang='ne'), 'उनान्सय हजार नौ सय उनान्सय')
+        self.assertEqual(
+            num2words(99999, lang='ne'), 'उनान्सय हजार नौ सय उनान्सय')
 
     def test_lakhs(self):
         """Test lakhs (10^5)"""
@@ -111,12 +112,14 @@ class Num2WordsNETest(TestCase):
         self.assertEqual(num2words(500000, lang='ne'), 'पाँच लाख')
         self.assertEqual(num2words(1000000, lang='ne'), 'दस लाख')
         self.assertEqual(num2words(5000000, lang='ne'), 'पचास लाख')
-    
+
     def test_lakhs_with_remainder(self):
         self.assertEqual(num2words(100001, lang='ne'), 'एक लाख एक')
-        self.assertEqual(num2words(123456, lang='ne'), 'एक लाख तेइस हजार चार सय छपन्न')
-        self.assertEqual(num2words(999999, lang='ne'), 'नौ लाख उनान्सय हजार नौ सय उनान्सय')
-    
+        self.assertEqual(
+            num2words(123456, lang='ne'), 'एक लाख तेइस हजार चार सय छपन्न')
+        self.assertEqual(
+            num2words(999999, lang='ne'), 'नौ लाख उनान्सय हजार नौ सय उनान्सय')
+
     def test_crores(self):
         """Test crores (10^7)"""
         self.assertEqual(num2words(10000000, lang='ne'), 'एक करोड')
@@ -124,10 +127,15 @@ class Num2WordsNETest(TestCase):
         self.assertEqual(num2words(50000000, lang='ne'), 'पाँच करोड')
         self.assertEqual(num2words(100000000, lang='ne'), 'दस करोड')
         self.assertEqual(num2words(500000000, lang='ne'), 'पचास करोड')
-    
+
     def test_crores_with_remainder(self):
-        self.assertEqual(num2words(10000001, lang='ne'), 'एक करोड एक')
-        self.assertEqual(num2words(12345678, lang='ne'), 'एक करोड तेइस लाख पैँतालिस हजार छ सय अठहत्तर')
+        self.assertEqual(
+            num2words(10000001, lang='ne'), 'एक करोड एक'
+            )
+        self.assertEqual(
+            num2words(12345678, lang='ne'),
+            'एक करोड तेइस लाख पैँतालिस हजार छ सय अठहत्तर'
+            )
 
     def test_arba(self):
         """Test arba (10^9)"""
@@ -137,10 +145,13 @@ class Num2WordsNETest(TestCase):
         self.assertEqual(num2words(10000000000, lang='ne'), 'दस अर्ब')
         self.assertEqual(num2words(50000000000, lang='ne'), 'पचास अर्ब')
         self.assertEqual(num2words(99000000000, lang='ne'), 'उनान्सय अर्ब')
-    
+
     def test_arba_with_remainder(self):
         self.assertEqual(num2words(1000000001, lang='ne'), 'एक अर्ब एक')
-        self.assertEqual(num2words(1234567890, lang='ne'), 'एक अर्ब तेइस करोड पैँतालिस लाख सतसट्ठी हजार आठ सय नब्बे')
+        self.assertEqual(
+            num2words(1234567890, lang='ne'),
+            'एक अर्ब तेइस करोड पैँतालिस लाख सतसट्ठी हजार आठ सय नब्बे'
+            )
 
     def test_kharba(self):
         """Test kharba (10^11)"""
@@ -157,28 +168,34 @@ class Num2WordsNETest(TestCase):
         # Reading: 1 kharba, 23 arba, 45 crore, 67 lakh, 89 thousand, 12
         self.assertEqual(
             num2words(123456789123, lang='ne'),
-            'एक खर्ब तेइस अर्ब पैँतालिस करोड सतसट्ठी लाख उनान्नब्बे हजार एक सय तेइस'
+            'एक खर्ब तेइस अर्ब पैँतालिस करोड '
+            'सतसट्ठी लाख उनान्नब्बे हजार '
+            'एक सय तेइस'
         )
-        
+
         # 12,34,56,78,90,123
         self.assertEqual(
             num2words(1234567890123, lang='ne'),
-            'बाह्र खर्ब चौतिस अर्ब छपन्न करोड अठहत्तर लाख नब्बे हजार एक सय तेइस'
+            'बाह्र खर्ब चौतिस अर्ब छपन्न '
+            'करोड अठहत्तर लाख नब्बे हजार '
+            'एक सय तेइस'
         )
 
         # 9,99,99,99,99,999
         self.assertEqual(
             num2words(999999999999, lang='ne'),
-            'नौ खर्ब उनान्सय अर्ब उनान्सय करोड उनान्सय लाख उनान्सय हजार नौ सय उनान्सय'
+            'नौ खर्ब उनान्सय अर्ब उनान्सय करोड '
+            'उनान्सय लाख उनान्सय हजार '
+            'नौ सय उनान्सय'
         )
-    
+
     def test_negative_numbers(self):
         """Test negative numbers."""
         self.assertEqual(num2words(-1, lang='ne'), 'माइनस एक')
         self.assertEqual(num2words(-100, lang='ne'), 'माइनस एक सय')
         self.assertEqual(num2words(-1000, lang='ne'), 'माइनस एक हजार')
         self.assertEqual(num2words(-1000000000, lang='ne'), 'माइनस एक अर्ब')
-    
+
     def test_ordinals(self):
         """Test ordinal numbers."""
         self.assertEqual(num2words(1, lang='ne', to='ordinal'), 'पहिलो')
@@ -194,40 +211,42 @@ class Num2WordsNETest(TestCase):
         self.assertEqual(num2words(21, lang='ne', to='ordinal'), 'एक्काइसौं')
         self.assertEqual(num2words(23, lang='ne', to='ordinal'), 'तेइसौं')
         self.assertEqual(num2words(100, lang='ne', to='ordinal'), 'एक सयऔं')
-    
+
     def test_currency_npr(self):
         """Test NPR (Nepalese Rupee) currency conversion."""
         result = num2words(1, lang='ne', to='currency', currency='NPR')
         self.assertIn('रुपैयाँ', result)
-        
+
         result = num2words(5, lang='ne', to='currency', currency='NPR')
         self.assertIn('रुपैयाँ', result)
-        
+
         # Test arba in currency
-        result = num2words(5000000000, lang='ne', to='currency', currency='NPR')
+        result = num2words(
+            5000000000, lang='ne', to='currency', currency='NPR'
+            )
         self.assertIn('अर्ब', result)
         self.assertIn('रुपैयाँ', result)
-        
+
         # Test with paisa (fractional)
         result = num2words(5.50, lang='ne', to='currency', currency='NPR')
         self.assertIn('रुपैयाँ', result)
-        self.assertIn('पैसा', result)   
-    
+        self.assertIn('पैसा', result)
+
     def test_currency_other(self):
         """Test USD conversion"""
         result = num2words(100, lang='ne', to='currency', currency='USD')
         self.assertIn('डलर', result)
-        
+
         result = num2words(1, lang='ne', to='currency', currency='USD')
         self.assertIn('डलर', result)
-        
+
         result = num2words(2, lang='ne', to='currency', currency='USD')
         self.assertIn('डलर', result)
 
         """Test EUR conversion."""
         result = num2words(1, lang='ne', to='currency', currency='EUR')
         self.assertEqual(result, 'एक युरो')
-        
+
         result = num2words(50, lang='ne', to='currency', currency='EUR')
         self.assertIn('पचास', result)
         self.assertIn('युरो', result)
@@ -235,7 +254,7 @@ class Num2WordsNETest(TestCase):
     def test_string_input(self):
         self.assertEqual(num2words('123', lang='ne'), 'एक सय तेइस')
         self.assertEqual(num2words('1000', lang='ne'), 'एक हजार')
-    
+
     def test_float_input(self):
         """Test float input (truncated to integer for cardinal)"""
         self.assertEqual(num2words(123.45, lang='ne'), 'एक सय तेइस')
