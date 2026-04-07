@@ -17,6 +17,7 @@
 
 from __future__ import unicode_literals
 
+from decimal import Decimal
 from unittest import TestCase
 
 from num2words import num2words
@@ -87,6 +88,11 @@ TEST_CASES_CARDINAL = (
     (10000000000000000000000000, 'diez cuatrillones')
 )
 
+TEST_CASES_CARDINAL_DECIMAL = (
+    (Decimal("98746251323029.99"), 'noventa y ocho billones setecientos cuarenta y seis mil doscientos cincuenta y uno millones trescientos veintitrés mil veintinueve punto nueve nueve'),
+)
+
+
 TEST_CASES_ORDINAL = (
     (1, 'primero'),
     (8, 'octavo'),
@@ -138,7 +144,22 @@ TEST_CASES_TO_CURRENCY = (
     (81.25, 'ochenta y un euros con veinticinco céntimos'),
     (350.90, 'trescientos cincuenta euros con noventa céntimos'),
     (100.00, 'cien euros con cero céntimos'),
+    (100.00, 'cien euros con cero céntimos'),
 )
+
+TEST_CASES_TO_CURRENCY_DECIMAL = (
+    (Decimal("1.00"), 'un euro con cero céntimos'),
+    (Decimal("1.01"), 'un euro con un céntimo'),
+    (Decimal("2.00"), 'dos euros con cero céntimos'),
+    (Decimal("8.00"), 'ocho euros con cero céntimos'),
+    (Decimal("12.00"), 'doce euros con cero céntimos'),
+    (Decimal("21.00"), 'veintiún euros con cero céntimos'),
+    (Decimal("81.25"), 'ochenta y un euros con veinticinco céntimos'),
+    (Decimal("350.90"), 'trescientos cincuenta euros con noventa céntimos'),
+    (Decimal("100.00"), 'cien euros con cero céntimos'),
+    (Decimal("100.00"), 'cien euros con cero céntimos'),
+)
+
 
 TEST_CASES_TO_CURRENCY_ESP = (
     (1.00, 'una peseta con cero céntimos'),
@@ -1838,6 +1859,10 @@ class Num2WordsESTest(TestCase):
         for test in TEST_CASES_CARDINAL:
             self.assertEqual(num2words(test[0], lang='es'), test[1])
 
+    def test_number_decimal(self):
+        for test in TEST_CASES_CARDINAL_DECIMAL:
+            self.assertEqual(num2words(test[0], lang='es'), test[1])
+
     def test_ordinal(self):
         for test in TEST_CASES_ORDINAL:
             self.assertEqual(
@@ -1861,6 +1886,13 @@ class Num2WordsESTest(TestCase):
 
     def test_currency(self):
         for test in TEST_CASES_TO_CURRENCY:
+            self.assertEqual(
+                num2words(test[0], lang='es', to='currency'),
+                test[1]
+            )
+
+    def test_currency_decimal(self):
+        for test in TEST_CASES_TO_CURRENCY_DECIMAL:
             self.assertEqual(
                 num2words(test[0], lang='es', to='currency'),
                 test[1]

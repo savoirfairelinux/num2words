@@ -136,13 +136,25 @@ class Num2Word_Base(object):
 
         return pre, post
 
+    def decimal2tuple(self, value: Decimal) -> tuple[int, int]:
+        pre = int(value)
+
+        dtuple = value.as_tuple()
+        self.precision = abs(dtuple.exponent) if dtuple.exponent < 0 else 0
+        post = 0
+        if dtuple.exponent < 0:
+            post = int("".join([str(_) for _ in dtuple.digits[dtuple.exponent:]]))
+        return pre, post
+
     def to_cardinal_float(self, value):
         try:
             float(value) == value
         except (ValueError, TypeError, AssertionError, AttributeError):
             raise TypeError(self.errmsg_nonnum % value)
-
-        pre, post = self.float2tuple(float(value))
+        if isinstance(value, (Decimal, str,)):
+            pre, post = self.decimal2tuple(Decimal(value))
+        else:
+            pre, post = self.float2tuple(float(value))
 
         post = str(post)
         post = '0' * (self.precision - len(post)) + post
