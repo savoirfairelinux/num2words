@@ -25,3 +25,11 @@ class Num2WordsENINTest(TestCase):
         self.assertEqual(num2words(1e5, lang="en_IN"), "one lakh")
         self.assertEqual(num2words(1e6, lang="en_IN"), "ten lakh")
         self.assertEqual(num2words(1e7, lang="en_IN"), "one crore")
+        self.assertEqual(num2words(1e9, lang="en_IN"), "one arab")
+        self.assertEqual(num2words(9907781961, lang="en_IN"), "nine arab, "
+                         "ninety crore, seventy-seven lakh, "
+                         "eighty-one thousand, "
+                         "nine hundred and sixty-one")
+        self.assertEqual(num2words(155215059811, lang="en_IN"),  "one kharab, "
+                         "fifty-five arab, twenty-one crore, fifty lakh, "
+                         "fifty-nine thousand, eight hundred and eleven")
