@@ -104,6 +104,7 @@ Besides the numerical argument, there are two main optional arguments, ``to:`` a
 * ``fr_DZ`` (French - Algeria)
 * ``he`` (Hebrew)
 * ``hi`` (Hindi)
+* ``hr`` (Croatian)
 * ``hu`` (Hungarian)
 * ``hy`` (Armenian)
 * ``id`` (Indonesian)
