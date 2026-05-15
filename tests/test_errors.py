@@ -25,8 +25,13 @@ from num2words import num2words
 class Num2WordsErrorsTest(TestCase):
 
     def test_NotImplementedError(self):
+        # Sentinel: "xxxxx" — its 2-letter prefix "xx" isn't a
+        # registered language either (the dispatcher truncates an
+        # unknown long code to its first 2 letters before giving up).
+        # An older version of this test used "lalala", which started
+        # matching once Latin (`la`) was added.
         with self.assertRaises(NotImplementedError):
-            num2words(100, lang="lalala")
+            num2words(100, lang="xxxxx")
 
     def test_types_NotImplementedError(self):
         with self.assertRaises(NotImplementedError):
