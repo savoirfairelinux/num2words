@@ -26,7 +26,7 @@ from . import (lang_AM, lang_AR, lang_AZ, lang_BE, lang_BN, lang_CA, lang_CE,
                lang_KZ, lang_LT, lang_LV, lang_MN, lang_NL, lang_NO, lang_PL,
                lang_PT, lang_PT_BR, lang_RO, lang_RU, lang_SK, lang_SL,
                lang_SR, lang_SV, lang_TE, lang_TET, lang_TG, lang_TH, lang_TR,
-               lang_UK, lang_VI, lang_ZH, lang_ZH_CN, lang_ZH_HK, lang_ZH_TW)
+               lang_UK,lang_UZ, lang_VI, lang_ZH, lang_ZH_CN, lang_ZH_HK, lang_ZH_TW)
 
 CONVERTER_CLASSES = {
     'am': lang_AM.Num2Word_AM(),
@@ -87,6 +87,7 @@ CONVERTER_CLASSES = {
     'th': lang_TH.Num2Word_TH(),
     'tr': lang_TR.Num2Word_TR(),
     'uk': lang_UK.Num2Word_UK(),
+    'uz': lang_UZ.Num2Word_UZ(),
     'vi': lang_VI.Num2Word_VI(),
     'zh': lang_ZH.Num2Word_ZH(),
     'zh_CN': lang_ZH_CN.Num2Word_ZH_CN(),
