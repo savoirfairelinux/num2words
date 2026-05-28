@@ -1866,6 +1866,32 @@ class Num2WordsESTest(TestCase):
                 test[1]
             )
 
+    def test_currency_integer_whole_units(self):
+        # Regression: integer inputs resolve to whole currency units with no
+        # cents, so the base to_currency() omits the cents segment. The ES
+        # override used to assume that segment always existed and raised
+        # IndexError. See whole-unit amounts below.
+        cases = (
+            (0, 'cero euros'),
+            (100, 'un euro'),
+            (200, 'dos euros'),
+            (2100, 'veintiún euros'),
+            (12300, 'ciento veintitrés euros'),
+        )
+        for value, expected in cases:
+            self.assertEqual(
+                num2words(value, lang='es', to='currency'), expected
+            )
+        # Feminine currency keeps its grammar on the whole-unit path.
+        self.assertEqual(
+            num2words(100, lang='es', to='currency', currency='GBP'),
+            'una libra'
+        )
+        self.assertEqual(
+            num2words(2100, lang='es', to='currency', currency='GBP'),
+            'veintiuna libras'
+        )
+
     def test_currency_esp(self):
         for test in TEST_CASES_TO_CURRENCY_ESP:
             self.assertEqual(

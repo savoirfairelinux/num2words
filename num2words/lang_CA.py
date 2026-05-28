@@ -463,13 +463,16 @@ class Num2Word_CA(Num2Word_EU):
         list_result[0] = list_result[0].replace(" i un", "-un")
         list_result[0] = list_result[0].replace("un", "un")
 
-        if currency in CENTS_UNA:
-            list_result[1] = list_result[1].replace("un", "una")
-            list_result[1] = list_result[1].replace("dos", "dues")
+        # The base to_currency() omits the cents part for whole amounts
+        # (e.g. integer inputs with no cents), so it may be absent here.
+        if len(list_result) > 1:
+            if currency in CENTS_UNA:
+                list_result[1] = list_result[1].replace("un", "una")
+                list_result[1] = list_result[1].replace("dos", "dues")
 
-        list_result[1] = list_result[1].replace("vint-i-un", "vint-i-una")
+            list_result[1] = list_result[1].replace("vint-i-un", "vint-i-una")
 
-        list_result[1] = list_result[1].replace("un", "un")
+            list_result[1] = list_result[1].replace("un", "un")
 
         result = (separator + " ").join(list_result)
 
