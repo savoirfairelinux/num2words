@@ -173,6 +173,20 @@ class TestNum2WordsCA(TestCase):
     def test_currency(self):
         self._test_cases(TEST_CASES_TO_CURRENCY, to="currency", currency="EUR")
 
+    def test_currency_integer_whole_units(self):
+        # Regression: integer inputs are whole currency units with no cents,
+        # so the base to_currency() omits the cents segment. The CA override
+        # used to assume that segment always existed and raised IndexError.
+        cases = (
+            (0, 'zero euros'),
+            (100, 'un euro'),
+            (200, 'dos euros'),
+        )
+        for value, expected in cases:
+            self.assertEqual(
+                num2words(value, lang='ca', to='currency'), expected
+            )
+
     def test_currency_esp(self):
         self._test_cases(TEST_CASES_TO_CURRENCY_ESP,
                          to="currency", currency="ESP")
