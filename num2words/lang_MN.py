@@ -240,7 +240,7 @@ class Num2Word_MN(Num2Word_Base):
         if number_str[-1] != '0':
             if number_str[-1] in ('1', '4', '9'):
                 suffix = 'дүгээр'
-        elif number_str[-2] != '0':
+        elif len(number_str) > 1 and number_str[-2] != '0':
             if number_str[-2] in ('4', '9'):
                 suffix = 'дүгээр'
         return suffix

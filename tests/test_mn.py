@@ -86,6 +86,15 @@ class Num2WordsMNTest(TestCase):
             "нэг мянга дугаар"
         )
 
+    def test_to_ordinal_zero(self):
+        # ordinal(0) must not crash; base.verify_ordinal accepts 0 (English
+        # returns "zeroth") and Mongolian should honour the same contract,
+        # falling back to the default "дугаар" suffix.
+        self.assertEqual(
+            num2words(0, lang='mn', to='ordinal'),
+            "тэг дугаар"
+        )
+
     def test_to_ordinal_num(self):
         self.assertEqual(
             num2words(105, lang='mn', to='ordinal_num'),
@@ -95,6 +104,13 @@ class Num2WordsMNTest(TestCase):
         self.assertEqual(
             num2words(489, lang='mn', to='ordinal_num'),
             "489 дүгээр"
+        )
+
+    def test_to_ordinal_num_zero(self):
+        # ordinal_num(0) must not crash; see test_to_ordinal_zero.
+        self.assertEqual(
+            num2words(0, lang='mn', to='ordinal_num'),
+            "0 дугаар"
         )
 
     def test_to_year(self):
