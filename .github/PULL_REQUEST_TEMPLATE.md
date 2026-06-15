@@ -18,4 +18,3 @@
 ### Additional notes
 
 *If applicable, explain the rationale behind your change.*
-
