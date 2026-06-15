@@ -1,4 +1,4 @@
-include CHANGES.rst
+include CHANGELOG.md
 include COPYING
 include tests/*
 include bin/num2words
