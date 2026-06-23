@@ -127,6 +127,7 @@ Besides the numerical argument, there are two main optional arguments, ``to:`` a
 * ``sk`` (Slovak)
 * ``sr`` (Serbian)
 * ``sv`` (Swedish)
+* ``sw`` (Swahili)
 * ``te`` (Telugu)
 * ``tet`` (Tetum)
 * ``tg`` (Tajik)
