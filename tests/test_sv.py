@@ -26,7 +26,7 @@ class Num2WordsSVTest(TestCase):
     def test_ordinal(self):
         self.assertEqual(num2words(14, to="ordinal", lang="sv"), "fjortonde")
         self.assertEqual(num2words(1435, to="ordinal", lang="sv"),
-                         "etttusen fyrahundratrettiofemte")
+                         "ettusen fyrahundratrettiofemte")
         self.assertEqual(num2words(32, to="ordinal", lang="sv"),
                          "trettioandra")
         self.assertEqual(num2words(1, to="ordinal", lang="sv"), "första")
@@ -39,9 +39,13 @@ class Num2WordsSVTest(TestCase):
         self.assertEqual(num2words(3, to="cardinal", lang="sv"), "tre")
         self.assertEqual(num2words(5, to="cardinal", lang="sv"), "fem")
         self.assertEqual(num2words(18, to="cardinal", lang="sv"), "arton")
-        self.assertEqual(num2words(45, to="cardinal", lang="sv"), "förtiofem")
+        self.assertEqual(num2words(40, to="cardinal", lang="sv"), "fyrtio")
+        self.assertEqual(num2words(45, to="cardinal", lang="sv"), "fyrtiofem")
+        self.assertEqual(num2words(1000, to="cardinal", lang="sv"), "ettusen")
         self.assertEqual(num2words(1345, to="cardinal", lang="sv"),
-                         "etttusen trehundraförtiofem")
+                         "ettusen trehundrafyrtiofem")
+        self.assertEqual(num2words(21000, to="cardinal", lang="sv"),
+                         "tjugoettusen")
         self.assertEqual(num2words(4435, to="cardinal", lang="sv"),
                          "fyratusen fyrahundratrettiofem")
         self.assertEqual(num2words(1004135, to="cardinal", lang="sv"),

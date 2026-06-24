@@ -43,7 +43,7 @@ class Num2Word_SV(lang_EU.Num2Word_EU):
 
         self.mid_numwords = [(1000, "tusen"), (100, "hundra"),
                              (90, "nittio"), (80, "åttio"), (70, "sjuttio"),
-                             (60, "sextio"), (50, "femtio"), (40, "förtio"),
+                             (60, "sextio"), (50, "femtio"), (40, "fyrtio"),
                              (30, "trettio")]
         self.low_numwords = ["tjugo", "nitton", "arton", "sjutton",
                              "sexton", "femton", "fjorton", "tretton",
@@ -79,6 +79,11 @@ class Num2Word_SV(lang_EU.Num2Word_EU):
         elif rnum >= 1000000 and lnum > 1:
             return ("%s %s" % (ltext, rtext), lnum + rnum)
         elif rnum > lnum:
+            # Swedish disallows three identical consonants in a row;
+            # words ending in -tt (e.g. "ett", "tjugoett") lose one "t"
+            # before "tusen" which starts with "t": ettusen, not etttusen.
+            if ltext.endswith("tt") and rtext.startswith("t"):
+                ltext = ltext[:-1]
             return ("%s%s" % (ltext, rtext), lnum * rnum)
         return ("%s %s" % (ltext, rtext), lnum + rnum)
 
