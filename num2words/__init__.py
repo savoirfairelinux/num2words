@@ -116,4 +116,10 @@ def num2words(number, ordinal=False, lang='en', to='cardinal', **kwargs):
     if to not in CONVERTES_TYPES:
         raise NotImplementedError()
 
+    # Float values equal to an integer (e.g. 1.0, 2.0) are valid ordinals;
+    # convert them to int so to_ordinal_num doesn't embed the decimal point
+    # in the formatted result (e.g. "1.0st" instead of the correct "1st").
+    if to in ('ordinal', 'ordinal_num') and isinstance(number, float) and number == int(number):
+        number = int(number)
+
     return getattr(converter, 'to_{}'.format(to))(number, **kwargs)

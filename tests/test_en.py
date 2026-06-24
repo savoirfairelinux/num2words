@@ -60,6 +60,10 @@ class Num2WordsENTest(TestCase):
         self.assertEqual(num2words(21, lang='en', to='ordinal_num'), '21st')
         self.assertEqual(num2words(102, lang='en', to='ordinal_num'), '102nd')
         self.assertEqual(num2words(73, lang='en', to='ordinal_num'), '73rd')
+        # integer-valued floats should format without the decimal point
+        self.assertEqual(num2words(1.0, lang='en', to='ordinal_num'), '1st')
+        self.assertEqual(num2words(2.0, lang='en', to='ordinal_num'), '2nd')
+        self.assertEqual(num2words(21.0, lang='en', to='ordinal_num'), '21st')
 
     def test_cardinal_for_float_number(self):
         self.assertEqual(num2words(0.12), "zero point one two")
