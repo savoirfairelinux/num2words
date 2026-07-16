@@ -700,6 +700,7 @@ TEST_CASES_CARDINAL_LOCATIVE = (
 )
 
 TEST_CASES_ORDINAL = (
+    (0, "нульовий"),
     (1, "перший"),
     (2, "другий"),
     (3, "третій"),

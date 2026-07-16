@@ -1043,6 +1043,11 @@ class Num2Word_UK(Num2Word_Base):
     def to_ordinal(self, number):
         self.verify_ordinal(number)
 
+        if number == 0:
+            # splitbyx("0") yields a single zero fragment; the loop below would
+            # pop it and then index an empty list, so handle zero explicitly.
+            return "нульовий"
+
         words = []
         fragments = list(splitbyx(str(number), 3))
         level = 0

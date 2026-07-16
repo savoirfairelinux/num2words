@@ -221,6 +221,10 @@ class Num2Word_PL(Num2Word_Base):
     def to_ordinal(self, number):
         if number % 1 != 0:
             raise NotImplementedError()
+        if number == 0:
+            # splitbyx("0") yields a single zero fragment; the loop below would
+            # pop it and then index an empty list, so handle zero explicitly.
+            return "zerowy"
         words = []
         fragments = list(splitbyx(str(number), 3))
         level = 0

@@ -93,6 +93,7 @@ class Num2WordsPLTest(TestCase):
         )
 
     def test_to_ordinal(self):
+        self.assertEqual(num2words(0, lang='pl', to='ordinal'), "zerowy")
         self.assertEqual(num2words(100, lang='pl', to='ordinal'), "setny")
         self.assertEqual(
             num2words(101, lang='pl', to='ordinal'), "sto pierwszy")
