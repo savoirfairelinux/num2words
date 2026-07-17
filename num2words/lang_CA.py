@@ -406,11 +406,20 @@ class Num2Word_CA(Num2Word_EU):
             text = "%s%s" % (self.ords[value], self.gender_stem)
         elif value <= 30:
             frac = value % 10
-            text = "%s%s%s" % (self.ords[20], "-i-", self.ords_3[frac])
+            if frac == 0:
+                # An exact ten ("trentè") has no units part to append.
+                text = "%s%s" % (self.ords[value], self.gender_stem)
+            else:
+                text = "%s%s%s" % (self.ords[20], "-i-", self.ords_3[frac])
         elif value < 100:
             dec = (value // 10) * 10
-            text = "%s%s%s%s" % (self.ords[dec], "a",
-                                 "-", self.ords_3[value - dec])
+            frac = value - dec
+            if frac == 0:
+                # An exact ten ("quarantè") has no units part to append.
+                text = "%s%s" % (self.ords[dec], self.gender_stem)
+            else:
+                text = "%s%s%s%s" % (self.ords[dec], "a",
+                                     "-", self.ords_3[frac])
         elif value == 1e2:
             text = "%s%s" % (self.ords[value], self.gender_stem)
         elif value < 2e2:
