@@ -84,7 +84,14 @@ TEST_CASES_CARDINAL = (
     (100000000000000, 'cien billones'),
     (1000000000000000000, 'un trillón'),
     (1000000000000000000000, 'mil trillones'),
-    (10000000000000000000000000, 'diez cuatrillones')
+    (10000000000000000000000000, 'diez cuatrillones'),
+    # apocope of "uno"/"veintiuno" before mil/millones (issue #515)
+    (21000, 'veintiún mil'),
+    (31000, 'treinta y un mil'),
+    (101000, 'ciento un mil'),
+    (121000, 'ciento veintiún mil'),
+    (21000000, 'veintiún millones'),
+    (21000000000, 'veintiún mil millones'),
 )
 
 TEST_CASES_ORDINAL = (

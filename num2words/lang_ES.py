@@ -18,6 +18,7 @@
 from __future__ import division, print_function, unicode_literals
 
 import math
+import re
 
 from .lang_EU import Num2Word_EU
 
@@ -301,6 +302,18 @@ class Num2Word_ES(Num2Word_EU):
             ntext = " " + ntext
 
         return (ctext + ntext, cnum * nnum)
+
+    # "uno" apocopates to "un", and "veintiuno" to "veintiún", right before
+    # "mil" and the "-illón/-illones" scale words: "veintiún mil", "treinta y
+    # un millones", "veintiún mil millones". Source: https://www.rae.es/dpd/uno
+    _APOCOPE_SCALE = r'(?=\s+(?:mil|\w*ll(?:ón|ones))\b)'
+
+    def to_cardinal(self, value):
+        result = super(Num2Word_ES, self).to_cardinal(value)
+        result = re.sub(r'\bveintiuno' + self._APOCOPE_SCALE, 'veintiún',
+                        result)
+        result = re.sub(r'\buno' + self._APOCOPE_SCALE, 'un', result)
+        return result
 
     def to_ordinal(self, value, gender='m'):
         gender_stem = 'a' if gender == 'f' else 'o'
