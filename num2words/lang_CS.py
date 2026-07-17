@@ -100,6 +100,8 @@ class Num2Word_CS(Num2Word_Base):
 
     def to_cardinal(self, number):
         n = str(number).replace(',', '.')
+        if n.startswith('-'):
+            return '%s %s' % (self.negword.strip(), self.to_cardinal(n[1:]))
         if '.' in n:
             left, right = n.split('.')
             leading_zero_count = len(right) - len(right.lstrip('0'))

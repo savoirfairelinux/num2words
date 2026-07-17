@@ -92,6 +92,17 @@ class Num2WordsPLTest(TestCase):
             "sześć kwintyliardów sto dwa kwintyliony tysiąc siedem"
         )
 
+    def test_cardinal_negative(self):
+        self.assertEqual(num2words(-1, lang='pl'), "minus jeden")
+        self.assertEqual(num2words(-5, lang='pl'), "minus pięć")
+        self.assertEqual(
+            num2words(-123, lang='pl'), "minus sto dwadzieścia trzy")
+        self.assertEqual(num2words(-1000000, lang='pl'), "minus milion")
+        self.assertEqual(
+            num2words(-5.5, lang='pl'), "minus pięć przecinek pięć")
+        self.assertEqual(
+            num2words(-0.5, lang='pl'), "minus zero przecinek pięć")
+
     def test_to_ordinal(self):
         self.assertEqual(num2words(100, lang='pl', to='ordinal'), "setny")
         self.assertEqual(

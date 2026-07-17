@@ -72,6 +72,14 @@ class Num2WordsSKTest(TestCase):
             "dvestodvadsaťtisícdvestodeväťdesiatjeden"
         )
 
+    def test_cardinal_negative(self):
+        self.assertEqual(num2words(-1, lang='sk'), "mínus jeden")
+        self.assertEqual(num2words(-5, lang='sk'), "mínus päť")
+        self.assertEqual(num2words(-123, lang='sk'), "mínus stodvadsaťtri")
+        self.assertEqual(num2words(-1000000, lang='sk'), "mínus milión")
+        self.assertEqual(num2words(-5.5, lang='sk'), "mínus päť celých päť")
+        self.assertEqual(num2words(-0.5, lang='sk'), "mínus nula celých päť")
+
     def test_to_ordinal(self):
         # @TODO: implement to_ordinal
         with self.assertRaises(NotImplementedError):
