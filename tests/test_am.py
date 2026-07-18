@@ -92,3 +92,9 @@ class Num2WordsAMTest(TestCase):
                          'አንድ ሺህ ስድሳ ስድስት')
         self.assertEqual(num2words(1865, lang='am', to='year'),
                          'አሥራ ስምንት መቶ ስድሳ አምስት')
+
+    def test_negative_cardinal(self):
+        self.assertEqual(num2words(-5, lang='am'), 'አሉታዊ አምስት')
+        self.assertEqual(num2words(-100, lang='am'), 'አሉታዊ መቶ')
+        self.assertEqual(num2words(-101, lang='am'), 'አሉታዊ አንድ መቶ አንድ')
+

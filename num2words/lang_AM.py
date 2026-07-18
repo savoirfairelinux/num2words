@@ -77,6 +77,10 @@ class Num2Word_AM(lang_EU.Num2Word_EU):
             return self.to_cardinal_float(value)
 
         out = ''
+        if value < 0:
+            value = abs(value)
+            out = "%s " % self.negword.strip()
+
         if value >= self.MAXVAL:
             raise OverflowError(self.errmsg_toobig % (value, self.MAXVAL))
 
