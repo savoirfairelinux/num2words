@@ -137,3 +137,11 @@ class Num2WordsVITest(TestCase):
             num2words(1000101017, lang="vi"),
             "một tỷ một trăm lẻ một nghìn lẻ mười bảy"
         )
+
+    def test_negative(self):
+        self.assertEqual(num2words(-1, lang="vi"), "âm một")
+        self.assertEqual(num2words(-19, lang="vi"), "âm mười chín")
+        self.assertEqual(num2words(-20, lang="vi"), "âm hai mươi")
+        self.assertEqual(num2words(-100, lang="vi"), "âm một trăm")
+        self.assertEqual(num2words(-1.5, lang="vi"), "âm một phẩy năm mươi")
+
