@@ -85,6 +85,10 @@ class Num2WordsMNTest(TestCase):
             num2words(1000, lang='mn', to='ordinal'),
             "нэг мянга дугаар"
         )
+        self.assertEqual(
+            num2words(0, lang='mn', to='ordinal'),
+            "тэг дугаар"
+        )
 
     def test_to_ordinal_num(self):
         self.assertEqual(
@@ -95,6 +99,10 @@ class Num2WordsMNTest(TestCase):
         self.assertEqual(
             num2words(489, lang='mn', to='ordinal_num'),
             "489 дүгээр"
+        )
+        self.assertEqual(
+            num2words(0, lang='mn', to='ordinal_num'),
+            "0 дугаар"
         )
 
     def test_to_year(self):
