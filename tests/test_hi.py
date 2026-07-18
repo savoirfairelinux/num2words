@@ -286,6 +286,15 @@ class Num2WordsHITest(TestCase):
                 msg="failing number %s" % number,
             )
 
+    def test_ordinal_num_rejects_negative_and_float(self):
+        # digit-char map; negatives/floats must raise TypeError, not KeyError
+        with self.assertRaises(TypeError):
+            num2words(-1, lang="hi", to="ordinal_num")
+        with self.assertRaises(TypeError):
+            num2words(1.5, lang="hi", to="ordinal_num")
+        # word ordinals still accept negatives
+        self.assertEqual(num2words(-1, lang="hi", to="ordinal"), "माइनस एकवाँ")
+
     # In python3, Hindi numbers are implicitly converted into number
     # as `assert int('४२') == 42`.
     # Thus it's possible to pass Hindi numbers string directly

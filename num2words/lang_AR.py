@@ -381,6 +381,7 @@ class Num2Word_AR(Num2Word_Base):
         return self.convert(value=value)
 
     def to_ordinal(self, number, prefix=''):
+        self.verify_ordinal(number)
         if number <= 19:
             return "{}".format(self.arabicOrdinal[number])
         if number < 100:

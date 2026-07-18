@@ -97,6 +97,15 @@ class Num2WordsARTest(TestCase):
                          lang="ar"), 'ثلاث و عشرون')
         self.assertEqual(num2words(23, lang="ar"), 'ثلاثة و عشرون')
 
+    def test_ordinal_rejects_negative(self):
+        # negatives used to index arabicOrdinal backwards or crash in convert
+        with self.assertRaises(TypeError):
+            num2words(-1, lang='ar', to='ordinal')
+        with self.assertRaises(TypeError):
+            num2words(-100, lang='ar', to='ordinal')
+        with self.assertRaises(TypeError):
+            num2words(-1, lang='ar', to='ordinal_num')
+
     def test_cardinal(self):
         self.assertEqual(num2words(0, to='cardinal', lang='ar'), 'صفر')
         self.assertEqual(num2words(12, to='cardinal', lang='ar'), 'اثنا عشر')
