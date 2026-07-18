@@ -124,6 +124,7 @@ Besides the numerical argument, there are two main optional arguments, ``to:`` a
 * ``ro`` (Romanian)
 * ``ru`` (Russian)
 * ``sl`` (Slovene)
+* ``si`` (Sinhala)
 * ``sk`` (Slovak)
 * ``sr`` (Serbian)
 * ``sv`` (Swedish)
