@@ -282,6 +282,28 @@ class Num2WordsRUTest(TestCase):
             'двухмиллионная'
         )
 
+    def test_to_ordinal_cyrillic_gender_aliases(self):
+        # Cyrillic gender aliases must behave like their Latin equivalents
+        for n in (1, 2, 3, 10, 23):
+            latin_f = num2words(n, lang='ru', to='ordinal', gender='f')
+            latin_n = num2words(n, lang='ru', to='ordinal', gender='n')
+            self.assertEqual(
+                num2words(n, lang='ru', to='ordinal', gender='ж'),
+                latin_f,
+            )
+            self.assertEqual(
+                num2words(n, lang='ru', to='ordinal', gender='женский'),
+                latin_f,
+            )
+            self.assertEqual(
+                num2words(n, lang='ru', to='ordinal', gender='с'),
+                latin_n,
+            )
+            self.assertEqual(
+                num2words(n, lang='ru', to='ordinal', gender='средний'),
+                latin_n,
+            )
+
     def test_to_ordinal_neuter(self):
         self.assertEqual(
             num2words(1, lang='ru', to='ordinal', gender='n'), 'первое'
