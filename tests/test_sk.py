@@ -96,3 +96,8 @@ class Num2WordsSKTest(TestCase):
             num2words(19.50, lang='sk', to='currency', cents=False),
             "devätnásť eur, 50 centov"
         )
+
+    def test_cardinal_negative(self):
+        self.assertEqual(num2words(-5, lang='sk'), "mínus päť")
+        self.assertEqual(num2words(-5.5, lang='sk'), "mínus päť celých päť")
+        self.assertEqual(num2words(-0.5, lang='sk'), "mínus nula celých päť")

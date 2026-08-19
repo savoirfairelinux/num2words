@@ -112,3 +112,9 @@ class Num2WordsCSTest(TestCase):
             num2words(19.50, lang='cs', to='currency', cents=False),
             "devatenáct euro, 50 centů"
         )
+
+    def test_cardinal_negative(self):
+        self.assertEqual(num2words(-5, lang='cs'), "mínus pět")
+        self.assertEqual(num2words(-123, lang='cs'), "mínus sto dvacet tři")
+        self.assertEqual(num2words(-5.5, lang='cs'), "mínus pět celá pět")
+        self.assertEqual(num2words(-0.5, lang='cs'), "mínus nula celá pět")

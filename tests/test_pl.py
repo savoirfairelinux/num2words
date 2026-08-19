@@ -167,3 +167,10 @@ class Num2WordsPLTest(TestCase):
             num2words(1950, lang='pl', to='currency', cents=False),
             "dziewiętnaście euro, 50 centów"
         )
+
+    def test_cardinal_negative(self):
+        self.assertEqual(num2words(-5, lang='pl'), "minus pięć")
+        self.assertEqual(
+            num2words(-5.5, lang='pl'), "minus pięć przecinek pięć")
+        self.assertEqual(
+            num2words(-0.5, lang='pl'), "minus zero przecinek pięć")
