@@ -29,6 +29,16 @@ class Num2WordsAMTest(TestCase):
     def test_and_join_199(self):
         self.assertEqual(num2words(199, lang='am'), 'አንድ መቶ ዘጠና ዘጠኝ')
 
+    def test_cardinal_thousands_with_hundreds(self):
+        # Regression test: a thousands part combined with a hundreds
+        # part (i.e. a value between 1100 and 1999, or any similar
+        # multiple of 1000 plus a value from 100 to 999) used to raise
+        # "TypeError: cannot unpack non-iterable NoneType object"
+        # because merge() had no branch covering this pairing.
+        self.assertEqual(num2words(1100, lang='am'), 'አንድ ሺህ አንድ መቶ')
+        self.assertEqual(num2words(1800, lang='am'), 'አንድ ሺህ ስምንት መቶ')
+        self.assertEqual(num2words(1802, lang='am'), 'አንድ ሺህ ስምንት መቶ ሁለት')
+
     def test_to_ordinal(self):
         self.assertEqual(
             num2words(1, lang='am', to='ordinal'),
