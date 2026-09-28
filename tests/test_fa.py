@@ -18,10 +18,16 @@
 
 from unittest import TestCase
 
-from num2words import num2words
+from num2words import CONVERTER_CLASSES, num2words
 
 
 class Num2WordsFATest(TestCase):
+    def test_currency_forms_attribute(self):
+        # Num2Word_FA doesn't inherit Num2Word_Base and historically didn't
+        # define CURRENCY_FORMS, causing an AttributeError for any caller
+        # that checks it before falling back to a plain cardinal conversion.
+        self.assertEqual(CONVERTER_CLASSES['fa'].CURRENCY_FORMS, {})
+
     def test_and_join_199(self):
         self.assertEqual(num2words(199, lang='fa'), "صد و نود و نه")
 

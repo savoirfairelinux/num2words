@@ -78,6 +78,7 @@ farsiSeperator = ' و '
 
 
 class Num2Word_FA(object):
+    CURRENCY_FORMS = {}
     # Those are unused
     errmsg_toobig = "Too large"
     MAXNUM = 10 ** 36

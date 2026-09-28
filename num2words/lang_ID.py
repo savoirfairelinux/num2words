@@ -19,6 +19,7 @@ from __future__ import print_function, unicode_literals
 
 
 class Num2Word_ID():
+    CURRENCY_FORMS = {}
     BASE = {0: [],
             1: ["satu"],
             2: ["dua"],

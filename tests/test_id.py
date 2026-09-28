@@ -17,10 +17,16 @@
 
 from unittest import TestCase
 
-from num2words import num2words
+from num2words import CONVERTER_CLASSES, num2words
 
 
 class Num2WordsIDTest(TestCase):
+    def test_currency_forms_attribute(self):
+        # Num2Word_ID doesn't inherit Num2Word_Base and historically didn't
+        # define CURRENCY_FORMS, causing an AttributeError for any caller
+        # that checks it before falling back to a plain cardinal conversion.
+        self.assertEqual(CONVERTER_CLASSES['id'].CURRENCY_FORMS, {})
+
     def test_cardinal_for_natural_number(self):
         self.assertEqual(num2words(10, lang='id'), "sepuluh")
         self.assertEqual(num2words(11, lang='id'), "sebelas")
