@@ -19,10 +19,16 @@ from __future__ import unicode_literals
 
 from unittest import TestCase
 
-from num2words import num2words
+from num2words import CONVERTER_CLASSES, num2words
 
 
 class Num2WordsVITest(TestCase):
+
+    def test_currency_forms_attribute(self):
+        # Num2Word_VI doesn't inherit Num2Word_Base and historically didn't
+        # define CURRENCY_FORMS, causing an AttributeError for any caller
+        # that checks it before falling back to a plain cardinal conversion.
+        self.assertEqual(CONVERTER_CLASSES['vi'].CURRENCY_FORMS, {})
 
     def test_0(self):
         self.assertEqual(num2words(0, lang="vi"), "không")

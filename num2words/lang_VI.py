@@ -32,6 +32,7 @@ denom = ('',
 
 
 class Num2Word_VI(object):
+    CURRENCY_FORMS = {}
 
     def _convert_nn(self, val):
         if val < 20:
