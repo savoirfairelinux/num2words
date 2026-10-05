@@ -156,3 +156,30 @@ class Num2WordsZhTWTest(TestCase):
         self.assertEqual(n2zh_tw(2020, to="year"), "二零二零年")
         with self.assertRaises(TypeError):
             n2zh_tw(2020.1, to="year", era=True)
+
+    def test_roc_year_reading(self):
+        self.assertEqual(
+            n2zh_tw(1912, to="year", era=True, reading=True),
+            "ㄇㄧㄣˊㄍㄨㄛˊㄩㄢˊㄋㄧㄢˊ")
+        self.assertEqual(
+            n2zh_tw(1913, to="year", era=True, reading=True),
+            "ㄇㄧㄣˊㄍㄨㄛˊㄦˋㄋㄧㄢˊ")
+        self.assertEqual(
+            n2zh_tw(1932, to="year", era=True, reading=True),
+            "ㄇㄧㄣˊㄍㄨㄛˊㄦˋㄕˊㄧㄋㄧㄢˊ")
+        self.assertEqual(
+            n2zh_tw(2011, to="year", era=True, reading=True),
+            "ㄇㄧㄣˊㄍㄨㄛˊㄧㄅㄞˇㄋㄧㄢˊ")
+        self.assertEqual(
+            n2zh_tw(2012, to="year", era=True, reading=True),
+            "ㄇㄧㄣˊㄍㄨㄛˊㄧㄌㄧㄥˊㄧㄋㄧㄢˊ")
+
+    def test_roc_year_capital(self):
+        self.assertEqual(
+            n2zh_tw(1932, to="year", era=True, reading="capital"),
+            "民國貳拾壹年")
+
+    def test_roc_year_preferred_numerals(self):
+        self.assertEqual(
+            n2zh_tw(1932, to="year", era=True, prefer=["貳", "拾", "壹"]),
+            "民國貳拾壹年")

@@ -136,7 +136,8 @@ class Num2Word_ZH_TW(Num2Word_ZH):
         elif era_year == 1:
             era_year_words = self.select_text((("元",), ("ㄩㄢˊ",)))
         elif era_year < 101:
-            era_year_words = self.to_cardinal(era_year)
+            era_year_words = self.to_cardinal(
+                era_year, reading=reading, prefer=prefer)
         else:
             era_year_words = "".join(
                 [self.select_text(self.cards[int(s)]) for s in str(era_year)])
