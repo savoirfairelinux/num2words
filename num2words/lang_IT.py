@@ -89,7 +89,7 @@ class Num2Word_IT(Num2Word_EU):
         else:
             prefix = CARDINAL_WORDS[tens][:-1] + "anta"
         postfix = omitt_if_zero(CARDINAL_WORDS[units])
-        return phonetic_contraction(prefix + postfix)
+        return phonetic_contraction(prefix, postfix)
 
     def hundreds_to_cardinal(self, number):
         hundreds = number // 100
@@ -97,7 +97,7 @@ class Num2Word_IT(Num2Word_EU):
         if hundreds != 1:
             prefix = CARDINAL_WORDS[hundreds] + prefix
         postfix = omitt_if_zero(self.to_cardinal(number % 100))
-        return phonetic_contraction(prefix + postfix)
+        return phonetic_contraction(prefix, postfix)
 
     def thousands_to_cardinal(self, number):
         thousands = number // 1000
@@ -200,14 +200,19 @@ class Num2Word_IT(Num2Word_EU):
 # =====
 
 
-def phonetic_contraction(string):
-    return (string
-            .replace("oo", "o")  # ex. "centootto"
-            .replace("ao", "o")  # ex. "settantaotto"
-            .replace("io", "o")  # ex. "ventiotto"
-            .replace("au", "u")  # ex. "trentauno"
-            .replace("iu", "u")  # ex. "ventiunesimo"
-            )
+# Vowel pairs that elide when they straddle the junction of two number
+# parts; eliding drops the prefix's final vowel ("venti" + "otto" ->
+# "ventotto", "trenta" + "uno" -> "trentuno").
+PHONETIC_CONTRACTIONS = frozenset({"oo", "ao", "io", "au", "iu"})
+
+
+def phonetic_contraction(prefix, postfix):
+    # Elide only at the junction: applying the rules to the whole
+    # concatenated string also rewrites vowel pairs inside the parts
+    # themselves ("cento" + "diciotto" -> "centodicotto").
+    if prefix and postfix and prefix[-1] + postfix[0] in PHONETIC_CONTRACTIONS:
+        return prefix[:-1] + postfix
+    return prefix + postfix
 
 
 def exponent_length_to_string(exponent_length):

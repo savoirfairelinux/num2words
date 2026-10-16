@@ -129,6 +129,20 @@ class Num2WordsITTest(TestCase):
         self.assertEqual(num2words(210, lang="it"), "duecentodieci")
         self.assertEqual(num2words(701, lang="it"), "settecentouno")
 
+    def test_elision_at_part_junctions_only(self):
+        # issue #552: vowel elision must apply only at the junction of
+        # two number parts, never inside them ("diciotto" is not "dicotto")
+        self.assertEqual(num2words(18, lang="it"), "diciotto")
+        self.assertEqual(num2words(108, lang="it"), "centotto")
+        self.assertEqual(num2words(118, lang="it"), "centodiciotto")
+        self.assertEqual(num2words(208, lang="it"), "duecentotto")
+        self.assertEqual(num2words(218, lang="it"), "duecentodiciotto")
+        self.assertEqual(num2words(918, lang="it"), "novecentodiciotto")
+        self.assertEqual(num2words(1118, lang="it"), "millecentodiciotto")
+        self.assertEqual(
+            num2words(118, lang="it", to="ordinal"), "centodiciottesimo"
+        )
+
     def test_1000_to_9999(self):
         self.assertEqual(num2words(1000, lang="it"), "mille")
         self.assertEqual(num2words(1001, lang="it"), "milleuno")
