@@ -399,3 +399,15 @@ class Num2WordsPTBRTest(TestCase):
             'setecentos e quarenta e quatro antes de Cristo'
         )
         self.assertEqual(self.n2w.to_year(-10000), 'dez mil antes de Cristo')
+
+    def test_regional_language_codes_with_hyphen(self):
+        # Hyphenated regional codes must select the regional converter,
+        # not silently fall back to the base language (issue #546).
+        self.assertEqual(num2words(19, lang='pt-BR'), 'dezenove')
+        self.assertEqual(num2words(16, lang='pt-BR'), 'dezesseis')
+        self.assertEqual(num2words(1000, lang='pt-BR'),
+                         num2words(1000, lang='pt_BR'))
+        self.assertEqual(num2words(250000, lang='en-IN'),
+                         num2words(250000, lang='en_IN'))
+        self.assertEqual(num2words(70, lang='fr-BE'),
+                         num2words(70, lang='fr_BE'))

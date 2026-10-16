@@ -98,6 +98,9 @@ CONVERTES_TYPES = ['cardinal', 'ordinal', 'ordinal_num', 'year', 'currency']
 
 
 def num2words(number, ordinal=False, lang='en', to='cardinal', **kwargs):
+    # Accept hyphenated regional codes (e.g. pt-BR) as well as the
+    # underscore form the registry is keyed with (pt_BR)
+    lang = lang.replace('-', '_')
     # We try the full language first
     if lang not in CONVERTER_CLASSES:
         # ... and then try only the first 2 letters
