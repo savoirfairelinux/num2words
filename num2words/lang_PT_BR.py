@@ -19,6 +19,7 @@ from __future__ import division, unicode_literals
 import re
 
 from . import lang_PT
+from .currency import parse_currency_parts
 
 
 class Num2Word_PT_BR(lang_PT.Num2Word_PT):
@@ -85,9 +86,10 @@ class Num2Word_PT_BR(lang_PT.Num2Word_PT):
         return result
 
     def to_currency(self, val, longval=True):
-        integer_part, decimal_part = ('%.2f' % val).split('.')
+        integer_part, decimal_part, is_negative = parse_currency_parts(
+            val, is_int_with_cents=False)
 
-        result = self.to_cardinal(int(integer_part))
+        result = self.to_cardinal(-integer_part if is_negative else integer_part)
 
         appended_currency = False
         for ext in (
@@ -103,8 +105,8 @@ class Num2Word_PT_BR(lang_PT.Num2Word_PT):
         if not appended_currency:
             result += ' reais'
 
-        if int(decimal_part):
-            cents = self.to_cardinal(int(decimal_part))
+        if decimal_part:
+            cents = self.to_cardinal(decimal_part)
             result += ' e ' + cents
 
             if cents == 'um':

@@ -399,3 +399,23 @@ class Num2WordsPTBRTest(TestCase):
             'setecentos e quarenta e quatro antes de Cristo'
         )
         self.assertEqual(self.n2w.to_year(-10000), 'dez mil antes de Cristo')
+
+    def test_currency_decimal_rounds_half_up(self):
+        # Amounts given as Decimal are rounded half up, like in every other
+        # language; formatting them as float first lost cents (1.005 became
+        # 'um real').
+        self.assertEqual(
+            self.n2w.to_currency(Decimal('1.005')),
+            'um real e um centavo')
+        self.assertEqual(
+            self.n2w.to_currency(Decimal('2.675')),
+            'dois reais e sessenta e oito centavos')
+        self.assertEqual(
+            self.n2w.to_currency(Decimal('1234.565')),
+            'mil, duzentos e trinta e quatro reais e cinquenta e sete centavos')
+        self.assertEqual(
+            self.n2w.to_currency(Decimal('10.995')),
+            'onze reais')
+        self.assertEqual(
+            self.n2w.to_currency(Decimal('-1.005')),
+            'menos um real e um centavo')
