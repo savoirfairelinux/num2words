@@ -188,6 +188,8 @@ class Num2Word_GU(Num2Word_Base):
                            str(value)))
 
     def to_ordinal_num(self, value):
+        self.verify_ordinal(value)
+        value = int(value)
         if value in self._irregular_ordinals_nums:
             return self._irregular_ordinals_nums[value]
 

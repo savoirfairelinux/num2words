@@ -263,7 +263,16 @@ class Num2WordsGUTest(TestCase):
                 numeric_notation,
                 msg="failing number %s" % number,
             )
-            
+
+    def test_ordinal_num_rejects_negative_and_fractional(self):
+        with self.assertRaises(TypeError):
+            num2words(-1, lang="gu", to="ordinal_num")
+        with self.assertRaises(TypeError):
+            num2words(1.5, lang="gu", to="ordinal_num")
+
+        self.assertEqual(num2words(21.0, lang="gu", to="ordinal_num"), "૨૧મું")
+        self.assertEqual(num2words(-1, lang="gu", to="ordinal"), "માઈન્સ એકમું")
+
     def test_gujarati_numeric_input(self):
         for number, gujarati_number, words in TEST_CASES_CARDINAL:
             self.assertEqual(
