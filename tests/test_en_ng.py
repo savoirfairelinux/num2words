@@ -141,3 +141,29 @@ class Num2WordsENNGTest(TestCase):
             ),
             "two thousand naira and zero kobo"
         )
+
+    def test_to_currency_cents_parameter(self):
+        # 'cents' is the parameter name documented by Num2Word_Base
+        # and used by every other locale; passing it must not raise
+        # TypeError and must control how the kobo part is spelled.
+        self.assertEqual(
+            num2words(
+                '38.4', lang='en_NG', to='currency',
+                separator=' and', cents=False
+            ),
+            "thirty-eight naira and 40 kobo"
+        )
+        self.assertEqual(
+            num2words(
+                '0', lang='en_NG', to='currency',
+                separator=' and', cents=False
+            ),
+            "zero naira"
+        )
+        self.assertEqual(
+            num2words(
+                '1.01', lang='en_NG', to='currency',
+                separator=' and', cents=True
+            ),
+            "one naira and one kobo"
+        )

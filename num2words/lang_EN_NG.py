@@ -28,10 +28,12 @@ class Num2Word_EN_NG(lang_EN.Num2Word_EN):
 
     def to_currency(
         self, val, currency='NGN',
-        kobo=True, separator=',',
-        adjective=False
+        cents=True, separator=',',
+        adjective=False, kobo=None
     ):
+        if kobo is not None:
+            cents = kobo
         result = super(Num2Word_EN_NG, self).to_currency(
-            val, currency=currency, cents=kobo, separator=separator,
+            val, currency=currency, cents=cents, separator=separator,
             adjective=adjective)
         return result
