@@ -37,7 +37,7 @@ ONES = {
 }
 
 ONES_ORDINALS = {
-    1: ('pierwszy', "pierwszo"),
+    1: ('pierwszy', "jedno"),
     2: ('drugi', "dwu"),
     3: ('trzeci', "trzy"),
     4: ('czwarty', "cztero"),
@@ -200,23 +200,24 @@ class Num2Word_PL(Num2Word_Base):
     def last_fragment_to_ordinal(self, last, words, level):
         n1, n2, n3 = get_digits(last)
         last_two = n2*10+n1
+        hundreds = HUNDREDS if level == 0 else HUNDREDS_ORDINALS
         if last_two == 0:
             words.append(HUNDREDS_ORDINALS[n3][level])
         elif level == 1 and last == 1:
             return
         elif last_two < 20:
             if n3 > 0:
-                words.append(HUNDREDS[n3][level])
+                words.append(hundreds[n3][level])
             words.append(ONES_ORDINALS[last_two][level])
         elif last_two % 10 == 0:
             if n3 > 0:
-                words.append(HUNDREDS[n3][level])
+                words.append(hundreds[n3][level])
             words.append(TWENTIES_ORDINALS[n2][level])
         else:
             if n3 > 0:
-                words.append(HUNDREDS[n3][0])
-            words.append(TWENTIES_ORDINALS[n2][0])
-            words.append(ONES_ORDINALS[n1][0])
+                words.append(hundreds[n3][level])
+            words.append(TWENTIES_ORDINALS[n2][level])
+            words.append(ONES_ORDINALS[n1][level])
 
     def to_ordinal(self, number):
         if number % 1 != 0:
@@ -232,13 +233,14 @@ class Num2Word_PL(Num2Word_Base):
         if len(fragments) > 1:
             pre_part = self._int2word(number-(last*1000**level))
             words.append(pre_part)
-        self.last_fragment_to_ordinal(last, words, 0 if level == 0 else 1)
-        output = " ".join(words)
-        if last == 1 and level > 0 and output != "":
-            output = output + " "
+        ordinal_words = []
+        self.last_fragment_to_ordinal(
+            last, ordinal_words, 0 if level == 0 else 1)
+        ordinal = (" " if level == 0 else "").join(ordinal_words)
         if level > 0:
-            output = output + prefixes_ordinal[level]
-        return output
+            ordinal += prefixes_ordinal[level]
+        words.append(ordinal)
+        return " ".join(words)
 
     def _int2word(self, n):
         if n == 0:
