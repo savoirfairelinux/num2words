@@ -85,6 +85,9 @@ class Num2Word_FA(object):
     def __init__(self):
         self.number = 0
 
+    def str_to_number(self, value):
+        return Decimal(value)
+
     def float2tuple(self, value):
         pre = int(value)
 
