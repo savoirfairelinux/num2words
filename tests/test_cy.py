@@ -463,6 +463,21 @@ class Num2WordsCYTest(TestCase):
         with self.assertRaises(NotImplementedError):
             num2words(10.23, lang="cy", to="currency", currency="DEM"),
 
+    def test_negative_currency(self):
+        cases = (
+            (-1, 'GBP', 'meinws ceiniog'),
+            (-1.0, 'EUR', 'meinws un euro'),
+            (-2.0, 'GBP', 'meinws dwy bunt'),
+            ('-1.50', 'GBP', 'meinws un punt, hanner cant ceiniog'),
+        )
+        for value, currency, expected in cases:
+            with self.subTest(value=value, currency=currency):
+                self.assertEqual(
+                    num2words(value, lang='cy', to='currency',
+                              currency=currency),
+                    expected,
+                )
+
     def test_counted(self):
         for test in TEST_CASES_COUNTED:
             self.assertEqual(

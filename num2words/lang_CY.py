@@ -230,7 +230,7 @@ class Num2Word_CY(Num2Word_EU):
 #        Num2Word_EU.setup(self)
 
     def __init__(self):
-        pass
+        self.negword = self.MINUS_PREFIX_WORD
 
     def float_to_words(self, float_number):
         # if ordinal:
