@@ -22,6 +22,22 @@ from num2words import num2words
 
 
 class Num2WordsFATest(TestCase):
+    def test_string_input(self):
+        cases = (
+            ('5', 'cardinal', 'پنج'),
+            ('0', 'cardinal', 'صفر'),
+            ('-203', 'cardinal', 'منفی دویست و سه'),
+            ('0.75', 'cardinal', 'هفتاد و پنج صدم'),
+            ('12.51', 'cardinal', 'دوازده و پنجاه و یک صدم'),
+            ('13', 'ordinal', 'سیزدهم'),
+            ('21', 'ordinal_num', '21م'),
+            ('1400', 'year', 'هزار و چهارصد'),
+            ('1000', 'currency', 'هزار تومان'),
+        )
+        for value, to, expected in cases:
+            with self.subTest(value=value, to=to):
+                self.assertEqual(num2words(value, lang='fa', to=to), expected)
+
     def test_and_join_199(self):
         self.assertEqual(num2words(199, lang='fa'), "صد و نود و نه")
 
