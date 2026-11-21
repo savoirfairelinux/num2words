@@ -318,3 +318,19 @@ class Num2WordsITTest(TestCase):
                 num2words(test[0], lang='it', to='currency', currency='GBP'),
                 test[1]
             )
+
+    def test_negative_currency(self):
+        cases = (
+            (-1, 'EUR', 'meno zero euro e un centesimo'),
+            (-1.0, 'EUR', 'meno un euro e zero centesimi'),
+            (-1.5, 'USD', 'meno un dollaro e cinquanta centesimi'),
+            ('-1.00', 'GBP', 'meno una sterlina e zero penny'),
+            (-2.01, 'GBP', 'meno due sterline e un penny'),
+        )
+        for value, currency, expected in cases:
+            with self.subTest(value=value, currency=currency):
+                self.assertEqual(
+                    num2words(value, lang='it', to='currency',
+                              currency=currency),
+                    expected,
+                )

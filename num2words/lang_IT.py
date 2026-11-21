@@ -67,7 +67,7 @@ class Num2Word_IT(Num2Word_EU):
         Num2Word_EU.setup(self)
 
     def __init__(self):
-        pass
+        self.negword = self.MINUS_PREFIX_WORD
 
     def float_to_words(self, float_number, ordinal=False):
         if ordinal:
@@ -190,8 +190,9 @@ class Num2Word_IT(Num2Word_EU):
         # e.g. "una sterlina"
         if currency in CURRENCIES_UNA:
             list_result = result.split(" ")
-            if list_result[0] == "uno":
-                list_result[0] = list_result[0].replace("uno", "una")
+            first_word = 1 if result.startswith(self.negword) else 0
+            if list_result[first_word] == "uno":
+                list_result[first_word] = "una"
                 result = " ".join(list_result)
         result = result.replace("uno", "un")
         return result
