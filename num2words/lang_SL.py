@@ -162,8 +162,9 @@ class Num2Word_SL(Num2Word_EU):
             return self.to_splitnum(val, hightxt="evro/a/v",
                                     lowtxt="stotin/a/i/ov",
                                     jointxt="in", longval=longval)
-        return super(Num2Word_SL, self).to_currency(val, jointxt="in",
-                                                    longval=longval)
+        if not longval:
+            return self.to_splitnum(val, longval=False)
+        return super(Num2Word_SL, self).to_currency(val, separator=" in")
 
     def to_year(self, val, longval=True):
         if not (val//100) % 10:
