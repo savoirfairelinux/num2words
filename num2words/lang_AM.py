@@ -94,7 +94,7 @@ class Num2Word_AM(lang_EU.Num2Word_EU):
             return rtext, rnum
         elif 100 > lnum > rnum:
             return '%s %s' % (ltext, rtext), lnum + rnum
-        elif lnum >= 100 > rnum:
+        elif lnum >= 100 and lnum > rnum:
             return '%s %s' % (ltext, rtext), lnum + rnum
         elif rnum > lnum:
             return '%s %s' % (ltext, rtext), lnum * rnum

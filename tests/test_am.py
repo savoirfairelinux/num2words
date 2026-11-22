@@ -21,6 +21,14 @@ from num2words import num2words
 
 
 class Num2WordsAMTest(TestCase):
+    def test_compound_hundreds(self):
+        self.assertEqual(num2words(1210, lang='am'),
+                         'አንድ ሺህ ሁለት መቶ አሥር')
+        self.assertEqual(num2words(1100, lang='am'),
+                         'አንድ ሺህ አንድ መቶ')
+        self.assertEqual(num2words(123400, lang='am'),
+                         'አንድ መቶ ሃያ ሦስት ሺህ አራት መቶ')
+
     def test_cardinal(self):
         self.assertEqual(num2words(100, lang='am'), 'መቶ')
         self.assertEqual(num2words(100000, lang='am'), 'አንድ መቶ ሺህ')
