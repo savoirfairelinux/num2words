@@ -444,7 +444,8 @@ class Num2Word_TR(Num2Word_Base):
         return "%s%s" % (pre_word, wrd)
 
     def to_cardinal_float(self, value):
-        self.to_splitnum(value)
+        negative = value < 0
+        self.to_splitnum(abs(value))
         wrd = ""
         wrd += self.pointword
         if len(self.integers_to_read[1]) >= 1:
@@ -457,7 +458,7 @@ class Num2Word_TR(Num2Word_Base):
             wrd = self.ZERO + wrd
         else:
             wrd = self.to_cardinal(int(self.integers_to_read[0])) + wrd
-        return wrd
+        return (self.negword if negative else "") + wrd
 
     def verify_cardinal(self, value):
         iscardinal = True
