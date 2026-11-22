@@ -73,6 +73,18 @@ Besides the numerical argument, there are two main optional arguments, ``to:`` a
 * ``year``
 * ``currency``
 
+With ``to='currency'``, ``currency=`` selects a currency code. Support depends
+on the language; unsupported codes raise ``NotImplementedError``. The legacy
+local-currency converters accept ``BDT`` (``bn``), ``DKK`` (``da``), ``IDR``
+(``id``), ``TRY`` (``tr``), ``COP`` (``es_CO``), ``CRC`` (``es_CR``), and ``GTQ``
+(``es_GT``). ``es_VE`` supports the historical ``VEB`` and ``VEF`` units;
+an explicit code takes precedence over ``old``. These converters retain their
+existing number and formatting conventions.
+
+Omitting ``currency`` preserves each converter's default behavior. In particular,
+``fa`` still outputs tomans and rejects explicit currency codes, including
+``IRR`` (rials), rather than labeling a toman amount as rials.
+
 **lang:** The language in which to convert the number. Supported values are:
 
 * ``en`` (English, default)

@@ -22,7 +22,13 @@ from .lang_ES import Num2Word_ES
 
 class Num2Word_ES_VE(Num2Word_ES):
 
-    def to_currency(self, val, longval=True, old=False):
+    def to_currency(self, val, longval=True, old=False, currency=None):
+        if currency is not None:
+            if currency not in ('VEB', 'VEF'):
+                raise NotImplementedError(
+                    'Currency code "%s" not implemented for "%s"' %
+                    (currency, self.__class__.__name__))
+            old = currency == 'VEB'
         hightxt = "bolívar/es" if old else "bolívar/es fuerte/s"
         result = self.to_splitnum(
             val, hightxt=hightxt, lowtxt="centavo/s",

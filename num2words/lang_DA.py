@@ -117,7 +117,11 @@ class Num2Word_DA(lang_EU.Num2Word_EU):
             return str(value) + "en"
         return str(value) + "ende"
 
-    def to_currency(self, val, longval=True):
+    def to_currency(self, val, longval=True, currency='DKK'):
+        if currency != 'DKK':
+            raise NotImplementedError(
+                'Currency code "%s" not implemented for "%s"' %
+                (currency, self.__class__.__name__))
         if val // 100 == 1 or val == 1:
             ret = self.to_splitnum(val, hightxt="kr", lowtxt="\xf8re",
                                    jointxt="og", longval=longval)

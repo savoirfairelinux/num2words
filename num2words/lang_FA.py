@@ -139,7 +139,12 @@ class Num2Word_FA(object):
         ltext = (farsiFrac[lm3] + " " + farsiFracBig[ld3]).strip()
         return x + " " + ltext
 
-    def to_currency(self, value):
+    def to_currency(self, value, currency=None):
+        # The legacy output is in tomans, not ISO 4217 Iranian rials (IRR).
+        if currency is not None:
+            raise NotImplementedError(
+                'Currency code "%s" not implemented for "%s"' %
+                (currency, self.__class__.__name__))
         return self.to_cardinal(value) + " تومان"
 
     def to_ordinal(self, number):
