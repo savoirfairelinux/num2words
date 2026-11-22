@@ -21,6 +21,17 @@ from num2words import num2words
 
 
 class Num2WordsIDTest(TestCase):
+    def test_numeric_strings(self):
+        self.assertEqual(num2words('0', lang='id'), 'nol')
+        self.assertEqual(num2words('5', lang='id'), 'lima')
+        self.assertEqual(num2words('1075', lang='id'),
+                         'seribu tujuh puluh lima')
+        self.assertEqual(num2words('-12.03', lang='id'),
+                         'min dua belas koma nol tiga')
+        self.assertEqual(num2words('1', lang='id', to='ordinal'), 'pertama')
+        self.assertEqual(num2words('10', lang='id', to='currency'),
+                         'sepuluh rupiah')
+
     def test_cardinal_for_natural_number(self):
         self.assertEqual(num2words(10, lang='id'), "sepuluh")
         self.assertEqual(num2words(11, lang='id'), "sebelas")
