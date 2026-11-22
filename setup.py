@@ -62,7 +62,7 @@ def find_version(fname):
 
 setup(
     name=PACKAGE_NAME,
-    version=find_version("bin/num2words"),
+    version=find_version("num2words/cli.py"),
     description='Modules to convert numbers to words. Easily extensible.',
     long_description=LONG_DESC,
     long_description_content_type="text/markdown",
