@@ -21,6 +21,15 @@ from num2words import num2words
 
 
 class Num2WordsENTest(TestCase):
+    def test_fractional_year(self):
+        self.assertEqual(num2words(1980.6, to='year'),
+                         'nineteen eighty point six')
+        self.assertEqual(num2words(-1980.6, to='year'),
+                         'nineteen eighty point six BC')
+        self.assertEqual(num2words(1980.6, to='year', suffix='CE'),
+                         'nineteen eighty point six CE')
+        self.assertEqual(num2words(1980.0, to='year'), 'nineteen eighty')
+
     def test_and_join_199(self):
         # ref https://github.com/savoirfairelinux/num2words/issues/8
         self.assertEqual(num2words(199), "one hundred and ninety-nine")

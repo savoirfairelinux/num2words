@@ -17,6 +17,8 @@
 
 from __future__ import division, print_function, unicode_literals
 
+from decimal import Decimal
+
 from . import lang_EU
 
 
@@ -88,6 +90,9 @@ class Num2Word_EN(lang_EU.Num2Word_EU):
         return "%s%s" % (value, self.to_ordinal(value)[-2:])
 
     def to_year(self, val, suffix=None, longval=True):
+        # Preserve the input's decimal precision when splitting the year.
+        if isinstance(val, float):
+            val = Decimal(str(val))
         if val < 0:
             val = abs(val)
             suffix = 'BC' if not suffix else suffix
