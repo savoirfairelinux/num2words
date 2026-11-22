@@ -17,6 +17,8 @@
 
 from __future__ import print_function, unicode_literals
 
+from decimal import Decimal
+
 
 class Num2Word_ID():
     BASE = {0: [],
@@ -46,6 +48,9 @@ class Num2Word_ID():
     errmsg_negord = "Cannot treat negative number as ordinal"
     errmsg_toobig = "Number is too large to convert to words (abs(%s) > %s)."
     MAXVAL = 10 ** 36
+
+    def str_to_number(self, value):
+        return Decimal(value)
 
     def split_by_koma(self, number):
         return str(number).split('.')
