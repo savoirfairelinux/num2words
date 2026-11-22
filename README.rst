@@ -152,6 +152,26 @@ Therefore, if you want to call ``num2words`` with a fallback, you can do::
 Additionally, some converters and languages support other optional arguments
 that are needed to make the converter useful in practice.
 
+Choosing a currency for Indian English
+--------------------------------------
+
+``lang='en_IN'`` selects Indian English number words; it does not select
+rupees automatically. The inherited default currency is EUR. Pass the
+``currency`` argument explicitly through the Python API:
+
+.. code-block:: python
+
+    from num2words import num2words
+
+    assert num2words('2.14', lang='en_IN', to='currency', currency='INR') == (
+        'two rupees, fourteen paise')
+    assert num2words('639098', lang='en_IN', to='currency', currency='INR') == (
+        'six lakh, thirty-nine thousand and ninety-eight rupees')
+
+The current command-line interface accepts language and converter options but
+does not expose a currency-code option. Use the Python API when an explicit
+currency is needed.
+
 Wiki
 ----
 For additional information on some localization please check the Wiki_.
