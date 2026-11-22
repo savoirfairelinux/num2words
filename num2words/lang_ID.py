@@ -191,7 +191,11 @@ class Num2Word_ID():
         self.verify_ordinal(number)
         return "ke-" + str(number)
 
-    def to_currency(self, value):
+    def to_currency(self, value, currency='IDR'):
+        if currency != 'IDR':
+            raise NotImplementedError(
+                'Currency code "%s" not implemented for "%s"' %
+                (currency, self.__class__.__name__))
         return self.to_cardinal(value) + " rupiah"
 
     def to_year(self, value):

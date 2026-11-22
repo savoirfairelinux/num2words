@@ -845,7 +845,11 @@ class Num2Word_TR(Num2Word_Base):
             else:
                 found = 1
 
-    def to_currency(self, value):
+    def to_currency(self, value, currency='TRY'):
+        if currency != 'TRY':
+            raise NotImplementedError(
+                'Currency code "%s" not implemented for "%s"' %
+                (currency, self.__class__.__name__))
         if int(value) == 0:
             return u"bedelsiz"
         valueparts = self.to_cardinal(value).split(self.pointword)

@@ -121,7 +121,7 @@ class Num2Word_BN:
 
         return words.strip()
 
-    def to_currency(self, val):
+    def to_currency(self, val, currency='BDT'):
         """
         This function represent a number to word in bangla taka and paisa.
         example:
@@ -130,6 +130,11 @@ class Num2Word_BN:
         9999.15 = নয় হাজার নয়শত নিরানব্বই টাকা পনের পয়সা
         and so on.
         """
+
+        if currency != 'BDT':
+            raise NotImplementedError(
+                'Currency code "%s" not implemented for "%s"' %
+                (currency, self.__class__.__name__))
 
         dosomik_word = None
         number = self.str_to_number(val)

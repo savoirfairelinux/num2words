@@ -22,7 +22,11 @@ from .lang_ES import Num2Word_ES
 
 class Num2Word_ES_GT(Num2Word_ES):
 
-    def to_currency(self, val, longval=True, old=False):
+    def to_currency(self, val, longval=True, old=False, currency='GTQ'):
+        if currency != 'GTQ':
+            raise NotImplementedError(
+                'Currency code "%s" not implemented for "%s"' %
+                (currency, self.__class__.__name__))
         result = self.to_splitnum(val, hightxt="quetzal/es",
                                   lowtxt="centavo/s",
                                   divisor=1, jointxt="y",
