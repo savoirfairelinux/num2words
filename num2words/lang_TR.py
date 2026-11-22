@@ -447,6 +447,8 @@ class Num2Word_TR(Num2Word_Base):
         self.to_splitnum(value)
         wrd = ""
         wrd += self.pointword
+        if self.integers_to_read[1].startswith("0"):
+            wrd += self.ZERO
         if len(self.integers_to_read[1]) >= 1:
             wrd += self.CARDINAL_TENS.get(self.integers_to_read[1][0], "")
 
