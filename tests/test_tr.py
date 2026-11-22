@@ -22,6 +22,13 @@ from num2words import num2words
 
 
 class Num2WordsTRTest(TestCase):
+    def test_leading_zero_fraction(self):
+        self.assertEqual(num2words(0.03, lang='tr'), 'sıfırvirgülsıfırüç')
+        self.assertEqual(num2words(1.03, lang='tr'), 'birvirgülsıfırüç')
+        self.assertEqual(num2words(0.01, lang='tr'), 'sıfırvirgülsıfırbir')
+        self.assertEqual(num2words(12.09, lang='tr'), 'onikivirgülsıfırdokuz')
+        self.assertEqual(num2words(0.25, lang='tr'), 'sıfırvirgülyirmibeş')
+
     def test_tr(self):
         # ref https://github.com/savoirfairelinux/num2words/issues/8
         testlang = "tr"
@@ -171,16 +178,17 @@ class Num2WordsTRTest(TestCase):
              "expected": u"yüzbirmilyaryüzbirmilyononbirbinon"},
             {"test": 1000000000001, "to": "cardinal",
              "expected": u"birtrilyonbir"},
-            {"test": 0.01, "to": "cardinal", "expected": u"sıfırvirgülbir"},
+            {"test": 0.01, "to": "cardinal",
+             "expected": u"sıfırvirgülsıfırbir"},
             {"test": 0.21, "to": "cardinal",
              "expected": u"sıfırvirgülyirmibir"},
             {"test": 0.1, "to": "cardinal", "expected": u"sıfırvirgülon"},
-            {"test": 1.01, "to": "cardinal", "expected": u"birvirgülbir"},
+            {"test": 1.01, "to": "cardinal", "expected": u"birvirgülsıfırbir"},
             {"test": 1.1, "to": "cardinal", "expected": u"birvirgülon"},
             {"test": 1.21, "to": "cardinal",
              "expected": u"birvirgülyirmibir"},
             {"test": 101101011010.02, "to": "cardinal",
-             "expected": u"yüzbirmilyaryüzbirmilyononbirbinonvirgüliki"},
+             "expected": u"yüzbirmilyaryüzbirmilyononbirbinonvirgülsıfıriki"},
             {"test": 101101011010.2, "to": "cardinal",
              "expected": u"yüzbirmilyaryüzbirmilyononbirbinonvirgülyirmi"},
             {"test": 10, "to": "ordinal_num", "expected": u"10uncu"},
