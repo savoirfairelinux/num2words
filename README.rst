@@ -152,6 +152,48 @@ Therefore, if you want to call ``num2words`` with a fallback, you can do::
 Additionally, some converters and languages support other optional arguments
 that are needed to make the converter useful in practice.
 
+Russian gender and case
+~~~~~~~~~~~~~~~~~~~~~~~
+
+For Russian integer cardinals and ordinals, pass ``gender`` and ``case`` as
+keyword arguments. The defaults are masculine and nominative::
+
+    >>> num2words(1, lang='ru', gender='masculine')
+    'один'
+    >>> num2words(1, lang='ru', gender='feminine')
+    'одна'
+    >>> num2words(1, lang='ru', gender='neuter')
+    'одно'
+    >>> num2words(1, lang='ru', case='genitive')
+    'одного'
+    >>> num2words(1, lang='ru', case='dative')
+    'одному'
+    >>> num2words(1, lang='ru', to='ordinal', gender='feminine')
+    'первая'
+
+``gender`` accepts ``masculine`` (``m``), ``feminine`` (``f``), and
+``neuter`` (``n``). The supported ``case`` values are:
+
+* ``nominative`` (``n``)
+* ``genitive`` (``g``)
+* ``dative`` (``d``)
+* ``accusative`` (``a``)
+* ``instrumental`` (``i``)
+* ``prepositional`` (``p``)
+
+Use ``plural=True`` for plural forms. ``animate`` defaults to ``True``;
+set it to ``False`` when referring to inanimate nouns in forms that distinguish
+animacy, such as the masculine accusative::
+
+    >>> num2words(1, lang='ru', to='ordinal', plural=True)
+    'первые'
+    >>> num2words(1, lang='ru', case='accusative', animate=False)
+    'один'
+
+These options describe integer cardinal and ordinal conversion. Russian
+decimal conversion uses its own fractional forms, and currency conversion
+chooses gender from the currency.
+
 Wiki
 ----
 For additional information on some localization please check the Wiki_.
