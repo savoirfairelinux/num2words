@@ -22,6 +22,23 @@ from num2words import num2words
 
 
 class Num2WordsTRTest(TestCase):
+    def test_compound_thousands_ending_in_one(self):
+        cases = [
+            (301661, "cardinal", u"üçyüzbirbinaltıyüzaltmışbir"),
+            (401607, "cardinal", u"dörtyüzbirbinaltıyüzyedi"),
+            (121100, "cardinal", u"yüzyirmibirbinyüz"),
+            (301661, "ordinal", u"üçyüzbirbinaltıyüzaltmışbirinci"),
+            (121100, "ordinal", u"yüzyirmibirbinyüzüncü"),
+            (401607, "currency", u"dörtyüzbirbinaltıyüzyedilira"),
+            (301000, "cardinal", u"üçyüzbirbin"),
+            (1001, "cardinal", u"binbir"),
+            (11000, "cardinal", u"onbirbin"),
+            (306661, "cardinal", u"üçyüzaltıbinaltıyüzaltmışbir"),
+        ]
+        for number, to, expected in cases:
+            with self.subTest(number=number, to=to):
+                self.assertEqual(num2words(number, lang="tr", to=to), expected)
+
     def test_tr(self):
         # ref https://github.com/savoirfairelinux/num2words/issues/8
         testlang = "tr"

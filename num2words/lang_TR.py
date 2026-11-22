@@ -314,11 +314,9 @@ class Num2Word_TR(Num2Word_Base):
                     wrd += self.CARDINAL_TENS.get(
                         self.integers_to_read[0][1], ""
                     )
-                    if not (self.total_triplets_to_read == 2 and
-                            self.integers_to_read[0][2] == "1"):
-                        wrd += self.CARDINAL_ONES.get(
-                            self.integers_to_read[0][2], ""
-                        )
+                    wrd += self.CARDINAL_ONES.get(
+                        self.integers_to_read[0][2], ""
+                    )
                     wrd += self.CARDINAL_TRIPLETS[
                         self.total_triplets_to_read - 1
                     ]
@@ -679,11 +677,9 @@ class Num2Word_TR(Num2Word_Base):
                         wrd += self.CARDINAL_TENS.get(
                             self.integers_to_read[0][1], ""
                         )
-                        if not (self.total_triplets_to_read == 2 and
-                                self.integers_to_read[0][2] == "1"):
-                            wrd += self.CARDINAL_ONES.get(
-                                self.integers_to_read[0][2], ""
-                            )
+                        wrd += self.CARDINAL_ONES.get(
+                            self.integers_to_read[0][2], ""
+                        )
                         wrd += self.CARDINAL_TRIPLETS[
                             self.total_triplets_to_read - 1
                         ]
