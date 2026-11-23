@@ -85,6 +85,8 @@ class Num2Word_NO(lang_EU.Num2Word_EU):
         elif lnum >= 100 > rnum:
             return ("%s og %s" % (ltext, rtext), lnum + rnum)
         elif rnum > lnum:
+            if lnum == 1 and rnum in (100, 1000):
+                ltext = "ett"
             return ("%s %s" % (ltext, rtext), lnum * rnum)
         return ("%s %s" % (ltext, rtext), lnum + rnum)
 
