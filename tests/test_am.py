@@ -21,6 +21,31 @@ from num2words import num2words
 
 
 class Num2WordsAMTest(TestCase):
+    def test_mixed_thousands_and_hundreds(self):
+        for value, expected in [
+            (1100, 'አንድ ሺህ አንድ መቶ'),
+            (1800, 'አንድ ሺህ ስምንት መቶ'),
+            (1802, 'አንድ ሺህ ስምንት መቶ ሁለት'),
+            (2100, 'ሁለት ሺህ አንድ መቶ'),
+            (100800, 'አንድ መቶ ሺህ ስምንት መቶ'),
+            (101500, 'አንድ መቶ አንድ ሺህ አምስት መቶ'),
+        ]:
+            self.assertEqual(num2words(value, lang='am'), expected)
+
+    def test_mixed_magnitudes_in_other_conversions(self):
+        self.assertEqual(
+            num2words(1802.25, lang='am'),
+            'አንድ ሺህ ስምንት መቶ ሁለት ነጥብ ሁለት አምስት',
+        )
+        self.assertEqual(
+            num2words(1802, lang='am', to='ordinal'),
+            'አንድ ሺህ ስምንት መቶ ሁለተኛ',
+        )
+        self.assertEqual(
+            num2words('1802.50', lang='am', to='currency', currency='ETB'),
+            'አንድ ሺህ ስምንት መቶ ሁለት ብር ከ አምሳ ሳንቲም',
+        )
+
     def test_cardinal(self):
         self.assertEqual(num2words(100, lang='am'), 'መቶ')
         self.assertEqual(num2words(100000, lang='am'), 'አንድ መቶ ሺህ')
