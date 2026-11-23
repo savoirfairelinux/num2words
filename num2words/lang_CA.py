@@ -1,6 +1,7 @@
 from __future__ import division, print_function, unicode_literals
 
 import math
+from decimal import Decimal, InvalidOperation
 
 from .lang_EU import Num2Word_EU
 
@@ -216,7 +217,7 @@ class Num2Word_CA(Num2Word_EU):
         lows = ["quadr", "tr", "b", "m"]
         self.high_numwords = self.gen_high_numwords([], [], lows)
         self.negword = "menys "
-        self.pointword = "punt"
+        self.pointword = "coma"
         self.errmsg_nonnum = "type(%s) no és [long, int, float]"
         self.errmsg_floatord = "El float %s no pot ser tractat com un" \
             " ordinal."
@@ -224,7 +225,7 @@ class Num2Word_CA(Num2Word_EU):
             " com un ordinal."
         self.errmsg_toobig = "abs(%s) ha de ser inferior a %s."
         self.gender_stem = "è"
-        self.exclude_title = ["i", "menys", "punt"]
+        self.exclude_title = ["i", "menys", "coma"]
 
         self.mid_numwords = [
             (1000, "mil"),
@@ -370,6 +371,28 @@ class Num2Word_CA(Num2Word_EU):
             8: "vuitè",
             9: "novè",
         }
+
+    def to_cardinal_float(self, value):
+        try:
+            number = Decimal(str(value))
+        except (InvalidOperation, TypeError, ValueError):
+            raise TypeError(self.errmsg_nonnum % value)
+        if not number.is_finite():
+            raise TypeError(self.errmsg_nonnum % value)
+
+        pre = int(number)
+        out = [self.to_cardinal(pre)]
+        if number < 0 and pre == 0:
+            out.insert(0, self.negword.strip())
+        fraction = format(number.copy_abs(), "f").partition(".")[2]
+        if fraction:
+            out.append(self.title(self.pointword))
+            significant = fraction.lstrip("0")
+            out.extend([self.to_cardinal(0)] *
+                       (len(fraction) - len(significant)))
+            if significant:
+                out.append(self.to_cardinal(int(significant)))
+        return " ".join(out)
 
     def merge(self, curr, next):
         ctext, cnum, ntext, nnum = curr + next

@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 
+from decimal import Decimal
 from unittest import TestCase
 
 from num2words import num2words
@@ -8,23 +9,23 @@ TEST_CASES_CARDINAL = (
     (1, "un"),
     (2, "dos"),
     (3, "tres"),
-    (5.5, "cinc punt cinc"),
+    (5.5, "cinc coma cinc"),
     (11, "onze"),
     (12, "dotze"),
     (16, "setze"),
-    (17.42, "disset punt quatre dos"),
+    (17.42, "disset coma quaranta-dos"),
     (19, "dinou"),
     (20, "vint"),
     (21, "vint-i-un"),
     (26, "vint-i-sis"),
-    (27.312, "vint-i-set punt tres un dos"),
+    (27.312, "vint-i-set coma tres-cents dotze"),
     (28, "vint-i-vuit"),
     (30, "trenta"),
     (31, "trenta-un"),
     (40, "quaranta"),
     (44, "quaranta-quatre"),
     (50, "cinquanta"),
-    (53.486, "cinquanta-tres punt quatre vuit sis"),
+    (53.486, "cinquanta-tres coma quatre-cents vuitanta-sis"),
     (55, "cinquanta-cinc"),
     (60, "seixanta"),
     (67, "seixanta-set"),
@@ -37,7 +38,7 @@ TEST_CASES_CARDINAL = (
     (199, "cent noranta-nou"),
     (203, "dos-cents tres"),
     (287, "dos-cents vuitanta-set"),
-    (300.42, "tres-cents punt quatre dos"),
+    (300.42, "tres-cents coma quaranta-dos"),
     (356, "tres-cents cinquanta-sis"),
     (400, "quatre-cents"),
     (434, "quatre-cents trenta-quatre"),
@@ -58,7 +59,7 @@ TEST_CASES_CARDINAL = (
     (2385, "dos mil tres-cents vuitanta-cinc"),
     (3766, "tres mil set-cents seixanta-sis"),
     (4196, "quatre mil cent noranta-sis"),
-    (4196.42, "quatre mil cent noranta-sis punt quatre dos"),
+    (4196.42, "quatre mil cent noranta-sis coma quaranta-dos"),
     (5846, "cinc mil vuit-cents quaranta-sis"),
     (6459, "sis mil quatre-cents cinquanta-nou"),
     (7232, "set mil dos-cents trenta-dos"),
@@ -163,6 +164,26 @@ class TestNum2WordsCA(TestCase):
 
     def test_cardinal(self):
         self._test_cases(TEST_CASES_CARDINAL)
+
+    def test_decimal_fraction_is_a_number_with_leading_zeros(self):
+        self._test_cases([
+            (42.15, "quaranta-dos coma quinze"),
+            (12.5, "dotze coma cinc"),
+            (12.15, "dotze coma quinze"),
+            (12.05, "dotze coma zero cinc"),
+            (12.0015, "dotze coma zero zero quinze"),
+            (-12.15, "menys dotze coma quinze"),
+            (-0.05, "menys zero coma zero cinc"),
+            (Decimal("12.0015"), "dotze coma zero zero quinze"),
+            ("12.0015", "dotze coma zero zero quinze"),
+            ("12.0150", "dotze coma zero cent cinquanta"),
+            (1e-7, "zero coma zero zero zero zero zero zero un"),
+            (12.0, "dotze"),
+        ])
+
+    def test_decimal_rejects_non_numeric_values(self):
+        with self.assertRaises(TypeError):
+            num2words(object(), lang="ca")
 
     def test_ordinal(self):
         self._test_cases(TEST_CASES_ORDINAL, to="ordinal")
