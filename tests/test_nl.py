@@ -129,4 +129,25 @@ class Num2WordsNLTest(TestCase):
         self.assertEqual(num2words(2018, lang='nl', to='year'),
                          'tweeduizendachttien')
         self.assertEqual(num2words(2100, lang='nl', to='year'),
-                         'eenentwintig honderd')
+                         'eenentwintighonderd')
+
+    def test_year_short_and_long_forms(self):
+        cases = [
+            (1999, 'negentiennegenennegentig',
+             'negentienhonderdnegenennegentig'),
+            (2150, 'eenentwintigvijftig', 'eenentwintighonderdvijftig'),
+            (1900, 'negentienhonderd', 'negentienhonderd'),
+            (2000, 'tweeduizend', 'tweeduizend'),
+            (2023, 'tweeduizenddrieëntwintig', 'tweeduizenddrieëntwintig'),
+        ]
+        for year, short, long in cases:
+            self.assertEqual(num2words(year, lang='nl', to='year'), short)
+            self.assertEqual(num2words(str(year), lang='nl', to='year'), short)
+            self.assertEqual(
+                num2words(year, lang='nl', to='year', longval=False), short)
+            self.assertEqual(
+                num2words(year, lang='nl', to='year', longval=True), long)
+
+    def test_negative_year_preserves_word_boundary_after_sign(self):
+        self.assertEqual(num2words(-1999, lang='nl', to='year'),
+                         'min negentiennegenennegentig')
