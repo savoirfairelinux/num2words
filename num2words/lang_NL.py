@@ -152,7 +152,16 @@ class Num2Word_NL(Num2Word_EU):
         """
         return forms[0]
 
-    def to_year(self, val, longval=True):
+    def to_year(self, val, longval=False):
+        """Join year components; longval includes non-final 'honderd'."""
+        if val < 0:
+            return self.negword + self.to_year(-val, longval=longval)
         if not (val // 100) % 10:
             return self.to_cardinal(val)
-        return self.to_splitnum(val, hightxt="honderd", longval=longval)
+        high, low = divmod(val, 100)
+        year = self.to_cardinal(high)
+        if longval or not low:
+            year += "honderd"
+        if low:
+            year += self.to_cardinal(low)
+        return year
