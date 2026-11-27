@@ -220,6 +220,8 @@ class Num2Word_PL(Num2Word_Base):
             words.append(ONES_ORDINALS[n1][level])
 
     def to_ordinal(self, number):
+        if number == 0:
+            return 'zerowy'
         if number % 1 != 0:
             raise NotImplementedError()
         words = []
