@@ -124,8 +124,6 @@ THOUSANDS = {
 
 prefixes_ordinal = {
     1: "tysięczny",
-    2: "milionowy",
-    3: "milairdowy"
 }
 
 prefixes = (   # 10^(6*x)
@@ -145,6 +143,7 @@ suffixes = ("lion", "liard")  # 10^x or 10^(x+3)
 for idx, (p, s) in enumerate(itertools.product(prefixes, suffixes)):
     name = p + s
     THOUSANDS[idx+2] = (name, name + 'y', name + 'ów')
+    prefixes_ordinal[idx+2] = name + 'owy'
 
 
 class Num2Word_PL(Num2Word_Base):
