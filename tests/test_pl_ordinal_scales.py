@@ -36,3 +36,14 @@ class Num2WordsPLOrdinalScaleTest(TestCase):
     def test_compound_large_scale(self):
         self.assertEqual(num2words(2 * 10**12, lang='pl', to='ordinal'),
                          'dwubilionowy')
+
+    def test_compound_stems(self):
+        for number, expected in (
+            (30000, 'trzydziestotysięczny'),
+            (500000, 'pięćsettysięczny'),
+            (800000, 'osiemsettysięczny'),
+            (30000000, 'trzydziestomilionowy'),
+        ):
+            with self.subTest(number=number):
+                self.assertEqual(num2words(number, lang='pl', to='ordinal'),
+                                 expected)

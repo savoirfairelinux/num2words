@@ -85,7 +85,7 @@ TWENTIES = {
 
 TWENTIES_ORDINALS = {
     2: ('dwudziesty', "dwudziesto"),
-    3: ('trzydziesty', "trzydiesto"),
+    3: ('trzydziesty', "trzydziesto"),
     4: ('czterdziesty', "czterdziesto"),
     5: ('pięćdziesiąty', "pięćdziesięcio"),
     6: ('sześćdziesiąty', "sześćdziesięcio"),
@@ -111,10 +111,10 @@ HUNDREDS_ORDINALS = {
     2: ('dwusetny', "dwustu"),
     3: ('trzysetny', "trzystu"),
     4: ('czterysetny', "czterystu"),
-    5: ('pięćsetny', "pięcset"),
+    5: ('pięćsetny', "pięćset"),
     6: ('sześćsetny', "sześćset"),
     7: ('siedemsetny', "siedemset"),
-    8: ('osiemsetny', "ośiemset"),
+    8: ('osiemsetny', "osiemset"),
     9: ('dziewięćsetny', "dziewięćset"),
 }
 
